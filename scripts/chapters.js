@@ -1,7 +1,7 @@
 /* =====================================================================
    TRIBUTE — CHAPTER DESIGN ENTRIES (game skeleton), from CANON story data (v6)
    Fields: title, loc, chars (playable), sum, events, purpose (gameplay purpose), unlocks.
-   Only chapters converted from the actual comic pages appear here (Prologue-37); 31+ pending.
+   Only chapters converted from the actual comic pages appear here (Prologue-38); 31+ pending.
    COMIC_TITLES has every chapter's title (4-30) from the title cards; their summaries are NOT written yet.
    Mechanical parts live elsewhere: world.js (locations/routes/CH_LOC/missions),
    core.js (JOIN_CH, GUEST_CH), journal.js (battles).
@@ -387,10 +387,20 @@ const CHAPTER_DESIGN = {
   purpose:['Lore chapter: the ritual and Jade\'s role','Set the next objective: stop Xima\'s ritual'],
   unlocks:['Main quest: stop Xima\'s ritual','Codex: the ritual, the Shaman'],
   reward:'Objective: stop the ritual'},
+ 38:{ title:'The Village Beneath the Mask', type:'Story Chapter — investigation and a warning', loc:'🏘 Village near Vigil → 🌲 Forest edge',
+  chars:['jade','chad','sky','levi'], charsNote:'Jade, Chad, Sky, Levi and Sally; Xima (final scene)',
+  introduced:[],
+  sum:'After the incident in the forest the party keeps investigating; the more they learn, the more unnatural the village becomes. Everything feels too deliberate, as if someone has been watching them and waiting. Levi examines the markings they found near the forest: "These are not just warnings. They are tracking marks." Someone has been watching the village. Jade asks why they haven\'t attacked; "Because they don\'t need to." They are observing, not hunting: studying. Soon after, a merchant brings a package from King Greyson with a book, medicine ingredients and a piece of cloth. A parchment reads "Do not pursue the enemy\'s nest. They want you here", written in code. Jade realises Greyson is warning them that the enemy wants them to find the nest; Sky says then this is a trap. Levi becomes even more suspicious: every clue points in one direction, someone is guiding us. Jade: "You think it\'s a trap?" Levi: "I think they wanted us here from the beginning." Meanwhile Chad spends more time with Sally, who asks: "Are you really protecting me... or are you hiding from her?" Sky discovers several villagers suffering the same strange illness: "This is not natural. They aren\'t Xima\'s soldiers. They are victims." That night Jade tries to help one of the infected villagers; the moment she touches them her power reacts and the corruption inside them disappears, even if only slightly. Sky says: "Your power isn\'t meant to destroy. It\'s meant to restore." The realisation frightens her: "So this is... my bloodline\'s true purpose..." Levi says whatever this is, it\'s bigger than they imagined and they must be careful from now on. That night the village looks peaceful, but many truths are hidden. Deep in the forest a demon kneels before Xima, who is shown as a woman in red under a blood-red moon: "The girl has awakened." "So the Gold child has finally returned." "Bring them to me." In her dreams a red light appears.',
+  art:'Pages show: Xima is drawn as a woman in a red gown here, and the corruption in the villagers partly clears at Jade\'s touch, which is the first sign her power restores. Sally also asks Chad whether he is hiding from Jade.',
+  quote:'"Your power isn\'t meant to destroy. It\'s meant to restore." — Sky Yale',
+  events:['Levi decodes the markings: they are tracking marks','Greyson\'s coded package: "Do not pursue the enemy\'s nest. They want you here"','The party concludes it is a trap and someone is guiding them','Sally asks Chad whether he is hiding from Jade','Sky finds villagers with a slow corruption: victims, not soldiers','Jade\'s touch partly cleanses an infected villager','Xima: "The girl has awakened. Bring them to me."'],
+  purpose:['Establish the trap: the player is being herded toward the enemy\'s nest','Show Jade\'s power as restorative (a healing and cleansing theme)','Set up the ambush in the next chapter'],
+  unlocks:['Coded messages from Greyson','Cleansing touch (Jade, suggested skill)','Investigation events'],
+  reward:'The trap is revealed'},
 };
 // Chapter titles read from the title cards of the comic pages (the comic is canon). 0-3 titles also come from CHAPTER_DESIGN.
 const COMIC_TITLES = { 4:'A Secret Mission', 5:'Unanswered Ties', 6:'Moonlit Confessions', 7:'Restless Desire', 8:'Unwanted Truths', 9:'Whispers and Jealousy', 10:'The Prophecy',
   11:'Dreams and Doubts', 12:'Shadows at the Inn', 13:'Uninvited Encounter', 14:'Unwanted Choices', 15:'The Storm Within', 16:'The First Village', 17:'A Choice Beneath the Lanterns',
   18:'The Price of Trust', 19:'Into the Woods', 20:'The Witch\'s Bargain', 21:'At the Bandit\'s Mercy', 22:'Between Love and Loyalty', 23:'The Heart\'s Choice', 24:'The Choice He Could Not Make',
   25:'The Truth Behind the Mask', 26:'Return to Faepool', 27:'The Bane of Two Souls', 28:'The Woman Behind the Smile', 29:'Shadows Between Hearts', 30:'The Creek of Promises',
-  31:'Fractured Hearts', 32:'The Lost Years', 33:'Duty and Distance', 34:'A Week of Silence', 35:'Whispers Before the Storm', 36:'The People Who Were Taken', 37:'The Shaman' };
+  31:'Fractured Hearts', 32:'The Lost Years', 33:'Duty and Distance', 34:'A Week of Silence', 35:'Whispers Before the Storm', 36:'The People Who Were Taken', 37:'The Shaman', 38:'The Village Beneath the Mask' };

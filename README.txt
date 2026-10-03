@@ -136,3 +136,6 @@ Added with art ch34.webp; 31-37 now complete. Bonds applied: Jade+Levi +1; "Jade
 DEV PLAN (author, NOT canon until pages exist) for ch38 "The Village Beneath the Mask": symbols are tracking marks (they are being studied); Greyson sends a coded book: "Do not pursue the enemy's nest";
 Levi becomes strategist ("someone is guiding us"); Sally asks Chad if he's hiding from Jade; Sky finds villagers with a slow corruption (victims, not soldiers); Jade's touch partly cleanses one ("your power is meant to restore");
 Xima: "So the Gold child has finally returned... Bring them to me." Ch39 = false victory / ambush. NOTE: ch36-37 pages already show the corruption/villager discoveries, so check the ch38 art for overlap.
+
+--- v5.7: CHAPTER 38 (from the page) ---
+Added with art ch38.webp. The earlier DEV PLAN matched the page closely. Bonds: Jade+Levi +1, Sky+Jade +1 (Sky bond to Jade applied via CH_BOND), Chad+Sally not modelled.
