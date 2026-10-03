@@ -2,7 +2,7 @@
    TRIBUTE — UI (tabs, party sheets, journal, training, battle, stubs)
    ===================================================================== */
 const TABS = [['journal','📖 Journal'],['missions','✉️ Missions'],['travel','🛞 Travel'],['here','🧭 Here'],['party','👥 Party'],['training','🎯 Training'],
-              ['inventory','🎒 Items'],['bestiary','📕 Bestiary'],['equipment','🛡️ Gear'],['dev','🛠️ Dev']];
+              ['inventory','🎒 Items'],['bestiary','📕 Bestiary'],['equipment','🛡️ Gear'],['save','💾 Save'],['dev','🛠️ Dev']];
 let tab = 'journal', sel = 'jade', openCh = null, chMsgs = [], origin = 'journal', trSel = 0, trLv = 5;
 const STAT_SCALE = {hp:420,mp:200,atk:130,mag:130,def:100,spd:90};
 const STAT_NAME = {hp:'HP',mp:'MP',atk:'ATK',mag:'MAG',def:'DEF',spd:'SPD'};
@@ -21,7 +21,7 @@ function render(){
   const R = { journal:rJournal, party:rParty, training:rTraining, battle:rBattle, inventory:rInventory, bestiary:rBestiary,
               equipment:()=>stub('Equipment','Aethon-style slots: weapon · armor · accessory (hook ready: gearBonus() in core.js)',
                 ['Signature weapons per hero: Scholar Blade (Devon), Enchanted Crossbow (Levi → Jade at Ch.30), Veiled Fans (Sally)…','Gear drops from the major-battle loot tables (see enemies.js › LOOT)','Class restrictions per Aethon\'s CODEX_EQUIPMENT_RULES']),
-              missions:rMissions, travel:rTravel, here:rHere,
+              missions:rMissions, travel:rTravel, here:rHere, save:rSave,
               dev:rDev }[tab] || rJournal;
   $('main').innerHTML = R();
 }

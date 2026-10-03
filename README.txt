@@ -71,3 +71,7 @@ Ch1 "The Recruitment Scroll": Character Introduction. Playable Chad + Sky (flash
 Title note: an earlier list called this "Strangers on the Isle"; the latest entry uses "The Recruitment Scroll" (CANON_TITLES/TITLES come from chapters.js).
 
 DEV NOTE (spoiler, not shown in-game): Roc (Chad, born Chadstone) and Devon Chadstone are TWIN brothers raised by different wives of the king, each believing they were half-brothers.
+
+--- v4.3: SAVE DATA (as in Crimson Tide) ---
+scripts/savedata.js + "💾 Save" tab: Save Game (local, also autosaves), Export / Import JSON, New Game, GitHub Gist backup (token with gist scope only, Gist ID, push / pull).
+Landing screen has "Import Save File". Gist token is stored in localStorage (tribute_gist_creds) on this device only. Midnight auto-backup from Crimson Tide not ported.

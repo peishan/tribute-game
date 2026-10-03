@@ -10,6 +10,8 @@
   <p class="landing-quote">"Where the journey starts, a destiny waits to be written in golden blood."</p>
   <button id="contbtn" class="btn-begin" style="display:none" onclick="enter(false)">Continue Journey</button>
   <button id="newbtn" class="btn-begin" onclick="enter(true)">New Journey</button>
+  <input type="file" id="landingImport" accept=".json,application/json" style="display:none" onchange="importSave(event,true)">
+  <button class="btn-continue" onclick="document.getElementById('landingImport').click()">📥 Import Save File</button>
   <p id="contnote" class="landing-quote" style="display:none;margin:2px 0 0;font-size:.85rem">A saved journey was found in this browser.</p>
 </div>
 <div id="app">
@@ -26,5 +28,6 @@
 <script src="scripts/journal.js"></script>
 <script src="scripts/world.js"></script>
 <script src="scripts/world-ui.js"></script>
+<script src="scripts/savedata.js"></script>
 <script src="scripts/ui.js"></script>
 </body></html>

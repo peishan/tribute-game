@@ -25,7 +25,7 @@ function newState(){
   s.party = ['jade']; s.active = ['jade']; s.guests = {};
   return s;
 }
-function save(){ try{ localStorage.setItem(CFG.SAVE_KEY, JSON.stringify(G)); }catch(e){} }
+function save(){ try{ G.savedAt = Date.now(); localStorage.setItem(CFG.SAVE_KEY, JSON.stringify(G)); }catch(e){} }
 function load(){
   try{
     const d = JSON.parse(localStorage.getItem(CFG.SAVE_KEY));
