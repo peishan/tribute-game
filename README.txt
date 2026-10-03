@@ -65,3 +65,7 @@ STILL TIED TO OLD NUMBERS (re-gate when canon text arrives): unlock chapters of 
 Prologue is an opening cinematic (type/introduced/quote/reward fields in chapters.js). Extra facts taken from the actual pr1-pr3 artwork are marked "Artwork also shows".
 Archive/Codex now opens with canon entries: Tribute Island, Xima's Curse, King Greyson, Jade Gold, The Sage's Prophecy. Greyson's first letter = the fifteen evils.
 Parked (non-canon) lore stays at ch99.
+
+--- v4.2: CHAPTER 1 (canon, from c1a/c1b pages) ---
+Ch1 "The Recruitment Scroll": Character Introduction. Playable Chad + Sky (flashback/tutorial), Jade guest at the end. Chad/Sky profiles become visible in Party from ch1 (INTRO_CH in core.js); they still join the party at ch3.
+Title note: an earlier list called this "Strangers on the Isle"; the latest entry uses "The Recruitment Scroll" (CANON_TITLES/TITLES come from chapters.js).

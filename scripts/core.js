@@ -8,6 +8,9 @@ const CFG = { SAVE_KEY:'tribute_rpg_v3', LEVEL_CAP:100, START_LEVEL:1 };
 const JOIN_CH = { jade:0, chad:3, sky:3, sally:28, levi:30 };
 // Guest (temporary) party members: Sally joins at ch4 (canon). When she leaves is not known yet.
 const GUEST_CH = { sally:4 };
+// Chapter at which a hero's profile becomes visible even before they join ("Chad profile / Sky profile" unlock in ch1).
+const INTRO_CH = { chad:1, sky:1 };
+const profileKnown = id => isRecruited(id) || (INTRO_CH[id]!==undefined && G.ch >= INTRO_CH[id]);
 // Story flags set when a chapter is completed (e.g. Levi's crossbow goes to Jade in ch30).
 const CH_FLAGS = { 30:['crossbow'] };   // (the communication bracelet comes from the Greyson mission m_bracelet, see world.js)
 
