@@ -80,3 +80,8 @@ Landing screen has "Import Save File". Gist token is stored in localStorage (tri
 scripts/storypopup.js: full-screen story reader (Crimson Tide "Story Mode" style) over the comic pages. Opens automatically the first time a chapter is opened (G.read[n]);
 "Read story" button in the chapter view re-opens it. End screen -> Begin battle / Complete chapter; a "Chapter complete" popup lists rewards and the chapter's unlocks.
 Controls: Back/Next buttons, arrow keys / space, swipe, Esc to close.
+
+--- v4.5: CHAPTER 2 (canon, from c2a/c2b) ---
+Ch2 "The Mercenary Trial" is Jade's POV: interview/paperwork, the Three Blows challenge, walk to the Training Grounds. NO fight and NO Sky on the pages; the spar is only set up
+(the earlier "tutorial battle / party system" for ch2 was removed). Pages state Jade fights with archery / whips / spears (distance, speed, precision) — characters.js still
+gives her a sword (design doc). DECISION NEEDED: keep sword or move Jade to whip/spear/bow.

@@ -14,12 +14,11 @@ for(let i=18;i<=30;i++) ART[i]=['ch'+i];   // converted from the uploaded PNGs
 
 // Chapter battles (PLACEHOLDER encounters — replace with the real fights).
 const BATTLES = {
-  // Only fights confirmed by canon chapter text so far (placeholder foes/stats). Others to be added as chapters are converted.
-  2:[{key:'training_dummy'},{key:'training_dummy'}],     // Mercenary Trial: combat tutorial (Jade + Chad + Sky as guests)
+  // Only fights confirmed by canon chapter text so far (placeholder foes/stats). Ch2 has NO fight (the spar is only set up); ch3/ch5 are from the earlier outline and will be re-checked against their pages.
   3:[{key:'chad_trial'}],                                  // Swords and Palpitations: Jade vs Chad duel
   5:[{key:'booyeong_guard'},{key:'boss_booyeong'},{key:'booyeong_guard'}],   // The Ransom Trap: rescue Sky
 };
-const SOLO = { 2:['jade','chad','sky'], 3:['jade'], 5:['jade','chad'] };   // who fights (Sky is captive in ch5)
+const SOLO = { 3:['jade'], 5:['jade','chad'] };   // who fights (Sky is captive in ch5)
 const CHAPTERS = [];
 for(let i=0;i<=31;i++){
   CHAPTERS.push({ n:i, title: TITLES[i] || ('Chapter '+i+' (?)'), art: ART[i]||[],
