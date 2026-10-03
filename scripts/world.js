@@ -43,6 +43,7 @@ const LOCATIONS = {
     spots:[
       {id:'tavern', kind:'tavern', n:'Local Inn', icon:'🍶', desc:'Warm beds and louder rumours.'},
       {id:'board', kind:'board', n:'Regional Quest Board', icon:'📜', ch:6, desc:'Villagers need help.'},
+      {id:'shrine', kind:'meditate', n:'Vigil Shrine', icon:'⛩️', ch:17, desc:'Meditation and ancient teachings to strengthen Jade\'s clairvoyance.'},
       {id:'riverside', kind:'gather', n:'Riverside', icon:'🎣', desc:'Fish along the river.', loot:[{id:'river_fish',qty:[1,3]}], ambush:['forest_wolf'], lo:3},
       {id:'outskirts', kind:'hunt', n:'Surrounding Forest', icon:'🐺', desc:'Wolves and bandits near the village.', pool:['road_bandit','bandit_archer','forest_wolf'], lo:3}]},
   faepool_forest:{ n:'Faepool Forest', region:'faepool', kind:'field', icon:'🌲', unlock:{ch:4},
@@ -76,7 +77,32 @@ const LOCATIONS = {
     spots:[
       {id:'open_water', kind:'hunt', n:'Open Water', icon:'🏴‍☠️', desc:'Raiders and storm wisps.', pool:['sea_raider','storm_wisp'], elite:'river_serpent', lo:10},
       {id:'fishing', kind:'gather', n:'Fishing', icon:'🎣', desc:'Cast a line.', loot:[{id:'river_fish',qty:[1,3]}], bonus:{id:'sea_pearl',chance:.15}, ambush:['storm_wisp'], lo:10}]},
-  dragon_vale:{ n:'Dragon Vale', region:'dragon', kind:'region', icon:'🐉', unlock:{ch:25},
+  trial_grounds:{ n:'Ancient Trial Grounds', region:'faepool', kind:'story', icon:'⚔️', unlock:{ch:22},
+    desc:'An old arena that tests a party\'s teamwork. Combination attacks matter here.',
+    spots:[{id:'trial', kind:'hunt', n:'The Trials', icon:'🗿', desc:'Guardians of the old trial.', pool:['stone_sentinel','relic_spirit'], lo:12}]},
+  hidden_village:{ n:'Hidden Village', region:'faepool', kind:'town', icon:'🏘', unlock:{ch:23},
+    desc:'A settlement that chose to hide from Xima\'s conflict. Side quests, trading and local relationships.',
+    spots:[
+      {id:'tavern', kind:'tavern', n:'Hidden Village Inn', icon:'🍶', desc:'Quiet people with long memories.'},
+      {id:'board', kind:'board', n:'Village Board', icon:'📜', desc:'Contracts from the residents.'},
+      {id:'edge', kind:'hunt', n:'Village Edge', icon:'🐺', desc:'Beasts at the settlement\'s border.', pool:['forest_wolf','thorn_boar','xima_sprite'], lo:12}]},
+  corrupted_forest:{ n:'Corrupted Forest', region:'faepool', kind:'field', icon:'🌫', unlock:{ch:24},
+    desc:'Xima\'s influence has taken hold here. Elite monsters, rare rewards and challenge encounters.',
+    spots:[
+      {id:'blight', kind:'hunt', n:'The Blight', icon:'🦌', desc:'Corrupted creatures and elite hunters.', pool:['xima_sprite','thorn_boar','shade_wraith'], elite:'corrupted_stag', lo:14},
+      {id:'shards', kind:'gather', n:'Gather Xima Shards', icon:'🔻', desc:'Dangerous but valuable.', loot:[{id:'xima_shard',qty:[1,1]}], bonus:{id:'relic_dust',chance:.3}, ambush:['xima_sprite','shade_wraith'], lo:14}]},
+  faepool_borderlands:{ n:'Faepool Borderlands', region:'faepool', kind:'field', icon:'🌲', unlock:{ch:25},
+    desc:'The edge of Faepool, where the party\'s road starts to change.',
+    spots:[{id:'border_hunt', kind:'hunt', n:'The Borderlands', icon:'🗡️', desc:'Bandits and wild beasts.', pool:['road_bandit','bandit_archer','forest_wolf','masked_assassin'], lo:14}]},
+  faepool_settlement:{ n:'Faepool Settlement', region:'faepool', kind:'town', icon:'🏘', unlock:{ch:26},
+    desc:'A settlement where a mysterious stranger waits.',
+    spots:[
+      {id:'tavern', kind:'tavern', n:'Settlement Tavern', icon:'🍶', desc:'Meals and rumours.'},
+      {id:'board', kind:'board', n:'Settlement Board', icon:'📜', desc:'Contracts and bounties.'}]},
+  reunion_area:{ n:'Reunion Area', region:'faepool', kind:'story', icon:'🏹', unlock:{ch:29},
+    desc:'Where an old ally returns.',
+    spots:[{id:'reunion_camp', kind:'tavern', n:'Reunion Camp', icon:'⛺', desc:'Share a meal around the fire.'}]},
+  dragon_vale:{ n:'Dragon Vale', region:'dragon', kind:'region', icon:'🐉', unlock:{ch:99},   // Devon / Dragon Vale arc not written yet
     desc:'Major story region: dragon lore, ancient powers, legendary items. Devon, Delilah, Chad.',
     spots:[
       {id:'vale', kind:'hunt', n:'The Vale', icon:'🦎', desc:'Drakes and old guardians.', pool:['vale_drake','stone_sentinel','relic_spirit'], lo:14},
@@ -101,7 +127,8 @@ function spotLock(sp){
 
 // Some story chapters must be started on location (PROVISIONAL). {chapter: locationId}
 // Chapters whose story must be started on location. Tune freely: {chapter: locationId}
-const CH_LOC = { 4:'tribute_wilderness', 5:'faepool_harbour', 6:'vigil_village', 10:'frog_mahan', 11:'faepool_ruins', 13:'faepool_harbour', 14:'dark_inn', 15:'faepool_harbour' };
+const CH_LOC = { 4:'tribute_wilderness', 5:'faepool_harbour', 6:'vigil_village', 10:'frog_mahan', 11:'faepool_ruins', 13:'faepool_harbour', 14:'dark_inn', 15:'faepool_harbour',
+                 16:'vigil_village', 17:'vigil_village', 18:'vigil_village', 19:'faepool_forest', 21:'faepool_forest', 22:'faepool_ruins', 23:'trial_grounds', 24:'hidden_village', 25:'corrupted_forest', 26:'faepool_borderlands', 27:'faepool_settlement', 30:'reunion_area' };
 // Boat travel unlocks with chapter 13 ("Travel System Expansion"). Set BRACELET_FROM_START=true if the Imperial Bracelet should exist from the Prologue.
 const SHIP_CH = 13, BRACELET_FROM_START = false;
 const modeOpen = m => m!=='ship' || G.ch >= SHIP_CH;
@@ -119,6 +146,12 @@ const ROUTES = [
   {a:'faepool_forest', b:'frog_mahan', mode:'carriage', n:'Reed Causeway', days:1, fare:10, risk:.5, pool:['bog_toad','mire_leech','forest_wolf']},
   {a:'faepool_forest', b:'faepool_ruins', mode:'carriage', n:'Old Forest Path', days:1, fare:10, risk:.5, pool:['forest_wolf','xima_sprite','thorn_boar']},
   {a:'faepool_forest', b:'dark_inn', mode:'carriage', n:'Old Inn Road', days:1, fare:10, risk:.5, pool:['masked_assassin','forest_wolf','shade_wraith']},
+  {a:'faepool_ruins', b:'trial_grounds', mode:'carriage', n:'Trial Road', days:1, fare:12, risk:.5, pool:['stone_sentinel','relic_spirit','forest_wolf']},
+  {a:'trial_grounds', b:'hidden_village', mode:'carriage', n:'Hidden Trail', days:1, fare:12, risk:.5, pool:['forest_wolf','thorn_boar','xima_sprite']},
+  {a:'hidden_village', b:'corrupted_forest', mode:'carriage', n:'Blighted Track', days:1, fare:14, risk:.55, pool:['xima_sprite','shade_wraith','thorn_boar']},
+  {a:'corrupted_forest', b:'faepool_borderlands', mode:'carriage', n:'Borderland Road', days:1, fare:14, risk:.55, pool:['road_bandit','bandit_archer','masked_assassin']},
+  {a:'faepool_borderlands', b:'faepool_settlement', mode:'carriage', n:'Settlement Road', days:1, fare:14, risk:.5, pool:['road_bandit','forest_wolf','bandit_archer']},
+  {a:'faepool_settlement', b:'reunion_area', mode:'carriage', n:'Wilderness Route', days:1, fare:14, risk:.55, pool:['road_bandit','masked_assassin','forest_wolf']},
   {a:'faepool_harbour', b:'river_crossing', mode:'ship', n:'River Mouth Voyage', days:2, fare:30, risk:.5, pool:SEA_POOL},
   {a:'river_crossing', b:'dragon_vale', mode:'ship', n:'Upriver Voyage', days:2, fare:35, risk:.5, pool:SEA_POOL.concat(['river_serpent'])},
   {a:'faepool_forest', b:'dragon_vale', mode:'carriage', n:'Vale Road', days:3, fare:50, risk:.6, pool:['vale_drake','forest_wolf','xima_sprite']},
@@ -188,11 +221,19 @@ const MISSIONS = [
    subj:'An inn that should be empty', body:'An inn on the old forest road has swallowed three of my scouts. Go there and find out why. Search every room. — Greyson'},
   {id:'m_river', needCh:15, title:'Across the Sea', obj:{type:'reach', loc:'river_crossing'}, rw:{xp:420, gold:190},
    subj:'The sea route', body:'Take ship from Faepool Harbour. We need to know whether the water is passable and who controls it. — Greyson'},
+  {id:'m_trial', needCh:22, title:'The Ancient Trial', obj:{type:'reach', loc:'trial_grounds'}, rw:{xp:500, gold:200},
+   subj:'An old arena', body:'My scholars place an arena of the ancients beyond the ruins. Take the party there; strength alone will not be enough. — Greyson'},
+  {id:'m_hidden', needCh:23, title:'The Hidden Village', obj:{type:'reach', loc:'hidden_village'}, rw:{xp:520, gold:210},
+   subj:'People who chose to hide', body:'Some of my subjects fled Xima\'s conflict and were never found. If you find them, listen before you ask. — Greyson'},
+  {id:'m_corrupt', needCh:24, title:'The Blight', obj:{type:'kill', key:'corrupted_stag', need:2, label:'Corrupted Stags'}, rw:{xp:650, gold:260, rep:10},
+   subj:'The forest is dying', body:'Reports say stags once sacred to the forest are now carriers of the curse. Put down two of them. — Greyson'},
+  {id:'m_reunion', needCh:29, title:'A Reunion', obj:{type:'reach', loc:'reunion_area'}, rw:{xp:800, gold:300},
+   subj:'Someone has been seen', body:'A scout swears he saw a man with a crossbow on the wilderness route. Go to the Reunion Area. — Greyson'},
   {id:'m_bracelet', needCh:21, title:'A Gift from the Crown', obj:{type:'read'}, rw:{xp:150, gold:0, flag:'bracelet'},
    subj:'Pigeons are too slow', body:'Wear this bracelet. It will carry my voice to you anywhere on the island, and yours to me. No more waiting on birds. — Greyson'},
-  {id:'m_dragon', needCh:25, title:'Dragon Vale', obj:{type:'reach', loc:'dragon_vale'}, rw:{xp:700, gold:300},
+  {id:'m_dragon', needCh:99, title:'Dragon Vale', obj:{type:'reach', loc:'dragon_vale'}, rw:{xp:700, gold:300},
    subj:'The Vale awakens', body:'The old accounts say the Vale answers only to a certain bloodline. Bring Devon. — Greyson'},
-  {id:'m_pearl', needCh:28, after:'m_dragon', title:'The Dragon Sanctuary', obj:{type:'investigate', spot:'sanctuary'}, rw:{xp:900, gold:400, items:[{id:'relic_dust',qty:3}]},
+  {id:'m_pearl', needCh:99, after:'m_dragon', title:'The Dragon Sanctuary', obj:{type:'investigate', spot:'sanctuary'}, rw:{xp:900, gold:400, items:[{id:'relic_dust',qty:3}]},
    subj:'What the Sanctuary remembers', body:'Read the wards. Learn what became of the first Pearl bearer. Devon is the only one of you who can. — Greyson'},
 ];
 const missionById = id => MISSIONS.find(m => m.id===id);
@@ -263,7 +304,7 @@ function onFoesDefeated(foes){
     // missions
     MISSIONS.forEach(m => {
       if(mState(m.id)!=='active') return; const o = m.obj;
-      if(o.type==='kill' && e.area===o.area){ G.mprog[m.id] = (G.mprog[m.id]||0)+1; if(G.mprog[m.id]>=o.need) msgs.push.apply(msgs, completeMission(m.id)); }
+      if(o.type==='kill' && (o.area ? e.area===o.area : f.key===o.key)){ G.mprog[m.id] = (G.mprog[m.id]||0)+1; if(G.mprog[m.id]>=o.need) msgs.push.apply(msgs, completeMission(m.id)); }
       else if(o.type==='boss' && o.key===f.key) msgs.push.apply(msgs, completeMission(m.id));
     });
     msgs.push.apply(msgs, questKill(f.key));
@@ -459,6 +500,12 @@ function doPractice(){
   gainXp(30+lv*3, G.party).forEach(m => msgs.push(m));
   return msgs.concat(advanceDay(1));
 }
+function doMeditate(){
+  if(G.bondDay.med === G.day) return ['Jade has already meditated today.'];
+  G.bondDay.med = G.day; const lv = U('jade').lv, msgs = ['⛩️ Jade meditates at the shrine. Her sight grows clearer. +'+(40+lv*4)+' XP (Jade)'];
+  gainXp(40+lv*4, ['jade']).forEach(m => msgs.push(m));
+  return msgs.concat(advanceDay(1));
+}
 function doGarden(id){
   if(G.bondDay[id] === G.day) return ['Already spent time together today.'];
   G.bondDay[id] = G.day; const m = addBond(id, 5);
@@ -495,6 +542,6 @@ const LORE = [
   {ch:12, n:'Ancient Magic', t:'Old magic leaves traces in stone and blood. Jade\'s visions respond to it.'},
   {ch:12, n:'Tribute History', t:'How the island came to be bound by the curse. Many pages are still missing.'},
   {ch:20, n:'Dima\'s Legacy', t:'Jade\'s golden blood connects her to Dima. The records speak of a sanctuary, location unknown.'},
-  {ch:25, n:'Dragon Vale', t:'A region of dragon lore, ancient powers and legendary items.', party:'devon'},
-  {ch:28, n:'The Dragon Pearl', t:'Devon\'s inheritance. Dragon Empowerment, Ancient Dragon Knowledge and Dragon Manifestation.', party:'devon'},
+  {ch:0, n:'Dragon Vale', t:'A region of dragon lore, ancient powers and legendary items.', party:'devon'},
+  {ch:0, n:'The Dragon Pearl', t:'Devon\'s inheritance. Dragon Empowerment, Ancient Dragon Knowledge and Dragon Manifestation.', party:'devon'},
 ];

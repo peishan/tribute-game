@@ -2,26 +2,24 @@
    TRIBUTE — CHAPTER JOURNAL (Crimson-Tide-style sequential chapters +
    Aethon-style quest modal: read comic pages -> optional battle -> story XP)
    Chapters 0-30 have art (ch31 pending).
-   Chapters 16+ titles are placeholders (?) until the next design batch.
+   Chapters 31+ will get titles once the next design batch arrives.
    ===================================================================== */
-// Titles 0-15 come from the chapter design doc (chapters.js). 16+ are placeholders until the next batch.
-const TITLES = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15].map(i => CHAPTER_DESIGN[i].title);
+// Titles 0-30 come from the chapter design doc (chapters.js). 31+ are placeholders until the next batch.
+const TITLES = Object.keys(CHAPTER_DESIGN).map(Number).reduce((a,i) => (a[i] = CHAPTER_DESIGN[i].title, a), []);
 const ART = {0:['pr1','pr2','pr3'],1:['c1a','c1b'],2:['c2a','c2b'],3:['c3a','c3b','c3c'],4:['c4a','c4b']};
 for(let i=5;i<=17;i++) ART[i]=['c'+i];
 for(let i=18;i<=30;i++) ART[i]=['ch'+i];   // converted from the uploaded PNGs
 
 // Chapter battles (PLACEHOLDER encounters — replace with the real fights).
 const BATTLES = {
-  // 0-15 follow the design doc (placeholder foes); 16+ are older placeholders
+  // 0-30 follow the design doc (placeholder foes); 31 is an older placeholder
   2:[{key:'chad_trial'}],                                             // Mercenary Trial (Jade alone vs Chad)
   3:[{key:'chad_trial'}],                                             // Three Blows (Jade alone vs Chad)
   4:[{key:'forest_wolf'},{key:'forest_wolf'},{key:'thorn_boar'}],     // dangerous creatures outside the city
   9:[{key:'xima_sprite'},{key:'corrupted_stag'},{key:'xima_sprite'}], // first corrupted enemies
   10:[{key:'boss_frog_mahan'},{key:'bog_toad'},{key:'bog_toad'}],     // Frog Mahan
-  16:[{key:'dock_thug'},{key:'dock_thug'},{key:'smuggler'}],
-  20:[{key:'imp'},{key:'shade_wraith'},{key:'imp'}],
-  24:[{key:'masked_assassin'},{key:'boss_masked_leader'}],
-  28:[{key:'shade_wraith'},{key:'shade_wraith'},{key:'imp'}],
+  23:[{key:'stone_sentinel'},{key:'relic_spirit'},{key:'stone_sentinel'}],   // Trial of Strength
+  25:[{key:'corrupted_stag'},{key:'xima_sprite'},{key:'xima_sprite'}],        // elite enemies in the Corrupted Forest
   31:[{key:'imp'},{key:'boss_demon_warden'},{key:'imp'}],
 };
 const SOLO = { 2:['jade'], 3:['jade'] };   // chapter fights where Jade fights alone

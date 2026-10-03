@@ -38,3 +38,10 @@ Applied from the doc: Chad+Sky join ch1; Chad tree ch2, Sky tree ch3 (TREE_CH); 
 Journal titles 16+ are "(?)" placeholders until the next batch. NOTE: comic page files were numbered from the OLD chapter list (e.g. c5 = "Unanswered Ties"),
   so art may no longer match the new chapter order — check ART in journal.js.
 Comms: pigeon post by default; set BRACELET_FROM_START=true in world.js to give the bracelet in the Prologue.
+
+--- v3.4: CHAPTERS 16-30 ---
+CHAPTER_DESIGN now covers 0-30. Recruits: Chad+Sky ch3 (provisional), Sally ch28, Levi ch30 (+ Enchanted Crossbow flag), Devon open (no join chapter).
+New places (unlock after the previous chapter): Ancient Trial Grounds ch22, Hidden Village ch23, Corrupted Forest ch24, Faepool Borderlands ch25,
+Faepool Settlement ch26, Reunion Area ch29; Vigil Shrine (meditation) ch17. Dragon Vale / Sanctuary / Pearl Chamber are parked at ch99 until Devon's arc is written.
+Chapter fights: 2/3 Jade-vs-Chad spars, 4, 9, 10 (Frog Mahan), 23 (trial), 25 (elite stag), 31 (old placeholder).
+OPEN QUESTION: ch5-15 (Faepool, Vigil, swamp, ruins, inn) and ch16-21 (arrive in Faepool, Vigil again) overlap in the design doc, and the comic pages follow the older numbering.

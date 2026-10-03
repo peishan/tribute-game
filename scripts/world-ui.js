@@ -109,6 +109,8 @@ function rSpot(L, sp){
     case 'archive': {
       const rows = LORE.filter(e => G.ch >= e.ch && (!e.party || isRecruited(e.party))).map(e=>`<div class="li"><b>${e.n}</b><div class="sm">${e.t}</div></div>`).join('');
       body = `<div class="panel">${rows}</div><div class="sm">Draft entries — more unlock with the story. The Bestiary is a separate tab.</div>`; break; }
+    case 'meditate':
+      body = `<div class="panel"><div class="sm">Meditation and ancient teachings. Once per day.</div><button class="pri" onclick="act(doMeditate)">Meditate (1 day)</button></div>`; break;
     case 'garden': {
       const opts = G.party.filter(i=>i!=='jade').map(i=>`<option value="${i}" ${i===gardenSel?'selected':''}>${CHARACTERS[i].n}</option>`).join('');
       body = G.party.length>1 ? `<div class="panel"><div class="sm">Spend an evening together (once per member per day). Bond +5.</div><select onchange="gardenSel=this.value">${opts}</select><button class="pri" onclick="act(doGarden,gardenSel)">Walk together (1 day)</button></div>` : '<div class="panel sm">Jade walks alone for now. Companions will join her here as they are recruited.</div>'; break; }

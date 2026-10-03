@@ -37,7 +37,7 @@ function rParty(){
 }
 function rSheet(id){
   const c=CHARACTERS[id], rec=isRecruited(id);
-  if(!rec) return `<div class="panel"><h3>${id==='princess'?c.n:'???'}</h3><div class="sm">${id==='princess'?c.identity:'Not yet recruited. Recruited at chapter '+JOIN_CH[id]+' (provisional).'}</div></div>`;
+  if(!rec) return `<div class="panel"><h3>${id==='princess'?c.n:'???'}</h3><div class="sm">${id==='princess'?c.identity:(JOIN_CH[id]!==undefined?'Not yet recruited. Joins at chapter '+JOIN_CH[id]+'.':'Not yet recruited. Recruitment chapter still to be decided.')}</div></div>`;
   const u=U(id), st=statsOf(id), bl=bondLevel(id), nextB=BOND_LEVELS[bl+1];
   const stats = STATS.map(s=>`<div class="st"><span>${STAT_NAME[s]}</span>${bar(st[s],STAT_SCALE[s],s)}<b>${st[s]}</b></div>`).join('');
   const skills = skillsOf(id).filter(s=>!(s.treeSkill&&!s.ok)).map(s=>`<div class="sk ${s.ok?'':'lk'}"><span class="si">${s.icon}</span><div><b>${s.n}</b> ${s.sig?'<em class="tag">signature</em>':''}${s.bondSkill?'<em class="tag b">bond</em>':''}${s.evoSkill?'<em class="tag e">evolution</em>':''}${s.treeSkill?'<em class="tag t">tree</em>':''}<div class="sm">${s.ok?s.desc:'🔒 '+s.why}</div></div><span class="mp">${s.mp?s.mp+' MP':''}</span></div>`).join('');
