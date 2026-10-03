@@ -6,7 +6,7 @@ const CFG = { SAVE_KEY:'tribute_rpg_v3', LEVEL_CAP:100, START_LEVEL:1 };
 // WHO JOINS WHEN (chapter number at which the hero is recruited). PROVISIONAL — correct these.
 const JOIN_CH = { jade:0, chad:3, sky:3, sally:11, levi:20, devon:26 };
 // Story flags set when a chapter is completed (e.g. Levi's crossbow goes to Jade in ch30).
-const CH_FLAGS = { 30:['crossbow'] };
+const CH_FLAGS = { 30:['crossbow'] };   // (the communication bracelet comes from the Greyson mission m_bracelet, see world.js)
 
 let G = null;
 const $ = id => document.getElementById(id);
@@ -14,7 +14,7 @@ const AR = a => a[Math.floor(Math.random()*a.length)];
 const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
 
 function newState(){
-  const s = { v:3, ch:-1, flags:{}, units:{}, party:[], inv:{}, bestiary:{}, gold:50, read:{} };
+  const s = Object.assign({ v:3, ch:-1, flags:{}, units:{}, party:[], inv:{}, bestiary:{}, gold:50, read:{} }, worldDefaults());
   ROSTER.forEach(id => s.units[id] = { lv:CFG.START_LEVEL, xp:0, bp:0, evo:[] });
   s.party = ['jade']; s.active = ['jade'];
   return s;

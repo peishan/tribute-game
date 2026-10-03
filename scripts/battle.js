@@ -212,6 +212,7 @@ function finishWin(){
   B.rewards.msgs = gainXp(xp, act).concat(gainXp(Math.round(xp*.5), bench));
   act.forEach(id => { const m = addBond(id, bossKey ? 8 : 3); if(m) B.rewards.msgs.push(m); });
   G.gold += gold; addItems(drops);
+  if(typeof onFoesDefeated==='function') B.rewards.msgs = B.rewards.msgs.concat(onFoesDefeated(foes));   // quests / bounties / missions
   if(spec.onWin) B.rewards.msgs = B.rewards.msgs.concat(spec.onWin() || []);
   save();
 }

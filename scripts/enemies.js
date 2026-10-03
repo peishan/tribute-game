@@ -29,6 +29,36 @@ const ENEMIES = {
     moves:[{n:'Venom Blade',pow:1.2,fx:[{k:'burn',d:3}]},{n:'Shadow Flurry',pow:1.8},{n:'Veil Step',pow:1.4}],desc:'Placeholder boss.'},
   boss_demon_warden:{n:'Demon Warden',icon:'😈',area:'demon',boss:true,hp:680,atk:18,mag:22,def:12,spd:11,xp:300,gold:210,traits:['magic'],
     moves:[{n:'Hellfire',pow:1.6,spell:true,fx:[{k:'burn',d:3}]},{n:'Dread Gaze',pow:1,spell:true,fx:[{k:'slow',d:2}]},{n:'Crushing Fist',pow:1.8}],desc:'Placeholder boss.'},
+  // ---- Faepool forest / swamp, river & sea, Dragon Vale (PROVISIONAL — rename / retune per story) ----
+  forest_wolf:{n:'Forest Wolf',icon:'🐺',area:'forest',hp:70,atk:13,mag:0,def:5,spd:14,xp:30,gold:12,
+    moves:[{n:'Bite',pow:1},{n:'Pounce',pow:1.4}],drops:[{id:'forest_herb',chance:.3}],desc:'Lean and quick. Hunts the Faepool roads at dusk.'},
+  thorn_boar:{n:'Thorn Boar',icon:'🐗',area:'forest',hp:95,atk:12,mag:0,def:8,spd:7,xp:34,gold:14,
+    moves:[{n:'Gore',pow:1.1},{n:'Charge',pow:1.5}],drops:[{id:'forest_herb',chance:.35}],desc:'Bramble-armoured and short-tempered.'},
+  xima_sprite:{n:'Xima Sprite',icon:'🧚',area:'forest',hp:55,atk:6,mag:13,def:4,spd:13,xp:38,gold:16,traits:['magic'],
+    moves:[{n:'Curse Spark',pow:1.1,spell:true},{n:'Withering Dust',pow:.8,spell:true,fx:[{k:'slow',d:2}]}],drops:[{id:'xima_shard',chance:.25}],desc:'A forest spirit twisted by Xima corruption.'},
+  corrupted_stag:{n:'Corrupted Stag',icon:'🦌',area:'forest',elite:true,hp:150,atk:16,mag:8,def:9,spd:12,xp:80,gold:40,traits:['magic'],
+    moves:[{n:'Antler Rush',pow:1.5},{n:'Blighted Breath',pow:1,spell:true,fx:[{k:'burn',d:3}]}],drops:[{id:'xima_shard',chance:.6}],desc:'Once a forest guardian. The curse runs black in its veins.'},
+  bog_toad:{n:'Bog Toad',icon:'🐸',area:'swamp',hp:75,atk:11,mag:0,def:5,spd:8,xp:30,gold:12,
+    moves:[{n:'Tongue Lash',pow:1,fx:[{k:'slow',d:2}]},{n:'Belly Flop',pow:1.3}],drops:[{id:'toad_gland',chance:.4}],desc:'Frog Mahan\'s smaller kin.'},
+  mire_leech:{n:'Mire Leech',icon:'🪱',area:'swamp',hp:50,atk:9,mag:0,def:3,spd:12,xp:26,gold:10,
+    moves:[{n:'Drain',pow:.9,fx:[{k:'burn',d:3}]}],drops:[{id:'toad_gland',chance:.25}],desc:'Poisonous bite. Clings on.'},
+  sea_raider:{n:'River Raider',icon:'🏴‍☠️',area:'sea',hp:85,atk:13,mag:0,def:6,spd:10,xp:36,gold:26,
+    moves:[{n:'Boarding Axe',pow:1.1},{n:'Grapple',pow:.7,fx:[{k:'slow',d:2}]}],drops:[{id:'coin_pouch',chance:.5}],desc:'Preys on slow river barges and ferries.'},
+  storm_wisp:{n:'Storm Wisp',icon:'🌩️',area:'sea',hp:60,atk:5,mag:14,def:4,spd:13,xp:36,gold:14,traits:['magic'],
+    moves:[{n:'Static Lash',pow:1.1,spell:true},{n:'Gale',pow:.8,spell:true,fx:[{k:'slow',d:2}]}],drops:[{id:'sea_pearl',chance:.3}],desc:'A knot of weather with a grudge.'},
+  river_serpent:{n:'River Serpent',icon:'🐍',area:'sea',elite:true,hp:160,atk:17,mag:0,def:9,spd:11,xp:85,gold:48,
+    moves:[{n:'Coil',pow:1.2,fx:[{k:'bind',d:1}]},{n:'Venom Fang',pow:1.5,fx:[{k:'burn',d:3}]}],drops:[{id:'sea_pearl',chance:.5}],desc:'Long as a barge. Rarely surfaces.'},
+  vale_drake:{n:'Vale Drake',icon:'🦎',area:'dragon',hp:115,atk:16,mag:6,def:9,spd:10,xp:48,gold:26,
+    moves:[{n:'Tail Sweep',pow:1.2},{n:'Flame Breath',pow:1.3,spell:true,fx:[{k:'burn',d:2}]}],drops:[{id:'drake_scale',chance:.4}],desc:'A lesser kin of the dragons Dragon Vale remembers.'},
+  stone_sentinel:{n:'Stone Sentinel',icon:'🗿',area:'dragon',hp:150,atk:15,mag:0,def:15,spd:5,xp:52,gold:28,
+    moves:[{n:'Crushing Blow',pow:1.4},{n:'Stone Guard',pow:.5}],drops:[{id:'relic_dust',chance:.45}],desc:'Ancient wardens still keeping watch.'},
+  relic_spirit:{n:'Relic Spirit',icon:'🔮',area:'dragon',hp:85,atk:6,mag:17,def:6,spd:12,xp:54,gold:30,traits:['magic'],
+    moves:[{n:'Echo Bolt',pow:1.2,spell:true},{n:'Forgotten Verse',pow:.9,spell:true,fx:[{k:'silence',d:2}]}],drops:[{id:'relic_dust',chance:.5}],desc:'The memory of a mage, bound to a dead spell.'},
+  // ---- new placeholder BOSSES ----
+  boss_frog_mahan:{n:'Frog Mahan',icon:'🐸',area:'swamp',boss:true,hp:640,atk:19,mag:8,def:11,spd:9,xp:260,gold:180,
+    moves:[{n:'Tongue Lash',pow:1.3,fx:[{k:'slow',d:2}]},{n:'Poison Spit',pow:1.1,fx:[{k:'burn',d:3}]},{n:'Belly Crush',pow:1.9}],desc:'The swamp\'s warlord. Placeholder stats.'},
+  boss_pearl_guardian:{n:'Pearl Guardian',icon:'🐲',area:'dragon',boss:true,hp:860,atk:21,mag:25,def:14,spd:12,xp:420,gold:300,traits:['magic'],
+    moves:[{n:'Dragonfire',pow:1.7,spell:true,fx:[{k:'burn',d:3}]},{n:'Ancient Roar',pow:1,spell:true,fx:[{k:'slow',d:2}]},{n:'Pearl Light',pow:2,spell:true}],desc:'Guards the Dragon Pearl chamber. Placeholder stats.'},
 };
 // enemy level scaling: stats grow with level; xp/gold grow slower
 function mkEnemy(key, lv){
@@ -48,6 +78,11 @@ const ITEMS = {
   shade_essence:{n:'Shade Essence',icon:'💠',type:'material',rarity:'rare'},   herbal_tonic:{n:'Herbal Tonic',icon:'🍵',type:'consumable',rarity:'common'},
   chiefs_cleaver:{n:'Chief\'s Cleaver',icon:'🪓',type:'gear',slot:'weapon',rarity:'rare'}, venomed_cloak:{n:'Venomed Cloak',icon:'🧥',type:'gear',slot:'armor',rarity:'rare'},
   warden_sigil:{n:'Warden\'s Sigil',icon:'🔯',type:'gear',slot:'accessory',rarity:'epic'},
+  forest_herb:{n:'Faepool Herb',icon:'🌿',type:'material',rarity:'common'}, xima_shard:{n:'Xima Shard',icon:'🔻',type:'material',rarity:'rare'},
+  toad_gland:{n:'Toad Gland',icon:'🧫',type:'material',rarity:'common'}, sea_pearl:{n:'Sea Pearl',icon:'🦪',type:'material',rarity:'uncommon'},
+  river_fish:{n:'River Fish',icon:'🐟',type:'material',rarity:'common'}, drake_scale:{n:'Drake Scale',icon:'🐉',type:'material',rarity:'uncommon'},
+  relic_dust:{n:'Relic Dust',icon:'✨',type:'material',rarity:'uncommon'}, pearl_fragment:{n:'Dragon Pearl Fragment',icon:'🔮',type:'material',rarity:'epic'},
+  mahan_crown:{n:'Mahan\'s Mire Crown',icon:'👑',type:'gear',slot:'accessory',rarity:'rare'},
 };
 /* ---- LOOT TABLES for major battles ----
    guaranteed: always drop.  rolls: independent chance rolls.  firstClear: only on the first win.
@@ -56,6 +91,8 @@ const LOOT = {
   boss_bandit_chief:{guaranteed:[{id:'bandit_sash',qty:[2,3]}],rolls:[{id:'chiefs_cleaver',chance:.2},{id:'herbal_tonic',chance:.6,qty:[1,2]}],firstClear:[{id:'coin_pouch',qty:[2,2]}]},
   boss_masked_leader:{guaranteed:[{id:'assassin_mask',qty:[1,1]}],rolls:[{id:'venomed_cloak',chance:.2},{id:'venom_vial',chance:.6,qty:[1,3]}],firstClear:[{id:'herbal_tonic',qty:[3,3]}]},
   boss_demon_warden:{guaranteed:[{id:'demon_ash',qty:[3,5]}],rolls:[{id:'warden_sigil',chance:.15},{id:'shade_essence',chance:.5,qty:[1,2]}],firstClear:[{id:'shade_essence',qty:[1,1]}]},
+  boss_frog_mahan:{guaranteed:[{id:'toad_gland',qty:[3,5]}],rolls:[{id:'mahan_crown',chance:.2},{id:'herbal_tonic',chance:.6,qty:[1,2]}],firstClear:[{id:'xima_shard',qty:[1,1]}]},
+  boss_pearl_guardian:{guaranteed:[{id:'relic_dust',qty:[3,5]}],rolls:[{id:'drake_scale',chance:.6,qty:[1,3]}],firstClear:[{id:'pearl_fragment',qty:[1,1]}]},
 };
 const rint = ([a,b]) => a + Math.floor(Math.random()*(b-a+1));
 function rollLoot(table, first){

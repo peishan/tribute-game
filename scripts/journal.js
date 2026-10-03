@@ -1,12 +1,13 @@
 /* =====================================================================
    TRIBUTE — CHAPTER JOURNAL (Crimson-Tide-style sequential chapters +
    Aethon-style quest modal: read comic pages -> optional battle -> story XP)
-   Chapters 0-17 have art. 18-31 are written but not yet illustrated.
+   Chapters 0-30 have art (ch31 pending).
    Titles marked (?) are placeholders to correct.
    ===================================================================== */
 const TITLES = ['Prologue — Tribute','Chapter 1 (?)','The Mercenary Trial','Three Blows','A Secret Mission','Unanswered Ties','Moonlit Confessions','Restless Desire','Unwanted Truths','Whispers and Jealousy','The Prophecy','Dreams and Doubts','Shadows at the Inn','Uninvited Encounter','Unwanted Choices','The Storm Within','The First Village','A Choice Beneath the Lanterns'];
 const ART = {0:['pr1','pr2','pr3'],1:['c1a','c1b'],2:['c2a','c2b'],3:['c3a','c3b','c3c'],4:['c4a','c4b']};
 for(let i=5;i<=17;i++) ART[i]=['c'+i];
+for(let i=18;i<=30;i++) ART[i]=['ch'+i];   // converted from the uploaded PNGs
 
 // Chapter battles (PLACEHOLDER encounters — replace with the real fights).
 const BATTLES = {
@@ -28,7 +29,7 @@ for(let i=0;i<=31;i++){
     lv: Math.max(1, Math.round(i*0.9)+1),    // enemy level for this chapter's battle
     battle: BATTLES[i] || null });
 }
-const chapterAvailable = n => n <= G.ch + 1;
+const chapterAvailable = n => n <= G.ch + 1 && (!CH_LOC[n] || G.loc === CH_LOC[n] || n <= G.ch);
 const chapterDone = n => n <= G.ch;
 
 function avgPartyLv(){ return Math.round(G.party.reduce((a,id)=>a+U(id).lv,0)/G.party.length); }
@@ -41,9 +42,10 @@ function completeChapter(n){
   recruitsAtChapter(n).forEach(id => {
     if(recruit(id)){ U(id).lv = Math.max(U(id).lv, avgPartyLv()-1); msgs.push('★ '+CHARACTERS[id].n+' joins the party!'); }
   });
-  (CH_FLAGS[n]||[]).forEach(f => { G.flags[f] = true; msgs.push('✦ Story event: '+f.replace('_',' ')+' unlocked'); });
+  (CH_FLAGS[n]||[]).forEach(f => { G.flags[f] = true; msgs.push('✦ Story event: '+(FLAG_LABEL[f]||f)+' unlocked'); });
   msgs.push('Story XP +'+c.sxp);
   gainXp(c.sxp, G.party).forEach(m => msgs.push(m));
+  checkMissionOffers();   // King Greyson's next letters
   save();
   return msgs;
 }
@@ -60,7 +62,7 @@ function devSetChapter(n){
     recruitsAtChapter(i).forEach(id => { recruit(id); });
     (CH_FLAGS[i]||[]).forEach(f => G.flags[f]=true);
   }
-  G.ch = n;
+  G.ch = n; checkMissionOffers();
   const target = Math.max(1, Math.round(n*1.0));
   G.party.forEach(id => { U(id).lv = Math.max(U(id).lv, target); U(id).xp = 0; });
   save();

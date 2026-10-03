@@ -1,8 +1,8 @@
 /* =====================================================================
    TRIBUTE — UI (tabs, party sheets, journal, training, battle, stubs)
    ===================================================================== */
-const TABS = [['journal','📖 Journal'],['party','👥 Party'],['training','🎯 Training'],['inventory','🎒 Items'],['bestiary','📕 Bestiary'],
-              ['equipment','🛡️ Gear'],['tavern','🍶 Tavern'],['travel','🛞 Travel'],['explore','🧭 Explore'],['dev','🛠️ Dev']];
+const TABS = [['journal','📖 Journal'],['missions','✉️ Missions'],['travel','🛞 Travel'],['here','🧭 Here'],['party','👥 Party'],['training','🎯 Training'],
+              ['inventory','🎒 Items'],['bestiary','📕 Bestiary'],['equipment','🛡️ Gear'],['dev','🛠️ Dev']];
 let tab = 'journal', sel = 'jade', openCh = null, chMsgs = [], origin = 'journal', trSel = 0, trLv = 5;
 const STAT_SCALE = {hp:420,mp:200,atk:130,mag:130,def:100,spd:90};
 const STAT_NAME = {hp:'HP',mp:'MP',atk:'ATK',mag:'MAG',def:'DEF',spd:'SPD'};
@@ -12,19 +12,14 @@ function toast(t){ const e=$('toast'); e.textContent=t; e.classList.add('on'); c
 function showTab(t){ tab=t; render(); window.scrollTo(0,0); const m=$('main'); if(m) m.scrollTop=0; }
 function render(){
   $('hgold').textContent = '💰 '+G.gold;
-  $('hch').textContent = G.ch<0 ? 'Prologue' : (G.ch===0?'Prologue ✓':'Ch.'+G.ch+' ✓');
+  $('hch').textContent = (G.ch<0 ? 'Prologue' : (G.ch===0?'Prologue ✓':'Ch.'+G.ch+' ✓')) + ' · Day '+G.day;
   const showBattle = !!B;
   $('nav').innerHTML = (showBattle?`<button class="${tab==='battle'?'on':''}" onclick="showTab('battle')">⚔️ Battle</button>`:'') +
-     TABS.map(([k,l]) => `<button class="${tab===k?'on':''}" onclick="showTab('${k}')">${l}</button>`).join('');
+     TABS.map(([k,l]) => `<button class="${tab===k?'on':''}" onclick="showTab('${k}')">${l}${k==='missions'&&unreadCount()?' <b style="color:var(--r)">●</b>':''}</button>`).join('');
   const R = { journal:rJournal, party:rParty, training:rTraining, battle:rBattle, inventory:rInventory, bestiary:rBestiary,
               equipment:()=>stub('Equipment','Aethon-style slots: weapon · armor · accessory (hook ready: gearBonus() in core.js)',
                 ['Signature weapons per hero: Scholar Blade (Devon), Enchanted Crossbow (Levi → Jade at Ch.30), Veiled Fans (Sally)…','Gear drops from the major-battle loot tables (see enemies.js › LOOT)','Class restrictions per Aethon\'s CODEX_EQUIPMENT_RULES']),
-              tavern:()=>stub('Tavern','Crimson Tide tavern: rest, rumours, quest board, hire temporary companions',
-                ['Rest (gold, once per day) fully restores the party','Rumours (5g) – hints for routes, bounties and story','Quest board: kill/collect contracts vs dock pickpockets, bandits, masked assassins','Temporary hires for a journey; bond scenes with party members','Potion shop']),
-              travel:()=>stub('Travel','Land + sea combined: carriage routes now, ship voyages later',
-                ['Waiting on your route notes (GPT): regions, stops, distances','Carriage = Aethon-style land travel with road encounters (bandits, assassins)','Ship = Crimson Tide voyage with sea events and port arrival','Chapters unlock by arriving at the right location']),
-              explore:()=>stub('Explore','Repeatable fights by area (Aethon Unmapped Road / Crimson harbour fights)',
-                ['Areas: docks · roads · cities · cursed ground','Each area lists its monsters (pickpockets, bandits, assassins, demons)','Scaled to party level, XP + gold + common drops','Elite / roaming bosses on a respawn timer']),
+              missions:rMissions, travel:rTravel, here:rHere,
               dev:rDev }[tab] || rJournal;
   $('main').innerHTML = R();
 }
@@ -143,7 +138,7 @@ function pickSkill(sid){
 }
 function pickTarget(uid){ const u=B.ui; playerAct(u.kind, u.sid, uid); render(); }
 function doGuardAct(){ playerAct('guard'); render(); }
-function battleDone(){ B=null; tab=origin; render(); }
+function battleDone(){ if(B && B.over==='lose' && typeof onBattleLost==='function') onBattleLost(); B=null; tab=origin; render(); }
 // make menu actions re-render
 const _pa = playerAct; playerAct = function(k,s,t){ _pa(k,s,t); render(); };
 
@@ -168,6 +163,8 @@ function rDev(){
    <button onclick="gainXp(500);save();render()">+500 XP (all)</button><button onclick="gainXp(5000);save();render()">+5000 XP</button>
    <button onclick="G.party.forEach(i=>addBond(i,60));save();render()">+60 bond (all)</button><button onclick="G.gold+=500;save();render()">+500 gold</button>
    <button onclick="G.flags.crossbow=!G.flags.crossbow;save();render()">Toggle crossbow flag (${G.flags.crossbow?'on':'off'})</button>
+   <button onclick="G.flags.bracelet=!G.flags.bracelet;save();render()">Toggle bracelet (${G.flags.bracelet?'on':'off'})</button>
+   <button onclick="advanceDay(1);save();render()">+1 day</button><button onclick="G.loc='capital';save();render()">Warp to capital</button>
    <button onclick="ROSTER.forEach(i=>recruit(i));save();render()">Recruit everyone</button></div></div>
    <div class="panel"><button onclick="if(confirm('Erase save?')){localStorage.removeItem(CFG.SAVE_KEY);location.reload()}">Erase save</button></div>`;
 }
@@ -175,6 +172,7 @@ function rDev(){
 /* ---------------- BOOT ---------------- */
 function enter(newGame){
   if(newGame || !load()){ G = newState(); save(); }
+  refreshBounties(); checkMissionOffers(); save();
   $('landing').style.display='none'; $('app').style.display='flex'; render();
 }
 window.addEventListener('load', () => { $('contbtn').disabled = !localStorage.getItem(CFG.SAVE_KEY); });
