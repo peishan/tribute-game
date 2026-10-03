@@ -85,3 +85,7 @@ Controls: Back/Next buttons, arrow keys / space, swipe, Esc to close.
 Ch2 "The Mercenary Trial" is Jade's POV: interview/paperwork, the Three Blows challenge, walk to the Training Grounds. NO fight and NO Sky on the pages; the spar is only set up
 (the earlier "tutorial battle / party system" for ch2 was removed). Pages state Jade fights with archery / whips / spears (distance, speed, precision) — characters.js still
 gives her a sword (design doc). DECISION NEEDED: keep sword or move Jade to whip/spear/bow.
+
+--- v4.6: CHAPTER 3 (canon, from c3a-c3c) ---
+Ch3 "Three Blows" (pages' title; the story file calls it "Swords and Palpitations"): Chad-POV duel + rematch (Chad wins both), Jade hires him, passes for Chad and Sky, 3-day briefing.
+Jade fights with a sword at first, then a whip. Story duel: losing still completes the chapter (DUEL in journal.js). Chad/Sky both still join at ch3 (Sky has not met Jade yet on the pages).

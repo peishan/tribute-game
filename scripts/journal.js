@@ -15,9 +15,10 @@ for(let i=18;i<=30;i++) ART[i]=['ch'+i];   // converted from the uploaded PNGs
 // Chapter battles (PLACEHOLDER encounters — replace with the real fights).
 const BATTLES = {
   // Only fights confirmed by canon chapter text so far (placeholder foes/stats). Ch2 has NO fight (the spar is only set up); ch3/ch5 are from the earlier outline and will be re-checked against their pages.
-  3:[{key:'chad_trial'}],                                  // Swords and Palpitations: Jade vs Chad duel
+  3:[{key:'chad_trial'}],                                  // Three Blows: Jade vs Chad duel (canon pages: Chad wins twice)
   5:[{key:'booyeong_guard'},{key:'boss_booyeong'},{key:'booyeong_guard'}],   // The Ransom Trap: rescue Sky
 };
+const DUEL = { 3:true };   // story duels: losing still completes the chapter (the story has Chad win)
 const SOLO = { 3:['jade'], 5:['jade','chad'] };   // who fights (Sky is captive in ch5)
 const CHAPTERS = [];
 for(let i=0;i<=31;i++){
@@ -52,7 +53,7 @@ function completeChapter(n){
 }
 function battleSpecFor(n){
   const c = CHAPTERS[n];
-  return { foes:c.battle.map(f => ({key:f.key, lv:c.lv})), allies:SOLO[n], rewards:true, firstClear:!chapterDone(n), chapter:n,
+  return { foes:c.battle.map(f => ({key:f.key, lv:c.lv})), allies:SOLO[n], rewards:true, onLose: DUEL[n] ? (() => completeChapter(n)) : null, firstClear:!chapterDone(n), chapter:n,
            onWin: () => { c.battle.forEach(f => { if(ENEMIES[f.key].boss) G.flags['boss_'+f.key] = true; }); return completeChapter(n); } };
 }
 // DEV: jump the save to "story at chapter n" (recruits, flags, levels)
