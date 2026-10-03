@@ -45,3 +45,8 @@ New places (unlock after the previous chapter): Ancient Trial Grounds ch22, Hidd
 Faepool Settlement ch26, Reunion Area ch29; Vigil Shrine (meditation) ch17. Dragon Vale / Sanctuary / Pearl Chamber are parked at ch99 until Devon's arc is written.
 Chapter fights: 2/3 Jade-vs-Chad spars, 4, 9, 10 (Frog Mahan), 23 (trial), 25 (elite stag), 31 (old placeholder).
 OPEN QUESTION: ch5-15 (Faepool, Vigil, swamp, ruins, inn) and ch16-21 (arrive in Faepool, Vigil again) overlap in the design doc, and the comic pages follow the older numbering.
+
+--- v3.5: UI THEME ---
+styles.css now holds all styling (was inline in index.html): same design language as Aethon Codex / Crimson Tide
+(Cinzel + Crimson Text, gold/parchment, gradient panels with gold hairline, stat pills, uppercase nav tabs, framed cover landing,
+gold shimmer button, drifting petals) in Tribute's crimson + cherry-blossom colours. Palette tokens are at the top of styles.css.

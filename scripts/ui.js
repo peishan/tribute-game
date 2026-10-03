@@ -12,7 +12,9 @@ function toast(t){ const e=$('toast'); e.textContent=t; e.classList.add('on'); c
 function showTab(t){ tab=t; render(); window.scrollTo(0,0); const m=$('main'); if(m) m.scrollTop=0; }
 function render(){
   $('hgold').textContent = '💰 '+G.gold;
-  $('hch').textContent = (G.ch<0 ? 'Prologue' : (G.ch===0?'Prologue ✓':'Ch.'+G.ch+' ✓')) + ' · Day '+G.day;
+  $('hch').textContent = G.ch<0 ? 'Prologue' : (G.ch===0?'Prologue ✓':'Ch.'+G.ch+' ✓');
+  $('hday').textContent = '☀️ Day '+G.day;
+  $('hloc').textContent = '📍 '+LOCATIONS[G.loc].n;
   const showBattle = !!B;
   $('nav').innerHTML = (showBattle?`<button class="${tab==='battle'?'on':''}" onclick="showTab('battle')">⚔️ Battle</button>`:'') +
      TABS.map(([k,l]) => `<button class="${tab===k?'on':''}" onclick="showTab('${k}')">${l}${k==='missions'&&unreadCount()?' <b style="color:var(--r)">●</b>':''}</button>`).join('');
@@ -198,4 +200,10 @@ function enter(newGame){
   refreshBounties(); checkMissionOffers(); save();
   $('landing').style.display='none'; $('app').style.display='flex'; render();
 }
-window.addEventListener('load', () => { $('contbtn').disabled = !localStorage.getItem(CFG.SAVE_KEY); });
+window.addEventListener('load', () => {
+  $('contbtn').style.display = localStorage.getItem(CFG.SAVE_KEY) ? '' : 'none';
+  const L = $('landing');                       // drifting cherry-blossom petals
+  for(let i=0;i<22;i++){ const p = document.createElement('span'); p.className='petal';
+    p.style.left = Math.random()*100+'%'; p.style.animationDuration = (7+Math.random()*7)+'s'; p.style.animationDelay = (-Math.random()*12)+'s';
+    p.style.transform = 'scale('+(.6+Math.random()*.9)+')'; L.appendChild(p); }
+});
