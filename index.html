@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Tribute: Curse of the Hidden Isle</title>
+<style>
+:root{--g:#e8c872;--r:#b3202e;--bg:#12090d;--p:#241017;--p2:#321a24;--t:#f6ead8;--line:#5a2a35}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--t);font:15px Georgia,serif}
+button,select,input{font:inherit}
+button{background:var(--p2);color:var(--g);border:1px solid var(--g);border-radius:8px;padding:9px 13px;margin:3px}
+button:disabled{opacity:.35}button.pri{background:var(--r);color:#fff;border-color:#e8a0a8}
+select,input[type=number]{background:#000;color:var(--t);border:1px solid var(--line);border-radius:8px;padding:8px;width:100%;margin:4px 0}
+input[type=range]{width:100%}
+h2{margin:6px 0;color:var(--g);font-weight:normal}h3{margin:2px 0;color:var(--g);font-weight:normal}h4{margin:12px 0 4px;color:var(--g);font-weight:normal;border-bottom:1px solid var(--line)}
+.sm{font-size:12px;opacity:.78}.row{display:flex;flex-wrap:wrap;gap:4px}
+#landing{position:fixed;inset:0;background:#000 url(assets/splash.webp) center/cover;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding-bottom:calc(env(safe-area-inset-bottom) + 40px);z-index:5}
+#app{display:none;flex-direction:column;height:100dvh;padding-top:env(safe-area-inset-top)}
+#top{display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:#000;border-bottom:1px solid var(--line);font-size:13px}
+#nav{display:flex;overflow-x:auto;background:#1a0b11;border-bottom:1px solid var(--line);white-space:nowrap}
+#nav button{border:0;border-radius:0;margin:0;background:transparent;color:var(--t);padding:11px 12px;opacity:.7}#nav button.on{opacity:1;color:var(--g);border-bottom:2px solid var(--g)}
+#main{flex:1;overflow:auto;padding:10px 10px calc(env(safe-area-inset-bottom) + 24px)}
+.panel{background:var(--p);border:1px solid var(--line);border-radius:10px;padding:10px;margin:8px 0}.panel.good{border-color:#4caf50}.panel.bad{border-color:var(--r)}
+.li{margin:4px 0}.card{display:flex;gap:8px;align-items:center;background:var(--p);border:1px solid var(--line);border-radius:10px;padding:9px;margin:5px 0}
+.card.lock{opacity:.45}.card.cur{border-color:var(--g)}.fl{flex:1}.big{font-size:26px}
+.bar{height:6px;background:#000;border-radius:3px;overflow:hidden;margin:3px 0}.bar i{display:block;height:100%;background:#4caf50}.bar.xp i{background:#6aa7e8}.bar.bond i{background:#e86a9a}.bar.e i{background:var(--r)}.bar.mpb i{background:#4a7fd8}
+.bar.hp i{background:#4caf50}.bar.mp i{background:#4a7fd8}.bar.atk i{background:#d86a4a}.bar.mag i{background:#a86ae8}.bar.def i{background:#c9a24a}.bar.spd i{background:#4ad8c9}
+.slots{display:flex;gap:6px;margin:6px 0}.slot{flex:1;border:1px dashed var(--line);border-radius:10px;padding:4px;text-align:center;font-size:12px;min-height:70px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.slot.on{border:1px solid var(--g)}.slot img{width:44px;height:44px;border-radius:50%;object-fit:cover}
+.rcs{display:grid;grid-template-columns:1fr 1fr;gap:6px}.rc{display:flex;gap:6px;align-items:center;background:var(--p);border:1px solid var(--line);border-radius:10px;padding:6px}.rc.sel{border-color:var(--g)}.rc.lock img{filter:grayscale(1) brightness(.4)}.rc img{width:44px;height:44px;border-radius:8px;object-fit:cover}.rc b{font-size:13px}
+.sh{display:flex;gap:10px}.sh img{width:96px;height:96px;border-radius:12px;object-fit:cover;border:2px solid var(--g)}
+.stg{display:grid;grid-template-columns:1fr 1fr;gap:2px 12px}.st{display:grid;grid-template-columns:34px 1fr 34px;gap:5px;align-items:center;font-size:12px}.st b{text-align:right}
+.sk{display:flex;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid #3a1c26}.sk.lk{opacity:.45}.si{font-size:22px;width:28px;text-align:center}.mp{font-size:11px;color:#8ab4ff}
+.tag{font-size:10px;font-style:normal;background:var(--g);color:#000;border-radius:6px;padding:1px 5px;margin-left:3px}.tag.b{background:#e86a9a}.tag.e{background:#8ae8c9}
+.ev{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 8px;margin:4px 0;border:1px solid var(--line);border-radius:8px}.ev.taken{border-color:#4caf50}.ev.ready{border-color:var(--g)}.ev.closed,.ev.locked{opacity:.55}
+img.pg{width:100%;display:block;border-radius:6px;margin:6px 0}
+/* battle */
+.foes,.allies{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:6px;margin:6px 0}
+.unit{background:var(--p);border:1px solid var(--line);border-radius:10px;padding:6px;text-align:center}.unit.dead{opacity:.3}.unit.tg{border-color:var(--g);box-shadow:0 0 8px var(--g);cursor:pointer}.unit.cur{border-color:#8ae8c9}
+.unit .ic{font-size:34px}.unit.ally{display:flex;gap:6px;text-align:left;align-items:center}.unit.ally img{width:42px;height:42px;border-radius:50%;object-fit:cover}.unit.ally>div{flex:1;min-width:0}
+.ch i{font-style:normal;font-size:11px;margin-right:3px}.ch i.up{color:#8ae8a0}.ch i.dn{color:#e88a8a}
+.log{background:#0008;border:1px solid var(--line);border-radius:8px;padding:6px;font-size:12px;min-height:90px}.lg.sys{color:var(--g)}.lg.good{color:#8ae8a0}.lg.bad{color:#e88a8a}.lg.foe{color:#f0b9a0}
+.acts{margin-top:6px}.skb{display:block;width:100%;text-align:left}.skb small{opacity:.7;float:right}
+#toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 20px);transform:translateX(-50%);background:#000d;border:1px solid var(--g);padding:8px 14px;border-radius:10px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:9}#toast.on{opacity:1}
+</style></head><body>
+<div id="landing"><div class="row"><button class="pri" onclick="enter(true)">New Journey</button><button id="contbtn" onclick="enter(false)">Continue</button></div></div>
+<div id="app">
+  <div id="top"><b style="color:var(--g)">TRIBUTE</b><span id="hch"></span><span id="hgold"></span><button style="padding:3px 9px" onclick="save();toast('Saved')">💾</button></div>
+  <div id="nav"></div><div id="main"></div>
+</div>
+<div id="toast"></div>
+<script src="scripts/characters.js"></script>
+<script src="scripts/core.js"></script>
+<script src="scripts/enemies.js"></script>
+<script src="scripts/battle.js"></script>
+<script src="scripts/journal.js"></script>
+<script src="scripts/ui.js"></script>
+</body></html>
