@@ -82,11 +82,11 @@ function rJournal(){
     return `<div class="card ${avail?'':'lock'} ${c.n===G.ch+1?'cur':''}" onclick="${avail?`openChapter(${c.n})`:''}"><div class="fl"><b>${c.n===0?'':c.n+'. '}${avail?c.title:'???'}</b><div class="sm">${done?'✔ Complete':avail?'Available':(c.n<=G.ch+1&&CH_LOC[c.n]?'📍 Travel to '+LOCATIONS[CH_LOC[c.n]].n:'Locked')}${CH_LOC[c.n]&&avail&&!done?' · 📍 '+LOCATIONS[CH_LOC[c.n]].n:''}${c.battle?' · ⚔️ battle':''}${joins.length?' · ★ '+joins.join(', ')+' joins':''}${c.art.length?'':' · art pending'}</div></div><span class="sm">XP ${c.sxp}</span></div>`; }).join('');
   return `<h2>Chapter Journal</h2><div class="sm">Chapters unlock in order. Each gives story XP; battle chapters also roll loot.</div>${rows}`;
 }
-function openChapter(n){ openCh=n; chMsgs=[]; render(); }
+function openChapter(n){ openCh=n; chMsgs=[]; render(); if(CHAPTERS[n].art.length && !G.read[n] && !chapterDone(n)) openStory(n); }
 function closeChapter(){ openCh=null; render(); }
 function rChapter(n){
   const c=CHAPTERS[n], done=chapterDone(n);
-  const pages = c.art.length ? c.art.map(a=>`<img class="pg" loading="lazy" src="assets/comics/${a}.webp" alt="">`).join('') : `<div class="panel sm">Artwork for this chapter hasn't been added yet (drop pages into assets/comics and list them in journal.js › ART).</div>`;
+  const pages = c.art.length ? `<div class="panel"><button class="pri" onclick="openStory(${n})">📖 ${G.read[n]?'Read again':'Read story'} (${c.art.length} page${c.art.length>1?'s':''})</button><details><summary class="sm">Show pages inline</summary>${c.art.map(a=>`<img class="pg" loading="lazy" src="assets/comics/${a}.webp" alt="">`).join('')}</details></div>` : `<div class="panel sm">Artwork for this chapter hasn't been added yet (drop pages into assets/comics and list them in journal.js › ART).</div>`;
   let foot='';
   if(c.battle){
     const foes=c.battle.map(f=>{const e=ENEMIES[f.key];return `${e.icon} ${e.n}`;}).join(' · ');
@@ -106,7 +106,7 @@ function rDesign(n){
    <details><summary class="sm">Key events · purpose · unlocks</summary>${d.events.length?'<h4>Key Events</h4>'+li(d.events):''}<h4>Gameplay Purpose</h4>${li(d.purpose)}<h4>Unlocks</h4>${li(d.unlocks.map(x=>'✅ '+x))}
    ${d.introduced?`<h4>Characters Introduced</h4>${li(d.introduced)}`:''}${d.reward?`<h4>Reward</h4>${li([d.reward])}`:''}<div class="sm" style="margin-top:6px">Playable: ${chars}</div></details></div>`;
 }
-function finishChapter(n){ chMsgs = completeChapter(n); render(); }
+function finishChapter(n){ storyResult(n, completeChapter(n)); }
 function chapterFight(n){ origin='journal'; startBattle(battleSpecFor(n)); tab='battle'; render(); }
 
 /* ---------------- TRAINING ---------------- */

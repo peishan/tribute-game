@@ -75,3 +75,8 @@ DEV NOTE (spoiler, not shown in-game): Roc (Chad, born Chadstone) and Devon Chad
 --- v4.3: SAVE DATA (as in Crimson Tide) ---
 scripts/savedata.js + "💾 Save" tab: Save Game (local, also autosaves), Export / Import JSON, New Game, GitHub Gist backup (token with gist scope only, Gist ID, push / pull).
 Landing screen has "Import Save File". Gist token is stored in localStorage (tribute_gist_creds) on this device only. Midnight auto-backup from Crimson Tide not ported.
+
+--- v4.4: STORY POPUPS ---
+scripts/storypopup.js: full-screen story reader (Crimson Tide "Story Mode" style) over the comic pages. Opens automatically the first time a chapter is opened (G.read[n]);
+"Read story" button in the chapter view re-opens it. End screen -> Begin battle / Complete chapter; a "Chapter complete" popup lists rewards and the chapter's unlocks.
+Controls: Back/Next buttons, arrow keys / space, swipe, Esc to close.
