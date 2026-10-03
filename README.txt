@@ -113,3 +113,8 @@ Design entries for ch4-12 read from c4a/c4b, c5-c12. Chad and Sky now join at ch
 ch12 must be started there (CH_LOC). New Greyson mission m_faepool (ch10). Codex: The Fifteen Territories, Jade's Engagement, Xima the Witch Concubine, The Prophecy, Levi Stanson.
 Mysteries noted from the pages: ch8 bath-chamber rescue vs Chad's denial in ch11; "three months ago" history; Sky's jade pendant and Yvette Sue; Levi's scar/tattoo (ch12).
 No chapter in 4-12 has a fight on its pages, so no new battles were added.
+
+--- v5.3: CHAPTERS 13-20 (from comic pages) ---
+Design entries 13-20. Ch13: Chad solo fight vs inn hands. Boat travel opens at ch15 (blue boat from Greyson); Vigil Village ch15->, forest ch18->, Frog Mahan swamp ch20->; CH_LOC for 12,16-19.
+Notes: Greyson's pigeon reports Stanson dead (ch14); Chad says he's from Lingering Vale (ch15); Sally first seen ch16; ransom note spells "Booyeon" (ch18); the witch is "Ximan" on the ch20 page (Xima elsewhere) — spelling to confirm.
+Mature scenes (ch14, 17) summarised neutrally.

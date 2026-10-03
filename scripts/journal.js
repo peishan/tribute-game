@@ -16,9 +16,10 @@ for(let i=18;i<=30;i++) ART[i]=['ch'+i];   // converted from the uploaded PNGs
 const BATTLES = {
   // Only fights confirmed by canon chapter text so far (placeholder foes/stats). Ch2 has NO fight (the spar is only set up); ch3 duel is confirmed by its pages. Others are added as chapters are converted.
   3:[{key:'chad_trial'}],                                  // Three Blows: Jade vs Chad duel (canon pages: Chad wins twice)
+  13:[{key:'inn_thug'},{key:'inn_thug'},{key:'inn_thug'}],   // Uninvited Encounter: Chad fights off the inn's employees
 };
 const DUEL = { 3:true };   // story duels: losing still completes the chapter (the story has Chad win)
-const SOLO = { 3:['jade'] };   // who fights (Sky is captive in ch5)
+const SOLO = { 3:['jade'], 13:['chad'] };   // who fights (Sky is captive in ch5)
 const CHAPTERS = [];
 for(let i=0;i<=31;i++){
   CHAPTERS.push({ n:i, title: TITLES[i] || ('Chapter '+i+' (?)'), art: ART[i]||[],
