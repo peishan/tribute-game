@@ -1,0 +1,130 @@
+/* =====================================================================
+   TRIBUTE — CORE: state, save, progression (levels, bond, evolution)
+   ===================================================================== */
+const CFG = { SAVE_KEY:'tribute_rpg_v3', LEVEL_CAP:100, START_LEVEL:1 };
+
+// WHO JOINS WHEN (chapter number at which the hero is recruited). PROVISIONAL — correct these.
+const JOIN_CH = { jade:0, chad:3, sky:3, sally:11, levi:20, devon:26 };
+// Story flags set when a chapter is completed (e.g. Levi's crossbow goes to Jade in ch30).
+const CH_FLAGS = { 30:['crossbow'] };
+
+let G = null;
+const $ = id => document.getElementById(id);
+const AR = a => a[Math.floor(Math.random()*a.length)];
+const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
+
+function newState(){
+  const s = { v:3, ch:-1, flags:{}, units:{}, party:[], inv:{}, bestiary:{}, gold:50, read:{} };
+  ROSTER.forEach(id => s.units[id] = { lv:CFG.START_LEVEL, xp:0, bp:0, evo:[] });
+  s.party = ['jade']; s.active = ['jade'];
+  return s;
+}
+function save(){ try{ localStorage.setItem(CFG.SAVE_KEY, JSON.stringify(G)); }catch(e){} }
+function load(){
+  try{
+    const d = JSON.parse(localStorage.getItem(CFG.SAVE_KEY));
+    if(!d) return false;
+    G = Object.assign(newState(), d); G.active = (G.active||['jade']).filter(id=>G.party.includes(id));
+    ROSTER.forEach(id => G.units[id] = G.units[id] || { lv:1, xp:0, bp:0, evo:[] });
+    return true;
+  }catch(e){ return false; }
+}
+const U = id => G.units[id];
+const isRecruited = id => G.party.includes(id);
+
+/* ---------- levels & stats ---------- */
+const xpToNext = lv => Math.round(40 + lv*22 + lv*lv*1.2);
+
+function gearBonus(id){ return {hp:0,mp:0,atk:0,mag:0,def:0,spd:0}; }   // hook for the Equipment system
+
+function evoMult(id, stat){
+  const tiers = CHARACTERS[id].evo.tiers;
+  return U(id).evo.reduce((m,eid) => { const t = tiers.find(x=>x.id===eid); return m * ((t && t.mult && t.mult[stat]) || 1); }, 1);
+}
+function statsOf(id){
+  const c = CHARACTERS[id], lv = U(id).lv, gb = gearBonus(id), out = {};
+  STATS.forEach(s => { out[s] = Math.round((c.base[s] + c.grow[s]*(lv-1)) * evoMult(id,s)) + (gb[s]||0); });
+  return out;
+}
+
+/* ---------- skills ---------- */
+function reqText(r){
+  if(!r) return '';
+  if(r.lvl) return 'Level '+r.lvl;
+  if(r.bond) return 'Bond '+r.bond+' with Jade';
+  if(r.flag) return 'Story: '+r.flag;
+  return '';
+}
+function reqMet(id, r){
+  if(!r) return true;
+  if(r.lvl && U(id).lv < r.lvl) return false;
+  if(r.bond && bondLevel(id) < r.bond) return false;
+  if(r.flag && !G.flags[r.flag]) return false;
+  return true;
+}
+function skillsOf(id){
+  const c = CHARACTERS[id], out = [];
+  c.skills.forEach(s => out.push(Object.assign({}, s, { ok:reqMet(id,s.req), why:reqText(s.req) })));
+  if(c.bond) out.push(Object.assign({}, c.bond, { bondSkill:true, ok:reqMet(id,c.bond.req), why:reqText(c.bond.req) }));
+  c.evo.tiers.forEach(t => (t.skills||[]).forEach(s => out.push(Object.assign({}, s, { evoSkill:true, ok:U(id).evo.includes(t.id), why:'Evolve: '+t.n }))));
+  return out;
+}
+
+/* ---------- bond (with Jade) ---------- */
+function bondLevel(id){
+  if(id==='jade') return 0;
+  const bp = U(id).bp; let l = 0;
+  BOND_LEVELS.forEach((need,i) => { if(bp >= need) l = i; });
+  return l;
+}
+function addBond(id, pts){
+  if(id==='jade' || !isRecruited(id)) return null;
+  const before = bondLevel(id); U(id).bp += pts;
+  return bondLevel(id) > before ? CHARACTERS[id].n+' reached Bond '+bondLevel(id)+'!' : null;
+}
+
+/* ---------- XP ---------- */
+function gainXp(amount, ids){
+  const msgs = [];
+  (ids || G.party).forEach(id => {
+    const u = U(id);
+    if(u.lv >= CFG.LEVEL_CAP) return;
+    u.xp += amount;
+    while(u.lv < CFG.LEVEL_CAP && u.xp >= xpToNext(u.lv)){
+      u.xp -= xpToNext(u.lv); u.lv++;
+      msgs.push(CHARACTERS[id].n+' reached Lv'+u.lv+'!');
+      skillsOf(id).filter(s => !s.evoSkill && s.req && s.req.lvl === u.lv).forEach(s => msgs.push('  ✦ New skill: '+s.n));
+    }
+  });
+  return msgs;
+}
+
+/* ---------- evolution ---------- */
+function evoState(id){
+  const c = CHARACTERS[id], u = U(id);
+  return c.evo.tiers.map(t => {
+    let st = 'locked', why = 'Level '+t.req.lvl;
+    if(u.evo.includes(t.id)) st = 'taken';
+    else {
+      const needOk = !t.requiresAny || t.requiresAny.some(x => u.evo.includes(x));
+      const lvlOk = u.lv >= t.req.lvl;
+      const rival = t.tier===1 && (t.group==='path'||t.group==='route') && c.evo.tiers.some(o => o.id!==t.id && o.tier===1 && o.group===t.group && u.evo.includes(o.id));
+      if(rival){ st='closed'; why='Another path was chosen'; }
+      else if(!needOk){ why = 'Requires: '+t.requiresAny.map(x=>c.evo.tiers.find(o=>o.id===x).n).join(' or '); }
+      else if(!lvlOk){ why = 'Level '+t.req.lvl; }
+      else { st = 'ready'; why = ''; }
+    }
+    return Object.assign({}, t, { st, why });
+  });
+}
+function evolve(id, eid){
+  const e = evoState(id).find(x => x.id===eid);
+  if(!e || e.st!=='ready') return false;
+  U(id).evo.push(eid); save(); return true;
+}
+
+/* ---------- recruiting / story ---------- */
+const ACTIVE_SLOTS = 4;
+function recruit(id){ if(!G.party.includes(id)){ G.party.push(id); if(G.active.length<ACTIVE_SLOTS) G.active.push(id); return true; } return false; }
+function toggleActive(id){ if(id==='jade') return; const i=G.active.indexOf(id); if(i>=0) G.active.splice(i,1); else if(G.active.length<ACTIVE_SLOTS) G.active.push(id); save(); }
+function recruitsAtChapter(ch){ return Object.keys(JOIN_CH).filter(id => JOIN_CH[id] === ch); }
