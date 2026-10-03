@@ -1,9 +1,8 @@
 /* =====================================================================
    TRIBUTE — CHAPTER DESIGN ENTRIES (game skeleton), from CANON story data (v6)
    Fields: title, loc, chars (playable), sum, events, purpose (gameplay purpose), unlocks.
-   Only chapters converted from the actual story text appear here (Prologue-5 so far).
-   CANON_TITLES lists the titles of the rest of the current story file (6-14);
-   their summaries are NOT written yet. Chapters 15+ have no canon text yet.
+   Only chapters converted from the actual comic pages appear here (Prologue-3 so far); the next ones are converted one at a time.
+   COMIC_TITLES has every chapter's title (4-30) from the title cards; their summaries are NOT written yet.
    Mechanical parts live elsewhere: world.js (locations/routes/CH_LOC/missions),
    core.js (JOIN_CH, GUEST_CH), journal.js (battles).
    ===================================================================== */
@@ -42,23 +41,15 @@ const CHAPTER_DESIGN = {
   chars:['jade','chad'], charsNote:'Chad (narrator) and Jade Gold · Sky is only mentioned',
   introduced:[],
   sum:'At the lively Training Grounds, Chad watches Jade take her stance with no hesitation and no recognition in her eyes, and wonders whether she truly has no memory of the past. He and Jade have met twice before: first at a crowded market, where they argued over the last chicken, and then over a job she wanted and he took, when she told him "I hate you to the core of my heart". Now she looks at him like a stranger, and he decides it may be a blessing: this time he might get on her good side before she has another reason to hate him. Jade shouts "Make your move now!" and is beaten in seconds. "That didn\'t count! Let\'s have another go!" In the rematch she vows not to hold back, but Chad moves too fast for her to follow and locks her acupoints. He tells her she only needs to acknowledge him as her hired mercenary and promises that his partner and he will protect her during her mission. She agrees ("You have my word") and he releases her. Back at the office Jade prepares a special pass that lets Chad and Sky Yale enter the restricted area of the city, tells Chad to perform up to standards, and orders them back in three days to be briefed; the Imperial Guards have no tolerance for lateness and will revoke the passes. When Chad flirts, she slaps him. "I\'ll be early," he says, and leaps over the wall, thinking this was only the beginning between them.',
-  art:'Pages show: Jade is drawn with a sword at first and then a whip (the author\'s intent is whip and bow; the comic later gives her a dagger and flail); Chad wins both bouts (the first in seconds), the second by locking her acupoints, so it is not literally three blows. Jade has not met Sky yet ("your friend too, whatever his name is"). The pages title this chapter "Three Blows"; your story file lists it as "Swords and Palpitations".',
+  art:'Pages show: Jade is drawn with a sword at first and then a whip (the author\'s intent is whip and bow; the comic later gives her a dagger and flail); Chad wins both bouts (the first in seconds), the second by locking her acupoints, so it is not literally three blows. Jade has not met Sky yet ("your friend too, whatever his name is").',
   quote:'"Miss Gold, you just need to acknowledge me as your hired mercenary." — Chad',
   events:['Jade and Chad\'s duel at the Training Grounds (Chad wins in seconds)','Jade demands a rematch; Chad locks her acupoints','Jade acknowledges Chad as her hired mercenary','Chad\'s memories of their two earlier meetings (the chicken, the job)','Jade prepares a special pass for Chad and Sky Yale (restricted area of the city)','Briefing set for three days later; punctuality warning','Chad flirts, is slapped, and leaps over the wall'],
   purpose:['First fight: a story duel, Jade vs Chad. Defeat does not block progress, since Chad wins in the story','Establish the Jade and Chad dynamic: hidden history, her apparent amnesia, his flirting','Chad is hired; set up the briefing with Chad and Sky'],
   unlocks:['Combat: first duel','Chad hired as Jade\'s mercenary','Restricted-area pass (Chad and Sky)'],
   reward:'Chad hired; special pass issued'},
- 4:{ title:'The Village and the Courtesan', loc:'🏘 First Village',
-  chars:['jade','chad','sky','sally'],
-  sum:'The party reaches their first village during their mission. There, Sally encounters Chad and notices the kindness beneath his arrogant personality. Unlike the others, Sally sees a different side of him and decides to join the journey. Her arrival introduces a new personality and changes the party dynamic.',
-  events:['Party reaches village','Sally is introduced','Sally joins the journey temporarily'],
-  purpose:['Introduce Sally','Expand party interactions'],
-  unlocks:['Sally guest character']},
- 5:{ title:'The Ransom Trap', loc:'⛰ Cliff Area',
-  chars:['jade','chad','sky'],
-  sum:'The journey takes a dangerous turn when Sky is kidnapped. A ransom demand leads Jade and Chad into a trap set by Booyeong. Jade must enter enemy territory to rescue Sky. The mission becomes a personal battle rather than a simple assignment.',
-  events:['Sky is captured','Booyeong demands ransom','Jade confronts the enemy','Rescue mission begins'],
-  purpose:['First major story battle','Introduce rescue missions','Raise stakes'],
-  unlocks:['Boss encounter system','Story combat event']},
 };
-const CANON_TITLES = { 6:'The Cave', 7:'Back for Blood', 8:'The Betrothed', 9:'The Potion Plot', 10:'The Demon Siege', 11:'The Portal', 12:'Poisoned', 13:'The Palace of Princes', 14:'The Boat Trip' };
+// Chapter titles read from the title cards of the comic pages (the comic is canon). 0-3 titles also come from CHAPTER_DESIGN.
+const COMIC_TITLES = { 4:'A Secret Mission', 5:'Unanswered Ties', 6:'Moonlit Confessions', 7:'Restless Desire', 8:'Unwanted Truths', 9:'Whispers and Jealousy', 10:'The Prophecy',
+  11:'Dreams and Doubts', 12:'Shadows at the Inn', 13:'Uninvited Encounter', 14:'Unwanted Choices', 15:'The Storm Within', 16:'The First Village', 17:'A Choice Beneath the Lanterns',
+  18:'The Price of Trust', 19:'Into the Woods', 20:'The Witch\'s Bargain', 21:'At the Bandit\'s Mercy', 22:'Between Love and Loyalty', 23:'The Heart\'s Choice', 24:'The Choice He Could Not Make',
+  25:'The Truth Behind the Mask', 26:'Return to Faepool', 27:'The Bane of Two Souls', 28:'The Woman Behind the Smile', 29:'Shadows Between Hearts', 30:'The Creek of Promises' };

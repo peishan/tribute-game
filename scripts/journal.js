@@ -6,7 +6,7 @@
    ===================================================================== */
 // Titles 0-30 come from the chapter design doc (chapters.js). 31+ are placeholders until the next batch.
 const TITLES = [];
-Object.keys(CANON_TITLES).forEach(i => TITLES[i] = CANON_TITLES[i]);
+Object.keys(COMIC_TITLES).forEach(i => TITLES[i] = COMIC_TITLES[i]);
 Object.keys(CHAPTER_DESIGN).forEach(i => TITLES[i] = CHAPTER_DESIGN[i].title);
 const ART = {0:['pr1','pr2','pr3'],1:['c1_intro','c1a','c1b'],2:['c2a','c2b'],3:['c3a','c3b','c3c'],4:['c4a','c4b']};
 for(let i=5;i<=17;i++) ART[i]=['c'+i];
@@ -14,12 +14,11 @@ for(let i=18;i<=30;i++) ART[i]=['ch'+i];   // converted from the uploaded PNGs
 
 // Chapter battles (PLACEHOLDER encounters — replace with the real fights).
 const BATTLES = {
-  // Only fights confirmed by canon chapter text so far (placeholder foes/stats). Ch2 has NO fight (the spar is only set up); ch3/ch5 are from the earlier outline and will be re-checked against their pages.
+  // Only fights confirmed by canon chapter text so far (placeholder foes/stats). Ch2 has NO fight (the spar is only set up); ch3 duel is confirmed by its pages. Others are added as chapters are converted.
   3:[{key:'chad_trial'}],                                  // Three Blows: Jade vs Chad duel (canon pages: Chad wins twice)
-  5:[{key:'booyeong_guard'},{key:'boss_booyeong'},{key:'booyeong_guard'}],   // The Ransom Trap: rescue Sky
 };
 const DUEL = { 3:true };   // story duels: losing still completes the chapter (the story has Chad win)
-const SOLO = { 3:['jade'], 5:['jade','chad'] };   // who fights (Sky is captive in ch5)
+const SOLO = { 3:['jade'] };   // who fights (Sky is captive in ch5)
 const CHAPTERS = [];
 for(let i=0;i<=31;i++){
   CHAPTERS.push({ n:i, title: TITLES[i] || ('Chapter '+i+' (?)'), art: ART[i]||[],

@@ -4,10 +4,10 @@
 const CFG = { SAVE_KEY:'tribute_rpg_v3', LEVEL_CAP:100, START_LEVEL:1 };
 
 // WHO JOINS WHEN (chapter number at which the hero is recruited). PROVISIONAL — correct these.
-// Permanent joins. Chad+Sky ch3 = canon ("permanent recruitment"). Sally 28 / Levi 30 are from the earlier (non-canon) outline: UNVERIFIED. Devon open.
+// Permanent joins. Chad ch3 is confirmed by the pages (Sky provisional). Sally 28 and Levi 30 match the comic's chapter titles. Devon open.
 const JOIN_CH = { jade:0, chad:3, sky:3, sally:28, levi:30 };
-// Guest (temporary) party members: Sally joins at ch4 (canon). When she leaves is not known yet.
-const GUEST_CH = { sally:4 };
+// Guest (temporary) party members. (None yet: the ch4 "Sally guest" came from the discarded story-file list. Per the comic Sally appears in ch28.)
+const GUEST_CH = {};
 // Chapter at which a hero's profile becomes visible even before they join ("Chad profile / Sky profile" unlock in ch1).
 const INTRO_CH = { chad:1, sky:1 };
 const profileKnown = id => isRecruited(id) || (INTRO_CH[id]!==undefined && G.ch >= INTRO_CH[id]);

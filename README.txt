@@ -94,3 +94,12 @@ Jade fights with a sword at first, then a whip. Story duel: losing still complet
 Per the author: Jade was written with a whip and bow (the comic art drifts to a sword); Greyson later gives her a dagger and flail (chapter TBD, flag greyson_arms, skills Hidden Dagger / Flail Sweep locked until then);
 Levi's Enchanted Crossbow comes at ch30. characters.js: weapon text, Lunar Lash, Piercing Arrow; skill tree branch "Whip & Bow".
 Evolution names (Sword Saint, Oracle Guardian, Destiny Awakening) are still from the class doc: rename "Sword Saint" if desired.
+
+--- v5.0: THE COMIC IS CANON ---
+The story-file chapter list (e.g. "Strangers on the Isle", "Swords and Palpitations", "The Ransom Trap", Sally guest ch4, Booyeong at ch5) is DISCARDED.
+Titles 4-30 now come from the comic title cards (COMIC_TITLES in chapters.js): 4 A Secret Mission, 5 Unanswered Ties, 6 Moonlit Confessions, 7 Restless Desire, 8 Unwanted Truths,
+9 Whispers and Jealousy, 10 The Prophecy, 11 Dreams and Doubts, 12 Shadows at the Inn, 13 Uninvited Encounter, 14 Unwanted Choices, 15 The Storm Within, 16 The First Village,
+17 A Choice Beneath the Lanterns, 18 The Price of Trust, 19 Into the Woods, 20 The Witch's Bargain, 21 At the Bandit's Mercy, 22 Between Love and Loyalty, 23 The Heart's Choice,
+24 The Choice He Could Not Make, 25 The Truth Behind the Mask, 26 Return to Faepool, 27 The Bane of Two Souls, 28 The Woman Behind the Smile, 29 Shadows Between Hearts, 30 The Creek of Promises.
+Removed (list-derived): ch4/ch5 design entries, Sally guest, Cliff Area, ch5 Booyeong fight, Vigil-at-ch3, CH_LOC. Design entries exist only for Prologue-3 (read from the pages).
+Provisional placement from title cards: Dark Inn unlocks after ch11 (ch12 Shadows at the Inn), boat travel + Vigil Village after ch15 (ch16 The First Village).

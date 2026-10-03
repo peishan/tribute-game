@@ -38,11 +38,11 @@ const LOCATIONS = {
       {id:'tavern', kind:'tavern', n:'Harbour Tavern', icon:'🍶', desc:'Sailors\' talk and hot food.'},
       {id:'board', kind:'board', n:'Harbour Board', icon:'📜', ch:5, desc:'Contracts and bounties.'},
       {id:'docks', kind:'hunt', n:'The Docks', icon:'🧤', desc:'Pickpockets, thugs and smugglers work the quays.', pool:['dock_pickpocket','dock_thug','smuggler'], lo:1}]},
-  vigil_village:{ n:'Vigil Village', region:'faepool', kind:'town', icon:'🏘', unlock:{ch:3},   // = the canon "First Village" (ch4)
+  vigil_village:{ n:'Vigil Village', region:'faepool', kind:'town', icon:'🏘', unlock:{ch:15},   // ch16 "The First Village" (comic title card; sea voyage in ch15-16)
     desc:'The first village: centre, inn, market, riverside and the surrounding forest. Investigation point and festival.',
     spots:[
       {id:'tavern', kind:'tavern', n:'Local Inn', icon:'🍶', desc:'Warm beds and louder rumours.'},
-      {id:'board', kind:'board', n:'Regional Quest Board', icon:'📜', ch:4, desc:'Villagers need help.'},
+      {id:'board', kind:'board', n:'Regional Quest Board', icon:'📜', ch:16, desc:'Villagers need help.'},
       {id:'shrine', kind:'meditate', n:'Vigil Shrine', icon:'⛩️', ch:99, desc:'Meditation and ancient teachings to strengthen Jade\'s clairvoyance.'},
       {id:'riverside', kind:'gather', n:'Riverside', icon:'🎣', desc:'Fish along the river.', loot:[{id:'river_fish',qty:[1,3]}], ambush:['forest_wolf'], lo:3},
       {id:'outskirts', kind:'hunt', n:'Surrounding Forest', icon:'🐺', desc:'Wolves and bandits near the village.', pool:['road_bandit','bandit_archer','forest_wolf'], lo:3}]},
@@ -65,7 +65,7 @@ const LOCATIONS = {
        rw:{xp:260, gold:100, items:[{id:'xima_shard',qty:1}]}},
       {id:'ruin_path', kind:'hunt', n:'Ancient Forest Path', icon:'🌲', desc:'Corrupted creatures guard the old path.', pool:['forest_wolf','thorn_boar','xima_sprite'], elite:'corrupted_stag', lo:6},
       {id:'caves', kind:'gather', n:'Hidden Caves', icon:'🕳️', desc:'Search the caves for relics.', loot:[{id:'relic_dust',qty:[1,2]}], bonus:{id:'xima_shard',chance:.2}, ambush:['xima_sprite','shade_wraith'], lo:8}]},
-  dark_inn:{ n:'Dark Inn', region:'faepool', kind:'story', icon:'🌫', unlock:{ch:13},
+  dark_inn:{ n:'Dark Inn', region:'faepool', kind:'story', icon:'🌫', unlock:{ch:11},   // ch12 "Shadows at the Inn" (comic title card)
     desc:'Story location. A mystery and Xima\'s influence. Chad / Jade turning point.',
     spots:[
       {id:'inn_clues', kind:'investigate', n:'Investigate the Inn', icon:'🕯️', need:3, ambush:['masked_assassin','shade_wraith'], lo:8,
@@ -77,9 +77,6 @@ const LOCATIONS = {
     spots:[
       {id:'open_water', kind:'hunt', n:'Open Water', icon:'🏴‍☠️', desc:'Raiders and storm wisps.', pool:['sea_raider','storm_wisp'], elite:'river_serpent', lo:10},
       {id:'fishing', kind:'gather', n:'Fishing', icon:'🎣', desc:'Cast a line.', loot:[{id:'river_fish',qty:[1,3]}], bonus:{id:'sea_pearl',chance:.15}, ambush:['storm_wisp'], lo:10}]},
-  cliff_area:{ n:'Cliff Area', region:'faepool', kind:'story', icon:'⛰', unlock:{ch:4},
-    desc:'Where Booyeong sprang his ransom trap. Enemy territory.',
-    spots:[{id:'cliff_hunt', kind:'hunt', n:'The Cliffs', icon:'🗡️', desc:'Booyeong\'s men and wild bandits.', pool:['booyeong_guard','road_bandit','bandit_archer'], lo:3}]},
   trial_grounds:{ n:'Ancient Trial Grounds', region:'faepool', kind:'story', icon:'⚔️', unlock:{ch:22},
     desc:'An old arena that tests a party\'s teamwork. Combination attacks matter here.',
     spots:[{id:'trial', kind:'hunt', n:'The Trials', icon:'🗿', desc:'Guardians of the old trial.', pool:['stone_sentinel','relic_spirit'], lo:12}]},
@@ -130,9 +127,9 @@ function spotLock(sp){
 
 // Some story chapters must be started on location (PROVISIONAL). {chapter: locationId}
 // Chapters whose story must be started on location. Tune freely: {chapter: locationId}
-const CH_LOC = { 4:'vigil_village', 5:'cliff_area' };   // canon: ch4 First Village, ch5 Cliff Area. (Others parked until canon text exists.)
-// Boat travel unlocks with chapter 13 ("Travel System Expansion"). Set BRACELET_FROM_START=true if the Imperial Bracelet should exist from the Prologue.
-const SHIP_CH = 13, BRACELET_FROM_START = false;
+const CH_LOC = {};   // chapters that must start on location: filled in as each chapter is converted from its pages
+// Boat travel unlocks with chapter 15 (the sea voyage before ch16). Set BRACELET_FROM_START=true if the Imperial Bracelet should exist from the Prologue.
+const SHIP_CH = 15, BRACELET_FROM_START = false;
 const modeOpen = m => m!=='ship' || G.ch >= SHIP_CH;
 
 /* ---------------- ROUTES ---------------- */
@@ -143,8 +140,6 @@ const ROUTES = [
   {a:'capital', b:'tribute_wilderness', mode:'carriage', n:'Imperial Road', days:1, fare:6, risk:.3, pool:['road_bandit','bandit_archer','forest_wolf']},
   {a:'tribute_wilderness', b:'faepool_harbour', mode:'carriage', n:'Border Road', days:1, fare:8, risk:.35, pool:['road_bandit','bandit_archer','dock_pickpocket']},
   {a:'capital', b:'faepool_harbour', mode:'ship', n:'Imperial Coast Passage', days:1, fare:20, risk:.2, pool:['sea_raider','smuggler']},
-  {a:'tribute_wilderness', b:'vigil_village', mode:'carriage', n:'Village Road', days:2, fare:12, risk:.4, pool:['road_bandit','bandit_archer','forest_wolf']},
-  {a:'vigil_village', b:'cliff_area', mode:'carriage', n:'Cliff Path', days:1, fare:10, risk:.45, pool:['booyeong_guard','road_bandit','bandit_archer']},
   {a:'faepool_harbour', b:'vigil_village', mode:'carriage', n:'Harbour Road', days:1, fare:10, risk:.4, pool:LAND_POOL},
   {a:'vigil_village', b:'faepool_forest', mode:'carriage', n:'Forest Track', days:1, fare:12, risk:.5, pool:['forest_wolf','thorn_boar','xima_sprite']},
   {a:'faepool_forest', b:'frog_mahan', mode:'carriage', n:'Reed Causeway', days:1, fare:10, risk:.5, pool:['bog_toad','mire_leech','forest_wolf']},
@@ -207,13 +202,9 @@ function advanceDay(n){
 // obj types: reach {loc} | kill {keys|area, need} | boss {key} | investigate {spot} | read
 // PROVISIONAL: texts, rewards and chapter gating. Chapters listed = story chapters completed first.
 const MISSIONS = [
-  // ---- canon (Prologue-5) ----
+  // ---- from the comic pages ----
   {id:'m_summons', needCh:0, title:'The Protector of Tribute', obj:{type:'read'}, rw:{xp:60, gold:40},
    subj:'The fifteen evils', body:'Jade — the title I gave you in court is one the world can see. The duty is one only you can fulfil: find the fifteen evils Xima unleashed and end their torment. I will send word of what I learn. — Greyson'},
-  {id:'m_village', needCh:3, title:'The First Village', obj:{type:'reach', loc:'vigil_village'}, rw:{xp:150, gold:80},
-   subj:'Your first mission', body:'With your hired mercenaries ready, travel to the first village on the mission route. Take the horse carriage. — Greyson'},
-  {id:'m_cliff', needCh:4, title:'The Cliff Ransom', obj:{type:'reach', loc:'cliff_area'}, rw:{xp:200, gold:100},
-   subj:'A ransom demand', body:'Word has reached me of a ransom demand. Go to the cliffs. — Greyson'},
   // ---- DRAFT, NOT CANON (parked at ch99 until the real chapter text is converted) ----
   {id:'m_wild', needCh:99, title:'Beyond the Walls', obj:{type:'reach', loc:'tribute_wilderness'}, rw:{xp:120, gold:60},
    subj:'Your first mission outside the city', body:'The time has come to leave the capital. Take your companions out along the Imperial Road and see what the wilderness hides. Use the horse carriage; the roads are not always quiet. — Greyson'},
