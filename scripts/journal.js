@@ -10,7 +10,7 @@ Object.keys(COMIC_TITLES).forEach(i => TITLES[i] = COMIC_TITLES[i]);
 Object.keys(CHAPTER_DESIGN).forEach(i => TITLES[i] = CHAPTER_DESIGN[i].title);
 const ART = {0:['pr1','pr2','pr3'],1:['c1_intro','c1a','c1b'],2:['c2a','c2b'],3:['c3a','c3b','c3c'],4:['c4a','c4b']};
 for(let i=5;i<=17;i++) ART[i]=['c'+i];
-for(let i=18;i<=37;i++) if(i!==34) ART[i]=['ch'+i];   // 34 not uploaded yet   // converted from the uploaded PNGs
+for(let i=18;i<=37;i++) ART[i]=['ch'+i];   // converted from the uploaded PNGs
 
 // Chapter battles (PLACEHOLDER encounters — replace with the real fights).
 const BATTLES = {

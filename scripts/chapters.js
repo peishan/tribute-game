@@ -1,7 +1,7 @@
 /* =====================================================================
    TRIBUTE — CHAPTER DESIGN ENTRIES (game skeleton), from CANON story data (v6)
    Fields: title, loc, chars (playable), sum, events, purpose (gameplay purpose), unlocks.
-   Only chapters converted from the actual comic pages appear here (Prologue-33, 35-37; 34 pending); 31+ pending.
+   Only chapters converted from the actual comic pages appear here (Prologue-37); 31+ pending.
    COMIC_TITLES has every chapter's title (4-30) from the title cards; their summaries are NOT written yet.
    Mechanical parts live elsewhere: world.js (locations/routes/CH_LOC/missions),
    core.js (JOIN_CH, GUEST_CH), journal.js (battles).
@@ -347,6 +347,16 @@ const CHAPTER_DESIGN = {
   purpose:['A week of downtime: rest, learn the village, gather information (suggested)','Relationship milestone: Jade commits to Levi'],
   unlocks:['Rest mechanic (suggested)','Bonds changed'],
   reward:'Jade chooses duty'},
+ 34:{ title:'A Week of Silence', type:'Story Chapter — a week in the village', loc:'🏘 Village near Vigil',
+  chars:['jade','chad','sky','levi'], charsNote:'Jade, Chad, Sky, Levi and Sally',
+  introduced:['Haren (village local)'],
+  sum:'A week has passed since they arrived near Vigil. The village is peaceful, almost too peaceful. For the first time in many days the group is not travelling: Greyson\'s orders are to lay low and become part of the village, living quietly among the people and avoiding attention. Sky adapts fastest, treating villagers and earning their trust; the blue-haired healer quickly becomes beloved, and Jade smiles seeing him in his element ("He brings light wherever he goes..."). Levi surprises everyone by fitting in, helping quietly and teaching the young how to use a bow; Jade notices he is not someone who belonged in darkness but someone forced to survive there. Sky notices Jade watching Levi ("You don\'t need to feel guilty for being happy, Jade."). Chad, still hurt, draws closer to Sally, who proves smart and capable, gathering information from villagers and merchants; Chad finds in her a welcome distraction. One evening the group gathers at a village house with Haren, a local who has long lived there. He shares the truth about the northern forest: it has been abandoned for years; people who enter it disappear, and those who go to investigate never return. Jade becomes alert: this is more than rumours. Sky\'s bright expression darkens; Levi listens carefully: "Something is out there." Later Jade stands outside looking over the village. It appears peaceful but something feels unsettling: empty houses, paths that are avoided, a hidden fear in the villagers\' eyes. Levi joins her: "You feel it too, don\'t you?" "Yes. Something is wrong." A cold wind passes and Jade feels a faint pulse in her chest, as if something in the forest recognised her: "...It knows I\'m here." Levi: "Whatever is in the forest... knows you are here, Jade." Progression banners: Jade + Levi Bond +1, Sky + Levi Bond +1, Chad + Sally Bond +1, Jade + Chad distance increases.',
+  art:'Pages show: the village is only a cover, since Greyson ordered them to blend in. The northern forest has been abandoned for years and people who enter it vanish. Jade\'s chest pulses in answer to the forest.',
+  quote:'"Whatever is in the forest... knows you are here, Jade." — Levi Stanson',
+  events:['The party settles into village life','Sky becomes a beloved healer; Levi teaches the village youth archery','Chad grows closer to Sally','Haren tells of the abandoned northern forest where people vanish','Jade and Levi feel something wrong and sense the forest recognising her','Bonds: Jade + Levi +1, Sky + Levi +1, Chad + Sally +1, Jade + Chad distance'],
+  purpose:['Downtime chapter: village life and bonding scenes (suggested)','Introduce the northern forest mystery'],
+  unlocks:['Village life events (suggested)','Bond: Jade × Levi +1'],
+  reward:'A week of silence'},
  35:{ title:'Whispers Before the Storm', type:'Story Chapter — scouting attack', loc:'🏘 Village near Vigil → 🏚 Abandoned shrine in the forest',
   chars:['jade','chad','sky','levi'], charsNote:'Jade, Chad, Sky, Levi (Sally in the village)',
   introduced:['Xima\'s minions (demonic scouts)'],
@@ -383,4 +393,4 @@ const COMIC_TITLES = { 4:'A Secret Mission', 5:'Unanswered Ties', 6:'Moonlit Con
   11:'Dreams and Doubts', 12:'Shadows at the Inn', 13:'Uninvited Encounter', 14:'Unwanted Choices', 15:'The Storm Within', 16:'The First Village', 17:'A Choice Beneath the Lanterns',
   18:'The Price of Trust', 19:'Into the Woods', 20:'The Witch\'s Bargain', 21:'At the Bandit\'s Mercy', 22:'Between Love and Loyalty', 23:'The Heart\'s Choice', 24:'The Choice He Could Not Make',
   25:'The Truth Behind the Mask', 26:'Return to Faepool', 27:'The Bane of Two Souls', 28:'The Woman Behind the Smile', 29:'Shadows Between Hearts', 30:'The Creek of Promises',
-  31:'Fractured Hearts', 32:'The Lost Years', 33:'Duty and Distance', 35:'Whispers Before the Storm', 36:'The People Who Were Taken', 37:'The Shaman' };
+  31:'Fractured Hearts', 32:'The Lost Years', 33:'Duty and Distance', 34:'A Week of Silence', 35:'Whispers Before the Storm', 36:'The People Who Were Taken', 37:'The Shaman' };

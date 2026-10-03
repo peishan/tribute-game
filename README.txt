@@ -130,3 +130,9 @@ Fights: ch21 Jade solo, ch27 Booyeong assault (boss), ch29/30 bandits. greyson_a
 Art ch31-37 converted to WebP (assets/comics/ch31..37). 34 shows "(?)" with no art. Bond banners applied (CH_BOND): ch31 Jade+Chad -2, ch32 Jade+Levi +1, ch33 Jade+Levi +1 / Chad -1.
 NOT modelled: Sky+Levi +1 (ch32) and Chad+Sally +1 (ch33) — the bond system is bond-with-Jade only. Ch35 = first Xima-minion fight (new enemy). Ch32 explains the "Stanson dead" pigeon: Levi stayed officially dead (Greyson's cover).
 Spoiler note: ch33 has Jade state she knows of Chad's "women in Dragonvale" and his claim to the throne.
+
+--- v5.6: CHAPTER 34 "A Week of Silence" (from the page) ---
+Added with art ch34.webp; 31-37 now complete. Bonds applied: Jade+Levi +1; "Jade+Chad distance increases" = -10 (small). Sky+Levi / Chad+Sally banners not modelled.
+DEV PLAN (author, NOT canon until pages exist) for ch38 "The Village Beneath the Mask": symbols are tracking marks (they are being studied); Greyson sends a coded book: "Do not pursue the enemy's nest";
+Levi becomes strategist ("someone is guiding us"); Sally asks Chad if he's hiding from Jade; Sky finds villagers with a slow corruption (victims, not soldiers); Jade's touch partly cleanses one ("your power is meant to restore");
+Xima: "So the Gold child has finally returned... Bring them to me." Ch39 = false victory / ambush. NOTE: ch36-37 pages already show the corruption/villager discoveries, so check the ch38 art for overlap.

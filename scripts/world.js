@@ -576,6 +576,7 @@ const LORE = [
   {ch:31, n:'Jade and Chad', t:'Jade ends their closeness (Bond -2). She will remain his employer only, and believes a prince may have many wives.'},
   {ch:32, n:'Levi\'s Lost Years', t:'Levi explains that on a covert mission beyond the northern mountains his comrade Ryn took a fatal blow meant for him. The enemy believed both died. Greyson revoked the engagement to protect his status; to the court Levi Stanson had to remain dead, so he lived under another name, working in the shadows.'},
   {ch:33, n:'Greyson\'s Coded Message', t:'Greyson orders the party to rest for a week, lie low and learn the villagers\' ways while his spies track Xima\'s minions.'},
+  {ch:34, n:'The Northern Forest', t:'Haren, a villager, says the northern forest has been abandoned for years. People who enter it disappear, and those who go to investigate never return.'},
   {ch:35, n:'Xima\'s Markings', t:'A red sigil marks places touched by Xima\'s minions, including a corrupted shrine near Vigil. The minions\' scouts call Jade \"the awakened one\".'},
   {ch:36, n:'The Taken Villagers', t:'Villagers taken by Xima are alive but changed: empty eyes, voices no longer their own. Jade\'s touch makes the corruption surge. Xima uses people as vessels.'},
   {ch:37, n:'The Shaman and the Ritual', t:'An old shaman, who knows King Greyson, says Xima is gathering people for a larger ritual and believes the blood of the girl born under the lunar eclipse can complete it and open the way to something far worse.'},
