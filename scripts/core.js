@@ -5,7 +5,7 @@ const CFG = { SAVE_KEY:'tribute_rpg_v3', LEVEL_CAP:100, START_LEVEL:1 };
 
 // WHO JOINS WHEN (chapter number at which the hero is recruited). PROVISIONAL — correct these.
 // Permanent joins. Chad and Sky both accept the mission in ch4 (Chad was hired in ch3, Sky first meets Jade in ch4). Sally 28 and Levi 30 match the comic's chapter titles. Devon open.
-const JOIN_CH = { jade:0, chad:4, sky:4, levi:30 };   // sally: introduced ch28 but NOT recruited in the pages (join chapter unknown); devon open   // ch4 "We are in": Chad (hired in ch3) and Sky accept the mission together
+const JOIN_CH = { jade:0, chad:4, sky:4, sally:29, levi:30 };   // sally: introduced ch28, recruited ch28/29 per the author (29 provisional); levi leaves temporarily later (chapter TBD); devon open   // ch4 "We are in": Chad (hired in ch3) and Sky accept the mission together
 // Guest (temporary) party members. (None yet: the ch4 "Sally guest" came from the discarded story-file list. Per the comic Sally appears in ch28.)
 const GUEST_CH = {};
 // Chapter at which a hero's profile becomes visible even before they join ("Chad profile / Sky profile" unlock in ch1).
@@ -14,7 +14,7 @@ const INTRO_CH = { chad:1, sky:1, sally:28 };
 const CH_BOND = { 24:{sky:20}, 25:{chad:20}, 27:{chad:-20}, 29:{sky:20} };
 const profileKnown = id => isRecruited(id) || (INTRO_CH[id]!==undefined && G.ch >= INTRO_CH[id]);
 // Story flags set when a chapter is completed (e.g. Levi's crossbow goes to Jade in ch30).
-const CH_FLAGS = { 0:['greyson_gift'], 27:['greyson_arms'], 30:['crossbow'] };   // greyson_arms at ch27 (Booyeong, the major battle) is PROVISIONAL
+const CH_FLAGS = { 0:['greyson_gift'], 30:['crossbow'] };   // greyson_arms: dagger+flail unseal at a LATER major battle (chapter not decided yet; add it here)
 // Items handed over when a chapter completes. Greyson gives Jade a dagger and flail in the Prologue; she may not use them until the major battle (chapter TBD, flag greyson_arms).
 const CH_ITEMS = { 0:[{id:'greyson_dagger',qty:1},{id:'greyson_flail',qty:1}] };   // (the communication bracelet comes from the Greyson mission m_bracelet, see world.js)
 
