@@ -8,7 +8,7 @@
 const TITLES = [];
 Object.keys(CANON_TITLES).forEach(i => TITLES[i] = CANON_TITLES[i]);
 Object.keys(CHAPTER_DESIGN).forEach(i => TITLES[i] = CHAPTER_DESIGN[i].title);
-const ART = {0:['pr1','pr2','pr3'],1:['c1a','c1b'],2:['c2a','c2b'],3:['c3a','c3b','c3c'],4:['c4a','c4b']};
+const ART = {0:['pr1','pr2','pr3'],1:['c1_intro','c1a','c1b'],2:['c2a','c2b'],3:['c3a','c3b','c3c'],4:['c4a','c4b']};
 for(let i=5;i<=17;i++) ART[i]=['c'+i];
 for(let i=18;i<=30;i++) ART[i]=['ch'+i];   // converted from the uploaded PNGs
 
