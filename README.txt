@@ -125,3 +125,8 @@ Canon corrections: Sally (Sally Sin) is only INTRODUCED in ch28 (profile visible
 Chad says in ch25 his true name is Roc Chadwick and he is a prince of Dragonvale. Comic banners applied as bond changes (CH_BOND): ch24 Jade+Sky Sibling Bond, ch25 Jade+Chad +1, ch27 Chad -1, ch29 Sky +1.
 Fights: ch21 Jade solo, ch27 Booyeong assault (boss), ch29/30 bandits. greyson_arms (dagger+flail) unseals at ch27 (PROVISIONAL "major battle"). New: Booyeong's Camp location; non-canon later locations parked at ch99.
 - (corrected) Chad's "Roc Chadwick" (ch25) is a deception; real name Roc Chadstone. He is NOT married, but has concubines and a consort he is passionate about, DELILAH (not told to Jade). When the party goes to Dragonvale in later chapters he becomes engaged to a foreign princess (the "Foreign Princess" placeholder). Devon and Delilah are Dragonvale characters.
+
+--- v5.5: CHAPTERS 31-33, 35-37 (34 not uploaded yet) ---
+Art ch31-37 converted to WebP (assets/comics/ch31..37). 34 shows "(?)" with no art. Bond banners applied (CH_BOND): ch31 Jade+Chad -2, ch32 Jade+Levi +1, ch33 Jade+Levi +1 / Chad -1.
+NOT modelled: Sky+Levi +1 (ch32) and Chad+Sally +1 (ch33) — the bond system is bond-with-Jade only. Ch35 = first Xima-minion fight (new enemy). Ch32 explains the "Stanson dead" pigeon: Levi stayed officially dead (Greyson's cover).
+Spoiler note: ch33 has Jade state she knows of Chad's "women in Dragonvale" and his claim to the throne.

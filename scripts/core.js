@@ -11,7 +11,7 @@ const GUEST_CH = {};
 // Chapter at which a hero's profile becomes visible even before they join ("Chad profile / Sky profile" unlock in ch1).
 const INTRO_CH = { chad:1, sky:1, sally:28 };
 // Bond changes shown by the comic's banners (bond points with Jade; level thresholds in BOND_LEVELS). Applied when the chapter completes.
-const CH_BOND = { 24:{sky:20}, 25:{chad:20}, 27:{chad:-20}, 29:{sky:20} };
+const CH_BOND = { 24:{sky:20}, 25:{chad:20}, 27:{chad:-20}, 29:{sky:20}, 31:{chad:-40}, 32:{levi:20}, 33:{levi:20, chad:-20} };   // banners: ch31 Jade+Chad -2, ch32 Jade+Levi +1, ch33 Jade+Levi +1 / Jade+Chad -1 (Sky+Levi and Chad+Sally banners not modelled)
 const profileKnown = id => isRecruited(id) || (INTRO_CH[id]!==undefined && G.ch >= INTRO_CH[id]);
 // Story flags set when a chapter is completed (e.g. Levi's crossbow goes to Jade in ch30).
 const CH_FLAGS = { 0:['greyson_gift'], 30:['crossbow'] };   // greyson_arms: dagger+flail unseal at a LATER major battle (chapter not decided yet; add it here)
