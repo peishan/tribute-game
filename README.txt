@@ -111,7 +111,7 @@ so flag greyson_arms is only set by the Dev tab for now. When the battle chapter
 --- v5.2: CHAPTERS 4-12 (from the comic pages) ---
 Design entries for ch4-12 read from c4a/c4b, c5-c12. Chad and Sky now join at ch4 ("We are in"), not ch3. Dark Inn = the inn near the Tribute-Faepool border (ch12), 2 days by carriage from the capital;
 ch12 must be started there (CH_LOC). New Greyson mission m_faepool (ch10). Codex: The Fifteen Territories, Jade's Engagement, Xima the Witch Concubine, The Prophecy, Levi Stanson.
-Mysteries noted from the pages: ch8 bath-chamber rescue vs Chad's denial in ch11; "three months ago" history; Sky's jade pendant and Yvette Sue; Levi's scar/tattoo (ch12).
+Resolved: ch11 Chad denial of the bath-chamber rescue is his LIE (he did rescue her in ch8). Open:  "three months ago" history; Sky's jade pendant and Yvette Sue; Levi's scar/tattoo (ch12).
 No chapter in 4-12 has a fight on its pages, so no new battles were added.
 
 --- v5.3: CHAPTERS 13-20 (from comic pages) ---
