@@ -118,3 +118,9 @@ No chapter in 4-12 has a fight on its pages, so no new battles were added.
 Design entries 13-20. Ch13: Chad solo fight vs inn hands. Boat travel opens at ch15 (blue boat from Greyson); Vigil Village ch15->, forest ch18->, Frog Mahan swamp ch20->; CH_LOC for 12,16-19.
 Notes: Greyson's pigeon reports Stanson dead (ch14); Chad says he's from Lingering Vale (ch15); Sally first seen ch16; ransom note spells "Booyeon" (ch18); the witch is "Ximan" on the ch20 page (Xima elsewhere) — spelling to confirm.
 Mature scenes (ch14, 17) summarised neutrally.
+
+--- v5.4: CHAPTERS 21-30 (from comic pages) — all 31 entries now done ---
+Name fixes: Xima is short for Ximanka ("Ximan" on the ch20 page); "Booyeon" in ch18 is an author typo, corrected to Booyeong from ch21.
+Canon corrections: Sally (Sally Sin) is only INTRODUCED in ch28 (profile visible, bond forming with Chad) — she does NOT join; JOIN_CH no longer has her. Levi appears ch29, gives the crossbow and joins at ch30.
+Chad says in ch25 his true name is Roc Chadwick and he is a prince of Dragonvale. Comic banners applied as bond changes (CH_BOND): ch24 Jade+Sky Sibling Bond, ch25 Jade+Chad +1, ch27 Chad -1, ch29 Sky +1.
+Fights: ch21 Jade solo, ch27 Booyeong assault (boss), ch29/30 bandits. greyson_arms (dagger+flail) unseals at ch27 (PROVISIONAL "major battle"). New: Booyeong's Camp location; non-canon later locations parked at ch99.

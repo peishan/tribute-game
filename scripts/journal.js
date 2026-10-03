@@ -16,10 +16,14 @@ for(let i=18;i<=30;i++) ART[i]=['ch'+i];   // converted from the uploaded PNGs
 const BATTLES = {
   // Only fights confirmed by canon chapter text so far (placeholder foes/stats). Ch2 has NO fight (the spar is only set up); ch3 duel is confirmed by its pages. Others are added as chapters are converted.
   3:[{key:'chad_trial'}],                                  // Three Blows: Jade vs Chad duel (canon pages: Chad wins twice)
-  13:[{key:'inn_thug'},{key:'inn_thug'},{key:'inn_thug'}],   // Uninvited Encounter: Chad fights off the inn's employees
+  13:[{key:'inn_thug'},{key:'inn_thug'},{key:'inn_thug'}],
+  21:[{key:'booyeong_guard'},{key:'booyeong_guard'}],                          // Jade beats the bandit in two rounds
+  27:[{key:'booyeong_guard'},{key:'bearded_mouse'},{key:'boss_booyeong'}],    // the assault on Booyeong's camp
+  29:[{key:'booyeong_guard'},{key:'booyeong_guard'},{key:'booyeong_guard'}],  // bandits attack Vigil
+  30:[{key:'booyeong_guard'},{key:'booyeong_guard'},{key:'booyeong_guard'}],  // the ambush; Jade uses the crossbow   // Uninvited Encounter: Chad fights off the inn's employees
 };
 const DUEL = { 3:true };   // story duels: losing still completes the chapter (the story has Chad win)
-const SOLO = { 3:['jade'], 13:['chad'] };   // who fights (Sky is captive in ch5)
+const SOLO = { 3:['jade'], 13:['chad'], 21:['jade'] };   // who fights (Sky is captive in ch5)
 const CHAPTERS = [];
 for(let i=0;i<=31;i++){
   CHAPTERS.push({ n:i, title: TITLES[i] || ('Chapter '+i+' (?)'), art: ART[i]||[],
@@ -45,6 +49,7 @@ function completeChapter(n){
     if(recruit(id)){ G.guests[id] = true; U(id).lv = Math.max(U(id).lv, avgPartyLv()-1); msgs.push('☆ '+CHARACTERS[id].n+' joins as a guest (temporary).'); }
   });
   if(CH_ITEMS[n]){ addItems(CH_ITEMS[n]); CH_ITEMS[n].forEach(d => msgs.push('Received '+ITEMS[d.id].icon+' '+ITEMS[d.id].n)); }
+  Object.keys(CH_BOND[n]||{}).forEach(id => { if(isRecruited(id)){ U(id).bp = Math.max(0, U(id).bp + CH_BOND[n][id]); msgs.push('💞 Bond with Jade ('+CHARACTERS[id].n.split(' ')[0]+'): '+(CH_BOND[n][id]>0?'+':'')+CH_BOND[n][id]); } });
   (CH_FLAGS[n]||[]).forEach(f => { G.flags[f] = true; msgs.push('✦ Story event: '+(FLAG_LABEL[f]||f)+' unlocked'); });
   msgs.push('Story XP +'+c.sxp);
   gainXp(c.sxp, G.party).forEach(m => msgs.push(m));
