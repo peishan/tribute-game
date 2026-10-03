@@ -8,12 +8,16 @@
    core.js (JOIN_CH, GUEST_CH), journal.js (battles).
    ===================================================================== */
 const CHAPTER_DESIGN = {
- 0:{ title:'Tribute', loc:'🏯 Imperial Palace',
-  chars:['jade'],
-  sum:'King Greyson decides that Tribute can no longer wait while danger grows around the island. He summons Jade Gold, an Imperial Guard whose abilities and unknown destiny may become the key to protecting the island. Jade begins her journey as the chosen protector of Tribute, unaware that her fate is connected to ancient forces beyond her understanding.',
-  events:[],
-  purpose:['Opening cinematic','Introduce Tribute','Unlock Jade','Establish Xima\'s threat'],
-  unlocks:['Jade Gold','Main Quest','World Lore Codex']},
+ 0:{ title:'Tribute', type:'Opening Cinematic / Story Introduction', loc:'🏝 Tribute Island · 🏯 Imperial Palace',
+  chars:['jade'], charsNote:'Jade Gold (introduction — the player does not control her yet)',
+  introduced:['Jade Gold','King Greyson','Xima','Sage of Tribute'],
+  sum:'Far across the eastern seas lies Tribute, a hidden island of cliffs, waterfalls and ancient mysteries, once a peaceful land of scholars and healers. Half a century ago the witch Xima cast a terrible curse upon it, and from her hatred sprang fifteen demonic evils that brought destruction, suffering and despair. Two years after ascending the throne, young King Greyson has gathered allies and restored the island\'s strength, and decides he can wait no longer: he summons Jade Gold. Jade was born beneath a lunar eclipse, carries the blood of the sword-bearing Gold family and the legacy of her mother Valor, a powerful psychic. She can see beyond the veil, sense spirits and withstand forces that would destroy others, which is why the evils fear her. The Sage of Tribute tells her a prophecy: a woman and two men will come to save the island, and their fates are bound with hers. Greyson gives her the mission to find the fifteen evils and end their torment.',
+  art:'Artwork also shows: Jade is the youngest daughter of the Imperial Advisor family and grew up beside the crown prince, whom she treated as an older brother; she nearly drowned at ten, trained in martial arts, returned from the mountains at nineteen, and Greyson names her Imperial Guard before the court.',
+  quote:'"The first test is love. Until you learn how to love, you cannot ascend." — the Sage of Tribute',
+  events:['Tribute Island introduction','Xima\'s curse explained (fifteen evils)','King Greyson prepares retaliation','Jade\'s bloodline revealed (lunar eclipse, Gold family, mother Valor)','Sage\'s prophecy revealed (a woman and two men will come)','Jade receives her mission: find the fifteen evils and end their torment'],
+  purpose:['Opening cinematic, about 5–8 minutes, before the player gains control of Jade','Introduce the world of Tribute and Xima\'s curse','Set up King Greyson\'s mission and Jade\'s destiny'],
+  unlocks:['World Map','Main Quest','Jade Character Profile','Codex System'],
+  reward:'Jade Gold joins the journey'},
  1:{ title:'Strangers on the Isle', loc:'🏝 Tribute Island',
   chars:['chad','sky'],
   sum:'Chadwick and Sky Yale live ordinary lives away from their former identities. Looking for a change, Chad discovers a mysterious mercenary recruitment scroll. The two answer the request and arrive at Tribute, unaware that their decision will place them at the centre of the island\'s fate.',

@@ -91,7 +91,7 @@ function rChapter(n){
     const foes=c.battle.map(f=>{const e=ENEMIES[f.key];return `${e.icon} ${e.n}`;}).join(' · ');
     foot = `<div class="panel"><b>⚔️ Battle</b> <span class="sm">(Lv ${c.lv})</span><div class="sm">${foes}</div><button class="pri" onclick="chapterFight(${c.n})">${done?'Replay battle':'Begin battle'}</button></div>`;
   } else if(!done){
-    foot = `<button class="pri" onclick="finishChapter(${c.n})">Complete chapter (+${c.sxp} XP)</button>`;
+    foot = `<button class="pri" onclick="finishChapter(${c.n})">${n===0?'Finish the opening — Jade joins the journey':'Complete chapter'} (+${c.sxp} XP)</button>`;
   }
   return `<button onclick="closeChapter()">◀ Journal</button><h2>${n===0?'':'Chapter '+n+' · '}${c.title}</h2>${rDesign(n)}${pages}${chMsgs.length?`<div class="panel good">${chMsgs.map(m=>`<div>${m}</div>`).join('')}</div>`:''}${foot}`;
 }
@@ -99,8 +99,11 @@ function rDesign(n){
   const d = CHAPTER_DESIGN[n];
   if(!d) return `<div class="panel sm">Skeleton summary for this chapter isn't written yet. It will be converted from the canon story text.</div>`;
   const li = a => a.map(x=>`<div class="li">• ${x}</div>`).join('');
-  return `<div class="panel"><div class="sm">${d.loc}${CH_LOC[n]?' · starts at 📍 '+LOCATIONS[CH_LOC[n]].n:''}</div><div style="margin:6px 0">${d.sum}</div>
-   <details><summary class="sm">Key events · purpose · unlocks</summary>${d.events.length?'<h4>Key Events</h4>'+li(d.events):''}<h4>Gameplay Purpose</h4>${li(d.purpose)}<h4>Unlocks</h4>${li(d.unlocks.map(x=>'✅ '+x))}<div class="sm" style="margin-top:6px">Playable: ${d.chars.map(i=>CHARACTERS[i].icon+' '+CHARACTERS[i].n.split(' ')[0]).join(' · ')}</div></details></div>`;
+  const chars = d.charsNote || d.chars.map(i=>CHARACTERS[i].icon+' '+CHARACTERS[i].n.split(' ')[0]).join(' · ');
+  return `<div class="panel">${d.type?`<div class="sm">🎬 ${d.type}</div>`:''}<div class="sm">${d.loc}${CH_LOC[n]?' · starts at 📍 '+LOCATIONS[CH_LOC[n]].n:''}</div><div style="margin:6px 0">${d.sum}</div>
+   ${d.quote?`<div class="sm" style="font-style:italic;color:var(--gold);margin:6px 0">${d.quote}</div>`:''}${d.art?`<div class="sm" style="margin:6px 0">${d.art}</div>`:''}
+   <details><summary class="sm">Key events · purpose · unlocks</summary>${d.events.length?'<h4>Key Events</h4>'+li(d.events):''}<h4>Gameplay Purpose</h4>${li(d.purpose)}<h4>Unlocks</h4>${li(d.unlocks.map(x=>'✅ '+x))}
+   ${d.introduced?`<h4>Characters Introduced</h4>${li(d.introduced)}`:''}${d.reward?`<h4>Reward</h4>${li([d.reward])}`:''}<div class="sm" style="margin-top:6px">Playable: ${chars}</div></details></div>`;
 }
 function finishChapter(n){ chMsgs = completeChapter(n); render(); }
 function chapterFight(n){ origin='journal'; startBattle(battleSpecFor(n)); tab='battle'; render(); }

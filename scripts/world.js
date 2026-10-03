@@ -209,7 +209,7 @@ function advanceDay(n){
 const MISSIONS = [
   // ---- canon (Prologue-5) ----
   {id:'m_summons', needCh:0, title:'The Protector of Tribute', obj:{type:'read'}, rw:{xp:60, gold:40},
-   subj:'Tribute can wait no longer', body:'Jade — danger gathers around the island and I cannot wait any longer. I am counting on you. Recruits will answer the scroll; judge them well. — Greyson'},
+   subj:'The fifteen evils', body:'Jade — the title I gave you in court is one the world can see. The duty is one only you can fulfil: find the fifteen evils Xima unleashed and end their torment. I will send word of what I learn. — Greyson'},
   {id:'m_village', needCh:3, title:'The First Village', obj:{type:'reach', loc:'vigil_village'}, rw:{xp:150, gold:80},
    subj:'Your first mission', body:'With your party contracts signed, travel to the first village on the mission route. Take the horse carriage. — Greyson'},
   {id:'m_cliff', needCh:4, title:'The Cliff Ransom', obj:{type:'reach', loc:'cliff_area'}, rw:{xp:200, gold:100},
@@ -543,9 +543,11 @@ function rumour(){
 
 /* ---------------- ARCHIVE LORE (draft from the design notes) ---------------- */
 const LORE = [
-  {ch:0, n:'Xima\'s Threat', t:'Danger is growing around Tribute. King Greyson can no longer wait.'},
-  {ch:0, n:'Tribute Island', t:'The seat of King Greyson. A hidden isle trapped under the shadow of Xima\'s ancient curse.'},
-  {ch:0, n:'Imperial Guard', t:'Jade Gold serves as an Imperial Guardian. Her sword training began in the Training Grounds.'},
+  {ch:0, n:'Tribute Island', t:'A hidden island far across the eastern seas: cliffs, waterfalls and ancient mysteries. It is absent from ordinary charts and can only be found by those who call for it with a sincere prayer. Once a peaceful land of scholars and healers.'},
+  {ch:0, n:'Xima\'s Curse', t:'Half a century ago the witch Xima cast a terrible curse upon Tribute. From her hatred came fifteen demonic evils that haunt the mountains, forests, seas and forgotten towns. The curse still lingers: a wound that will not heal.'},
+  {ch:0, n:'King Greyson', t:'The young king. In the two years since he ascended the throne he has gathered allies, restored the island\'s strength and quietly prepared to strike back at Xima and her curse. He grew up beside Jade and treats her as a little sister.'},
+  {ch:0, n:'Jade Gold', t:'Youngest daughter of the Imperial Advisor family. Born beneath a lunar eclipse; carries the blood of the sword-bearing Gold family and the legacy of her mother Valor, a powerful psychic. She can see beyond the veil, sense spirits and withstand what would destroy others, and the evils fear her. Named Imperial Guard by King Greyson.'},
+  {ch:0, n:'The Sage\'s Prophecy', t:'"The first test is love. Until you learn how to love, you cannot ascend." A woman and two men will come to save the island; their fates are bound with Jade\'s, and together they will end the evils and begin Tribute anew.'},
   {ch:99, n:'Faepool Territory', t:'A border region of forests and traditional villages. Something interferes with Jade\'s clairvoyance here.'},
   {ch:99, n:'The Hidden Message', t:'An unexpected message suggests the curse, Jade\'s visions and the people around her may be connected.'},
   {ch:99, n:'Ancient Records', t:'Records recovered from the Faepool ruins. The disturbances are not random: they belong to one pattern.'},
@@ -553,6 +555,6 @@ const LORE = [
   {ch:99, n:'Ancient Magic', t:'Old magic leaves traces in stone and blood. Jade\'s visions respond to it.'},
   {ch:99, n:'Tribute History', t:'How the island came to be bound by the curse. Many pages are still missing.'},
   {ch:99, n:'Dima\'s Legacy', t:'Jade\'s golden blood connects her to Dima. The records speak of a sanctuary, location unknown.'},
-  {ch:0, n:'Dragon Vale', t:'A region of dragon lore, ancient powers and legendary items.', party:'devon'},
-  {ch:0, n:'The Dragon Pearl', t:'Devon\'s inheritance. Dragon Empowerment, Ancient Dragon Knowledge and Dragon Manifestation.', party:'devon'},
+  {ch:99, n:'Dragon Vale', t:'A region of dragon lore, ancient powers and legendary items.', party:'devon'},
+  {ch:99, n:'The Dragon Pearl', t:'Devon\'s inheritance. Dragon Empowerment, Ancient Dragon Knowledge and Dragon Manifestation.', party:'devon'},
 ];

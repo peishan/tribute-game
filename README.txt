@@ -60,3 +60,8 @@ PARKED / NON-CANON (kept as drafts, gated at ch99 so they don't fire): drafted m
 STILL TIED TO OLD NUMBERS (re-gate when canon text arrives): unlock chapters of Faepool Harbour/Forest, Frog Mahan, Ruins, Dark Inn, River Crossing,
   Trial Grounds, Hidden Village, Corrupted Forest, Borderlands, Settlement, Reunion Area (world.js LOCATIONS[].unlock); boat travel (SHIP_CH=13);
   Sally permanent ch28 / Levi ch30 (JOIN_CH) are UNVERIFIED against canon.
+
+--- v4.1: PROLOGUE (canon) ---
+Prologue is an opening cinematic (type/introduced/quote/reward fields in chapters.js). Extra facts taken from the actual pr1-pr3 artwork are marked "Artwork also shows".
+Archive/Codex now opens with canon entries: Tribute Island, Xima's Curse, King Greyson, Jade Gold, The Sage's Prophecy. Greyson's first letter = the fifteen evils.
+Parked (non-canon) lore stays at ch99.
