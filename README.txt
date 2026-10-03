@@ -139,3 +139,6 @@ Xima: "So the Gold child has finally returned... Bring them to me." Ch39 = false
 
 --- v5.7: CHAPTER 38 (from the page) ---
 Added with art ch38.webp. The earlier DEV PLAN matched the page closely. Bonds: Jade+Levi +1, Sky+Jade +1 (Sky bond to Jade applied via CH_BOND), Chad+Sally not modelled.
+
+--- v5.8: CLEANSING TOUCH + CORRUPTED VILLAGERS ---
+Jade skill Cleansing Touch unlocks at ch38 (flag cleansing_touch): 2.5x vs 'corrupt' foes + cleanse. New enemy Corrupted Villager (trait corrupt): at 0 HP they are "freed, alive" instead of slain (flavour; still counts as a defeat). Training preset added.

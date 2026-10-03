@@ -28,6 +28,7 @@ const CHARACTERS = {
    {id:'clairvoyance',n:'Clairvoyance',icon:'👁️',mp:6,kind:'support',tgt:'self',fx:[{k:'crit',d:3},{k:'analyze'}],req:{lvl:6},desc:'Foresight: guaranteed crits for 3 turns and reveals an enemy.'},
    {id:'destiny_link',n:'Destiny Link',icon:'🔗',mp:10,kind:'support',tgt:'allies',fx:[{k:'buff',stat:'atk',m:1.2,d:3},{k:'buff',stat:'mag',m:1.2,d:3}],req:{lvl:10},desc:'Binds the party\'s fates: ATK and MAG up.'},
    {id:'golden_blood',n:'Golden Blood Awakening',icon:'✨',mp:0,kind:'support',tgt:'self',once:true,fx:[{k:'state',id:'awakened',d:4}],req:{lvl:15},sig:true,desc:'SIGNATURE. All stats +25% and skills cost half for 4 turns. Once per battle.'},
+   {id:'cleansing_touch',n:'Cleansing Touch',icon:'🤲',mp:7,kind:'magic',tgt:'foe',pow:1.0,vsCorrupt:2.5,fx:[{k:'cleanse'}],req:{flag:'cleansing_touch'},desc:'Her restoring power (chapter 38). Heavy against corrupted foes, who are freed instead of slain.'},
    {id:'hidden_dagger',n:'Hidden Dagger',icon:'🗡️',mp:4,kind:'phys',tgt:'foe',pow:1.9,req:{flag:'greyson_arms'},desc:'Greyson\'s dagger: a quick, close strike. Given in the Prologue; she may not use it until the major battle.'},
    {id:'flail_sweep',n:'Flail Sweep',icon:'⛓️',mp:7,kind:'phys',tgt:'foes',pow:1.2,req:{flag:'greyson_arms'},desc:'Greyson\'s flail sweeps every enemy. Given in the Prologue; she may not use it until the major battle.'},
    {id:'crossbow_shot',n:'Crossbow Shot',icon:'🏹',mp:0,kind:'phys',tgt:'foe',pow:1.2,req:{flag:'crossbow'},desc:'Levi\'s Enchanted Crossbow (Chapter 30). A ranged shot at no cost.'},

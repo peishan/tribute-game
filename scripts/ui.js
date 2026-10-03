@@ -115,6 +115,7 @@ const PRESETS = [
   ['Road Bandits',[{key:'road_bandit'},{key:'bandit_archer'},{key:'road_bandit'}]],
   ['Smugglers & Thugs',[{key:'smuggler'},{key:'dock_thug'},{key:'smuggler'}]],
   ['Masked Assassins ×2',[{key:'masked_assassin'},{key:'masked_assassin'}]],
+  ['Corrupted villagers (cleanse them)',[{key:'corrupted_villager'},{key:'corrupted_villager'},{key:'xima_minion'}]],
   ['Demons (magical)',[{key:'imp'},{key:'shade_wraith'},{key:'imp'}]],
   ['BOSS: Bandit Chief',[{key:'boss_bandit_chief'}]],
   ['BOSS: Masked Leader',[{key:'boss_masked_leader'},{key:'masked_assassin'}]],

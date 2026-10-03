@@ -85,7 +85,7 @@ function hurt(t, d, ignoreShield){
   if(!ignoreShield && t.st.shield){ const a = Math.min(t.st.shield.v, d); t.st.shield.v -= a; d -= a; if(a>0) blog('  (barrier absorbs '+a+')'); if(t.st.shield.v<=0) delete t.st.shield; }
   if(t.guard) d = Math.round(d*.5);
   t.hp = Math.max(0, t.hp - d);
-  if(t.hp<=0){ t.dead = true; blog(t.name+' falls!','bad'); }
+  if(t.hp<=0){ t.dead = true; if(t.traits && t.traits.includes('corrupt')) blog(t.name+' is freed from the corruption and collapses, alive.','good'); else blog(t.name+' falls!','bad'); }
   return d;
 }
 function strike(src, tgt, s, opts){
@@ -97,6 +97,7 @@ function strike(src, tgt, s, opts){
   raw -= eff(tgt,'def') * (magic ? .35 : .6);
   let d = Math.max(1, Math.round(raw));
   if(s.antiMagic && tgt.traits.includes('magic')) d = Math.round(d*s.antiMagic);
+  if(s.vsCorrupt && tgt.traits.includes('corrupt')) d = Math.round(d*s.vsCorrupt);
   let crit = false;
   if(s.crit || src.st.crit || Math.random() < .08 + (src.critB||0)){ crit = true; d = Math.round(d*1.6); }
   if(!s.pair && !opts.noEvade && Math.random() < evaOf(tgt)){ blog(tgt.name+' evades '+src.name+'\'s '+s.n+'!'); return 0; }

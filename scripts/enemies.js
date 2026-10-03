@@ -34,6 +34,8 @@ const ENEMIES = {
     moves:[{n:'Cudgel',pow:1.2},{n:'Dirty Trick',pow:.8,fx:[{k:'slow',d:2}]}],drops:[{id:'coin_pouch',chance:.5}],desc:'Booyeong\'s bearded lieutenant, who flees at the sight of Jade.'},
   xima_minion:{n:'Xima Minion',icon:'👹',area:'demon',hp:90,atk:13,mag:8,def:6,spd:11,xp:44,gold:20,traits:['magic'],
     moves:[{n:'Shadow Claw',pow:1.1},{n:'Corrupting Touch',pow:.9,spell:true,fx:[{k:'slow',d:2}]}],drops:[{id:'demon_ash',chance:.5}],desc:'Shadowy demonic scouts marked with Xima\'s sigil.'},
+  corrupted_villager:{n:'Corrupted Villager',icon:'🧟',area:'village',hp:80,atk:10,mag:6,def:4,spd:8,xp:30,gold:0,traits:['corrupt'],
+    moves:[{n:'Clawing Grasp',pow:1},{n:'Hollow Whisper',pow:.7,spell:true,fx:[{k:'slow',d:1}]}],drops:[],desc:'A villager taken by Xima: alive but changed. Not an enemy to kill. Jade\'s Cleansing Touch frees them.'},
   // ---- placeholder BOSSES (rename per story) ----
   boss_booyeong:{n:'Booyeong',icon:'🦂',area:'cliff',boss:true,hp:420,atk:17,mag:4,def:9,spd:11,xp:170,gold:130,
     moves:[{n:'Ransom Blade',pow:1.3},{n:'Cliff Trap',pow:.8,fx:[{k:'slow',d:2}]},{n:'Cruel Strike',pow:1.8}],desc:'Bandit lord who kidnapped Sky and suppresses power in his territory. Placeholder stats.'},
