@@ -89,3 +89,8 @@ gives her a sword (design doc). DECISION NEEDED: keep sword or move Jade to whip
 --- v4.6: CHAPTER 3 (canon, from c3a-c3c) ---
 Ch3 "Three Blows" (pages' title; the story file calls it "Swords and Palpitations"): Chad-POV duel + rematch (Chad wins both), Jade hires him, passes for Chad and Sky, 3-day briefing.
 Jade fights with a sword at first, then a whip. Story duel: losing still completes the chapter (DUEL in journal.js). Chad/Sky both still join at ch3 (Sky has not met Jade yet on the pages).
+
+--- v4.7: JADE'S WEAPONS ---
+Per the author: Jade was written with a whip and bow (the comic art drifts to a sword); Greyson later gives her a dagger and flail (chapter TBD, flag greyson_arms, skills Hidden Dagger / Flail Sweep locked until then);
+Levi's Enchanted Crossbow comes at ch30. characters.js: weapon text, Lunar Lash, Piercing Arrow; skill tree branch "Whip & Bow".
+Evolution names (Sword Saint, Oracle Guardian, Destiny Awakening) are still from the class doc: rename "Sword Saint" if desired.

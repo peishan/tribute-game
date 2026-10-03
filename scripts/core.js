@@ -83,7 +83,7 @@ function reqText(r){
   if(!r) return '';
   if(r.lvl) return 'Level '+r.lvl;
   if(r.bond) return 'Bond '+r.bond+' with Jade';   // (Jade: average companion bond)
-  if(r.flag) return 'Story: '+r.flag;
+  if(r.flag) return 'Story: '+(r.flag==='greyson_arms'?'Greyson\'s dagger and flail':r.flag);
   return '';
 }
 function reqMet(id, r){

@@ -24,11 +24,11 @@ const SKILLTREE = {
     nd('j_g2','Aegis Counter','🔰',sk('aegis_counter','Aegis Counter','🔰',7,'support','self',0,{fx:[{k:'buff',stat:'def',m:1.4,d:3},{k:'shield',v:.15,d:3}]},'A guarded stance that raises DEF and adds a barrier.')),
     ps('j_g3','Imperial Resolve','🏯',{mult:{hp:1.1,def:1.06}}),
     nd('j_g4','Imperial Bulwark','🏰',sk('imperial_bulwark','Imperial Bulwark','🏰',14,'support','allies',0,{fx:[{k:'shield',v:.2,d:3}]},'A barrier over the whole party.'))]},
-  {id:'blade',n:'Blade',icon:'🌙',desc:'Sword mastery.',nodes:[
-    ps('j_b1','Sharpened Edge','🗡️',{mult:{atk:1.08}}),
-    nd('j_b2','Twin Moon Cut','🌗',sk('twin_moon','Twin Moon Cut','🌗',9,'phys','foes',1.2,{},'Two crescents sweep every enemy.')),
-    ps('j_b3','Swordsense','⚡',{mult:{spd:1.05},critB:.06}),
-    nd('j_b4','Eclipse Crescent','🌑',sk('eclipse_crescent','Eclipse Crescent','🌑',14,'phys','foe',3.0,{crit:true},'A devastating, guaranteed critical cut.'))]},
+  {id:'blade',n:'Whip & Bow',icon:'🌙',desc:'Reach, speed and precision.',nodes:[
+    ps('j_b1','Supple Cord','🪢',{mult:{atk:1.08}}),
+    nd('j_b2','Twin Moon Lash','🌗',sk('twin_moon','Twin Moon Lash','🌗',9,'phys','foes',1.2,{},'Two crescents of the whip sweep every enemy.')),
+    ps('j_b3','Archer\'s Eye','🎯',{mult:{spd:1.05},critB:.06}),
+    nd('j_b4','Eclipse Arrow','🌑',sk('eclipse_arrow','Eclipse Arrow','🌑',14,'phys','foe',3.0,{crit:true},'A single arrow loosed beneath the eclipse: a guaranteed critical.'))]},
   {id:'destiny',n:'Destiny',icon:'👁️',desc:'Prophecy and golden blood.',nodes:[
     ps('j_d1','Inner Sight','👁️',{mult:{mag:1.08,mp:1.08}}),
     nd('j_d2','Prophetic Warning','📜',sk('prophetic_warning','Prophetic Warning','📜',8,'support','allies',0,{fx:[{k:'buff',stat:'eva',m:1.3,d:3}]},'Foresight raises the party\'s evasion.')),
