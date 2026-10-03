@@ -43,6 +43,7 @@ function completeChapter(n){
   Object.keys(GUEST_CH).filter(id => GUEST_CH[id]===n).forEach(id => {
     if(recruit(id)){ G.guests[id] = true; U(id).lv = Math.max(U(id).lv, avgPartyLv()-1); msgs.push('☆ '+CHARACTERS[id].n+' joins as a guest (temporary).'); }
   });
+  if(CH_ITEMS[n]){ addItems(CH_ITEMS[n]); CH_ITEMS[n].forEach(d => msgs.push('Received '+ITEMS[d.id].icon+' '+ITEMS[d.id].n)); }
   (CH_FLAGS[n]||[]).forEach(f => { G.flags[f] = true; msgs.push('✦ Story event: '+(FLAG_LABEL[f]||f)+' unlocked'); });
   msgs.push('Story XP +'+c.sxp);
   gainXp(c.sxp, G.party).forEach(m => msgs.push(m));

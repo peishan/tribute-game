@@ -12,7 +12,9 @@ const GUEST_CH = {};
 const INTRO_CH = { chad:1, sky:1 };
 const profileKnown = id => isRecruited(id) || (INTRO_CH[id]!==undefined && G.ch >= INTRO_CH[id]);
 // Story flags set when a chapter is completed (e.g. Levi's crossbow goes to Jade in ch30).
-const CH_FLAGS = { 30:['crossbow'] };   // (the communication bracelet comes from the Greyson mission m_bracelet, see world.js)
+const CH_FLAGS = { 0:['greyson_gift'], 30:['crossbow'] };
+// Items handed over when a chapter completes. Greyson gives Jade a dagger and flail in the Prologue; she may not use them until the major battle (chapter TBD, flag greyson_arms).
+const CH_ITEMS = { 0:[{id:'greyson_dagger',qty:1},{id:'greyson_flail',qty:1}] };   // (the communication bracelet comes from the Greyson mission m_bracelet, see world.js)
 
 let G = null;
 const $ = id => document.getElementById(id);
@@ -83,7 +85,7 @@ function reqText(r){
   if(!r) return '';
   if(r.lvl) return 'Level '+r.lvl;
   if(r.bond) return 'Bond '+r.bond+' with Jade';   // (Jade: average companion bond)
-  if(r.flag) return 'Story: '+(r.flag==='greyson_arms'?'Greyson\'s dagger and flail':r.flag);
+  if(r.flag) return r.flag==='greyson_arms' ? 'Not usable until the major battle (chapter TBD)' : 'Story: '+r.flag;
   return '';
 }
 function reqMet(id, r){

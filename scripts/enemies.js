@@ -90,6 +90,7 @@ const ITEMS = {
   toad_gland:{n:'Toad Gland',icon:'🧫',type:'material',rarity:'common'}, sea_pearl:{n:'Sea Pearl',icon:'🦪',type:'material',rarity:'uncommon'},
   river_fish:{n:'River Fish',icon:'🐟',type:'material',rarity:'common'}, drake_scale:{n:'Drake Scale',icon:'🐉',type:'material',rarity:'uncommon'},
   relic_dust:{n:'Relic Dust',icon:'✨',type:'material',rarity:'uncommon'}, pearl_fragment:{n:'Dragon Pearl Fragment',icon:'🔮',type:'material',rarity:'epic'},
+  greyson_dagger:{n:'Greyson\'s Dagger',icon:'🗡️',type:'gear',slot:'weapon',rarity:'epic'}, greyson_flail:{n:'Greyson\'s Flail',icon:'⛓️',type:'gear',slot:'weapon',rarity:'epic'},
   mahan_crown:{n:'Mahan\'s Mire Crown',icon:'👑',type:'gear',slot:'accessory',rarity:'rare'},
 };
 /* ---- LOOT TABLES for major battles ----

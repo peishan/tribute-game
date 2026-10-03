@@ -103,3 +103,7 @@ Titles 4-30 now come from the comic title cards (COMIC_TITLES in chapters.js): 4
 24 The Choice He Could Not Make, 25 The Truth Behind the Mask, 26 Return to Faepool, 27 The Bane of Two Souls, 28 The Woman Behind the Smile, 29 Shadows Between Hearts, 30 The Creek of Promises.
 Removed (list-derived): ch4/ch5 design entries, Sally guest, Cliff Area, ch5 Booyeong fight, Vigil-at-ch3, CH_LOC. Design entries exist only for Prologue-3 (read from the pages).
 Provisional placement from title cards: Dark Inn unlocks after ch11 (ch12 Shadows at the Inn), boat travel + Vigil Village after ch15 (ch16 The First Village).
+
+--- v5.1: GREYSON'S DAGGER + FLAIL ---
+Given in the Prologue (items + flag greyson_gift on completing ch0). Jade may NOT use them (skills Hidden Dagger / Flail Sweep) until the major battle: that chapter is still unknown,
+so flag greyson_arms is only set by the Dev tab for now. When the battle chapter is known, add it to CH_FLAGS in core.js ({n:['greyson_arms']}).
