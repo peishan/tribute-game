@@ -4,7 +4,10 @@
 const CFG = { SAVE_KEY:'tribute_rpg_v3', LEVEL_CAP:100, START_LEVEL:1 };
 
 // WHO JOINS WHEN (chapter number at which the hero is recruited). PROVISIONAL — correct these.
-const JOIN_CH = { jade:0, chad:3, sky:3, sally:28, levi:30 };   // chad/sky ch3 (provisional: 'ch3 or 4'); sally 28 / levi 30 confirmed; Devon's chapter is still open
+// Permanent joins. Chad+Sky ch3 = canon ("permanent recruitment"). Sally 28 / Levi 30 are from the earlier (non-canon) outline: UNVERIFIED. Devon open.
+const JOIN_CH = { jade:0, chad:3, sky:3, sally:28, levi:30 };
+// Guest (temporary) party members: Sally joins at ch4 (canon). When she leaves is not known yet.
+const GUEST_CH = { sally:4 };
 // Story flags set when a chapter is completed (e.g. Levi's crossbow goes to Jade in ch30).
 const CH_FLAGS = { 30:['crossbow'] };   // (the communication bracelet comes from the Greyson mission m_bracelet, see world.js)
 
@@ -16,7 +19,7 @@ const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
 function newState(){
   const s = Object.assign({ v:3, ch:-1, flags:{}, units:{}, party:[], inv:{}, bestiary:{}, gold:50, read:{} }, worldDefaults());
   ROSTER.forEach(id => s.units[id] = { lv:CFG.START_LEVEL, xp:0, bp:0, evo:[], nodes:[] });
-  s.party = ['jade']; s.active = ['jade'];
+  s.party = ['jade']; s.active = ['jade']; s.guests = {};
   return s;
 }
 function save(){ try{ localStorage.setItem(CFG.SAVE_KEY, JSON.stringify(G)); }catch(e){} }
@@ -24,7 +27,7 @@ function load(){
   try{
     const d = JSON.parse(localStorage.getItem(CFG.SAVE_KEY));
     if(!d) return false;
-    G = Object.assign(newState(), d); G.active = (G.active||['jade']).filter(id=>G.party.includes(id));
+    G = Object.assign(newState(), d); G.guests = G.guests || {}; G.active = (G.active||['jade']).filter(id=>G.party.includes(id));
     ROSTER.forEach(id => { G.units[id] = G.units[id] || { lv:1, xp:0, bp:0, evo:[] }; G.units[id].nodes = G.units[id].nodes || []; });
     return true;
   }catch(e){ return false; }

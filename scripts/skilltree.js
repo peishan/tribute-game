@@ -8,8 +8,8 @@
    ALL numbers / names beyond the design doc are PROVISIONAL.
    ===================================================================== */
 const NODE_COST = [1,2,3,4];
-// Tree unlock chapter per hero (Chad ch2, Sky ch3 per design doc). Others open when they are recruited.
-const TREE_CH = { jade:0, chad:2, sky:3 };
+// Optional per-hero tree unlock chapter; empty = open as soon as the hero is in the party.
+const TREE_CH = {};
 const treeOpen = id => G.ch >= (TREE_CH[id]===undefined ? -1 : TREE_CH[id]);
 const sk  = (id,n,icon,mp,kind,tgt,pow,extra,desc) => Object.assign({id,n,icon,mp,kind,tgt,pow,desc}, extra||{});
 const nd  = (id,n,icon,skill) => ({id,n,icon,skill,desc:skill.desc});

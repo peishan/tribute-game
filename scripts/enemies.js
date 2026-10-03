@@ -24,7 +24,13 @@ const ENEMIES = {
     moves:[{n:'Chilling Touch',pow:1,spell:true},{n:'Wail',pow:.9,spell:true,fx:[{k:'slow',d:2}]}],drops:[{id:'demon_ash',chance:.6},{id:'shade_essence',chance:.25}],desc:'A restless spirit bound to the curse.'},
   chad_trial:{n:'Roc Chadwick (trial)',icon:'⚔️',area:'trial',hp:170,atk:15,mag:0,def:7,spd:12,xp:60,gold:0,
     moves:[{n:'Instinct Strike',pow:1.1},{n:'Burst Step',pow:1.6},{n:'Guard Break',pow:1,fx:[{k:'slow',d:1}]}],drops:[],desc:'A sparring match. Instinct against discipline.'},
+  training_dummy:{n:'Training Dummy',icon:'🪵',area:'trial',hp:60,atk:4,mag:0,def:3,spd:4,xp:20,gold:0,
+    moves:[{n:'Swing',pow:.6}],drops:[],desc:'Imperial Guard sparring dummy for the combat tutorial.'},
+  booyeong_guard:{n:'Booyeong\'s Guard',icon:'🗡️',area:'cliff',hp:80,atk:13,mag:0,def:6,spd:9,xp:36,gold:20,
+    moves:[{n:'Cutlass',pow:1},{n:'Shield Bash',pow:.8,fx:[{k:'slow',d:1}]}],drops:[{id:'coin_pouch',chance:.4}],desc:'Hired muscle from Booyeong\'s ambush at the cliffs.'},
   // ---- placeholder BOSSES (rename per story) ----
+  boss_booyeong:{n:'Booyeong',icon:'🦂',area:'cliff',boss:true,hp:420,atk:17,mag:4,def:9,spd:11,xp:170,gold:130,
+    moves:[{n:'Ransom Blade',pow:1.3},{n:'Cliff Trap',pow:.8,fx:[{k:'slow',d:2}]},{n:'Cruel Strike',pow:1.8}],desc:'Set the ransom trap that captured Sky. Placeholder stats.'},
   boss_bandit_chief:{n:'Bandit Chief',icon:'👑',area:'road',boss:true,hp:420,atk:17,mag:0,def:10,spd:10,xp:160,gold:120,
     moves:[{n:'Cleaver Smash',pow:1.4},{n:'War Cry',pow:.6,fx:[{k:'slow',d:2}]},{n:'Brutal Cut',pow:1.9}],desc:'Placeholder boss.'},
   boss_masked_leader:{n:'Masked Leader',icon:'🎭',area:'city',boss:true,hp:520,atk:20,mag:6,def:11,spd:16,xp:220,gold:160,

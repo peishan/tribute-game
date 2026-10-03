@@ -5,24 +5,21 @@
    Chapters 31+ will get titles once the next design batch arrives.
    ===================================================================== */
 // Titles 0-30 come from the chapter design doc (chapters.js). 31+ are placeholders until the next batch.
-const TITLES = Object.keys(CHAPTER_DESIGN).map(Number).reduce((a,i) => (a[i] = CHAPTER_DESIGN[i].title, a), []);
+const TITLES = [];
+Object.keys(CANON_TITLES).forEach(i => TITLES[i] = CANON_TITLES[i]);
+Object.keys(CHAPTER_DESIGN).forEach(i => TITLES[i] = CHAPTER_DESIGN[i].title);
 const ART = {0:['pr1','pr2','pr3'],1:['c1a','c1b'],2:['c2a','c2b'],3:['c3a','c3b','c3c'],4:['c4a','c4b']};
 for(let i=5;i<=17;i++) ART[i]=['c'+i];
 for(let i=18;i<=30;i++) ART[i]=['ch'+i];   // converted from the uploaded PNGs
 
 // Chapter battles (PLACEHOLDER encounters — replace with the real fights).
 const BATTLES = {
-  // 0-30 follow the design doc (placeholder foes); 31 is an older placeholder
-  2:[{key:'chad_trial'}],                                             // Mercenary Trial (Jade alone vs Chad)
-  3:[{key:'chad_trial'}],                                             // Three Blows (Jade alone vs Chad)
-  4:[{key:'forest_wolf'},{key:'forest_wolf'},{key:'thorn_boar'}],     // dangerous creatures outside the city
-  9:[{key:'xima_sprite'},{key:'corrupted_stag'},{key:'xima_sprite'}], // first corrupted enemies
-  10:[{key:'boss_frog_mahan'},{key:'bog_toad'},{key:'bog_toad'}],     // Frog Mahan
-  23:[{key:'stone_sentinel'},{key:'relic_spirit'},{key:'stone_sentinel'}],   // Trial of Strength
-  25:[{key:'corrupted_stag'},{key:'xima_sprite'},{key:'xima_sprite'}],        // elite enemies in the Corrupted Forest
-  31:[{key:'imp'},{key:'boss_demon_warden'},{key:'imp'}],
+  // Only fights confirmed by canon chapter text so far (placeholder foes/stats). Others to be added as chapters are converted.
+  2:[{key:'training_dummy'},{key:'training_dummy'}],     // Mercenary Trial: combat tutorial (Jade + Chad + Sky as guests)
+  3:[{key:'chad_trial'}],                                  // Swords and Palpitations: Jade vs Chad duel
+  5:[{key:'booyeong_guard'},{key:'boss_booyeong'},{key:'booyeong_guard'}],   // The Ransom Trap: rescue Sky
 };
-const SOLO = { 2:['jade'], 3:['jade'] };   // chapter fights where Jade fights alone
+const SOLO = { 2:['jade','chad','sky'], 3:['jade'], 5:['jade','chad'] };   // who fights (Sky is captive in ch5)
 const CHAPTERS = [];
 for(let i=0;i<=31;i++){
   CHAPTERS.push({ n:i, title: TITLES[i] || ('Chapter '+i+' (?)'), art: ART[i]||[],
@@ -41,7 +38,11 @@ function completeChapter(n){
   G.ch = n;
   const c = CHAPTERS[n];
   recruitsAtChapter(n).forEach(id => {
-    if(recruit(id)){ U(id).lv = Math.max(U(id).lv, avgPartyLv()-1); msgs.push('★ '+CHARACTERS[id].n+' joins the party!'); }
+    if(G.guests[id]){ delete G.guests[id]; msgs.push('★ '+CHARACTERS[id].n+' joins the party permanently!'); }
+    else if(recruit(id)){ U(id).lv = Math.max(U(id).lv, avgPartyLv()-1); msgs.push('★ '+CHARACTERS[id].n+' joins the party!'); }
+  });
+  Object.keys(GUEST_CH).filter(id => GUEST_CH[id]===n).forEach(id => {
+    if(recruit(id)){ G.guests[id] = true; U(id).lv = Math.max(U(id).lv, avgPartyLv()-1); msgs.push('☆ '+CHARACTERS[id].n+' joins as a guest (temporary).'); }
   });
   (CH_FLAGS[n]||[]).forEach(f => { G.flags[f] = true; msgs.push('✦ Story event: '+(FLAG_LABEL[f]||f)+' unlocked'); });
   msgs.push('Story XP +'+c.sxp);
@@ -60,7 +61,8 @@ function devSetChapter(n){
   G.ch = -1; G.read = {};
   for(let i=0;i<=n;i++){
     const before = G.ch; G.ch = i;
-    recruitsAtChapter(i).forEach(id => { recruit(id); });
+    recruitsAtChapter(i).forEach(id => { recruit(id); delete G.guests[id]; });
+    Object.keys(GUEST_CH).filter(id => GUEST_CH[id]===i).forEach(id => { if(recruit(id)) G.guests[id] = true; });
     (CH_FLAGS[i]||[]).forEach(f => G.flags[f]=true);
   }
   G.ch = n; checkMissionOffers();

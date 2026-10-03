@@ -24,8 +24,8 @@ const LOCATIONS = {
       {id:'training', kind:'training', n:'Imperial Guard Training Grounds', icon:'⚔️', img:'assets/areas/training_grounds.webp', desc:'Safe zone. No monsters. Sword practice, meditation and ability training.'},
       {id:'archive', kind:'archive', n:'Imperial Archive', icon:'📚', desc:'The Codex: history, prophecy, Xima research and Dima\'s records.'},
       {id:'garden', kind:'garden', n:'Imperial Garden', icon:'🌸', img:'assets/areas/imperial_garden.webp', desc:'Quiet meditation, bond scenes and character events.'},
-      {id:'hall', kind:'board', n:'Recruitment Hall', icon:'📜', ch:1, desc:'Mercenary quests, contracts and bounties.'},
-      {id:'streets', kind:'tavern', n:'City Streets & Tavern', icon:'🍶', ch:1, desc:'Meals and rumours.'}]},
+      {id:'hall', kind:'board', n:'Notice Board', icon:'📜', ch:3, desc:'Contracts and bounties for the party.'},
+      {id:'streets', kind:'tavern', n:'City Streets & Tavern', icon:'🍶', ch:3, desc:'Meals and rumours.'}]},
   tribute_wilderness:{ n:'Tribute Wilderness', region:'tribute', kind:'field', icon:'🌲', unlock:{ch:3},
     desc:'Roads outside the capital, forest paths and travel camps. First field exploration.',
     spots:[
@@ -38,12 +38,12 @@ const LOCATIONS = {
       {id:'tavern', kind:'tavern', n:'Harbour Tavern', icon:'🍶', desc:'Sailors\' talk and hot food.'},
       {id:'board', kind:'board', n:'Harbour Board', icon:'📜', ch:5, desc:'Contracts and bounties.'},
       {id:'docks', kind:'hunt', n:'The Docks', icon:'🧤', desc:'Pickpockets, thugs and smugglers work the quays.', pool:['dock_pickpocket','dock_thug','smuggler'], lo:1}]},
-  vigil_village:{ n:'Vigil Village', region:'faepool', kind:'town', icon:'🏘', unlock:{ch:5},
+  vigil_village:{ n:'Vigil Village', region:'faepool', kind:'town', icon:'🏘', unlock:{ch:3},   // = the canon "First Village" (ch4)
     desc:'The first village: centre, inn, market, riverside and the surrounding forest. Investigation point and festival.',
     spots:[
       {id:'tavern', kind:'tavern', n:'Local Inn', icon:'🍶', desc:'Warm beds and louder rumours.'},
-      {id:'board', kind:'board', n:'Regional Quest Board', icon:'📜', ch:6, desc:'Villagers need help.'},
-      {id:'shrine', kind:'meditate', n:'Vigil Shrine', icon:'⛩️', ch:17, desc:'Meditation and ancient teachings to strengthen Jade\'s clairvoyance.'},
+      {id:'board', kind:'board', n:'Regional Quest Board', icon:'📜', ch:4, desc:'Villagers need help.'},
+      {id:'shrine', kind:'meditate', n:'Vigil Shrine', icon:'⛩️', ch:99, desc:'Meditation and ancient teachings to strengthen Jade\'s clairvoyance.'},
       {id:'riverside', kind:'gather', n:'Riverside', icon:'🎣', desc:'Fish along the river.', loot:[{id:'river_fish',qty:[1,3]}], ambush:['forest_wolf'], lo:3},
       {id:'outskirts', kind:'hunt', n:'Surrounding Forest', icon:'🐺', desc:'Wolves and bandits near the village.', pool:['road_bandit','bandit_archer','forest_wolf'], lo:3}]},
   faepool_forest:{ n:'Faepool Forest', region:'faepool', kind:'field', icon:'🌲', unlock:{ch:4},
@@ -77,6 +77,9 @@ const LOCATIONS = {
     spots:[
       {id:'open_water', kind:'hunt', n:'Open Water', icon:'🏴‍☠️', desc:'Raiders and storm wisps.', pool:['sea_raider','storm_wisp'], elite:'river_serpent', lo:10},
       {id:'fishing', kind:'gather', n:'Fishing', icon:'🎣', desc:'Cast a line.', loot:[{id:'river_fish',qty:[1,3]}], bonus:{id:'sea_pearl',chance:.15}, ambush:['storm_wisp'], lo:10}]},
+  cliff_area:{ n:'Cliff Area', region:'faepool', kind:'story', icon:'⛰', unlock:{ch:4},
+    desc:'Where Booyeong sprang his ransom trap. Enemy territory.',
+    spots:[{id:'cliff_hunt', kind:'hunt', n:'The Cliffs', icon:'🗡️', desc:'Booyeong\'s men and wild bandits.', pool:['booyeong_guard','road_bandit','bandit_archer'], lo:3}]},
   trial_grounds:{ n:'Ancient Trial Grounds', region:'faepool', kind:'story', icon:'⚔️', unlock:{ch:22},
     desc:'An old arena that tests a party\'s teamwork. Combination attacks matter here.',
     spots:[{id:'trial', kind:'hunt', n:'The Trials', icon:'🗿', desc:'Guardians of the old trial.', pool:['stone_sentinel','relic_spirit'], lo:12}]},
@@ -127,8 +130,7 @@ function spotLock(sp){
 
 // Some story chapters must be started on location (PROVISIONAL). {chapter: locationId}
 // Chapters whose story must be started on location. Tune freely: {chapter: locationId}
-const CH_LOC = { 4:'tribute_wilderness', 5:'faepool_harbour', 6:'vigil_village', 10:'frog_mahan', 11:'faepool_ruins', 13:'faepool_harbour', 14:'dark_inn', 15:'faepool_harbour',
-                 16:'vigil_village', 17:'vigil_village', 18:'vigil_village', 19:'faepool_forest', 21:'faepool_forest', 22:'faepool_ruins', 23:'trial_grounds', 24:'hidden_village', 25:'corrupted_forest', 26:'faepool_borderlands', 27:'faepool_settlement', 30:'reunion_area' };
+const CH_LOC = { 4:'vigil_village', 5:'cliff_area' };   // canon: ch4 First Village, ch5 Cliff Area. (Others parked until canon text exists.)
 // Boat travel unlocks with chapter 13 ("Travel System Expansion"). Set BRACELET_FROM_START=true if the Imperial Bracelet should exist from the Prologue.
 const SHIP_CH = 13, BRACELET_FROM_START = false;
 const modeOpen = m => m!=='ship' || G.ch >= SHIP_CH;
@@ -141,6 +143,8 @@ const ROUTES = [
   {a:'capital', b:'tribute_wilderness', mode:'carriage', n:'Imperial Road', days:1, fare:6, risk:.3, pool:['road_bandit','bandit_archer','forest_wolf']},
   {a:'tribute_wilderness', b:'faepool_harbour', mode:'carriage', n:'Border Road', days:1, fare:8, risk:.35, pool:['road_bandit','bandit_archer','dock_pickpocket']},
   {a:'capital', b:'faepool_harbour', mode:'ship', n:'Imperial Coast Passage', days:1, fare:20, risk:.2, pool:['sea_raider','smuggler']},
+  {a:'tribute_wilderness', b:'vigil_village', mode:'carriage', n:'Village Road', days:2, fare:12, risk:.4, pool:['road_bandit','bandit_archer','forest_wolf']},
+  {a:'vigil_village', b:'cliff_area', mode:'carriage', n:'Cliff Path', days:1, fare:10, risk:.45, pool:['booyeong_guard','road_bandit','bandit_archer']},
   {a:'faepool_harbour', b:'vigil_village', mode:'carriage', n:'Harbour Road', days:1, fare:10, risk:.4, pool:LAND_POOL},
   {a:'vigil_village', b:'faepool_forest', mode:'carriage', n:'Forest Track', days:1, fare:12, risk:.5, pool:['forest_wolf','thorn_boar','xima_sprite']},
   {a:'faepool_forest', b:'frog_mahan', mode:'carriage', n:'Reed Causeway', days:1, fare:10, risk:.5, pool:['bog_toad','mire_leech','forest_wolf']},
@@ -203,33 +207,39 @@ function advanceDay(n){
 // obj types: reach {loc} | kill {keys|area, need} | boss {key} | investigate {spot} | read
 // PROVISIONAL: texts, rewards and chapter gating. Chapters listed = story chapters completed first.
 const MISSIONS = [
-  {id:'m_recruit', needCh:0, title:'The Recruitment Scroll', obj:{type:'read'}, rw:{xp:60, gold:40},
-   subj:'A summons for outsiders', body:'Jade — a recruitment notice goes out beyond the capital today. Whoever answers it, meet them at the Recruitment Hall and judge their worth for yourself. — Greyson'},
-  {id:'m_wild', needCh:3, title:'Beyond the Walls', obj:{type:'reach', loc:'tribute_wilderness'}, rw:{xp:120, gold:60},
+  // ---- canon (Prologue-5) ----
+  {id:'m_summons', needCh:0, title:'The Protector of Tribute', obj:{type:'read'}, rw:{xp:60, gold:40},
+   subj:'Tribute can wait no longer', body:'Jade — danger gathers around the island and I cannot wait any longer. I am counting on you. Recruits will answer the scroll; judge them well. — Greyson'},
+  {id:'m_village', needCh:3, title:'The First Village', obj:{type:'reach', loc:'vigil_village'}, rw:{xp:150, gold:80},
+   subj:'Your first mission', body:'With your party contracts signed, travel to the first village on the mission route. Take the horse carriage. — Greyson'},
+  {id:'m_cliff', needCh:4, title:'The Cliff Ransom', obj:{type:'reach', loc:'cliff_area'}, rw:{xp:200, gold:100},
+   subj:'A ransom demand', body:'Word has reached me of a ransom demand. Go to the cliffs. — Greyson'},
+  // ---- DRAFT, NOT CANON (parked at ch99 until the real chapter text is converted) ----
+  {id:'m_wild', needCh:99, title:'Beyond the Walls', obj:{type:'reach', loc:'tribute_wilderness'}, rw:{xp:120, gold:60},
    subj:'Your first mission outside the city', body:'The time has come to leave the capital. Take your companions out along the Imperial Road and see what the wilderness hides. Use the horse carriage; the roads are not always quiet. — Greyson'},
-  {id:'m_harbour', needCh:4, title:'Into Faepool', obj:{type:'reach', loc:'faepool_harbour'}, rw:{xp:150, gold:70},
+  {id:'m_harbour', needCh:99, title:'Into Faepool', obj:{type:'reach', loc:'faepool_harbour'}, rw:{xp:150, gold:70},
    subj:'Faepool awaits', body:'Continue to Faepool Harbour, the gateway to the border region. Report anything strange. — Greyson'},
-  {id:'m_forest', needCh:4, after:'m_harbour', title:'Thin the Faepool Wilds', obj:{type:'kill', area:'forest', need:6, label:'forest creatures'}, rw:{xp:200, gold:90, items:[{id:'herbal_tonic',qty:2}]},
+  {id:'m_forest', needCh:99, after:'m_harbour', title:'Thin the Faepool Wilds', obj:{type:'kill', area:'forest', need:6, label:'forest creatures'}, rw:{xp:200, gold:90, items:[{id:'herbal_tonic',qty:2}]},
    subj:'Trouble in the forest', body:'Travellers speak of corrupted beasts in Faepool Forest. Clear six of them from the paths. Be careful of anything that glows. — Greyson'},
-  {id:'m_vigil', needCh:5, title:'The First Village', obj:{type:'reach', loc:'vigil_village'}, rw:{xp:220, gold:100},
+  {id:'m_vigil', needCh:99, title:'The First Village', obj:{type:'reach', loc:'vigil_village'}, rw:{xp:220, gold:100},
    subj:'Vigil Village', body:'Vigil Village is the first settlement in Faepool. Go there, speak to the villagers and find the cause of the unrest. — Greyson'},
-  {id:'m_frog', needCh:9, title:'The Swamp Warlord', obj:{type:'boss', key:'boss_frog_mahan'}, rw:{xp:500, gold:260, rep:10},
+  {id:'m_frog', needCh:99, title:'The Swamp Warlord', obj:{type:'boss', key:'boss_frog_mahan'}, rw:{xp:500, gold:260, rep:10},
    subj:'Frog Mahan', body:'The clues point to the swamp, and to a creature the villagers call Frog Mahan. One of Xima\'s lesser servants. End it. — Greyson'},
-  {id:'m_ruins', needCh:10, title:'The Forgotten Ruins', obj:{type:'investigate', spot:'ruins_clues'}, rw:{xp:320, gold:140},
+  {id:'m_ruins', needCh:99, title:'The Forgotten Ruins', obj:{type:'investigate', spot:'ruins_clues'}, rw:{xp:320, gold:140},
    subj:'Ancient records', body:'There are ruins beneath Faepool older than the Crown\'s records. Study them. Whatever Jade sees there, write it down. — Greyson'},
-  {id:'m_inn', needCh:13, title:'Shadows at the Dark Inn', obj:{type:'investigate', spot:'inn_clues'}, rw:{xp:380, gold:160},
+  {id:'m_inn', needCh:99, title:'Shadows at the Dark Inn', obj:{type:'investigate', spot:'inn_clues'}, rw:{xp:380, gold:160},
    subj:'An inn that should be empty', body:'An inn on the old forest road has swallowed three of my scouts. Go there and find out why. Search every room. — Greyson'},
-  {id:'m_river', needCh:15, title:'Across the Sea', obj:{type:'reach', loc:'river_crossing'}, rw:{xp:420, gold:190},
+  {id:'m_river', needCh:99, title:'Across the Sea', obj:{type:'reach', loc:'river_crossing'}, rw:{xp:420, gold:190},
    subj:'The sea route', body:'Take ship from Faepool Harbour. We need to know whether the water is passable and who controls it. — Greyson'},
-  {id:'m_trial', needCh:22, title:'The Ancient Trial', obj:{type:'reach', loc:'trial_grounds'}, rw:{xp:500, gold:200},
+  {id:'m_trial', needCh:99, title:'The Ancient Trial', obj:{type:'reach', loc:'trial_grounds'}, rw:{xp:500, gold:200},
    subj:'An old arena', body:'My scholars place an arena of the ancients beyond the ruins. Take the party there; strength alone will not be enough. — Greyson'},
-  {id:'m_hidden', needCh:23, title:'The Hidden Village', obj:{type:'reach', loc:'hidden_village'}, rw:{xp:520, gold:210},
+  {id:'m_hidden', needCh:99, title:'The Hidden Village', obj:{type:'reach', loc:'hidden_village'}, rw:{xp:520, gold:210},
    subj:'People who chose to hide', body:'Some of my subjects fled Xima\'s conflict and were never found. If you find them, listen before you ask. — Greyson'},
-  {id:'m_corrupt', needCh:24, title:'The Blight', obj:{type:'kill', key:'corrupted_stag', need:2, label:'Corrupted Stags'}, rw:{xp:650, gold:260, rep:10},
+  {id:'m_corrupt', needCh:99, title:'The Blight', obj:{type:'kill', key:'corrupted_stag', need:2, label:'Corrupted Stags'}, rw:{xp:650, gold:260, rep:10},
    subj:'The forest is dying', body:'Reports say stags once sacred to the forest are now carriers of the curse. Put down two of them. — Greyson'},
-  {id:'m_reunion', needCh:29, title:'A Reunion', obj:{type:'reach', loc:'reunion_area'}, rw:{xp:800, gold:300},
+  {id:'m_reunion', needCh:99, title:'A Reunion', obj:{type:'reach', loc:'reunion_area'}, rw:{xp:800, gold:300},
    subj:'Someone has been seen', body:'A scout swears he saw a man with a crossbow on the wilderness route. Go to the Reunion Area. — Greyson'},
-  {id:'m_bracelet', needCh:21, title:'A Gift from the Crown', obj:{type:'read'}, rw:{xp:150, gold:0, flag:'bracelet'},
+  {id:'m_bracelet', needCh:99, title:'A Gift from the Crown', obj:{type:'read'}, rw:{xp:150, gold:0, flag:'bracelet'},
    subj:'Pigeons are too slow', body:'Wear this bracelet. It will carry my voice to you anywhere on the island, and yours to me. No more waiting on birds. — Greyson'},
   {id:'m_dragon', needCh:99, title:'Dragon Vale', obj:{type:'reach', loc:'dragon_vale'}, rw:{xp:700, gold:300},
    subj:'The Vale awakens', body:'The old accounts say the Vale answers only to a certain bloodline. Bring Devon. — Greyson'},
@@ -533,15 +543,16 @@ function rumour(){
 
 /* ---------------- ARCHIVE LORE (draft from the design notes) ---------------- */
 const LORE = [
+  {ch:0, n:'Xima\'s Threat', t:'Danger is growing around Tribute. King Greyson can no longer wait.'},
   {ch:0, n:'Tribute Island', t:'The seat of King Greyson. A hidden isle trapped under the shadow of Xima\'s ancient curse.'},
   {ch:0, n:'Imperial Guard', t:'Jade Gold serves as an Imperial Guardian. Her sword training began in the Training Grounds.'},
-  {ch:5, n:'Faepool Territory', t:'A border region of forests and traditional villages. Something interferes with Jade\'s clairvoyance here.'},
-  {ch:8, n:'The Hidden Message', t:'An unexpected message suggests the curse, Jade\'s visions and the people around her may be connected.'},
-  {ch:11, n:'Ancient Records', t:'Records recovered from the Faepool ruins. The disturbances are not random: they belong to one pattern.'},
-  {ch:12, n:'Xima', t:'The source of the curse, and the ancient witch whose magic shaped Tribute\'s history. The curse may have multiple layers.'},
-  {ch:12, n:'Ancient Magic', t:'Old magic leaves traces in stone and blood. Jade\'s visions respond to it.'},
-  {ch:12, n:'Tribute History', t:'How the island came to be bound by the curse. Many pages are still missing.'},
-  {ch:20, n:'Dima\'s Legacy', t:'Jade\'s golden blood connects her to Dima. The records speak of a sanctuary, location unknown.'},
+  {ch:99, n:'Faepool Territory', t:'A border region of forests and traditional villages. Something interferes with Jade\'s clairvoyance here.'},
+  {ch:99, n:'The Hidden Message', t:'An unexpected message suggests the curse, Jade\'s visions and the people around her may be connected.'},
+  {ch:99, n:'Ancient Records', t:'Records recovered from the Faepool ruins. The disturbances are not random: they belong to one pattern.'},
+  {ch:99, n:'Xima', t:'The source of the curse, and the ancient witch whose magic shaped Tribute\'s history. The curse may have multiple layers.'},
+  {ch:99, n:'Ancient Magic', t:'Old magic leaves traces in stone and blood. Jade\'s visions respond to it.'},
+  {ch:99, n:'Tribute History', t:'How the island came to be bound by the curse. Many pages are still missing.'},
+  {ch:99, n:'Dima\'s Legacy', t:'Jade\'s golden blood connects her to Dima. The records speak of a sanctuary, location unknown.'},
   {ch:0, n:'Dragon Vale', t:'A region of dragon lore, ancient powers and legendary items.', party:'devon'},
   {ch:0, n:'The Dragon Pearl', t:'Devon\'s inheritance. Dragon Empowerment, Ancient Dragon Knowledge and Dragon Manifestation.', party:'devon'},
 ];

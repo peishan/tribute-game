@@ -34,7 +34,7 @@ function rParty(){
   const slots = [0,1,2,3].map(i => { const id=G.active[i]; return id?`<div class="slot on" onclick="sel='${id}';render()"><img src="assets/party/${id}.webp"><b>${CHARACTERS[id].n.split(' ')[0]}</b></div>`:`<div class="slot"><b>empty</b></div>`; }).join('');
   const roster = ROSTER.map(id => {
     const c=CHARACTERS[id], rec=isRecruited(id), join=JOIN_CH[id];
-    return `<div class="rc ${sel===id?'sel':''} ${rec?'':'lock'}" onclick="sel='${id}';render()"><img src="assets/party/${id}.webp"><div><b>${rec||id==='princess'?c.n:'???'}</b><div class="sm">${rec?c.cls+' · Lv'+U(id).lv:(join!==undefined?'Joins Ch.'+join:'Unrecruited')}</div></div></div>`; }).join('');
+    return `<div class="rc ${sel===id?'sel':''} ${rec?'':'lock'}" onclick="sel='${id}';render()"><img src="assets/party/${id}.webp"><div><b>${rec||id==='princess'?c.n:'???'}</b><div class="sm">${rec?c.cls+' · Lv'+U(id).lv+(G.guests[id]?' · guest':''):(join!==undefined?'Joins Ch.'+join:'Unrecruited')}</div></div></div>`; }).join('');
   return `<h2>Party</h2><div class="sm">Active (${G.active.length}/${ACTIVE_SLOTS}) — fights use these four</div><div class="slots">${slots}</div><div class="rcs">${roster}</div>${rSheet(sel)}`;
 }
 function rSheet(id){
@@ -45,7 +45,7 @@ function rSheet(id){
   const skills = skillsOf(id).filter(s=>!(s.treeSkill&&!s.ok)).map(s=>`<div class="sk ${s.ok?'':'lk'}"><span class="si">${s.icon}</span><div><b>${s.n}</b> ${s.sig?'<em class="tag">signature</em>':''}${s.bondSkill?'<em class="tag b">bond</em>':''}${s.evoSkill?'<em class="tag e">evolution</em>':''}${s.treeSkill?'<em class="tag t">tree</em>':''}<div class="sm">${s.ok?s.desc:'🔒 '+s.why}</div></div><span class="mp">${s.mp?s.mp+' MP':''}</span></div>`).join('');
   const evo = evoState(id).map(e=>`<div class="ev ${e.st}"><div><b>${e.n}</b> <span class="sm">${e.tier===2?'final':'tier '+e.tier}</span><div class="sm">${e.desc}</div></div>${e.st==='ready'?`<button onclick="doEvolve('${id}','${e.id}')">Evolve</button>`:`<span class="sm">${e.st==='taken'?'✔ taken':e.st==='closed'?'closed':'🔒 '+e.why}</span>`}</div>`).join('') || '<div class="sm">No evolution designed yet.</div>';
   const act = G.active.includes(id);
-  return `<div class="panel sheet"><div class="sh"><img src="assets/party/${id}.webp"><div><h3>${c.icon} ${c.n}</h3><div>${c.cls}</div><div class="sm">${c.role} · ${c.combat}</div><div class="sm">Lv ${u.lv}/${CFG.LEVEL_CAP}</div>${bar(u.xp,xpToNext(u.lv),'xp')}<div class="sm">XP ${u.xp}/${xpToNext(u.lv)}</div></div></div>
+  return `<div class="panel sheet"><div class="sh"><img src="assets/party/${id}.webp"><div><h3>${c.icon} ${c.n}${G.guests[id]?' <em class="tag">guest</em>':''}</h3><div>${c.cls}</div><div class="sm">${c.role} · ${c.combat}</div><div class="sm">Lv ${u.lv}/${CFG.LEVEL_CAP}</div>${bar(u.xp,xpToNext(u.lv),'xp')}<div class="sm">XP ${u.xp}/${xpToNext(u.lv)}</div></div></div>
    <div class="sm" style="margin:6px 0">${c.identity}</div>
    ${id!=='jade'?`<div class="sm">💞 Bond with Jade: ${bl}/5 ${nextB?`(${u.bp}/${nextB})`:'(max)'}</div>${bar(u.bp,nextB||u.bp||1,'bond')}`:''}
    ${id!=='jade'?`<button onclick="toggleActive('${id}');render()">${act?'Remove from active party':'Add to active party'}</button>`:'<div class="sm">Jade always leads the active party.</div>'}
@@ -96,10 +96,11 @@ function rChapter(n){
   return `<button onclick="closeChapter()">◀ Journal</button><h2>${n===0?'':'Chapter '+n+' · '}${c.title}</h2>${rDesign(n)}${pages}${chMsgs.length?`<div class="panel good">${chMsgs.map(m=>`<div>${m}</div>`).join('')}</div>`:''}${foot}`;
 }
 function rDesign(n){
-  const d = typeof CHAPTER_DESIGN!=='undefined' && CHAPTER_DESIGN[n]; if(!d) return '';
+  const d = CHAPTER_DESIGN[n];
+  if(!d) return `<div class="panel sm">Skeleton summary for this chapter isn't written yet. It will be converted from the canon story text.</div>`;
   const li = a => a.map(x=>`<div class="li">• ${x}</div>`).join('');
   return `<div class="panel"><div class="sm">${d.loc}${CH_LOC[n]?' · starts at 📍 '+LOCATIONS[CH_LOC[n]].n:''}</div><div style="margin:6px 0">${d.sum}</div>
-   <details><summary class="sm">Key events · unlocks · rewards</summary><h4>Key Events</h4>${li(d.events)}<h4>Gameplay Unlocks</h4>${li(d.unlocks.map(x=>'✅ '+x))}<h4>Rewards</h4>${li(d.rewards)}<div class="sm" style="margin-top:6px">Playable: ${d.chars.map(i=>CHARACTERS[i].icon+' '+CHARACTERS[i].n.split(' ')[0]).join(' · ')}</div></details></div>`;
+   <details><summary class="sm">Key events · purpose · unlocks</summary>${d.events.length?'<h4>Key Events</h4>'+li(d.events):''}<h4>Gameplay Purpose</h4>${li(d.purpose)}<h4>Unlocks</h4>${li(d.unlocks.map(x=>'✅ '+x))}<div class="sm" style="margin-top:6px">Playable: ${d.chars.map(i=>CHARACTERS[i].icon+' '+CHARACTERS[i].n.split(' ')[0]).join(' · ')}</div></details></div>`;
 }
 function finishChapter(n){ chMsgs = completeChapter(n); render(); }
 function chapterFight(n){ origin='journal'; startBattle(battleSpecFor(n)); tab='battle'; render(); }

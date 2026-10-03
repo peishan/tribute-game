@@ -50,3 +50,13 @@ OPEN QUESTION: ch5-15 (Faepool, Vigil, swamp, ruins, inn) and ch16-21 (arrive in
 styles.css now holds all styling (was inline in index.html): same design language as Aethon Codex / Crimson Tide
 (Cinzel + Crimson Text, gold/parchment, gradient panels with gold hairline, stat pills, uppercase nav tabs, framed cover landing,
 gold shimmer button, drifting petals) in Tribute's crimson + cherry-blossom colours. Palette tokens are at the top of styles.css.
+
+--- v4.0: CANON RESET (story data v6) ---
+The earlier GPT-estimated chapter summaries (Ch0-30) were removed. scripts/chapters.js now holds ONLY canon-converted entries (Prologue-5)
+plus CANON_TITLES for Ch6-14 (summaries still to convert). Ch15+ have no canon text yet.
+Canon applied: Chad+Sky permanent at ch3; Sally = GUEST at ch4 (GUEST_CH in core.js; leave chapter unknown); ch2 tutorial (Jade+Chad+Sky vs dummies),
+  ch3 Jade-vs-Chad duel, ch5 Booyeong rescue fight; ch4 First Village = Vigil Village, ch5 Cliff Area (new).
+PARKED / NON-CANON (kept as drafts, gated at ch99 so they don't fire): drafted missions after ch4, most archive lore, Vigil Shrine.
+STILL TIED TO OLD NUMBERS (re-gate when canon text arrives): unlock chapters of Faepool Harbour/Forest, Frog Mahan, Ruins, Dark Inn, River Crossing,
+  Trial Grounds, Hidden Village, Corrupted Forest, Borderlands, Settlement, Reunion Area (world.js LOCATIONS[].unlock); boat travel (SHIP_CH=13);
+  Sally permanent ch28 / Levi ch30 (JOIN_CH) are UNVERIFIED against canon.
