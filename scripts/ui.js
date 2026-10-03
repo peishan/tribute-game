@@ -56,7 +56,8 @@ function rTree(id){
   const free = spFree(id);
   const branches = SKILLTREE[id].map(b => `<div class="br"><b>${b.icon} ${b.n}</b> <span class="sm">${b.desc}</span>`+nodeList(id).filter(n=>n.branch===b.id).map(n=>{
     const st = nodeState(id,n);
-    return `<div class="nd ${st}"><span class="si">${n.icon}</span><div class="fl"><b>${n.n}</b> <em class="tag ${n.skill?'t':''}">${n.skill?'skill':'passive'}</em><div class="sm">${n.desc}${n.skill?' · '+n.skill.mp+' MP':''}</div></div>${st==='taken'?'<span class="sm">✔</span>':st==='ready'?`<button onclick="doNode('${id}','${n.id}')">${n.cost} SP</button>`:`<span class="sm">${st==='locked'?'🔒':n.cost+' SP'}</span>`}</div>`; }).join('')+`</div>`).join('');
+    return `<div class="nd ${st}"><span class="si">${n.icon}</span><div class="fl"><b>${n.n}</b> <em class="tag ${n.skill?'t':''}">${n.skill?'skill':'passive'}</em><div class="sm">${n.desc}${n.skill?' · '+n.skill.mp+' MP':''}</div></div>${st==='taken'?'<span class="sm">✔</span>':st==='ready'?`<button onclick="doNode('${id}','${n.id}')">${n.cost} SP</button>`:`<span class="sm">${st==='locked'||st==='sealed'?'🔒':n.cost+' SP'}</span>`}</div>`; }).join('')+`</div>`).join('');
+  if(!treeOpen(id)) return `<h4>Skill Tree</h4><div class="sm">🔒 Unlocks at chapter ${TREE_CH[id]}. Skill points keep accruing (${free} SP free).</div>`;
   return `<h4>Skill Tree <span class="sm">· ${free} SP free (${spSpent(id)} spent)</span></h4><div class="sm">1 SP per level, +3 per evolution. Each node needs the one above it.</div>${branches}<button ${U(id).nodes.length&&G.gold>=respecCost(id)?'':'disabled'} onclick="doRespec('${id}')">Reset tree (${respecCost(id)}g)</button>`;
 }
 function rBondRewards(id){
@@ -75,7 +76,7 @@ function rJournal(){
   const rows = CHAPTERS.map(c => {
     const done=chapterDone(c.n), avail=chapterAvailable(c.n);
     const joins = recruitsAtChapter(c.n).map(id=>CHARACTERS[id].n.split(' ')[0]);
-    return `<div class="card ${avail?'':'lock'} ${c.n===G.ch+1?'cur':''}" onclick="${avail?`openChapter(${c.n})`:''}"><div class="fl"><b>${c.n===0?'':c.n+'. '}${avail?c.title:'???'}</b><div class="sm">${done?'✔ Complete':avail?'Available':'Locked'}${c.battle?' · ⚔️ battle':''}${joins.length?' · ★ '+joins.join(', ')+' joins':''}${c.art.length?'':' · art pending'}</div></div><span class="sm">XP ${c.sxp}</span></div>`; }).join('');
+    return `<div class="card ${avail?'':'lock'} ${c.n===G.ch+1?'cur':''}" onclick="${avail?`openChapter(${c.n})`:''}"><div class="fl"><b>${c.n===0?'':c.n+'. '}${avail?c.title:'???'}</b><div class="sm">${done?'✔ Complete':avail?'Available':(c.n<=G.ch+1&&CH_LOC[c.n]?'📍 Travel to '+LOCATIONS[CH_LOC[c.n]].n:'Locked')}${CH_LOC[c.n]&&avail&&!done?' · 📍 '+LOCATIONS[CH_LOC[c.n]].n:''}${c.battle?' · ⚔️ battle':''}${joins.length?' · ★ '+joins.join(', ')+' joins':''}${c.art.length?'':' · art pending'}</div></div><span class="sm">XP ${c.sxp}</span></div>`; }).join('');
   return `<h2>Chapter Journal</h2><div class="sm">Chapters unlock in order. Each gives story XP; battle chapters also roll loot.</div>${rows}`;
 }
 function openChapter(n){ openCh=n; chMsgs=[]; render(); }
@@ -90,7 +91,13 @@ function rChapter(n){
   } else if(!done){
     foot = `<button class="pri" onclick="finishChapter(${c.n})">Complete chapter (+${c.sxp} XP)</button>`;
   }
-  return `<button onclick="closeChapter()">◀ Journal</button><h2>${n===0?'':'Chapter '+n+' · '}${c.title}</h2>${pages}${chMsgs.length?`<div class="panel good">${chMsgs.map(m=>`<div>${m}</div>`).join('')}</div>`:''}${foot}`;
+  return `<button onclick="closeChapter()">◀ Journal</button><h2>${n===0?'':'Chapter '+n+' · '}${c.title}</h2>${rDesign(n)}${pages}${chMsgs.length?`<div class="panel good">${chMsgs.map(m=>`<div>${m}</div>`).join('')}</div>`:''}${foot}`;
+}
+function rDesign(n){
+  const d = typeof CHAPTER_DESIGN!=='undefined' && CHAPTER_DESIGN[n]; if(!d) return '';
+  const li = a => a.map(x=>`<div class="li">• ${x}</div>`).join('');
+  return `<div class="panel"><div class="sm">${d.loc}${CH_LOC[n]?' · starts at 📍 '+LOCATIONS[CH_LOC[n]].n:''}</div><div style="margin:6px 0">${d.sum}</div>
+   <details><summary class="sm">Key events · unlocks · rewards</summary><h4>Key Events</h4>${li(d.events)}<h4>Gameplay Unlocks</h4>${li(d.unlocks.map(x=>'✅ '+x))}<h4>Rewards</h4>${li(d.rewards)}<div class="sm" style="margin-top:6px">Playable: ${d.chars.map(i=>CHARACTERS[i].icon+' '+CHARACTERS[i].n.split(' ')[0]).join(' · ')}</div></details></div>`;
 }
 function finishChapter(n){ chMsgs = completeChapter(n); render(); }
 function chapterFight(n){ origin='journal'; startBattle(battleSpecFor(n)); tab='battle'; render(); }
@@ -179,7 +186,7 @@ function rDev(){
    <button onclick="G.party.forEach(i=>addBond(i,60));save();render()">+60 bond (all)</button><button onclick="G.gold+=500;save();render()">+500 gold</button>
    <button onclick="G.flags.crossbow=!G.flags.crossbow;save();render()">Toggle crossbow flag (${G.flags.crossbow?'on':'off'})</button>
    <button onclick="G.flags.bracelet=!G.flags.bracelet;save();render()">Toggle bracelet (${G.flags.bracelet?'on':'off'})</button>
-   <button onclick="advanceDay(1);save();render()">+1 day</button><button onclick="G.loc='capital';save();render()">Warp to capital</button>
+   <button onclick="advanceDay(1);save();render()">+1 day</button><select id="devloc">${LOC_ORDER.filter(locOpen).map(k=>`<option value="${k}" ${k===G.loc?'selected':''}>${LOCATIONS[k].n}</option>`).join('')}</select><button onclick="G.loc=$('devloc').value;save();render()">Warp</button>
    <button onclick="ROSTER.forEach(i=>recruit(i));save();render()">Recruit everyone</button></div></div>
    <div class="panel"><button onclick="if(confirm('Erase save?')){localStorage.removeItem(CFG.SAVE_KEY);location.reload()}">Erase save</button></div>`;
 }
@@ -187,6 +194,7 @@ function rDev(){
 /* ---------------- BOOT ---------------- */
 function enter(newGame){
   if(newGame || !load()){ G = newState(); save(); }
+  if(newGame && BRACELET_FROM_START) G.flags.bracelet = true;
   refreshBounties(); checkMissionOffers(); save();
   $('landing').style.display='none'; $('app').style.display='flex'; render();
 }

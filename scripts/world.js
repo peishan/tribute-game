@@ -24,40 +24,55 @@ const LOCATIONS = {
       {id:'training', kind:'training', n:'Imperial Guard Training Grounds', icon:'⚔️', img:'assets/areas/training_grounds.webp', desc:'Safe zone. No monsters. Sword practice, meditation and ability training.'},
       {id:'archive', kind:'archive', n:'Imperial Archive', icon:'📚', desc:'The Codex: history, prophecy, Xima research and Dima\'s records.'},
       {id:'garden', kind:'garden', n:'Imperial Garden', icon:'🌸', img:'assets/areas/imperial_garden.webp', desc:'Quiet meditation, bond scenes and character events.'},
-      {id:'tavern', kind:'tavern', n:'Capital Tavern', icon:'🍶', desc:'Meals, rumours.'},
-      {id:'board', kind:'board', n:'Quest & Bounty Board', icon:'📜', desc:'Contracts posted by merchants and the guard.'}]},
-  faepool_harbour:{ n:'Faepool Harbour', region:'border', kind:'harbour', icon:'⚓', unlock:{ch:3},
-    desc:'Travel hub: boats, trade and side quests.',
+      {id:'hall', kind:'board', n:'Recruitment Hall', icon:'📜', ch:1, desc:'Mercenary quests, contracts and bounties.'},
+      {id:'streets', kind:'tavern', n:'City Streets & Tavern', icon:'🍶', ch:1, desc:'Meals and rumours.'}]},
+  tribute_wilderness:{ n:'Tribute Wilderness', region:'tribute', kind:'field', icon:'🌲', unlock:{ch:3},
+    desc:'Roads outside the capital, forest paths and travel camps. First field exploration.',
+    spots:[
+      {id:'roads', kind:'hunt', n:'Roads outside the Capital', icon:'🗡️', desc:'Bandits and wild animals.', pool:['road_bandit','bandit_archer','forest_wolf'], lo:2},
+      {id:'forest_paths', kind:'gather', n:'Forest Paths', icon:'🌿', desc:'Gather herbs along the paths.', loot:[{id:'forest_herb',qty:[1,2]}], ambush:['forest_wolf','road_bandit'], lo:2},
+      {id:'camp', kind:'tavern', n:'Travel Camp', icon:'⛺', desc:'Camping: share a meal around the fire.'}]},
+  faepool_harbour:{ n:'Faepool Harbour', region:'border', kind:'harbour', icon:'⚓', unlock:{ch:4},
+    desc:'Entry to Faepool and travel hub: boats (from chapter 13), trading posts and side quests.',
     spots:[
       {id:'tavern', kind:'tavern', n:'Harbour Tavern', icon:'🍶', desc:'Sailors\' talk and hot food.'},
-      {id:'board', kind:'board', n:'Harbour Board', icon:'📜', desc:'Contracts and bounties.'},
+      {id:'board', kind:'board', n:'Harbour Board', icon:'📜', ch:5, desc:'Contracts and bounties.'},
       {id:'docks', kind:'hunt', n:'The Docks', icon:'🧤', desc:'Pickpockets, thugs and smugglers work the quays.', pool:['dock_pickpocket','dock_thug','smuggler'], lo:1}]},
-  vigil_village:{ n:'Vigil Village', region:'faepool', kind:'town', icon:'🏘', unlock:{ch:15},
-    desc:'The first village. Investigation point, festival and side quests.',
+  vigil_village:{ n:'Vigil Village', region:'faepool', kind:'town', icon:'🏘', unlock:{ch:5},
+    desc:'The first village: centre, inn, market, riverside and the surrounding forest. Investigation point and festival.',
     spots:[
-      {id:'tavern', kind:'tavern', n:'Village Inn', icon:'🍶', desc:'Warm beds and louder rumours.'},
-      {id:'board', kind:'board', n:'Village Board', icon:'📜', desc:'Villagers need help.'},
-      {id:'outskirts', kind:'hunt', n:'Village Outskirts', icon:'🗡️', desc:'Bandits on the roads in.', pool:['road_bandit','bandit_archer','forest_wolf'], lo:3}]},
-  faepool_forest:{ n:'Faepool Forest', region:'faepool', kind:'field', icon:'🌲', unlock:{ch:3},
-    desc:'Exploration area: gathering, hidden paths, ancient ruins. Xima corruption lingers.',
+      {id:'tavern', kind:'tavern', n:'Local Inn', icon:'🍶', desc:'Warm beds and louder rumours.'},
+      {id:'board', kind:'board', n:'Regional Quest Board', icon:'📜', ch:6, desc:'Villagers need help.'},
+      {id:'riverside', kind:'gather', n:'Riverside', icon:'🎣', desc:'Fish along the river.', loot:[{id:'river_fish',qty:[1,3]}], ambush:['forest_wolf'], lo:3},
+      {id:'outskirts', kind:'hunt', n:'Surrounding Forest', icon:'🐺', desc:'Wolves and bandits near the village.', pool:['road_bandit','bandit_archer','forest_wolf'], lo:3}]},
+  faepool_forest:{ n:'Faepool Forest', region:'faepool', kind:'field', icon:'🌲', unlock:{ch:4},
+    desc:'Exploration area: gathering, hidden paths. Xima corruption lingers.',
     spots:[
       {id:'woods', kind:'hunt', n:'Deep Woods', icon:'🐺', desc:'Forest creatures and corrupted spirits.', pool:['forest_wolf','thorn_boar','xima_sprite'], elite:'corrupted_stag', lo:2},
       {id:'herbs', kind:'gather', n:'Gather Herbs', icon:'🌿', desc:'Search the hidden paths for herbs.', loot:[{id:'forest_herb',qty:[1,3]}], bonus:{id:'xima_shard',chance:.12}, ambush:['forest_wolf','xima_sprite'], lo:2}]},
-  dark_inn:{ n:'Dark Inn', region:'faepool', kind:'story', icon:'🌫', unlock:{ch:11},
+  frog_mahan:{ n:'Frog Mahan Swamp', region:'faepool', kind:'boss', icon:'🐸', unlock:{ch:9},
+    desc:'Boss area: poison marsh, hidden paths, corrupted forest. Status effects and hazards.',
+    spots:[
+      {id:'wetlands', kind:'hunt', n:'Poison Marsh', icon:'🪱', desc:'Toads and leeches in the reeds.', pool:['bog_toad','mire_leech'], lo:8},
+      {id:'moss', kind:'gather', n:'Hidden Paths (gather)', icon:'🧫', desc:'Risky foraging.', loot:[{id:'toad_gland',qty:[1,3]}], ambush:['bog_toad','mire_leech'], lo:8},
+      {id:'mahan', kind:'boss', n:'Frog Mahan', icon:'🐸', desc:'One of Xima\'s weaker servants.', boss:'boss_frog_mahan', add:['bog_toad','bog_toad'], lo:10}]},
+  faepool_ruins:{ n:'Faepool Ruins', region:'faepool', kind:'story', icon:'🌫', unlock:{ch:10},
+    desc:'Ancient forest path, forgotten ruins and hidden caves. Puzzle areas, hidden treasure, lore and visions.',
+    spots:[
+      {id:'ruins_clues', kind:'investigate', n:'Forgotten Ruins', icon:'🗿', need:3, ambush:['xima_sprite','shade_wraith'], lo:8, ch:10,
+       desc:'Old magic still clings here. Study the ruins; Jade\'s visions may surface.', clues:['Vision: a woman in black, sealing a gate with her own blood.','Prophecy fragment: "the golden blood will answer when the shadow wakes".','An inscription naming the witch whose curse shaped Tribute.'],
+       rw:{xp:260, gold:100, items:[{id:'xima_shard',qty:1}]}},
+      {id:'ruin_path', kind:'hunt', n:'Ancient Forest Path', icon:'🌲', desc:'Corrupted creatures guard the old path.', pool:['forest_wolf','thorn_boar','xima_sprite'], elite:'corrupted_stag', lo:6},
+      {id:'caves', kind:'gather', n:'Hidden Caves', icon:'🕳️', desc:'Search the caves for relics.', loot:[{id:'relic_dust',qty:[1,2]}], bonus:{id:'xima_shard',chance:.2}, ambush:['xima_sprite','shade_wraith'], lo:8}]},
+  dark_inn:{ n:'Dark Inn', region:'faepool', kind:'story', icon:'🌫', unlock:{ch:13},
     desc:'Story location. A mystery and Xima\'s influence. Chad / Jade turning point.',
     spots:[
-      {id:'inn_clues', kind:'investigate', n:'Investigate the Inn', icon:'🕯️', need:3, ambush:['masked_assassin','shade_wraith'], lo:6,
+      {id:'inn_clues', kind:'investigate', n:'Investigate the Inn', icon:'🕯️', need:3, ambush:['masked_assassin','shade_wraith'], lo:8,
        desc:'Something is wrong with this place. Search for clues.', clues:['A guest ledger with pages torn out.','A cold room that smells of ash and shade.','Hidden marks scratched beneath the floorboards.'],
        rw:{xp:200, gold:80}},
       {id:'tavern', kind:'tavern', n:'The Dark Inn Bar', icon:'🍶', desc:'The barman never looks up.'}]},
-  frog_mahan:{ n:'Frog Mahan Swamp', region:'faepool', kind:'boss', icon:'🐸', unlock:{ch:17},
-    desc:'Boss area. Swamp, wetlands and poison. Status effects.',
-    spots:[
-      {id:'wetlands', kind:'hunt', n:'Wetlands', icon:'🪱', desc:'Toads and leeches in the reeds.', pool:['bog_toad','mire_leech'], lo:8},
-      {id:'moss', kind:'gather', n:'Gather Swamp Glands', icon:'🧫', desc:'Risky foraging.', loot:[{id:'toad_gland',qty:[1,3]}], ambush:['bog_toad','mire_leech'], lo:8},
-      {id:'mahan', kind:'boss', n:'Frog Mahan', icon:'🐸', desc:'The warlord of the swamp.', boss:'boss_frog_mahan', add:['bog_toad','bog_toad'], lo:10}]},
-  river_crossing:{ n:'River Crossing', region:'border', kind:'sea', icon:'🌊', unlock:{ch:19},
-    desc:'Boat exploration, fishing and sea encounters.',
+  river_crossing:{ n:'River Crossing', region:'border', kind:'sea', icon:'🌊', unlock:{ch:15},
+    desc:'Reached by sea: boat exploration, fishing and sea encounters.',
     spots:[
       {id:'open_water', kind:'hunt', n:'Open Water', icon:'🏴‍☠️', desc:'Raiders and storm wisps.', pool:['sea_raider','storm_wisp'], elite:'river_serpent', lo:10},
       {id:'fishing', kind:'gather', n:'Fishing', icon:'🎣', desc:'Cast a line.', loot:[{id:'river_fish',qty:[1,3]}], bonus:{id:'sea_pearl',chance:.15}, ambush:['storm_wisp'], lo:10}]},
@@ -78,25 +93,32 @@ const unlockMet = u => !u || ((u.ch===undefined || G.ch >= u.ch) && (!u.flag || 
 const locOpen = id => unlockMet(LOCATIONS[id].unlock);
 const unlockText = u => !u ? '' : (u.ch>=99 ? 'Unknown — story not yet written' : (u.ch!==undefined ? 'Reach chapter '+u.ch : '')+(u.flag?' · '+u.flag:''));
 function spotLock(sp){
+  if(sp.ch!==undefined && G.ch < sp.ch) return '🔒 Reach chapter '+sp.ch;
   if(sp.party && !isRecruited(sp.party)) return '🔒 Needs '+CHARACTERS[sp.party].n.split(' ')[0]+'\'s Ancient Dragon Knowledge';
   if(sp.needFlag && !G.flags[sp.needFlag]) return '🔒 Sealed — complete the Dragon Sanctuary first';
   return '';
 }
 
 // Some story chapters must be started on location (PROVISIONAL). {chapter: locationId}
-const CH_LOC = { 12:'dark_inn', 16:'vigil_village' };
+// Chapters whose story must be started on location. Tune freely: {chapter: locationId}
+const CH_LOC = { 4:'tribute_wilderness', 5:'faepool_harbour', 6:'vigil_village', 10:'frog_mahan', 11:'faepool_ruins', 13:'faepool_harbour', 14:'dark_inn', 15:'faepool_harbour' };
+// Boat travel unlocks with chapter 13 ("Travel System Expansion"). Set BRACELET_FROM_START=true if the Imperial Bracelet should exist from the Prologue.
+const SHIP_CH = 13, BRACELET_FROM_START = false;
+const modeOpen = m => m!=='ship' || G.ch >= SHIP_CH;
 
 /* ---------------- ROUTES ---------------- */
 // mode 'carriage' (land, road encounters — Aethon style) | 'ship' (sea/river voyage — Crimson Tide style)
 const MODES = { carriage:{n:'Horse Carriage', icon:'🐎'}, ship:{n:'Ship', icon:'⛵'} };
 const LAND_POOL = ['road_bandit','bandit_archer','forest_wolf'], SEA_POOL = ['sea_raider','storm_wisp'];
 const ROUTES = [
-  {a:'capital', b:'faepool_harbour', mode:'carriage', n:'Coast Road', days:1, fare:8, risk:.3, pool:['road_bandit','bandit_archer','dock_pickpocket']},
+  {a:'capital', b:'tribute_wilderness', mode:'carriage', n:'Imperial Road', days:1, fare:6, risk:.3, pool:['road_bandit','bandit_archer','forest_wolf']},
+  {a:'tribute_wilderness', b:'faepool_harbour', mode:'carriage', n:'Border Road', days:1, fare:8, risk:.35, pool:['road_bandit','bandit_archer','dock_pickpocket']},
   {a:'capital', b:'faepool_harbour', mode:'ship', n:'Imperial Coast Passage', days:1, fare:20, risk:.2, pool:['sea_raider','smuggler']},
   {a:'faepool_harbour', b:'vigil_village', mode:'carriage', n:'Harbour Road', days:1, fare:10, risk:.4, pool:LAND_POOL},
   {a:'vigil_village', b:'faepool_forest', mode:'carriage', n:'Forest Track', days:1, fare:12, risk:.5, pool:['forest_wolf','thorn_boar','xima_sprite']},
-  {a:'faepool_forest', b:'dark_inn', mode:'carriage', n:'Old Inn Road', days:1, fare:10, risk:.5, pool:['masked_assassin','forest_wolf','shade_wraith']},
   {a:'faepool_forest', b:'frog_mahan', mode:'carriage', n:'Reed Causeway', days:1, fare:10, risk:.5, pool:['bog_toad','mire_leech','forest_wolf']},
+  {a:'faepool_forest', b:'faepool_ruins', mode:'carriage', n:'Old Forest Path', days:1, fare:10, risk:.5, pool:['forest_wolf','xima_sprite','thorn_boar']},
+  {a:'faepool_forest', b:'dark_inn', mode:'carriage', n:'Old Inn Road', days:1, fare:10, risk:.5, pool:['masked_assassin','forest_wolf','shade_wraith']},
   {a:'faepool_harbour', b:'river_crossing', mode:'ship', n:'River Mouth Voyage', days:2, fare:30, risk:.5, pool:SEA_POOL},
   {a:'river_crossing', b:'dragon_vale', mode:'ship', n:'Upriver Voyage', days:2, fare:35, risk:.5, pool:SEA_POOL.concat(['river_serpent'])},
   {a:'faepool_forest', b:'dragon_vale', mode:'carriage', n:'Vale Road', days:3, fare:50, risk:.6, pool:['vale_drake','forest_wolf','xima_sprite']},
@@ -148,18 +170,24 @@ function advanceDay(n){
 // obj types: reach {loc} | kill {keys|area, need} | boss {key} | investigate {spot} | read
 // PROVISIONAL: texts, rewards and chapter gating. Chapters listed = story chapters completed first.
 const MISSIONS = [
-  {id:'m_harbour', needCh:3, title:'To Faepool Harbour', obj:{type:'reach', loc:'faepool_harbour'}, rw:{xp:120, gold:60},
-   subj:'A first errand', body:'Jade — the road beyond the capital must be watched. Travel to Faepool Harbour and report what you see. Take the horse carriage; the coast road is short but not always quiet. — Greyson'},
+  {id:'m_recruit', needCh:0, title:'The Recruitment Scroll', obj:{type:'read'}, rw:{xp:60, gold:40},
+   subj:'A summons for outsiders', body:'Jade — a recruitment notice goes out beyond the capital today. Whoever answers it, meet them at the Recruitment Hall and judge their worth for yourself. — Greyson'},
+  {id:'m_wild', needCh:3, title:'Beyond the Walls', obj:{type:'reach', loc:'tribute_wilderness'}, rw:{xp:120, gold:60},
+   subj:'Your first mission outside the city', body:'The time has come to leave the capital. Take your companions out along the Imperial Road and see what the wilderness hides. Use the horse carriage; the roads are not always quiet. — Greyson'},
+  {id:'m_harbour', needCh:4, title:'Into Faepool', obj:{type:'reach', loc:'faepool_harbour'}, rw:{xp:150, gold:70},
+   subj:'Faepool awaits', body:'Continue to Faepool Harbour, the gateway to the border region. Report anything strange. — Greyson'},
   {id:'m_forest', needCh:4, after:'m_harbour', title:'Thin the Faepool Wilds', obj:{type:'kill', area:'forest', need:6, label:'forest creatures'}, rw:{xp:200, gold:90, items:[{id:'herbal_tonic',qty:2}]},
    subj:'Trouble in the forest', body:'Travellers speak of corrupted beasts in Faepool Forest. Clear six of them from the paths. Be careful of anything that glows. — Greyson'},
-  {id:'m_inn', needCh:11, title:'Shadows at the Dark Inn', obj:{type:'investigate', spot:'inn_clues'}, rw:{xp:320, gold:140},
+  {id:'m_vigil', needCh:5, title:'The First Village', obj:{type:'reach', loc:'vigil_village'}, rw:{xp:220, gold:100},
+   subj:'Vigil Village', body:'Vigil Village is the first settlement in Faepool. Go there, speak to the villagers and find the cause of the unrest. — Greyson'},
+  {id:'m_frog', needCh:9, title:'The Swamp Warlord', obj:{type:'boss', key:'boss_frog_mahan'}, rw:{xp:500, gold:260, rep:10},
+   subj:'Frog Mahan', body:'The clues point to the swamp, and to a creature the villagers call Frog Mahan. One of Xima\'s lesser servants. End it. — Greyson'},
+  {id:'m_ruins', needCh:10, title:'The Forgotten Ruins', obj:{type:'investigate', spot:'ruins_clues'}, rw:{xp:320, gold:140},
+   subj:'Ancient records', body:'There are ruins beneath Faepool older than the Crown\'s records. Study them. Whatever Jade sees there, write it down. — Greyson'},
+  {id:'m_inn', needCh:13, title:'Shadows at the Dark Inn', obj:{type:'investigate', spot:'inn_clues'}, rw:{xp:380, gold:160},
    subj:'An inn that should be empty', body:'An inn on the old forest road has swallowed three of my scouts. Go there and find out why. Search every room. — Greyson'},
-  {id:'m_vigil', needCh:15, title:'The First Village', obj:{type:'reach', loc:'vigil_village'}, rw:{xp:300, gold:120},
-   subj:'Vigil Village', body:'Vigil Village has sent word of a festival and of strangers asking after you. Go in person. Keep your eyes open. — Greyson'},
-  {id:'m_frog', needCh:17, title:'The Swamp Warlord', obj:{type:'boss', key:'boss_frog_mahan'}, rw:{xp:500, gold:260, rep:10},
-   subj:'Frog Mahan', body:'The swamp road is closed by a creature the villagers call Frog Mahan. End it. — Greyson'},
-  {id:'m_river', needCh:19, title:'Across the River', obj:{type:'reach', loc:'river_crossing'}, rw:{xp:400, gold:180},
-   subj:'The river route', body:'Take a ship from Faepool Harbour to the River Crossing. We need to know whether the water is passable and who controls it. — Greyson'},
+  {id:'m_river', needCh:15, title:'Across the Sea', obj:{type:'reach', loc:'river_crossing'}, rw:{xp:420, gold:190},
+   subj:'The sea route', body:'Take ship from Faepool Harbour. We need to know whether the water is passable and who controls it. — Greyson'},
   {id:'m_bracelet', needCh:21, title:'A Gift from the Crown', obj:{type:'read'}, rw:{xp:150, gold:0, flag:'bracelet'},
    subj:'Pigeons are too slow', body:'Wear this bracelet. It will carry my voice to you anywhere on the island, and yours to me. No more waiting on birds. — Greyson'},
   {id:'m_dragon', needCh:25, title:'Dragon Vale', obj:{type:'reach', loc:'dragon_vale'}, rw:{xp:700, gold:300},
@@ -253,10 +281,10 @@ function onArrive(loc){
 /* ---------------- TRAVEL ---------------- */
 let PEND = null;   // travel in progress while its encounter battle is running
 function travelOptions(){
-  return routesFrom(G.loc).map(({r,to}) => ({r, to, open: locOpen(to), cost: r.fare, can: locOpen(to) && G.gold >= r.fare}));
+  return routesFrom(G.loc).map(({r,to}) => ({r, to, open: locOpen(to), modeOk: modeOpen(r.mode), cost: r.fare, can: locOpen(to) && modeOpen(r.mode) && G.gold >= r.fare}));
 }
 function startTravel(r, to){
-  if(!locOpen(to) || G.gold < r.fare) return;
+  if(!locOpen(to) || !modeOpen(r.mode) || G.gold < r.fare) return;
   G.gold -= r.fare;
   const ev = Math.random() < (r.mode==='ship' ? .5 : .35) ? AR(EVENTS[r.mode]) : null;
   PEND = {r, to, ev, from:G.loc};
@@ -458,10 +486,14 @@ function rumour(){
 
 /* ---------------- ARCHIVE LORE (draft from the design notes) ---------------- */
 const LORE = [
-  {ch:-1, n:'Tribute Island', t:'The seat of King Greyson. A hidden isle under a curse (Curse of the Hidden Isle).'},
+  {ch:0, n:'Tribute Island', t:'The seat of King Greyson. A hidden isle trapped under the shadow of Xima\'s ancient curse.'},
   {ch:0, n:'Imperial Guard', t:'Jade Gold serves as an Imperial Guardian. Her sword training began in the Training Grounds.'},
-  {ch:10, n:'The Prophecy', t:'Records of a prophecy tied to Jade\'s bloodline. Pages are missing.'},
-  {ch:15, n:'Xima', t:'The curse\'s source. Corruption seeps into forests and spirits. Research notes are incomplete.'},
+  {ch:5, n:'Faepool Territory', t:'A border region of forests and traditional villages. Something interferes with Jade\'s clairvoyance here.'},
+  {ch:8, n:'The Hidden Message', t:'An unexpected message suggests the curse, Jade\'s visions and the people around her may be connected.'},
+  {ch:11, n:'Ancient Records', t:'Records recovered from the Faepool ruins. The disturbances are not random: they belong to one pattern.'},
+  {ch:12, n:'Xima', t:'The source of the curse, and the ancient witch whose magic shaped Tribute\'s history. The curse may have multiple layers.'},
+  {ch:12, n:'Ancient Magic', t:'Old magic leaves traces in stone and blood. Jade\'s visions respond to it.'},
+  {ch:12, n:'Tribute History', t:'How the island came to be bound by the curse. Many pages are still missing.'},
   {ch:20, n:'Dima\'s Legacy', t:'Jade\'s golden blood connects her to Dima. The records speak of a sanctuary, location unknown.'},
   {ch:25, n:'Dragon Vale', t:'A region of dragon lore, ancient powers and legendary items.', party:'devon'},
   {ch:28, n:'The Dragon Pearl', t:'Devon\'s inheritance. Dragon Empowerment, Ancient Dragon Knowledge and Dragon Manifestation.', party:'devon'},

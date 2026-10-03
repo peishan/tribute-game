@@ -4,7 +4,7 @@
 const CFG = { SAVE_KEY:'tribute_rpg_v3', LEVEL_CAP:100, START_LEVEL:1 };
 
 // WHO JOINS WHEN (chapter number at which the hero is recruited). PROVISIONAL — correct these.
-const JOIN_CH = { jade:0, chad:3, sky:3, sally:11, levi:20, devon:26 };
+const JOIN_CH = { jade:0, chad:1, sky:1, sally:20, levi:20, devon:26 };   // chad/sky ch1 per design doc; sally/levi/devon still PROVISIONAL
 // Story flags set when a chapter is completed (e.g. Levi's crossbow goes to Jade in ch30).
 const CH_FLAGS = { 30:['crossbow'] };   // (the communication bracelet comes from the Greyson mission m_bracelet, see world.js)
 
@@ -55,6 +55,7 @@ const spSpent  = id => U(id).nodes.reduce((a,nid) => a + (nodeById(id,nid)||{cos
 const spFree   = id => spEarned(id) - spSpent(id);
 function nodeState(id, n){
   if(U(id).nodes.includes(n.id)) return 'taken';
+  if(!treeOpen(id)) return 'sealed';
   if(n.prev && !U(id).nodes.includes(n.prev)) return 'locked';
   return spFree(id) >= n.cost ? 'ready' : 'short';
 }

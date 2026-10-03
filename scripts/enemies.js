@@ -22,6 +22,8 @@ const ENEMIES = {
     moves:[{n:'Claw',pow:1},{n:'Hex Spark',pow:1.2,spell:true}],drops:[{id:'demon_ash',chance:.5}],desc:'A lesser demon from the cursed isle.'},
   shade_wraith:{n:'Shade Wraith',icon:'👻',area:'demon',hp:95,atk:8,mag:15,def:6,spd:12,xp:48,gold:26,traits:['magic'],
     moves:[{n:'Chilling Touch',pow:1,spell:true},{n:'Wail',pow:.9,spell:true,fx:[{k:'slow',d:2}]}],drops:[{id:'demon_ash',chance:.6},{id:'shade_essence',chance:.25}],desc:'A restless spirit bound to the curse.'},
+  chad_trial:{n:'Roc Chadwick (trial)',icon:'⚔️',area:'trial',hp:170,atk:15,mag:0,def:7,spd:12,xp:60,gold:0,
+    moves:[{n:'Instinct Strike',pow:1.1},{n:'Burst Step',pow:1.6},{n:'Guard Break',pow:1,fx:[{k:'slow',d:1}]}],drops:[],desc:'A sparring match. Instinct against discipline.'},
   // ---- placeholder BOSSES (rename per story) ----
   boss_bandit_chief:{n:'Bandit Chief',icon:'👑',area:'road',boss:true,hp:420,atk:17,mag:0,def:10,spd:10,xp:160,gold:120,
     moves:[{n:'Cleaver Smash',pow:1.4},{n:'War Cry',pow:.6,fx:[{k:'slow',d:2}]},{n:'Brutal Cut',pow:1.9}],desc:'Placeholder boss.'},

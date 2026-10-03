@@ -68,7 +68,7 @@ function rTravel(){
   const L = LOCATIONS[G.loc], opts = travelOptions();
   const riskText = r => r<.3?'low':r<.5?'medium':'high';
   const rows = opts.map(o=>{ const to = LOCATIONS[o.to], r = o.r;
-    return `<div class="card ${o.open?'':'lock'}"><span class="big">${MODES[r.mode].icon}</span><div class="fl"><b>${o.open?to.icon+' '+to.n:'❔ ???'}</b><div class="sm">${MODES[r.mode].n} · ${r.n} · ${r.days} day${r.days>1?'s':''} · risk ${riskText(r.risk)}</div>${o.open?'':`<div class="sm">🔒 ${unlockText(to.unlock)}</div>`}</div><button class="pri" ${o.can?'':'disabled'} onclick="doTravelUi(${ROUTES.indexOf(r)},'${o.to}')">${r.fare}g</button></div>`; }).join('');
+    return `<div class="card ${o.open&&o.modeOk?'':'lock'}"><span class="big">${MODES[r.mode].icon}</span><div class="fl"><b>${o.open?to.icon+' '+to.n:'❔ ???'}</b><div class="sm">${MODES[r.mode].n} · ${r.n} · ${r.days} day${r.days>1?'s':''} · risk ${riskText(r.risk)}</div>${o.open?(o.modeOk?'':`<div class="sm">🔒 Boat travel unlocks at chapter ${SHIP_CH}</div>`):`<div class="sm">🔒 ${unlockText(to.unlock)}</div>`}</div><button class="pri" ${o.can?'':'disabled'} onclick="doTravelUi(${ROUTES.indexOf(r)},'${o.to}')">${r.fare}g</button></div>`; }).join('');
   const regions = Object.keys(REGIONS).map(rk=>{
     const locs = LOC_ORDER.filter(k=>LOCATIONS[k].region===rk);
     return `<h4>${REGIONS[rk].icon} ${REGIONS[rk].n}</h4>`+locs.map(k=>{ const l=LOCATIONS[k], open=locOpen(k);
