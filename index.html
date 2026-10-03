@@ -8,8 +8,9 @@
   <h1 class="landing-title">TRIBUTE</h1>
   <p class="landing-sub">Curse of the Hidden Isle</p>
   <p class="landing-quote">"Where the journey starts, a destiny waits to be written in golden blood."</p>
-  <button class="btn-begin" onclick="enter(true)">New Journey</button>
-  <button id="contbtn" class="btn-continue" onclick="enter(false)">Continue Journey</button>
+  <button id="contbtn" class="btn-begin" style="display:none" onclick="enter(false)">Continue Journey</button>
+  <button id="newbtn" class="btn-begin" onclick="enter(true)">New Journey</button>
+  <p id="contnote" class="landing-quote" style="display:none;margin:2px 0 0;font-size:.85rem">A saved journey was found in this browser.</p>
 </div>
 <div id="app">
   <div id="top"><span class="brand">TRIBUTE</span><span class="pill" id="hch"></span><span class="pill day" id="hday"></span><span class="pill loc" id="hloc"></span><span class="pill gold" id="hgold"></span><button onclick="save();toast('Saved')" title="Save">💾</button></div>

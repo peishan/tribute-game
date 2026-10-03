@@ -200,13 +200,17 @@ function rDev(){
 
 /* ---------------- BOOT ---------------- */
 function enter(newGame){
+  if(newGame && localStorage.getItem(CFG.SAVE_KEY) && !confirm('Start a new journey? Your saved journey will be overwritten.')) return;
   if(newGame || !load()){ G = newState(); save(); }
   if(newGame && BRACELET_FROM_START) G.flags.bracelet = true;
   refreshBounties(); checkMissionOffers(); save();
   $('landing').style.display='none'; $('app').style.display='flex'; render();
 }
 window.addEventListener('load', () => {
-  $('contbtn').style.display = localStorage.getItem(CFG.SAVE_KEY) ? '' : 'none';
+  if(localStorage.getItem(CFG.SAVE_KEY)){          // returning player: Continue is the main button, New Journey is the quiet option
+    $('contbtn').style.display = ''; $('contnote').style.display = '';
+    $('newbtn').className = 'btn-continue';
+  }
   const L = $('landing');                       // drifting cherry-blossom petals
   for(let i=0;i<22;i++){ const p = document.createElement('span'); p.className='petal';
     p.style.left = Math.random()*100+'%'; p.style.animationDuration = (7+Math.random()*7)+'s'; p.style.animationDelay = (-Math.random()*12)+'s';
