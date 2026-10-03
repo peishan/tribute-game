@@ -24,3 +24,8 @@ and assets/comics/ch18..ch30.webp. The original PNGs are still in the repo and c
 
 PROVISIONAL (please correct): location unlock chapters (LOCATIONS[].unlock), CH_LOC, all mission text/rewards (MISSIONS), fares/risk/days (ROUTES),
 quest/bounty numbers, new enemies & bosses (Frog Mahan, Pearl Guardian), archive lore.
+
+--- v3.2: SKILL TREES & BOND UNLOCKS ---
+scripts/skilltree.js  SKILLTREE (3 branches x 4 nodes per hero; passives + skills) and BONDTREE (bond 1/4 passives, bond 2 skill, bond 5 pair ultimate).
+Skill points: 1 per level above 1, +3 per evolution tier; node cost 1/2/3/4; reset costs gold. Jade's 'bond' = average bond of her companions.
+Shown on the Party sheet. All names/numbers PROVISIONAL.

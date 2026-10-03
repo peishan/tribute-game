@@ -15,7 +15,7 @@ const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
 
 function newState(){
   const s = Object.assign({ v:3, ch:-1, flags:{}, units:{}, party:[], inv:{}, bestiary:{}, gold:50, read:{} }, worldDefaults());
-  ROSTER.forEach(id => s.units[id] = { lv:CFG.START_LEVEL, xp:0, bp:0, evo:[] });
+  ROSTER.forEach(id => s.units[id] = { lv:CFG.START_LEVEL, xp:0, bp:0, evo:[], nodes:[] });
   s.party = ['jade']; s.active = ['jade'];
   return s;
 }
@@ -25,7 +25,7 @@ function load(){
     const d = JSON.parse(localStorage.getItem(CFG.SAVE_KEY));
     if(!d) return false;
     G = Object.assign(newState(), d); G.active = (G.active||['jade']).filter(id=>G.party.includes(id));
-    ROSTER.forEach(id => G.units[id] = G.units[id] || { lv:1, xp:0, bp:0, evo:[] });
+    ROSTER.forEach(id => { G.units[id] = G.units[id] || { lv:1, xp:0, bp:0, evo:[] }; G.units[id].nodes = G.units[id].nodes || []; });
     return true;
   }catch(e){ return false; }
 }
@@ -42,8 +42,32 @@ function evoMult(id, stat){
   return U(id).evo.reduce((m,eid) => { const t = tiers.find(x=>x.id===eid); return m * ((t && t.mult && t.mult[stat]) || 1); }, 1);
 }
 function statsOf(id){
-  const c = CHARACTERS[id], lv = U(id).lv, gb = gearBonus(id), out = {};
-  STATS.forEach(s => { out[s] = Math.round((c.base[s] + c.grow[s]*(lv-1)) * evoMult(id,s)) + (gb[s]||0); });
+  const c = CHARACTERS[id], lv = U(id).lv, gb = gearBonus(id), ps = passivesOf(id), out = {};
+  STATS.forEach(s => { out[s] = Math.round((c.base[s] + c.grow[s]*(lv-1)) * evoMult(id,s) * ((ps.mult[s])||1)) + (gb[s]||0); });
+  return out;
+}
+
+/* ---------- skill tree: points, nodes, passives ---------- */
+const nodeList = id => SKILLTREE[id].reduce((a,b) => a.concat(b.nodes.map((n,i) => Object.assign({}, n, {branch:b.id, idx:i, cost:NODE_COST[i], prev:i? b.nodes[i-1].id : null}))), []);
+const nodeById = (id,nid) => nodeList(id).find(n => n.id===nid);
+const spEarned = id => (U(id).lv-1) + 3*U(id).evo.length;
+const spSpent  = id => U(id).nodes.reduce((a,nid) => a + (nodeById(id,nid)||{cost:0}).cost, 0);
+const spFree   = id => spEarned(id) - spSpent(id);
+function nodeState(id, n){
+  if(U(id).nodes.includes(n.id)) return 'taken';
+  if(n.prev && !U(id).nodes.includes(n.prev)) return 'locked';
+  return spFree(id) >= n.cost ? 'ready' : 'short';
+}
+function takeNode(id, nid){ const n = nodeById(id,nid); if(!n || nodeState(id,n)!=='ready') return false; U(id).nodes.push(nid); save(); return true; }
+const respecCost = id => 50 + U(id).lv*10;
+function respec(id){ if(!U(id).nodes.length || G.gold < respecCost(id)) return false; G.gold -= respecCost(id); U(id).nodes = []; save(); return true; }
+function passivesOf(id){
+  const out = {mult:{}, critB:0, evaB:0};
+  const add = p => { if(!p) return; Object.keys(p.mult||{}).forEach(k => out.mult[k] = (out.mult[k]||1)*p.mult[k]); out.critB += p.critB||0; out.evaB += p.evaB||0; };
+  if(!G || !U(id)) return out;
+  if(SKILLTREE[id]) nodeList(id).forEach(n => { if(n.passive && U(id).nodes.includes(n.id)) add(n.passive); });
+  const bl = bondLevel(id);
+  (BONDTREE[id]||[]).forEach(b => { if(b.passive && bl >= b.lvl) add(b.passive); });
   return out;
 }
 
@@ -51,7 +75,7 @@ function statsOf(id){
 function reqText(r){
   if(!r) return '';
   if(r.lvl) return 'Level '+r.lvl;
-  if(r.bond) return 'Bond '+r.bond+' with Jade';
+  if(r.bond) return 'Bond '+r.bond+' with Jade';   // (Jade: average companion bond)
   if(r.flag) return 'Story: '+r.flag;
   return '';
 }
@@ -67,12 +91,14 @@ function skillsOf(id){
   c.skills.forEach(s => out.push(Object.assign({}, s, { ok:reqMet(id,s.req), why:reqText(s.req) })));
   if(c.bond) out.push(Object.assign({}, c.bond, { bondSkill:true, ok:reqMet(id,c.bond.req), why:reqText(c.bond.req) }));
   c.evo.tiers.forEach(t => (t.skills||[]).forEach(s => out.push(Object.assign({}, s, { evoSkill:true, ok:U(id).evo.includes(t.id), why:'Evolve: '+t.n }))));
+  if(SKILLTREE[id]) nodeList(id).forEach(n => { if(n.skill) out.push(Object.assign({}, n.skill, { treeSkill:true, ok:U(id).nodes.includes(n.id), why:'Skill tree: '+n.n })); });
+  (BONDTREE[id]||[]).forEach(b => { if(b.skill) out.push(Object.assign({}, b.skill, { bondSkill:true, ok:bondLevel(id)>=b.lvl, why:(id==='jade'?'Party bond ':'Bond ')+b.lvl })); });
   return out;
 }
 
 /* ---------- bond (with Jade) ---------- */
 function bondLevel(id){
-  if(id==='jade') return 0;
+  if(id==='jade'){ const o = G.party.filter(x => x!=='jade' && !CHARACTERS[x].placeholder); return o.length ? Math.floor(o.reduce((a,x) => a + bondLevel(x), 0)/o.length) : 0; }
   const bp = U(id).bp; let l = 0;
   BOND_LEVELS.forEach((need,i) => { if(bp >= need) l = i; });
   return l;

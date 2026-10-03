@@ -40,7 +40,7 @@ function rSheet(id){
   if(!rec) return `<div class="panel"><h3>${id==='princess'?c.n:'???'}</h3><div class="sm">${id==='princess'?c.identity:'Not yet recruited. Recruited at chapter '+JOIN_CH[id]+' (provisional).'}</div></div>`;
   const u=U(id), st=statsOf(id), bl=bondLevel(id), nextB=BOND_LEVELS[bl+1];
   const stats = STATS.map(s=>`<div class="st"><span>${STAT_NAME[s]}</span>${bar(st[s],STAT_SCALE[s],s)}<b>${st[s]}</b></div>`).join('');
-  const skills = skillsOf(id).map(s=>`<div class="sk ${s.ok?'':'lk'}"><span class="si">${s.icon}</span><div><b>${s.n}</b> ${s.sig?'<em class="tag">signature</em>':''}${s.bondSkill?'<em class="tag b">bond</em>':''}${s.evoSkill?'<em class="tag e">evolution</em>':''}<div class="sm">${s.ok?s.desc:'🔒 '+s.why}</div></div><span class="mp">${s.mp?s.mp+' MP':''}</span></div>`).join('');
+  const skills = skillsOf(id).filter(s=>!(s.treeSkill&&!s.ok)).map(s=>`<div class="sk ${s.ok?'':'lk'}"><span class="si">${s.icon}</span><div><b>${s.n}</b> ${s.sig?'<em class="tag">signature</em>':''}${s.bondSkill?'<em class="tag b">bond</em>':''}${s.evoSkill?'<em class="tag e">evolution</em>':''}${s.treeSkill?'<em class="tag t">tree</em>':''}<div class="sm">${s.ok?s.desc:'🔒 '+s.why}</div></div><span class="mp">${s.mp?s.mp+' MP':''}</span></div>`).join('');
   const evo = evoState(id).map(e=>`<div class="ev ${e.st}"><div><b>${e.n}</b> <span class="sm">${e.tier===2?'final':'tier '+e.tier}</span><div class="sm">${e.desc}</div></div>${e.st==='ready'?`<button onclick="doEvolve('${id}','${e.id}')">Evolve</button>`:`<span class="sm">${e.st==='taken'?'✔ taken':e.st==='closed'?'closed':'🔒 '+e.why}</span>`}</div>`).join('') || '<div class="sm">No evolution designed yet.</div>';
   const act = G.active.includes(id);
   return `<div class="panel sheet"><div class="sh"><img src="assets/party/${id}.webp"><div><h3>${c.icon} ${c.n}</h3><div>${c.cls}</div><div class="sm">${c.role} · ${c.combat}</div><div class="sm">Lv ${u.lv}/${CFG.LEVEL_CAP}</div>${bar(u.xp,xpToNext(u.lv),'xp')}<div class="sm">XP ${u.xp}/${xpToNext(u.lv)}</div></div></div>
@@ -50,8 +50,23 @@ function rSheet(id){
    <h4>Stats</h4><div class="stg">${stats}</div>
    <h4>Weapon & Style</h4><div class="sm">${c.weapon} · ${c.style.join(', ')} · Strength: ${c.strength}</div>
    <h4>Special Ability — ${c.signature}</h4><div class="sm">${c.sigDesc}${c.fieldAbility?' <br><b>Field ability:</b> Ancient Dragon Knowledge (identify artefacts, unlock sealed areas — used by Explore later).':''}</div>
-   <h4>Skills</h4>${skills}<h4>Evolution</h4>${evo}</div>`;
+   <h4>Skills</h4>${skills}${rTree(id)}${rBondRewards(id)}<h4>Evolution</h4>${evo}</div>`;
 }
+function rTree(id){
+  const free = spFree(id);
+  const branches = SKILLTREE[id].map(b => `<div class="br"><b>${b.icon} ${b.n}</b> <span class="sm">${b.desc}</span>`+nodeList(id).filter(n=>n.branch===b.id).map(n=>{
+    const st = nodeState(id,n);
+    return `<div class="nd ${st}"><span class="si">${n.icon}</span><div class="fl"><b>${n.n}</b> <em class="tag ${n.skill?'t':''}">${n.skill?'skill':'passive'}</em><div class="sm">${n.desc}${n.skill?' · '+n.skill.mp+' MP':''}</div></div>${st==='taken'?'<span class="sm">✔</span>':st==='ready'?`<button onclick="doNode('${id}','${n.id}')">${n.cost} SP</button>`:`<span class="sm">${st==='locked'?'🔒':n.cost+' SP'}</span>`}</div>`; }).join('')+`</div>`).join('');
+  return `<h4>Skill Tree <span class="sm">· ${free} SP free (${spSpent(id)} spent)</span></h4><div class="sm">1 SP per level, +3 per evolution. Each node needs the one above it.</div>${branches}<button ${U(id).nodes.length&&G.gold>=respecCost(id)?'':'disabled'} onclick="doRespec('${id}')">Reset tree (${respecCost(id)}g)</button>`;
+}
+function rBondRewards(id){
+  const bl = bondLevel(id), tiers = (BONDTREE[id]||[]).map(b => ({lvl:b.lvl, n:b.n, icon:b.icon, desc:b.skill?b.skill.desc:(b.desc+' ('+passiveText(b.passive)+')'), kind:b.skill?(b.skill.pair?'ultimate':'skill'):'passive'}));
+  const c = CHARACTERS[id]; if(c.bond) tiers.push({lvl:3, n:c.bond.n, icon:c.bond.icon, desc:c.bond.desc, kind:'pair skill'});
+  tiers.sort((a,b)=>a.lvl-b.lvl);
+  return `<h4>${id==='jade'?'Party Bond':'Bond'} Unlocks <span class="sm">· level ${bl}/5${id==='jade'?' (average companion bond)':''}</span></h4>`+tiers.map(t=>`<div class="nd ${bl>=t.lvl?'taken':'locked'}"><span class="si">${t.icon}</span><div class="fl"><b>${t.n}</b> <em class="tag b">${t.kind}</em><div class="sm">${bl>=t.lvl?t.desc:'🔒 Bond '+t.lvl}</div></div><span class="sm">B${t.lvl}</span></div>`).join('');
+}
+function doNode(id,nid){ if(takeNode(id,nid)){ toast('Learned '+nodeById(id,nid).n); render(); } }
+function doRespec(id){ if(respec(id)){ toast('Skill tree reset'); render(); } }
 function doEvolve(id,eid){ if(evolve(id,eid)){ toast(CHARACTERS[id].n+' evolved!'); render(); } }
 
 /* ---------------- JOURNAL ---------------- */

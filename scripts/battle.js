@@ -9,7 +9,7 @@ function mkAlly(id){
   const s = statsOf(id), c = CHARACTERS[id];
   return { uid:id, id, ally:true, name:c.n, icon:c.icon, img:'assets/party/'+id+'.webp', traits:[],
     hp:s.hp, mhp:s.hp, mp:s.mp, mmp:s.mp, atk:s.atk, mag:s.mag, def:s.def, spd:s.spd,
-    st:{}, bf:[], state:null, used:{}, dead:false, guard:false };
+    st:{}, bf:[], state:null, used:{}, dead:false, guard:false, critB:passivesOf(id).critB, evaB:passivesOf(id).evaB };
 }
 function mkFoeUnit(key, lv, i){
   const e = mkEnemy(key, lv);
@@ -31,7 +31,7 @@ function eff(u, stat){
 function evaOf(u){
   let m = 1; u.bf.forEach(b => { if(b.stat==='eva') m *= b.m; });
   if(u.state && u.state.id==='manifest') m *= 1.3;
-  return clamp((0.04 + eff(u,'spd')*0.003) * m, 0, .6);
+  return clamp((0.04 + eff(u,'spd')*0.003 + (u.evaB||0)) * m, 0, .6);
 }
 const mpCost = (u,s) => Math.round(s.mp * ((u.state && u.state.id==='awakened') ? .5 : 1));
 
@@ -98,7 +98,7 @@ function strike(src, tgt, s, opts){
   let d = Math.max(1, Math.round(raw));
   if(s.antiMagic && tgt.traits.includes('magic')) d = Math.round(d*s.antiMagic);
   let crit = false;
-  if(s.crit || src.st.crit || Math.random() < .08){ crit = true; d = Math.round(d*1.6); }
+  if(s.crit || src.st.crit || Math.random() < .08 + (src.critB||0)){ crit = true; d = Math.round(d*1.6); }
   if(!s.pair && !opts.noEvade && Math.random() < evaOf(tgt)){ blog(tgt.name+' evades '+src.name+'\'s '+s.n+'!'); return 0; }
   const dealt = hurt(tgt, d);
   blog(src.name+' uses '+s.n+' on '+tgt.name+': '+dealt+(crit?' CRIT!':''), src.ally?'':'foe');
