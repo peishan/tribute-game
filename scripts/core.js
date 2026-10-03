@@ -4,8 +4,8 @@
 const CFG = { SAVE_KEY:'tribute_rpg_v3', LEVEL_CAP:100, START_LEVEL:1 };
 
 // WHO JOINS WHEN (chapter number at which the hero is recruited). PROVISIONAL — correct these.
-// Permanent joins. Chad ch3 is confirmed by the pages (Sky provisional). Sally 28 and Levi 30 match the comic's chapter titles. Devon open.
-const JOIN_CH = { jade:0, chad:3, sky:3, sally:28, levi:30 };
+// Permanent joins. Chad and Sky both accept the mission in ch4 (Chad was hired in ch3, Sky first meets Jade in ch4). Sally 28 and Levi 30 match the comic's chapter titles. Devon open.
+const JOIN_CH = { jade:0, chad:4, sky:4, sally:28, levi:30 };   // ch4 "We are in": Chad (hired in ch3) and Sky accept the mission together
 // Guest (temporary) party members. (None yet: the ch4 "Sally guest" came from the discarded story-file list. Per the comic Sally appears in ch28.)
 const GUEST_CH = {};
 // Chapter at which a hero's profile becomes visible even before they join ("Chad profile / Sky profile" unlock in ch1).
