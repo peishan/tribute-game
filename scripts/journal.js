@@ -27,7 +27,7 @@ const BATTLES = {
 const DUEL = { 3:true };   // story duels: losing still completes the chapter (the story has Chad win)
 const SOLO = { 3:['jade'], 13:['chad'], 21:['jade'], 35:['jade','chad','sky','levi'], 41:['jade','chad','sky','levi'] };   // who fights (Sky is captive in ch5)
 const CHAPTERS = [];
-for(let i=0;i<=51;i++){
+for(let i=0;i<=54;i++){
   CHAPTERS.push({ n:i, title: TITLES[i] || ('Chapter '+i+' (?)'), art: ART[i]||[],
     sxp: 80 + i*40,                         // story XP (tune)
     lv: Math.max(1, Math.round(i*0.9)+1),    // enemy level for this chapter's battle

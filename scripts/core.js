@@ -5,14 +5,14 @@ const CFG = { SAVE_KEY:'tribute_rpg_v3', LEVEL_CAP:100, START_LEVEL:1 };
 
 // WHO JOINS WHEN (chapter number at which the hero is recruited). PROVISIONAL — correct these.
 // Permanent joins. Chad and Sky both accept the mission in ch4 (Chad was hired in ch3, Sky first meets Jade in ch4). Sally 28 and Levi 30 match the comic's chapter titles. Devon open.
-const JOIN_CH = { jade:0, chad:4, sky:4, sally:29, levi:30 };   // sally: introduced ch28, recruited ch28/29 per the author (29 provisional); levi leaves temporarily later (chapter TBD); devon open   // ch4 "We are in": Chad (hired in ch3) and Sky accept the mission together
+const JOIN_CH = { jade:0, chad:4, sky:4, sally:29, levi:30, ripley:52, devon:54 };   // sally: introduced ch28, recruited ch28/29 per the author (29 provisional); levi leaves temporarily later (chapter TBD); devon open   // ch4 "We are in": Chad (hired in ch3) and Sky accept the mission together
 // Guest (temporary) party members. (None yet: the ch4 "Sally guest" came from the discarded story-file list. Per the comic Sally appears in ch28.)
 const GUEST_CH = {};
 // Chapter at which a hero's profile becomes visible even before they join ("Chad profile / Sky profile" unlock in ch1).
-const INTRO_CH = { chad:1, sky:1, sally:28 };
+const INTRO_CH = { chad:1, sky:1, sally:28, ripley:46, devon:47 };
 // Bond changes shown by the comic's banners (bond points with Jade; level thresholds in BOND_LEVELS). Applied when the chapter completes.
 const CH_BOND = { 24:{sky:20}, 25:{chad:20}, 27:{chad:-20}, 29:{sky:20}, 31:{chad:-40}, 32:{levi:20}, 33:{levi:20, chad:-20}, 34:{levi:20, chad:-10}, 38:{levi:20, sky:20}, 39:{levi:20, chad:-5}, 40:{levi:20, sky:20} };   // banners: ch31 Jade+Chad -2, ch32 Jade+Levi +1, ch33 Jade+Levi +1 / Jade+Chad -1 (Sky+Levi and Chad+Sally banners not modelled)
-const profileKnown = id => isRecruited(id) || (INTRO_CH[id]!==undefined && G.ch >= INTRO_CH[id]);
+const profileKnown = id => isRecruited(id) || !!(G.left && G.left[id]) || (INTRO_CH[id]!==undefined && G.ch >= INTRO_CH[id]);
 // Story flags set when a chapter is completed (e.g. Levi's crossbow goes to Jade in ch30).
 const CH_FLAGS = { 44:['bracelet'], 51:['sally_noble'], 0:['greyson_gift'], 38:['cleansing_touch'], 41:['greyson_arms'], 30:['crossbow'] };   // greyson_arms: dagger+flail unseal at the major battle, chapter 41 (per the author)
 // Items handed over when a chapter completes. Greyson gives Jade a dagger and flail in the Prologue; she may not use them until the major battle (chapter TBD, flag greyson_arms).
@@ -170,6 +170,7 @@ function evolve(id, eid){
 
 /* ---------- recruiting / story ---------- */
 const ACTIVE_SLOTS = 4;
-function recruit(id){ if(G.left && G.left[id]) return false; if(!G.party.includes(id)){ G.party.push(id); if(G.active.length<ACTIVE_SLOTS) G.active.push(id); return true; } return false; }
-function toggleActive(id){ if(id==='jade') return; const i=G.active.indexOf(id); if(i>=0) G.active.splice(i,1); else if(G.active.length<ACTIVE_SLOTS) G.active.push(id); save(); }
+const activeCount = () => G.active.filter(id => !isDisabled(id)).length;   // a disabled hero does not take a fighting slot
+function recruit(id){ if(G.left && G.left[id]) return false; if(!G.party.includes(id)){ G.party.push(id); if(activeCount()<ACTIVE_SLOTS) G.active.push(id); return true; } return false; }
+function toggleActive(id){ if(id==='jade') return; const i=G.active.indexOf(id); if(i>=0) G.active.splice(i,1); else if(activeCount()<ACTIVE_SLOTS) G.active.push(id); save(); }
 function recruitsAtChapter(ch){ return Object.keys(JOIN_CH).filter(id => JOIN_CH[id] === ch); }

@@ -136,11 +136,30 @@ const CHARACTERS = {
    {id:'dragon_sovereign',n:'Dragon Sovereign',tier:2,group:'line',requiresAny:['dragon_sage'],req:{lvl:80},mult:{hp:1.2,mp:1.2,atk:1.2,mag:1.2,def:1.2,spd:1.1},desc:'Complete dragon bloodline awakening.',skills:[{id:'sovereign_roar',n:'Sovereign\'s Roar',icon:'👑',mp:28,kind:'magic',tgt:'foes',pow:2.9,fx:[{k:'slow',d:2}],desc:'The dragon bloodline fully unleashed.'}]},
   ]},
   bond:{id:'dragon_destiny',n:'Dragon Destiny',icon:'🌅',mp:14,kind:'magic',tgt:'foes',pow:2.0,pair:true,req:{bond:3},desc:'BOND. Devon and Jade combine the Dragon Pearl and the golden blood.'} },
+ ripley:{
+  n:'Ripley', icon:'🎯', cls:'Court Archer', role:'Ranged DPS / Scout', combat:'Ranged Physical DPS',
+  identity:'Jade\'s handmaiden in Dragonvale, assigned by Chad. Her loyalty lies with Prince Devon. A quiet, precise archer and scout.',
+  style:['Bow','Scouting','Support'], strength:'Precision and awareness',
+  weapon:'Court Bow', signature:'Watcher\'s Mark',
+  sigDesc:'Marks a foe: it takes more damage and its weaknesses are revealed. (Ripley is not an arcane archer: no magical bolts.)',
+  base:{hp:64,mp:26,atk:14,mag:5,def:7,spd:13}, grow:{hp:6,mp:2,atk:2.1,mag:.6,def:.8,spd:1.3},
+  skills:[
+   {id:'quick_shot',n:'Quick Shot',icon:'🏹',mp:0,kind:'phys',tgt:'foe',pow:1.2,req:{lvl:1},desc:'A fast, free shot.'},
+   {id:'covering_arrow',n:'Covering Arrow',icon:'🎯',mp:4,kind:'phys',tgt:'foe',pow:1.4,fx:[{k:'slow',d:2}],req:{lvl:3},desc:'Pins the target and slows it.'},
+   {id:'scouts_eye',n:'Scout\'s Eye',icon:'👁️',mp:5,kind:'support',tgt:'foe',fx:[{k:'analyze'},{k:'buff',stat:'def',m:.85,d:3}],req:{lvl:6},desc:'Reads the enemy: reveals it and lowers its DEF.'},
+   {id:'volley',n:'Palace Volley',icon:'🌧️',mp:9,kind:'phys',tgt:'foes',pow:1.1,req:{lvl:9},desc:'A disciplined volley across the field.'},
+   {id:'watchers_mark',n:'Watcher\'s Mark',icon:'🔖',mp:10,kind:'support',tgt:'foe',fx:[{k:'analyze'},{k:'buff',stat:'def',m:.7,d:3}],req:{lvl:12},sig:true,desc:'SIGNATURE. Marks a foe: DEF greatly down and revealed for 3 turns.'},
+  ],
+  evo:{ tiers:[
+   {id:'royal_ranger',n:'Royal Ranger',tier:1,group:'path',req:{lvl:40},mult:{atk:1.25,spd:1.1},desc:'Court-trained precision.',skills:[{id:'royal_volley',n:'Royal Volley',icon:'👑',mp:16,kind:'phys',tgt:'foes',pow:1.8,desc:'A flawless volley.'}]},
+   {id:'silent_hawk',n:'Silent Hawk',tier:1,group:'path',req:{lvl:40},mult:{spd:1.2,hp:1.1},desc:'Scouting and ambush.',skills:[{id:'hawk_strike',n:'Hawk Strike',icon:'🦅',mp:12,kind:'phys',tgt:'foe',pow:3.0,crit:true,desc:'A guaranteed critical shot from the shadows.'}]},
+  ]},
+  bond:null },
  princess:{
   n:'Foreign Princess', icon:'🎭', cls:'(class to be designed)', role:'TBD', combat:'TBD',
   identity:'Final name and class still to be decided.', style:[], strength:'-', weapon:'-', signature:'-', sigDesc:'',
   base:{hp:60,mp:25,atk:11,mag:8,def:8,spd:13}, grow:{hp:6,mp:2.5,atk:1.5,mag:1,def:.9,spd:1.2},
   skills:[{id:'princess_strike',n:'Masked Strike',icon:'🎭',mp:0,kind:'phys',tgt:'foe',pow:1.3,req:{lvl:1},desc:'Placeholder.'}], evo:{tiers:[]}, bond:null, placeholder:true }
 };
-const ROSTER = ['jade','chad','sky','sally','levi','devon','princess'];
+const ROSTER = ['jade','chad','sky','sally','levi','ripley','devon','princess'];
 const BOND_LEVELS = [0,20,60,120,200,300];   // cumulative bond points for bond lvl 0..5

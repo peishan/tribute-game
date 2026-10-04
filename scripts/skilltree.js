@@ -103,6 +103,23 @@ const SKILLTREE = {
     ps('l_t3','Field Training','🛡️',{mult:{hp:1.08,def:1.06}}),
     nd('l_t4','Rain of Bolts','☔',sk('rain_of_bolts','Rain of Bolts','☔',16,'phys','foes',1.5,{},'A volley on the whole battlefield.'))]},
  ],
+ripley:[
+  {id:'marksman',n:'Marksman',icon:'🎯',desc:'Precision.',nodes:[
+    ps('r_m1','Steady Hands','🤲',{mult:{atk:1.08}}),
+    nd('r_m2','Piercing Arrow','📍',sk('r_piercing','Piercing Arrow','📍',7,'phys','foe',2.2,{},'An arrow that finds the gap in armour.')),
+    ps('r_m3','Hawk\'s Eye','🦅',{mult:{atk:1.04},critB:.08}),
+    nd('r_m4','Perfect Draw','🏹',sk('perfect_draw','Perfect Draw','🏹',14,'phys','foe',3.3,{crit:true},'A held breath, a guaranteed critical.'))]},
+  {id:'scout',n:'Scout',icon:'👁️',desc:'Awareness and mobility.',nodes:[
+    ps('r_s1','Light Step','👟',{mult:{spd:1.08}}),
+    nd('r_s2','Net Arrow','🕸️',sk('net_arrow','Net Arrow','🕸️',8,'phys','foe',1.0,{fx:[{k:'bind',d:2}]},'An arrow trailing a net: the target loses its turns.')),
+    ps('r_s3','Watchful','🔍',{evaB:.05,mult:{spd:1.05}}),
+    nd('r_s4','Rear Guard','🛡️',sk('rear_guard','Rear Guard','🛡️',12,'support','allies',0,{fx:[{k:'buff',stat:'eva',m:1.35,d:3},{k:'buff',stat:'def',m:1.15,d:3}]},'She covers the party: evasion and DEF up.'))]},
+  {id:'handmaiden',n:'Handmaiden',icon:'🌸',desc:'Service and support.',nodes:[
+    ps('r_h1','Composure','🧘',{mult:{hp:1.08,def:1.05}}),
+    nd('r_h2','Tea and Tonic','🍵',sk('tea_tonic','Tea and Tonic','🍵',8,'heal','ally',1.0,{},'A calm moment: heals an ally.')),
+    ps('r_h3','Quiet Loyalty','🤍',{mult:{mp:1.1,def:1.05}}),
+    nd('r_h4','Veil of Silk','🪭',sk('veil_silk','Veil of Silk','🪭',14,'support','allies',0,{fx:[{k:'shield',v:.15,d:3},{k:'buff',stat:'eva',m:1.2,d:3}]},'Silk and a smile: a barrier and evasion for all.'))]},
+ ],
  devon:[
   {id:'dragonmagic',n:'Dragon Magic',icon:'🔥',desc:'Royal dragon spells.',nodes:[
     ps('d_m1','Draconic Focus','🔥',{mult:{mag:1.08}}),
@@ -153,6 +170,12 @@ const BONDTREE = {
   {lvl:2, skill:sk('covering_fire','Covering Fire','🏹',8,'phys','foe',1.2,{fx:[{k:'slow',d:2}]},'A shot that pins the foe.'), n:'Covering Fire', icon:'🏹'},
   {lvl:4, passive:{mult:{atk:1.05,spd:1.05},critB:.05}, n:'Eyes on Her Back', icon:'🎯', desc:'He always knows where Jade is.'},
   {lvl:5, skill:sk('golden_volley','Golden Volley','🌟',22,'phys','chain',2.2,{pair:true,elem:'lightning'},'ULTIMATE. Levi\'s bolts carry the golden blood.'), n:'Golden Volley', icon:'🌟'},
+ ],
+ ripley:[
+  {lvl:1, passive:{mult:{atk:1.05}}, n:'Trained Eye', icon:'🎯', desc:'Serving Jade steadies her aim.'},
+  {lvl:2, skill:sk('attendants_cover','Attendant\'s Cover','🛡️',7,'phys','foe',1.3,{fx:[{k:'slow',d:2}]},'Covers Jade\'s flank with a pinning shot.'), n:'Attendant\'s Cover', icon:'🛡️'},
+  {lvl:4, passive:{mult:{spd:1.06,def:1.05},critB:.05}, n:'Trusted Retainer', icon:'🤍', desc:'Jade\'s trust sharpens her.'},
+  {lvl:5, skill:sk('twin_arrows','Twin Arrows','🌟',22,'phys','chain',2.1,{pair:true},'ULTIMATE. Ripley and Jade loose arrows as one.'), n:'Twin Arrows', icon:'🌟'},
  ],
  devon:[
   {lvl:1, passive:{mult:{mag:1.05}}, n:'Scholar\'s Interest', icon:'📖', desc:'Jade\'s bloodline fascinates him.'},

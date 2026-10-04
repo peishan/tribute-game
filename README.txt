@@ -170,3 +170,7 @@ Auto backup (savedata.js, Save tab): after every real battle -> rolling local ba
 Entries 42-51 from pages (art ch42-51.webp). New: Dragonvale hub (unlock ch43; route from the capital, carriage 6d / ship 4d); Guest Wing, Royal Healing Pavilion (Jenika: free daily full restore + crafting tonics/remedies).
 Sky DISABLED from ch42 (stays in party, cannot fight; Dev 'Clear disabled'); Levi LEAVES the party at ch50 and cannot rejoin via recruit(); bracelet + sealed box at ch44 (box removed at ch50); Sally gets Noble Grace at ch51.
 Devon not recruitable yet; Ripley/Chad exits/wedding pending. Dragon Vale hunt/sanctuary/pearl spots stay parked (ch99).
+
+--- v6.5: RIPLEY + CHARACTER AUDIT ---
+Ripley (Court Archer, portrait assets/party/ripley.webp) joins ch52; Devon joins ch54; profiles visible from ch46/47. Ch52-54 have no entries yet (Journal shows "(?)").
+Disabled heroes no longer take an active slot; heroes who left keep their name in the party list. See docs/CHARACTER_AUDIT.md for the class/skill review against the comic.
