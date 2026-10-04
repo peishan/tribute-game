@@ -157,3 +157,7 @@ Gear drops: Booyeong now drops Ridge Cloak / Bandit Lord's Blade (first clear gu
 scripts/items.js: heroes keep HP/MP between real battles (sandbox does not); a fallen hero is left at 20%. Recovery: inn rest (tavern spots, gold, full, 1 day), potions, +10% per travel/rest day.
 Consumables: Herbal Tonic, Moon Healing Tonic, Purification Elixir, Spirit Restoration Potion, Dragon Blood Remedy (rare). Use from Items tab or the battle Items action (costs the turn); buy in the Gear > Shop; brew a tonic from 3 herbs.
 Dragon Vale pavilion (Jenika) can now sit on top of this. Ch40 (major battle) sets flag greyson_arms to unseal Greyson's dagger+flail (CH_FLAGS 40; chapter 40 itself still has no entry/art).
+
+--- v6.2: AUTO BATTLE ---
+scripts/autobattle.js: Auto button in battle. Unlocks when the story reaches chapter AUTO_CH (12) OR average party level reaches AUTO_LV (10); disabled in boss fights. AI heals/tonics weak allies, uses area skills vs 3+ foes,
+else the strongest affordable skill on the weakest foe. Stop any time. (AUTO_CH / AUTO_LV provisional, top of autobattle.js.)

@@ -23,6 +23,7 @@ function render(){
               missions:rMissions, travel:rTravel, here:rHere, save:rSave,
               dev:rDev }[tab] || rJournal;
   $('main').innerHTML = R();
+  if(typeof autoTick==='function') autoTick();
 }
 function stub(title, sub, items){
   return `<h2>${title}</h2><div class="sm">${sub}</div><div class="panel">${items.map(i=>`<div class="li">• ${i}</div>`).join('')}</div><div class="sm" style="margin-top:8px;opacity:.6">Skeleton placeholder — not built yet.</div>`;
@@ -154,12 +155,13 @@ function rBattle(){
     act = `<div class="panel bad"><b>Defeat…</b></div><button class="pri" onclick="battleDone()">Retreat</button>`;
   } else if(B.cur && B.cur.ally){
     const u=B.cur, m=B.ui.mode;
-    if(m==='menu') act = `<div class="sm">${u.name}'s turn</div><div class="row"><button class="pri" onclick="doAttack()">Attack</button><button onclick="B.ui={mode:'skills'};render()">Skills</button><button onclick="B.ui={mode:'items'};render()">Items</button><button onclick="playerAct('guard')">Guard</button></div>`;
+    if(m==='menu') act = `<div class="sm">${u.name}'s turn</div><div class="row"><button class="pri" onclick="doAttack()">Attack</button><button onclick="B.ui={mode:'skills'};render()">Skills</button><button onclick="B.ui={mode:'items'};render()">Items</button><button onclick="playerAct('guard')">Guard</button>${autoButton()}</div>`;
     else if(m==='items') act = (battleItems().map(i=>`<button class="skb" onclick="pickItem('${i.id}')">${i.icon} ${i.n} <small>×${i.qty||'∞'} ${i.text}</small></button>`).join('') || '<div class="sm">No consumables.</div>') + `<button onclick="B.ui={mode:'menu'};render()">◀ Back</button>`;
     else if(m==='skills') act = skillList(u).map(s=>`<button class="skb" ${s.usable?'':'disabled'} onclick="pickSkill('${s.id}')">${s.icon} ${s.n} <small>${s.cost?s.cost+'MP':''} ${s.note}</small></button>`).join('') + `<button onclick="B.ui={mode:'menu'};render()">◀ Back</button>`;
     else act = `<div class="sm">Choose a target</div><button onclick="B.ui={mode:'menu'};render()">◀ Cancel</button>`;
   }
-  return `<div class="foes">${foes}</div><div class="log">${log}</div><div class="allies">${allies}</div><div class="acts">${act}</div>`;
+  const autoBar = (B.auto && !B.over) ? `<div class="row"><span class="sm">🤖 Auto-battle running…</span>${autoButton()}</div>` : '';
+  return `<div class="foes">${foes}</div><div class="log">${log}</div><div class="allies">${allies}</div>${autoBar}<div class="acts">${act}</div>`;
 }
 function doAttack(){ B.ui={mode:'target',kind:'attack',sid:null,cands:alive(B.foes)}; render(); }
 function pickSkill(sid){
