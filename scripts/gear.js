@@ -14,6 +14,10 @@ const GEAR = {
   venomed_cloak:{bonus:{def:4,spd:3}},
   warden_sigil:{bonus:{mag:5,def:3}},
   mahan_crown:{bonus:{hp:20,atk:3}},
+  ridge_cloak:{bonus:{def:6,spd:2}},
+  bandit_lords_blade:{bonus:{atk:8}, for:['chad','jade']},
+  minion_sigil:{bonus:{mag:3,hp:10}},
+  mouse_charm:{bonus:{spd:3,atk:2}},
   // ---- shop ----
   ash_bow:{n:'Ash Bow',icon:'🏹',slot:'weapon',rarity:'common',price:90,bonus:{atk:3,spd:1},for:['jade']},
   braided_whip:{n:'Braided Whip',icon:'🪢',slot:'weapon',rarity:'common',price:90,bonus:{atk:3,spd:1},for:['jade']},

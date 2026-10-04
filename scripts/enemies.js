@@ -31,9 +31,9 @@ const ENEMIES = {
   inn_thug:{n:'Inn Hand',icon:'🪝',area:'inn',hp:70,atk:11,mag:0,def:5,spd:8,xp:30,gold:12,
     moves:[{n:'Club',pow:1},{n:'Grab',pow:.7,fx:[{k:'slow',d:1}]}],drops:[],desc:'An employee of the dark inn, armed with a club.'},
   bearded_mouse:{n:'Bearded Mouse',icon:'🧔',area:'cliff',elite:true,hp:140,atk:15,mag:0,def:8,spd:9,xp:60,gold:40,
-    moves:[{n:'Cudgel',pow:1.2},{n:'Dirty Trick',pow:.8,fx:[{k:'slow',d:2}]}],drops:[{id:'coin_pouch',chance:.5}],desc:'Booyeong\'s bearded lieutenant, who flees at the sight of Jade.'},
+    moves:[{n:'Cudgel',pow:1.2},{n:'Dirty Trick',pow:.8,fx:[{k:'slow',d:2}]}],drops:[{id:'coin_pouch',chance:.5},{id:'mouse_charm',chance:.3}],desc:'Booyeong\'s bearded lieutenant, who flees at the sight of Jade.'},
   xima_minion:{n:'Xima Minion',icon:'👹',area:'demon',hp:90,atk:13,mag:8,def:6,spd:11,xp:44,gold:20,traits:['magic'],
-    moves:[{n:'Shadow Claw',pow:1.1},{n:'Corrupting Touch',pow:.9,spell:true,fx:[{k:'slow',d:2}]}],drops:[{id:'demon_ash',chance:.5}],desc:'Shadowy demonic scouts marked with Xima\'s sigil.'},
+    moves:[{n:'Shadow Claw',pow:1.1},{n:'Corrupting Touch',pow:.9,spell:true,fx:[{k:'slow',d:2}]}],drops:[{id:'demon_ash',chance:.5},{id:'minion_sigil',chance:.08}],desc:'Shadowy demonic scouts marked with Xima\'s sigil.'},
   corrupted_villager:{n:'Corrupted Villager',icon:'🧟',area:'village',hp:80,atk:10,mag:6,def:4,spd:8,xp:30,gold:0,traits:['corrupt'],
     moves:[{n:'Clawing Grasp',pow:1},{n:'Hollow Whisper',pow:.7,spell:true,fx:[{k:'slow',d:1}]}],drops:[],desc:'A villager taken by Xima: alive but changed. Not an enemy to kill. Jade\'s Cleansing Touch frees them.'},
   // ---- placeholder BOSSES (rename per story) ----
@@ -99,6 +99,8 @@ const ITEMS = {
   river_fish:{n:'River Fish',icon:'🐟',type:'material',rarity:'common'}, drake_scale:{n:'Drake Scale',icon:'🐉',type:'material',rarity:'uncommon'},
   relic_dust:{n:'Relic Dust',icon:'✨',type:'material',rarity:'uncommon'}, pearl_fragment:{n:'Dragon Pearl Fragment',icon:'🔮',type:'material',rarity:'epic'},
   greyson_dagger:{n:'Greyson\'s Dagger',icon:'🗡️',type:'gear',slot:'weapon',rarity:'epic'}, greyson_flail:{n:'Greyson\'s Flail',icon:'⛓️',type:'gear',slot:'weapon',rarity:'epic'},
+  ridge_cloak:{n:'Ridge Cloak',icon:'🧥',type:'gear',slot:'armor',rarity:'rare'}, bandit_lords_blade:{n:'Bandit Lord\'s Blade',icon:'🗡️',type:'gear',slot:'weapon',rarity:'rare'},
+  minion_sigil:{n:'Minion\'s Sigil',icon:'🔻',type:'gear',slot:'accessory',rarity:'uncommon'}, mouse_charm:{n:'Mouse\'s Lucky Charm',icon:'🐭',type:'gear',slot:'accessory',rarity:'uncommon'},
   mahan_crown:{n:'Mahan\'s Mire Crown',icon:'👑',type:'gear',slot:'accessory',rarity:'rare'},
 };
 /* ---- LOOT TABLES for major battles ----
@@ -108,6 +110,7 @@ const LOOT = {
   boss_bandit_chief:{guaranteed:[{id:'bandit_sash',qty:[2,3]}],rolls:[{id:'chiefs_cleaver',chance:.2},{id:'herbal_tonic',chance:.6,qty:[1,2]}],firstClear:[{id:'coin_pouch',qty:[2,2]}]},
   boss_masked_leader:{guaranteed:[{id:'assassin_mask',qty:[1,1]}],rolls:[{id:'venomed_cloak',chance:.2},{id:'venom_vial',chance:.6,qty:[1,3]}],firstClear:[{id:'herbal_tonic',qty:[3,3]}]},
   boss_demon_warden:{guaranteed:[{id:'demon_ash',qty:[3,5]}],rolls:[{id:'warden_sigil',chance:.15},{id:'shade_essence',chance:.5,qty:[1,2]}],firstClear:[{id:'shade_essence',qty:[1,1]}]},
+  boss_booyeong:{guaranteed:[{id:'coin_pouch',qty:[2,3]}],rolls:[{id:'ridge_cloak',chance:.35},{id:'bandit_lords_blade',chance:.2},{id:'herbal_tonic',chance:.6,qty:[1,2]}],firstClear:[{id:'bandit_lords_blade',qty:[1,1]}]},
   boss_frog_mahan:{guaranteed:[{id:'toad_gland',qty:[3,5]}],rolls:[{id:'mahan_crown',chance:.2},{id:'herbal_tonic',chance:.6,qty:[1,2]}],firstClear:[{id:'xima_shard',qty:[1,1]}]},
   boss_pearl_guardian:{guaranteed:[{id:'relic_dust',qty:[3,5]}],rolls:[{id:'drake_scale',chance:.6,qty:[1,3]}],firstClear:[{id:'pearl_fragment',qty:[1,1]}]},
 };

@@ -44,6 +44,7 @@ const LOCATIONS = {
       {id:'tavern', kind:'tavern', n:'Local Inn', icon:'🍶', desc:'Warm beds and louder rumours.'},
       {id:'board', kind:'board', n:'Regional Quest Board', icon:'📜', ch:16, desc:'Villagers need help.'},
       {id:'shrine', kind:'meditate', n:'Vigil Shrine', icon:'⛩️', ch:99, desc:'Meditation and ancient teachings to strengthen Jade\'s clairvoyance.'},
+      {id:'village_life', kind:'village', n:'Village Life', icon:'🏡', ch:34, desc:'A quiet week among the villagers: help, teach, listen. Bonds and small rewards (once per day each).'},
       {id:'riverside', kind:'gather', n:'Riverside', icon:'🎣', desc:'Fish along the river.', loot:[{id:'river_fish',qty:[1,3]}], ambush:['forest_wolf'], lo:3},
       {id:'outskirts', kind:'hunt', n:'Surrounding Forest', icon:'🐺', desc:'Wolves and bandits near the village.', pool:['road_bandit','bandit_archer','forest_wolf'], lo:3}]},
   faepool_forest:{ n:'Faepool Forest', region:'faepool', kind:'field', icon:'🌲', unlock:{ch:18},
@@ -509,6 +510,29 @@ function doPractice(){
   const msgs = ['Sword practice, meditation and drills. +'+(30+lv*3)+' XP'];
   gainXp(30+lv*3, G.party).forEach(m => msgs.push(m));
   return msgs.concat(advanceDay(1));
+}
+const VILLAGE_ACTS = {
+  archery:{n:'Teach the youths archery with Levi', icon:'🏹', need:'levi', bond:{levi:5}, xp:40, line:'Levi shows the village children how to draw a bow. Jade watches him smile for the first time in a while.'},
+  healer:{n:'Help Sky treat the villagers', icon:'💙', need:'sky', bond:{sky:5}, xp:30, items:[{id:'forest_herb',qty:[1,2]}], line:'You grind herbs and carry water while Sky treats the sick. The villagers start to call him their healer.'},
+  haren:{n:'Listen to Haren\'s stories', icon:'🍵', hint:true, gold:15, line:'Haren pours tea and talks about the old days, and about the northern forest nobody walks into any more.'},
+  sally:{n:'Gather news with Sally', icon:'🌹', need:'sally', gold:25, line:'Sally trades small talk with merchants and returns with the village\'s secrets, and a few coins.'},
+  chores:{n:'Help with village chores', icon:'🧺', gold:20, xp:20, line:'You carry baskets, mend a fence and learn which houses keep their shutters closed.'},
+};
+function doVillage(key){
+  const a = VILLAGE_ACTS[key], id = 'vl_'+key;
+  if(a.need && !isRecruited(a.need)) return [a.n+': '+CHARACTERS[a.need].n.split(' ')[0]+' is not in the party.'];
+  if(G.bondDay[id] === G.day) return ['Already done today.'];
+  G.bondDay[id] = G.day; const msgs = [a.line];
+  Object.keys(a.bond||{}).forEach(h => { const m = addBond(h, a.bond[h]); msgs.push('Bond +'+a.bond[h]+' ('+CHARACTERS[h].n.split(' ')[0]+')'); if(m) msgs.push(m); });
+  if(a.xp) gainXp(a.xp, G.party).forEach(m => msgs.push(m));
+  if(a.gold){ G.gold += a.gold; msgs.push('+'+a.gold+' gold'); }
+  (a.items||[]).forEach(d => { const q = rint(d.qty); addItems([{id:d.id, qty:q}]); msgs.push('Received '+ITEMS[d.id].icon+' '+ITEMS[d.id].n+' ×'+q); });
+  if(a.hint) msgs.push(rumourFree());
+  return msgs.concat(advanceDay(0));
+}
+function rumourFree(){
+  const hints = ['"They say people who walk into the northern forest never come out."','"Strangers have been asking about a girl with red thread in her hair."','"Watch who leaves the village after midnight."','"The old shrine was never meant to be used for that."'];
+  return AR(hints);
 }
 function doMeditate(){
   if(G.bondDay.med === G.day) return ['Jade has already meditated today.'];

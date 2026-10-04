@@ -148,3 +148,7 @@ Ch39 "Beneath the Quiet Village" added from its page (art ch39.webp; bonds Jade+
 scripts/gear.js: Gear tab = Equip (weapon/armor/accessory per hero, stat bonuses via gearBonus) + Shop (buy in settlements, sell at half). Equipped gear leaves the pack; per-hero restrictions (for:[...]);
 Greyson's dagger/flail stay sealed until flag greyson_arms. Prices/stats PROVISIONAL. Not built yet: consumable use, gear drops from random fights, armor sets.
 - See docs/DRAGONVALE_PLAN.md for the Jenika / Serena / Handmaiden plan (spoilers).
+
+--- v6.0: VILLAGE LIFE + BOSS GEAR DROPS ---
+Vigil "Village Life" spot (unlocks after ch34): once-per-day activities (teach archery with Levi, help Sky, Haren's stories, news with Sally, chores) for bonds, XP, herbs, gold, rumours; "Rest until tomorrow" advances the day.
+Gear drops: Booyeong now drops Ridge Cloak / Bandit Lord's Blade (first clear guaranteed blade); Bearded Mouse, Xima Minion have small gear drop chances (new gear in gear.js).

@@ -109,6 +109,9 @@ function rSpot(L, sp){
     case 'archive': {
       const rows = LORE.filter(e => G.ch >= e.ch && (!e.party || isRecruited(e.party))).map(e=>`<div class="li"><b>${e.n}</b><div class="sm">${e.t}</div></div>`).join('');
       body = `<div class="panel">${rows}</div><div class="sm">Draft entries — more unlock with the story. The Bestiary is a separate tab.</div>`; break; }
+    case 'village':
+      body = `<div class="panel"><div class="sm">Each activity can be done once per day. Day ${G.day}.</div>${Object.keys(VILLAGE_ACTS).map(k => { const a = VILLAGE_ACTS[k], done = G.bondDay['vl_'+k]===G.day, miss = a.need && !isRecruited(a.need);
+        return `<div class="ev ${done||miss?'locked':''}"><div><b>${a.icon} ${a.n}</b><div class="sm">${[a.bond&&'bond',a.xp&&a.xp+' XP',a.gold&&a.gold+'g',a.items&&'herbs',a.hint&&'rumour'].filter(Boolean).join(' · ')}${miss?' · 🔒 '+CHARACTERS[a.need].n.split(' ')[0]+' not in party':''}</div></div><button ${done||miss?'disabled':''} onclick="act(doVillage,'${k}')">${done?'Done':'Do'}</button></div>`; }).join('')}<button onclick="act(()=>advanceDay(1))">🌙 Rest until tomorrow</button></div>`; break;
     case 'meditate':
       body = `<div class="panel"><div class="sm">Meditation and ancient teachings. Once per day.</div><button class="pri" onclick="act(doMeditate)">Meditate (1 day)</button></div>`; break;
     case 'garden': {
