@@ -147,3 +147,4 @@ Jade skill Cleansing Touch unlocks at ch38 (flag cleansing_touch): 2.5x vs 'corr
 Ch39 "Beneath the Quiet Village" added from its page (art ch39.webp; bonds Jade+Levi +1, Chad -5; Sky+Sally not modelled).
 scripts/gear.js: Gear tab = Equip (weapon/armor/accessory per hero, stat bonuses via gearBonus) + Shop (buy in settlements, sell at half). Equipped gear leaves the pack; per-hero restrictions (for:[...]);
 Greyson's dagger/flail stay sealed until flag greyson_arms. Prices/stats PROVISIONAL. Not built yet: consumable use, gear drops from random fights, armor sets.
+- See docs/DRAGONVALE_PLAN.md for the Jenika / Serena / Handmaiden plan (spoilers).
