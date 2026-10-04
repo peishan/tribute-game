@@ -24,5 +24,17 @@ Spoilers. Nothing here is shown in the game yet. Dragon Vale and its sanctuary s
 - Party cap is 4 active slots (ACTIVE_SLOTS in core.js); a 6-hero Dragonvale roster fits the existing bench/active system.
 - Placeholders in the repo: "Foreign Princess" (characters.js) is probably the princess Chad gets engaged to.
 
+## Ripley — Jade's Handmaiden (answered)
+- Ripley is the future handmaiden at Dragonvale, assigned to Jade by Chad, but her loyalty is with Devon.
+- She fills the ranger slot when Levi is poisoned (by Chad, out of jealousy) and Sky confirms he is dead and he is buried.
+
+## Levi's death and return (answered)
+- Sky confirms Levi dead and he is buried. Sky is young, so the call is wrong.
+- Levi is actually alive: during his last mission he was bitten by a strange creature and developed a poison resistance.
+- Someone passing his grave later saves and nurses him. (Who is not decided.)
+- Before he "succumbs", he and Jade realise they don't love each other. Jade is destined for Devon.
+- Note: ch32 already gives Levi a fake death (Ryn, Greyson's cover). This is a second "dead but alive" beat, so make the two feel different.
+
 ## Open questions
-- Is "Ripley" the Handmaiden, or a separate stand-in for Levi? (the notes name both)
+- Who finds and nurses Levi at his grave?
+- What chapter does Levi die/leave, and what chapter does he return?
