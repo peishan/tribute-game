@@ -165,3 +165,8 @@ else the strongest affordable skill on the weakest foe. Stop any time. (AUTO_CH 
 --- v6.3: CH40-41 + AUTO BACKUP ---
 Ch40 "The Night Before the Offering" and Ch41 "The Offering at Moonrise" added from pages (art ch40/41.webp). Ch41 is the MAJOR BATTLE (greyson_arms unseals at 41, not 40): new enemies Crimson Cultist, Veil Stalker, Offering Lantern, boss The Offering Warden (+ gear Cultist Robe, Warden's Lantern). Auto-battle is off there (boss).
 Auto backup (savedata.js, Save tab): after every real battle -> rolling local backup (last 3) + Gist push if a token is saved; on leaving the page -> JSON download (max 1 per 10 min, only if progress changed; browsers may block). Toggles + Restore in the Save tab.
+
+--- v6.4: CHAPTERS 42-51 (Dragonvale arc) ---
+Entries 42-51 from pages (art ch42-51.webp). New: Dragonvale hub (unlock ch43; route from the capital, carriage 6d / ship 4d); Guest Wing, Royal Healing Pavilion (Jenika: free daily full restore + crafting tonics/remedies).
+Sky DISABLED from ch42 (stays in party, cannot fight; Dev 'Clear disabled'); Levi LEAVES the party at ch50 and cannot rejoin via recruit(); bracelet + sealed box at ch44 (box removed at ch50); Sally gets Noble Grace at ch51.
+Devon not recruitable yet; Ripley/Chad exits/wedding pending. Dragon Vale hunt/sanctuary/pearl spots stay parked (ch99).

@@ -106,14 +106,16 @@ const LOCATIONS = {
   reunion_area:{ n:'Reunion Area', region:'faepool', kind:'story', icon:'🏹', unlock:{ch:99},
     desc:'Where an old ally returns.',
     spots:[{id:'reunion_camp', kind:'tavern', n:'Reunion Camp', icon:'⛺', desc:'Share a meal around the fire.'}]},
-  dragon_vale:{ n:'Dragon Vale', region:'dragon', kind:'region', icon:'🐉', unlock:{ch:99},   // Devon / Dragon Vale arc not written yet
-    desc:'Major story region: dragon lore, ancient powers, legendary items. Devon, Delilah, Chad.',
+  dragon_vale:{ n:'Dragonvale', region:'dragon', kind:'hub', icon:'🐉', unlock:{ch:43},
+    desc:'The white palace on the waterfall cliffs. Jade is received only as a guest and kept within the inner palace. Court politics and the Royal Healing Pavilion.',
     spots:[
-      {id:'vale', kind:'hunt', n:'The Vale', icon:'🦎', desc:'Drakes and old guardians.', pool:['vale_drake','stone_sentinel','relic_spirit'], lo:14},
-      {id:'sanctuary', kind:'investigate', n:'Dragon Sanctuary', icon:'⛩️', need:3, ambush:['stone_sentinel','relic_spirit'], lo:15, party:'devon',
-       desc:'Ancient trials and the Dragon Pearl storyline. Sealed — only Ancient Dragon Knowledge can read the wards.',
+      {id:'guest_wing', kind:'tavern', n:'Guest Wing', icon:'🏮', ch:44, desc:'Jade\'s quarters. Rest, a shared meal, and palace gossip.'},
+      {id:'pavilion', kind:'pavilion', n:'Royal Healing Pavilion', icon:'🌙', ch:46, desc:'Jenika Moon, the royal healer: full recovery, tonics and rare remedies. Sky recovers here.'},
+      {id:'vale', kind:'hunt', n:'The Vale', icon:'🦎', ch:99, desc:'Drakes and old guardians (closed while Jade is confined to the palace).', pool:['vale_drake','stone_sentinel','relic_spirit'], lo:14},
+      {id:'sanctuary', kind:'investigate', n:'Dragon Sanctuary', icon:'⛩️', need:3, ambush:['stone_sentinel','relic_spirit'], lo:15, party:'devon', ch:99,
+       desc:'Ancient trials and the Dragon Pearl storyline. Sealed.',
        clues:['A sealed inscription describes the first Pearl bearer.','The wards answer to a royal dragon bloodline.','A trial chamber opens beneath the altar.'], rw:{xp:420, gold:150}},
-      {id:'pearl', kind:'boss', n:'Pearl Chamber', icon:'🔮', desc:'Special dungeon. Reward: Dragon Pearl related ability.', boss:'boss_pearl_guardian', add:['relic_spirit'], lo:18, party:'devon', needFlag:'inv_sanctuary'}]},
+      {id:'pearl', kind:'boss', n:'Pearl Chamber', icon:'🔮', desc:'Special dungeon. Reward: Dragon Pearl related ability.', boss:'boss_pearl_guardian', add:['relic_spirit'], lo:18, party:'devon', ch:99, needFlag:'inv_sanctuary'}]},
   dima_sanctuary:{ n:'Dima\'s Sanctuary', region:'unknown', kind:'unknown', icon:'🌙', unlock:{ch:99}, desc:'Jade\'s destiny: bloodline revelations, true purpose.', spots:[]},
   xima_realm:{ n:'Xima Realm', region:'unknown', kind:'unknown', icon:'🌑', unlock:{ch:99}, desc:'Late game: ancient evil, the curse\'s source, final mysteries.', spots:[]},
 };
@@ -131,7 +133,7 @@ function spotLock(sp){
 
 // Some story chapters must be started on location (PROVISIONAL). {chapter: locationId}
 // Chapters whose story must be started on location. Tune freely: {chapter: locationId}
-const CH_LOC = { 12:'dark_inn', 16:'vigil_village', 17:'vigil_village', 18:'vigil_village', 19:'faepool_forest', 21:'faepool_forest', 22:'booyeong_camp', 23:'booyeong_camp', 24:'booyeong_camp', 25:'faepool_forest', 26:'vigil_village', 27:'booyeong_camp', 28:'vigil_village', 29:'vigil_village', 30:'vigil_village' };   // chapters that must start on location (ch12 begins at the inn). More are added as chapters are converted.
+const CH_LOC = { 44:'capital', 45:'dragon_vale', 46:'dragon_vale', 47:'dragon_vale', 48:'dragon_vale', 49:'dragon_vale', 50:'dragon_vale', 51:'dragon_vale', 12:'dark_inn', 16:'vigil_village', 17:'vigil_village', 18:'vigil_village', 19:'faepool_forest', 21:'faepool_forest', 22:'booyeong_camp', 23:'booyeong_camp', 24:'booyeong_camp', 25:'faepool_forest', 26:'vigil_village', 27:'booyeong_camp', 28:'vigil_village', 29:'vigil_village', 30:'vigil_village' };   // chapters that must start on location (ch12 begins at the inn). More are added as chapters are converted.
 // Boat travel unlocks with chapter 15 (the sea voyage before ch16). Set BRACELET_FROM_START=true if the Imperial Bracelet should exist from the Prologue.
 const SHIP_CH = 15, BRACELET_FROM_START = false;
 const modeOpen = m => m!=='ship' || G.ch >= SHIP_CH;
@@ -159,6 +161,8 @@ const ROUTES = [
   {a:'faepool_settlement', b:'reunion_area', mode:'carriage', n:'Wilderness Route', days:1, fare:14, risk:.55, pool:['road_bandit','masked_assassin','forest_wolf']},
   {a:'faepool_harbour', b:'river_crossing', mode:'ship', n:'River Mouth Voyage', days:2, fare:30, risk:.5, pool:SEA_POOL},
   {a:'river_crossing', b:'dragon_vale', mode:'ship', n:'Upriver Voyage', days:2, fare:35, risk:.5, pool:SEA_POOL.concat(['river_serpent'])},
+  {a:'capital', b:'dragon_vale', mode:'carriage', n:'Dragonvale Road', days:6, fare:60, risk:.45, pool:['road_bandit','vale_drake','forest_wolf']},
+  {a:'capital', b:'dragon_vale', mode:'ship', n:'Eastern Sea Passage', days:4, fare:90, risk:.4, pool:['sea_raider','storm_wisp']},
   {a:'faepool_forest', b:'dragon_vale', mode:'carriage', n:'Vale Road', days:3, fare:50, risk:.6, pool:['vale_drake','forest_wolf','xima_sprite']},
 ];
 const routesFrom = id => ROUTES.filter(r => r.a===id || r.b===id).map(r => ({r, to: r.a===id ? r.b : r.a}));
@@ -196,7 +200,7 @@ function grantReward(rw, label){
   msgs.unshift(label+' · '+[rw.xp&&'+'+rw.xp+' XP', rw.gold&&'+'+rw.gold+'g', rw.rep&&'+'+rw.rep+' renown'].filter(Boolean).join(' · '));
   return msgs;
 }
-const FLAG_LABEL = { bracelet:'Communication Bracelet', crossbow:'Enchanted Crossbow', greyson_arms:'Greyson\'s dagger and flail unsealed', greyson_gift:'Greyson\'s gift received', cleansing_touch:'Cleansing Touch (Jade)' };
+const FLAG_LABEL = { bracelet:'Communication Bracelet', crossbow:'Enchanted Crossbow', greyson_arms:'Greyson\'s dagger and flail unsealed', greyson_gift:'Greyson\'s gift received', cleansing_touch:'Cleansing Touch (Jade)', sally_noble:'Sally\'s noble title and Noble Grace' };
 
 /* ---------------- DAY CLOCK ---------------- */
 function advanceDay(n){
@@ -610,6 +614,19 @@ const LORE = [
   {ch:40, n:'Greyson\'s Second Warning', t:'Decoded: \"Do not chase Xima. The altar is a trap. She wants the Gold child to come to her. Prepare, do not pursue.\"'},
   {ch:40, n:'Jade\'s Blood', t:'Sky finds the villagers\' corruption reacts strongly to Jade\'s presence: it is tied to Xima\'s ritual and resonates with her blood.'},
   {ch:41, n:'The Offering Rite', t:'The villagers carry lanterns to a ruin in the northern forest and give a chosen young woman to Xima\'s altar, believing it keeps them safe. They act out of fear, not loyalty.'},
+  {ch:42, n:'Jade\'s Partial Awakening', t:'In grief and fury Jade\'s hidden power partially awakens: a wave of crimson-gold light tears through the shadows. Xima watches with satisfaction.'},
+  {ch:42, n:'The Pearl of Dragonvale', t:'The only known cure for the dark curse in Sky\'s body. It holds the pure essence of ancient dragons. Sky has forty-nine days left.'},
+  {ch:44, n:'Greyson\'s Bracelet', t:'A bracelet that lets Greyson and Jade communicate privately, replacing pigeon post.'},
+  {ch:44, n:'Dima', t:'A radiant spirit who speaks to Jade in dreams, in a realm of light beyond time. She warns of trials and says the sealed box holds a truth that will change everything.'},
+  {ch:44, n:'Delilah', t:'The Dragonvale Royal Consort. She tests Jade with palace schemes and is carrying Prince Roc\'s child.'},
+  {ch:46, n:'Jenika Moon', t:'Royal healer and imperial physician of Dragonvale, and cousin to Princes Roc and Devon. She tends Sky at the Royal Healing Pavilion.'},
+  {ch:46, n:'Ripley', t:'A handmaiden assigned to attend Lady Jade in Dragonvale.'},
+  {ch:47, n:'Prince Devon', t:'Chad\'s twin: colder and more regal. The guards fear him. He shelters Jade from the palace guards and names a condition for his help.'},
+  {ch:48, n:'The Black Pearl', t:'The pearl held by Prince Devon. Dima tells Jade her destiny lies with its owner, and only through him can her cousin Sky live.'},
+  {ch:48, n:'The Trial of Love', t:'Dima: \"You have no destiny with him. Your destiny lies with the owner of the Black Pearl... This is the Trial of Love.\" Xima offers power if Jade pledges herself to her instead of Dima, \"my sister\".'},
+  {ch:50, n:'King Chadstone', t:'Ruler of Dragonvale and father of Princes Roc and Devon. He makes Jade Princess of Tribute and decrees she may choose one of his unmarried princes.'},
+  {ch:50, n:'Princess of Tribute', t:'The title bestowed on Jade by King Chadstone, from a scroll sent by Greyson, in honour of her noble identity and contributions.'},
+  {ch:51, n:'Sally\'s Title', t:'Sally receives a noble title as compensation for her past companionship with Roc. She remains with the wider party.'},
   {ch:99, n:'Faepool Territory', t:'A border region of forests and traditional villages. Something interferes with Jade\'s clairvoyance here.'},
   {ch:99, n:'The Hidden Message', t:'An unexpected message suggests the curse, Jade\'s visions and the people around her may be connected.'},
   {ch:99, n:'Ancient Records', t:'Records recovered from the Faepool ruins. The disturbances are not random: they belong to one pattern.'},
@@ -617,6 +634,5 @@ const LORE = [
   {ch:99, n:'Ancient Magic', t:'Old magic leaves traces in stone and blood. Jade\'s visions respond to it.'},
   {ch:99, n:'Tribute History', t:'How the island came to be bound by the curse. Many pages are still missing.'},
   {ch:99, n:'Dima\'s Legacy', t:'Jade\'s golden blood connects her to Dima. The records speak of a sanctuary, location unknown.'},
-  {ch:99, n:'Dragon Vale', t:'A region of dragon lore, ancient powers and legendary items.', party:'devon'},
   {ch:99, n:'The Dragon Pearl', t:'Devon\'s inheritance. Dragon Empowerment, Ancient Dragon Knowledge and Dragon Manifestation.', party:'devon'},
 ];

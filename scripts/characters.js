@@ -89,6 +89,7 @@ const CHARACTERS = {
    {id:'shadow_step',n:'Shadow Step',icon:'🌑',mp:4,kind:'phys',tgt:'foe',pow:1.6,req:{lvl:3},desc:'Fast, precise strike from the shadows.'},
    {id:'charm_whisper',n:'Charm Whisper',icon:'💋',mp:7,kind:'support',tgt:'foe',fx:[{k:'charm',d:2}],req:{lvl:6},desc:'Charms an enemy so it loses its turn.'},
    {id:'smoke_veil',n:'Smoke Veil',icon:'🌫️',mp:9,kind:'support',tgt:'allies',fx:[{k:'buff',stat:'eva',m:1.3,d:3}],req:{lvl:9},desc:'Party evasion up.'},
+   {id:'noble_grace',n:'Noble Grace',icon:'👑',mp:12,kind:'support',tgt:'allies',fx:[{k:'buff',stat:'def',m:1.2,d:3},{k:'buff',stat:'eva',m:1.25,d:3},{k:'regen',v:.05,d:3}],req:{flag:'sally_noble'},desc:'Her new noble title (chapter 51): composure and command. Party DEF and evasion up, with light regeneration.'},
    {id:'mirage_dance',n:'Mirage Dance',icon:'🪞',mp:14,kind:'support',tgt:'allies',fx:[{k:'buff',stat:'eva',m:1.6,d:3},{k:'charm',d:1,all:true}],req:{lvl:13},sig:true,desc:'SIGNATURE. Illusions: party evasion greatly up and foes are bewildered.'},
   ],
   evo:{ tiers:[
