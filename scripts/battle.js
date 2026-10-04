@@ -5,11 +5,11 @@
    ===================================================================== */
 let B = null;
 
-function mkAlly(id){
-  const s = statsOf(id), c = CHARACTERS[id];
+function mkAlly(id, persist){
+  const s = statsOf(id), c = CHARACTERS[id], hp = persist ? curHp(id) : s.hp, mp = persist ? curMp(id) : s.mp;
   return { uid:id, id, ally:true, name:c.n, icon:c.icon, img:'assets/party/'+id+'.webp', traits:[],
-    hp:s.hp, mhp:s.hp, mp:s.mp, mmp:s.mp, atk:s.atk, mag:s.mag, def:s.def, spd:s.spd,
-    st:{}, bf:[], state:null, used:{}, dead:false, guard:false };
+    hp:Math.max(hp,1), mhp:s.hp, mp:mp, mmp:s.mp, atk:s.atk, mag:s.mag, def:s.def, spd:s.spd,
+    st:{}, bf:[], state:null, used:{}, dead:false, guard:false, critB:passivesOf(id).critB, evaB:passivesOf(id).evaB };
 }
 function mkFoeUnit(key, lv, i){
   const e = mkEnemy(key, lv);
@@ -31,7 +31,7 @@ function eff(u, stat){
 function evaOf(u){
   let m = 1; u.bf.forEach(b => { if(b.stat==='eva') m *= b.m; });
   if(u.state && u.state.id==='manifest') m *= 1.3;
-  return clamp((0.04 + eff(u,'spd')*0.003) * m, 0, .6);
+  return clamp((0.04 + eff(u,'spd')*0.003 + (u.evaB||0)) * m, 0, .6);
 }
 const mpCost = (u,s) => Math.round(s.mp * ((u.state && u.state.id==='awakened') ? .5 : 1));
 
@@ -41,7 +41,7 @@ function blog(t, cls){ B.log.push({t, cls:cls||''}); if(B.log.length>60) B.log.s
 /* ---------- start ---------- */
 function startBattle(spec){
   const allyIds = spec.allies || G.active;
-  B = { allies:allyIds.map(mkAlly), foes:spec.foes.map((f,i)=>mkFoeUnit(f.key,f.lv,i)), queue:[], cur:null, log:[], over:null,
+  B = { allies:allyIds.map(id => mkAlly(id, !!spec.rewards)), foes:spec.foes.map((f,i)=>mkFoeUnit(f.key,f.lv,i)), queue:[], cur:null, log:[], over:null,
         round:0, ui:{mode:'menu'}, spec, rewards:null };
   blog('Battle begins!','sys');
   advance();
@@ -54,7 +54,7 @@ function buildQueue(){
 }
 function checkEnd(){
   if(!alive(B.foes).length){ B.over='win'; finishWin(); return true; }
-  if(!alive(B.allies).length){ B.over='lose'; blog('The party has fallen...','bad'); return true; }
+  if(!alive(B.allies).length){ B.over='lose'; blog('The party has fallen...','bad'); persistBattle(); save(); return true; }
   return false;
 }
 function advance(){
@@ -85,7 +85,7 @@ function hurt(t, d, ignoreShield){
   if(!ignoreShield && t.st.shield){ const a = Math.min(t.st.shield.v, d); t.st.shield.v -= a; d -= a; if(a>0) blog('  (barrier absorbs '+a+')'); if(t.st.shield.v<=0) delete t.st.shield; }
   if(t.guard) d = Math.round(d*.5);
   t.hp = Math.max(0, t.hp - d);
-  if(t.hp<=0){ t.dead = true; blog(t.name+' falls!','bad'); }
+  if(t.hp<=0){ t.dead = true; if(t.traits && t.traits.includes('corrupt')) blog(t.name+' is freed from the corruption and collapses, alive.','good'); else blog(t.name+' falls!','bad'); }
   return d;
 }
 function strike(src, tgt, s, opts){
@@ -97,8 +97,9 @@ function strike(src, tgt, s, opts){
   raw -= eff(tgt,'def') * (magic ? .35 : .6);
   let d = Math.max(1, Math.round(raw));
   if(s.antiMagic && tgt.traits.includes('magic')) d = Math.round(d*s.antiMagic);
+  if(s.vsCorrupt && tgt.traits.includes('corrupt')) d = Math.round(d*s.vsCorrupt);
   let crit = false;
-  if(s.crit || src.st.crit || Math.random() < .08){ crit = true; d = Math.round(d*1.6); }
+  if(s.crit || src.st.crit || Math.random() < .08 + (src.critB||0)){ crit = true; d = Math.round(d*1.6); }
   if(!s.pair && !opts.noEvade && Math.random() < evaOf(tgt)){ blog(tgt.name+' evades '+src.name+'\'s '+s.n+'!'); return 0; }
   const dealt = hurt(tgt, d);
   blog(src.name+' uses '+s.n+' on '+tgt.name+': '+dealt+(crit?' CRIT!':''), src.ally?'':'foe');
@@ -144,6 +145,7 @@ function playerAct(kind, sid, tuid){
   if(B.over) return;
   const u = B.cur; if(!u || !u.ally) return;
   if(kind==='guard'){ u.guard = true; u.mp = Math.min(u.mmp, u.mp+4); blog(u.name+' guards (+4 MP).'); endTurn(u); u.guard = true; advance(); return; }
+  if(kind==='item'){ if(!battleUseItem(u, sid, [].concat(B.allies).find(x => x.uid===tuid))) return; endTurn(u); advance(); return; }
   let s;
   if(kind==='attack') s = { id:'attack', n:'Attack', kind:'phys', tgt:'foe', pow:1, mp:0 };
   else { s = skillList(u).find(x => x.id===sid); if(!s || !s.usable) return; }
@@ -208,10 +210,12 @@ function finishWin(){
   B.rewards = { xp, gold, drops, msgs:[], real:!!spec.rewards };
   blog('Victory!','good');
   if(!spec.rewards) return;
+  persistBattle();
   const act = G.active, bench = G.party.filter(id => !act.includes(id));
   B.rewards.msgs = gainXp(xp, act).concat(gainXp(Math.round(xp*.5), bench));
   act.forEach(id => { const m = addBond(id, bossKey ? 8 : 3); if(m) B.rewards.msgs.push(m); });
   G.gold += gold; addItems(drops);
+  if(typeof onFoesDefeated==='function') B.rewards.msgs = B.rewards.msgs.concat(onFoesDefeated(foes));   // quests / bounties / missions
   if(spec.onWin) B.rewards.msgs = B.rewards.msgs.concat(spec.onWin() || []);
   save();
 }

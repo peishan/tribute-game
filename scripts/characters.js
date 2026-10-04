@@ -15,18 +15,22 @@ const STATS = ['hp','mp','atk','mag','def','spd'];
 
 const CHARACTERS = {
  jade:{
-  n:'Jade Gold', icon:'🌙', cls:'Imperial Guardian', role:'Hybrid Sword / Destiny', combat:'Leader / Adaptable Hybrid',
+  n:'Jade Gold', icon:'🌙', cls:'Imperial Guardian', role:'Hybrid Whip & Bow / Destiny', combat:'Leader / Adaptable Hybrid',
   identity:'Protagonist with hidden bloodline powers. Destiny and prophecy.',
-  style:['Sword','Defensive techniques','Destiny powers'], strength:'Adaptability',
-  weapon:'Imperial Guard Sword', signature:'Golden Blood Awakening',
+  style:['Whip','Bow','Defensive techniques','Destiny powers'], strength:'Adaptability',
+  weapon:'Whip & Bow (later: dagger and flail from Greyson, Levi\'s crossbow)', signature:'Golden Blood Awakening',
   sigDesc:'Enhanced perception, prophecy-related abilities, and a connection to Dima\'s legacy. Once per battle she awakens: all stats rise and her skills cost less.',
   base:{hp:80,mp:30,atk:11,mag:9,def:10,spd:9}, grow:{hp:9,mp:3,atk:1.6,mag:1.2,def:1.3,spd:.8},
   skills:[
-   {id:'lunar_slash',n:'Lunar Slash',icon:'🌙',mp:5,kind:'phys',tgt:'foe',pow:1.7,req:{lvl:1},desc:'A crescent sword strike.'},
+   {id:'lunar_slash',n:'Lunar Lash',icon:'🌙',mp:5,kind:'phys',tgt:'foe',pow:1.7,req:{lvl:1},desc:'A crescent sweep of her whip.'},
+   {id:'piercing_arrow',n:'Piercing Arrow',icon:'🏹',mp:3,kind:'phys',tgt:'foe',pow:1.4,req:{lvl:2},desc:'A precise bow shot from a distance.'},
    {id:'guard_stance',n:'Guard Stance',icon:'🛡️',mp:4,kind:'support',tgt:'self',fx:[{k:'buff',stat:'def',m:1.6,d:3}],req:{lvl:3},desc:'Raise her guard: DEF up for 3 turns.'},
    {id:'clairvoyance',n:'Clairvoyance',icon:'👁️',mp:6,kind:'support',tgt:'self',fx:[{k:'crit',d:3},{k:'analyze'}],req:{lvl:6},desc:'Foresight: guaranteed crits for 3 turns and reveals an enemy.'},
    {id:'destiny_link',n:'Destiny Link',icon:'🔗',mp:10,kind:'support',tgt:'allies',fx:[{k:'buff',stat:'atk',m:1.2,d:3},{k:'buff',stat:'mag',m:1.2,d:3}],req:{lvl:10},desc:'Binds the party\'s fates: ATK and MAG up.'},
    {id:'golden_blood',n:'Golden Blood Awakening',icon:'✨',mp:0,kind:'support',tgt:'self',once:true,fx:[{k:'state',id:'awakened',d:4}],req:{lvl:15},sig:true,desc:'SIGNATURE. All stats +25% and skills cost half for 4 turns. Once per battle.'},
+   {id:'cleansing_touch',n:'Cleansing Touch',icon:'🤲',mp:7,kind:'magic',tgt:'foe',pow:1.0,vsCorrupt:2.5,fx:[{k:'cleanse'}],req:{flag:'cleansing_touch'},desc:'Her restoring power (chapter 38). Heavy against corrupted foes, who are freed instead of slain.'},
+   {id:'hidden_dagger',n:'Hidden Dagger',icon:'🗡️',mp:4,kind:'phys',tgt:'foe',pow:1.9,req:{flag:'greyson_arms'},desc:'Greyson\'s dagger: a quick, close strike. Given in the Prologue; she may not use it until the major battle.'},
+   {id:'flail_sweep',n:'Flail Sweep',icon:'⛓️',mp:7,kind:'phys',tgt:'foes',pow:1.2,req:{flag:'greyson_arms'},desc:'Greyson\'s flail sweeps every enemy. Given in the Prologue; she may not use it until the major battle.'},
    {id:'crossbow_shot',n:'Crossbow Shot',icon:'🏹',mp:0,kind:'phys',tgt:'foe',pow:1.2,req:{flag:'crossbow'},desc:'Levi\'s Enchanted Crossbow (Chapter 30). A ranged shot at no cost.'},
   ],
   evo:{ tiers:[

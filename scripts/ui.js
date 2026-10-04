@@ -1,8 +1,8 @@
 /* =====================================================================
    TRIBUTE — UI (tabs, party sheets, journal, training, battle, stubs)
    ===================================================================== */
-const TABS = [['journal','📖 Journal'],['party','👥 Party'],['training','🎯 Training'],['inventory','🎒 Items'],['bestiary','📕 Bestiary'],
-              ['equipment','🛡️ Gear'],['tavern','🍶 Tavern'],['travel','🛞 Travel'],['explore','🧭 Explore'],['dev','🛠️ Dev']];
+const TABS = [['journal','📖 Journal'],['missions','✉️ Missions'],['travel','🛞 Travel'],['here','🧭 Here'],['party','👥 Party'],['training','🎯 Training'],
+              ['inventory','🎒 Items'],['bestiary','📕 Bestiary'],['equipment','🛡️ Gear'],['save','💾 Save'],['dev','🛠️ Dev']];
 let tab = 'journal', sel = 'jade', openCh = null, chMsgs = [], origin = 'journal', trSel = 0, trLv = 5;
 const STAT_SCALE = {hp:420,mp:200,atk:130,mag:130,def:100,spd:90};
 const STAT_NAME = {hp:'HP',mp:'MP',atk:'ATK',mag:'MAG',def:'DEF',spd:'SPD'};
@@ -13,18 +13,14 @@ function showTab(t){ tab=t; render(); window.scrollTo(0,0); const m=$('main'); i
 function render(){
   $('hgold').textContent = '💰 '+G.gold;
   $('hch').textContent = G.ch<0 ? 'Prologue' : (G.ch===0?'Prologue ✓':'Ch.'+G.ch+' ✓');
+  $('hday').textContent = '☀️ Day '+G.day;
+  $('hloc').textContent = '📍 '+LOCATIONS[G.loc].n;
   const showBattle = !!B;
   $('nav').innerHTML = (showBattle?`<button class="${tab==='battle'?'on':''}" onclick="showTab('battle')">⚔️ Battle</button>`:'') +
-     TABS.map(([k,l]) => `<button class="${tab===k?'on':''}" onclick="showTab('${k}')">${l}</button>`).join('');
+     TABS.map(([k,l]) => `<button class="${tab===k?'on':''}" onclick="showTab('${k}')">${l}${k==='missions'&&unreadCount()?' <b style="color:var(--r)">●</b>':''}</button>`).join('');
   const R = { journal:rJournal, party:rParty, training:rTraining, battle:rBattle, inventory:rInventory, bestiary:rBestiary,
-              equipment:()=>stub('Equipment','Aethon-style slots: weapon · armor · accessory (hook ready: gearBonus() in core.js)',
-                ['Signature weapons per hero: Scholar Blade (Devon), Enchanted Crossbow (Levi → Jade at Ch.30), Veiled Fans (Sally)…','Gear drops from the major-battle loot tables (see enemies.js › LOOT)','Class restrictions per Aethon\'s CODEX_EQUIPMENT_RULES']),
-              tavern:()=>stub('Tavern','Crimson Tide tavern: rest, rumours, quest board, hire temporary companions',
-                ['Rest (gold, once per day) fully restores the party','Rumours (5g) – hints for routes, bounties and story','Quest board: kill/collect contracts vs dock pickpockets, bandits, masked assassins','Temporary hires for a journey; bond scenes with party members','Potion shop']),
-              travel:()=>stub('Travel','Land + sea combined: carriage routes now, ship voyages later',
-                ['Waiting on your route notes (GPT): regions, stops, distances','Carriage = Aethon-style land travel with road encounters (bandits, assassins)','Ship = Crimson Tide voyage with sea events and port arrival','Chapters unlock by arriving at the right location']),
-              explore:()=>stub('Explore','Repeatable fights by area (Aethon Unmapped Road / Crimson harbour fights)',
-                ['Areas: docks · roads · cities · cursed ground','Each area lists its monsters (pickpockets, bandits, assassins, demons)','Scaled to party level, XP + gold + common drops','Elite / roaming bosses on a respawn timer']),
+              equipment:rGear,
+              missions:rMissions, travel:rTravel, here:rHere, save:rSave,
               dev:rDev }[tab] || rJournal;
   $('main').innerHTML = R();
 }
@@ -37,26 +33,44 @@ function rParty(){
   const slots = [0,1,2,3].map(i => { const id=G.active[i]; return id?`<div class="slot on" onclick="sel='${id}';render()"><img src="assets/party/${id}.webp"><b>${CHARACTERS[id].n.split(' ')[0]}</b></div>`:`<div class="slot"><b>empty</b></div>`; }).join('');
   const roster = ROSTER.map(id => {
     const c=CHARACTERS[id], rec=isRecruited(id), join=JOIN_CH[id];
-    return `<div class="rc ${sel===id?'sel':''} ${rec?'':'lock'}" onclick="sel='${id}';render()"><img src="assets/party/${id}.webp"><div><b>${rec||id==='princess'?c.n:'???'}</b><div class="sm">${rec?c.cls+' · Lv'+U(id).lv:(join!==undefined?'Joins Ch.'+join:'Unrecruited')}</div></div></div>`; }).join('');
+    return `<div class="rc ${sel===id?'sel':''} ${rec||profileKnown(id)?'':'lock'}" onclick="sel='${id}';render()"><img src="assets/party/${id}.webp"><div><b>${profileKnown(id)||id==='princess'?c.n:'???'}</b><div class="sm">${rec?c.cls+' · Lv'+U(id).lv+(G.guests[id]?' · guest':''):(profileKnown(id)?c.cls+' · ':'')+(join!==undefined?'Joins Ch.'+join:'Unrecruited')}</div></div></div>`; }).join('');
   return `<h2>Party</h2><div class="sm">Active (${G.active.length}/${ACTIVE_SLOTS}) — fights use these four</div><div class="slots">${slots}</div><div class="rcs">${roster}</div>${rSheet(sel)}`;
 }
 function rSheet(id){
   const c=CHARACTERS[id], rec=isRecruited(id);
-  if(!rec) return `<div class="panel"><h3>${id==='princess'?c.n:'???'}</h3><div class="sm">${id==='princess'?c.identity:'Not yet recruited. Recruited at chapter '+JOIN_CH[id]+' (provisional).'}</div></div>`;
+  if(!rec && profileKnown(id)) return `<div class="panel"><div class="sh"><img src="assets/party/${id}.webp"><div><h3>${c.icon} ${c.n}</h3><div>${c.cls}</div><div class="sm">${c.role}</div></div></div><div class="sm" style="margin:6px 0">${c.identity}</div><div class="sm">Not in the party yet${JOIN_CH[id]!==undefined?' — joins at chapter '+JOIN_CH[id]:''}.</div></div>`;
+  if(!rec) return `<div class="panel"><h3>${id==='princess'?c.n:'???'}</h3><div class="sm">${id==='princess'?c.identity:(JOIN_CH[id]!==undefined?'Not yet recruited. Joins at chapter '+JOIN_CH[id]+'.':'Not yet recruited. Recruitment chapter still to be decided.')}</div></div>`;
   const u=U(id), st=statsOf(id), bl=bondLevel(id), nextB=BOND_LEVELS[bl+1];
   const stats = STATS.map(s=>`<div class="st"><span>${STAT_NAME[s]}</span>${bar(st[s],STAT_SCALE[s],s)}<b>${st[s]}</b></div>`).join('');
-  const skills = skillsOf(id).map(s=>`<div class="sk ${s.ok?'':'lk'}"><span class="si">${s.icon}</span><div><b>${s.n}</b> ${s.sig?'<em class="tag">signature</em>':''}${s.bondSkill?'<em class="tag b">bond</em>':''}${s.evoSkill?'<em class="tag e">evolution</em>':''}<div class="sm">${s.ok?s.desc:'🔒 '+s.why}</div></div><span class="mp">${s.mp?s.mp+' MP':''}</span></div>`).join('');
+  const skills = skillsOf(id).filter(s=>!(s.treeSkill&&!s.ok)).map(s=>`<div class="sk ${s.ok?'':'lk'}"><span class="si">${s.icon}</span><div><b>${s.n}</b> ${s.sig?'<em class="tag">signature</em>':''}${s.bondSkill?'<em class="tag b">bond</em>':''}${s.evoSkill?'<em class="tag e">evolution</em>':''}${s.treeSkill?'<em class="tag t">tree</em>':''}<div class="sm">${s.ok?s.desc:'🔒 '+s.why}</div></div><span class="mp">${s.mp?s.mp+' MP':''}</span></div>`).join('');
   const evo = evoState(id).map(e=>`<div class="ev ${e.st}"><div><b>${e.n}</b> <span class="sm">${e.tier===2?'final':'tier '+e.tier}</span><div class="sm">${e.desc}</div></div>${e.st==='ready'?`<button onclick="doEvolve('${id}','${e.id}')">Evolve</button>`:`<span class="sm">${e.st==='taken'?'✔ taken':e.st==='closed'?'closed':'🔒 '+e.why}</span>`}</div>`).join('') || '<div class="sm">No evolution designed yet.</div>';
   const act = G.active.includes(id);
-  return `<div class="panel sheet"><div class="sh"><img src="assets/party/${id}.webp"><div><h3>${c.icon} ${c.n}</h3><div>${c.cls}</div><div class="sm">${c.role} · ${c.combat}</div><div class="sm">Lv ${u.lv}/${CFG.LEVEL_CAP}</div>${bar(u.xp,xpToNext(u.lv),'xp')}<div class="sm">XP ${u.xp}/${xpToNext(u.lv)}</div></div></div>
+  return `<div class="panel sheet"><div class="sh"><img src="assets/party/${id}.webp"><div><h3>${c.icon} ${c.n}${G.guests[id]?' <em class="tag">guest</em>':''}</h3><div>${c.cls}</div><div class="sm">${c.role} · ${c.combat}</div><div class="sm">Lv ${u.lv}/${CFG.LEVEL_CAP}</div>${bar(u.xp,xpToNext(u.lv),'xp')}<div class="sm">XP ${u.xp}/${xpToNext(u.lv)}</div></div></div>
    <div class="sm" style="margin:6px 0">${c.identity}</div>
    ${id!=='jade'?`<div class="sm">💞 Bond with Jade: ${bl}/5 ${nextB?`(${u.bp}/${nextB})`:'(max)'}</div>${bar(u.bp,nextB||u.bp||1,'bond')}`:''}
    ${id!=='jade'?`<button onclick="toggleActive('${id}');render()">${act?'Remove from active party':'Add to active party'}</button>`:'<div class="sm">Jade always leads the active party.</div>'}
+   <h4>Condition</h4><div class="sm">❤️ HP ${curHp(id)}/${st.hp} · 🔷 MP ${curMp(id)}/${st.mp}</div>${bar(curHp(id),st.hp,'hp')}${bar(curMp(id),st.mp,'mpb')}
    <h4>Stats</h4><div class="stg">${stats}</div>
    <h4>Weapon & Style</h4><div class="sm">${c.weapon} · ${c.style.join(', ')} · Strength: ${c.strength}</div>
    <h4>Special Ability — ${c.signature}</h4><div class="sm">${c.sigDesc}${c.fieldAbility?' <br><b>Field ability:</b> Ancient Dragon Knowledge (identify artefacts, unlock sealed areas — used by Explore later).':''}</div>
-   <h4>Skills</h4>${skills}<h4>Evolution</h4>${evo}</div>`;
+   <h4>Skills</h4>${skills}${rTree(id)}${rBondRewards(id)}<h4>Evolution</h4>${evo}</div>`;
 }
+function rTree(id){
+  const free = spFree(id);
+  const branches = SKILLTREE[id].map(b => `<div class="br"><b>${b.icon} ${b.n}</b> <span class="sm">${b.desc}</span>`+nodeList(id).filter(n=>n.branch===b.id).map(n=>{
+    const st = nodeState(id,n);
+    return `<div class="nd ${st}"><span class="si">${n.icon}</span><div class="fl"><b>${n.n}</b> <em class="tag ${n.skill?'t':''}">${n.skill?'skill':'passive'}</em><div class="sm">${n.desc}${n.skill?' · '+n.skill.mp+' MP':''}</div></div>${st==='taken'?'<span class="sm">✔</span>':st==='ready'?`<button onclick="doNode('${id}','${n.id}')">${n.cost} SP</button>`:`<span class="sm">${st==='locked'||st==='sealed'?'🔒':n.cost+' SP'}</span>`}</div>`; }).join('')+`</div>`).join('');
+  if(!treeOpen(id)) return `<h4>Skill Tree</h4><div class="sm">🔒 Unlocks at chapter ${TREE_CH[id]}. Skill points keep accruing (${free} SP free).</div>`;
+  return `<h4>Skill Tree <span class="sm">· ${free} SP free (${spSpent(id)} spent)</span></h4><div class="sm">1 SP per level, +3 per evolution. Each node needs the one above it.</div>${branches}<button ${U(id).nodes.length&&G.gold>=respecCost(id)?'':'disabled'} onclick="doRespec('${id}')">Reset tree (${respecCost(id)}g)</button>`;
+}
+function rBondRewards(id){
+  const bl = bondLevel(id), tiers = (BONDTREE[id]||[]).map(b => ({lvl:b.lvl, n:b.n, icon:b.icon, desc:b.skill?b.skill.desc:(b.desc+' ('+passiveText(b.passive)+')'), kind:b.skill?(b.skill.pair?'ultimate':'skill'):'passive'}));
+  const c = CHARACTERS[id]; if(c.bond) tiers.push({lvl:3, n:c.bond.n, icon:c.bond.icon, desc:c.bond.desc, kind:'pair skill'});
+  tiers.sort((a,b)=>a.lvl-b.lvl);
+  return `<h4>${id==='jade'?'Party Bond':'Bond'} Unlocks <span class="sm">· level ${bl}/5${id==='jade'?' (average companion bond)':''}</span></h4>`+tiers.map(t=>`<div class="nd ${bl>=t.lvl?'taken':'locked'}"><span class="si">${t.icon}</span><div class="fl"><b>${t.n}</b> <em class="tag b">${t.kind}</em><div class="sm">${bl>=t.lvl?t.desc:'🔒 Bond '+t.lvl}</div></div><span class="sm">B${t.lvl}</span></div>`).join('');
+}
+function doNode(id,nid){ if(takeNode(id,nid)){ toast('Learned '+nodeById(id,nid).n); render(); } }
+function doRespec(id){ if(respec(id)){ toast('Skill tree reset'); render(); } }
 function doEvolve(id,eid){ if(evolve(id,eid)){ toast(CHARACTERS[id].n+' evolved!'); render(); } }
 
 /* ---------------- JOURNAL ---------------- */
@@ -65,24 +79,34 @@ function rJournal(){
   const rows = CHAPTERS.map(c => {
     const done=chapterDone(c.n), avail=chapterAvailable(c.n);
     const joins = recruitsAtChapter(c.n).map(id=>CHARACTERS[id].n.split(' ')[0]);
-    return `<div class="card ${avail?'':'lock'} ${c.n===G.ch+1?'cur':''}" onclick="${avail?`openChapter(${c.n})`:''}"><div class="fl"><b>${c.n===0?'':c.n+'. '}${avail?c.title:'???'}</b><div class="sm">${done?'✔ Complete':avail?'Available':'Locked'}${c.battle?' · ⚔️ battle':''}${joins.length?' · ★ '+joins.join(', ')+' joins':''}${c.art.length?'':' · art pending'}</div></div><span class="sm">XP ${c.sxp}</span></div>`; }).join('');
+    return `<div class="card ${avail?'':'lock'} ${c.n===G.ch+1?'cur':''}" onclick="${avail?`openChapter(${c.n})`:''}"><div class="fl"><b>${c.n===0?'':c.n+'. '}${avail?c.title:'???'}</b><div class="sm">${done?'✔ Complete':avail?'Available':(c.n<=G.ch+1&&CH_LOC[c.n]?'📍 Travel to '+LOCATIONS[CH_LOC[c.n]].n:'Locked')}${CH_LOC[c.n]&&avail&&!done?' · 📍 '+LOCATIONS[CH_LOC[c.n]].n:''}${c.battle?' · ⚔️ battle':''}${joins.length?' · ★ '+joins.join(', ')+' joins':''}${c.art.length?'':' · art pending'}</div></div><span class="sm">XP ${c.sxp}</span></div>`; }).join('');
   return `<h2>Chapter Journal</h2><div class="sm">Chapters unlock in order. Each gives story XP; battle chapters also roll loot.</div>${rows}`;
 }
-function openChapter(n){ openCh=n; chMsgs=[]; render(); }
+function openChapter(n){ openCh=n; chMsgs=[]; render(); if(CHAPTERS[n].art.length && !G.read[n] && !chapterDone(n)) openStory(n); }
 function closeChapter(){ openCh=null; render(); }
 function rChapter(n){
   const c=CHAPTERS[n], done=chapterDone(n);
-  const pages = c.art.length ? c.art.map(a=>`<img class="pg" loading="lazy" src="assets/comics/${a}.webp" alt="">`).join('') : `<div class="panel sm">Artwork for this chapter hasn't been added yet (drop pages into assets/comics and list them in journal.js › ART).</div>`;
+  const pages = c.art.length ? `<div class="panel"><button class="pri" onclick="openStory(${n})">📖 ${G.read[n]?'Read again':'Read story'} (${c.art.length} page${c.art.length>1?'s':''})</button><details><summary class="sm">Show pages inline</summary>${c.art.map(a=>`<img class="pg" loading="lazy" src="assets/comics/${a}.webp" alt="">`).join('')}</details></div>` : `<div class="panel sm">Artwork for this chapter hasn't been added yet (drop pages into assets/comics and list them in journal.js › ART).</div>`;
   let foot='';
   if(c.battle){
     const foes=c.battle.map(f=>{const e=ENEMIES[f.key];return `${e.icon} ${e.n}`;}).join(' · ');
     foot = `<div class="panel"><b>⚔️ Battle</b> <span class="sm">(Lv ${c.lv})</span><div class="sm">${foes}</div><button class="pri" onclick="chapterFight(${c.n})">${done?'Replay battle':'Begin battle'}</button></div>`;
   } else if(!done){
-    foot = `<button class="pri" onclick="finishChapter(${c.n})">Complete chapter (+${c.sxp} XP)</button>`;
+    foot = `<button class="pri" onclick="finishChapter(${c.n})">${n===0?'Finish the opening — Jade joins the journey':'Complete chapter'} (+${c.sxp} XP)</button>`;
   }
-  return `<button onclick="closeChapter()">◀ Journal</button><h2>${n===0?'':'Chapter '+n+' · '}${c.title}</h2>${pages}${chMsgs.length?`<div class="panel good">${chMsgs.map(m=>`<div>${m}</div>`).join('')}</div>`:''}${foot}`;
+  return `<button onclick="closeChapter()">◀ Journal</button><h2>${n===0?'':'Chapter '+n+' · '}${c.title}</h2>${rDesign(n)}${pages}${chMsgs.length?`<div class="panel good">${chMsgs.map(m=>`<div>${m}</div>`).join('')}</div>`:''}${foot}`;
 }
-function finishChapter(n){ chMsgs = completeChapter(n); render(); }
+function rDesign(n){
+  const d = CHAPTER_DESIGN[n];
+  if(!d) return `<div class="panel sm">Skeleton summary for this chapter isn't written yet. It will be converted from the canon story text.</div>`;
+  const li = a => a.map(x=>`<div class="li">• ${x}</div>`).join('');
+  const chars = d.charsNote || d.chars.map(i=>CHARACTERS[i].icon+' '+CHARACTERS[i].n.split(' ')[0]).join(' · ');
+  return `<div class="panel">${d.type?`<div class="sm">🎬 ${d.type}</div>`:''}<div class="sm">${d.loc}${CH_LOC[n]?' · starts at 📍 '+LOCATIONS[CH_LOC[n]].n:''}</div><div style="margin:6px 0">${d.sum}</div>
+   ${d.quote?`<div class="sm" style="font-style:italic;color:var(--gold);margin:6px 0">${d.quote}</div>`:''}${d.art?`<div class="sm" style="margin:6px 0">${d.art}</div>`:''}
+   <details><summary class="sm">Key events · purpose · unlocks</summary>${d.events.length?'<h4>Key Events</h4>'+li(d.events):''}<h4>Gameplay Purpose</h4>${li(d.purpose)}<h4>Unlocks</h4>${li(d.unlocks.map(x=>'✅ '+x))}
+   ${d.introduced?`<h4>Characters Introduced</h4>${li(d.introduced)}`:''}${d.reward?`<h4>Reward</h4>${li([d.reward])}`:''}<div class="sm" style="margin-top:6px">Playable: ${chars}</div></details></div>`;
+}
+function finishChapter(n){ storyResult(n, completeChapter(n)); }
 function chapterFight(n){ origin='journal'; startBattle(battleSpecFor(n)); tab='battle'; render(); }
 
 /* ---------------- TRAINING ---------------- */
@@ -91,6 +115,7 @@ const PRESETS = [
   ['Road Bandits',[{key:'road_bandit'},{key:'bandit_archer'},{key:'road_bandit'}]],
   ['Smugglers & Thugs',[{key:'smuggler'},{key:'dock_thug'},{key:'smuggler'}]],
   ['Masked Assassins ×2',[{key:'masked_assassin'},{key:'masked_assassin'}]],
+  ['Corrupted villagers (cleanse them)',[{key:'corrupted_villager'},{key:'corrupted_villager'},{key:'xima_minion'}]],
   ['Demons (magical)',[{key:'imp'},{key:'shade_wraith'},{key:'imp'}]],
   ['BOSS: Bandit Chief',[{key:'boss_bandit_chief'}]],
   ['BOSS: Masked Leader',[{key:'boss_masked_leader'},{key:'masked_assassin'}]],
@@ -129,7 +154,8 @@ function rBattle(){
     act = `<div class="panel bad"><b>Defeat…</b></div><button class="pri" onclick="battleDone()">Retreat</button>`;
   } else if(B.cur && B.cur.ally){
     const u=B.cur, m=B.ui.mode;
-    if(m==='menu') act = `<div class="sm">${u.name}'s turn</div><div class="row"><button class="pri" onclick="doAttack()">Attack</button><button onclick="B.ui={mode:'skills'};render()">Skills</button><button onclick="playerAct('guard')">Guard</button></div>`;
+    if(m==='menu') act = `<div class="sm">${u.name}'s turn</div><div class="row"><button class="pri" onclick="doAttack()">Attack</button><button onclick="B.ui={mode:'skills'};render()">Skills</button><button onclick="B.ui={mode:'items'};render()">Items</button><button onclick="playerAct('guard')">Guard</button></div>`;
+    else if(m==='items') act = (battleItems().map(i=>`<button class="skb" onclick="pickItem('${i.id}')">${i.icon} ${i.n} <small>×${i.qty||'∞'} ${i.text}</small></button>`).join('') || '<div class="sm">No consumables.</div>') + `<button onclick="B.ui={mode:'menu'};render()">◀ Back</button>`;
     else if(m==='skills') act = skillList(u).map(s=>`<button class="skb" ${s.usable?'':'disabled'} onclick="pickSkill('${s.id}')">${s.icon} ${s.n} <small>${s.cost?s.cost+'MP':''} ${s.note}</small></button>`).join('') + `<button onclick="B.ui={mode:'menu'};render()">◀ Back</button>`;
     else act = `<div class="sm">Choose a target</div><button onclick="B.ui={mode:'menu'};render()">◀ Cancel</button>`;
   }
@@ -141,18 +167,28 @@ function pickSkill(sid){
   if(['foe','chain','ally','allyDown'].includes(s.tgt)){ B.ui={mode:'target',kind:'skill',sid,cands:targetsFor(s)}; render(); }
   else { playerAct('skill', sid, null); render(); }
 }
+function pickItem(k){ B.ui={mode:'target',kind:'item',sid:k,cands:alive(B.allies)}; render(); }
+function pickItem(k){ B.ui={mode:'target',kind:'item',sid:k,cands:alive(B.allies)}; render(); }
 function pickTarget(uid){ const u=B.ui; playerAct(u.kind, u.sid, uid); render(); }
 function doGuardAct(){ playerAct('guard'); render(); }
-function battleDone(){ B=null; tab=origin; render(); }
+function battleDone(){
+  if(B && B.over==='lose' && B.spec.onLose && !chapterDone(B.spec.chapter)){      // story duel: the chapter continues even if Jade loses
+    const n = B.spec.chapter, msgs = ['Chad wins the duel, as the story goes.'].concat(B.spec.onLose()||[]); B = null; tab = origin; render(); storyResult(n, msgs); return; }
+  if(B && B.over==='lose' && typeof onBattleLost==='function') onBattleLost(); B=null; tab=origin; render(); }
 // make menu actions re-render
 const _pa = playerAct; playerAct = function(k,s,t){ _pa(k,s,t); render(); };
 
 /* ---------------- ITEMS / BESTIARY ---------------- */
 function rInventory(){
   const ids = Object.keys(G.inv).filter(k=>G.inv[k]>0);
-  const rows = ids.length ? ids.map(k=>{const i=ITEMS[k]||{n:k,icon:'❔',type:'?',rarity:''};return `<div class="card"><span class="big">${i.icon}</span><div class="fl"><b>${i.n}</b><div class="sm">${i.type}${i.slot?' · '+i.slot:''} · ${i.rarity}</div></div><b>×${G.inv[k]}</b></div>`;}).join('') : '<div class="sm">Empty. Win chapter battles to roll loot.</div>';
-  return `<h2>Items</h2><div class="sm">Gold: ${G.gold}</div>${rows}`;
+  const heroes = G.party.filter(id => !CHARACTERS[id].placeholder);
+  if(!heroes.includes(itemHero)) itemHero = heroes[0];
+  const rows = ids.length ? ids.map(k=>{const i=ITEMS[k]||{n:k,icon:'❔',type:'?',rarity:''}, us = USE[k];
+    return `<div class="card" style="cursor:default"><span class="big">${i.icon}</span><div class="fl"><b>${i.n}</b><div class="sm">${i.type}${i.slot?' · '+i.slot:''} · ${i.rarity}${us?' · '+useText(us):''}</div></div>${us?`<button onclick="act(()=>{useConsumable(itemHero,'${k}')?toast('Used on '+CHARACTERS[itemHero].n.split(' ')[0]):0;return []})">Use</button>`:''}<b>×${G.inv[k]}</b></div>`;}).join('') : '<div class="sm">Empty. Win battles to roll loot.</div>';
+  const pick = `<div class="sm" style="margin:6px 0">Use on:</div><div class="row">${heroes.map(id=>`<button class="${itemHero===id?'pri':''}" onclick="itemHero='${id}';render()">${CHARACTERS[id].n.split(' ')[0]} ${curHp(id)}/${statsOf(id).hp}</button>`).join('')}</div>`;
+  return `<h2>Items</h2>${flashHtml()}<div class="sm">Gold: ${G.gold}</div>${pick}<div class="row" style="margin:6px 0"><button onclick="act(brewTonic)">🍵 Brew tonic (3 herbs)</button></div>${rows}`;
 }
+let itemHero = 'jade';
 function rBestiary(){
   const keys=Object.keys(ENEMIES), found=keys.filter(k=>G.bestiary[k]).length;
   return `<h2>Bestiary</h2><div class="sm">${found} / ${keys.length} discovered</div>`+keys.map(k=>{const e=ENEMIES[k],n=G.bestiary[k];
@@ -168,13 +204,28 @@ function rDev(){
    <button onclick="gainXp(500);save();render()">+500 XP (all)</button><button onclick="gainXp(5000);save();render()">+5000 XP</button>
    <button onclick="G.party.forEach(i=>addBond(i,60));save();render()">+60 bond (all)</button><button onclick="G.gold+=500;save();render()">+500 gold</button>
    <button onclick="G.flags.crossbow=!G.flags.crossbow;save();render()">Toggle crossbow flag (${G.flags.crossbow?'on':'off'})</button>
+   <button onclick="restoreParty();save();render()">Restore party HP/MP</button><button onclick="G.flags.greyson_arms=!G.flags.greyson_arms;save();render()">Unseal Greyson's dagger+flail (${G.flags.greyson_arms?'on':'off'})</button>
+   <button onclick="G.flags.bracelet=!G.flags.bracelet;save();render()">Toggle bracelet (${G.flags.bracelet?'on':'off'})</button>
+   <button onclick="advanceDay(1);save();render()">+1 day</button><select id="devloc">${LOC_ORDER.filter(locOpen).map(k=>`<option value="${k}" ${k===G.loc?'selected':''}>${LOCATIONS[k].n}</option>`).join('')}</select><button onclick="G.loc=$('devloc').value;save();render()">Warp</button>
    <button onclick="ROSTER.forEach(i=>recruit(i));save();render()">Recruit everyone</button></div></div>
    <div class="panel"><button onclick="if(confirm('Erase save?')){localStorage.removeItem(CFG.SAVE_KEY);location.reload()}">Erase save</button></div>`;
 }
 
 /* ---------------- BOOT ---------------- */
 function enter(newGame){
+  if(newGame && localStorage.getItem(CFG.SAVE_KEY) && !confirm('Start a new journey? Your saved journey will be overwritten.')) return;
   if(newGame || !load()){ G = newState(); save(); }
+  if(newGame && BRACELET_FROM_START) G.flags.bracelet = true;
+  refreshBounties(); checkMissionOffers(); save();
   $('landing').style.display='none'; $('app').style.display='flex'; render();
 }
-window.addEventListener('load', () => { $('contbtn').disabled = !localStorage.getItem(CFG.SAVE_KEY); });
+window.addEventListener('load', () => {
+  if(localStorage.getItem(CFG.SAVE_KEY)){          // returning player: Continue is the main button, New Journey is the quiet option
+    $('contbtn').style.display = ''; $('contnote').style.display = '';
+    $('newbtn').className = 'btn-continue';
+  }
+  const L = $('landing');                       // drifting cherry-blossom petals
+  for(let i=0;i<22;i++){ const p = document.createElement('span'); p.className='petal';
+    p.style.left = Math.random()*100+'%'; p.style.animationDuration = (7+Math.random()*7)+'s'; p.style.animationDelay = (-Math.random()*12)+'s';
+    p.style.transform = 'scale('+(.6+Math.random()*.9)+')'; L.appendChild(p); }
+});
