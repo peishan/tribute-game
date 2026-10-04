@@ -579,6 +579,7 @@ const LORE = [
   {ch:34, n:'The Northern Forest', t:'Haren, a villager, says the northern forest has been abandoned for years. People who enter it disappear, and those who go to investigate never return.'},
   {ch:35, n:'Xima\'s Markings', t:'A red sigil marks places touched by Xima\'s minions, including a corrupted shrine near Vigil. In chapter 38 Levi identifies them as tracking marks: the enemy is studying the party, not hunting it.'},
   {ch:38, n:'Greyson\'s Warning', t:'A coded message hidden in a book from Greyson: \"Do not pursue the enemy\'s nest. They want you here.\"'},
+  {ch:39, n:'The Hidden Chamber', t:'Beneath the village lies a place of worship for Xima. Records show the village has supplied information and sacrifices to her followers for years. Xima says the ritual begins the following night and asks whether Jade will be the final offering.'},
   {ch:38, n:'Jade\'s Restoring Power', t:'When Jade touches an infected villager, the corruption inside them fades slightly. Sky says her power is not meant to destroy but to restore.'},
   {ch:36, n:'The Taken Villagers', t:'Villagers taken by Xima are alive but changed: empty eyes, voices no longer their own. Jade\'s touch makes the corruption surge. Xima uses people as vessels.'},
   {ch:37, n:'The Shaman and the Ritual', t:'An old shaman, who knows King Greyson, says Xima is gathering people for a larger ritual and believes the blood of the girl born under the lunar eclipse can complete it and open the way to something far worse.'},

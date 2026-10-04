@@ -1,7 +1,7 @@
 /* =====================================================================
    TRIBUTE — CHAPTER DESIGN ENTRIES (game skeleton), from CANON story data (v6)
    Fields: title, loc, chars (playable), sum, events, purpose (gameplay purpose), unlocks.
-   Only chapters converted from the actual comic pages appear here (Prologue-38); 31+ pending.
+   Only chapters converted from the actual comic pages appear here (Prologue-39); 31+ pending.
    COMIC_TITLES has every chapter's title (4-30) from the title cards; their summaries are NOT written yet.
    Mechanical parts live elsewhere: world.js (locations/routes/CH_LOC/missions),
    core.js (JOIN_CH, GUEST_CH), journal.js (battles).
@@ -397,10 +397,20 @@ const CHAPTER_DESIGN = {
   purpose:['Establish the trap: the player is being herded toward the enemy\'s nest','Show Jade\'s power as restorative (a healing and cleansing theme)','Set up the ambush in the next chapter'],
   unlocks:['Coded messages from Greyson','Cleansing touch (Jade, suggested skill)','Investigation events'],
   reward:'The trap is revealed'},
+ 39:{ title:'Beneath the Quiet Village', type:'Story Chapter — descent into the hidden chamber', loc:'🏘 Village → 🕯 Hidden chamber beneath the village',
+  chars:['jade','chad','sky','levi'], charsNote:'Jade, Chad, Sky, Levi and Sally',
+  introduced:[],
+  sum:'The village still looks peaceful on the surface, but now they know the peace is only a mask. Jade and Levi notice strange villagers moving secretly at night toward an old abandoned building: they aren\'t just going home, they are heading somewhere. Sky finds that several villagers have gone missing and the herbs around the area are tainted with something unnatural. Sally gathers information from frightened villagers: "After midnight... people are taken beneath the village. No one who goes down ever returns." Chad: "We investigate now. We can\'t wait any longer. This ends tonight." Following the clues they find a hidden route beneath the village and, below it, a hidden chamber: a place of worship for Xima and her followers. Jade feels a strange pulse; her dormant power reacts to Xima\'s presence: "It feels... familiar." Levi takes position at the rear with his bow, Chad stands at the front and Sky prepares to support and heal. Sally finds records and offerings: "The village has been providing information and sacrifices to Xima\'s followers for years. They traded people... for power." A spectral image of Xima appears above the altar: "Jade... You have finally arrived. This village has always been part of my network. You were expected to come here. Everything leads to me, as it always does." Jade realises the village is part of a larger network serving Xima and that the villagers were never innocent. Xima\'s voice echoes: "The ritual will begin tomorrow night. By then, a new offering will be made. Will you be the final one, Jade?" Jade: "We end this. No more sacrifices. Tomorrow night, we destroy it." They must destroy the hidden altar before the ritual begins tomorrow night. Banners: Jade + Levi Bond +1, Sky + Sally Bond +1, Jade + Chad Tension +1.',
+  art:'Pages show: the village has been supplying sacrifices and information to Xima\'s followers for years, which makes the villagers complicit (unlike the taken villagers in Chapters 36-38). Xima appears as a spectral woman in red and says the ritual starts tomorrow night. Positions are stated: Levi at the rear, Chad at the front, Sky supporting.',
+  quote:'"Will you be the final one, Jade?" — Xima',
+  events:['Villagers are seen moving secretly to an abandoned building at night','Sky finds missing villagers and tainted herbs','Sally learns people are taken beneath the village after midnight','The party finds a hidden route and a chamber of worship for Xima','Sally finds records of years of sacrifices','Xima\'s spectral image speaks: the ritual begins tomorrow night','Jade vows to destroy the altar'],
+  purpose:['Exploration and investigation: the descent into the chamber','Reveal that the village is part of Xima\'s network','Start the countdown to the ritual (tomorrow night)'],
+  unlocks:['Hidden chamber dungeon (suggested)','Countdown objective: destroy the altar before the ritual'],
+  reward:'Objective: destroy the altar'},
 };
 // Chapter titles read from the title cards of the comic pages (the comic is canon). 0-3 titles also come from CHAPTER_DESIGN.
 const COMIC_TITLES = { 4:'A Secret Mission', 5:'Unanswered Ties', 6:'Moonlit Confessions', 7:'Restless Desire', 8:'Unwanted Truths', 9:'Whispers and Jealousy', 10:'The Prophecy',
   11:'Dreams and Doubts', 12:'Shadows at the Inn', 13:'Uninvited Encounter', 14:'Unwanted Choices', 15:'The Storm Within', 16:'The First Village', 17:'A Choice Beneath the Lanterns',
   18:'The Price of Trust', 19:'Into the Woods', 20:'The Witch\'s Bargain', 21:'At the Bandit\'s Mercy', 22:'Between Love and Loyalty', 23:'The Heart\'s Choice', 24:'The Choice He Could Not Make',
   25:'The Truth Behind the Mask', 26:'Return to Faepool', 27:'The Bane of Two Souls', 28:'The Woman Behind the Smile', 29:'Shadows Between Hearts', 30:'The Creek of Promises',
-  31:'Fractured Hearts', 32:'The Lost Years', 33:'Duty and Distance', 34:'A Week of Silence', 35:'Whispers Before the Storm', 36:'The People Who Were Taken', 37:'The Shaman', 38:'The Village Beneath the Mask' };
+  31:'Fractured Hearts', 32:'The Lost Years', 33:'Duty and Distance', 34:'A Week of Silence', 35:'Whispers Before the Storm', 36:'The People Who Were Taken', 37:'The Shaman', 38:'The Village Beneath the Mask', 39:'Beneath the Quiet Village' };
