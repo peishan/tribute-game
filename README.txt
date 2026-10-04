@@ -142,3 +142,8 @@ Added with art ch38.webp. The earlier DEV PLAN matched the page closely. Bonds: 
 
 --- v5.8: CLEANSING TOUCH + CORRUPTED VILLAGERS ---
 Jade skill Cleansing Touch unlocks at ch38 (flag cleansing_touch): 2.5x vs 'corrupt' foes + cleanse. New enemy Corrupted Villager (trait corrupt): at 0 HP they are "freed, alive" instead of slain (flavour; still counts as a defeat). Training preset added.
+
+--- v5.9: CH39 + GEAR ---
+Ch39 "Beneath the Quiet Village" added from its page (art ch39.webp; bonds Jade+Levi +1, Chad -5; Sky+Sally not modelled).
+scripts/gear.js: Gear tab = Equip (weapon/armor/accessory per hero, stat bonuses via gearBonus) + Shop (buy in settlements, sell at half). Equipped gear leaves the pack; per-hero restrictions (for:[...]);
+Greyson's dagger/flail stay sealed until flag greyson_arms. Prices/stats PROVISIONAL. Not built yet: consumable use, gear drops from random fights, armor sets.

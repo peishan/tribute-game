@@ -26,7 +26,7 @@ const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
 function newState(){
   const s = Object.assign({ v:3, ch:-1, flags:{}, units:{}, party:[], inv:{}, bestiary:{}, gold:50, read:{} }, worldDefaults());
   ROSTER.forEach(id => s.units[id] = { lv:CFG.START_LEVEL, xp:0, bp:0, evo:[], nodes:[] });
-  s.party = ['jade']; s.active = ['jade']; s.guests = {};
+  s.party = ['jade']; s.active = ['jade']; s.guests = {}; s.gear = {};
   return s;
 }
 function save(){ try{ G.savedAt = Date.now(); localStorage.setItem(CFG.SAVE_KEY, JSON.stringify(G)); }catch(e){} }
@@ -34,7 +34,7 @@ function load(){
   try{
     const d = JSON.parse(localStorage.getItem(CFG.SAVE_KEY));
     if(!d) return false;
-    G = Object.assign(newState(), d); G.guests = G.guests || {}; G.active = (G.active||['jade']).filter(id=>G.party.includes(id));
+    G = Object.assign(newState(), d); G.guests = G.guests || {}; G.gear = G.gear || {}; G.active = (G.active||['jade']).filter(id=>G.party.includes(id));
     ROSTER.forEach(id => { G.units[id] = G.units[id] || { lv:1, xp:0, bp:0, evo:[] }; G.units[id].nodes = G.units[id].nodes || []; });
     return true;
   }catch(e){ return false; }
@@ -45,7 +45,7 @@ const isRecruited = id => G.party.includes(id);
 /* ---------- levels & stats ---------- */
 const xpToNext = lv => Math.round(40 + lv*22 + lv*lv*1.2);
 
-function gearBonus(id){ return {hp:0,mp:0,atk:0,mag:0,def:0,spd:0}; }   // hook for the Equipment system
+function gearBonus(id){ return typeof gearBonusSum==='function' ? gearBonusSum(id) : {hp:0,mp:0,atk:0,mag:0,def:0,spd:0}; }   // see gear.js
 
 function evoMult(id, stat){
   const tiers = CHARACTERS[id].evo.tiers;

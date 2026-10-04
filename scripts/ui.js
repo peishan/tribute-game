@@ -19,8 +19,7 @@ function render(){
   $('nav').innerHTML = (showBattle?`<button class="${tab==='battle'?'on':''}" onclick="showTab('battle')">⚔️ Battle</button>`:'') +
      TABS.map(([k,l]) => `<button class="${tab===k?'on':''}" onclick="showTab('${k}')">${l}${k==='missions'&&unreadCount()?' <b style="color:var(--r)">●</b>':''}</button>`).join('');
   const R = { journal:rJournal, party:rParty, training:rTraining, battle:rBattle, inventory:rInventory, bestiary:rBestiary,
-              equipment:()=>stub('Equipment','Aethon-style slots: weapon · armor · accessory (hook ready: gearBonus() in core.js)',
-                ['Signature weapons per hero: Scholar Blade (Devon), Enchanted Crossbow (Levi → Jade at Ch.30), Veiled Fans (Sally)…','Gear drops from the major-battle loot tables (see enemies.js › LOOT)','Class restrictions per Aethon\'s CODEX_EQUIPMENT_RULES']),
+              equipment:rGear,
               missions:rMissions, travel:rTravel, here:rHere, save:rSave,
               dev:rDev }[tab] || rJournal;
   $('main').innerHTML = R();
