@@ -5,10 +5,10 @@
    ===================================================================== */
 let B = null;
 
-function mkAlly(id){
-  const s = statsOf(id), c = CHARACTERS[id];
+function mkAlly(id, persist){
+  const s = statsOf(id), c = CHARACTERS[id], hp = persist ? curHp(id) : s.hp, mp = persist ? curMp(id) : s.mp;
   return { uid:id, id, ally:true, name:c.n, icon:c.icon, img:'assets/party/'+id+'.webp', traits:[],
-    hp:s.hp, mhp:s.hp, mp:s.mp, mmp:s.mp, atk:s.atk, mag:s.mag, def:s.def, spd:s.spd,
+    hp:Math.max(hp,1), mhp:s.hp, mp:mp, mmp:s.mp, atk:s.atk, mag:s.mag, def:s.def, spd:s.spd,
     st:{}, bf:[], state:null, used:{}, dead:false, guard:false, critB:passivesOf(id).critB, evaB:passivesOf(id).evaB };
 }
 function mkFoeUnit(key, lv, i){
@@ -41,7 +41,7 @@ function blog(t, cls){ B.log.push({t, cls:cls||''}); if(B.log.length>60) B.log.s
 /* ---------- start ---------- */
 function startBattle(spec){
   const allyIds = spec.allies || G.active;
-  B = { allies:allyIds.map(mkAlly), foes:spec.foes.map((f,i)=>mkFoeUnit(f.key,f.lv,i)), queue:[], cur:null, log:[], over:null,
+  B = { allies:allyIds.map(id => mkAlly(id, !!spec.rewards)), foes:spec.foes.map((f,i)=>mkFoeUnit(f.key,f.lv,i)), queue:[], cur:null, log:[], over:null,
         round:0, ui:{mode:'menu'}, spec, rewards:null };
   blog('Battle begins!','sys');
   advance();
@@ -54,7 +54,7 @@ function buildQueue(){
 }
 function checkEnd(){
   if(!alive(B.foes).length){ B.over='win'; finishWin(); return true; }
-  if(!alive(B.allies).length){ B.over='lose'; blog('The party has fallen...','bad'); return true; }
+  if(!alive(B.allies).length){ B.over='lose'; blog('The party has fallen...','bad'); persistBattle(); save(); return true; }
   return false;
 }
 function advance(){
@@ -145,6 +145,7 @@ function playerAct(kind, sid, tuid){
   if(B.over) return;
   const u = B.cur; if(!u || !u.ally) return;
   if(kind==='guard'){ u.guard = true; u.mp = Math.min(u.mmp, u.mp+4); blog(u.name+' guards (+4 MP).'); endTurn(u); u.guard = true; advance(); return; }
+  if(kind==='item'){ if(!battleUseItem(u, sid, [].concat(B.allies).find(x => x.uid===tuid))) return; endTurn(u); advance(); return; }
   let s;
   if(kind==='attack') s = { id:'attack', n:'Attack', kind:'phys', tgt:'foe', pow:1, mp:0 };
   else { s = skillList(u).find(x => x.id===sid); if(!s || !s.usable) return; }
@@ -209,6 +210,7 @@ function finishWin(){
   B.rewards = { xp, gold, drops, msgs:[], real:!!spec.rewards };
   blog('Victory!','good');
   if(!spec.rewards) return;
+  persistBattle();
   const act = G.active, bench = G.party.filter(id => !act.includes(id));
   B.rewards.msgs = gainXp(xp, act).concat(gainXp(Math.round(xp*.5), bench));
   act.forEach(id => { const m = addBond(id, bossKey ? 8 : 3); if(m) B.rewards.msgs.push(m); });

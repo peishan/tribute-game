@@ -152,3 +152,8 @@ Greyson's dagger/flail stay sealed until flag greyson_arms. Prices/stats PROVISI
 --- v6.0: VILLAGE LIFE + BOSS GEAR DROPS ---
 Vigil "Village Life" spot (unlocks after ch34): once-per-day activities (teach archery with Levi, help Sky, Haren's stories, news with Sally, chores) for bonds, XP, herbs, gold, rumours; "Rest until tomorrow" advances the day.
 Gear drops: Booyeong now drops Ridge Cloak / Bandit Lord's Blade (first clear guaranteed blade); Bearded Mouse, Xima Minion have small gear drop chances (new gear in gear.js).
+
+--- v6.1: PERSISTENT HP/MP + CONSUMABLES ---
+scripts/items.js: heroes keep HP/MP between real battles (sandbox does not); a fallen hero is left at 20%. Recovery: inn rest (tavern spots, gold, full, 1 day), potions, +10% per travel/rest day.
+Consumables: Herbal Tonic, Moon Healing Tonic, Purification Elixir, Spirit Restoration Potion, Dragon Blood Remedy (rare). Use from Items tab or the battle Items action (costs the turn); buy in the Gear > Shop; brew a tonic from 3 herbs.
+Dragon Vale pavilion (Jenika) can now sit on top of this. Ch40 (major battle) sets flag greyson_arms to unseal Greyson's dagger+flail (CH_FLAGS 40; chapter 40 itself still has no entry/art).

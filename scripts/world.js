@@ -200,7 +200,7 @@ const FLAG_LABEL = { bracelet:'Communication Bracelet', crossbow:'Enchanted Cros
 
 /* ---------------- DAY CLOCK ---------------- */
 function advanceDay(n){
-  G.day += n; refreshBounties();
+  G.day += n; if(n>0 && typeof healParty==='function') healParty(Math.min(.5,.1*n)); refreshBounties();
   return deliverLetters().concat(checkMissionOffers());
 }
 

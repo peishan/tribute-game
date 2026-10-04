@@ -49,6 +49,7 @@ function rSheet(id){
    <div class="sm" style="margin:6px 0">${c.identity}</div>
    ${id!=='jade'?`<div class="sm">💞 Bond with Jade: ${bl}/5 ${nextB?`(${u.bp}/${nextB})`:'(max)'}</div>${bar(u.bp,nextB||u.bp||1,'bond')}`:''}
    ${id!=='jade'?`<button onclick="toggleActive('${id}');render()">${act?'Remove from active party':'Add to active party'}</button>`:'<div class="sm">Jade always leads the active party.</div>'}
+   <h4>Condition</h4><div class="sm">❤️ HP ${curHp(id)}/${st.hp} · 🔷 MP ${curMp(id)}/${st.mp}</div>${bar(curHp(id),st.hp,'hp')}${bar(curMp(id),st.mp,'mpb')}
    <h4>Stats</h4><div class="stg">${stats}</div>
    <h4>Weapon & Style</h4><div class="sm">${c.weapon} · ${c.style.join(', ')} · Strength: ${c.strength}</div>
    <h4>Special Ability — ${c.signature}</h4><div class="sm">${c.sigDesc}${c.fieldAbility?' <br><b>Field ability:</b> Ancient Dragon Knowledge (identify artefacts, unlock sealed areas — used by Explore later).':''}</div>
@@ -153,7 +154,8 @@ function rBattle(){
     act = `<div class="panel bad"><b>Defeat…</b></div><button class="pri" onclick="battleDone()">Retreat</button>`;
   } else if(B.cur && B.cur.ally){
     const u=B.cur, m=B.ui.mode;
-    if(m==='menu') act = `<div class="sm">${u.name}'s turn</div><div class="row"><button class="pri" onclick="doAttack()">Attack</button><button onclick="B.ui={mode:'skills'};render()">Skills</button><button onclick="playerAct('guard')">Guard</button></div>`;
+    if(m==='menu') act = `<div class="sm">${u.name}'s turn</div><div class="row"><button class="pri" onclick="doAttack()">Attack</button><button onclick="B.ui={mode:'skills'};render()">Skills</button><button onclick="B.ui={mode:'items'};render()">Items</button><button onclick="playerAct('guard')">Guard</button></div>`;
+    else if(m==='items') act = (battleItems().map(i=>`<button class="skb" onclick="pickItem('${i.id}')">${i.icon} ${i.n} <small>×${i.qty||'∞'} ${i.text}</small></button>`).join('') || '<div class="sm">No consumables.</div>') + `<button onclick="B.ui={mode:'menu'};render()">◀ Back</button>`;
     else if(m==='skills') act = skillList(u).map(s=>`<button class="skb" ${s.usable?'':'disabled'} onclick="pickSkill('${s.id}')">${s.icon} ${s.n} <small>${s.cost?s.cost+'MP':''} ${s.note}</small></button>`).join('') + `<button onclick="B.ui={mode:'menu'};render()">◀ Back</button>`;
     else act = `<div class="sm">Choose a target</div><button onclick="B.ui={mode:'menu'};render()">◀ Cancel</button>`;
   }
@@ -165,6 +167,8 @@ function pickSkill(sid){
   if(['foe','chain','ally','allyDown'].includes(s.tgt)){ B.ui={mode:'target',kind:'skill',sid,cands:targetsFor(s)}; render(); }
   else { playerAct('skill', sid, null); render(); }
 }
+function pickItem(k){ B.ui={mode:'target',kind:'item',sid:k,cands:alive(B.allies)}; render(); }
+function pickItem(k){ B.ui={mode:'target',kind:'item',sid:k,cands:alive(B.allies)}; render(); }
 function pickTarget(uid){ const u=B.ui; playerAct(u.kind, u.sid, uid); render(); }
 function doGuardAct(){ playerAct('guard'); render(); }
 function battleDone(){
@@ -177,9 +181,14 @@ const _pa = playerAct; playerAct = function(k,s,t){ _pa(k,s,t); render(); };
 /* ---------------- ITEMS / BESTIARY ---------------- */
 function rInventory(){
   const ids = Object.keys(G.inv).filter(k=>G.inv[k]>0);
-  const rows = ids.length ? ids.map(k=>{const i=ITEMS[k]||{n:k,icon:'❔',type:'?',rarity:''};return `<div class="card"><span class="big">${i.icon}</span><div class="fl"><b>${i.n}</b><div class="sm">${i.type}${i.slot?' · '+i.slot:''} · ${i.rarity}</div></div><b>×${G.inv[k]}</b></div>`;}).join('') : '<div class="sm">Empty. Win chapter battles to roll loot.</div>';
-  return `<h2>Items</h2><div class="sm">Gold: ${G.gold}</div>${rows}`;
+  const heroes = G.party.filter(id => !CHARACTERS[id].placeholder);
+  if(!heroes.includes(itemHero)) itemHero = heroes[0];
+  const rows = ids.length ? ids.map(k=>{const i=ITEMS[k]||{n:k,icon:'❔',type:'?',rarity:''}, us = USE[k];
+    return `<div class="card" style="cursor:default"><span class="big">${i.icon}</span><div class="fl"><b>${i.n}</b><div class="sm">${i.type}${i.slot?' · '+i.slot:''} · ${i.rarity}${us?' · '+useText(us):''}</div></div>${us?`<button onclick="act(()=>{useConsumable(itemHero,'${k}')?toast('Used on '+CHARACTERS[itemHero].n.split(' ')[0]):0;return []})">Use</button>`:''}<b>×${G.inv[k]}</b></div>`;}).join('') : '<div class="sm">Empty. Win battles to roll loot.</div>';
+  const pick = `<div class="sm" style="margin:6px 0">Use on:</div><div class="row">${heroes.map(id=>`<button class="${itemHero===id?'pri':''}" onclick="itemHero='${id}';render()">${CHARACTERS[id].n.split(' ')[0]} ${curHp(id)}/${statsOf(id).hp}</button>`).join('')}</div>`;
+  return `<h2>Items</h2>${flashHtml()}<div class="sm">Gold: ${G.gold}</div>${pick}<div class="row" style="margin:6px 0"><button onclick="act(brewTonic)">🍵 Brew tonic (3 herbs)</button></div>${rows}`;
 }
+let itemHero = 'jade';
 function rBestiary(){
   const keys=Object.keys(ENEMIES), found=keys.filter(k=>G.bestiary[k]).length;
   return `<h2>Bestiary</h2><div class="sm">${found} / ${keys.length} discovered</div>`+keys.map(k=>{const e=ENEMIES[k],n=G.bestiary[k];
@@ -195,7 +204,7 @@ function rDev(){
    <button onclick="gainXp(500);save();render()">+500 XP (all)</button><button onclick="gainXp(5000);save();render()">+5000 XP</button>
    <button onclick="G.party.forEach(i=>addBond(i,60));save();render()">+60 bond (all)</button><button onclick="G.gold+=500;save();render()">+500 gold</button>
    <button onclick="G.flags.crossbow=!G.flags.crossbow;save();render()">Toggle crossbow flag (${G.flags.crossbow?'on':'off'})</button>
-   <button onclick="G.flags.greyson_arms=!G.flags.greyson_arms;save();render()">Unseal Greyson's dagger+flail (${G.flags.greyson_arms?'on':'off'})</button>
+   <button onclick="restoreParty();save();render()">Restore party HP/MP</button><button onclick="G.flags.greyson_arms=!G.flags.greyson_arms;save();render()">Unseal Greyson's dagger+flail (${G.flags.greyson_arms?'on':'off'})</button>
    <button onclick="G.flags.bracelet=!G.flags.bracelet;save();render()">Toggle bracelet (${G.flags.bracelet?'on':'off'})</button>
    <button onclick="advanceDay(1);save();render()">+1 day</button><select id="devloc">${LOC_ORDER.filter(locOpen).map(k=>`<option value="${k}" ${k===G.loc?'selected':''}>${LOCATIONS[k].n}</option>`).join('')}</select><button onclick="G.loc=$('devloc').value;save();render()">Warp</button>
    <button onclick="ROSTER.forEach(i=>recruit(i));save();render()">Recruit everyone</button></div></div>
