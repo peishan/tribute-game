@@ -174,6 +174,7 @@ function pickItem(k){ B.ui={mode:'target',kind:'item',sid:k,cands:alive(B.allies
 function pickTarget(uid){ const u=B.ui; playerAct(u.kind, u.sid, uid); render(); }
 function doGuardAct(){ playerAct('guard'); render(); }
 function battleDone(){
+  if(B && B.spec.rewards && typeof afterBattleBackup==='function'){ setTimeout(afterBattleBackup, 0); }
   if(B && B.over==='lose' && B.spec.onLose && !chapterDone(B.spec.chapter)){      // story duel: the chapter continues even if Jade loses
     const n = B.spec.chapter, msgs = ['Chad wins the duel, as the story goes.'].concat(B.spec.onLose()||[]); B = null; tab = origin; render(); storyResult(n, msgs); return; }
   if(B && B.over==='lose' && typeof onBattleLost==='function') onBattleLost(); B=null; tab=origin; render(); }

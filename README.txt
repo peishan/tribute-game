@@ -161,3 +161,7 @@ Dragon Vale pavilion (Jenika) can now sit on top of this. Ch40 (major battle) se
 --- v6.2: AUTO BATTLE ---
 scripts/autobattle.js: Auto button in battle. Unlocks when the story reaches chapter AUTO_CH (12) OR average party level reaches AUTO_LV (10); disabled in boss fights. AI heals/tonics weak allies, uses area skills vs 3+ foes,
 else the strongest affordable skill on the weakest foe. Stop any time. (AUTO_CH / AUTO_LV provisional, top of autobattle.js.)
+
+--- v6.3: CH40-41 + AUTO BACKUP ---
+Ch40 "The Night Before the Offering" and Ch41 "The Offering at Moonrise" added from pages (art ch40/41.webp). Ch41 is the MAJOR BATTLE (greyson_arms unseals at 41, not 40): new enemies Crimson Cultist, Veil Stalker, Offering Lantern, boss The Offering Warden (+ gear Cultist Robe, Warden's Lantern). Auto-battle is off there (boss).
+Auto backup (savedata.js, Save tab): after every real battle -> rolling local backup (last 3) + Gist push if a token is saved; on leaving the page -> JSON download (max 1 per 10 min, only if progress changed; browsers may block). Toggles + Restore in the Save tab.

@@ -36,7 +36,15 @@ const ENEMIES = {
     moves:[{n:'Shadow Claw',pow:1.1},{n:'Corrupting Touch',pow:.9,spell:true,fx:[{k:'slow',d:2}]}],drops:[{id:'demon_ash',chance:.5},{id:'minion_sigil',chance:.08}],desc:'Shadowy demonic scouts marked with Xima\'s sigil.'},
   corrupted_villager:{n:'Corrupted Villager',icon:'🧟',area:'village',hp:80,atk:10,mag:6,def:4,spd:8,xp:30,gold:0,traits:['corrupt'],
     moves:[{n:'Clawing Grasp',pow:1},{n:'Hollow Whisper',pow:.7,spell:true,fx:[{k:'slow',d:1}]}],drops:[],desc:'A villager taken by Xima: alive but changed. Not an enemy to kill. Jade\'s Cleansing Touch frees them.'},
+  crimson_cultist:{n:'Crimson Cultist',icon:'🕯️',area:'cult',hp:100,atk:12,mag:14,def:6,spd:11,xp:52,gold:26,traits:['magic'],
+    moves:[{n:'Blood Chant',pow:1.1,spell:true},{n:'Lantern Hex',pow:.8,spell:true,fx:[{k:'slow',d:2}]},{n:'Ritual Knife',pow:1}],drops:[{id:'cultist_robe',chance:.12},{id:'xima_shard',chance:.1}],desc:'A black-robed follower of Xima who keeps the offering rites.'},
+  veil_stalker:{n:'Veil Stalker',icon:'🐺',area:'cult',hp:95,atk:17,mag:6,def:5,spd:17,xp:50,gold:14,
+    moves:[{n:'Shadow Pounce',pow:1.4},{n:'Rend',pow:1,fx:[{k:'burn',d:3}]}],drops:[{id:'demon_ash',chance:.5}],desc:'A shadow creature stitched from the dark between lantern light, fast and hungry.'},
+  offering_lantern:{n:'Offering Lantern',icon:'🏮',area:'cult',hp:70,atk:6,mag:16,def:4,spd:13,xp:46,gold:18,traits:['magic'],
+    moves:[{n:'Fear Glow',pow:1,spell:true,fx:[{k:'silence',d:2}]},{n:'Burning Wick',pow:1.2,spell:true,fx:[{k:'burn',d:3}]}],drops:[{id:'demon_ash',chance:.4}],desc:'A paper lantern burning with the fear of every villager who lit one. It floats where fear is thickest.'},
   // ---- placeholder BOSSES (rename per story) ----
+  boss_offering_warden:{n:'The Offering Warden',icon:'⛓️',area:'cult',boss:true,hp:900,atk:21,mag:23,def:13,spd:12,xp:480,gold:320,traits:['magic'],
+    moves:[{n:'Crimson Chains',pow:1.1,spell:true,fx:[{k:'bind',d:1}]},{n:'Blood Tithe',pow:1.5,spell:true,fx:[{k:'burn',d:3}]},{n:'Moonrise Toll',pow:1.2,spell:true,fx:[{k:'slow',d:2}]},{n:'Altar Slam',pow:1.9}],desc:'The altar\'s bound guardian: a shape of chains and crimson light that wakes at moonrise to collect the offering. Placeholder stats.'},
   boss_booyeong:{n:'Booyeong',icon:'🦂',area:'cliff',boss:true,hp:420,atk:17,mag:4,def:9,spd:11,xp:170,gold:130,
     moves:[{n:'Ransom Blade',pow:1.3},{n:'Cliff Trap',pow:.8,fx:[{k:'slow',d:2}]},{n:'Cruel Strike',pow:1.8}],desc:'Bandit lord who kidnapped Sky and suppresses power in his territory. Placeholder stats.'},
   boss_bandit_chief:{n:'Bandit Chief',icon:'👑',area:'road',boss:true,hp:420,atk:17,mag:0,def:10,spd:10,xp:160,gold:120,
@@ -101,6 +109,7 @@ const ITEMS = {
   greyson_dagger:{n:'Greyson\'s Dagger',icon:'🗡️',type:'gear',slot:'weapon',rarity:'epic'}, greyson_flail:{n:'Greyson\'s Flail',icon:'⛓️',type:'gear',slot:'weapon',rarity:'epic'},
   ridge_cloak:{n:'Ridge Cloak',icon:'🧥',type:'gear',slot:'armor',rarity:'rare'}, bandit_lords_blade:{n:'Bandit Lord\'s Blade',icon:'🗡️',type:'gear',slot:'weapon',rarity:'rare'},
   minion_sigil:{n:'Minion\'s Sigil',icon:'🔻',type:'gear',slot:'accessory',rarity:'uncommon'}, mouse_charm:{n:'Mouse\'s Lucky Charm',icon:'🐭',type:'gear',slot:'accessory',rarity:'uncommon'},
+  cultist_robe:{n:'Crimson Cultist Robe',icon:'🧥',type:'gear',slot:'armor',rarity:'rare'}, wardens_lantern:{n:'Warden\'s Lantern',icon:'🏮',type:'gear',slot:'accessory',rarity:'epic'},
   mahan_crown:{n:'Mahan\'s Mire Crown',icon:'👑',type:'gear',slot:'accessory',rarity:'rare'},
 };
 /* ---- LOOT TABLES for major battles ----
@@ -111,6 +120,7 @@ const LOOT = {
   boss_masked_leader:{guaranteed:[{id:'assassin_mask',qty:[1,1]}],rolls:[{id:'venomed_cloak',chance:.2},{id:'venom_vial',chance:.6,qty:[1,3]}],firstClear:[{id:'herbal_tonic',qty:[3,3]}]},
   boss_demon_warden:{guaranteed:[{id:'demon_ash',qty:[3,5]}],rolls:[{id:'warden_sigil',chance:.15},{id:'shade_essence',chance:.5,qty:[1,2]}],firstClear:[{id:'shade_essence',qty:[1,1]}]},
   boss_booyeong:{guaranteed:[{id:'coin_pouch',qty:[2,3]}],rolls:[{id:'ridge_cloak',chance:.35},{id:'bandit_lords_blade',chance:.2},{id:'herbal_tonic',chance:.6,qty:[1,2]}],firstClear:[{id:'bandit_lords_blade',qty:[1,1]}]},
+  boss_offering_warden:{guaranteed:[{id:'xima_shard',qty:[2,3]},{id:'relic_dust',qty:[1,2]}],rolls:[{id:'wardens_lantern',chance:.4},{id:'cultist_robe',chance:.4},{id:'herbal_tonic',chance:.6,qty:[2,3]}],firstClear:[{id:'moon_tonic',qty:[2,2]}]},
   boss_frog_mahan:{guaranteed:[{id:'toad_gland',qty:[3,5]}],rolls:[{id:'mahan_crown',chance:.2},{id:'herbal_tonic',chance:.6,qty:[1,2]}],firstClear:[{id:'xima_shard',qty:[1,1]}]},
   boss_pearl_guardian:{guaranteed:[{id:'relic_dust',qty:[3,5]}],rolls:[{id:'drake_scale',chance:.6,qty:[1,3]}],firstClear:[{id:'pearl_fragment',qty:[1,1]}]},
 };

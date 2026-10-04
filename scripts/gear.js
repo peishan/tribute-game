@@ -14,6 +14,8 @@ const GEAR = {
   venomed_cloak:{bonus:{def:4,spd:3}},
   warden_sigil:{bonus:{mag:5,def:3}},
   mahan_crown:{bonus:{hp:20,atk:3}},
+  cultist_robe:{bonus:{def:5,mag:3}},
+  wardens_lantern:{bonus:{mag:5,hp:20,spd:2}},
   ridge_cloak:{bonus:{def:6,spd:2}},
   bandit_lords_blade:{bonus:{atk:8}, for:['chad','jade']},
   minion_sigil:{bonus:{mag:3,hp:10}},
