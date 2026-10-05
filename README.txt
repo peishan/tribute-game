@@ -177,3 +177,6 @@ Disabled heroes no longer take an active slot; heroes who left keep their name i
 
 --- v6.6: AUDIT FIXES ---
 Jade golden blood at ch42 + Eclipse Saint; Chad martial kit (dark arts gated, flag chad_dark_arts); Sally info/charm recast; Levi Shadow Archer (bow); Black Pearl naming. See docs/CHARACTER_AUDIT.md.
+
+--- v6.7: CHAPTERS 52-56 ---
+Entries 52-56 from pages (art ch52-56.webp). Ripley joins 52, Devon 54 (banners). New: Sally court gossip (flag sally_gossip, Dragonvale Guest Wing), Royal Archives investigation + mission The Late Empress's Archive (ch53), Codex entries. Ch57 (wedding) pending: chapters 57 shows (?).
