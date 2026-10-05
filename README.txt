@@ -186,3 +186,6 @@ Devon recast as defensive mage/swordsman (see docs/CHARACTER_AUDIT.md). Jenika p
 
 --- v6.9: CHAPTERS 57-60 ---
 Wedding (57), Princess of Dragonvale + attires (58), bond with Roc severed + Cavern of Fireflies (59), Jade poisoned (60). Chad's bond resets to 0 and no longer grows (flag roc_severed). New area Cavern of Fireflies (boat from Dragonvale, free daily rest). Sky is re-enabled when chapter 61 completes (CH_ENABLE).
+
+--- v7.0: CHAPTERS 61-62 ---
+Jenika/Sky beat (61); poison trail (62). New: Old Royal Archives investigation + mission The Erased Name, Masked Contracts board in Dragonvale (vigilante bounties from ch62). See docs/DRAGONVALE_YEAR_PLAN.md for the one-year arc plan.
