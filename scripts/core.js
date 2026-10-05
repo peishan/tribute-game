@@ -16,7 +16,7 @@ const profileKnown = id => isRecruited(id) || !!(G.left && G.left[id]) || (INTRO
 // Story flags set when a chapter is completed (e.g. Levi's crossbow goes to Jade in ch30).
 const CH_FLAGS = { 76:['levi_reborn'], 80:['sally_stays'], 63:['chad_dark_arts'], 67:['chad_dark_deep'], 70:['chad_backlash_1'], 71:['chad_backlash_2'], 72:['chad_backlash_3'], 59:['roc_severed'], 60:['jade_poisoned'], 58:['royal_attire'], 52:['sally_gossip'], 42:['jade_awakened'], 44:['bracelet'], 51:['sally_noble'], 0:['greyson_gift'], 38:['cleansing_touch'], 41:['greyson_arms'], 30:['crossbow'] };   // greyson_arms: dagger+flail unseal at the major battle, chapter 41 (per the author)
 // Items handed over when a chapter completes. Greyson gives Jade a dagger and flail in the Prologue; she may not use them until the major battle (chapter TBD, flag greyson_arms).
-const CH_ITEMS = { 44:[{id:'sealed_box',qty:1}], 0:[{id:'greyson_dagger',qty:1},{id:'greyson_flail',qty:1}] };   // (the communication bracelet comes from the Greyson mission m_bracelet, see world.js)
+const CH_ITEMS = { 58:[{id:'royal_attire',qty:1},{id:'phoenix_guard',qty:1}], 44:[{id:'sealed_box',qty:1}], 0:[{id:'greyson_dagger',qty:1},{id:'greyson_flail',qty:1}] };   // (the communication bracelet comes from the Greyson mission m_bracelet, see world.js)
 
 let G = null;
 const $ = id => document.getElementById(id);
@@ -47,12 +47,15 @@ const CH_RETURN = { 76:['levi'] };
 const CH_STAY = { 80:['sally'] };   // leaves the party but stays reachable as a Dragonvale rumour source
 const CH_ENABLE = { 61:['sky'] };   // Sky is healed after chapter 61 and returns to active duty
 const CH_LEAVE = { 50:['levi'], 73:['chad'] };    // Levi leaves the party in ch50 (mutual end of the engagement)
-const isDisabled = id => !!(G.disabled && G.disabled[id]);
+// Sally (after the return to Tribute, CH_STAY) can only be partied while the party is in Dragonvale.
+const isAway = id => id==='sally' && !!G.flags.sally_stays && G.loc!=='dragon_vale';
+const isDisabled = id => !!(G.disabled && G.disabled[id]) || isAway(id);
+function syncAway(){ G.active = G.active.filter(id => !isAway(id)); }   // call whenever the location changes
 function applyStoryStates(n){
   (CH_DISABLE[n]||[]).forEach(id => { if(G.party.includes(id)) G.disabled[id] = true; });
   (CH_ENABLE[n]||[]).forEach(id => { delete G.disabled[id]; });
   (CH_RETURN[n]||[]).forEach(id => { delete G.left[id]; if(!G.party.includes(id)) G.party.push(id); });
-  (CH_STAY[n]||[]).forEach(id => { G.party = G.party.filter(x => x!==id); G.active = G.active.filter(x => x!==id); G.left[id] = true; });
+  syncAway();
   (CH_LEAVE[n]||[]).forEach(id => { G.party = G.party.filter(x => x!==id); G.active = G.active.filter(x => x!==id); G.left[id] = true; });
 }
 const isRecruited = id => G.party.includes(id);
@@ -191,5 +194,5 @@ function evolve(id, eid){
 const ACTIVE_SLOTS = 4;
 const activeCount = () => G.active.filter(id => !isDisabled(id)).length;   // a disabled hero does not take a fighting slot
 function recruit(id){ if(G.left && G.left[id]) return false; if(!G.party.includes(id)){ G.party.push(id); if(activeCount()<ACTIVE_SLOTS) G.active.push(id); return true; } return false; }
-function toggleActive(id){ if(id==='jade') return; const i=G.active.indexOf(id); if(i>=0) G.active.splice(i,1); else if(activeCount()<ACTIVE_SLOTS) G.active.push(id); save(); }
+function toggleActive(id){ if(id==='jade' || (isAway(id) && !G.active.includes(id))) return; const i=G.active.indexOf(id); if(i>=0) G.active.splice(i,1); else if(activeCount()<ACTIVE_SLOTS) G.active.push(id); save(); }
 function recruitsAtChapter(ch){ return Object.keys(JOIN_CH).filter(id => JOIN_CH[id] === ch); }

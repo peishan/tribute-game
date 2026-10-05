@@ -1,6 +1,6 @@
 # New portraits (dev notes)
 
-Format: square 512x512 WebP, same bust-portrait framing as `assets/party/*.webp`, head and shoulders, dark neutral background, soft gold rim light. Save as the file name below; the game falls back to the base portrait if a file is missing.
+Status: both portraits are in (assets/party/sally_noble.webp, levi_reborn.webp). Format: square 512x512 WebP, same bust-portrait framing as `assets/party/*.webp`, head and shoulders, dark neutral background, soft gold rim light. Save as the file name below; the game falls back to the base portrait if a file is missing.
 
 ## assets/party/sally_noble.webp — Sally, noblewoman (shown from chapter 51)
 Reference: the market scene in chapter 52 and the Pavilion scene in chapter 62 (purple court robes with gold embroidery, elaborate gold hair ornaments, hair pinned up).

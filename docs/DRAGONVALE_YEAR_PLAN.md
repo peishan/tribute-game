@@ -32,5 +32,5 @@ Jade returns as Princess of Tribute and of Dragonvale, wife of a respected princ
 ## Levi, Ripley, Sally after the Dragonvale year (author's decisions)
 - Levi returns "reborn" before the party goes back to Tribute (ch75+, not planned; code uses ch76 as a placeholder, CH_RETURN in core.js). Not the same Levi: new class label (Reborn Shadow), stat shift, two draft skills (Reborn Volley, Veil of Rebirth), new portrait.
 - Levi and Ripley are optional party members (Ripley follows Levi's travels): both stay recruited and can be toggled in or out of the active party.
-- Sally can be partied until the return to Tribute (placeholder ch80, CH_STAY), then stays in Dragonvale as a rumour source, contactable from the Missions tab.
+- Sally can be partied only while the party is in Dragonvale (after the return to Tribute, placeholder ch80, `isAway` in core.js): travelling elsewhere drops her from the active party and she cannot be selected until you are back. She is always contactable for rumours from the Missions tab.
 - Portrait specs: docs/PORTRAIT_PROMPTS.md.

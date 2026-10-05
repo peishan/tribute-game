@@ -20,6 +20,9 @@ const GEAR = {
   bandit_lords_blade:{bonus:{atk:8}, for:['chad','jade']},
   minion_sigil:{bonus:{mag:3,hp:10}},
   mouse_charm:{bonus:{spd:3,atk:2}},
+  // ---- Jade's attires (ch58): Daily Royal Attire and the Phoenix Guard mission / battle attire ----
+  royal_attire:{n:'Daily Royal Attire',icon:'👘',slot:'armor',rarity:'rare',bonus:{hp:20,mag:4,def:3},for:['jade']},
+  phoenix_guard:{n:'Phoenix Guard Attire',icon:'🔥',slot:'armor',rarity:'epic',bonus:{hp:30,def:8,atk:3},for:['jade']},
   // ---- shop ----
   ash_bow:{n:'Ash Bow',icon:'🏹',slot:'weapon',rarity:'common',price:90,bonus:{atk:3,spd:1},for:['jade']},
   braided_whip:{n:'Braided Whip',icon:'🪢',slot:'weapon',rarity:'common',price:90,bonus:{atk:3,spd:1},for:['jade']},
