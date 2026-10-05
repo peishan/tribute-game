@@ -1,7 +1,7 @@
 /* =====================================================================
    TRIBUTE — UI (tabs, party sheets, journal, training, battle, stubs)
    ===================================================================== */
-const TABS = [['journal','📖 Journal'],['missions','✉️ Missions'],['travel','🛞 Travel'],['here','🧭 Here'],['party','👥 Party'],['training','🎯 Training'],
+const TABS = [['journal','📖 Journal'],['missions','✉️ Missions'],['travel','🛞 Travel'],['here','🧭 Here'],['party','👥 Party'],['cast','🎴 Cast'],['training','🎯 Training'],
               ['rewards','🎁 Rewards'],['inventory','🎒 Items'],['bestiary','📕 Bestiary'],['equipment','🛡️ Gear'],['save','💾 Save'],['dev','🛠️ Dev']];
 let tab = 'journal', sel = 'jade', openCh = null, chMsgs = [], origin = 'journal', trSel = 0, trLv = 5;
 const STAT_SCALE = {hp:420,mp:200,atk:130,mag:130,def:100,spd:90};
@@ -20,7 +20,7 @@ function render(){
      TABS.map(([k,l]) => `<button class="${tab===k?'on':''}" onclick="showTab('${k}')">${l}${k==='missions'&&unreadCount()?' <b style="color:var(--r)">●</b>':''}${k==='rewards'&&rewardsReady()?' <b style="color:var(--r)">●</b>':''}</button>`).join('');
   const R = { journal:rJournal, party:rParty, training:rTraining, battle:rBattle, inventory:rInventory, bestiary:rBestiary,
               equipment:rGear,
-              missions:rMissions, rewards:rRewards, travel:rTravel, here:rHere, save:rSave,
+              missions:rMissions, rewards:rRewards, cast:rCast, travel:rTravel, here:rHere, save:rSave,
               dev:rDev }[tab] || rJournal;
   $('main').innerHTML = R();
   if(typeof autoTick==='function') autoTick();
@@ -193,6 +193,20 @@ function rInventory(){
   return `<h2>Items</h2>${flashHtml()}<div class="sm">Gold: ${G.gold}</div>${pick}<div class="row" style="margin:6px 0"><button onclick="act(brewTonic)">🍵 Brew tonic (3 herbs)</button></div>${rows}`;
 }
 let itemHero = 'jade';
+/* ---------------- CAST (character profile sheets) ---------------- */
+// Sheets reveal story characters, so each unlocks once the characters it shows have appeared (Dev tab can jump chapters).
+const CAST_SHEETS = [
+  {id:'main', n:'Main Characters', img:'assets/cast/main_characters.webp', ch:47, sub:'Jade, Roc, Sky, Sally, Levi and Devon'},
+  {id:'allies', n:'Allies & Recurring Characters', img:'assets/cast/allies.webp', ch:65, sub:'Greyson, Seraphina, Jenika, Ripley and Delilah'},
+];
+let castOpen = null;
+function rCast(){
+  if(castOpen){ const s = CAST_SHEETS.find(x=>x.id===castOpen);
+    return `<button onclick="castOpen=null;render()">◀ Cast</button><h2>${s.n}</h2><img class="pg" src="${s.img}" alt="${s.n}">`; }
+  const cards = CAST_SHEETS.map(s => { const open = G.ch >= s.ch;
+    return `<div class="card ${open?'':'lock'}" ${open?`onclick="castOpen='${s.id}';render()"`:''}><div class="fl"><b>${open?s.n:'???'}</b><div class="sm">${open?s.sub:'🔒 Unlocks at chapter '+s.ch}</div></div>${open?'<span class="sm">View</span>':''}</div>`; }).join('');
+  return `<h2>Cast</h2><div class="sm">Character profile sheets. Each unlocks as its characters appear in the story.</div>${cards}`;
+}
 function rBestiary(){
   const keys=Object.keys(ENEMIES), found=keys.filter(k=>G.bestiary[k]).length;
   return `<h2>Bestiary</h2><div class="sm">${found} / ${keys.length} discovered</div>`+keys.map(k=>{const e=ENEMIES[k],n=G.bestiary[k];

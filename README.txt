@@ -192,3 +192,6 @@ Jenika/Sky beat (61); poison trail (62). New: Old Royal Archives investigation +
 
 --- v7.1: REWARDS ---
 New Rewards tab (scripts/rewards.js): 7-day daily login cycle and AFK rewards (up to 8h, scaled by party level). New splash screen asset. Original PNG uploads removed (the WebP conversions are used).
+
+--- v7.2: CAST ---
+New Cast tab (profile sheets: assets/cast/*.webp, unlock at ch47 and ch65). Seraphina's final portrait replaces the placeholder.
