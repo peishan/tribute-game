@@ -10,7 +10,7 @@ Object.keys(COMIC_TITLES).forEach(i => TITLES[i] = COMIC_TITLES[i]);
 Object.keys(CHAPTER_DESIGN).forEach(i => TITLES[i] = CHAPTER_DESIGN[i].title);
 const ART = {0:['pr1','pr2','pr3'],1:['c1_intro','c1a','c1b'],2:['c2a','c2b'],3:['c3a','c3b','c3c'],4:['c4a','c4b']};
 for(let i=5;i<=17;i++) ART[i]=['c'+i];
-for(let i=18;i<=56;i++) ART[i]=['ch'+i];   // converted from the uploaded PNGs
+for(let i=18;i<=60;i++) ART[i]=['ch'+i];   // converted from the uploaded PNGs
 
 // Chapter battles (PLACEHOLDER encounters — replace with the real fights).
 const BATTLES = {
@@ -27,7 +27,7 @@ const BATTLES = {
 const DUEL = { 3:true };   // story duels: losing still completes the chapter (the story has Chad win)
 const SOLO = { 3:['jade'], 13:['chad'], 21:['jade'], 35:['jade','chad','sky','levi'], 41:['jade','chad','sky','levi'] };   // who fights (Sky is captive in ch5)
 const CHAPTERS = [];
-for(let i=0;i<=57;i++){
+for(let i=0;i<=61;i++){
   CHAPTERS.push({ n:i, title: TITLES[i] || ('Chapter '+i+' (?)'), art: ART[i]||[],
     sxp: 80 + i*40,                         // story XP (tune)
     lv: Math.max(1, Math.round(i*0.9)+1),    // enemy level for this chapter's battle
@@ -53,7 +53,7 @@ function completeChapter(n){
   applyStoryStates(n);
   if(n===50){ G.inv.sealed_box = 0; }
   if(CH_ITEMS[n]){ addItems(CH_ITEMS[n]); CH_ITEMS[n].forEach(d => msgs.push('Received '+ITEMS[d.id].icon+' '+ITEMS[d.id].n)); }
-  Object.keys(CH_BOND[n]||{}).forEach(id => { if(isRecruited(id)){ U(id).bp = Math.max(0, U(id).bp + CH_BOND[n][id]); msgs.push('💞 Bond with Jade ('+CHARACTERS[id].n.split(' ')[0]+'): '+(CH_BOND[n][id]>0?'+':'')+CH_BOND[n][id]); } });
+  Object.keys(CH_BOND[n]||{}).forEach(id => { if(isRecruited(id)){ U(id).bp = Math.max(0, U(id).bp + CH_BOND[n][id]); msgs.push(CH_BOND[n][id]<=-9999 ? '💔 Jade severs her bond with Roc Chadwick ('+CHARACTERS[id].n.split(' ')[0]+').' : '💞 Bond with Jade ('+CHARACTERS[id].n.split(' ')[0]+'): '+(CH_BOND[n][id]>0?'+':'')+CH_BOND[n][id]); } });
   (CH_FLAGS[n]||[]).forEach(f => { G.flags[f] = true; msgs.push('✦ Story event: '+(FLAG_LABEL[f]||f)+' unlocked'); });
   msgs.push('Story XP +'+c.sxp);
   gainXp(c.sxp, G.party).forEach(m => msgs.push(m));

@@ -183,3 +183,6 @@ Entries 52-56 from pages (art ch52-56.webp). Ripley joins 52, Devon 54 (banners)
 
 --- v6.8: DEVON KIT + JENIKA PORTRAIT ---
 Devon recast as defensive mage/swordsman (see docs/CHARACTER_AUDIT.md). Jenika portrait: assets/areas/jenika.webp (pavilion banner) and jenika_512.webp (avatar in the pavilion panel).
+
+--- v6.9: CHAPTERS 57-60 ---
+Wedding (57), Princess of Dragonvale + attires (58), bond with Roc severed + Cavern of Fireflies (59), Jade poisoned (60). Chad's bond resets to 0 and no longer grows (flag roc_severed). New area Cavern of Fireflies (boat from Dragonvale, free daily rest). Sky is re-enabled when chapter 61 completes (CH_ENABLE).

@@ -11,10 +11,10 @@ const GUEST_CH = {};
 // Chapter at which a hero's profile becomes visible even before they join ("Chad profile / Sky profile" unlock in ch1).
 const INTRO_CH = { chad:1, sky:1, sally:28, ripley:46, devon:47 };
 // Bond changes shown by the comic's banners (bond points with Jade; level thresholds in BOND_LEVELS). Applied when the chapter completes.
-const CH_BOND = { 24:{sky:20}, 25:{chad:20}, 27:{chad:-20}, 29:{sky:20}, 31:{chad:-40}, 32:{levi:20}, 33:{levi:20, chad:-20}, 34:{levi:20, chad:-10}, 38:{levi:20, sky:20}, 39:{levi:20, chad:-5}, 40:{levi:20, sky:20} };   // banners: ch31 Jade+Chad -2, ch32 Jade+Levi +1, ch33 Jade+Levi +1 / Jade+Chad -1 (Sky+Levi and Chad+Sally banners not modelled)
+const CH_BOND = { 59:{chad:-9999}, 24:{sky:20}, 25:{chad:20}, 27:{chad:-20}, 29:{sky:20}, 31:{chad:-40}, 32:{levi:20}, 33:{levi:20, chad:-20}, 34:{levi:20, chad:-10}, 38:{levi:20, sky:20}, 39:{levi:20, chad:-5}, 40:{levi:20, sky:20} };   // banners: ch31 Jade+Chad -2, ch32 Jade+Levi +1, ch33 Jade+Levi +1 / Jade+Chad -1 (Sky+Levi and Chad+Sally banners not modelled)
 const profileKnown = id => isRecruited(id) || !!(G.left && G.left[id]) || (INTRO_CH[id]!==undefined && G.ch >= INTRO_CH[id]);
 // Story flags set when a chapter is completed (e.g. Levi's crossbow goes to Jade in ch30).
-const CH_FLAGS = { 52:['sally_gossip'], 42:['jade_awakened'], 44:['bracelet'], 51:['sally_noble'], 0:['greyson_gift'], 38:['cleansing_touch'], 41:['greyson_arms'], 30:['crossbow'] };   // greyson_arms: dagger+flail unseal at the major battle, chapter 41 (per the author)
+const CH_FLAGS = { 59:['roc_severed'], 60:['jade_poisoned'], 58:['royal_attire'], 52:['sally_gossip'], 42:['jade_awakened'], 44:['bracelet'], 51:['sally_noble'], 0:['greyson_gift'], 38:['cleansing_touch'], 41:['greyson_arms'], 30:['crossbow'] };   // greyson_arms: dagger+flail unseal at the major battle, chapter 41 (per the author)
 // Items handed over when a chapter completes. Greyson gives Jade a dagger and flail in the Prologue; she may not use them until the major battle (chapter TBD, flag greyson_arms).
 const CH_ITEMS = { 44:[{id:'sealed_box',qty:1}], 0:[{id:'greyson_dagger',qty:1},{id:'greyson_flail',qty:1}] };   // (the communication bracelet comes from the Greyson mission m_bracelet, see world.js)
 
@@ -42,10 +42,12 @@ function load(){
 const U = id => G.units[id];
 // Story states. DISABLED: stays in the party but cannot fight. LEAVE: leaves the party (data kept).
 const CH_DISABLE = { 42:['sky'] };   // Sky is critically cursed in ch42; no recovery chapter decided yet (Dev tab can clear it)
+const CH_ENABLE = { 61:['sky'] };   // Sky is healed after chapter 61 and returns to active duty
 const CH_LEAVE = { 50:['levi'] };    // Levi leaves the party in ch50 (mutual end of the engagement)
 const isDisabled = id => !!(G.disabled && G.disabled[id]);
 function applyStoryStates(n){
   (CH_DISABLE[n]||[]).forEach(id => { if(G.party.includes(id)) G.disabled[id] = true; });
+  (CH_ENABLE[n]||[]).forEach(id => { delete G.disabled[id]; });
   (CH_LEAVE[n]||[]).forEach(id => { G.party = G.party.filter(x => x!==id); G.active = G.active.filter(x => x!==id); G.left[id] = true; });
 }
 const isRecruited = id => G.party.includes(id);
@@ -124,6 +126,7 @@ function bondLevel(id){
 }
 function addBond(id, pts){
   if(id==='jade' || !isRecruited(id)) return null;
+  if(id==='chad' && G.flags.roc_severed) return null;   // ch59: Jade severed her bond with Roc Chadwick
   const before = bondLevel(id); U(id).bp += pts;
   return bondLevel(id) > before ? CHARACTERS[id].n+' reached Bond '+bondLevel(id)+'!' : null;
 }

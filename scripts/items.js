@@ -63,6 +63,11 @@ function pavilionRest(){
   G.bondDay.pavilion = G.day; restoreParty();
   return ['🌙 Jenika tends the party. HP and MP fully restored.'].concat(advanceDay(0));
 }
+function fireflyRest(){
+  if(G.bondDay.fireflies === G.day) return ['You have already rested in the cavern today.'];
+  G.bondDay.fireflies = G.day; restoreParty();
+  return ['✨ The spirit fireflies glow softly. HP and MP fully restored.'].concat(advanceDay(0));
+}
 function craftAt(out){
   const r = RECIPES.find(x => x.out===out); if(!r) return [];
   if(G.gold < r.gold || !Object.keys(r.need).every(k => (G.inv[k]||0) >= r.need[k])) return ['Not enough materials or gold.'];
