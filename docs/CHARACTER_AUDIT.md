@@ -49,3 +49,5 @@ Legend: OK = consistent, FIX = conflicts with the comic, GAP = the comic shows s
 - Levi: now a **Shadow Archer** with a longbow (poisoned / pinning / net / silencing arrows, Hero of the Night signature); no magical bolts. The crossbow is Jade's (given in chapter 30).
 - Black Pearl = Dragon Pearl (same item): renamed in Devon's text, the codex and gear.
 - Not applied yet: Devon's Royal Command / Dragon Veil / Black Pearl Resonance / Protective Oath kit (awaiting a decision).
+
+- Devon applied: defensive mage/swordsman hybrid. Veiled Blade, Scholar's Read, Royal Command, Dragon Veil, Protective Oath (barrier + DEF; drawing attacks/counters not modelled), Dragon Flame (later), signature Black Pearl Resonance (cleanse + ATK/MAG + regen; MP restore not modelled), Dragon Empowerment; Pearl Sage -> Dragon Sovereign (Dragon Manifestation is now a Sovereign skill). Tree: Royal Command / Dragon Veil / Black Pearl.

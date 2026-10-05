@@ -180,3 +180,6 @@ Jade golden blood at ch42 + Eclipse Saint; Chad martial kit (dark arts gated, fl
 
 --- v6.7: CHAPTERS 52-56 ---
 Entries 52-56 from pages (art ch52-56.webp). Ripley joins 52, Devon 54 (banners). New: Sally court gossip (flag sally_gossip, Dragonvale Guest Wing), Royal Archives investigation + mission The Late Empress's Archive (ch53), Codex entries. Ch57 (wedding) pending: chapters 57 shows (?).
+
+--- v6.8: DEVON KIT + JENIKA PORTRAIT ---
+Devon recast as defensive mage/swordsman (see docs/CHARACTER_AUDIT.md). Jenika portrait: assets/areas/jenika.webp (pavilion banner) and jenika_512.webp (avatar in the pavilion panel).

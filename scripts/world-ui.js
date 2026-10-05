@@ -112,7 +112,7 @@ function rSpot(L, sp){
     case 'pavilion': {
       const rec = RECIPES.map(r => { const have = Object.keys(r.need).every(k => (G.inv[k]||0) >= r.need[k]), cost = Object.keys(r.need).map(k => ITEMS[k].icon+' '+ITEMS[k].n+' ×'+r.need[k]).join(', ');
         return `<div class="ev ${have?'':'locked'}"><div><b>${ITEMS[r.out].icon} ${ITEMS[r.out].n}</b> <span class="sm">${useText(USE[r.out])}</span><div class="sm">${cost} · ${r.gold}g</div></div><button ${have&&G.gold>=r.gold?'':'disabled'} onclick="act(craftAt,'${r.out}')">Craft</button></div>`; }).join('');
-      body = `<div class="panel"><b>🌙 Jenika Moon</b><div class="sm">"Rest here, and let me look at you all."</div>
+      body = `<div class="panel"><div class="row" style="align-items:center;gap:10px;flex-wrap:nowrap"><img src="assets/areas/jenika_512.webp" alt="Jenika Moon" style="width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)"><div><b>🌙 Jenika Moon</b><div class="sm">"Rest here, and let me look at you all."</div></div></div>
         <button class="pri" onclick="act(pavilionRest)">Restore the party (once per day, free)</button></div><h4>Tonics & remedies</h4>${rec}`; break; }
     case 'village':
       body = `<div class="panel"><div class="sm">Each activity can be done once per day. Day ${G.day}.</div>${Object.keys(VILLAGE_ACTS).map(k => { const a = VILLAGE_ACTS[k], done = G.bondDay['vl_'+k]===G.day, miss = a.need && !isRecruited(a.need);

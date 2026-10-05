@@ -121,21 +121,21 @@ ripley:[
     nd('r_h4','Veil of Silk','🪭',sk('veil_silk','Veil of Silk','🪭',14,'support','allies',0,{fx:[{k:'shield',v:.15,d:3},{k:'buff',stat:'eva',m:1.2,d:3}]},'Silk and a smile: a barrier and evasion for all.'))]},
  ],
  devon:[
-  {id:'dragonmagic',n:'Dragon Magic',icon:'🔥',desc:'Royal dragon spells.',nodes:[
-    ps('d_m1','Draconic Focus','🔥',{mult:{mag:1.08}}),
-    nd('d_m2','Dragon Lance','🐉',sk('dragon_lance','Dragon Lance','🐉',9,'magic','foe',2.4,{elem:'fire',fx:[{k:'burn',d:3}]},'A spear of dragonfire.')),
-    ps('d_m3','Pearl Reservoir','🔮',{mult:{mp:1.1,mag:1.05}}),
-    nd('d_m4','Dragon Tempest','🌪️',sk('dragon_tempest','Dragon Tempest','🌪️',18,'magic','foes',1.9,{},'A storm of dragon magic.'))]},
-  {id:'scholarblade',n:'Scholar Blade',icon:'📖',desc:'Sword and spell.',nodes:[
-    ps('d_s1','Trained Arm','⚔️',{mult:{atk:1.08}}),
-    nd('d_s2','Runic Slash','📜',sk('runic_slash','Runic Slash','📜',6,'phys','foe',1.9,{fx:[{k:'analyze'}]},'A rune-etched strike that also analyses the foe.')),
-    ps('d_s3','Scholar\'s Poise','🎓',{mult:{def:1.06,hp:1.06}}),
-    nd('d_s4','Spellblade Flourish','✴️',sk('spellblade_flourish','Spellblade Flourish','✴️',12,'magic','foe',2.8,{},'Sword and spell as one cut.'))]},
-  {id:'pearl',n:'Pearl Knowledge',icon:'🔮',desc:'Black Pearl lore.',nodes:[
-    ps('d_p1','Ancient Memory','🧠',{mult:{mp:1.1}}),
+  {id:'command',n:'Royal Command',icon:'👑',desc:'Leadership and orders.',nodes:[
+    ps('d_c1','Commanding Presence','👑',{mult:{atk:1.05,spd:1.05}}),
+    nd('d_c2','Rally Order','📣',sk('rally_order','Rally Order','📣',9,'support','allies',0,{fx:[{k:'buff',stat:'atk',m:1.15,d:3},{k:'buff',stat:'spd',m:1.15,d:3}]},'A crisp order to the whole party: ATK and SPD up.')),
+    ps('d_c3','Cold Authority','🧊',{mult:{def:1.06,mag:1.05}}),
+    nd('d_c4','Sovereign\'s Decree','📜',sk('sovereigns_decree','Sovereign\'s Decree','📜',18,'support','allies',0,{fx:[{k:'buff',stat:'atk',m:1.3,d:3},{k:'buff',stat:'mag',m:1.3,d:3}]},'A decree the whole party obeys: ATK and MAG greatly up.'))]},
+  {id:'veil',n:'Dragon Veil',icon:'🛡️',desc:'Wards and protection.',nodes:[
+    ps('d_v1','Scale Skin','🐉',{mult:{hp:1.08,def:1.05}}),
+    nd('d_v2','Scale Ward','🪬',sk('scale_ward','Scale Ward','🪬',8,'support','ally',0,{fx:[{k:'shield',v:.25,d:3},{k:'buff',stat:'def',m:1.2,d:3}]},'Wards one ally with scales of light.')),
+    ps('d_v3','Veilwalker','🌫️',{evaB:.05,mult:{hp:1.06}}),
+    nd('d_v4','Veil of Scales','🛡️',sk('veil_scales','Veil of Scales','🛡️',16,'support','allies',0,{fx:[{k:'shield',v:.3,d:4},{k:'buff',stat:'eva',m:1.3,d:3}]},'A heavy barrier and evasion for the whole party.'))]},
+  {id:'pearl',n:'Black Pearl',icon:'🔮',desc:'Pearl lore and resonance.',nodes:[
+    ps('d_p1','Ancient Memory','🧠',{mult:{mp:1.1,mag:1.04}}),
     nd('d_p2','Pearl Light','💡',sk('pearl_light','Pearl Light','💡',8,'heal','ally',.9,{fx:[{k:'cleanse'}]},'Pearl light heals and cleanses an ally.')),
-    ps('d_p3','Dragon Ward','🛡️',{mult:{mag:1.06,def:1.06}}),
-    nd('d_p4','Pearl Bulwark','🌐',sk('pearl_bulwark','Pearl Bulwark','🌐',16,'support','allies',0,{fx:[{k:'buff',stat:'def',m:1.3,d:3},{k:'buff',stat:'mag',m:1.3,d:3}]},'The Pearl shields and empowers the party.'))]},
+    ps('d_p3','Pearl Memory','🔮',{mult:{mag:1.06,mp:1.08}}),
+    nd('d_p4','Pearl Tide','🌊',sk('pearl_tide','Pearl Tide','🌊',18,'heal','allies',1.2,{fx:[{k:'cleanse'},{k:'regen',v:.05,d:3}]},'A tide of pearl light: heals and cleanses the party and mends it over time.'))]},
  ],
 };
 
