@@ -110,6 +110,8 @@ const CHARACTERS = {
   sigDesc:'Vanishes into the dark: evasion and guaranteed crits. His trick arrows pin, slow, bind, chain and silence.',
   base:{hp:66,mp:28,atk:14,mag:9,def:7,spd:11}, grow:{hp:6,mp:2.5,atk:2,mag:1.2,def:.8,spd:1.1},
   skills:[
+   {id:'reborn_volley',n:'Reborn Volley',icon:'🌅',mp:12,kind:'phys',tgt:'foes',pow:1.9,req:{flag:'levi_reborn'},desc:'After his return: a volley that carries the night\'s silence. (DRAFT)'},
+   {id:'veil_of_rebirth',n:'Veil of Rebirth',icon:'🕯️',mp:8,kind:'support',tgt:'self',fx:[{k:'crit',d:3},{k:'buff',stat:'eva',m:1.5,d:3}],req:{flag:'levi_reborn'},desc:'The man who came back from the grave: crits and evasion. (DRAFT)'},
    {id:'flame_bolt',n:'Poisoned Arrow',icon:'🧪',mp:4,kind:'phys',tgt:'foe',pow:1.5,fx:[{k:'burn',d:3}],req:{lvl:1},desc:'A poisoned tip: damage over time.'},
    {id:'frost_bolt',n:'Pinning Arrow',icon:'📌',mp:4,kind:'phys',tgt:'foe',pow:1.4,fx:[{k:'slow',d:3}],req:{lvl:3},desc:'Pins a limb: slows the target.'},
    {id:'lightning_bolt',n:'Ricochet Shot',icon:'↩️',mp:7,kind:'phys',tgt:'chain',pow:1.3,req:{lvl:6},desc:'Ricochets between up to 3 enemies.'},

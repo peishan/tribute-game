@@ -31,22 +31,22 @@ function stub(title, sub, items){
 
 /* ---------------- PARTY ---------------- */
 function rParty(){
-  const slots = [0,1,2,3].map(i => { const id=G.active[i]; return id?`<div class="slot on ${isDisabled(id)?'dis':''}" onclick="sel='${id}';render()"><img src="assets/party/${id}.webp"><b>${CHARACTERS[id].n.split(' ')[0]}</b>${isDisabled(id)?'<span class="sm">⛔ cannot fight</span>':''}</div>`:`<div class="slot"><b>empty</b></div>`; }).join('');
+  const slots = [0,1,2,3].map(i => { const id=G.active[i]; return id?`<div class="slot on ${isDisabled(id)?'dis':''}" onclick="sel='${id}';render()"><img src="${portrait(id)}"><b>${CHARACTERS[id].n.split(' ')[0]}</b>${isDisabled(id)?'<span class="sm">⛔ cannot fight</span>':''}</div>`:`<div class="slot"><b>empty</b></div>`; }).join('');
   const roster = ROSTER.map(id => {
     const c=CHARACTERS[id], rec=isRecruited(id), join=JOIN_CH[id];
-    return `<div class="rc ${sel===id?'sel':''} ${rec||profileKnown(id)?'':'lock'}" onclick="sel='${id}';render()"><img src="assets/party/${id}.webp"><div><b>${profileKnown(id)||id==='seraphina'?c.n:'???'}</b><div class="sm">${rec?c.cls+' · Lv'+U(id).lv+(G.guests[id]?' · guest':''):(profileKnown(id)?c.cls+' · ':'')+(join!==undefined?'Joins Ch.'+join:'Unrecruited')}</div></div></div>`; }).join('');
+    return `<div class="rc ${sel===id?'sel':''} ${rec||profileKnown(id)?'':'lock'}" onclick="sel='${id}';render()"><img src="${portrait(id)}"><div><b>${profileKnown(id)||id==='seraphina'?c.n:'???'}</b><div class="sm">${rec?clsOf(id)+' · Lv'+U(id).lv+(G.guests[id]?' · guest':''):(profileKnown(id)?clsOf(id)+' · ':'')+(join!==undefined?'Joins Ch.'+join:'Unrecruited')}</div></div></div>`; }).join('');
   return `<h2>Party</h2><div class="sm">Active (${activeCount()}/${ACTIVE_SLOTS}) — fights use these four</div><div class="slots">${slots}</div><div class="rcs">${roster}</div>${rSheet(sel)}`;
 }
 function rSheet(id){
   const c=CHARACTERS[id], rec=isRecruited(id);
-  if(!rec && profileKnown(id)) return `<div class="panel"><div class="sh"><img src="assets/party/${id}.webp"><div><h3>${c.icon} ${c.n}</h3><div>${c.cls}</div><div class="sm">${c.role}</div></div></div><div class="sm" style="margin:6px 0">${c.identity}</div><div class="sm">Not in the party yet${JOIN_CH[id]!==undefined?' — joins at chapter '+JOIN_CH[id]:''}.</div></div>`;
+  if(!rec && profileKnown(id)) return `<div class="panel"><div class="sh"><img src="${portrait(id)}"><div><h3>${c.icon} ${c.n}</h3><div>${clsOf(id)}</div><div class="sm">${c.role}</div></div></div><div class="sm" style="margin:6px 0">${c.identity}</div><div class="sm">Not in the party yet${JOIN_CH[id]!==undefined?' — joins at chapter '+JOIN_CH[id]:''}.</div></div>`;
   if(!rec) return `<div class="panel"><h3>${id==='seraphina'?c.n:'???'}</h3><div class="sm">${id==='seraphina'?c.identity:(JOIN_CH[id]!==undefined?'Not yet recruited. Joins at chapter '+JOIN_CH[id]+'.':'Not yet recruited. Recruitment chapter still to be decided.')}</div></div>`;
   const u=U(id), st=statsOf(id), bl=bondLevel(id), nextB=BOND_LEVELS[bl+1];
   const stats = STATS.map(s=>`<div class="st"><span>${STAT_NAME[s]}</span>${bar(st[s],STAT_SCALE[s],s)}<b>${st[s]}</b></div>`).join('');
   const skills = skillsOf(id).filter(s=>!(s.treeSkill&&!s.ok)).map(s=>`<div class="sk ${s.ok?'':'lk'}"><span class="si">${s.icon}</span><div><b>${s.n}</b> ${s.sig?'<em class="tag">signature</em>':''}${s.bondSkill?'<em class="tag b">bond</em>':''}${s.evoSkill?'<em class="tag e">evolution</em>':''}${s.treeSkill?'<em class="tag t">tree</em>':''}<div class="sm">${s.ok?s.desc:'🔒 '+s.why}</div></div><span class="mp">${s.mp?s.mp+' MP':''}</span></div>`).join('');
   const evo = evoState(id).map(e=>`<div class="ev ${e.st}"><div><b>${e.n}</b> <span class="sm">${e.tier===2?'final':'tier '+e.tier}</span><div class="sm">${e.desc}</div></div>${e.st==='ready'?`<button onclick="doEvolve('${id}','${e.id}')">Evolve</button>`:`<span class="sm">${e.st==='taken'?'✔ taken':e.st==='closed'?'closed':'🔒 '+e.why}</span>`}</div>`).join('') || '<div class="sm">No evolution designed yet.</div>';
   const act = G.active.includes(id);
-  return `<div class="panel sheet"><div class="sh"><img src="assets/party/${id}.webp"><div><h3>${c.icon} ${c.n}${G.guests[id]?' <em class="tag">guest</em>':''}</h3><div>${c.cls}</div><div class="sm">${c.role} · ${c.combat}</div><div class="sm">Lv ${u.lv}/${CFG.LEVEL_CAP}</div>${bar(u.xp,xpToNext(u.lv),'xp')}<div class="sm">XP ${u.xp}/${xpToNext(u.lv)}</div></div></div>
+  return `<div class="panel sheet"><div class="sh"><img src="${portrait(id)}"><div><h3>${c.icon} ${c.n}${G.guests[id]?' <em class="tag">guest</em>':''}</h3><div>${clsOf(id)}</div><div class="sm">${c.role} · ${c.combat}</div><div class="sm">Lv ${u.lv}/${CFG.LEVEL_CAP}</div>${bar(u.xp,xpToNext(u.lv),'xp')}<div class="sm">XP ${u.xp}/${xpToNext(u.lv)}</div></div></div>
    <div class="sm" style="margin:6px 0">${c.identity}</div>
    ${id!=='jade'?`<div class="sm">💞 Bond with Jade: ${bl}/5 ${nextB?`(${u.bp}/${nextB})`:'(max)'}</div>${bar(u.bp,nextB||u.bp||1,'bond')}`:''}
    ${id!=='jade'?`<button onclick="toggleActive('${id}');render()">${act?'Remove from active party':'Add to active party'}</button>`:'<div class="sm">Jade always leads the active party.</div>'}
@@ -233,3 +233,5 @@ window.addEventListener('load', () => {
     p.style.left = Math.random()*100+'%'; p.style.animationDuration = (7+Math.random()*7)+'s'; p.style.animationDelay = (-Math.random()*12)+'s';
     p.style.transform = 'scale('+(.6+Math.random()*.9)+')'; L.appendChild(p); }
 });
+
+document.addEventListener('error', e => { const t=e.target; if(t && t.tagName==='IMG' && /_(noble|reborn)\.webp/.test(t.src)) t.src = t.src.replace(/_(noble|reborn)/,''); }, true);   // missing variant portrait -> base portrait

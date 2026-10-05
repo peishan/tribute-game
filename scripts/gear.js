@@ -80,7 +80,7 @@ function rGear(){
   return `<h2>🛡️ Gear</h2>${flashHtml()}<div class="row">${tabs}</div>${gearSub==='shop' ? rShop() : rEquip(heroes)}`;
 }
 function rEquip(heroes){
-  const pick = `<div class="rcs" style="margin:6px 0">${heroes.map(id => `<div class="rc ${gearSel===id?'sel':''}" onclick="gearSel='${id}';render()"><img src="assets/party/${id}.webp"><b>${CHARACTERS[id].n.split(' ')[0]}</b></div>`).join('')}</div>`;
+  const pick = `<div class="rcs" style="margin:6px 0">${heroes.map(id => `<div class="rc ${gearSel===id?'sel':''}" onclick="gearSel='${id}';render()"><img src="${portrait(id)}"><b>${CHARACTERS[id].n.split(' ')[0]}</b></div>`).join('')}</div>`;
   const id = gearSel, st = statsOf(id), gb = gearBonusSum(id), g = gearOf(id);
   const stats = STATS.map(s => `<div class="st"><span>${STAT_NAME[s]}</span>${bar(st[s],STAT_SCALE[s],s)}<b>${st[s]}${gb[s]?` <span class="sm" style="color:var(--green)">(+${gb[s]})</span>`:''}</b></div>`).join('');
   const slots = SLOTS.map(([slot,label]) => {
