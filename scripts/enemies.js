@@ -18,6 +18,8 @@ const ENEMIES = {
     moves:[{n:'Quick Shot',pow:1},{n:'Pinning Arrow',pow:.8,fx:[{k:'slow',d:2}]}],drops:[{id:'arrow_bundle',chance:.45}],desc:'Picks off travellers from the ridge.'},
   masked_assassin:{n:'Masked Assassin',icon:'🥷',area:'city',hp:110,atk:17,mag:0,def:8,spd:17,xp:70,gold:45,elite:true,
     moves:[{n:'Venom Blade',pow:1.2,fx:[{k:'burn',d:3}]},{n:'Throat Cut',pow:1.9},{n:'Vanish Strike',pow:1.4}],drops:[{id:'assassin_mask',chance:.35},{id:'venom_vial',chance:.4}],desc:'Hired to make people disappear.'},
+  shade_beast:{n:'Shade Beast',icon:'🐺',area:'dragon',hp:120,atk:14,mag:10,def:8,spd:12,xp:50,gold:26,traits:['corrupt'],
+    moves:[{n:'Shadow Rend',pow:1.3},{n:'Dark Howl',pow:.9,spell:true,fx:[{k:'slow',d:2}]}],drops:[{id:'demon_ash',chance:.45}],desc:'A spirit beast corrupted by something beneath the ruins.'},
   imp:{n:'Imp',icon:'👺',area:'demon',hp:60,atk:10,mag:11,def:5,spd:13,xp:32,gold:15,traits:['magic'],
     moves:[{n:'Claw',pow:1},{n:'Hex Spark',pow:1.2,spell:true}],drops:[{id:'demon_ash',chance:.5}],desc:'A lesser demon from the cursed isle.'},
   shade_wraith:{n:'Shade Wraith',icon:'👻',area:'demon',hp:95,atk:8,mag:15,def:6,spd:12,xp:48,gold:26,traits:['magic'],

@@ -1,5 +1,5 @@
 /* Tribute service worker: app shell is cached for offline play; images and other assets are cached as you play. */
-const VERSION = 'tribute-v1';
+const VERSION = 'tribute-v2';
 const SHELL = ['./', './index.html', './styles.css', './manifest.webmanifest',
   './scripts/chapters.js','./scripts/characters.js','./scripts/skilltree.js','./scripts/core.js','./scripts/enemies.js','./scripts/battle.js','./scripts/autobattle.js',
   './scripts/journal.js','./scripts/world.js','./scripts/world-ui.js','./scripts/voyage.js','./scripts/items.js','./scripts/gear.js','./scripts/rewards.js','./scripts/tracker.js',

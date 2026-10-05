@@ -205,3 +205,6 @@ Court of Suspicions to The Exiled Prince (art ch63-73.webp). Seraphina arrives 6
 
 --- v7.5: MAPS + PWA ---
 World maps in the Travel tab (assets/maps/tribute.webp, dragonvale.webp; Dragonvale map unlocks with Dragonvale). PWA: manifest.webmanifest, sw.js (offline app shell), placeholder icons in assets/icons (replace with final art, same file names). Bump VERSION in sw.js when you want to force-refresh caches.
+
+--- v7.6: ICONS + CHAPTER 75 ---
+Final PWA icons (square, compass-only maskable, favicon). Chapter 75 'Whispers at the Border' sets the quest pattern: Main Story Quest with objectives (new 'steps' mission type), new area Dragonvale Border (border villages, ancient ruins; the source is locked until its chapter), Shade Beast enemy, masked contract.

@@ -44,6 +44,7 @@ function objText(m){
   if(o.type==='kill') return '⚔️ Defeat '+o.need+' '+o.label;
   if(o.type==='boss') return '👑 Defeat '+ENEMIES[o.key].n;
   if(o.type==='investigate') return '🔎 Investigate: '+spotById(o.spot).n;
+  if(o.type==='steps') return o.steps.map(s => (G.flags['inv_'+s.spot]?'☑ ':'☐ ')+s.label).join(' · ');
   return '✉️ Read the letter';
 }
 function rMissionList(){
