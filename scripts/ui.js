@@ -23,6 +23,7 @@ function render(){
               missions:rMissions, rewards:rRewards, cast:rCast, travel:rTravel, here:rHere, save:rSave,
               dev:rDev }[tab] || rJournal;
   $('main').innerHTML = R();
+  if(typeof renderTracker==='function') renderTracker();
   if(typeof autoTick==='function') autoTick();
 }
 function stub(title, sub, items){

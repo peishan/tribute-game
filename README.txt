@@ -199,3 +199,6 @@ New Cast tab (profile sheets: assets/cast/*.webp, unlock at ch47 and ch65). Sera
 --- v7.3: VOYAGE ---
 First sailing capital -> Dragonvale is a staged 6-day voyage (scripts/voyage.js): storm, sea monster, abandoned island, ancient ruins, mist, then the Dragonvale reveal. Later crossings use the normal 4-day passage.
 Dragonvale now unlocks only after ch44 with the bracelet (flag), for the trip to save Sky.
+
+--- v7.4: CHAPTERS 63-73 ---
+Court of Suspicions to The Exiled Prince (art ch63-73.webp). Seraphina arrives 65, revealed 66; Roc/Seraphina marry 68; backlash 70-72; Roc exiled at 73 (Liora entrusted to Jade and Devon); one-year time skip, quests begin at 74. New: Restricted Archive investigation + mission The Access Log (ch71). Levi's return and Sally's departure moved to ch87 (CH_RETURN / CH_STAY).

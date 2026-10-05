@@ -174,3 +174,12 @@ img.band{width:100%;max-height:210px;object-fit:cover;object-position:center 30%
 #toast.on{opacity:1;transform:translateX(-50%)}
 
 @media(min-width:900px){body{font-size:18px}#main{padding:20px 24px 40px}.landing-cover{max-height:60vh}}
+
+/* quest tracker (side popup) */
+#trkbtn{position:relative}
+.trkn{position:absolute;top:-4px;right:-4px;background:var(--crimson);color:#fff;border-radius:9px;font-size:.6rem;min-width:15px;height:15px;line-height:15px;text-align:center;font-family:'Cinzel',serif}
+#tracker{position:fixed;right:0;top:52px;width:min(78vw,300px);max-height:68vh;overflow:auto;background:linear-gradient(160deg,var(--plum-2),var(--night));border:1px solid var(--gold-dark);border-right:none;border-radius:10px 0 0 10px;box-shadow:-6px 4px 24px rgba(0,0,0,.55);padding:10px 12px;z-index:8;transform:translateX(105%);transition:transform .22s;pointer-events:none}
+#tracker.open{transform:none;pointer-events:auto}
+#tracker .trkh{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:6px;margin-bottom:4px;font-family:'Cinzel',serif;color:var(--gold-light)}
+#tracker h5{margin:10px 0 4px;font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:1px;color:var(--gold);text-transform:uppercase}
+#tracker .trk{border-left:2px solid var(--gold-dark);padding:3px 8px;margin:4px 0;background:rgba(0,0,0,.25)}

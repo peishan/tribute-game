@@ -114,7 +114,9 @@ const LOCATIONS = {
        desc:'The sealed records of the late empress, hidden beneath the Hall of Records.', clues:['A hidden chamber with an ancient mural: Dima, Sister of Light, and Xima, Sister of Darkness, reaching for the Black Pearl.','"The Gold Child\'s Trial of Love is bound to the Black Pearl. When the pearl returns to its true owner, the two sisters shall rise again."','Documents deliberately sealed after the late empress\'s death, with important pages removed.'], rw:{xp:700, gold:250}},
       {id:'old_archives', kind:'investigate', n:'Old Royal Archives', icon:'🗝️', ch:62, need:3, ambush:['stone_sentinel','relic_spirit'], lo:15,
        desc:'Dusty authorization ledgers from the years before the poison. Someone has been erasing names.', clues:['An old Healing Pavilion access authorization with the name scratched out, but the royal seal is genuine.','A ledger gap: three weeks of entries are missing from the same period.','A scrap of a later page shows the hand of a trained physician, not a servant.'], rw:{xp:900, gold:320}},
-      {id:'night_board', kind:'board', n:'Masked Contracts', icon:'🎭', ch:62, desc:'Quiet requests from ordinary people the court ignores. Jade and Devon answer them in disguise, as the Crimson Phoenix and the Silent Dragon.'},
+      {id:'restricted_archive', kind:'investigate', n:'Restricted Archive', icon:'🗝️', ch:71, need:3, ambush:['stone_sentinel','relic_spirit'], lo:16,
+       desc:'The sealed access ledgers of the Restricted Archive: who entered which vault, and when.', clues:['The access log: four entries (3rd, 5th, 8th and 11th Moon) for restricted storage, the alchemy archives, forbidden materials and the sealed vault.','The same rare materials listed in Levi\'s poisoning match the logged withdrawals.','A note that the entries were kept from the royal council.'], rw:{xp:1000, gold:350}},
+      {id:'night_board', kind:'board', n:'Masked Contracts', icon:'🎭', ch:73, desc:'Quiet requests from ordinary people the court ignores. Jade and Devon answer them in disguise, as the Crimson Phoenix and the Silent Dragon.'},
       {id:'pavilion', kind:'pavilion', n:'Royal Healing Pavilion', icon:'🌙', ch:46, img:'assets/areas/jenika.webp', desc:'Jenika Moon, the royal healer: full recovery, tonics and rare remedies. Sky recovers here.'},
       {id:'vale', kind:'hunt', n:'The Vale', icon:'🦎', ch:99, desc:'Drakes and old guardians (closed while Jade is confined to the palace).', pool:['vale_drake','stone_sentinel','relic_spirit'], lo:14},
       {id:'sanctuary', kind:'investigate', n:'Dragon Sanctuary', icon:'⛩️', need:3, ambush:['stone_sentinel','relic_spirit'], lo:15, party:'devon', ch:99,
@@ -141,7 +143,7 @@ function spotLock(sp){
 
 // Some story chapters must be started on location (PROVISIONAL). {chapter: locationId}
 // Chapters whose story must be started on location. Tune freely: {chapter: locationId}
-const CH_LOC = { 61:'dragon_vale', 62:'dragon_vale', 57:'dragon_vale', 58:'dragon_vale', 59:'dragon_vale', 60:'cavern_fireflies', 52:'dragon_vale', 53:'dragon_vale', 54:'dragon_vale', 55:'dragon_vale', 56:'dragon_vale', 44:'capital', 45:'dragon_vale', 46:'dragon_vale', 47:'dragon_vale', 48:'dragon_vale', 49:'dragon_vale', 50:'dragon_vale', 51:'dragon_vale', 12:'dark_inn', 16:'vigil_village', 17:'vigil_village', 18:'vigil_village', 19:'faepool_forest', 21:'faepool_forest', 22:'booyeong_camp', 23:'booyeong_camp', 24:'booyeong_camp', 25:'faepool_forest', 26:'vigil_village', 27:'booyeong_camp', 28:'vigil_village', 29:'vigil_village', 30:'vigil_village' };   // chapters that must start on location (ch12 begins at the inn). More are added as chapters are converted.
+const CH_LOC = { 63:'dragon_vale', 64:'dragon_vale', 65:'dragon_vale', 66:'dragon_vale', 67:'dragon_vale', 68:'dragon_vale', 69:'dragon_vale', 70:'dragon_vale', 71:'dragon_vale', 72:'dragon_vale', 73:'dragon_vale', 61:'dragon_vale', 62:'dragon_vale', 57:'dragon_vale', 58:'dragon_vale', 59:'dragon_vale', 60:'cavern_fireflies', 52:'dragon_vale', 53:'dragon_vale', 54:'dragon_vale', 55:'dragon_vale', 56:'dragon_vale', 44:'capital', 45:'dragon_vale', 46:'dragon_vale', 47:'dragon_vale', 48:'dragon_vale', 49:'dragon_vale', 50:'dragon_vale', 51:'dragon_vale', 12:'dark_inn', 16:'vigil_village', 17:'vigil_village', 18:'vigil_village', 19:'faepool_forest', 21:'faepool_forest', 22:'booyeong_camp', 23:'booyeong_camp', 24:'booyeong_camp', 25:'faepool_forest', 26:'vigil_village', 27:'booyeong_camp', 28:'vigil_village', 29:'vigil_village', 30:'vigil_village' };   // chapters that must start on location (ch12 begins at the inn). More are added as chapters are converted.
 // Boat travel unlocks with chapter 15 (the sea voyage before ch16). Set BRACELET_FROM_START=true if the Imperial Bracelet should exist from the Prologue.
 const SHIP_CH = 15, BRACELET_FROM_START = false;
 const modeOpen = m => m!=='ship' || G.ch >= SHIP_CH;
@@ -209,7 +211,7 @@ function grantReward(rw, label){
   msgs.unshift(label+' · '+[rw.xp&&'+'+rw.xp+' XP', rw.gold&&'+'+rw.gold+'g', rw.rep&&'+'+rw.rep+' renown'].filter(Boolean).join(' · '));
   return msgs;
 }
-const FLAG_LABEL = { bracelet:'Communication Bracelet', crossbow:'Levi\'s Crossbow', jade_awakened:'Golden Blood Awakening', levi_reborn:'Levi returns, reborn', sally_stays:'Sally stays in Dragonvale as a rumour source', chad_dark_deep:'Roc\'s dark arts deepen', chad_backlash_1:'Dark-magic backlash (Roc): stats permanently altered', chad_backlash_2:'Dark-magic backlash worsens (Roc)', chad_backlash_3:'Dark-magic backlash, final (Roc)', roc_severed:'Bond with Roc Chadwick severed', jade_poisoned:'Jade is poisoned (slow-acting)', royal_attire:'Daily Royal Attire and Phoenix Guard attire', sally_gossip:'Sally\'s court gossip', chad_dark_arts:'Chad\'s dark arts', greyson_arms:'Greyson\'s dagger and flail unsealed', greyson_gift:'Greyson\'s gift received', cleansing_touch:'Cleansing Touch (Jade)', sally_noble:'Sally\'s noble title and Noble Grace' };
+const FLAG_LABEL = { bracelet:'Communication Bracelet', crossbow:'Levi\'s Crossbow', jade_awakened:'Golden Blood Awakening', roc_exiled:'Roc is exiled from Dragonvale', liora_ward:'Liora is in Jade and Devon\'s care', levi_reborn:'Levi returns, reborn', sally_stays:'Sally stays in Dragonvale as a rumour source', chad_dark_deep:'Roc\'s dark arts deepen', chad_backlash_1:'Dark-magic backlash (Roc): stats permanently altered', chad_backlash_2:'Dark-magic backlash worsens (Roc)', chad_backlash_3:'Dark-magic backlash, final (Roc)', roc_severed:'Bond with Roc Chadwick severed', jade_poisoned:'Jade is poisoned (slow-acting)', royal_attire:'Daily Royal Attire and Phoenix Guard attire', sally_gossip:'Sally\'s court gossip', chad_dark_arts:'Chad\'s dark arts', greyson_arms:'Greyson\'s dagger and flail unsealed', greyson_gift:'Greyson\'s gift received', cleansing_touch:'Cleansing Touch (Jade)', sally_noble:'Sally\'s noble title and Noble Grace' };
 
 /* ---------------- DAY CLOCK ---------------- */
 function advanceDay(n){
@@ -232,6 +234,8 @@ const MISSIONS = [
    subj:'A quiet search', body:'Dragonvale may hold answers about the Black Pearl, the Gold Child, Dima and Xima. Quietly investigate the sealed records of the late empress and the old royal archives. Not everyone should know about this search. — Greyson'},
   {id:'m_erased', needCh:62, title:'The Erased Name', obj:{type:'investigate', spot:'old_archives'}, rw:{xp:900, gold:320},
    subj:'An old authorization', body:'Someone with royal access took the missing material, and the name on the old authorization has been erased. Search the old royal archives for what remains. Be discreet. — Greyson'},
+  {id:'m_access', needCh:71, title:'The Access Log', obj:{type:'investigate', spot:'restricted_archive'}, rw:{xp:1000, gold:350},
+   subj:'The ledgers', body:'The restricted materials did not vanish by chance. Search the Restricted Archive ledgers and learn whose seal opened the vaults. Do not accuse anyone before you have proof. — Greyson'},
   // ---- DRAFT, NOT CANON (parked at ch99 until the real chapter text is converted) ----
   {id:'m_wild', needCh:99, title:'Beyond the Walls', obj:{type:'reach', loc:'tribute_wilderness'}, rw:{xp:120, gold:60},
    subj:'Your first mission outside the city', body:'The time has come to leave the capital. Take your companions out along the Imperial Road and see what the wilderness hides. Use the horse carriage; the roads are not always quiet. — Greyson'},
@@ -402,10 +406,13 @@ const QUEST_POOL = [
   {id:'q_raiders', type:'kill', key:'sea_raider', need:3, icon:'🏴‍☠️', name:'River Raiders', desc:'Ferries are being boarded at the mouth of the river.', rw:{xp:280, gold:170, rep:8}, needLoc:'river_crossing'},
   {id:'q_serpent', type:'kill', key:'river_serpent', need:1, icon:'🐍', name:'The Long Shadow', desc:'Boatmen refuse to cross the deep channel.', rw:{xp:450, gold:260, rep:14}, needLoc:'river_crossing'},
   {id:'q_drakes', type:'kill', key:'vale_drake', need:3, icon:'🦎', name:'Scale and Flame', desc:'Drakes have been nesting near the old road.', rw:{xp:420, gold:210, rep:10}, needLoc:'dragon_vale'},
-  {id:'q_vig_magistrate', type:'kill', key:'road_bandit', need:4, icon:'🎭', name:'The Magistrate\'s Guards', desc:'A village reports higher taxes and guards who beat anyone who complains. Strike the thugs, not the law: proof comes first. (Masked contract · the Crimson Phoenix and the Silent Dragon)', rw:{xp:380, gold:190, rep:10}, needLoc:'dragon_vale', needCh:62, masked:true},
-  {id:'q_vig_children', type:'kill', key:'smuggler', need:3, icon:'🎭', name:'The Missing Children', desc:'Children vanish near the forest road. It is not demons. Someone is paying for them. (Masked contract · the Crimson Phoenix and the Silent Dragon)', rw:{xp:480, gold:240, rep:14}, needLoc:'dragon_vale', needCh:62, masked:true},
-  {id:'q_vig_fever', type:'collect', item:'forest_herb', need:5, icon:'🎭', name:'The Fever in the Hills', desc:'A village has an illness no healer knows. Bring herbs for Jenika\'s remedy. (Masked contract · the Crimson Phoenix and the Silent Dragon)', rw:{xp:420, gold:200, rep:12}, needLoc:'dragon_vale', needCh:62, masked:true},
-  {id:'q_vig_warrior', type:'kill', key:'relic_spirit', need:2, icon:'🎭', name:'The Old Warrior\'s Request', desc:'A retired soldier asks you to quiet the spirits haunting his old post. He studies your sword style a little too long. (Masked contract · the Crimson Phoenix and the Silent Dragon)', rw:{xp:460, gold:230, rep:12}, needLoc:'dragon_vale', needCh:62, masked:true},
+  {id:'q_vig_magistrate', type:'kill', key:'road_bandit', need:4, icon:'🎭', name:'The Magistrate\'s Guards', desc:'A village reports higher taxes and guards who beat anyone who complains. Strike the thugs, not the law: proof comes first. (Masked contract · the Crimson Phoenix and the Silent Dragon)', rw:{xp:380, gold:190, rep:10}, needLoc:'dragon_vale', needCh:73, masked:true},
+  {id:'q_vig_children', type:'kill', key:'smuggler', need:3, icon:'🎭', name:'The Missing Children', desc:'Children vanish near the forest road. It is not demons. Someone is paying for them. (Masked contract · the Crimson Phoenix and the Silent Dragon)', rw:{xp:480, gold:240, rep:14}, needLoc:'dragon_vale', needCh:73, masked:true},
+  {id:'q_vig_fever', type:'collect', item:'forest_herb', need:5, icon:'🎭', name:'The Fever in the Hills', desc:'A village has an illness no healer knows. Bring herbs for Jenika\'s remedy. (Masked contract · the Crimson Phoenix and the Silent Dragon)', rw:{xp:420, gold:200, rep:12}, needLoc:'dragon_vale', needCh:73, masked:true},
+  {id:'q_vig_warrior', type:'kill', key:'relic_spirit', need:2, icon:'🎭', name:'The Old Warrior\'s Request', desc:'A retired soldier asks you to quiet the spirits haunting his old post. He studies your sword style a little too long. (Masked contract · the Crimson Phoenix and the Silent Dragon)', rw:{xp:460, gold:230, rep:12}, needLoc:'dragon_vale', needCh:73, masked:true},
+  {id:'q_vig_demons', type:'kill', key:'imp', need:5, icon:'🎭', name:'Demons at the Border', desc:'Imps and lesser demons slip across the Dragonvale border at night. Thin them out before the villages notice. (Masked contract · the Crimson Phoenix and the Silent Dragon)', rw:{xp:400, gold:200, rep:12}, needLoc:'dragon_vale', needCh:73, masked:true},
+  {id:'q_vig_ruins', type:'kill', key:'stone_sentinel', need:2, icon:'🎭', name:'The Waking Ruins', desc:'Old wardens have woken in the ruins above a village. Put them to rest. (Masked contract · the Crimson Phoenix and the Silent Dragon)', rw:{xp:520, gold:260, rep:14}, needLoc:'dragon_vale', needCh:73, masked:true},
+  {id:'q_vig_drakes', type:'kill', key:'vale_drake', need:3, icon:'🎭', name:'Border Drakes', desc:'Drakes are raiding herds on the mountain road. (Masked contract · the Crimson Phoenix and the Silent Dragon)', rw:{xp:430, gold:220, rep:12}, needLoc:'dragon_vale', needCh:73, masked:true},
   {id:'q_herbs', type:'collect', item:'forest_herb', need:4, icon:'🌿', name:'Herbalist\'s Request', desc:'Bring 4 Faepool Herbs to any board.', rw:{xp:110, gold:80, rep:3}, needLoc:'faepool_forest'},
   {id:'q_glands', type:'collect', item:'toad_gland', need:4, icon:'🧫', name:'Apothecary Order', desc:'Bring 4 Toad Glands to any board.', rw:{xp:200, gold:130, rep:4}, needLoc:'frog_mahan'},
   {id:'q_fish', type:'collect', item:'river_fish', need:5, icon:'🐟', name:'Fresh Catch', desc:'The harbour market wants 5 River Fish.', rw:{xp:150, gold:100, rep:3}, needLoc:'river_crossing'},
@@ -415,18 +422,20 @@ const PARCELS = ['sealed letters','medicine crates','silk bolts','lantern oil','
 function genDelivery(from){
   const dests = LOC_ORDER.filter(k => isSettlement(k) && locOpen(k) && k!==from);
   if(!dests.length) return null;
-  const to = AR(dests), hops = Math.max(1, Math.abs(hopsFromCapital(to) - hopsFromCapital(from)));
+  const other = from==='capital' ? 'dragon_vale' : from==='dragon_vale' ? 'capital' : null;
+  const royal = !!other && dests.includes(other) && Math.random() < .6;   // Tribute <-> Dragonvale courier runs
+  const to = royal ? other : AR(dests), hops = Math.max(1, Math.abs(hopsFromCapital(to) - hopsFromCapital(from)));
   const goods = AR(PARCELS), n = 1;
   return { id:'q_del_'+Math.random().toString(36).slice(2,7), type:'deliver', to, from, icon:'📮', name:'Deliver '+goods+' to '+LOCATIONS[to].n,
-    desc:'A merchant needs '+goods+' carried to '+LOCATIONS[to].n+'. Deliver by carriage or ship.', need:n, c:0,
-    rw:{xp:90+hops*40, gold:60+hops*45, rep:4} };
+    desc:(royal?'A royal courier run between Tribute and Dragonvale: ':'A merchant needs ')+goods+(royal?' to ':' carried to ')+LOCATIONS[to].n+'. Deliver by carriage or ship.', need:n, c:0,
+    rw:{xp:90+hops*40+(royal?80:0), gold:60+hops*45+(royal?90:0), rep:4+(royal?4:0)} };
 }
 function boardFor(loc){
   const b = G.quests.board; if(!b[loc]) b[loc] = {day:0, list:[]};
   const bd = b[loc];
   if(bd.day === G.day && bd.list.length) return bd.list;
   const taken = new Set(G.quests.active.map(q => q.id));
-  const pool = QUEST_POOL.filter(q => q.dynamic || (locOpen(q.needLoc) && !taken.has(q.id) && (!q.needCh || G.ch >= q.needCh) && (!q.masked || loc==='dragon_vale')));
+  const pool = QUEST_POOL.filter(q => q.dynamic || (locOpen(q.needLoc) && !taken.has(q.id) && (!q.needCh || G.ch >= q.needCh) && (loc==='dragon_vale' ? q.masked : !q.masked)));
   const picks = pool.map(q => q).sort(() => Math.random()-.5).slice(0, 4);
   bd.list = picks.map(q => q.dynamic ? genDelivery(loc) : Object.assign({}, q, {c:0})).filter(Boolean);
   bd.day = G.day; return bd.list;
@@ -664,6 +673,14 @@ const LORE = [
   {ch:60, n:'Poison in Jade\'s Blood', t:'In the Cavern of Fireflies Devon found a slow-acting poison in Jade\'s body, building for some time and hidden on purpose. Its source is unknown. Devon helps her body resist it while they search for the truth.'},
   {ch:61, n:'Jenika\'s Curse', t:'Jenika Moon, cousin of the royal princes and healer of Dragonvale, believes love will only bring pain to those she cares about. She refused Sky for his own sake. As a child she overheard whispers of a secret concerning Devon and Roc that \"must never be known\". Dragonvale princes are raised away from their birth mothers.'},
   {ch:62, n:'The Erased Name', t:'The missing Healing Pavilion material makes a slow poison with few traces. Only someone with royal-level access could take it. Sally saw a man escorted in after dark. An old authorization record in the archives has its name scratched out, but the royal seal is real.'},
+  {ch:63, n:'House Arrest', t:'King Chadstone placed Prince Roc under house arrest after he provoked Devon in open court. The same page shows Roc weakened by dark-magic backlash and the effects of the severed bond.'},
+  {ch:64, n:'The Altan Proposal', t:'The Kingdom of Altan proposed a marriage alliance with Dragonvale and named Prince Roc as the candidate. The king hoped marriage would steady him. A second letter announced that the princess would first see Dragonvale for herself.'},
+  {ch:65, n:'The Trader Princess', t:'Princess Altan came to Dragonvale disguised as a travelling trader to judge Prince Roc. He and Delilah mocked her stall; Jade and Devon defended her. First impressions often reveal a person\'s true character.'},
+  {ch:66, n:'Princess Seraphina Altan', t:'Revealed before the court: the trader was the princess of Altan. A true alliance, she said, should be built on understanding, not on empty titles.'},
+  {ch:68, n:'The Loveless Marriage', t:'Seraphina Altan and Roc Chadstone married before the court. In private they agreed the marriage would stay political and nothing more.'},
+  {ch:69, n:'The Ravine Cave', t:'Roc\'s dark arts trace back to the ravine cave where Jade\'s cage once fell: ancient markings and a forbidden power. He accepted it. It is now consuming him.'},
+  {ch:71, n:'The Access Log', t:'The Restricted Archive Access Log shows Prince Roc Chadstone entering restricted storage on the 3rd, 5th, 8th and 11th Moon. The materials match those used to poison Levi, and the information was kept from the royal council.'},
+  {ch:73, n:'The Exile of Roc', t:'King Chadstone stripped Roc of his princely status and exiled him. Delilah went with him. Their daughter Liora was entrusted to Jade and Devon.'},
   {ch:99, n:'Faepool Territory', t:'A border region of forests and traditional villages. Something interferes with Jade\'s clairvoyance here.'},
   {ch:99, n:'The Hidden Message', t:'An unexpected message suggests the curse, Jade\'s visions and the people around her may be connected.'},
   {ch:99, n:'Ancient Records', t:'Records recovered from the Faepool ruins. The disturbances are not random: they belong to one pattern.'},

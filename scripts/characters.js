@@ -169,7 +169,7 @@ const CHARACTERS = {
   bond:null },
  seraphina:{
   n:'Seraphina Altan', icon:'🦅', cls:'Altan Blademaster', role:'Physical DPS (replaces Roc)', combat:'Physical Attack',
-  identity:'A foreign princess of the Altan line. Disciplined, proud and direct: she takes over the front line when Roc leaves the party (chapter 73). DRAFT: details to be confirmed from the comic.',
+  identity:'Princess of the Kingdom of Altan. Observant, proud and fair: she judges people by how they treat others. She takes the front line when Roc leaves the party (chapter 73).',
   style:['Curved sabre','Mounted techniques','Discipline'], strength:'Sustained high damage',
   weapon:'Altan Sabre', signature:'Falcon Banner',
   sigDesc:'Rallies the party and sharpens her own blade: ATK up for all, and her next strikes hit harder.',

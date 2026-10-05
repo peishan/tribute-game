@@ -39,3 +39,11 @@ Jade returns as Princess of Tribute and of Dragonvale, wife of a respected princ
 - Greyson missions 2-4 are main-story quests: wait for the chapters (not built as side content).
 - Masked contracts name the alias pair (the Crimson Phoenix and the Silent Dragon) in their text.
 - Seraphina arrives in chapter 65 (profile unlocked, INTRO_CH 65); chapter 66 is her official arrival reveal. She still joins the party at 73.
+
+## Chapters 63-73 (built from the pages) and the quest period
+- 63 house arrest; 64 Altan proposal; 65 Seraphina arrives disguised; 66 reveal; 67 engagement; 68 Roc and Seraphina marry (political, unconsummated); 69 source of Roc's dark arts (the ravine cave markings); 70 fading blade; 71 Restricted Archive access log names Roc on four Moons; 72 Delilah's choice; 73 Roc exiled, Liora entrusted to Jade and Devon, "one year later".
+- Quests start from 74. The Masked Contracts board opens when chapter 73 is complete. Dragonvale board: masked contracts (kill, demons, ruins, drakes) plus courier runs between Tribute and Dragonvale. Tribute boards keep their own contracts. Altan quests wait for the Altan unlock chapter.
+- Quest log: side popup (📜 in the top bar) lists active missions, contracts and bounties.
+- Levi's return and Sally's departure are at ch87 (return to Tribute).
+- Late empress line: archive investigation + mural (ch53-55) built; the rest waits for the chapters (Greyson missions 2-4 are chapter-locked main quests).
+- Levi poisoning line: "The Erased Name" (ch62) and "The Access Log" (ch71) built. The ravine cave has no location yet.
