@@ -65,6 +65,17 @@ function rBountyList(){
 }
 
 /* ---------------- TRAVEL TAB ---------------- */
+let mapView = null;
+const WORLD_MAPS = [
+  {id:'tribute', n:'Tribute', img:'assets/maps/tribute.webp', open:() => true},
+  {id:'dragonvale', n:'Dragonvale', img:'assets/maps/dragonvale.webp', open:() => locOpen('dragon_vale')},   // shows Dragonvale places: unlocks with Dragonvale
+];
+function rMaps(){
+  const cur = mapView || (LOCATIONS[G.loc].region==='dragon' ? 'dragonvale' : 'tribute');
+  const tabs = WORLD_MAPS.map(m => `<button class="${cur===m.id?'pri':''}" ${m.open()?'':'disabled'} onclick="mapView='${m.id}';render()">🗺️ ${m.open()?m.n:'???'}</button>`).join('');
+  const m = WORLD_MAPS.find(x => x.id===cur && x.open()) || WORLD_MAPS[0];
+  return `<h4>World maps</h4><div class="row" style="margin:4px 0">${tabs}</div><img class="pg" src="${m.img}" alt="${m.n} map" loading="lazy">`;
+}
 function rTravel(){
   if(G.voyage) return rVoyage();
   const L = LOCATIONS[G.loc], opts = travelOptions();
@@ -77,7 +88,7 @@ function rTravel(){
       return `<div class="sm" style="padding:2px 0;${open?'':'opacity:.5'}">${k===G.loc?'📍 ':''}${open?l.icon+' '+l.n+(G.visited[k]?'':' (new)'):'❔ ??? — '+unlockText(l.unlock)}</div>`; }).join(''); }).join('');
   return `<h2>Travel</h2><div class="sm">You are at <b>${L.icon} ${L.n}</b> · Day ${G.day} · 💰 ${G.gold}</div>${flashHtml()}
     <div class="sm" style="margin:4px 0">🐎 Horse carriage: land routes, road encounters. ⛵ Ship: sea and river voyages. Fares are paid up front; a lost fight turns you back.</div>
-    ${rows||'<div class="panel sm">No routes from here.</div>'}<div class="panel">${regions}</div>`;
+    ${rows||'<div class="panel sm">No routes from here.</div>'}${rMaps()}<div class="panel">${regions}</div>`;
 }
 function doTravelUi(i, to){
   origin = 'travel';
