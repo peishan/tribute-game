@@ -134,7 +134,7 @@ function rTraining(){
 function trainFight(){ origin='training'; startBattle({foes:PRESETS[trSel][1].map(f=>({key:f.key,lv:trLv})), rewards:false}); tab='battle'; render(); }
 
 /* ---------------- BATTLE ---------------- */
-const CHIP = {burn:'🔥',slow:'🐌',bind:'⛓️',charm:'💫',silence:'🤐',shield:'🛡️',regen:'💚',crit:'👁️'};
+const CHIP = {burn:'🔥',slow:'🐌',bind:'⛓️',charm:'💫',silence:'🤐',shield:'🛡️',regen:'💚',crit:'👁️',oath:'🤝'};
 function chips(u){
   let h = Object.keys(u.st).map(k=>`<i title="${k}">${CHIP[k]||k}</i>`).join('');
   u.bf.forEach(b=>{ h += `<i class="${b.m>=1?'up':'dn'}">${b.stat.toUpperCase()}${b.m>=1?'↑':'↓'}</i>`; });

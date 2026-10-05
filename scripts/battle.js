@@ -74,7 +74,7 @@ function advance(){
 }
 function endTurn(u){
   ['burn','slow','bind','charm','silence','crit'].forEach(k => { if(u.st[k] && --u.st[k].d <= 0) delete u.st[k]; });
-  ['shield','regen'].forEach(k => { if(u.st[k] && --u.st[k].d <= 0) delete u.st[k]; });
+  ['shield','regen','oath'].forEach(k => { if(u.st[k] && --u.st[k].d <= 0) delete u.st[k]; });
   u.bf = u.bf.filter(b => --b.d > 0);
   if(u.state && --u.state.d <= 0){ blog(u.name+'\'s '+(u.state.id==='awakened'?'Awakening':'Manifestation')+' fades.'); u.state = null; }
   u.guard = false;
@@ -101,6 +101,7 @@ function strike(src, tgt, s, opts){
   let crit = false;
   if(s.crit || src.st.crit || Math.random() < .08 + (src.critB||0)){ crit = true; d = Math.round(d*1.6); }
   if(!s.pair && !opts.noEvade && Math.random() < evaOf(tgt)){ blog(tgt.name+' evades '+src.name+'\'s '+s.n+'!'); return 0; }
+  s.landed = true;
   const dealt = hurt(tgt, d);
   blog(src.name+' uses '+s.n+' on '+tgt.name+': '+dealt+(crit?' CRIT!':''), src.ally?'':'foe');
   return dealt;
@@ -114,6 +115,8 @@ function applyFx(src, tgt, fx){
       tgt.st[fx.k] = {d:fx.d||2}; blog('  '+tgt.name+' is '+({burn:'burning',slow:'slowed',bind:'bound',charm:'charmed',silence:'silenced'})[fx.k]+'.'); break;
     case 'buff': tgt.bf.push({stat:fx.stat,m:fx.m,d:(fx.d||3)+1}); blog('  '+tgt.name+' '+fx.stat.toUpperCase()+(fx.m>=1?' up':' down')+'.'); break;
     case 'shield': tgt.st.shield = {v:Math.round(tgt.mhp*fx.v), d:(fx.d||3)+1}; blog('  '+tgt.name+' gains a barrier.'); break;
+    case 'mp': { const m = Math.min(tgt.mmp - tgt.mp, Math.round(tgt.mmp*(fx.v||.15))); tgt.mp += m; if(m>0) blog('  '+tgt.name+' regains '+m+' MP.','good'); break; }
+    case 'oath': tgt.st.oath = {d:(fx.d||3)+1}; blog('  '+tgt.name+' swears to stand between the party and harm: foes will target '+tgt.name+' and are struck back.','good'); break;
     case 'regen': tgt.st.regen = {v:fx.v, d:(fx.d||3)+1}; break;
     case 'crit': tgt.st.crit = {d:(fx.d||2)+1}; blog('  '+tgt.name+' sees the openings (crits).'); break;
     case 'cleanse': ['burn','slow','bind','charm','silence'].forEach(k => delete tgt.st[k]); blog('  '+tgt.name+' is cleansed.'); break;
@@ -188,12 +191,18 @@ function foeAct(f){
   const targets = alive(B.allies); if(!targets.length) return;
   let mv = AR(f.moves);
   if(f.st.silence && mv.spell) mv = f.moves.find(m => !m.spell) || f.moves[0];
-  const t = AR(targets);
+  const oath = targets.find(a => a.st.oath), t = oath || AR(targets);   // Protective Oath draws every attack
   const s = { n:mv.n, kind: mv.spell ? 'magic' : 'phys', pow:mv.pow, fx:mv.fx };
   const dealt = strike(f, t, s);
   if(dealt>0){
     if(mv.steal && f.stolen!==true){ const g = Math.min(G.gold, 8); if(B.spec.rewards){ G.gold -= g; } f.stolen = true; blog('  '+f.name+' lifts '+g+' gold!','bad'); }
     (mv.fx||[]).forEach(fx => { if(!t.dead && FOE_FX.includes(fx.k)) applyFx(f, t, fx); });
+  }
+  if(s.landed){
+    if(t.st.oath && !t.dead && !f.dead){      // the oath-bearer strikes back
+      const c = Math.max(1, Math.round(eff(t,'atk')*.6 - eff(f,'def')*.35));
+      f.hp = Math.max(0, f.hp - c); blog('  '+t.name+' strikes back at '+f.name+': '+c+'.','good'); if(f.hp<=0){ f.dead = true; blog(f.name+' falls!','bad'); }
+    }
   }
 }
 
