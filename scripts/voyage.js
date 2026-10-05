@@ -1,7 +1,7 @@
 /* =====================================================================
    TRIBUTE — THE VOYAGE TO DRAGONVALE (first sailing from the capital)
    A staged journey instead of a single roll. Time: each stage that takes a day advances the game clock
-   by 1 day (the party also recovers a little each day), so the maiden voyage is 5 days.
+   by 1 day (the party also recovers a little each day), so the maiden voyage is 6 days.
    Later crossings use the normal 4-day Eastern Sea Passage.
    State: G.voyage = {ri: route index, to, from, stage}; flag voyage_done after the first arrival.
    ===================================================================== */
@@ -20,6 +20,9 @@ const VOYAGE = [
   {t:'Ruins in the Shallows', icon:'🗿', day:1, btn:'Land at the ruins', fight:{foes:['stone_sentinel','relic_spirit'], off:2},
    text:'Pale stone rises from the shallows: towers and stairs worn smooth by centuries, carved with dragons coiled around a pearl. Old wardens still keep watch.',
    after:'The wardens fall silent. The carvings show a dragon and a girl with golden blood, and the pearl between them.', rw:{xp:240, gold:80, items:[{id:'relic_dust',qty:1}]}},
+  {t:'Into the Mist', icon:'🌫️', day:1, btn:'Hold your course',
+   text:'On the fifth day a pale mist closes in. The compass spins, the sails hang slack, and the sea turns still as glass. The sailors say no ship has found the kingdom by luck: it lets itself be found.',
+   loot:{xp:100, bond:2}, after:'The mist thins ahead, and the helmsman whispers a name.'},
   {t:'Dragonvale', icon:'🏯', day:1, btn:'Sail into the harbour', reveal:true,
    text:'Beyond the mist, a kingdom of white towers appeared above the waves.'},
 ];

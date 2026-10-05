@@ -106,7 +106,7 @@ const LOCATIONS = {
   reunion_area:{ n:'Reunion Area', region:'faepool', kind:'story', icon:'🏹', unlock:{ch:99},
     desc:'Where an old ally returns.',
     spots:[{id:'reunion_camp', kind:'tavern', n:'Reunion Camp', icon:'⛺', desc:'Share a meal around the fire.'}]},
-  dragon_vale:{ n:'Dragonvale', region:'dragon', kind:'hub', icon:'🐉', unlock:{ch:43},
+  dragon_vale:{ n:'Dragonvale', region:'dragon', kind:'hub', icon:'🐉', unlock:{ch:44, flag:'bracelet'},   // opens only once the king's bracelet is received (ch44), for the trip to save Sky; the first chapter there is 45
     desc:'The white palace on the waterfall cliffs. Jade is received only as a guest and kept within the inner palace. Court politics and the Royal Healing Pavilion.',
     spots:[
       {id:'guest_wing', kind:'tavern', n:'Guest Wing', icon:'🏮', ch:44, desc:'Jade\'s quarters. Rest, a shared meal, and palace gossip.'},

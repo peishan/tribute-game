@@ -197,4 +197,5 @@ New Rewards tab (scripts/rewards.js): 7-day daily login cycle and AFK rewards (u
 New Cast tab (profile sheets: assets/cast/*.webp, unlock at ch47 and ch65). Seraphina's final portrait replaces the placeholder.
 
 --- v7.3: VOYAGE ---
-First sailing capital -> Dragonvale is a staged 5-day voyage (scripts/voyage.js): storm, sea monster, abandoned island, ancient ruins, then the Dragonvale reveal. Later crossings use the normal 4-day passage.
+First sailing capital -> Dragonvale is a staged 6-day voyage (scripts/voyage.js): storm, sea monster, abandoned island, ancient ruins, mist, then the Dragonvale reveal. Later crossings use the normal 4-day passage.
+Dragonvale now unlocks only after ch44 with the bracelet (flag), for the trip to save Sky.
