@@ -34,3 +34,8 @@ Jade returns as Princess of Tribute and of Dragonvale, wife of a respected princ
 - Levi and Ripley are optional party members (Ripley follows Levi's travels): both stay recruited and can be toggled in or out of the active party.
 - Sally can be partied only while the party is in Dragonvale (after the return to Tribute, placeholder ch80, `isAway` in core.js): travelling elsewhere drops her from the active party and she cannot be selected until you are back. She is always contactable for rumours from the Missions tab.
 - Portrait specs: docs/PORTRAIT_PROMPTS.md.
+
+## Updates (author)
+- Greyson missions 2-4 are main-story quests: wait for the chapters (not built as side content).
+- Masked contracts name the alias pair (the Crimson Phoenix and the Silent Dragon) in their text.
+- Seraphina arrives in chapter 65 (profile unlocked, INTRO_CH 65); chapter 66 is her official arrival reveal. She still joins the party at 73.
