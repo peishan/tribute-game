@@ -22,3 +22,8 @@ Couple development is through teamwork, not romance scenes ("You always plan eve
 - Months 10-12: Roc's exile, Devon succession talk, final Dragonvale mission, return to Tribute
 
 Jade returns as Princess of Tribute and of Dragonvale, wife of a respected prince, and a hero among civilians.
+
+## Roc (Chad) arc and Seraphina (author's structure)
+- Ch 62-70: Roc gains dark-magic powers. Built: `chad_dark_arts` at ch63 (Dark Flame, Shadow Surge), `chad_dark_deep` at ch67 (Void Brand). Placement within 63-69 is provisional.
+- Ch 70-72: dark-magic backlash permanently alters his stats (flags chad_backlash_1/2/3 at 70/71/72; multipliers in `BACKLASH`, core.js): HP and DEF down, MAG up, then SPD down, then ATK up. Numbers are drafts.
+- Ch 73: Roc leaves the party permanently (CH_LEAVE). Seraphina Altan joins the same chapter as the primary physical DPS (replaces the Foreign Princess placeholder). Her kit (Altan Blademaster, sabre) is a DRAFT until the comic shows her; INTRO_CH 66 is a guess for her arrival.

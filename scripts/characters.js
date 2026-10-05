@@ -53,6 +53,8 @@ const CHARACTERS = {
    {id:'dragon_instinct',n:'Dragon Instinct',icon:'🐉',mp:8,kind:'support',tgt:'self',fx:[{k:'buff',stat:'atk',m:1.4,d:3},{k:'buff',stat:'spd',m:1.2,d:3}],req:{lvl:12},sig:true,desc:'SIGNATURE. ATK +40%, SPD +20% for 3 turns.'},
    {id:'acupoint_lock',n:'Acupoint Lock',icon:'🖐️',mp:6,kind:'phys',tgt:'foe',pow:.9,fx:[{k:'bind',d:2}],req:{lvl:6},desc:'Locks the foe\'s acupoints (as he did to Jade in chapter 3): it loses its turns.'},
    {id:'qi_draw',n:'Qi Draw',icon:'🌬️',mp:7,kind:'support',tgt:'ally',fx:[{k:'cleanse'},{k:'regen',v:.06,d:3}],req:{lvl:10},desc:'Draws poison and drugs out with his internal energy (chapter 13) and steadies the ally.'},
+   {id:'shadow_surge',n:'Shadow Surge',icon:'🌑',mp:9,kind:'magic',tgt:'foe',pow:2.5,req:{flag:'chad_dark_arts'},desc:'Dark power poured into a single strike. (He is learning the dark arts, chapters 63-69.)'},
+   {id:'void_brand',n:'Void Brand',icon:'☠️',mp:14,kind:'magic',tgt:'foes',pow:1.9,fx:[{k:'slow',d:2},{k:'burn',d:2}],req:{flag:'chad_dark_deep'},desc:'A creeping dark mark that slows and burns every foe. (Dark arts deepen, chapter 67.)'},
    {id:'dark_flame',n:'Dark Flame',icon:'🔥',mp:12,kind:'magic',tgt:'foes',pow:1.8,fx:[{k:'burn',d:3}],req:{flag:'chad_dark_arts'},desc:'Black fire. Only after he begins to learn the dark arts (later chapter).'},
   ],
   evo:{ tiers:[
@@ -163,11 +165,25 @@ const CHARACTERS = {
    {id:'silent_hawk',n:'Silent Hawk',tier:1,group:'path',req:{lvl:40},mult:{spd:1.2,hp:1.1},desc:'Scouting and ambush.',skills:[{id:'hawk_strike',n:'Hawk Strike',icon:'🦅',mp:12,kind:'phys',tgt:'foe',pow:3.0,crit:true,desc:'A guaranteed critical shot from the shadows.'}]},
   ]},
   bond:null },
- princess:{
-  n:'Foreign Princess', icon:'🎭', cls:'(class to be designed)', role:'TBD', combat:'TBD',
-  identity:'Final name and class still to be decided.', style:[], strength:'-', weapon:'-', signature:'-', sigDesc:'',
-  base:{hp:60,mp:25,atk:11,mag:8,def:8,spd:13}, grow:{hp:6,mp:2.5,atk:1.5,mag:1,def:.9,spd:1.2},
-  skills:[{id:'princess_strike',n:'Masked Strike',icon:'🎭',mp:0,kind:'phys',tgt:'foe',pow:1.3,req:{lvl:1},desc:'Placeholder.'}], evo:{tiers:[]}, bond:null, placeholder:true }
+ seraphina:{
+  n:'Seraphina Altan', icon:'🦅', cls:'Altan Blademaster', role:'Physical DPS (replaces Roc)', combat:'Physical Attack',
+  identity:'A foreign princess of the Altan line. Disciplined, proud and direct: she takes over the front line when Roc leaves the party (chapter 73). DRAFT: details to be confirmed from the comic.',
+  style:['Curved sabre','Mounted techniques','Discipline'], strength:'Sustained high damage',
+  weapon:'Altan Sabre', signature:'Falcon Banner',
+  sigDesc:'Rallies the party and sharpens her own blade: ATK up for all, and her next strikes hit harder.',
+  base:{hp:90,mp:20,atk:16,mag:5,def:9,spd:12}, grow:{hp:9.5,mp:2,atk:2.3,mag:.5,def:1.1,spd:1.1},
+  skills:[
+   {id:'sabre_rush',n:'Sabre Rush',icon:'🦅',mp:4,kind:'phys',tgt:'foe',pow:1.6,req:{lvl:1},desc:'A fast opening cut.'},
+   {id:'steppe_sweep',n:'Steppe Sweep',icon:'🌪️',mp:7,kind:'phys',tgt:'foes',pow:1.15,req:{lvl:4},desc:'A wide sweep across the field.'},
+   {id:'falcon_dive',n:'Falcon Dive',icon:'🪽',mp:6,kind:'phys',tgt:'foe',pow:2.2,req:{lvl:8},desc:'A diving strike with great momentum.'},
+   {id:'falcon_banner',n:'Falcon Banner',icon:'🚩',mp:10,kind:'support',tgt:'allies',fx:[{k:'buff',stat:'atk',m:1.25,d:3},{k:'buff',stat:'spd',m:1.1,d:3}],req:{lvl:12},sig:true,desc:'SIGNATURE. ATK +25% and SPD +10% for the whole party for 3 turns.'},
+   {id:'disciplined_stance',n:'Disciplined Stance',icon:'🧘',mp:5,kind:'support',tgt:'self',fx:[{k:'buff',stat:'def',m:1.4,d:3},{k:'buff',stat:'atk',m:1.2,d:3}],req:{lvl:6},desc:'Steadies her footing: DEF and ATK up.'},
+  ],
+  evo:{ tiers:[
+   {id:'altan_champion',n:'Altan Champion',tier:1,group:'route',req:{lvl:40},mult:{atk:1.25,hp:1.1,def:1.1},desc:'Honour and force.',skills:[{id:'champions_cut',n:'Champion\'s Cut',icon:'🏆',mp:12,kind:'phys',tgt:'foe',pow:2.9,fx:[{k:'buff',stat:'def',m:1.3,d:2,self:true}],desc:'A decisive blow that steels her guard.'}]},
+   {id:'wind_rider',n:'Wind Rider',tier:1,group:'route',req:{lvl:40},mult:{atk:1.2,spd:1.2},desc:'Speed and mobility.',skills:[{id:'wind_charge',n:'Wind Charge',icon:'💨',mp:13,kind:'phys',tgt:'foes',pow:1.9,desc:'A cavalry charge through the whole line.'}]},
+  ]},
+  bond:null }
 };
-const ROSTER = ['jade','chad','sky','sally','levi','ripley','devon','princess'];
+const ROSTER = ['jade','chad','sky','sally','levi','ripley','devon','seraphina'];
 const BOND_LEVELS = [0,20,60,120,200,300];   // cumulative bond points for bond lvl 0..5

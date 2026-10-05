@@ -137,6 +137,23 @@ ripley:[
     ps('d_p3','Pearl Memory','🔮',{mult:{mag:1.06,mp:1.08}}),
     nd('d_p4','Pearl Tide','🌊',sk('pearl_tide','Pearl Tide','🌊',18,'heal','allies',1.2,{fx:[{k:'cleanse'},{k:'regen',v:.05,d:3}]},'A tide of pearl light: heals and cleanses the party and mends it over time.'))]},
  ],
+ seraphina:[
+  {id:'blade',n:'Altan Blade',icon:'🗡️',desc:'Raw sabre damage.',nodes:[
+    ps('s_b1','Sabre Drill','💪',{mult:{atk:1.08}}),
+    nd('s_b2','Crescent Cut','🌙',sk('crescent_cut','Crescent Cut','🌙',7,'phys','foe',2.3,{fx:[{k:'buff',stat:'def',m:.8,d:3}]},'A curved cut that breaks guard (DEF down).')),
+    ps('s_b3','Killer Poise','🎯',{mult:{atk:1.04},critB:.08}),
+    nd('s_b4','Thousand Falcons','🦅',sk('thousand_falcons','Thousand Falcons','🦅',15,'phys','foe',3.3,{},'A storm of cuts ending in one decisive blow.'))]},
+  {id:'rider',n:'Rider',icon:'🐎',desc:'Speed and mobility.',nodes:[
+    ps('s_r1','Light Seat','👟',{mult:{spd:1.08}}),
+    nd('s_r2','Hit and Fade','👤',sk('hit_and_fade','Hit and Fade','👤',6,'support','self',0,{fx:[{k:'buff',stat:'eva',m:1.5,d:3},{k:'buff',stat:'spd',m:1.2,d:3}]},'Strikes and slips away: EVA and SPD up.')),
+    ps('s_r3','Wind at Her Back','🌬️',{mult:{spd:1.08},evaB:.04}),
+    nd('s_r4','Cavalry Charge','🐎',sk('cavalry_charge','Cavalry Charge','🐎',12,'phys','foes',1.6,{},'A thundering charge through every foe.'))]},
+  {id:'discipline',n:'Discipline',icon:'🏯',desc:'Royal training and endurance.',nodes:[
+    ps('s_d1','Tough Training','🛡️',{mult:{hp:1.08}}),
+    nd('s_d2','Unyielding','🦁',sk('unyielding','Unyielding','🦁',6,'support','self',0,{fx:[{k:'buff',stat:'def',m:1.5,d:3},{k:'buff',stat:'atk',m:1.2,d:3}]},'She holds the line: DEF and ATK up.')),
+    ps('s_d3','Royal Bearing','❤️',{mult:{hp:1.1,atk:1.05}}),
+    nd('s_d4','Banner of the Falcon','🚩',sk('banner_falcon','Banner of the Falcon','🚩',14,'support','allies',0,{fx:[{k:'buff',stat:'atk',m:1.35,d:3},{k:'buff',stat:'def',m:1.2,d:3}]},'Her banner rallies the whole party: ATK and DEF up.'))]},
+ ],
 };
 
 // Bond unlocks. lvl 1/4 = passive, lvl 2 = skill, lvl 5 = pair ultimate. (Bond 3 = existing pair skill, characters.js)
@@ -182,5 +199,11 @@ const BONDTREE = {
   {lvl:2, skill:sk('scholars_insight','Scholar\'s Insight','🔍',6,'support','foe',0,{fx:[{k:'analyze'},{k:'buff',stat:'def',m:.75,d:3}]},'A deep read of the enemy: weakness exposed (DEF down).'), n:'Scholar\'s Insight', icon:'🔍'},
   {lvl:4, passive:{mult:{mag:1.06,mp:1.08}}, n:'Pearl Resonance', icon:'🔮', desc:'Golden blood and the Pearl resonate.'},
   {lvl:5, skill:sk('pearl_and_blood','Pearl & Blood','🌅',26,'magic','foes',3.0,{pair:true},'ULTIMATE. Black Pearl and golden blood, fully united.'), n:'Pearl & Blood', icon:'🌅'},
+ ],
+ seraphina:[
+  {lvl:1, passive:{mult:{atk:1.05}}, n:'Allied Banner', icon:'🦅', desc:'Fighting beside Jade sharpens her.'},
+  {lvl:2, skill:sk('shield_sister','Shield Sister','🛡️',6,'support','ally',0,{fx:[{k:'buff',stat:'def',m:1.3,d:3}]},'Seraphina covers an ally: DEF up.'), n:'Shield Sister', icon:'🛡️'},
+  {lvl:4, passive:{mult:{atk:1.06,spd:1.06}}, n:'Matched Pace', icon:'⚔️', desc:'Her stride matches Jade\'s.'},
+  {lvl:5, skill:sk('falcon_and_phoenix','Falcon & Phoenix','🔥',22,'phys','foe',3.1,{pair:true},'ULTIMATE. Seraphina and Jade strike as one.'), n:'Falcon & Phoenix', icon:'🔥'},
  ],
 };
