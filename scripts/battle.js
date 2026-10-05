@@ -103,6 +103,7 @@ function strike(src, tgt, s, opts){
   if(!s.pair && !opts.noEvade && Math.random() < evaOf(tgt)){ blog(tgt.name+' evades '+src.name+'\'s '+s.n+'!'); return 0; }
   s.landed = true;
   const dealt = hurt(tgt, d);
+  if(s.purify && tgt.dead && tgt.traits.includes('corrupt')){ tgt.xp = Math.round(tgt.xp*1.3); blog('  ✨ '+tgt.name+' is purified (+30% XP).','good'); }
   blog(src.name+' uses '+s.n+' on '+tgt.name+': '+dealt+(crit?' CRIT!':''), src.ally?'':'foe');
   return dealt;
 }

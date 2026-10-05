@@ -208,3 +208,6 @@ World maps in the Travel tab (assets/maps/tribute.webp, dragonvale.webp; Dragonv
 
 --- v7.6: ICONS + CHAPTER 75 ---
 Final PWA icons (square, compass-only maskable, favicon). Chapter 75 'Whispers at the Border' sets the quest pattern: Main Story Quest with objectives (new 'steps' mission type), new area Dragonvale Border (border villages, ancient ruins; the source is locked until its chapter), Shade Beast enemy, masked contract.
+
+--- v7.7: CHAPTERS 74, 76, 77 + FIELD INVESTIGATION ARC ---
+Quest-period chapters 74-77 from the pages (art ch74/76/77.webp). Steps missions now support spot/visit/boss/mission/kill objectives (stepDone, checkSteps). New: Ancient Dragonvale Ruins dungeon (Forgotten Hall, Corrupted Spirit Chamber, Guardian boss, Seal Core boss), corruption gauge and purification (Devon: Spirit Purification, Twin Dragon Harmony), Jade: Guardian's Promise, story passives (Princess Guardian, Royal Spirit Authority), Spirit Caves and Cultivation Grounds, Dragonvale reputation.

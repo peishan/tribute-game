@@ -14,7 +14,7 @@ const INTRO_CH = { seraphina:65, chad:1, sky:1, sally:28, ripley:46, devon:47 };
 const CH_BOND = { 59:{chad:-9999}, 24:{sky:20}, 25:{chad:20}, 27:{chad:-20}, 29:{sky:20}, 31:{chad:-40}, 32:{levi:20}, 33:{levi:20, chad:-20}, 34:{levi:20, chad:-10}, 38:{levi:20, sky:20}, 39:{levi:20, chad:-5}, 40:{levi:20, sky:20} };   // banners: ch31 Jade+Chad -2, ch32 Jade+Levi +1, ch33 Jade+Levi +1 / Jade+Chad -1 (Sky+Levi and Chad+Sally banners not modelled)
 const profileKnown = id => isRecruited(id) || !!(G.left && G.left[id]) || (INTRO_CH[id]!==undefined && G.ch >= INTRO_CH[id]);
 // Story flags set when a chapter is completed (e.g. Levi's crossbow goes to Jade in ch30).
-const CH_FLAGS = { 87:['levi_reborn','sally_stays'], 73:['roc_exiled','liora_ward'], 63:['chad_dark_arts'], 67:['chad_dark_deep'], 70:['chad_backlash_1'], 71:['chad_backlash_2'], 72:['chad_backlash_3'], 59:['roc_severed'], 60:['jade_poisoned'], 58:['royal_attire'], 52:['sally_gossip'], 42:['jade_awakened'], 44:['bracelet'], 51:['sally_noble'], 0:['greyson_gift'], 38:['cleansing_touch'], 41:['greyson_arms'], 30:['crossbow'] };   // greyson_arms: dagger+flail unseal at the major battle, chapter 41 (per the author)
+const CH_FLAGS = { 75:['dv_purify','partner_actions'], 77:['princess_guardian','royal_spirit_authority','twin_dragon','dv_exploration'], 87:['levi_reborn','sally_stays'], 73:['roc_exiled','liora_ward'], 63:['chad_dark_arts'], 67:['chad_dark_deep'], 70:['chad_backlash_1'], 71:['chad_backlash_2'], 72:['chad_backlash_3'], 59:['roc_severed'], 60:['jade_poisoned'], 58:['royal_attire'], 52:['sally_gossip'], 42:['jade_awakened'], 44:['bracelet'], 51:['sally_noble'], 0:['greyson_gift'], 38:['cleansing_touch'], 41:['greyson_arms'], 30:['crossbow'] };   // greyson_arms: dagger+flail unseal at the major battle, chapter 41 (per the author)
 // Items handed over when a chapter completes. Greyson gives Jade a dagger and flail in the Prologue; she may not use them until the major battle (chapter TBD, flag greyson_arms).
 const CH_ITEMS = { 58:[{id:'royal_attire',qty:1},{id:'phoenix_guard',qty:1}], 44:[{id:'sealed_box',qty:1}], 0:[{id:'greyson_dagger',qty:1},{id:'greyson_flail',qty:1}] };   // (the communication bracelet comes from the Greyson mission m_bracelet, see world.js)
 
@@ -101,11 +101,17 @@ function nodeState(id, n){
 function takeNode(id, nid){ const n = nodeById(id,nid); if(!n || nodeState(id,n)!=='ready') return false; U(id).nodes.push(nid); save(); return true; }
 const respecCost = id => 50 + U(id).lv*10;
 function respec(id){ if(!U(id).nodes.length || G.gold < respecCost(id)) return false; G.gold -= respecCost(id); U(id).nodes = []; save(); return true; }
+// Passives granted by story flags (ch77 rewards): Jade 'Princess Guardian', Devon 'Royal Spirit Authority'
+const STORY_PASSIVES = [
+  {id:'jade', flag:'princess_guardian', mult:{hp:1.06, def:1.06}},
+  {id:'devon', flag:'royal_spirit_authority', mult:{mag:1.08, mp:1.05}},
+];
 function passivesOf(id){
   const out = {mult:{}, critB:0, evaB:0};
   const add = p => { if(!p) return; Object.keys(p.mult||{}).forEach(k => out.mult[k] = (out.mult[k]||1)*p.mult[k]); out.critB += p.critB||0; out.evaB += p.evaB||0; };
   if(!G || !U(id)) return out;
   if(SKILLTREE[id]) nodeList(id).forEach(n => { if(n.passive && U(id).nodes.includes(n.id)) add(n.passive); });
+  STORY_PASSIVES.forEach(sp => { if(sp.id===id && G.flags[sp.flag]) add(sp); });
   const bl = bondLevel(id);
   (BONDTREE[id]||[]).forEach(b => { if(b.passive && bl >= b.lvl) add(b.passive); });
   return out;
@@ -116,7 +122,7 @@ function reqText(r){
   if(!r) return '';
   if(r.lvl) return 'Level '+r.lvl;
   if(r.bond) return 'Bond '+r.bond+' with Jade';   // (Jade: average companion bond)
-  if(r.flag) return r.flag==='jade_awakened' ? 'Story: Jade\'s partial awakening (chapter 42)' : r.flag==='levi_reborn' ? 'Story: Levi returns reborn (chapter 87)' : r.flag==='chad_dark_arts' ? 'Story: Roc begins to learn the dark arts (chapter 63)' : r.flag==='chad_dark_deep' ? 'Story: Roc\'s dark arts deepen (chapter 67)' : r.flag==='sally_noble' ? 'Story: Sally\'s noble title (chapter 51)' : r.flag==='cleansing_touch' ? 'Story: Jade\'s restoring power (chapter 38)' : r.flag==='greyson_arms' ? 'Not usable until the major battle (chapter TBD)' : 'Story: '+r.flag;
+  if(r.flag) return r.flag==='jade_awakened' ? 'Story: Jade\'s partial awakening (chapter 42)' : r.flag==='dv_purify' ? 'Story: the border unrest (chapter 75)' : r.flag==='partner_actions' ? 'Story: the border unrest (chapter 75)' : r.flag==='twin_dragon' ? 'Story: the heart of the ruins (chapter 77)' : r.flag==='levi_reborn' ? 'Story: Levi returns reborn (chapter 87)' : r.flag==='chad_dark_arts' ? 'Story: Roc begins to learn the dark arts (chapter 63)' : r.flag==='chad_dark_deep' ? 'Story: Roc\'s dark arts deepen (chapter 67)' : r.flag==='sally_noble' ? 'Story: Sally\'s noble title (chapter 51)' : r.flag==='cleansing_touch' ? 'Story: Jade\'s restoring power (chapter 38)' : r.flag==='greyson_arms' ? 'Not usable until the major battle (chapter TBD)' : 'Story: '+r.flag;
   return '';
 }
 function reqMet(id, r){

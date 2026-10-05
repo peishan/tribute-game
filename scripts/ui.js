@@ -146,7 +146,7 @@ function chips(u){
 function rBattle(){
   if(!B) return '<div class="sm">No battle in progress.</div>';
   const tgtMode = B.ui.mode==='target', cand = tgtMode ? B.ui.cands.map(u=>u.uid) : [];
-  const foes = B.foes.map(f=>`<div class="unit foe ${f.dead?'dead':''} ${cand.includes(f.uid)?'tg':''}" ${cand.includes(f.uid)?`onclick="pickTarget('${f.uid}')"`:''}><div class="ic">${f.icon}</div><b>${f.name}</b>${bar(f.hp,f.mhp,'e')}<div class="sm">${f.hp}/${f.mhp}${f.known?' · DEF '+f.def:''}</div><div class="ch">${chips(f)}</div></div>`).join('');
+  const foes = B.foes.map(f=>`<div class="unit foe ${f.dead?'dead':''} ${cand.includes(f.uid)?'tg':''}" ${cand.includes(f.uid)?`onclick="pickTarget('${f.uid}')"`:''}><div class="ic">${f.icon}</div><b>${f.name}</b>${bar(f.hp,f.mhp,'e')}<div class="sm">${f.hp}/${f.mhp}${f.known?' · DEF '+f.def:''}</div>${f.traits&&f.traits.includes('corrupt')?`<div class="sm" style="color:var(--purple)">☠️ Corruption ${Math.round(100*f.hp/f.mhp)}%</div>`:''}<div class="ch">${chips(f)}</div></div>`).join('');
   const allies = B.allies.map(a=>`<div class="unit ally ${a.dead?'dead':''} ${B.cur===a&&!B.over?'cur':''} ${cand.includes(a.uid)?'tg':''}" ${cand.includes(a.uid)?`onclick="pickTarget('${a.uid}')"`:''}><img src="${a.img}"><div><b>${a.name.split(' ')[0]}</b>${bar(a.hp,a.mhp)}${bar(a.mp,a.mmp,'mpb')}<div class="sm">${a.hp}/${a.mhp} · ${a.mp}MP</div><div class="ch">${chips(a)}</div></div></div>`).join('');
   const log = B.log.slice(-9).map(l=>`<div class="lg ${l.cls}">${l.t}</div>`).join('');
   let act='';

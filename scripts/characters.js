@@ -22,6 +22,7 @@ const CHARACTERS = {
   sigDesc:'Enhanced perception, prophecy-related abilities, and a connection to Dima\'s legacy. Once per battle she awakens: all stats rise and her skills cost less.',
   base:{hp:80,mp:30,atk:11,mag:9,def:10,spd:9}, grow:{hp:9,mp:3,atk:1.6,mag:1.2,def:1.3,spd:.8},
   skills:[
+   {id:'guardians_promise',n:'Guardian\'s Promise',icon:'🤝',mp:9,kind:'support',tgt:'ally',fx:[{k:'shield',v:.3,d:3},{k:'buff',stat:'def',m:1.3,d:3}],req:{flag:'partner_actions'},desc:'PARTNER ACTION. Jade guards an ally (usually Devon while he casts): a barrier and DEF up.'},
    {id:'lunar_slash',n:'Lunar Lash',icon:'🌙',mp:5,kind:'phys',tgt:'foe',pow:1.7,req:{lvl:1},desc:'A crescent sweep of her whip.'},
    {id:'piercing_arrow',n:'Piercing Arrow',icon:'🏹',mp:3,kind:'phys',tgt:'foe',pow:1.4,req:{lvl:2},desc:'A precise bow shot from a distance.'},
    {id:'guard_stance',n:'Guard Stance',icon:'🛡️',mp:4,kind:'support',tgt:'self',fx:[{k:'buff',stat:'def',m:1.6,d:3}],req:{lvl:3},desc:'Raise her guard: DEF up for 3 turns.'},
@@ -138,6 +139,8 @@ const CHARACTERS = {
    {id:'analyze',n:'Scholar\'s Read',icon:'🔍',mp:3,kind:'support',tgt:'foe',fx:[{k:'analyze'},{k:'buff',stat:'def',m:.8,d:3}],req:{lvl:2},desc:'Reads the enemy like a scroll: reveals it and lowers its DEF.'},
    {id:'royal_command',n:'Royal Command',icon:'👑',mp:7,kind:'support',tgt:'ally',fx:[{k:'buff',stat:'atk',m:1.25,d:3},{k:'buff',stat:'spd',m:1.2,d:3}],req:{lvl:4},desc:'An order no one questions: an ally\'s ATK and SPD rise for 3 turns.'},
    {id:'dragon_veil',n:'Dragon Veil',icon:'🛡️',mp:12,kind:'support',tgt:'allies',fx:[{k:'shield',v:.18,d:3},{k:'buff',stat:'eva',m:1.25,d:3}],req:{lvl:7},desc:'A veil of dragon scale light: a barrier and evasion for the whole party.'},
+   {id:'spirit_purification',n:'Spirit Purification',icon:'✨',mp:9,kind:'magic',tgt:'foe',pow:1.5,vsCorrupt:2.2,purify:true,req:{flag:'dv_purify'},desc:'Royal magic that burns corruption away: double damage to corrupted foes, and a purified spirit gives bonus XP. Jade weakens, Devon purifies.'},
+   {id:'twin_dragon_harmony',n:'Twin Dragon Harmony',icon:'🐉',mp:20,kind:'magic',tgt:'foe',pow:3.0,pair:true,vsCorrupt:1.5,purify:true,req:{flag:'twin_dragon'},desc:'COUPLE SKILL. Jade strikes the core with her combat energy and Devon follows with purification. Needs Jade.'},
    {id:'protective_oath',n:'Protective Oath',icon:'🤝',mp:10,kind:'support',tgt:'self',fx:[{k:'buff',stat:'def',m:1.5,d:3},{k:'shield',v:.25,d:3},{k:'oath',d:3}],req:{lvl:10},desc:'He swears to stand between the party and harm for 3 turns: foes target only him, and he strikes back when hit. DEF up and a barrier.'},
    {id:'dragon_flame',n:'Dragon Flame',icon:'🔥',mp:8,kind:'magic',tgt:'foe',pow:2.1,elem:'fire',fx:[{k:'burn',d:2}],req:{lvl:13},desc:'Royal dragon fire, used sparingly.'},
    {id:'black_pearl_resonance',n:'Black Pearl Resonance',icon:'🔮',mp:16,kind:'support',tgt:'allies',pow:.6,fx:[{k:'cleanse'},{k:'buff',stat:'atk',m:1.2,d:3},{k:'buff',stat:'mag',m:1.25,d:3},{k:'regen',v:.05,d:3},{k:'mp',v:.2}],req:{lvl:14},sig:true,desc:'SIGNATURE. The Black Pearl answers: cleanses the party, raises ATK and MAG, restores 20% MP and mends them over 3 turns.'},
