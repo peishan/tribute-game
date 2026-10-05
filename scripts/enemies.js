@@ -105,7 +105,7 @@ const ITEMS = {
   forest_herb:{n:'Faepool Herb',icon:'🌿',type:'material',rarity:'common'}, xima_shard:{n:'Xima Shard',icon:'🔻',type:'material',rarity:'rare'},
   toad_gland:{n:'Toad Gland',icon:'🧫',type:'material',rarity:'common'}, sea_pearl:{n:'Sea Pearl',icon:'🦪',type:'material',rarity:'uncommon'},
   river_fish:{n:'River Fish',icon:'🐟',type:'material',rarity:'common'}, drake_scale:{n:'Drake Scale',icon:'🐉',type:'material',rarity:'uncommon'},
-  relic_dust:{n:'Relic Dust',icon:'✨',type:'material',rarity:'uncommon'}, pearl_fragment:{n:'Dragon Pearl Fragment',icon:'🔮',type:'material',rarity:'epic'},
+  relic_dust:{n:'Relic Dust',icon:'✨',type:'material',rarity:'uncommon'}, pearl_fragment:{n:'Black Pearl Fragment',icon:'🔮',type:'material',rarity:'epic'},
   greyson_dagger:{n:'Greyson\'s Dagger',icon:'🗡️',type:'gear',slot:'weapon',rarity:'epic'}, greyson_flail:{n:'Greyson\'s Flail',icon:'⛓️',type:'gear',slot:'weapon',rarity:'epic'},
   ridge_cloak:{n:'Ridge Cloak',icon:'🧥',type:'gear',slot:'armor',rarity:'rare'}, bandit_lords_blade:{n:'Bandit Lord\'s Blade',icon:'🗡️',type:'gear',slot:'weapon',rarity:'rare'},
   minion_sigil:{n:'Minion\'s Sigil',icon:'🔻',type:'gear',slot:'accessory',rarity:'uncommon'}, mouse_charm:{n:'Mouse\'s Lucky Charm',icon:'🐭',type:'gear',slot:'accessory',rarity:'uncommon'},

@@ -174,3 +174,6 @@ Devon not recruitable yet; Ripley/Chad exits/wedding pending. Dragon Vale hunt/s
 --- v6.5: RIPLEY + CHARACTER AUDIT ---
 Ripley (Court Archer, portrait assets/party/ripley.webp) joins ch52; Devon joins ch54; profiles visible from ch46/47. Ch52-54 have no entries yet (Journal shows "(?)").
 Disabled heroes no longer take an active slot; heroes who left keep their name in the party list. See docs/CHARACTER_AUDIT.md for the class/skill review against the comic.
+
+--- v6.6: AUDIT FIXES ---
+Jade golden blood at ch42 + Eclipse Saint; Chad martial kit (dark arts gated, flag chad_dark_arts); Sally info/charm recast; Levi Shadow Archer (bow); Black Pearl naming. See docs/CHARACTER_AUDIT.md.

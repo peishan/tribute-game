@@ -41,3 +41,11 @@ Legend: OK = consistent, FIX = conflicts with the comic, GAP = the comic shows s
 ## Others
 - Jenika Moon: NPC healer, correct (pavilion).
 - "Foreign Princess" placeholder: unchanged.
+
+## Applied (author decisions)
+- Jade: Golden Blood Awakening now unlocks at chapter 42 (flag jade_awakened); "Sword Saint" renamed **Eclipse Saint**.
+- Chad: Dark Flame removed from the Fallen Dragon Knight path (now martial: Ruthless Edge) and kept only as a locked skill behind flag chad_dark_arts (his later dark arts). Added Acupoint Lock and Qi Draw.
+- Sally: recast around information and charm (Gather Intel, Silken Illusion, Hidden Pin, Mirage Veil; skill-tree branch Dance -> Intel). Class name Shadow Dancer kept from the class doc.
+- Levi: now a **Shadow Archer** with a longbow (poisoned / pinning / net / silencing arrows, Hero of the Night signature); no magical bolts. The crossbow is Jade's (given in chapter 30).
+- Black Pearl = Dragon Pearl (same item): renamed in Devon's text, the codex and gear.
+- Not applied yet: Devon's Royal Command / Dragon Veil / Black Pearl Resonance / Protective Oath kit (awaiting a decision).

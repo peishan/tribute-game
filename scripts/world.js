@@ -113,9 +113,9 @@ const LOCATIONS = {
       {id:'pavilion', kind:'pavilion', n:'Royal Healing Pavilion', icon:'🌙', ch:46, desc:'Jenika Moon, the royal healer: full recovery, tonics and rare remedies. Sky recovers here.'},
       {id:'vale', kind:'hunt', n:'The Vale', icon:'🦎', ch:99, desc:'Drakes and old guardians (closed while Jade is confined to the palace).', pool:['vale_drake','stone_sentinel','relic_spirit'], lo:14},
       {id:'sanctuary', kind:'investigate', n:'Dragon Sanctuary', icon:'⛩️', need:3, ambush:['stone_sentinel','relic_spirit'], lo:15, party:'devon', ch:99,
-       desc:'Ancient trials and the Dragon Pearl storyline. Sealed.',
+       desc:'Ancient trials and the Black Pearl storyline. Sealed.',
        clues:['A sealed inscription describes the first Pearl bearer.','The wards answer to a royal dragon bloodline.','A trial chamber opens beneath the altar.'], rw:{xp:420, gold:150}},
-      {id:'pearl', kind:'boss', n:'Pearl Chamber', icon:'🔮', desc:'Special dungeon. Reward: Dragon Pearl related ability.', boss:'boss_pearl_guardian', add:['relic_spirit'], lo:18, party:'devon', ch:99, needFlag:'inv_sanctuary'}]},
+      {id:'pearl', kind:'boss', n:'Pearl Chamber', icon:'🔮', desc:'Special dungeon. Reward: Black Pearl related ability.', boss:'boss_pearl_guardian', add:['relic_spirit'], lo:18, party:'devon', ch:99, needFlag:'inv_sanctuary'}]},
   dima_sanctuary:{ n:'Dima\'s Sanctuary', region:'unknown', kind:'unknown', icon:'🌙', unlock:{ch:99}, desc:'Jade\'s destiny: bloodline revelations, true purpose.', spots:[]},
   xima_realm:{ n:'Xima Realm', region:'unknown', kind:'unknown', icon:'🌑', unlock:{ch:99}, desc:'Late game: ancient evil, the curse\'s source, final mysteries.', spots:[]},
 };
@@ -200,7 +200,7 @@ function grantReward(rw, label){
   msgs.unshift(label+' · '+[rw.xp&&'+'+rw.xp+' XP', rw.gold&&'+'+rw.gold+'g', rw.rep&&'+'+rw.rep+' renown'].filter(Boolean).join(' · '));
   return msgs;
 }
-const FLAG_LABEL = { bracelet:'Communication Bracelet', crossbow:'Enchanted Crossbow', greyson_arms:'Greyson\'s dagger and flail unsealed', greyson_gift:'Greyson\'s gift received', cleansing_touch:'Cleansing Touch (Jade)', sally_noble:'Sally\'s noble title and Noble Grace' };
+const FLAG_LABEL = { bracelet:'Communication Bracelet', crossbow:'Levi\'s Crossbow', jade_awakened:'Golden Blood Awakening', chad_dark_arts:'Chad\'s dark arts', greyson_arms:'Greyson\'s dagger and flail unsealed', greyson_gift:'Greyson\'s gift received', cleansing_touch:'Cleansing Touch (Jade)', sally_noble:'Sally\'s noble title and Noble Grace' };
 
 /* ---------------- DAY CLOCK ---------------- */
 function advanceDay(n){
@@ -634,5 +634,5 @@ const LORE = [
   {ch:99, n:'Ancient Magic', t:'Old magic leaves traces in stone and blood. Jade\'s visions respond to it.'},
   {ch:99, n:'Tribute History', t:'How the island came to be bound by the curse. Many pages are still missing.'},
   {ch:99, n:'Dima\'s Legacy', t:'Jade\'s golden blood connects her to Dima. The records speak of a sanctuary, location unknown.'},
-  {ch:99, n:'The Dragon Pearl', t:'Devon\'s inheritance. Dragon Empowerment, Ancient Dragon Knowledge and Dragon Manifestation.', party:'devon'},
+  {ch:99, n:'The Black Pearl', t:'Devon\'s inheritance. Dragon Empowerment, Ancient Dragon Knowledge and Dragon Manifestation.', party:'devon'},
 ];
