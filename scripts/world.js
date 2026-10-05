@@ -171,7 +171,7 @@ const ROUTES = [
   {a:'river_crossing', b:'dragon_vale', mode:'ship', n:'Upriver Voyage', days:2, fare:35, risk:.5, pool:SEA_POOL.concat(['river_serpent'])},
   {a:'dragon_vale', b:'cavern_fireflies', mode:'ship', n:'Moonlit Boat', days:1, fare:0, risk:0, pool:['storm_wisp']},
   {a:'capital', b:'dragon_vale', mode:'carriage', n:'Dragonvale Road', days:6, fare:60, risk:.45, pool:['road_bandit','vale_drake','forest_wolf']},
-  {a:'capital', b:'dragon_vale', mode:'ship', n:'Eastern Sea Passage', days:4, fare:90, risk:.4, pool:['sea_raider','storm_wisp']},
+  {a:'capital', b:'dragon_vale', mode:'ship', n:'Eastern Sea Passage', days:4, fare:90, risk:.4, voyage:true, pool:['sea_raider','storm_wisp']},
   {a:'faepool_forest', b:'dragon_vale', mode:'carriage', n:'Vale Road', days:3, fare:50, risk:.6, pool:['vale_drake','forest_wolf','xima_sprite']},
 ];
 const routesFrom = id => ROUTES.filter(r => r.a===id || r.b===id).map(r => ({r, to: r.a===id ? r.b : r.a}));
@@ -355,6 +355,7 @@ function travelOptions(){
 function startTravel(r, to){
   if(!locOpen(to) || !modeOpen(r.mode) || G.gold < r.fare) return;
   G.gold -= r.fare;
+  if(voyageRoute(r)) return startVoyage(ROUTES.indexOf(r), to);
   const ev = Math.random() < (r.mode==='ship' ? .5 : .35) ? AR(EVENTS[r.mode]) : null;
   PEND = {r, to, ev, from:G.loc};
   if(Math.random() < r.risk){
@@ -383,6 +384,7 @@ function finishTravel(){
   save(); return msgs;
 }
 function onBattleLost(){
+  if(G.voyage){ flash(['💀 The ship limps back to '+LOCATIONS[G.voyage.from].n+'. The fare is lost.']); voyageAbort(); return; }
   if(PEND){ flash(['💀 The party was driven back to '+LOCATIONS[PEND.from].n+'. The fare is lost.']); PEND = null; }
 }
 
