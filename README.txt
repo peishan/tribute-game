@@ -211,3 +211,6 @@ Final PWA icons (square, compass-only maskable, favicon). Chapter 75 'Whispers a
 
 --- v7.7: CHAPTERS 74, 76, 77 + FIELD INVESTIGATION ARC ---
 Quest-period chapters 74-77 from the pages (art ch74/76/77.webp). Steps missions now support spot/visit/boss/mission/kill objectives (stepDone, checkSteps). New: Ancient Dragonvale Ruins dungeon (Forgotten Hall, Corrupted Spirit Chamber, Guardian boss, Seal Core boss), corruption gauge and purification (Devon: Spirit Purification, Twin Dragon Harmony), Jade: Guardian's Promise, story passives (Princess Guardian, Royal Spirit Authority), Spirit Caves and Cultivation Grounds, Dragonvale reputation.
+
+--- v7.8: CHAPTERS 78-83, 85 ---
+Comic pages 78-83 and 85 (84 not provided yet; shows art pending). Moonveil Temple (location unlocks ch78; sanctuary, symbol, Black Pearl records, Pearl Chamber ch80), mission Moonveil Temple; Life in the Palace daily activities (ch83); Eastern Border village and mountain shrine + mission The Last Duty Before Departure (ch85). Aster crowned (ch82).

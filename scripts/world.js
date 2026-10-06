@@ -117,6 +117,7 @@ const LOCATIONS = {
       {id:'restricted_archive', kind:'investigate', n:'Restricted Archive', icon:'🗝️', ch:71, need:3, ambush:['stone_sentinel','relic_spirit'], lo:16,
        desc:'The sealed access ledgers of the Restricted Archive: who entered which vault, and when.', clues:['The access log: four entries (3rd, 5th, 8th and 11th Moon) for restricted storage, the alchemy archives, forbidden materials and the sealed vault.','The same rare materials listed in Levi\'s poisoning match the logged withdrawals.','A note that the entries were kept from the royal council.'], rw:{xp:1000, gold:350}},
       {id:'night_board', kind:'board', n:'Masked Contracts', icon:'🎭', ch:73, desc:'Quiet requests from ordinary people the court ignores. Jade and Devon answer them in disguise, as the Crimson Phoenix and the Silent Dragon.'},
+      {id:'palace_life', kind:'family', n:'Life in the Palace', icon:'🏡', ch:83, desc:'Train the guards, visit villages, study the magical archives, and spend an evening with Liora. Once a day each.'},
       {id:'pavilion', kind:'pavilion', n:'Royal Healing Pavilion', icon:'🌙', ch:46, img:'assets/areas/jenika.webp', desc:'Jenika Moon, the royal healer: full recovery, tonics and rare remedies. Sky recovers here.'},
       {id:'vale', kind:'hunt', n:'The Vale', icon:'🦎', ch:99, desc:'Drakes and old guardians (closed while Jade is confined to the palace).', pool:['vale_drake','stone_sentinel','relic_spirit'], lo:14},
       {id:'sanctuary', kind:'investigate', n:'Dragon Sanctuary', icon:'⛩️', need:3, ambush:['stone_sentinel','relic_spirit'], lo:15, party:'devon', ch:99,
@@ -137,6 +138,12 @@ const LOCATIONS = {
        clues:['The seals on the ruins are weakening.','Strange lights rise from the ruins at night and spirit beasts walk out of them.','The dark spiritual energy comes from deeper beneath Dragonvale: someone is trying to break what was once sealed here.'], rw:{xp:1100, gold:380}},
       {id:'ruins_depths', kind:'investigate', n:'Beneath the Ruins', icon:'🕳️', need:3, ambush:['shade_beast','relic_spirit'], lo:19, ch:99, needFlag:'inv_border_ruins', lockMsg:'🔒 The way beneath is sealed until the story reaches it',
        desc:'The source of the spirit disturbance. Sealed until the story reaches it.', clues:['...','...','...'], rw:{xp:1500, gold:500}},
+      {id:'eastern_village', kind:'investigate', n:'Eastern Border Village', icon:'🏘️', ch:85, need:3, ambush:['shade_beast','imp'], lo:21,
+       desc:'A remote village plagued by corrupted spirits and restless creatures. The disturbances have grown more frequent near the eastern border.',
+       clues:['The village has been living in fear: the barrier near the mountain shrine has weakened.','Reports from the eastern border: the disturbances are more frequent each week.','Greyson: the border disturbances, the awakened creatures and the weakened barriers are connected.'], rw:{xp:1500, gold:500}},
+      {id:'mountain_shrine', kind:'investigate', n:'Mountain Shrine Barrier', icon:'⛩️', ch:85, need:3, ambush:['shade_beast'], lo:21, needFlag:'inv_eastern_village', lockMsg:'🔒 Visit the eastern village first',
+       desc:'The ancient barrier near the mountain shrine, disturbed by lingering consequences of past forbidden events.',
+       clues:['The barrier is flickering: the seal needs royal magic to steady it.','The seal is healing under their combined strength: Dragonvale\'s spirit still endures.','As the final seal is restored: "The path continues beyond this kingdom."'], rw:{xp:1800, gold:600}},
       {id:'spirit_caves', kind:'gather', n:'Spirit Caves', icon:'🕳️', ch:77, desc:'Caves where purified spirit energy gathers. Herbs and relic dust.', loot:[{id:'forest_herb',qty:[1,3]},{id:'relic_dust',qty:[1,2]}], ambush:['shade_beast'], lo:18},
       {id:'cultivation_grounds', kind:'meditate', n:'Cultivation Grounds', icon:'🧘', ch:77, desc:'A calm terrace for meditation and spirit training.'},
       {id:'border_hunt', kind:'hunt', n:'Mountain Road', icon:'🐺', desc:'Shadow beasts prowl the old road at night.', pool:['shade_beast','imp'], lo:17}]},
@@ -150,6 +157,21 @@ const LOCATIONS = {
       {id:'guardian', kind:'boss', n:'Ancient Guardian Spirit', icon:'🗿', desc:'Not evil: it tests the one who comes. Jade breaks its core, Devon purifies.', boss:'boss_guardian_spirit', add:['relic_spirit'], lo:19, needFlag:'inv_forgotten_hall', lockMsg:'🔒 Investigate the Forgotten Hall first'},
       {id:'central_chamber', kind:'boss', n:'Central Chamber: the Seal Core', icon:'🐉', ch:77, desc:'The ancient seal core of Dragonvale, corrupted by whoever forced it to respond.', boss:'boss_spirit_core', add:['shade_beast','shade_beast'], lo:20, needFlag:'boss_boss_guardian_spirit', lockMsg:'🔒 The way is sealed until the Guardian is answered'},
       {id:'seal_study', kind:'investigate', n:'Who Stirred the Seals', icon:'📜', ch:99, need:3, ambush:['shade_beast'], lo:20, desc:'Evidence of the hidden hand. Sealed until the story reaches it.', clues:['...','...','...'], rw:{xp:2000, gold:600}}]},
+  moonveil_temple:{ n:'Moonveil Temple', region:'dragon', kind:'story', icon:'🌙', unlock:{ch:78},
+    desc:'A hidden mountain sanctuary in eastern Dragonvale, untouched by time. Crests of the old royal line, a stone tablet, and a sealed Pearl Chamber.',
+    spots:[
+      {id:'moonveil_sanctuary', kind:'investigate', n:'Hidden Sanctuary', icon:'🕯️', need:3, ambush:['relic_spirit','stone_sentinel'], lo:19,
+       desc:'The temple halls and the relic that shows Jade a memory.',
+       clues:['An ancient relic: Jade glimpses a radiant woman, a black pearl, and the faint silhouette of a child.','Crests on the walls match the symbols of the old Dragonvale royalty: their ancestors knew this place.','A sealed inner chamber, and an ancient stone tablet inside.'], rw:{xp:1300, gold:450}},
+      {id:'moonveil_symbol', kind:'investigate', n:'The Ancient Symbol', icon:'🌙', need:3, ambush:['relic_spirit'], lo:19, needFlag:'inv_moonveil_sanctuary', lockMsg:'🔒 Find the sealed chamber first',
+       desc:'Match the symbol from the ruins to the tablet and the temple records.',
+       clues:['The symbol predates the current royal line.','It also appears in Tribute\'s oldest records, even older than expected.','The tablet: "When the Gold Child awakens, the pearl shall return."'], rw:{xp:1300, gold:450}},
+      {id:'pearl_records', kind:'investigate', n:'Black Pearl Records', icon:'📖', need:3, ambush:['relic_spirit','stone_sentinel'], lo:20, needFlag:'inv_moonveil_symbol', lockMsg:'🔒 Uncover the meaning of the symbol first',
+       desc:'Study the tablet with Jenika in the Pavilion and the Royal Archives.',
+       clues:['Record 1: The Pearl chooses. The Black Pearl is not simply an object. It responds.','Record 2: The Gold Child carries the balance between light and darkness.','Record 3: The guardian walks beside the chosen, but the guardian is not named. Then the tablet reveals one name: Dima.'], rw:{xp:1400, gold:500}},
+      {id:'pearl_chamber', kind:'investigate', n:'Pearl Chamber', icon:'🔮', ch:80, need:3, ambush:['shade_wraith','relic_spirit'], lo:20,
+       desc:'A sealed chamber deep in the temple. A fragment of the Black Pearl rests at its centre and the air holds memories.',
+       clues:['Dima was not simply a spirit: a guardian, a protector, a bridge between light and darkness, tied to the pearl and to a child of light.','Pages are missing: someone deliberately removed the most important parts.','Touching the pearl: Dima, a woman of light, a weeping mother, a battlefield, a promise. "The child of gold shall return when darkness rises."'], rw:{xp:1600, gold:550}}]},
   dima_sanctuary:{ n:'Dima\'s Sanctuary', region:'unknown', kind:'unknown', icon:'🌙', unlock:{ch:99}, desc:'Jade\'s destiny: bloodline revelations, true purpose.', spots:[]},
   xima_realm:{ n:'Xima Realm', region:'unknown', kind:'unknown', icon:'🌑', unlock:{ch:99}, desc:'Late game: ancient evil, the curse\'s source, final mysteries.', spots:[]},
 };
@@ -167,7 +189,7 @@ function spotLock(sp){
 
 // Some story chapters must be started on location (PROVISIONAL). {chapter: locationId}
 // Chapters whose story must be started on location. Tune freely: {chapter: locationId}
-const CH_LOC = { 74:'dragon_vale', 76:'dragon_border', 77:'dragon_ruins', 75:'dragon_vale', 63:'dragon_vale', 64:'dragon_vale', 65:'dragon_vale', 66:'dragon_vale', 67:'dragon_vale', 68:'dragon_vale', 69:'dragon_vale', 70:'dragon_vale', 71:'dragon_vale', 72:'dragon_vale', 73:'dragon_vale', 61:'dragon_vale', 62:'dragon_vale', 57:'dragon_vale', 58:'dragon_vale', 59:'dragon_vale', 60:'cavern_fireflies', 52:'dragon_vale', 53:'dragon_vale', 54:'dragon_vale', 55:'dragon_vale', 56:'dragon_vale', 44:'capital', 45:'dragon_vale', 46:'dragon_vale', 47:'dragon_vale', 48:'dragon_vale', 49:'dragon_vale', 50:'dragon_vale', 51:'dragon_vale', 12:'dark_inn', 16:'vigil_village', 17:'vigil_village', 18:'vigil_village', 19:'faepool_forest', 21:'faepool_forest', 22:'booyeong_camp', 23:'booyeong_camp', 24:'booyeong_camp', 25:'faepool_forest', 26:'vigil_village', 27:'booyeong_camp', 28:'vigil_village', 29:'vigil_village', 30:'vigil_village' };   // chapters that must start on location (ch12 begins at the inn). More are added as chapters are converted.
+const CH_LOC = { 78:'dragon_vale', 79:'dragon_vale', 80:'moonveil_temple', 81:'dragon_vale', 82:'dragon_vale', 83:'dragon_vale', 85:'dragon_border', 74:'dragon_vale', 76:'dragon_border', 77:'dragon_ruins', 75:'dragon_vale', 63:'dragon_vale', 64:'dragon_vale', 65:'dragon_vale', 66:'dragon_vale', 67:'dragon_vale', 68:'dragon_vale', 69:'dragon_vale', 70:'dragon_vale', 71:'dragon_vale', 72:'dragon_vale', 73:'dragon_vale', 61:'dragon_vale', 62:'dragon_vale', 57:'dragon_vale', 58:'dragon_vale', 59:'dragon_vale', 60:'cavern_fireflies', 52:'dragon_vale', 53:'dragon_vale', 54:'dragon_vale', 55:'dragon_vale', 56:'dragon_vale', 44:'capital', 45:'dragon_vale', 46:'dragon_vale', 47:'dragon_vale', 48:'dragon_vale', 49:'dragon_vale', 50:'dragon_vale', 51:'dragon_vale', 12:'dark_inn', 16:'vigil_village', 17:'vigil_village', 18:'vigil_village', 19:'faepool_forest', 21:'faepool_forest', 22:'booyeong_camp', 23:'booyeong_camp', 24:'booyeong_camp', 25:'faepool_forest', 26:'vigil_village', 27:'booyeong_camp', 28:'vigil_village', 29:'vigil_village', 30:'vigil_village' };   // chapters that must start on location (ch12 begins at the inn). More are added as chapters are converted.
 // Boat travel unlocks with chapter 15 (the sea voyage before ch16). Set BRACELET_FROM_START=true if the Imperial Bracelet should exist from the Prologue.
 const SHIP_CH = 15, BRACELET_FROM_START = false;
 const modeOpen = m => m!=='ship' || G.ch >= SHIP_CH;
@@ -196,6 +218,7 @@ const ROUTES = [
   {a:'faepool_harbour', b:'river_crossing', mode:'ship', n:'River Mouth Voyage', days:2, fare:30, risk:.5, pool:SEA_POOL},
   {a:'river_crossing', b:'dragon_vale', mode:'ship', n:'Upriver Voyage', days:2, fare:35, risk:.5, pool:SEA_POOL.concat(['river_serpent'])},
   {a:'dragon_vale', b:'dragon_border', mode:'carriage', n:'Old Mountain Road', days:1, fare:20, risk:.5, pool:['shade_beast','imp']},
+  {a:'dragon_vale', b:'moonveil_temple', mode:'carriage', n:'Eastern Mountain Path', days:1, fare:25, risk:.35, pool:['relic_spirit','stone_sentinel']},
   {a:'dragon_border', b:'dragon_ruins', mode:'carriage', n:'Climb to the Ruins', days:1, fare:0, risk:.4, pool:['shade_beast','imp']},
   {a:'dragon_vale', b:'cavern_fireflies', mode:'ship', n:'Moonlit Boat', days:1, fare:0, risk:0, pool:['storm_wisp']},
   {a:'capital', b:'dragon_vale', mode:'carriage', n:'Dragonvale Road', days:6, fare:60, risk:.45, pool:['road_bandit','vale_drake','forest_wolf']},
@@ -237,7 +260,7 @@ function grantReward(rw, label){
   msgs.unshift(label+' · '+[rw.xp&&'+'+rw.xp+' XP', rw.gold&&'+'+rw.gold+'g', rw.rep&&'+'+rw.rep+' renown'].filter(Boolean).join(' · '));
   return msgs;
 }
-const FLAG_LABEL = { bracelet:'Communication Bracelet', crossbow:'Levi\'s Crossbow', jade_awakened:'Golden Blood Awakening', dv_purify:'Devon: Spirit Purification', partner_actions:'Partner action: Guardian\'s Promise', princess_guardian:'Jade: Princess Guardian', royal_spirit_authority:'Devon: Royal Spirit Authority', twin_dragon:'Couple skill: Twin Dragon Harmony', dv_exploration:'Dragonvale exploration areas', roc_exiled:'Roc is exiled from Dragonvale', liora_ward:'Liora is in Jade and Devon\'s care', levi_reborn:'Levi returns, reborn', sally_stays:'Sally stays in Dragonvale as a rumour source', chad_dark_deep:'Roc\'s dark arts deepen', chad_backlash_1:'Dark-magic backlash (Roc): stats permanently altered', chad_backlash_2:'Dark-magic backlash worsens (Roc)', chad_backlash_3:'Dark-magic backlash, final (Roc)', roc_severed:'Bond with Roc Chadwick severed', jade_poisoned:'Jade is poisoned (slow-acting)', royal_attire:'Daily Royal Attire and Phoenix Guard attire', sally_gossip:'Sally\'s court gossip', chad_dark_arts:'Chad\'s dark arts', greyson_arms:'Greyson\'s dagger and flail unsealed', greyson_gift:'Greyson\'s gift received', cleansing_touch:'Cleansing Touch (Jade)', sally_noble:'Sally\'s noble title and Noble Grace' };
+const FLAG_LABEL = { bracelet:'Communication Bracelet', crossbow:'Levi\'s Crossbow', jade_awakened:'Golden Blood Awakening', aster_crown_prince:'Aster is Crown Prince of Dragonvale', dv_purify:'Devon: Spirit Purification', partner_actions:'Partner action: Guardian\'s Promise', princess_guardian:'Jade: Princess Guardian', royal_spirit_authority:'Devon: Royal Spirit Authority', twin_dragon:'Couple skill: Twin Dragon Harmony', dv_exploration:'Dragonvale exploration areas', roc_exiled:'Roc is exiled from Dragonvale', liora_ward:'Liora is in Jade and Devon\'s care', levi_reborn:'Levi returns, reborn', sally_stays:'Sally stays in Dragonvale as a rumour source', chad_dark_deep:'Roc\'s dark arts deepen', chad_backlash_1:'Dark-magic backlash (Roc): stats permanently altered', chad_backlash_2:'Dark-magic backlash worsens (Roc)', chad_backlash_3:'Dark-magic backlash, final (Roc)', roc_severed:'Bond with Roc Chadwick severed', jade_poisoned:'Jade is poisoned (slow-acting)', royal_attire:'Daily Royal Attire and Phoenix Guard attire', sally_gossip:'Sally\'s court gossip', chad_dark_arts:'Chad\'s dark arts', greyson_arms:'Greyson\'s dagger and flail unsealed', greyson_gift:'Greyson\'s gift received', cleansing_touch:'Cleansing Touch (Jade)', sally_noble:'Sally\'s noble title and Noble Grace' };
 
 /* ---------------- DAY CLOCK ---------------- */
 function advanceDay(n){
@@ -282,6 +305,16 @@ const MISSIONS = [
      {label:'Protect the border settlements', kill:'shade_beast', need:8},
      {label:'Investigate who stirred Dragonvale\'s ancient seals', spot:'seal_study'}]}, rw:{xp:5000, gold:1800, rep:50},
    subj:'The seal core', body:'Someone has forced Dragonvale\'s oldest ward to respond. Stabilise what you can, protect the settlements, and find the hand behind it. — Greyson'},
+  {id:'m_moonveil', needCh:78, title:'Moonveil Temple', obj:{type:'steps', steps:[
+     {label:'Investigate the hidden sanctuary of the Moonveil Temple', spot:'moonveil_sanctuary'},
+     {label:'Uncover the meaning of the ancient symbol', spot:'moonveil_symbol'},
+     {label:'Search for clues about the Black Pearl', spot:'pearl_records'}]}, rw:{xp:4000, gold:1400, rep:30},
+   subj:'The Moonveil Temple', body:'An ancient mountain sanctuary called the Moonveil Temple is mentioned in our records. I believe it may hold important clues. I trust your judgment. Could you investigate it for me? — Greyson'},
+  {id:'m_last_duty', needCh:85, title:'The Last Duty Before Departure', obj:{type:'steps', steps:[
+     {label:'Investigate the border disturbances', spot:'eastern_village'},
+     {label:'Defeat the corrupted spirits', kill:'shade_beast', need:6},
+     {label:'Restore Dragonvale\'s ancient barrier', spot:'mountain_shrine'}]}, rw:{xp:6000, gold:2000, rep:60},
+   subj:'One matter only you can resolve', body:'Before you return to Tribute, there is one matter only you can resolve. The border disturbances, the awakened creatures and the weakened ancient barriers in Dragonvale are connected. I need you to finish this last duty. — Greyson'},
   // ---- DRAFT, NOT CANON (parked at ch99 until the real chapter text is converted) ----
   {id:'m_wild', needCh:99, title:'Beyond the Walls', obj:{type:'reach', loc:'tribute_wilderness'}, rw:{xp:120, gold:60},
    subj:'Your first mission outside the city', body:'The time has come to leave the capital. Take your companions out along the Imperial Road and see what the wilderness hides. Use the horse carriage; the roads are not always quiet. — Greyson'},
@@ -643,6 +676,22 @@ function rumourFree(){
   const hints = ['"They say people who walk into the northern forest never come out."','"Strangers have been asking about a girl with red thread in her hair."','"Watch who leaves the village after midnight."','"The old shrine was never meant to be used for that."'];
   return AR(hints);
 }
+const FAMILY_ACTS = {
+  guards:{n:'Train the palace guards', icon:'⚔️', msg:'Jade drills the guards: "Protection is a responsibility to our people."'},
+  villages:{n:'Visit the villages', icon:'🏘️', msg:'Jade listens to the villagers and offers her support.'},
+  archives:{n:'Study the magical archives', icon:'📚', msg:'Devon reviews magical research: "Knowledge today prevents crises tomorrow."'},
+  liora:{n:'An evening with Liora', icon:'🧸', msg:'An evening with Liora: herbs, embroidery and a quiet moment together.'},
+};
+function doFamily(k){
+  const a = FAMILY_ACTS[k]; if(!a) return [];
+  if(G.bondDay['fam_'+k] === G.day) return ['Already done today.'];
+  G.bondDay['fam_'+k] = G.day; const lv = avgPartyLv(), msgs = ['🏡 '+a.msg];
+  if(k==='guards'){ gainXp(40+lv*4, G.party).forEach(m => msgs.push(m)); G.rep += 2; msgs.push('+2 renown'); }
+  if(k==='villages'){ const g = 25+lv*3; G.gold += g; G.rep += 3; msgs.push('+'+g+'g, +3 renown'); if(Math.random()<.5) msgs.push('🗣️ '+AR(['A villager mentions strange lights near the eastern ridge.','Someone saw a stranger asking about the old shrines.','Children say the mountain spirits have been quiet lately.'])); }
+  if(k==='archives'){ gainXp(30+lv*3, ['devon','jade']).forEach(m => msgs.push(m)); }
+  if(k==='liora'){ const m = addBond('devon', 6); msgs.push('Bond with Devon +6'); if(m) msgs.push(m); }
+  return msgs.concat(advanceDay(1));
+}
 function doMeditate(){
   if(G.bondDay.med === G.day) return ['Jade has already meditated today.'];
   G.bondDay.med = G.day; const lv = U('jade').lv, msgs = ['⛩️ Jade meditates at the shrine. Her sight grows clearer. +'+(40+lv*4)+' XP (Jade)'];
@@ -756,6 +805,12 @@ const LORE = [
   {ch:74, n:'The King\'s Trust', t:'Greyson told Jade the poison, the forbidden materials and the unrest in the palace may be threads of the same knot, and asked her to watch the borders, the ruins and the court.'},
   {ch:76, n:'The Awakened Ruins', t:'Ancient Dragonvale runes at the border ruins glow again. They should have stayed sealed: something has deliberately awakened the site, and the surface is only the beginning.'},
   {ch:77, n:'The Seal Core of Dragonvale', t:'Beneath the ruins lies the ancient seal core of Dragonvale, forced awake by a hidden hand. Jade and Devon stabilised it. Someone is testing Dragonvale\'s ancient foundations.'},
+  {ch:78, n:'The Gold Child Tablet', t:'In a sealed chamber of the Moonveil Temple: "When the Gold Child awakens, the pearl shall return." The temple\'s crests match the symbols of the old Dragonvale royalty, and the same symbol appears in Tribute\'s oldest records.'},
+  {ch:79, n:'The Three Black Pearl Records', t:'Record 1: The Pearl chooses. Record 2: The Gold Child carries the balance. Record 3: The guardian walks beside the chosen, but the guardian is not named. The tablet then reveals one name: Dima.'},
+  {ch:80, n:'Dima, Guardian of the Balance', t:'Dima was once a guardian and protector tied to the Black Pearl and to a child of light: a guide, and a bridge between light and darkness. Pages about her were deliberately removed. In the Pearl Chamber: "The child of gold shall return when darkness rises."'},
+  {ch:82, n:'Crown Prince Aster', t:'Devon recommended his younger brother Prince Aster Chadstone for the crown. Aster is calm, learned and skilled in martial arts, and stayed away from politics. King Chadstone named him Crown Prince of Dragonvale.'},
+  {ch:83, n:'Liora', t:'Liora is growing quickly. Jenika says Dragonvale\'s energy flows differently, and her potential is remarkable. She learns herbs from Jenika and embroidery from the palace seamstresses.'},
+  {ch:85, n:'The Eastern Barrier', t:'The border disturbances, the awakened creatures and the weakened barriers of Dragonvale are connected. After the last seal was restored, a message appeared: "The path continues beyond this kingdom."'},
   {ch:99, n:'Faepool Territory', t:'A border region of forests and traditional villages. Something interferes with Jade\'s clairvoyance here.'},
   {ch:99, n:'The Hidden Message', t:'An unexpected message suggests the curse, Jade\'s visions and the people around her may be connected.'},
   {ch:99, n:'Ancient Records', t:'Records recovered from the Faepool ruins. The disturbances are not random: they belong to one pattern.'},
