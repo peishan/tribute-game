@@ -57,7 +57,7 @@ Jade returns as Princess of Tribute and of Dragonvale, wife of a respected princ
 
 ## Chapters 78-85 (84 missing)
 - 78 Echoes of the Forgotten Temple (mission box "Moonveil Temple"), 79 The Black Pearl Records (three records, name Dima), 80 The Shadow Behind the Pearl (Pearl Chamber, "The child of gold shall return when darkness rises"), 81 A Year of Peace, 82 The Crown Prince (Aster), 83 The Life We Build (Liora, Greyson: Tribute will need you again), 85 The Last Duty Before Departure (Greyson's mission 4).
-- Chapter 84 is not provided: journal shows it as art pending.
+- Chapter 84 (The Princess and the Child) and 86 (Farewell to Dragonvale) are built. Chapter 87 (return to Tribute) is next.
 - "Who stirred Dragonvale's ancient seals" (seal_study) is still locked on The Heart of the Ruins, as the author decided. The comic's own Moonveil box has different objectives, so that quest did not take the sealed objective.
 - The return to Tribute (Levi back, Sally stays) stays at ch87, so 86 is next.
 

@@ -214,3 +214,6 @@ Quest-period chapters 74-77 from the pages (art ch74/76/77.webp). Steps missions
 
 --- v7.8: CHAPTERS 78-83, 85 ---
 Comic pages 78-83 and 85 (84 not provided yet; shows art pending). Moonveil Temple (location unlocks ch78; sanctuary, symbol, Black Pearl records, Pearl Chamber ch80), mission Moonveil Temple; Life in the Palace daily activities (ch83); Eastern Border village and mountain shrine + mission The Last Duty Before Departure (ch85). Aster crowned (ch82).
+
+--- v7.9: CHAPTERS 84, 86 ---
+Liora at three (84) and the farewell (86). Dragonvale chapters 74-86 are complete; return to Tribute (87) next.
