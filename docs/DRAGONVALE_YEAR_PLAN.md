@@ -92,3 +92,8 @@ Jade returns as Princess of Tribute and of Dragonvale, wife of a respected princ
 ## Chapters 95-98 (back at court; 99 is the last Tribute chapter, 100 leaves Tribute)
 - 95 The Imperial Guardian Returns, 96 The Brother Who Remembers (Luck: from Jade's near-drowning), 97 The Advisor's Daughter, 98 The Missing Documents (Yvette went to the Western Regions in Year 814).
 - Quest boxes built as steps missions (m_guardian_returns, m_brother, m_advisors_daughter, m_missing_docs). Story-only objectives use the new step kind {chapter:n}: checked off when chapter n completes. The third Missing Documents objective (Sky's files) is sealed until the story reaches it.
+
+## Adrian Gold and the Imperial Network (built, scripts/network.js)
+- Unlocks at ch90. Support NPC, not playable. Tab "Network": Reports, Requests (use the contract log; reward gold/rep/materials + Adrian's hidden trust), Intelligence (kingdom records, history, enemy files, character files with early/late text, trust-gated Gold family lore), Letters (sibling banter, unlocked by trust), Kingdom Status (static meters; strategic decisions later).
+- Reserved: contact slot for Princess Evelyne Greyson / Royal Diplomatic Liaison, shown only when flag contact_evelyne is set (not set anywhere yet). The tree shows Adrian Gold > Tribute Intelligence > Unknown Contacts (locked). The game text does not mention his relationship with Greyson's sister, his past assignments or his influence.
+- Support network (not party): Greyson, Adrian, Jenika, King Chadstone. Ripley is an attendant (left the party at ch87), contrary to the author's playable list in the Adrian note; confirm if she should be playable again.

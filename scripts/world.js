@@ -615,6 +615,7 @@ function acceptQuest(loc, i){
 function abandonQuest(i){ G.quests.active.splice(i,1); save(); }
 function finishQuest(q, msgs){
   G.quests.active = G.quests.active.filter(x => x!==q); G.quests.done++;
+  if(q.trust && typeof addTrust==='function'){ addTrust(q.trust); const l = nextAdrianLetter(); if(l) msgs.push('💌 A letter from Adrian: "'+l+'"'); }
   grantReward(q.rw, '').forEach(m => msgs.push(m.replace(/^ · /,'')));
   msgs.unshift('🎯 Quest complete: '+q.name);
 }
