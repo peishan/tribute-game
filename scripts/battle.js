@@ -98,6 +98,7 @@ function strike(src, tgt, s, opts){
   let d = Math.max(1, Math.round(raw));
   if(s.antiMagic && tgt.traits.includes('magic')) d = Math.round(d*s.antiMagic);
   if(s.vsCorrupt && tgt.traits.includes('corrupt')) d = Math.round(d*s.vsCorrupt);
+  if(tgt.onlyBy && src.id!==tgt.onlyBy) d = Math.max(1, Math.round(d*(tgt.offMult||.2)));   // e.g. the Shadow Crown only truly yields to Roc's own blade
   let crit = false;
   if(s.crit || src.st.crit || Math.random() < .08 + (src.critB||0)){ crit = true; d = Math.round(d*1.6); }
   if(!s.pair && !opts.noEvade && Math.random() < evaOf(tgt)){ blog(tgt.name+' evades '+src.name+'\'s '+s.n+'!'); return 0; }

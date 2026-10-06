@@ -26,6 +26,11 @@ const GEAR = {
   // ---- Sky's recovery gear (ch87; he has had it since his recovery in Dragonvale) ----
   skyward_staff:{n:'Skyward Spirit Staff',icon:'🪄',slot:'weapon',rarity:'rare',bonus:{mag:9,mp:15},for:['sky']},
   healers_robes:{n:'Dragonvale Healer\'s Robes',icon:'🥼',slot:'armor',rarity:'rare',bonus:{def:6,hp:25,mag:3},for:['sky']},
+  childhood_charm:{n:'Childhood Flower Charm',icon:'🌸',slot:'accessory',rarity:'rare',bonus:{hp:20,def:3,mag:2},for:['jade']},
+  // ---- Guardian Raid rewards (Roc's arc) ----
+  shadow_mail:{n:'Shadow Mail',icon:'🛡️',slot:'armor',rarity:'epic',bonus:{def:9,hp:30,spd:2}},
+  forgotten_crown:{n:'Crown of the Forgotten Prince',icon:'🥀',slot:'accessory',rarity:'epic',bonus:{atk:4,mag:4,hp:20,spd:2}},
+  dragon_prince_blade:{n:'Dragon Prince\'s Blade',icon:'🗡️',slot:'weapon',rarity:'epic',bonus:{atk:15,spd:3,hp:15},for:['chad']},
   // ---- shop ----
   ash_bow:{n:'Ash Bow',icon:'🏹',slot:'weapon',rarity:'common',price:90,bonus:{atk:3,spd:1},for:['jade']},
   braided_whip:{n:'Braided Whip',icon:'🪢',slot:'weapon',rarity:'common',price:90,bonus:{atk:3,spd:1},for:['jade']},

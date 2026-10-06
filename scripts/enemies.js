@@ -57,6 +57,16 @@ const ENEMIES = {
     moves:[{n:'Stone Verdict',pow:1.5},{n:'Spirit Wave',pow:1.1,spell:true,fx:[{k:'slow',d:2}]},{n:'Ward Pulse',pow:.8,spell:true}],drops:[{id:'seal_fragment',chance:1}],desc:'An ancient protector that tests those who come. It is not evil.'},
   boss_spirit_core:{n:'Awakened Spirit Core',icon:'🐉',area:'dragon',boss:true,hp:760,atk:21,mag:20,def:13,spd:10,xp:340,gold:240,traits:['corrupt','magic'],
     moves:[{n:'Corrupted Surge',pow:1.4,spell:true},{n:'Seal Collapse',pow:1.1,spell:true,fx:[{k:'burn',d:2}]},{n:'Ancient Fury',pow:1.7}],drops:[{id:'seal_fragment',chance:1}],desc:'A corrupted ancient protector. It was never meant to be a villain.'},
+  boss_shadow_roc:{n:'The Shadow of Roc',icon:'🌑',area:'dragon',boss:true,hp:800,atk:20,mag:18,def:11,spd:12,xp:420,gold:300,traits:['corrupt','magic'],
+    moves:[{n:'Royal Ruin',pow:1.6},{n:'Jealous Blade',pow:1.3,fx:[{k:'slow',d:2}]},{n:'Curse of Ambition',pow:1.0,spell:true,fx:[{k:'silence',d:2}]},{n:'Shadow Crown',pow:1.2,spell:true,fx:[{k:'burn',d:2}]}],desc:'A dark knight in a broken version of Roc\'s royal armour, made of his regrets.'},
+  boss_shadow_roc_p2:{n:'The Shadow Crown',icon:'👑',area:'dragon',boss:true,hp:520,atk:22,mag:20,def:12,spd:12,xp:360,gold:260,traits:['corrupt','magic'],onlyBy:'chad',offMult:.15,
+    moves:[{n:'Royal Ruin',pow:1.6},{n:'Jealous Blade',pow:1.4,fx:[{k:'bind',d:1}]},{n:'Curse of Ambition',pow:1.1,spell:true,fx:[{k:'silence',d:2}]}],desc:'The Shadow\'s crowned second form. Only Roc\'s own blade truly hurts it.'},
+  boss_shadow_ambition:{n:'The Shadow of Ambition',icon:'🕷️',area:'dragon',boss:true,hp:1400,atk:25,mag:25,def:13,spd:13,xp:700,gold:500,traits:['corrupt','magic'],
+    moves:[{n:'Ruinous Crown',pow:1.7},{n:'Hollow Ambition',pow:1.2,spell:true,fx:[{k:'silence',d:2}]},{n:'Curse of Ambition',pow:1.2,spell:true,fx:[{k:'burn',d:3}]},{n:'Envious Blade',pow:1.4,fx:[{k:'slow',d:2}]}],desc:'Stronger dark magic, shadow clones and curses: ambition without a master.'},
+  boss_forgotten_prince:{n:'The Forgotten Prince',icon:'🥀',area:'dragon',boss:true,hp:2300,atk:30,mag:30,def:15,spd:14,xp:1200,gold:900,traits:['corrupt','magic'],
+    moves:[{n:'Fallen Crown',pow:1.9},{n:'Forgotten Verse',pow:1.3,spell:true,fx:[{k:'silence',d:2}]},{n:'Endless Regret',pow:1.3,spell:true,fx:[{k:'bind',d:1}]},{n:'Royal Ruin',pow:1.7},{n:'Curse of Ambition',pow:1.3,spell:true,fx:[{k:'burn',d:3}]}],desc:'A possible future where Roc never accepted himself.'},
+  shadow_clone:{n:'Shadow Clone',icon:'👤',area:'dragon',hp:150,atk:15,mag:12,def:7,spd:12,xp:60,gold:30,traits:['corrupt'],
+    moves:[{n:'Echo Strike',pow:1.1},{n:'Dark Echo',pow:.9,spell:true}],drops:[{id:'dark_essence',chance:.5}],desc:'An echo of the prince\'s regrets.'},
   boss_demon_warden:{n:'Demon Warden',icon:'😈',area:'demon',boss:true,hp:680,atk:18,mag:22,def:12,spd:11,xp:300,gold:210,traits:['magic'],
     moves:[{n:'Hellfire',pow:1.6,spell:true,fx:[{k:'burn',d:3}]},{n:'Dread Gaze',pow:1,spell:true,fx:[{k:'slow',d:2}]},{n:'Crushing Fist',pow:1.8}],desc:'Placeholder boss.'},
   // ---- Faepool forest / swamp, river & sea, Dragon Vale (PROVISIONAL — rename / retune per story) ----
@@ -96,7 +106,7 @@ function mkEnemy(key, lv){
   return { key, name:e.n, icon:e.icon, boss:!!e.boss, elite:!!e.elite, traits:e.traits||[], moves:e.moves, drops:e.drops||[],
     hp:Math.round(e.hp*m), mhp:Math.round(e.hp*m), mp:0, mmp:0,
     atk:Math.round(e.atk*m), mag:Math.round(e.mag*m), def:Math.round(e.def*m), spd:Math.round(e.spd*(1+(lv-1)*.02)),
-    xp:Math.round(e.xp*x), gold:Math.round(e.gold*x) };
+    xp:Math.round(e.xp*x), gold:Math.round(e.gold*x), onlyBy:e.onlyBy, offMult:e.offMult };
 }
 
 /* ---- items (materials/consumables now; gear slots reserved for the Equipment system) ---- */
@@ -111,6 +121,7 @@ const ITEMS = {
   forest_herb:{n:'Faepool Herb',icon:'🌿',type:'material',rarity:'common'}, xima_shard:{n:'Xima Shard',icon:'🔻',type:'material',rarity:'rare'},
   toad_gland:{n:'Toad Gland',icon:'🧫',type:'material',rarity:'common'}, sea_pearl:{n:'Sea Pearl',icon:'🦪',type:'material',rarity:'uncommon'},
   river_fish:{n:'River Fish',icon:'🐟',type:'material',rarity:'common'}, drake_scale:{n:'Drake Scale',icon:'🐉',type:'material',rarity:'uncommon'},
+  dark_essence:{n:'Dark Essence',icon:'🌑',type:'material',rarity:'uncommon'}, dragon_crystal:{n:'Dragon Crystal',icon:'💎',type:'material',rarity:'rare'}, royal_sigil:{n:'Royal Sigil',icon:'🔱',type:'material',rarity:'rare'}, shadow_steel:{n:'Shadow Steel',icon:'⛓️',type:'material',rarity:'epic'},
   seal_fragment:{n:'Dragonvale Seal Fragment',icon:'🔰',type:'material',rarity:'epic'}, relic_dust:{n:'Relic Dust',icon:'✨',type:'material',rarity:'uncommon'}, pearl_fragment:{n:'Black Pearl Fragment',icon:'🔮',type:'material',rarity:'epic'},
   greyson_dagger:{n:'Greyson\'s Dagger',icon:'🗡️',type:'gear',slot:'weapon',rarity:'epic'}, greyson_flail:{n:'Greyson\'s Flail',icon:'⛓️',type:'gear',slot:'weapon',rarity:'epic'},
   ridge_cloak:{n:'Ridge Cloak',icon:'🧥',type:'gear',slot:'armor',rarity:'rare'}, bandit_lords_blade:{n:'Bandit Lord\'s Blade',icon:'🗡️',type:'gear',slot:'weapon',rarity:'rare'},
@@ -125,6 +136,10 @@ const ITEMS = {
    guaranteed: always drop.  rolls: independent chance rolls.  firstClear: only on the first win.
    qty: [min,max]. Bosses use these; normal enemies use their own `drops`. */
 const LOOT = {
+  boss_shadow_roc:{guaranteed:[{id:'dark_essence',qty:[2,3]},{id:'dragon_crystal',qty:[1,1]}],rolls:[{id:'royal_sigil',chance:.35},{id:'shadow_steel',chance:.1}],firstClear:[{id:'royal_sigil',qty:[1,1]}]},
+  boss_shadow_roc_p2:{guaranteed:[{id:'dark_essence',qty:[2,2]}],rolls:[{id:'dragon_crystal',chance:.4}],firstClear:[{id:'dragon_crystal',qty:[1,1]}]},
+  boss_shadow_ambition:{guaranteed:[{id:'dark_essence',qty:[3,4]},{id:'dragon_crystal',qty:[1,2]}],rolls:[{id:'royal_sigil',chance:.5},{id:'shadow_steel',chance:.25},{id:'shadow_mail',chance:.12}],firstClear:[{id:'shadow_steel',qty:[1,1]}]},
+  boss_forgotten_prince:{guaranteed:[{id:'dark_essence',qty:[4,5]},{id:'dragon_crystal',qty:[2,3]},{id:'royal_sigil',qty:[1,2]}],rolls:[{id:'shadow_steel',chance:.5},{id:'shadow_mail',chance:.25},{id:'forgotten_crown',chance:.15}],firstClear:[{id:'forgotten_crown',qty:[1,1]}]},
   boss_bandit_chief:{guaranteed:[{id:'bandit_sash',qty:[2,3]}],rolls:[{id:'chiefs_cleaver',chance:.2},{id:'herbal_tonic',chance:.6,qty:[1,2]}],firstClear:[{id:'coin_pouch',qty:[2,2]}]},
   boss_masked_leader:{guaranteed:[{id:'assassin_mask',qty:[1,1]}],rolls:[{id:'venomed_cloak',chance:.2},{id:'venom_vial',chance:.6,qty:[1,3]}],firstClear:[{id:'herbal_tonic',qty:[3,3]}]},
   boss_demon_warden:{guaranteed:[{id:'demon_ash',qty:[3,5]}],rolls:[{id:'warden_sigil',chance:.15},{id:'shade_essence',chance:.5,qty:[1,2]}],firstClear:[{id:'shade_essence',qty:[1,1]}]},

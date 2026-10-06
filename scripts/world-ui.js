@@ -129,7 +129,7 @@ function rSpot(L, sp){
       body = `<div class="panel">${rows}</div><div class="sm">Draft entries — more unlock with the story. The Bestiary is a separate tab.</div>`; break; }
     case 'pavilion': {
       const rec = RECIPES.map(r => { const have = Object.keys(r.need).every(k => (G.inv[k]||0) >= r.need[k]), cost = Object.keys(r.need).map(k => ITEMS[k].icon+' '+ITEMS[k].n+' ×'+r.need[k]).join(', ');
-        return `<div class="ev ${have?'':'locked'}"><div><b>${ITEMS[r.out].icon} ${ITEMS[r.out].n}</b> <span class="sm">${useText(USE[r.out])}</span><div class="sm">${cost} · ${r.gold}g</div></div><button ${have&&G.gold>=r.gold?'':'disabled'} onclick="act(craftAt,'${r.out}')">Craft</button></div>`; }).join('');
+        return `<div class="ev ${have?'':'locked'}"><div><b>${ITEMS[r.out].icon} ${ITEMS[r.out].n}</b> <span class="sm">${USE[r.out]?useText(USE[r.out]):'gear · '+bonusText(GEAR[r.out].bonus)}</span><div class="sm">${cost} · ${r.gold}g</div></div><button ${have&&G.gold>=r.gold?'':'disabled'} onclick="act(craftAt,'${r.out}')">Craft</button></div>`; }).join('');
       body = `<div class="panel"><div class="row" style="align-items:center;gap:10px;flex-wrap:nowrap"><img src="assets/areas/jenika_512.webp" alt="Jenika Moon" style="width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)"><div><b>🌙 Jenika Moon</b><div class="sm">"Rest here, and let me look at you all."</div></div></div>
         <button class="pri" onclick="act(pavilionRest)">Restore the party (once per day, free)</button></div><h4>Tonics & remedies</h4>${rec}`; break; }
     case 'village':
@@ -141,6 +141,22 @@ function rSpot(L, sp){
       body = `<div class="panel"><div class="sm">A tea and herb stall. The stallholder says the best gifts are the ones that ask for nothing back.</div>
         <div class="ev ${G.flags.ghost_gift_bought?'locked':''}"><div><b>🍵 Moon-Blossom tea set and herbs</b><div class="sm">${GHOST_GIFT_PRICE}g · a gift for someone who asks for nothing</div></div><button ${G.flags.ghost_gift_bought||G.gold<GHOST_GIFT_PRICE?'disabled':''} onclick="act(buyGhostGift)">Buy</button></div>
         ${G.flags.ghost_gift_bought&&!G.flags.ghost_gifted?`<button class="pri" ${G.party.includes('ghost_healer')?'':'disabled'} onclick="act(giveGhostGift)">Give the gift to the Ghost Healer</button>`:''}${G.flags.ghost_gifted?'<div class="sm">✔ Given.</div>':''}</div>`; break;
+    case 'trial': {
+      const st = trialStage(), step = (label, state, btn) => `<div class="ev ${state==='done'?'taken':state==='now'?'ready':'locked'}"><div><b>${label}</b></div>${btn||''}</div>`;
+      const go = (fn, text, off) => `<button class="pri" ${off?'disabled':''} onclick="origin='here';const r=${fn}();if(r==='battle'){tab='battle'}else{flash(r||[]);save()}render()">${text}</button>`;
+      body = `<div class="panel"><div class="sm">An optional arc. Nothing in the main story depends on it. Roc was never evil, only lost: this is whether you choose to save him.</div>
+        ${step('1. The Shadow of Roc (the party alone)', G.flags.roc_trial_p1?'done':st==='phase1'?'now':'wait', st==='phase1'?go('trialPhase1','Face the Shadow'):'')}
+        ${step('2. The Shadow Crown (Roc joins; only his blade truly hurts it)', G.flags.roc_trial_p2?'done':st==='phase2'?'now':'wait', st==='phase2'?go('trialPhase2','Fight with Roc'):'')}
+        ${step('3. Purification (Jade, Devon and Sky together; Jenika\'s medicine)', G.flags.roc_purified?'done':st==='purify'?'now':'wait', st==='purify'?go('trialPurify','Begin the purification', !purifyReady()):'')}
+        ${G.flags.roc_purified?'<div class="sm">✔ Roc survives: Fallen Dragon Prince. His dark magic is now a Dark Dragon Aura.</div>':''}</div>`; break; }
+    case 'raid': {
+      const rows = RAID_LEVELS.map(L => { const open = raidOpen(L), left = raidAttempts(L.n), cleared = G.flags['raid_'+L.n], e = ENEMIES[L.key];
+        return `<div class="ev ${open?'':'locked'}"><div><b>${e.icon} Level ${L.n}: ${L.name}</b> ${cleared?'<span class="sm">· cleared</span>':''}<div class="sm">${L.desc}</div><div class="sm">Attempts today: ${left}/${RAID_ATTEMPTS}${open?'':' · 🔒 clear level '+(L.n-1)+' first'}</div></div>
+          <button class="pri" ${open&&left>0?'':'disabled'} onclick="origin='here';raidStart(${L.n});tab='battle';render()">Challenge</button></div>`; }).join('');
+      body = `<div class="panel"><div class="sm">Repeatable. Rewards: Dark Essence, Dragon Crystal, Royal Sigil; rare Shadow Steel, Shadow Mail, the Crown of the Forgotten Prince. Craft Dragon Prince's Blade at the Healing Pavilion.</div></div>${rows}`; break; }
+    case 'goldhome':
+      body = `<div class="panel"><div class="sm">The Gold family home. Each activity can be done once per day. Day ${G.day}.</div>${Object.keys(HOME_ACTS).map(k => { const a = HOME_ACTS[k], done = G.bondDay['home_'+k]===G.day;
+        return `<div class="ev ${done?'locked':''}"><div><b>${a.icon} ${a.n}</b></div><button ${done?'disabled':''} onclick="act(doHome,'${k}')">${done?'Done':'Do'}</button></div>`; }).join('')}</div>`; break;
     case 'family':
       body = `<div class="panel"><div class="sm">Life in the palace. Each activity can be done once per day. Day ${G.day}.</div>${Object.keys(FAMILY_ACTS).map(k => { const a = FAMILY_ACTS[k], done = G.bondDay['fam_'+k]===G.day;
         return `<div class="ev ${done?'locked':''}"><div><b>${a.icon} ${a.n}</b></div><button ${done?'disabled':''} onclick="act(doFamily,'${k}')">${done?'Done':'Do'}</button></div>`; }).join('')}</div>`; break;

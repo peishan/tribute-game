@@ -53,6 +53,7 @@ function buyConsumable(k){
 
 /* ---- Royal Healing Pavilion (Jenika Moon, Dragonvale) ---- */
 const RECIPES = [
+  {out:'dragon_prince_blade', need:{dark_essence:5, dragon_crystal:3, royal_sigil:2, shadow_steel:1}, gold:400},
   {out:'moon_tonic', need:{forest_herb:4}, gold:20},
   {out:'purify_elixir', need:{forest_herb:2, demon_ash:1}, gold:25},
   {out:'spirit_potion', need:{forest_herb:2, xima_shard:1}, gold:30},

@@ -73,3 +73,14 @@ Jade returns as Princess of Tribute and of Dragonvale, wife of a respected princ
 - No battle. Ghost Healer joins as a slotless companion (always fights with the party, not one of the four active slots; characters.js `companion:true`). Travels with the party only for a while (departure chapter TBD). Portrait is a crop of the chapter 88 page: replace assets/party/ghost_healer.webp with proper art.
 - Quest A Gift for the Ghost Healer: buy a gift at the Moon-Blossom Tea Stall (capital, 120g), give it to the Ghost Healer; unlocks Ancient Remedy and bond.
 - Future (chapter-locked): Levi revisits the Ghost Healer; they may enhance Sky's healing; Sky's forgotten past.
+
+## Chapters 89-94: back in Tribute (the week of rest)
+- 89 Return to Tribute (one week of rest: party fully restored), 90 The Gold Reunion (Unique Gold, Elara Valor, Adrian Gold; Childhood Flower Charm), 91 The Mother's Question, 92 The Missing Sister (Yvette Sue Valen), 93 The Boy Who Looks Like Sue, 94 The Unanswered Bloodline (Sky's lost light green jade pendant).
+- Built: Gold Residence location, family activities, mission The Missing Sister (second objective sealed: Yvette's trail), Sky bond +10 at 93 and 94.
+- Open: Sky's origin and the pendant (future quest); the Ghost Healer may enhance Sky's healing.
+
+## Optional arc: The Fallen Prince's Trial + Guardian Raid (built, scripts/raid.js)
+- Location Abyssal Frontier (unlocks ch75, via the Exile Road from the Dragonvale Border). Mission m_fallen_trial (optional, Greyson's rumour letter): investigate Exile Trail; Phase 1 vs The Shadow of Roc (party only); Phase 2 vs The Shadow Crown with Roc as a temporary ally (only Roc's own blows truly hurt it); Purification (needs Jade, Devon and Sky; Jenika's medicine narrated).
+- Result: flags roc_purified and roc_reborn: Roc's class label becomes Fallen Dragon Prince, skill Dark Dragon Aura. Roc stays out of the party for now.
+- Guardian Raid (after purification): L1 Shadow of Roc, L2 Shadow of Ambition (clones), L3 The Forgotten Prince. 3 attempts per level per day. L2 needs L1 cleared, L3 needs L2. Drops: Dark Essence, Dragon Crystal, Royal Sigil, rare Shadow Steel, Shadow Mail, Crown of the Forgotten Prince. Craft Dragon Prince's Blade (Roc's weapon) at the Healing Pavilion.
+- Not built: Roc appearing in the final war (purified: with dragon power; not purified: weakened). Hook is the flag roc_purified.
