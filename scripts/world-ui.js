@@ -145,13 +145,13 @@ function rSpot(L, sp){
       const st = trialStage(), step = (label, state, btn) => `<div class="ev ${state==='done'?'taken':state==='now'?'ready':'locked'}"><div><b>${label}</b></div>${btn||''}</div>`;
       const go = (fn, text, off) => `<button class="pri" ${off?'disabled':''} onclick="origin='here';const r=${fn}();if(r==='battle'){tab='battle'}else{flash(r||[]);save()}render()">${text}</button>`;
       body = `<div class="panel"><div class="sm">An optional arc. Nothing in the main story depends on it. Roc was never evil, only lost: this is whether you choose to save him.</div>
-        ${step('1. The Shadow of Roc (the party alone)', G.flags.roc_trial_p1?'done':st==='phase1'?'now':'wait', st==='phase1'?go('trialPhase1','Face the Shadow'):'')}
-        ${step('2. The Shadow Crown (Roc joins; only his blade truly hurts it)', G.flags.roc_trial_p2?'done':st==='phase2'?'now':'wait', st==='phase2'?go('trialPhase2','Fight with Roc'):'')}
+        ${step('1. The Shadow of Roc (the party alone) · min level '+TRIAL_MIN_LV.phase1, G.flags.roc_trial_p1?'done':st==='phase1'?'now':'wait', st==='phase1'?go('trialPhase1','Face the Shadow', !lvOK(TRIAL_MIN_LV.phase1)):'')}
+        ${step('2. The Shadow Crown (Roc joins; only his blade truly hurts it) · min level '+TRIAL_MIN_LV.phase2, G.flags.roc_trial_p2?'done':st==='phase2'?'now':'wait', st==='phase2'?go('trialPhase2','Fight with Roc', !lvOK(TRIAL_MIN_LV.phase2)):'')}
         ${step('3. Purification (Jade, Devon and Sky together; Jenika\'s medicine)', G.flags.roc_purified?'done':st==='purify'?'now':'wait', st==='purify'?go('trialPurify','Begin the purification', !purifyReady()):'')}
         ${G.flags.roc_purified?'<div class="sm">✔ Roc survives: Fallen Dragon Prince. His dark magic is now a Dark Dragon Aura.</div>':''}</div>`; break; }
     case 'raid': {
       const rows = RAID_LEVELS.map(L => { const open = raidOpen(L), left = raidAttempts(L.n), cleared = G.flags['raid_'+L.n], e = ENEMIES[L.key];
-        return `<div class="ev ${open?'':'locked'}"><div><b>${e.icon} Level ${L.n}: ${L.name}</b> ${cleared?'<span class="sm">· cleared</span>':''}<div class="sm">${L.desc}</div><div class="sm">Attempts today: ${left}/${RAID_ATTEMPTS}${open?'':' · 🔒 clear level '+(L.n-1)+' first'}</div></div>
+        return `<div class="ev ${open?'':'locked'}"><div><b>${e.icon} Level ${L.n}: ${L.name}</b> ${cleared?'<span class="sm">· cleared</span>':''}<div class="sm">${L.desc}</div><div class="sm">Min level ${RAID_MIN_LV[L.n]} · Attempts today: ${left}/${RAID_ATTEMPTS}${open?'':(G.flags.roc_purified?(lvOK(RAID_MIN_LV[L.n])?' · 🔒 clear level '+(L.n-1)+' first':' · '+lvNeed(RAID_MIN_LV[L.n])):'')}</div></div>
           <button class="pri" ${open&&left>0?'':'disabled'} onclick="origin='here';raidStart(${L.n});tab='battle';render()">Challenge</button></div>`; }).join('');
       body = `<div class="panel"><div class="sm">Repeatable. Rewards: Dark Essence, Dragon Crystal, Royal Sigil; rare Shadow Steel, Shadow Mail, the Crown of the Forgotten Prince. Craft Dragon Prince's Blade at the Healing Pavilion.</div></div>${rows}`; break; }
     case 'goldhome':

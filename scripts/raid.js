@@ -11,6 +11,11 @@
    State flags: roc_trial_p1, roc_trial_p2, roc_purified, roc_reborn, raid_1 / raid_2 / raid_3 (cleared), G.raid {day, att}
    ===================================================================== */
 const RAID_ATTEMPTS = 3;
+// Level gates (average party level). The bosses scale to the party (avg level + offset, never below the gate), so they stay a challenge at any level.
+const TRIAL_MIN_LV = {phase1:30, phase2:32};
+const RAID_MIN_LV = {1:35, 2:45, 3:55};
+const lvOK = min => avgPartyLv() >= min;
+const lvNeed = min => lvOK(min) ? '' : '🔒 Needs party level '+min+' (yours: '+avgPartyLv()+')';
 const RAID_LEVELS = [
   {n:1, key:'boss_shadow_roc', name:'Shadow of Roc', add:[], off:2, need:null,
    desc:'A dark knight in a broken version of Roc\'s royal armour: the regret he left behind.'},
@@ -26,17 +31,19 @@ function trialStage(){
   if(!G.flags.roc_purified) return 'purify';
   return 'done';
 }
-function trialLv(off){ return Math.max(18, avgPartyLv() + off); }
+function trialLv(off, min){ return Math.max(min||1, avgPartyLv() + off); }
 function trialPhase1(){
   if(trialStage()!=='phase1') return [];
-  startBattle({foes:[{key:'boss_shadow_roc', lv:trialLv(1)}], allies:G.active.filter(id => id!=='chad'), rewards:true, firstClear:!G.flags.roc_trial_p1,
+  if(!lvOK(TRIAL_MIN_LV.phase1)) return [lvNeed(TRIAL_MIN_LV.phase1)];
+  startBattle({foes:[{key:'boss_shadow_roc', lv:trialLv(1, TRIAL_MIN_LV.phase1)}], allies:G.active.filter(id => id!=='chad'), rewards:true, firstClear:!G.flags.roc_trial_p1,
     onWin:() => { G.flags.roc_trial_p1 = true; return ['🌑 The Shadow wavers. Roc, watching from the dark: "This is the part of me I refused to face."'].concat(checkSteps()); }});
   return 'battle';
 }
 function trialPhase2(){
   if(trialStage()!=='phase2') return [];
+  if(!lvOK(TRIAL_MIN_LV.phase2)) return [lvNeed(TRIAL_MIN_LV.phase2)];
   const team = G.active.filter(id => id!=='chad').slice(0,3).concat(['chad']);   // Roc joins temporarily
-  startBattle({foes:[{key:'boss_shadow_roc_p2', lv:trialLv(1)}], allies:team, rewards:true, firstClear:!G.flags.roc_trial_p2,
+  startBattle({foes:[{key:'boss_shadow_roc_p2', lv:trialLv(1, TRIAL_MIN_LV.phase2)}], allies:team, rewards:true, firstClear:!G.flags.roc_trial_p2,
     onWin:() => { G.flags.roc_trial_p2 = true; return ['⚔️ Roc\'s own blade ends the Shadow Crown. The prince accepts responsibility. The Shadow disappears, but the corruption in him remains.'].concat(checkSteps()); }});
   return 'battle';
 }
@@ -56,11 +63,11 @@ function trialPurify(){
 }
 /* ---- Guardian Raid ---- */
 function raidAttempts(n){ if(!G.raid || G.raid.day!==G.day) G.raid = {day:G.day, att:{}}; return RAID_ATTEMPTS - (G.raid.att[n]||0); }
-function raidOpen(L){ return !!G.flags.roc_purified && (!L.need || !!G.flags[L.need]); }
+function raidOpen(L){ return !!G.flags.roc_purified && (!L.need || !!G.flags[L.need]) && lvOK(RAID_MIN_LV[L.n]); }
 function raidStart(n){
   const L = RAID_LEVELS.find(x => x.n===n); if(!L || !raidOpen(L) || raidAttempts(n)<=0) return [];
   G.raid.att[n] = (G.raid.att[n]||0) + 1;
-  const lv = trialLv(L.off), foes = [{key:L.key, lv}].concat(L.add.map(k => ({key:k, lv:Math.max(1,lv-2)})));
+  const lv = trialLv(L.off, RAID_MIN_LV[L.n]), foes = [{key:L.key, lv}].concat(L.add.map(k => ({key:k, lv:Math.max(1,lv-2)})));
   startBattle({foes, rewards:true, firstClear:!G.flags['raid_'+n], onWin:() => { const first = !G.flags['raid_'+n]; G.flags['raid_'+n] = true; return [first?'🏆 Guardian Raid level '+n+' cleared for the first time.':'Guardian Raid level '+n+' cleared.']; }});
   return 'battle';
 }
