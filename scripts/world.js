@@ -9,6 +9,8 @@
    ===================================================================== */
 
 /* ---------------- REGIONS & LOCATIONS ---------------- */
+// Chapter that opens the optional Fallen Prince's Trial (Abyssal Frontier + its letter). Author is deciding: change this one number.
+const TRIAL_CH = 77;
 const REGIONS = {
   tribute:{n:'Tribute Island', icon:'🏯'}, faepool:{n:'Faepool Territory', icon:'🌲'},
   border:{n:'Border & Sea Areas', icon:'🌊'}, dragon:{n:'Dragon Vale', icon:'🐉'}, unknown:{n:'Unknown Lands', icon:'❔'}
@@ -181,7 +183,7 @@ const LOCATIONS = {
       {id:'pearl_chamber', kind:'investigate', n:'Pearl Chamber', icon:'🔮', ch:80, need:3, ambush:['shade_wraith','relic_spirit'], lo:20,
        desc:'A sealed chamber deep in the temple. A fragment of the Black Pearl rests at its centre and the air holds memories.',
        clues:['Dima was not simply a spirit: a guardian, a protector, a bridge between light and darkness, tied to the pearl and to a child of light.','Pages are missing: someone deliberately removed the most important parts.','Touching the pearl: Dima, a woman of light, a weeping mother, a battlefield, a promise. "The child of gold shall return when darkness rises."'], rw:{xp:1600, gold:550}}]},
-  abyssal_frontier:{ n:'Abyssal Frontier', region:'dragon', kind:'story', icon:'🌑', unlock:{ch:75},
+  abyssal_frontier:{ n:'Abyssal Frontier', region:'dragon', kind:'story', icon:'🌑', unlock:{ch:TRIAL_CH},
     desc:'The exile border, a corrupted region where monsters gather and villagers vanish. Roc\'s dark magic is leaking here.',
     spots:[
       {id:'exile_trail', kind:'investigate', n:'The Exile Trail', icon:'🥀', need:3, ambush:['shade_beast','shade_wraith'], lo:18,
@@ -341,7 +343,7 @@ const MISSIONS = [
      {label:'Look through the Gold family albums and portraits', spot:'gold_albums'},
      {label:'Find what became of Yvette Sue Valen and Sky\'s jade pendant', spot:'yvette_trace'}]}, rw:{xp:5000, gold:1500, rep:40},
    subj:'A family\'s question', body:'Jade, your family told me about Yvette Sue Valen. A healer who vanished without a trace from a family of seers is not a small thing, and the boy who looks like her is not a coincidence. Look into it quietly. — Greyson'},
-  {id:'m_fallen_trial', needCh:75, title:'The Fallen Prince\'s Trial (optional)', obj:{type:'steps', steps:[
+  {id:'m_fallen_trial', needCh:TRIAL_CH, title:'The Fallen Prince\'s Trial (optional)', obj:{type:'steps', steps:[
      {label:'Investigate the dark energy at the Exile Border', spot:'exile_trail'},
      {label:'Face the Shadow of Roc', flag:'roc_trial_p1'},
      {label:'Let Roc end the Shadow Crown himself', flag:'roc_trial_p2'},
@@ -881,7 +883,7 @@ const LORE = [
   {ch:92, n:'Yvette Sue Valen', t:'Elara\'s half-sister: a healer with no visions, who left one day and never returned. Even Elara\'s visions could not find her.'},
   {ch:93, n:'The Boy Who Looks Like Sue', t:'Sky\'s healing light is soft and warm, and Elara saw her sister Yvette Sue in him. Sky does not know who taught him healing.'},
   {ch:94, n:'Sky\'s Jade Pendant', t:'A light green jade pendant Sky once showed Jade is gone. He does not remember when or how he lost it. Devon: whether or not he is blood, Sky is family now.'},
-  {ch:75, n:'The Exile Border', t:'Along the Dragonvale border lies the Abyssal Frontier, where monsters gather and villagers vanish. If you choose to look, the source is someone you used to know.', party:'devon'},
+  {ch:TRIAL_CH, n:'The Exile Border', t:'Along the Dragonvale border lies the Abyssal Frontier, where monsters gather and villagers vanish. If you choose to look, the source is someone you used to know.', party:'devon'},
   {ch:99, n:'Faepool Territory', t:'A border region of forests and traditional villages. Something interferes with Jade\'s clairvoyance here.'},
   {ch:99, n:'The Hidden Message', t:'An unexpected message suggests the curse, Jade\'s visions and the people around her may be connected.'},
   {ch:99, n:'Ancient Records', t:'Records recovered from the Faepool ruins. The disturbances are not random: they belong to one pattern.'},
