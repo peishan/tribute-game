@@ -51,7 +51,7 @@ function rSheet(id){
    <div class="sm" style="margin:6px 0">${c.identity}</div>
    ${id!=='jade'?`<div class="sm">💞 Bond with Jade: ${bl}/5 ${nextB?`(${u.bp}/${nextB})`:'(max)'}</div>${bar(u.bp,nextB||u.bp||1,'bond')}`:''}
    ${id!=='jade'?`<button onclick="toggleActive('${id}');render()">${act?'Remove from active party':'Add to active party'}</button>`:'<div class="sm">Jade always leads the active party.</div>'}
-   ${isAway(id)?'<div class="panel bad"><b>🌹 Staying in Dragonvale</b><div class="sm">Sally can only join the party while you are in Dragonvale.</div></div>':isDisabled(id)?'<div class="panel bad"><b>⛔ Critical — cannot fight</b><div class="sm">Cursed in chapter 42. He stays in the party but sits out battles until he recovers.</div></div>':''}
+   ${isAway(id)?`<div class="panel bad"><b>🌹 Staying in Dragonvale</b><div class="sm">${id==='seraphina'?'Seraphina fights beside you only on Dragonvale grounds, in Roc\'s place, until she asks to join you for good.':'Sally can only join the party while you are in Dragonvale.'}</div></div>`:isDisabled(id)?'<div class="panel bad"><b>⛔ Critical — cannot fight</b><div class="sm">Cursed in chapter 42. He stays in the party but sits out battles until he recovers.</div></div>':''}
    <h4>Condition</h4><div class="sm">❤️ HP ${curHp(id)}/${st.hp} · 🔷 MP ${curMp(id)}/${st.mp}</div>${bar(curHp(id),st.hp,'hp')}${bar(curMp(id),st.mp,'mpb')}
    <h4>Stats</h4><div class="stg">${stats}</div>
    <h4>Weapon & Style</h4><div class="sm">${c.weapon} · ${c.style.join(', ')} · Strength: ${c.strength}</div>

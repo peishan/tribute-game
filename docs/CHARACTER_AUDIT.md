@@ -52,3 +52,8 @@ Legend: OK = consistent, FIX = conflicts with the comic, GAP = the comic shows s
 
 - Devon applied: defensive mage/swordsman hybrid. Veiled Blade, Scholar's Read, Royal Command, Dragon Veil, Protective Oath (barrier + DEF; drawing attacks/counters not modelled), Dragon Flame (later), signature Black Pearl Resonance (cleanse + ATK/MAG + regen; MP restore not modelled), Dragon Empowerment; Pearl Sage -> Dragon Sovereign (Dragon Manifestation is now a Sovereign skill). Tree: Royal Command / Dragon Veil / Black Pearl.
 - Battle rules added: status 'oath' (Protective Oath: all foes target the bearer for 3 turns and take a counterattack when they land a hit) and effect 'mp' (Black Pearl Resonance restores 20% MP to the party).
+
+## Seraphina Altan (author decisions, dev notes: not shown in game)
+- Ch73: temporary guest in Dragonvale only (replaces Roc inside the kingdom's grounds). She leaves the active party when the party travels outside Dragonvale.
+- Ch87: she officially asks to join and becomes a permanent party member. She receives the Divorce Scroll from King Chadstone granting her freedom from the marriage (key item in her inventory, flag seraphina_free).
+- FUTURE: love interest of King Greyson (Tribute). Not hinted in game text yet.

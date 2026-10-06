@@ -744,7 +744,7 @@ const CHAPTER_DESIGN = {
   art:'Pages show: Roc is exiled and stripped of his title; Delilah goes with him and entrusts baby Liora to Jade and Devon. The page then jumps one year ahead, to the quests: Jade and Devon protect Dragonvale, subdue demons and raise Liora. (Seraphina is not shown on the exile pages; the author has her taking Roc\'s place in the party.)',
   quote:'"No crown... No Jade... I have nothing left but myself." — Roc',
   events:['King Chadstone strips Roc of his title and exiles him','Delilah chooses to follow Roc into exile','Liora is born and entrusted to Jade and Devon','Jenika helps care for Liora at the Pavilion','One year later: Jade and Devon protect Dragonvale, subdue demons and raise Liora'],
-  purpose:['Roc leaves the party permanently','Seraphina joins as the primary physical DPS','One-year time skip: begins the Dragonvale quest period (74 onward)'],
+  purpose:['Roc leaves the party permanently','Seraphina fights in Roc\'s place inside Dragonvale (temporary guest; permanent at 87)','One-year time skip: begins the Dragonvale quest period (74 onward)'],
   unlocks:['Roc leaves the party','Seraphina Altan joins the party','Liora in Jade and Devon\'s care'],
   reward:'Roc leaves; the year of quests begins'},
  75:{ title:'Whispers at the Border', type:'Story Chapter — the border unrest (start of the quest period)', loc:'🏔️ Dragonvale palace → border village → ancient border ruins',

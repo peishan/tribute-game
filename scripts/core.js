@@ -5,18 +5,18 @@ const CFG = { SAVE_KEY:'tribute_rpg_v3', LEVEL_CAP:100, START_LEVEL:1 };
 
 // WHO JOINS WHEN (chapter number at which the hero is recruited). PROVISIONAL — correct these.
 // Permanent joins. Chad and Sky both accept the mission in ch4 (Chad was hired in ch3, Sky first meets Jade in ch4). Sally 28 and Levi 30 match the comic's chapter titles. Devon open.
-const JOIN_CH = { jade:0, chad:4, sky:4, sally:29, levi:30, ripley:52, devon:54, seraphina:73 };   // sally: introduced ch28, recruited ch28/29 per the author (29 provisional); levi leaves temporarily later (chapter TBD); devon open   // ch4 "We are in": Chad (hired in ch3) and Sky accept the mission together
+const JOIN_CH = { jade:0, chad:4, sky:4, sally:29, levi:30, ripley:52, devon:54, seraphina:87 };   // sally: introduced ch28, recruited ch28/29 per the author (29 provisional); levi leaves temporarily later (chapter TBD); devon open   // ch4 "We are in": Chad (hired in ch3) and Sky accept the mission together
 // Guest (temporary) party members. (None yet: the ch4 "Sally guest" came from the discarded story-file list. Per the comic Sally appears in ch28.)
-const GUEST_CH = {};
+const GUEST_CH = { seraphina:73 };   // guest (temporary Roc replacement) inside Dragonvale from ch73; joins permanently at ch87 when she asks to
 // Chapter at which a hero's profile becomes visible even before they join ("Chad profile / Sky profile" unlock in ch1).
 const INTRO_CH = { seraphina:65, chad:1, sky:1, sally:28, ripley:46, devon:47 };
 // Bond changes shown by the comic's banners (bond points with Jade; level thresholds in BOND_LEVELS). Applied when the chapter completes.
 const CH_BOND = { 59:{chad:-9999}, 24:{sky:20}, 25:{chad:20}, 27:{chad:-20}, 29:{sky:20}, 31:{chad:-40}, 32:{levi:20}, 33:{levi:20, chad:-20}, 34:{levi:20, chad:-10}, 38:{levi:20, sky:20}, 39:{levi:20, chad:-5}, 40:{levi:20, sky:20} };   // banners: ch31 Jade+Chad -2, ch32 Jade+Levi +1, ch33 Jade+Levi +1 / Jade+Chad -1 (Sky+Levi and Chad+Sally banners not modelled)
 const profileKnown = id => isRecruited(id) || !!(G.left && G.left[id]) || (INTRO_CH[id]!==undefined && G.ch >= INTRO_CH[id]);
 // Story flags set when a chapter is completed (e.g. Levi's crossbow goes to Jade in ch30).
-const CH_FLAGS = { 86:['dragonvale_honoured'], 82:['aster_crown_prince'], 75:['dv_purify','partner_actions'], 77:['princess_guardian','royal_spirit_authority','twin_dragon','dv_exploration'], 87:['levi_reborn','sally_stays','liora_apart'], 73:['roc_exiled','liora_ward'], 63:['chad_dark_arts'], 67:['chad_dark_deep'], 70:['chad_backlash_1'], 71:['chad_backlash_2'], 72:['chad_backlash_3'], 59:['roc_severed'], 60:['jade_poisoned'], 58:['royal_attire'], 52:['sally_gossip'], 42:['jade_awakened'], 44:['bracelet'], 51:['sally_noble'], 0:['greyson_gift'], 38:['cleansing_touch'], 41:['greyson_arms'], 30:['crossbow'] };   // greyson_arms: dagger+flail unseal at the major battle, chapter 41 (per the author)
+const CH_FLAGS = { 86:['dragonvale_honoured'], 82:['aster_crown_prince'], 75:['dv_purify','partner_actions'], 77:['princess_guardian','royal_spirit_authority','twin_dragon','dv_exploration'], 87:['levi_reborn','sally_stays','liora_apart','seraphina_free'], 73:['roc_exiled','liora_ward'], 63:['chad_dark_arts'], 67:['chad_dark_deep'], 70:['chad_backlash_1'], 71:['chad_backlash_2'], 72:['chad_backlash_3'], 59:['roc_severed'], 60:['jade_poisoned'], 58:['royal_attire'], 52:['sally_gossip'], 42:['jade_awakened'], 44:['bracelet'], 51:['sally_noble'], 0:['greyson_gift'], 38:['cleansing_touch'], 41:['greyson_arms'], 30:['crossbow'] };   // greyson_arms: dagger+flail unseal at the major battle, chapter 41 (per the author)
 // Items handed over when a chapter completes. Greyson gives Jade a dagger and flail in the Prologue; she may not use them until the major battle (chapter TBD, flag greyson_arms).
-const CH_ITEMS = { 58:[{id:'royal_attire',qty:1},{id:'phoenix_guard',qty:1}], 44:[{id:'sealed_box',qty:1}], 0:[{id:'greyson_dagger',qty:1},{id:'greyson_flail',qty:1}] };   // (the communication bracelet comes from the Greyson mission m_bracelet, see world.js)
+const CH_ITEMS = { 87:[{id:'divorce_scroll',qty:1}], 58:[{id:'royal_attire',qty:1},{id:'phoenix_guard',qty:1}], 44:[{id:'sealed_box',qty:1}], 0:[{id:'greyson_dagger',qty:1},{id:'greyson_flail',qty:1}] };   // (the communication bracelet comes from the Greyson mission m_bracelet, see world.js)
 
 let G = null;
 const $ = id => document.getElementById(id);
@@ -48,7 +48,7 @@ const CH_STAY = { 87:['sally'] };   // leaves the party but stays reachable as a
 const CH_ENABLE = { 61:['sky'] };   // Sky is healed after chapter 61 and returns to active duty
 const CH_LEAVE = { 50:['levi'], 73:['chad'] };    // Levi leaves the party in ch50 (mutual end of the engagement)
 // Sally (after the return to Tribute, CH_STAY) can only be partied while the party is in Dragonvale.
-const isAway = id => id==='sally' && !!G.flags.sally_stays && G.loc!=='dragon_vale';
+const isAway = id => (id==='sally' && !!G.flags.sally_stays && G.loc!=='dragon_vale') || (id==='seraphina' && !!G.guests.seraphina && LOCATIONS[G.loc].region!=='dragon');   // Seraphina is a guest only inside Dragonvale until ch87
 const isDisabled = id => !!(G.disabled && G.disabled[id]) || isAway(id);
 function syncAway(){ G.active = G.active.filter(id => !isAway(id)); }   // call whenever the location changes
 function applyStoryStates(n){

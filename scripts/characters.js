@@ -172,7 +172,7 @@ const CHARACTERS = {
   bond:null },
  seraphina:{
   n:'Seraphina Altan', icon:'🦅', cls:'Altan Blademaster', role:'Physical DPS (replaces Roc)', combat:'Physical Attack',
-  identity:'Princess of the Kingdom of Altan. Observant, proud and fair: she judges people by how they treat others. She takes the front line when Roc leaves the party (chapter 73).',
+  identity:'Princess of the Kingdom of Altan. Observant, proud and fair: she judges people by how they treat others. She takes the front line in Roc\'s place inside Dragonvale after his exile (chapter 73) and, after she asks to join, travels with the party for good (chapter 87).',
   style:['Curved sabre','Mounted techniques','Discipline'], strength:'Sustained high damage',
   weapon:'Altan Sabre', signature:'Falcon Banner',
   sigDesc:'Rallies the party and sharpens her own blade: ATK up for all, and her next strikes hit harder.',
