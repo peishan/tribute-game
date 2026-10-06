@@ -155,7 +155,7 @@ function rSpot(L, sp){
           <button class="pri" ${open&&left>0?'':'disabled'} onclick="origin='here';raidStart(${L.n});tab='battle';render()">Challenge</button></div>`; }).join('');
       body = `<div class="panel"><div class="sm">Repeatable. Rewards: Dark Essence, Dragon Crystal, Royal Sigil; rare Shadow Steel, Shadow Mail, the Crown of the Forgotten Prince. Craft Dragon Prince's Blade at the Healing Pavilion.</div></div>${rows}`; break; }
     case 'goldhome':
-      body = `<div class="panel"><div class="sm">The Gold family home. Each activity can be done once per day. Day ${G.day}.</div>${Object.keys(HOME_ACTS).map(k => { const a = HOME_ACTS[k], done = G.bondDay['home_'+k]===G.day;
+      body = `<div class="panel"><div class="sm">The Gold family home. Each activity can be done once per day. Day ${G.day}.</div>${Object.keys(HOME_ACTS).filter(k => !HOME_ACTS[k].ch || G.ch>=HOME_ACTS[k].ch).map(k => { const a = HOME_ACTS[k], done = G.bondDay['home_'+k]===G.day;
         return `<div class="ev ${done?'locked':''}"><div><b>${a.icon} ${a.n}</b></div><button ${done?'disabled':''} onclick="act(doHome,'${k}')">${done?'Done':'Do'}</button></div>`; }).join('')}</div>`; break;
     case 'family':
       body = `<div class="panel"><div class="sm">Life in the palace. Each activity can be done once per day. Day ${G.day}.</div>${Object.keys(FAMILY_ACTS).map(k => { const a = FAMILY_ACTS[k], done = G.bondDay['fam_'+k]===G.day;

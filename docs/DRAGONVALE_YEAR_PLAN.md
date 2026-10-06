@@ -88,3 +88,7 @@ Jade returns as Princess of Tribute and of Dragonvale, wife of a respected princ
 ## Party size (author decisions)
 - From ch87 the travelling party is fixed at five: Jade, Devon, Seraphina, Levi, Sky (4 fight at a time). Ripley goes back to being Jade's attendant (leaves the party at ch87). Sally is Dragonvale-only. The Ghost Healer is a slotless companion who travels only for a while.
 - Roc never returns to the main party. The Fallen Prince's Trial is a gameplay mechanism with no story chapters; he is only a temporary ally in phase 2.
+
+## Chapters 95-98 (back at court; 99 is the last Tribute chapter, 100 leaves Tribute)
+- 95 The Imperial Guardian Returns, 96 The Brother Who Remembers (Luck: from Jade's near-drowning), 97 The Advisor's Daughter, 98 The Missing Documents (Yvette went to the Western Regions in Year 814).
+- Quest boxes built as steps missions (m_guardian_returns, m_brother, m_advisors_daughter, m_missing_docs). Story-only objectives use the new step kind {chapter:n}: checked off when chapter n completes. The third Missing Documents objective (Sky's files) is sealed until the story reaches it.

@@ -25,6 +25,13 @@ const LOCATIONS = {
       {id:'palace', kind:'palace', n:'Imperial Palace', icon:'👑', img:'assets/areas/imperial_palace.webp', desc:'King Greyson, his advisors and the court. Main missions are issued here.'},
       {id:'training', kind:'training', n:'Imperial Guard Training Grounds', icon:'⚔️', img:'assets/areas/training_grounds.webp', desc:'Safe zone. No monsters. Sword practice, meditation and ability training.'},
       {id:'archive', kind:'archive', n:'Imperial Archive', icon:'📚', desc:'The Codex: history, prophecy, Xima research and Dima\'s records.'},
+      {id:'missing_files', kind:'investigate', n:'The Missing Shelves', icon:'🗄️', ch:98, need:3, ambush:[], lo:1,
+       desc:'Old border logs, healer registries and restricted family records. Sections have been taken by hand.',
+       clues:['Entire sections of the shelves are gone: deliberately taken, not lost over time.','Pages were removed by hand from the border logs, healer registries and restricted family records.','The Family Records (Valen Lineage) file is empty, and its seal was broken and resealed.'], rw:{xp:1500, gold:400}},
+      {id:'yvette_records', kind:'investigate', n:'Healer Registry: Yvette Sue Valen', icon:'📜', ch:98, need:3, ambush:[], lo:1, needFlag:'inv_missing_files', lockMsg:'🔒 Search the missing shelves first',
+       desc:'The healer registry and Yvette\'s travel permit.',
+       clues:['Healer Registry: Yvette Sue Valen, Healer, Imperial Service from Year 812.','Year 814: departure to the West Border. The Year 815 line is missing.','Travel Permit: purpose medical service, destination the Western Regions, no companions, approved by the Imperial Court. The next entry is missing.'], rw:{xp:1800, gold:500}},
+      {id:'sky_files', kind:'investigate', n:'The Files Tied to Sky\'s Past', icon:'🧩', ch:99, need:3, ambush:[], lo:1, needFlag:'inv_yvette_records', lockMsg:'🔒 The trail goes west: sealed until the story reaches it', desc:'The missing files that tie Sky\'s past to Yvette Sue.', clues:['...','...','...'], rw:{xp:3000, gold:1000}},
       {id:'garden', kind:'garden', n:'Imperial Garden', icon:'🌸', img:'assets/areas/imperial_garden.webp', desc:'Quiet meditation, bond scenes and character events.'},
       {id:'hall', kind:'board', n:'Notice Board', icon:'📜', ch:3, desc:'Contracts and bounties for the party.'},
       {id:'gift_stall', kind:'gift', n:'Moon-Blossom Tea Stall', icon:'🍵', ch:88, desc:'A tea and herb stall that sells a gift set for a healer who asks for nothing.'},
@@ -208,7 +215,7 @@ function spotLock(sp){
 
 // Some story chapters must be started on location (PROVISIONAL). {chapter: locationId}
 // Chapters whose story must be started on location. Tune freely: {chapter: locationId}
-const CH_LOC = { 89:'capital', 90:'gold_residence', 91:'gold_residence', 92:'gold_residence', 93:'gold_residence', 94:'gold_residence', 87:'dragon_vale', 84:'dragon_vale', 86:'dragon_vale', 78:'dragon_vale', 79:'dragon_vale', 80:'moonveil_temple', 81:'dragon_vale', 82:'dragon_vale', 83:'dragon_vale', 85:'dragon_border', 74:'dragon_vale', 76:'dragon_border', 77:'dragon_ruins', 75:'dragon_vale', 63:'dragon_vale', 64:'dragon_vale', 65:'dragon_vale', 66:'dragon_vale', 67:'dragon_vale', 68:'dragon_vale', 69:'dragon_vale', 70:'dragon_vale', 71:'dragon_vale', 72:'dragon_vale', 73:'dragon_vale', 61:'dragon_vale', 62:'dragon_vale', 57:'dragon_vale', 58:'dragon_vale', 59:'dragon_vale', 60:'cavern_fireflies', 52:'dragon_vale', 53:'dragon_vale', 54:'dragon_vale', 55:'dragon_vale', 56:'dragon_vale', 44:'capital', 45:'dragon_vale', 46:'dragon_vale', 47:'dragon_vale', 48:'dragon_vale', 49:'dragon_vale', 50:'dragon_vale', 51:'dragon_vale', 12:'dark_inn', 16:'vigil_village', 17:'vigil_village', 18:'vigil_village', 19:'faepool_forest', 21:'faepool_forest', 22:'booyeong_camp', 23:'booyeong_camp', 24:'booyeong_camp', 25:'faepool_forest', 26:'vigil_village', 27:'booyeong_camp', 28:'vigil_village', 29:'vigil_village', 30:'vigil_village' };   // chapters that must start on location (ch12 begins at the inn). More are added as chapters are converted.
+const CH_LOC = { 95:'capital', 96:'capital', 97:'gold_residence', 98:'capital', 89:'capital', 90:'gold_residence', 91:'gold_residence', 92:'gold_residence', 93:'gold_residence', 94:'gold_residence', 87:'dragon_vale', 84:'dragon_vale', 86:'dragon_vale', 78:'dragon_vale', 79:'dragon_vale', 80:'moonveil_temple', 81:'dragon_vale', 82:'dragon_vale', 83:'dragon_vale', 85:'dragon_border', 74:'dragon_vale', 76:'dragon_border', 77:'dragon_ruins', 75:'dragon_vale', 63:'dragon_vale', 64:'dragon_vale', 65:'dragon_vale', 66:'dragon_vale', 67:'dragon_vale', 68:'dragon_vale', 69:'dragon_vale', 70:'dragon_vale', 71:'dragon_vale', 72:'dragon_vale', 73:'dragon_vale', 61:'dragon_vale', 62:'dragon_vale', 57:'dragon_vale', 58:'dragon_vale', 59:'dragon_vale', 60:'cavern_fireflies', 52:'dragon_vale', 53:'dragon_vale', 54:'dragon_vale', 55:'dragon_vale', 56:'dragon_vale', 44:'capital', 45:'dragon_vale', 46:'dragon_vale', 47:'dragon_vale', 48:'dragon_vale', 49:'dragon_vale', 50:'dragon_vale', 51:'dragon_vale', 12:'dark_inn', 16:'vigil_village', 17:'vigil_village', 18:'vigil_village', 19:'faepool_forest', 21:'faepool_forest', 22:'booyeong_camp', 23:'booyeong_camp', 24:'booyeong_camp', 25:'faepool_forest', 26:'vigil_village', 27:'booyeong_camp', 28:'vigil_village', 29:'vigil_village', 30:'vigil_village' };   // chapters that must start on location (ch12 begins at the inn). More are added as chapters are converted.
 // Boat travel unlocks with chapter 15 (the sea voyage before ch16). Set BRACELET_FROM_START=true if the Imperial Bracelet should exist from the Prologue.
 const SHIP_CH = 15, BRACELET_FROM_START = false;
 const modeOpen = m => m!=='ship' || G.ch >= SHIP_CH;
@@ -280,7 +287,7 @@ function grantReward(rw, label){
   msgs.unshift(label+' · '+[rw.xp&&'+'+rw.xp+' XP', rw.gold&&'+'+rw.gold+'g', rw.rep&&'+'+rw.rep+' renown'].filter(Boolean).join(' · '));
   return msgs;
 }
-const FLAG_LABEL = { bracelet:'Communication Bracelet', crossbow:'Levi\'s Crossbow', jade_awakened:'Golden Blood Awakening', roc_trial_p1:'Shadow of Roc defeated', roc_trial_p2:'The Shadow Crown ended by Roc\'s own blade', roc_purified:'Roc is purified', roc_reborn:'Roc is reborn: Dark Dragon Aura', gold_family_met:'Jade\'s family: the Gold residence', sky_resembles_yvette:'Sky looks like Yvette Sue Valen', sky_pendant_lost:'Sky\'s jade pendant is lost', ghost_healer_met:'The Ghost Healer travels with the party', ghost_trust:'The Ghost Healer trusts you: Ancient Remedy', ghost_gift_bought:'A gift for the Ghost Healer bought', ghost_gifted:'Gift given to the Ghost Healer', dragonvale_honoured:'Honoured by Dragonvale', aster_crown_prince:'Aster is Crown Prince of Dragonvale', dv_purify:'Devon: Spirit Purification', partner_actions:'Partner action: Guardian\'s Promise', princess_guardian:'Jade: Princess Guardian', royal_spirit_authority:'Devon: Royal Spirit Authority', twin_dragon:'Couple skill: Twin Dragon Harmony', dv_exploration:'Dragonvale exploration areas', roc_exiled:'Roc is exiled from Dragonvale', liora_apart:'Liora stays in Dragonvale; letters follow', seraphina_free:'Seraphina is free: the Divorce Scroll from King Chadstone', liora_ward:'Liora is in Jade and Devon\'s care', levi_reborn:'Levi returns, reborn', sally_stays:'Sally stays in Dragonvale as a rumour source', chad_dark_deep:'Roc\'s dark arts deepen', chad_backlash_1:'Dark-magic backlash (Roc): stats permanently altered', chad_backlash_2:'Dark-magic backlash worsens (Roc)', chad_backlash_3:'Dark-magic backlash, final (Roc)', roc_severed:'Bond with Roc Chadwick severed', jade_poisoned:'Jade is poisoned (slow-acting)', royal_attire:'Daily Royal Attire and Phoenix Guard attire', sally_gossip:'Sally\'s court gossip', chad_dark_arts:'Chad\'s dark arts', greyson_arms:'Greyson\'s dagger and flail unsealed', greyson_gift:'Greyson\'s gift received', cleansing_touch:'Cleansing Touch (Jade)', sally_noble:'Sally\'s noble title and Noble Grace' };
+const FLAG_LABEL = { bracelet:'Communication Bracelet', crossbow:'Levi\'s Crossbow', jade_awakened:'Golden Blood Awakening', luck_known:'Luck: a lasting blessing from the accident', roc_trial_p1:'Shadow of Roc defeated', roc_trial_p2:'The Shadow Crown ended by Roc\'s own blade', roc_purified:'Roc is purified', roc_reborn:'Roc is reborn: Dark Dragon Aura', gold_family_met:'Jade\'s family: the Gold residence', sky_resembles_yvette:'Sky looks like Yvette Sue Valen', sky_pendant_lost:'Sky\'s jade pendant is lost', ghost_healer_met:'The Ghost Healer travels with the party', ghost_trust:'The Ghost Healer trusts you: Ancient Remedy', ghost_gift_bought:'A gift for the Ghost Healer bought', ghost_gifted:'Gift given to the Ghost Healer', dragonvale_honoured:'Honoured by Dragonvale', aster_crown_prince:'Aster is Crown Prince of Dragonvale', dv_purify:'Devon: Spirit Purification', partner_actions:'Partner action: Guardian\'s Promise', princess_guardian:'Jade: Princess Guardian', royal_spirit_authority:'Devon: Royal Spirit Authority', twin_dragon:'Couple skill: Twin Dragon Harmony', dv_exploration:'Dragonvale exploration areas', roc_exiled:'Roc is exiled from Dragonvale', liora_apart:'Liora stays in Dragonvale; letters follow', seraphina_free:'Seraphina is free: the Divorce Scroll from King Chadstone', liora_ward:'Liora is in Jade and Devon\'s care', levi_reborn:'Levi returns, reborn', sally_stays:'Sally stays in Dragonvale as a rumour source', chad_dark_deep:'Roc\'s dark arts deepen', chad_backlash_1:'Dark-magic backlash (Roc): stats permanently altered', chad_backlash_2:'Dark-magic backlash worsens (Roc)', chad_backlash_3:'Dark-magic backlash, final (Roc)', roc_severed:'Bond with Roc Chadwick severed', jade_poisoned:'Jade is poisoned (slow-acting)', royal_attire:'Daily Royal Attire and Phoenix Guard attire', sally_gossip:'Sally\'s court gossip', chad_dark_arts:'Chad\'s dark arts', greyson_arms:'Greyson\'s dagger and flail unsealed', greyson_gift:'Greyson\'s gift received', cleansing_touch:'Cleansing Touch (Jade)', sally_noble:'Sally\'s noble title and Noble Grace' };
 
 /* ---------------- DAY CLOCK ---------------- */
 function advanceDay(n){
@@ -341,7 +348,7 @@ const MISSIONS = [
    subj:'The Ghost Healer', body:'The healer who saved Levi asks for nothing, and that is exactly why they deserve something. Find a gift worth giving in one of Tribute\'s towns and put it in their hands. They have not been honoured in their life; let this be the first time. — Greyson'},
   {id:'m_missing_sister', needCh:92, title:'The Missing Sister', obj:{type:'steps', steps:[
      {label:'Look through the Gold family albums and portraits', spot:'gold_albums'},
-     {label:'Find what became of Yvette Sue Valen and Sky\'s jade pendant', spot:'yvette_trace'}]}, rw:{xp:5000, gold:1500, rep:40},
+     {label:'Find the records on Yvette Sue Valen', spot:'yvette_records'}]}, rw:{xp:5000, gold:1500, rep:40},
    subj:'A family\'s question', body:'Jade, your family told me about Yvette Sue Valen. A healer who vanished without a trace from a family of seers is not a small thing, and the boy who looks like her is not a coincidence. Look into it quietly. — Greyson'},
   {id:'m_fallen_trial', needCh:TRIAL_CH, title:'The Fallen Prince\'s Trial (optional)', obj:{type:'steps', steps:[
      {label:'Investigate the dark energy at the Exile Border', spot:'exile_trail'},
@@ -349,6 +356,26 @@ const MISSIONS = [
      {label:'Let Roc end the Shadow Crown himself', flag:'roc_trial_p2'},
      {label:'Purify Roc', flag:'roc_purified'}]}, rw:{xp:6000, gold:2000, rep:40, items:[{id:'dragon_crystal',qty:3}]},
    subj:'A rumour from the exile border', body:'Reports from the Dragonvale border: monsters gathering, villagers gone, a dark energy that does not behave like a war. I do not think it is only a monster. If you choose to look, you will find someone you used to know. This is not a command, Jade. It is a choice. — Greyson'},
+  {id:'m_guardian_returns', needCh:95, title:'The Imperial Guardian Returns', obj:{type:'steps', steps:[
+     {label:'Return to Greyson\'s court', visit:'capital'},
+     {label:'Reunite with Adrian Gold', visit:'gold_residence'},
+     {label:'Prepare for Tribute\'s next mission', chapter:99}]}, rw:{xp:3000, gold:800, rep:30},
+   subj:'Welcome home, Guardian', body:'Dragonvale needed you. Now Tribute needs you again. Come to court when you have eaten and slept, and bring your husband. — Greyson'},
+  {id:'m_brother', needCh:96, title:'The Brother Who Remembers', obj:{type:'steps', steps:[
+     {label:'Learn Adrian Gold\'s role in court', flag:'act_court'},
+     {label:'Revisit Jade\'s childhood memories', flag:'act_albums'},
+     {label:'Understand how "Luck" became part of Jade\'s life', flag:'act_luck'}]}, rw:{xp:3200, gold:800, rep:20},
+   subj:'Your brother', body:'Adrian has served this court well. Spend an afternoon with him. Memory returns more kindly when it is asked politely. — Greyson'},
+  {id:'m_advisors_daughter', needCh:97, title:'The Advisor\'s Daughter', obj:{type:'steps', steps:[
+     {label:'Learn the duty of the house of Gold', flag:'act_duty'},
+     {label:'Understand the Valor psychic lineage', flag:'act_valor'},
+     {label:'Define Jade\'s place in Tribute', chapter:99}]}, rw:{xp:3400, gold:900, rep:30},
+   subj:'A place to stand', body:'Your father has been an advisor longer than you have been alive, and your mother sees farther than I do. Listen to them. Then decide what you want to be here. — Greyson'},
+  {id:'m_missing_docs', needCh:98, title:'The Missing Documents', obj:{type:'steps', steps:[
+     {label:'Search the royal archives for missing files', spot:'missing_files'},
+     {label:'Find the records on Yvette Sue Valen', spot:'yvette_records'},
+     {label:'Trace the missing files tied to Sky\'s past', spot:'sky_files'}]}, rw:{xp:5000, gold:1500, rep:40},
+   subj:'Missing files', body:'Several old files have vanished from the royal archives. The names inside them may matter more than we realised. Look, quietly. — Greyson'},
   // ---- DRAFT, NOT CANON (parked at ch99 until the real chapter text is converted) ----
   {id:'m_wild', needCh:99, title:'Beyond the Walls', obj:{type:'reach', loc:'tribute_wilderness'}, rw:{xp:120, gold:60},
    subj:'Your first mission outside the city', body:'The time has come to leave the capital. Take your companions out along the Imperial Road and see what the wilderness hides. Use the horse carriage; the roads are not always quiet. — Greyson'},
@@ -434,6 +461,7 @@ function missionProgress(m){
 function stepDone(m, s){
   if(s.spot) return !!G.flags['inv_'+s.spot];
   if(s.flag) return !!G.flags[s.flag];
+  if(s.chapter) return G.ch >= s.chapter;   // story-only objective, checked off when that chapter completes
   if(s.visit) return !!G.visited[s.visit];
   if(s.boss) return !!G.flags['boss_'+s.boss];
   if(s.mission) return mState(s.mission)==='done';
@@ -666,7 +694,7 @@ function doInvestigate(spotId){
       msgs.push.apply(msgs, checkSteps()); }
     msgs.push.apply(msgs, advanceDay(1)); save(); return msgs;
   };
-  if(Math.random() < .4){
+  if(sp.ambush && sp.ambush.length && Math.random() < .4){
     startBattle({foes:foeGroup(sp.ambush, lvFor(sp), 2), rewards:true, onWin:found});
     return 'battle';
   }
@@ -745,13 +773,19 @@ const HOME_ACTS = {
   dinner:{n:'Family dinner', icon:'🍲', msg:'A long family dinner. Elara asks questions, Unique Gold tells old stories and Adrian passes the dishes.'},
   court:{n:'Training court with Adrian', icon:'⚔️', msg:'Adrian spars with Jade and Devon in the residence training court.'},
   albums:{n:'Old stories and portraits', icon:'🖼️', msg:'Elara brings out old portraits and tells the stories behind them.'},
+  luck:{n:'Adrian tells of the accident', icon:'🍀', ch:96, msg:'Adrian tells her about the accident, and the blessing that remained: Luck.'},
+  duty:{n:'Unique Gold on the duty of Gold', icon:'📜', ch:97, msg:'Unique Gold explains how the house of Gold guides the crown: judgement, strategy and loyalty.'},
+  valor:{n:'Elara on the Valor lineage', icon:'👁️', ch:97, msg:'Elara explains the Valor bloodline: they listen to what others cannot hear.'},
 };
 function doHome(k){
   const a = HOME_ACTS[k]; if(!a) return [];
   if(G.bondDay['home_'+k] === G.day) return ['Already done today.'];
-  G.bondDay['home_'+k] = G.day; const lv = avgPartyLv(), msgs = ['🏡 '+a.msg];
+  if(a.ch && G.ch < a.ch) return ['Not yet.'];
+  G.bondDay['home_'+k] = G.day; G.flags['act_'+k] = true; const lv = avgPartyLv(), msgs = ['🏡 '+a.msg];
+  msgs.push.apply(msgs, checkSteps());
   if(k==='dinner'){ ['devon','sky','levi','seraphina'].filter(isRecruited).forEach(id => { const m = addBond(id, 3); if(m) msgs.push(m); }); msgs.push('Bond +3 (the party at the table)'); }
   if(k==='court'){ gainXp(40+lv*4, G.party).forEach(m => msgs.push(m)); }
+  if(k==='luck') G.flags.luck_known = true;
   if(k==='albums'){ msgs.push('🗣️ '+AR(['Elara: "Yvette hummed when she healed. I can still hear it."','Unique Gold: "Some wounds never truly heal, but they teach you to listen."','Adrian: "You would hide that charm under your pillow, then claim you had lost it."'])); }
   return msgs.concat(advanceDay(1));
 }
@@ -885,6 +919,10 @@ const LORE = [
   {ch:93, n:'The Boy Who Looks Like Sue', t:'Sky\'s healing light is soft and warm, and Elara saw her sister Yvette Sue in him. Sky does not know who taught him healing.'},
   {ch:94, n:'Sky\'s Jade Pendant', t:'A light green jade pendant Sky once showed Jade is gone. He does not remember when or how he lost it. Devon: whether or not he is blood, Sky is family now.'},
   {ch:TRIAL_CH, n:'The Exile Border', t:'Along the Dragonvale border lies the Abyssal Frontier, where monsters gather and villagers vanish. If you choose to look, the source is someone you used to know.', party:'devon'},
+  {ch:95, n:'Jade, Guardian of Tribute', t:'Greyson told his court that Jade Gold was not chosen because of blood alone: she proved herself by protecting Tribute when others hesitated. She can belong to more than one home.'},
+  {ch:96, n:'Luck', t:'When Jade nearly drowned as a child, many memories were lost and a lasting blessing remained, which the family called Luck. She now carries both herself and Luck\'s power, permanently. Adrian remembers enough for both of them.'},
+  {ch:97, n:'The Gold and Valor Legacies', t:'The house of Gold guides the crown: judgement, strategy and loyalty. The Valor bloodline listens to what others cannot hear. Jade was born between two legacies: wisdom from one side, sight from the other. In Tribute she may serve as guardian, envoy and witness to the truth.'},
+  {ch:98, n:'Yvette\'s Missing Years', t:'The royal registry shows Yvette Sue Valen, a healer, in Imperial Service in Year 812 and departing for the West Border in 814. The next entry is missing, and the Valen lineage file is empty with its seal broken and resealed.'},
   {ch:99, n:'Faepool Territory', t:'A border region of forests and traditional villages. Something interferes with Jade\'s clairvoyance here.'},
   {ch:99, n:'The Hidden Message', t:'An unexpected message suggests the curse, Jade\'s visions and the people around her may be connected.'},
   {ch:99, n:'Ancient Records', t:'Records recovered from the Faepool ruins. The disturbances are not random: they belong to one pattern.'},
