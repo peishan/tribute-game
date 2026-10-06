@@ -97,3 +97,8 @@ Jade returns as Princess of Tribute and of Dragonvale, wife of a respected princ
 - Unlocks at ch90. Support NPC, not playable. Tab "Network": Reports, Requests (use the contract log; reward gold/rep/materials + Adrian's hidden trust), Intelligence (kingdom records, history, enemy files, character files with early/late text, trust-gated Gold family lore), Letters (sibling banter, unlocked by trust), Kingdom Status (static meters; strategic decisions later).
 - Reserved: contact slot for Princess Evelyne Greyson / Royal Diplomatic Liaison, shown only when flag contact_evelyne is set (not set anywhere yet). The tree shows Adrian Gold > Tribute Intelligence > Unknown Contacts (locked). The game text does not mention his relationship with Greyson's sister, his past assignments or his influence.
 - Support network (not party): Greyson, Adrian, Jenika, King Chadstone. Ripley is an attendant (left the party at ch87), contrary to the author's playable list in the Adrian note; confirm if she should be playable again.
+
+## Chapters 99-101 (end of the Tribute week)
+- 99 The King and His Sister (Jade named Princess of Tribute), 100 The Visions She Hid (three sources of her visions; Xima's evil still exists), 101 The King's Request (mission beyond Tribute: missing envoys, hidden records, old alliance).
+- Note: the author said chapter 99 is the last story chapter in Tribute and 100 leaves Tribute; the pages show 100 and 101 are still in Tribute and the party sets out after 101. Built from the pages.
+- m_kings_request has four sealed objectives (flags beyond_tribute, envoys_found, hidden_records_found, tribute_represented): set by the next chapters (the territory beyond Tribute: Altan?). TRIBUTE party mode (fixed five) is still undecided.

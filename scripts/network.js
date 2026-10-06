@@ -23,6 +23,7 @@ const REPORTS = [
   {ch:95, loc:'Dragonvale', threat:'Crown Prince Aster has settled the court. The borders are calm for now.', status:'Stable.'},
   {ch:98, loc:'Royal Archives', threat:'Sections of the healer registries and border logs were removed by hand.', status:'Search under way.'},
   {ch:98, loc:'Western Regions', threat:'Merchants speak of a travelling healer from long ago, and of villages that stopped asking her name.', status:'Rumour. Unconfirmed.'},
+  {ch:101, loc:'Beyond the Island', threat:'An allied territory has reported missing envoys, old records and disappearances near forgotten ruins.', status:'Greyson has sent Jade.'},
   {ch:99, loc:'Tribute Roads', threat:'Bandits are returning to the coast road now the armies are home.', status:'Contracts posted.'},
 ];
 /* ---- Requests (optional; use the contract system, with trust rewards) ---- */
