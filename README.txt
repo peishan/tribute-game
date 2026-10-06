@@ -217,3 +217,6 @@ Comic pages 78-83 and 85 (84 not provided yet; shows art pending). Moonveil Temp
 
 --- v7.9: CHAPTERS 84, 86 ---
 Liora at three (84) and the farewell (86). Dragonvale chapters 74-86 are complete; return to Tribute (87) next.
+
+--- v8.0: CHAPTER 87 ---
+The Shadow at Dragonvale's Gate: Levi rejoins (reborn), Seraphina permanent, Divorce Scroll, Sky's gear (Skyward Spirit Staff, Dragonvale Healer's Robes, auto-equipped), Sally stays. Chapter number for these is now canon.

@@ -16,7 +16,7 @@ const profileKnown = id => isRecruited(id) || !!(G.left && G.left[id]) || (INTRO
 // Story flags set when a chapter is completed (e.g. Levi's crossbow goes to Jade in ch30).
 const CH_FLAGS = { 86:['dragonvale_honoured'], 82:['aster_crown_prince'], 75:['dv_purify','partner_actions'], 77:['princess_guardian','royal_spirit_authority','twin_dragon','dv_exploration'], 87:['levi_reborn','sally_stays','liora_apart','seraphina_free'], 73:['roc_exiled','liora_ward'], 63:['chad_dark_arts'], 67:['chad_dark_deep'], 70:['chad_backlash_1'], 71:['chad_backlash_2'], 72:['chad_backlash_3'], 59:['roc_severed'], 60:['jade_poisoned'], 58:['royal_attire'], 52:['sally_gossip'], 42:['jade_awakened'], 44:['bracelet'], 51:['sally_noble'], 0:['greyson_gift'], 38:['cleansing_touch'], 41:['greyson_arms'], 30:['crossbow'] };   // greyson_arms: dagger+flail unseal at the major battle, chapter 41 (per the author)
 // Items handed over when a chapter completes. Greyson gives Jade a dagger and flail in the Prologue; she may not use them until the major battle (chapter TBD, flag greyson_arms).
-const CH_ITEMS = { 87:[{id:'divorce_scroll',qty:1}], 58:[{id:'royal_attire',qty:1},{id:'phoenix_guard',qty:1}], 44:[{id:'sealed_box',qty:1}], 0:[{id:'greyson_dagger',qty:1},{id:'greyson_flail',qty:1}] };   // (the communication bracelet comes from the Greyson mission m_bracelet, see world.js)
+const CH_ITEMS = { 87:[{id:'divorce_scroll',qty:1},{id:'skyward_staff',qty:1},{id:'healers_robes',qty:1}], 58:[{id:'royal_attire',qty:1},{id:'phoenix_guard',qty:1}], 44:[{id:'sealed_box',qty:1}], 0:[{id:'greyson_dagger',qty:1},{id:'greyson_flail',qty:1}] };   // (the communication bracelet comes from the Greyson mission m_bracelet, see world.js)
 
 let G = null;
 const $ = id => document.getElementById(id);
@@ -43,6 +43,7 @@ const U = id => G.units[id];
 // Story states. DISABLED: stays in the party but cannot fight. LEAVE: leaves the party (data kept).
 const CH_DISABLE = { 42:['sky'] };   // Sky is critically cursed in ch42; no recovery chapter decided yet (Dev tab can clear it)
 // PROVISIONAL chapter numbers (75+ not yet planned): Levi returns "reborn" before the party goes home; Sally stays in Dragonvale when the party returns to Tribute.
+const CH_EQUIP = { 87:{sky:['skyward_staff','healers_robes']} };   // gear equipped automatically when the chapter completes
 const CH_RETURN = { 87:['levi'] };   // ch87 (author): Levi's rejoin / return to Tribute
 const CH_STAY = { 87:['sally'] };   // leaves the party but stays reachable as a Dragonvale rumour source
 const CH_ENABLE = { 61:['sky'] };   // Sky is healed after chapter 61 and returns to active duty

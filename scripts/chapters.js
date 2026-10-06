@@ -877,6 +877,16 @@ const CHAPTER_DESIGN = {
   purpose:['Close the Dragonvale year','Hand off to the return to Tribute'],
   unlocks:['Liora stays in Dragonvale with Jenika','Departure for Tribute'],
   reward:'The farewell'},
+ 87:{ title:'The Shadow at Dragonvale\'s Gate', type:'Story Chapter — the departure and reunion', loc:'🏮 Dragonvale gate → the road to the jetty',
+  chars:['jade','devon','seraphina','levi','sky','sally'], charsNote:'Jade, Devon, Seraphina, Levi, Sky, Sally (and Jenika, Liora in the distance)',
+  introduced:[],
+  sum:'At Dragonvale\'s gate a new departure begins. Some farewells mark an ending; others mark the return of what was lost. Seraphina Altan approaches Jade and Devon: "Princess Jade. Prince Devon. I ask to travel with you." She holds up a scroll: "His Majesty has granted my divorce. I would rather choose my own road now." Though they are leaving, part of their hearts remains with the life they built in Dragonvale: the Royal Healing Pavilion stands in the distance, where Jenika and Liora are, the people who brought so much light into their lives. Sally, in her noble purple, says: "Take care of yourselves. Dragonvale will always welcome you back." Sky, too, says goodbye after spending so much time with Jenika during the year: "Safe travels." On the way to the jetty their journey is interrupted by an unexpected shadow on the road: a lone figure stands before them, blocking the way. Levi: "I suppose I took longer than expected to return. A spirit healer found me between life and death. I survived... and I recovered." Jade: "Levi... you\'re alive." Devon: "Then come with us. Your place is still beside us." Jade embraces him: "I\'m so happy to see you again. Welcome back, Levi." "We\'re stronger now, together once more. A new journey awaits us." Banners: Permanent Party Member Joined: Seraphina Altan. Party Member Rejoined: Levi.',
+  art:'Pages show: no battle (the road is blocked by Levi, not an ambush). The banners list only Seraphina (permanent) and Levi (rejoined). Sky is shown saying goodbye to Jenika with new blue-and-white attire and says \'Safe travels\'; the page does not say whether he leaves with the party, so he stays in the party for now. Sally waves them off and stays in Dragonvale. Levi\'s attire is dark green with a long cloak; he was healed by a spirit healer.',
+  quote:'"A spirit healer found me between life and death. I survived... and I recovered." — Levi',
+  events:['Seraphina asks to travel with Jade and Devon, holding the Divorce Scroll','Sally and Sky say goodbye','A lone figure blocks the road: Levi, alive and recovered','Levi rejoins the party','Banners: Seraphina Altan joins permanently; Levi rejoins'],
+  purpose:['Seraphina becomes a permanent party member','Levi returns (reborn)','Departure toward Tribute'],
+  unlocks:['Permanent Party Member Joined: Seraphina Altan','Party Member Rejoined: Levi','Sky\'s recovery gear'],
+  reward:'Seraphina joins; Levi returns'},
 };
 // Chapter titles read from the title cards of the comic pages (the comic is canon). 0-3 titles also come from CHAPTER_DESIGN.
 const COMIC_TITLES = { 4:'A Secret Mission', 5:'Unanswered Ties', 6:'Moonlit Confessions', 7:'Restless Desire', 8:'Unwanted Truths', 9:'Whispers and Jealousy', 10:'The Prophecy',
@@ -889,4 +899,4 @@ const COMIC_TITLES = { 4:'A Secret Mission', 5:'Unanswered Ties', 6:'Moonlit Con
   57:'The Vow We Keep', 58:'The Princess Beyond the Guard', 59:'The Bond Severed', 60:'The Cavern of Fireflies',
   61:'The Moon\'s Lonely Child', 62:'The Shadow Behind the Poison',
   63:'Court of Suspicions', 64:'The Marriage Proposal', 65:'The Trader Princess', 66:'Princess Altan Revealed', 67:'The Princess and the Fallen Prince', 68:'The Marriage Without Love', 69:'The Price of Ambition', 70:'The Fading Blade', 71:'The Truth Beneath the Darkness', 72:'The Choice of Delilah', 73:'The Exiled Prince', 74:'The King\'s Message', 75:'Whispers at the Border', 76:'The Ruins Awaken', 77:'The Heart of the Ruins',
-  78:'Echoes of the Forgotten Temple', 79:'The Black Pearl Records', 80:'The Shadow Behind the Pearl', 81:'A Year of Peace', 82:'The Crown Prince', 83:'The Life We Build', 84:'The Princess and the Child', 85:'The Last Duty Before Departure', 86:'Farewell to Dragonvale' };
+  78:'Echoes of the Forgotten Temple', 79:'The Black Pearl Records', 80:'The Shadow Behind the Pearl', 81:'A Year of Peace', 82:'The Crown Prince', 83:'The Life We Build', 84:'The Princess and the Child', 85:'The Last Duty Before Departure', 86:'Farewell to Dragonvale', 87:'The Shadow at Dragonvale\'s Gate' };

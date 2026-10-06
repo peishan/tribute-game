@@ -23,6 +23,9 @@ const GEAR = {
   // ---- Jade's attires (ch58): Daily Royal Attire and the Phoenix Guard mission / battle attire ----
   royal_attire:{n:'Daily Royal Attire',icon:'👘',slot:'armor',rarity:'rare',bonus:{hp:20,mag:4,def:3},for:['jade']},
   phoenix_guard:{n:'Phoenix Guard Attire',icon:'🔥',slot:'armor',rarity:'epic',bonus:{hp:30,def:8,atk:3},for:['jade']},
+  // ---- Sky's recovery gear (ch87; he has had it since his recovery in Dragonvale) ----
+  skyward_staff:{n:'Skyward Spirit Staff',icon:'🪄',slot:'weapon',rarity:'rare',bonus:{mag:9,mp:15},for:['sky']},
+  healers_robes:{n:'Dragonvale Healer\'s Robes',icon:'🥼',slot:'armor',rarity:'rare',bonus:{def:6,hp:25,mag:3},for:['sky']},
   // ---- shop ----
   ash_bow:{n:'Ash Bow',icon:'🏹',slot:'weapon',rarity:'common',price:90,bonus:{atk:3,spd:1},for:['jade']},
   braided_whip:{n:'Braided Whip',icon:'🪢',slot:'weapon',rarity:'common',price:90,bonus:{atk:3,spd:1},for:['jade']},
