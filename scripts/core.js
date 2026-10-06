@@ -47,7 +47,7 @@ const CH_EQUIP = { 87:{sky:['skyward_staff','healers_robes']} };   // gear equip
 const CH_RETURN = { 87:['levi'] };   // ch87 (author): Levi's rejoin / return to Tribute
 const CH_STAY = { 87:['sally'] };   // leaves the party but stays reachable as a Dragonvale rumour source
 const CH_ENABLE = { 61:['sky'] };   // Sky is healed after chapter 61 and returns to active duty
-const CH_LEAVE = { 50:['levi'], 73:['chad'] };    // Levi leaves the party in ch50 (mutual end of the engagement)
+const CH_LEAVE = { 50:['levi'], 73:['chad'], 87:['ripley'] };   // ch87: Levi is back, so Ripley returns to being Jade's attendant (the travelling party is fixed at five: Jade, Devon, Seraphina, Levi, Sky)    // Levi leaves the party in ch50 (mutual end of the engagement)
 // Sally (after the return to Tribute, CH_STAY) can only be partied while the party is in Dragonvale.
 const isAway = id => (id==='sally' && !!G.flags.sally_stays && G.loc!=='dragon_vale') || (id==='seraphina' && !!G.guests.seraphina && LOCATIONS[G.loc].region!=='dragon');   // Seraphina is a guest only inside Dragonvale until ch87
 const isDisabled = id => !!(G.disabled && G.disabled[id]) || isAway(id);
