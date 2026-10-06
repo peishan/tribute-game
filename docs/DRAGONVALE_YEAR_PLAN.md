@@ -64,3 +64,7 @@ Jade returns as Princess of Tribute and of Dragonvale, wife of a respected princ
 ## Liora after the party leaves Dragonvale (author's plan)
 - Built now: letters and messengers (scripts/family.js). From the return to Tribute (ch87 placeholder, flag liora_apart) a messenger letter arrives every ~16 days (Liora at "age 3-6"), every ~9 days after about 150 days away ("age 7-12"). Senders: Liora, Jenika, Devon, Aster. Some carry a small gift (herbs, tonics, gold). Messengers reach the party in settlements; letters queue until then. Letters mention the Dragonvale boards, and the party can return there for quests and bounties (Masked Contracts board still works).
 - Not built yet (waits for the story): occasional royal visits and training visits from Jade and Devon; Liora joining the party; her childhood pouch (Jade's first training note, Devon's letters, Jenika's herb journal; a reminder, not a powerful artifact); the Black Pearl destiny moment, which is kept for when Liora herself touches it. No letter uses the pearl as a way to call the parents.
+
+## Ghost Healer (author, planned from ch88)
+- Ch88: no battles, story only: how Levi survived. Sets up a future quest for Levi to revisit the Ghost Healer (spirit healer who found him between life and death).
+- The Ghost Healer may later enhance Sky's healing skills (future quest, chapter-locked). Sky stays with the party; he is sad to leave Jenika.
