@@ -40,7 +40,7 @@ function blog(t, cls){ B.log.push({t, cls:cls||''}); if(B.log.length>60) B.log.s
 
 /* ---------- start ---------- */
 function startBattle(spec){
-  const allyIds = (spec.allies || G.active).filter(id => !isDisabled(id));
+  const allyIds = (spec.allies || G.active.concat(G.party.filter(isCompanion))).filter(id => !isDisabled(id));
   B = { allies:allyIds.map(id => mkAlly(id, !!spec.rewards)), foes:spec.foes.map((f,i)=>mkFoeUnit(f.key,f.lv,i)), queue:[], cur:null, log:[], over:null,
         round:0, ui:{mode:'menu'}, spec, rewards:null };
   blog('Battle begins!','sys');

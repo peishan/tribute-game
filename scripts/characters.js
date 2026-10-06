@@ -170,6 +170,19 @@ const CHARACTERS = {
    {id:'silent_hawk',n:'Silent Hawk',tier:1,group:'path',req:{lvl:40},mult:{spd:1.2,hp:1.1},desc:'Scouting and ambush.',skills:[{id:'hawk_strike',n:'Hawk Strike',icon:'🦅',mp:12,kind:'phys',tgt:'foe',pow:3.0,crit:true,desc:'A guaranteed critical shot from the shadows.'}]},
   ]},
   bond:null },
+ ghost_healer:{
+  n:'The Ghost Healer', icon:'🕯️', cls:'Ghost Healer', role:'Support / Healer (companion, no party slot)', combat:'Healing / Cleansing',
+  identity:'A veiled healer who appears suddenly, heals the impossible and vanishes before dawn. They do not stay in any city and do not reveal their name. They travel with the party for a while and see something very old in Sky\'s healing.',
+  style:['Ancient healing techniques','Rare herbs','Spirit cleansing'], strength:'Cleansing and rescue',
+  weapon:'Herb satchel', signature:'Ghost Mend',
+  sigDesc:'Heals an ally and cleanses corruption. A companion: always fights beside the party without taking one of the four active slots.',
+  base:{hp:75,mp:50,atk:6,mag:15,def:8,spd:11}, grow:{hp:7,mp:4.5,atk:.6,mag:2.1,def:1,spd:.9},
+  skills:[
+   {id:'ghost_mend',n:'Ghost Mend',icon:'🕯️',mp:7,kind:'heal',tgt:'ally',pow:1.6,fx:[{k:'cleanse'}],req:{lvl:1},desc:'A quiet touch that heals and cleanses corruption.'},
+   {id:'herb_cleanse',n:'Rare Herb Cleanse',icon:'🌿',mp:9,kind:'heal',tgt:'allies',pow:.9,fx:[{k:'cleanse'},{k:'regen',v:.06,d:3}],req:{lvl:4},desc:'Rare herbs cleanse the whole party and restore a little each turn.'},
+   {id:'veil_of_dawn',n:'Veil Before Dawn',icon:'🌫️',mp:10,kind:'support',tgt:'allies',fx:[{k:'shield',v:.2,d:3},{k:'buff',stat:'eva',m:1.25,d:3}],req:{lvl:8},desc:'A pale veil: a barrier and evasion for all.'},
+   {id:'ancient_remedy',n:'Ancient Remedy',icon:'✨',mp:20,kind:'heal',tgt:'allyDown',pow:2.0,fx:[{k:'revive'},{k:'cleanse'}],req:{flag:'ghost_trust'},desc:'An ancient technique that pulls an ally back from the brink. Learned after the party earns the Ghost Healer\'s trust (the gift quest).'},
+  ], evo:{tiers:[]}, bond:null, companion:true },
  seraphina:{
   n:'Seraphina Altan', icon:'🦅', cls:'Altan Blademaster', role:'Physical DPS (replaces Roc)', combat:'Physical Attack',
   identity:'Princess of the Kingdom of Altan. Observant, proud and fair: she judges people by how they treat others. She takes the front line in Roc\'s place inside Dragonvale after his exile (chapter 73) and, after she asks to join, travels with the party for good (chapter 87).',
@@ -190,5 +203,5 @@ const CHARACTERS = {
   ]},
   bond:null }
 };
-const ROSTER = ['jade','chad','sky','sally','levi','ripley','devon','seraphina'];
+const ROSTER = ['jade','chad','sky','sally','levi','ripley','devon','seraphina','ghost_healer'];
 const BOND_LEVELS = [0,20,60,120,200,300];   // cumulative bond points for bond lvl 0..5

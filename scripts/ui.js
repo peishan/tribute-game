@@ -50,13 +50,13 @@ function rSheet(id){
   return `<div class="panel sheet"><div class="sh"><img src="${portrait(id)}"><div><h3>${c.icon} ${c.n}${G.guests[id]?' <em class="tag">guest</em>':''}</h3><div>${clsOf(id)}</div><div class="sm">${c.role} · ${c.combat}</div><div class="sm">Lv ${u.lv}/${CFG.LEVEL_CAP}</div>${bar(u.xp,xpToNext(u.lv),'xp')}<div class="sm">XP ${u.xp}/${xpToNext(u.lv)}</div></div></div>
    <div class="sm" style="margin:6px 0">${c.identity}</div>
    ${id!=='jade'?`<div class="sm">💞 Bond with Jade: ${bl}/5 ${nextB?`(${u.bp}/${nextB})`:'(max)'}</div>${bar(u.bp,nextB||u.bp||1,'bond')}`:''}
-   ${id!=='jade'?`<button onclick="toggleActive('${id}');render()">${act?'Remove from active party':'Add to active party'}</button>`:'<div class="sm">Jade always leads the active party.</div>'}
+   ${isCompanion(id)?'<div class="sm">🕯️ A companion: always travels and fights with the party, without using one of the four active slots.</div>':id!=='jade'?`<button onclick="toggleActive('${id}');render()">${act?'Remove from active party':'Add to active party'}</button>`:'<div class="sm">Jade always leads the active party.</div>'}
    ${isAway(id)?`<div class="panel bad"><b>🌹 Staying in Dragonvale</b><div class="sm">${id==='seraphina'?'Seraphina fights beside you only on Dragonvale grounds, in Roc\'s place, until she asks to join you for good.':'Sally can only join the party while you are in Dragonvale.'}</div></div>`:isDisabled(id)?'<div class="panel bad"><b>⛔ Critical — cannot fight</b><div class="sm">Cursed in chapter 42. He stays in the party but sits out battles until he recovers.</div></div>':''}
    <h4>Condition</h4><div class="sm">❤️ HP ${curHp(id)}/${st.hp} · 🔷 MP ${curMp(id)}/${st.mp}</div>${bar(curHp(id),st.hp,'hp')}${bar(curMp(id),st.mp,'mpb')}
    <h4>Stats</h4><div class="stg">${stats}</div>
    <h4>Weapon & Style</h4><div class="sm">${c.weapon} · ${c.style.join(', ')} · Strength: ${c.strength}</div>
    <h4>Special Ability — ${c.signature}</h4><div class="sm">${c.sigDesc}${c.fieldAbility?' <br><b>Field ability:</b> Ancient Dragon Knowledge (identify artefacts, unlock sealed areas — used by Explore later).':''}</div>
-   <h4>Skills</h4>${skills}${rTree(id)}${rBondRewards(id)}<h4>Evolution</h4>${evo}</div>`;
+   <h4>Skills</h4>${skills}${SKILLTREE[id]?rTree(id):''}${rBondRewards(id)}<h4>Evolution</h4>${evo}</div>`;
 }
 function rTree(id){
   const free = spFree(id);

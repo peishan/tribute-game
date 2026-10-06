@@ -220,3 +220,6 @@ Liora at three (84) and the farewell (86). Dragonvale chapters 74-86 are complet
 
 --- v8.0: CHAPTER 87 ---
 The Shadow at Dragonvale's Gate: Levi rejoins (reborn), Seraphina permanent, Divorce Scroll, Sky's gear (Skyward Spirit Staff, Dragonvale Healer's Robes, auto-equipped), Sally stays. Chapter number for these is now canon.
+
+--- v8.1: CHAPTER 88 ---
+The Ghost Healer: slotless companion, quest A Gift for the Ghost Healer, Moon-Blossom Tea Stall (capital).

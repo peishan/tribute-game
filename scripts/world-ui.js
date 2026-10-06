@@ -137,6 +137,10 @@ function rSpot(L, sp){
         return `<div class="ev ${done||miss?'locked':''}"><div><b>${a.icon} ${a.n}</b><div class="sm">${[a.bond&&'bond',a.xp&&a.xp+' XP',a.gold&&a.gold+'g',a.items&&'herbs',a.hint&&'rumour'].filter(Boolean).join(' · ')}${miss?' · 🔒 '+CHARACTERS[a.need].n.split(' ')[0]+' not in party':''}</div></div><button ${done||miss?'disabled':''} onclick="act(doVillage,'${k}')">${done?'Done':'Do'}</button></div>`; }).join('')}<button onclick="act(()=>advanceDay(1))">🌙 Rest until tomorrow</button></div>`; break;
     case 'fireflies':
       body = `<div class="panel"><div class="sm">Spirit fireflies drift over the luminous water. Devon keeps watch while the party rests.</div><button class="pri" onclick="act(fireflyRest)">Rest by the water — restore the party (once per day, free)</button></div>`; break;
+    case 'gift':
+      body = `<div class="panel"><div class="sm">A tea and herb stall. The stallholder says the best gifts are the ones that ask for nothing back.</div>
+        <div class="ev ${G.flags.ghost_gift_bought?'locked':''}"><div><b>🍵 Moon-Blossom tea set and herbs</b><div class="sm">${GHOST_GIFT_PRICE}g · a gift for someone who asks for nothing</div></div><button ${G.flags.ghost_gift_bought||G.gold<GHOST_GIFT_PRICE?'disabled':''} onclick="act(buyGhostGift)">Buy</button></div>
+        ${G.flags.ghost_gift_bought&&!G.flags.ghost_gifted?`<button class="pri" ${G.party.includes('ghost_healer')?'':'disabled'} onclick="act(giveGhostGift)">Give the gift to the Ghost Healer</button>`:''}${G.flags.ghost_gifted?'<div class="sm">✔ Given.</div>':''}</div>`; break;
     case 'family':
       body = `<div class="panel"><div class="sm">Life in the palace. Each activity can be done once per day. Day ${G.day}.</div>${Object.keys(FAMILY_ACTS).map(k => { const a = FAMILY_ACTS[k], done = G.bondDay['fam_'+k]===G.day;
         return `<div class="ev ${done?'locked':''}"><div><b>${a.icon} ${a.n}</b></div><button ${done?'disabled':''} onclick="act(doFamily,'${k}')">${done?'Done':'Do'}</button></div>`; }).join('')}</div>`; break;
