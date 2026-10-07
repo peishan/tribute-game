@@ -155,6 +155,11 @@ function rSpot(L, sp){
         return `<div class="ev ${open?'':'locked'}"><div><b>${e.icon} Level ${L.n}: ${L.name}</b> ${cleared?'<span class="sm">· cleared</span>':''}<div class="sm">${L.desc}</div><div class="sm">Min level ${RAID_MIN_LV[L.n]} · Attempts today: ${left}/${RAID_ATTEMPTS}${open?'':(G.flags.roc_purified?(lvOK(RAID_MIN_LV[L.n])?' · 🔒 clear level '+(L.n-1)+' first':' · '+lvNeed(RAID_MIN_LV[L.n])):'')}</div></div>
           <button class="pri" ${open&&left>0?'':'disabled'} onclick="origin='here';raidStart(${L.n});tab='battle';render()">Challenge</button></div>`; }).join('');
       body = `<div class="panel"><div class="sm">Repeatable. Rewards: Dark Essence, Dragon Crystal, Royal Sigil; rare Shadow Steel, Shadow Mail, the Crown of the Forgotten Prince. Craft Dragon Prince's Blade at the Healing Pavilion.</div></div>${rows}`; break; }
+    case 'puzzle': {
+      const d = doorState();
+      body = `<div class="panel"><div class="sm">Four rings. Tap a ring to turn it. The Valen crest joins the healing flower to the dragon spine: life and balance.</div>
+        <div class="row" style="justify-content:center;gap:10px;margin:10px 0">${d.map((v,i) => `<button style="font-size:2rem;padding:10px 14px" ${G.flags.door_open?'disabled':''} onclick="turnRing(${i});render()">${SYMS[v]}</button>`).join('')}</div>
+        ${G.flags.door_open?'<div class="sm">✔ The door stands open.</div>':'<button class="pri" onclick="act(tryDoor)">Try the door</button>'}</div>`; break; }
     case 'order':
       body = `<div class="panel"><div class="sm">Jade carries the king's sealed order. Only its keepers may open it.</div>${G.flags.order_delivered?'<div class="sm">✔ Delivered.</div>':`<button class="pri" onclick="act(deliverOrder)">Present the sealed order</button>`}</div>`; break;
     case 'goldhome':
