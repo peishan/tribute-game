@@ -134,3 +134,5 @@ Jade returns as Princess of Tribute and of Dragonvale, wife of a respected princ
 - Bosses ignore Protective Oath 35% of the time.
 - Boss phases: `phases:[{at:hpFraction, msg, moves?, atk?, shield?, summon?}]` on an enemy. Built for the Ancient Guardian Spirit (3 phases), the Awakened Spirit Core (3), Shadow of Roc (3), Shadow of Ambition, The Forgotten Prince.
 - Adrian's strategic decisions (built): Kingdom Status meters now move. One decision per 7 in-game days (DECISIONS in network.js): send soldiers / supplies / investigate etc.; four written so far.
+
+- Enemy scaling for the fixed party (battle.js ENEMY_PER_EXTRA): baseline is four fighters; each extra adds +32% foe HP, +10% damage (bosses +12% more HP), +15% XP/gold. The Ghost Healer counts as half. Five fighters plus him is +48% HP. Not applied in sandbox fights. Tune the four numbers.

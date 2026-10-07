@@ -39,10 +39,25 @@ const mpCost = (u,s) => Math.round(s.mp * ((u.state && u.state.id==='awakened') 
 function blog(t, cls){ B.log.push({t, cls:cls||''}); if(B.log.length>60) B.log.shift(); }
 
 /* ---------- start ---------- */
+/* Foes scale with how many fight for you: baseline is four. Each extra fighter adds ENEMY_PER_EXTRA to HP, and a smaller share to damage;
+   the passive Ghost Healer counts as half. Bosses get a little more. Rewards rise a bit too, so fights stay worth it. Skipped in sandbox fights (no rewards). */
+const ENEMY_PER_EXTRA = {hp:.32, atk:.10, boss:.12, xp:.15};
+function partyWeight(){ return B.allies.reduce((a,u) => a + (isCompanion(u.id) ? .5 : 1), 0); }
+function scaleForParty(){
+  if(!B.spec.rewards) return;
+  const extra = Math.max(0, partyWeight() - 4); if(!extra) return;
+  B.foes.forEach(f => {
+    const hpm = 1 + extra*(ENEMY_PER_EXTRA.hp + (f.boss ? ENEMY_PER_EXTRA.boss : 0)), am = 1 + extra*ENEMY_PER_EXTRA.atk;
+    f.hp = f.mhp = Math.round(f.mhp*hpm); f.atk = Math.round(f.atk*am); f.mag = Math.round(f.mag*am);
+    f.xp = Math.round(f.xp*(1 + extra*ENEMY_PER_EXTRA.xp)); f.gold = Math.round(f.gold*(1 + extra*ENEMY_PER_EXTRA.xp));
+  });
+  B.scaled = extra;
+}
 function startBattle(spec){
   const allyIds = (spec.allies || G.active.concat(G.party.filter(isCompanion), presentGuests().filter(id => !G.active.includes(id)))).filter(id => !isDisabled(id));
   B = { allies:allyIds.map(id => mkAlly(id, !!spec.rewards)), foes:spec.foes.map((f,i)=>mkFoeUnit(f.key,f.lv,i)), queue:[], cur:null, log:[], over:null,
         round:0, ui:{mode:'menu'}, spec, rewards:null };
+  scaleForParty();
   blog('Battle begins!','sys');
   if(spec.rewards && !B.foes.some(f => f.boss) && typeof banterLines==='function' && Math.random() < .3){ const q = pickBanter('battle'); if(q) q.forEach(l => blog(l.replace('💬 ',''),'sys')); else if(Math.random()<.5) blog(AR(BATTLE_QUIPS),'sys'); }
   advance();
