@@ -31,7 +31,25 @@ const FAM_GENERIC = [
   {from:'Devon', subj:'The board is full', body:'The Dragonvale boards are busy again. If you return, there is work, and a daughter who will pretend she was not waiting. — Devon'},
 ];
 function famStage(){ return (G.fam && G.day - G.fam.since >= FAM_OLDER_AFTER) ? 'older' : 'young'; }
+/* Lio the messenger (from ch118): short letters from the restored west, once in a while, to the party in any settlement. */
+const LIO_LETTERS = [
+  {subj:'From the western road', body:'Lady Jade. The healer routes are busier than they have ever been. Mira has not slept. The archive doors are open every day now and the villagers queue to read their own families\' names. — Lio'},
+  {subj:'A gift from the west', body:'Tribute remembers us only when it needs something, I used to say. Now we remember you when we do not need anything at all. Take this from the village. — Lio', gift:{items:[{id:'moon_tonic',qty:2}]}},
+  {subj:'News from Mira', body:'Mira found another page behind the false panel. She says it is only a recipe for a tonic. She cried anyway. — Lio', gift:{gold:200}},
+];
+function lioTick(){
+  if(!G.flags.valen_restored) return [];
+  if(!G.lio) G.lio = {next:G.day+12, i:0};
+  const msgs = [];
+  if(G.day >= G.lio.next && isSettlement(G.loc)){
+    const L = LIO_LETTERS[G.lio.i % LIO_LETTERS.length]; G.lio.i++; G.lio.next = G.day + 20;
+    G.letters.unshift({id:'F_lio_'+G.day, fam:true, from:'Lio', subj:L.subj, body:L.body, gift:L.gift||null, day:G.day, read:false});
+    msgs.push('✉️ A messenger arrives from the west: "'+L.subj+'"'); toast(msgs[0]);
+  }
+  return msgs;
+}
 function famTick(){
+  lioTick();
   if(!G.flags.liora_apart) return [];
   if(!G.fam) G.fam = {since:G.day, sent:[], next:G.day + 6, queue:0};
   while(G.day >= G.fam.next){ G.fam.queue++; G.fam.next += FAM_INTERVAL[famStage()]; }

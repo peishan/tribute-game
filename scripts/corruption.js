@@ -11,7 +11,7 @@ const isCorrupted = loc => CORR_START[loc] !== undefined;
 function corrAt(loc){
   if(!isCorrupted(loc)) return 0;
   if(!G.corr) G.corr = {};
-  if(G.corr[loc] === undefined) G.corr[loc] = CORR_START[loc];
+  if(G.corr[loc] === undefined) G.corr[loc] = (loc==='valen_borderlands' && G.flags.valen_restored) ? 5 : CORR_START[loc];
   return G.corr[loc];
 }
 function corrAdd(loc, n){ if(!isCorrupted(loc)) return 0; const v = Math.max(0, Math.min(100, corrAt(loc) + n)); G.corr[loc] = v; return v; }

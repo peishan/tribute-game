@@ -169,3 +169,7 @@ Jade returns as Princess of Tribute and of Dragonvale, wife of a respected princ
 
 ## Home bases (built, scripts/base.js)
 - Devon's Palace (Dragonvale, from ch57) and the Gold Manor (Tribute, Gold Residence, from ch90): free full-recovery rest (1 day), free home-cooked meal (bond +3), the party's talk, and a stash for non-quest items. Smaller areas keep paid taverns and inns.
+
+## Chapters 117 (revised) and 118
+- 117 revised: Sky is in the scene (blue hair) and says the pendant his mother gave him carried part of Yvette's knowledge and was lost to save his life: "She still protected me, even in her absence." Implied, not stated: Yvette is Sky's mother. Flag sky_pendant_mother.
+- 118 Return of the Western Territory: the Valen arc ends in restoration. Mira is Valen's representative, Lio a messenger (letters + gifts every ~20 days), Corvin Hale supports the restoration, the corrupt officials are exposed. Effects: the Western Road is safer (risk 50% -> 20%), Valen corruption drops to 5%, new Network report.

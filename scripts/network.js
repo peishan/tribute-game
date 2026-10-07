@@ -24,6 +24,7 @@ const REPORTS = [
   {ch:98, loc:'Royal Archives', threat:'Sections of the healer registries and border logs were removed by hand.', status:'Search under way.'},
   {ch:98, loc:'Western Regions', threat:'Merchants speak of a travelling healer from long ago, and of villages that stopped asking her name.', status:'Rumour. Unconfirmed.'},
   {ch:101, loc:'Beyond the Island', threat:'An allied territory has reported missing envoys, old records and disappearances near forgotten ruins.', status:'Greyson has sent Jade.'},
+  {ch:118, loc:'Valen Borderlands', threat:'Mira Valen now represents Valen. The archives are open, the healer routes are running, and Lio carries messages between regions.', status:'Allied.'},
   {ch:99, loc:'Tribute Roads', threat:'Bandits are returning to the coast road now the armies are home.', status:'Contracts posted.'},
 ];
 /* ---- Requests (optional; use the contract system, with trust rewards) ---- */
