@@ -187,5 +187,6 @@ Jade returns as Princess of Tribute and of Dragonvale, wife of a respected princ
 - Ch126 The Saint of Forgotten Light: Seris Valen, the Forgotten Sanctuary (new location, unlocks after ch125), five spots matching the quest box, mission m_saint_light. Seris's relation to the Valen family and to Sky is not stated on the page.
 
 ## Chapters 127-128, Arc V cover and cast
+- Arc IV cast sheet (Jade, Devon, Sky, Levi, Mira, Lio, Master Teren, Corvin Hale) is gated at ch121, the end of the arc.
 - Arc V cover replaced with the revised art. The Arc V cast sheet (Jade, Devon, Sky, Levi, Cael Ardyn, Seris Valen, Eira, Varyn) is in the Cast tab's arc gallery, gated by `castCh` in `ARCS` (set to 145, the end of the arc, because Eira and Varyn are not introduced yet; lower it to taste).
 - 127 The Light That Remains and 128 The Path Remembered: both at the Forgotten Sanctuary, five spots each, missions m_light_remains and m_path_remembered. The map names no destination beyond "a forgotten region beyond the old seals".

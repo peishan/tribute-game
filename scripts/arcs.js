@@ -12,7 +12,7 @@ const ARCS = [
   {n:1, title:'The Hidden Isle', img:'assets/arcs/arc1.webp', after:-1},
   {n:2, title:'The Dragonvale Court', img:'assets/arcs/arc2.webp', after:42},
   {n:3, title:'The Truth Beneath Tribute', img:'assets/arcs/arc3.webp', after:86},
-  {n:4, title:'The Forgotten Valen Legacy', img:'assets/arcs/arc4.webp', after:103},
+  {n:4, title:'The Forgotten Valen Legacy', img:'assets/arcs/arc4.webp', after:103, cast:'assets/arcs/arc4_cast.webp', castCh:121},
   {n:5, title:'The Broken Seals', img:'assets/arcs/arc5.webp', after:121, cast:'assets/arcs/arc5_cast.webp', castCh:145},   // Arc V runs from ch122 to ch145 (per the author)
 ];
 const ARC_ROMAN = ['','I','II','III','IV','V'];
