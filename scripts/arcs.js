@@ -6,6 +6,7 @@
      Arc II  The Dragonvale Court   : after ch42 (Sky falls, the party goes to Dragonvale)
      Arc III The Truth Beneath Tribute : after ch86 (farewell to Dragonvale, return to Tribute)
      Arc IV  The Forgotten Valen Legacy : after ch103 (leave Tribute for the west)
+     Arc V   (title and cover pending)  : begins with ch122 (The First Omen). Add the entry after ch121 once assets/arcs/arc5.webp exists.
    ===================================================================== */
 const ARCS = [
   {n:1, title:'The Hidden Isle', img:'assets/arcs/arc1.webp', after:-1},

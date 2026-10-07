@@ -173,3 +173,10 @@ Jade returns as Princess of Tribute and of Dragonvale, wife of a respected princ
 ## Chapters 117 (revised) and 118
 - 117 revised: Sky is in the scene (blue hair) and says the pendant his mother gave him carried part of Yvette's knowledge and was lost to save his life: "She still protected me, even in her absence." Implied, not stated: Yvette is Sky's mother. Flag sky_pendant_mother.
 - 118 Return of the Western Territory: the Valen arc ends in restoration. Mira is Valen's representative, Lio a messenger (letters + gifts every ~20 days), Corvin Hale supports the restoration, the corrupt officials are exposed. Effects: the Western Road is safer (risk 50% -> 20%), Valen corruption drops to 5%, new Network report.
+
+## Chapters 119-125 (end of the Valen arc, start of Arc V)
+- 119 The Letter Left Behind (Yvette's final letter; Sky calls her "Mother"; "chosen by choice"), 120 Beyond the Forgotten West, 121 Return to Tribute (court), 122 The First Omen (demons fleeing; Arc V begins), 123 The Sleeping Enemy (Cael Ardyn), 124 The First Broken Seal, 125 The Forgotten Light.
+- New location: The Forgotten Battlefield (unlocks after ch122; routes from the capital and the Valen Borderlands). Spots for each quest box line, 6 new missions, lore, reports, flags.
+- Two pendants (author): Sky's own jade pendant (ch1, ch94) was lost; the pendant in ch117 is his mother's. Jade's teal-green pendant (123-125) "belonged to my family" and Cael calls it the Gold lineage's; kept separate until the author says otherwise.
+- Arc V cover/title pending: add the ARCS entry (after 121) once assets/arcs/arc5.webp exists.
+- Open: the gold-haired voice in the ch123 vision is unnamed; ch122's opening caption repeats ch121's; the Valen map image does not show the battlefield yet.

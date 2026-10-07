@@ -25,6 +25,11 @@ const REPORTS = [
   {ch:98, loc:'Western Regions', threat:'Merchants speak of a travelling healer from long ago, and of villages that stopped asking her name.', status:'Rumour. Unconfirmed.'},
   {ch:101, loc:'Beyond the Island', threat:'An allied territory has reported missing envoys, old records and disappearances near forgotten ruins.', status:'Greyson has sent Jade.'},
   {ch:118, loc:'Valen Borderlands', threat:'Mira Valen now represents Valen. The archives are open, the healer routes are running, and Lio carries messages between regions.', status:'Allied.'},
+  {ch:121, loc:'Royal Court', threat:'The Valen records and Corvin Hale\'s testimony are before the throne. Greyson fears forces inside the kingdom itself.', status:'Sealed court proceedings.'},
+  {ch:122, loc:'Western Frontier', threat:'Demons are retreating from the west in panic, away from forgotten shrines, ancient battlefields and old seal sites.', status:'Not an invasion. Cause unknown.'},
+  {ch:122, loc:'Northern Border', threat:'Sightings match locations whose seals have recently weakened. The remaining fifteen evils may be stirring.', status:'Watching.'},
+  {ch:123, loc:'The Forgotten Battlefield', threat:'A field of statues, older than Xima\'s war. Scouts will not go near it. A man who calls himself the last Seal Keeper stands watch.', status:'Jade\'s party is on site.'},
+  {ch:124, loc:'The Forgotten Battlefield', threat:'A cracked ancient seal beneath the field. Cael Ardyn warns that it is a prison, and that it remembers its prisoner.', status:'Critical.'},
   {ch:99, loc:'Tribute Roads', threat:'Bandits are returning to the coast road now the armies are home.', status:'Contracts posted.'},
 ];
 /* ---- Requests (optional; use the contract system, with trust rewards) ---- */
