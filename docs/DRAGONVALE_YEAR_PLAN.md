@@ -161,3 +161,11 @@ Jade returns as Princess of Tribute and of Dragonvale, wife of a respected princ
 - XP: one shared table for every hero, xpToNext(lv) = 40 + 22*lv + 1.2*lv^2; each hero tracks their own level and XP. Active fighters get the full award, the bench half. Cap 100.
 
 - XP is now per class (author): XP_TABLES in core.js, XP_CLASS maps each hero. Swift fighters (Roc, Seraphina) need less XP per level, rangers (Levi, Ripley, Sally) slightly less, support (Sky, Ghost Healer) and the scholar (Devon) more; Jade is the standard curve. There is no level cap (CFG.LEVEL_CAP = Infinity).
+
+## Chapters 109-117 (Valen arc, part 2)
+- 109 The Man Who Knows Too Much (Magistrate Corvin Hale), 110 The Magistrate's Shadow (the forbidden page), 111 The Valen Family Name (portrait), 112 The Forgotten Alliance (the pact), 113 The Price of Silence, 114 The Hidden Enemy (sun-and-eye symbol, Xima), 115 The Healer's Secret (Dima, Gold Child), 116 The Borderland Trial (battle: Jade and Devon only), 117 The Truth Behind Yvette Sue Valen.
+- Resolved sealed objectives: people_behind_found (ch114), valen_prophecy_link (ch115), the file on Yvette (spot yvette_file unlocked at ch117). Still sealed: Sky's files (m_missing_docs), Yvette's trail in Tribute (m_missing_sister).
+- Not shown in the comic: who the crowned royal figure in Yvette's portrait is, and Sky's tie to her. Ch117 shows a purple-haired man where Devon would be (probably an art slip).
+
+## Home bases (built, scripts/base.js)
+- Devon's Palace (Dragonvale, from ch57) and the Gold Manor (Tribute, Gold Residence, from ch90): free full-recovery rest (1 day), free home-cooked meal (bond +3), the party's talk, and a stash for non-quest items. Smaller areas keep paid taverns and inns.

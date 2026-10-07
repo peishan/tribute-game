@@ -134,6 +134,7 @@ const ITEMS = {
   cultist_robe:{n:'Crimson Cultist Robe',icon:'🧥',type:'gear',slot:'armor',rarity:'rare'}, wardens_lantern:{n:'Warden\'s Lantern',icon:'🏮',type:'gear',slot:'accessory',rarity:'epic'},
   ghost_gift:{n:'Moon-Blossom Gift Set',icon:'🍵',type:'quest',rarity:'rare'},
   divorce_scroll:{n:'Divorce Scroll (King Chadstone)',icon:'📜',type:'quest',rarity:'epic'},
+  forbidden_page:{n:'The Forbidden Page',icon:'📄',type:'quest',rarity:'epic'}, yvette_portrait:{n:'Portrait of Yvette Sue Valen',icon:'🖼️',type:'quest',rarity:'epic'}, pact_record:{n:'The Tribute-Valen Pact Record',icon:'📜',type:'quest',rarity:'epic'},
   sealed_box:{n:'Sealed Box (for the Dragonvale King)',icon:'📦',type:'quest',rarity:'epic'},
   mahan_crown:{n:'Mahan\'s Mire Crown',icon:'👑',type:'gear',slot:'accessory',rarity:'rare'},
 };

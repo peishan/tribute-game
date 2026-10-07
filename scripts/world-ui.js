@@ -165,6 +165,7 @@ function rSpot(L, sp){
         ${G.flags.door_open?'<div class="sm">✔ The door stands open.</div>':'<button class="pri" onclick="act(tryDoor)">Try the door</button>'}</div>`; break; }
     case 'order':
       body = `<div class="panel"><div class="sm">Jade carries the king's sealed order. Only its keepers may open it.</div>${G.flags.order_delivered?'<div class="sm">✔ Delivered.</div>':`<button class="pri" onclick="act(deliverOrder)">Present the sealed order</button>`}</div>`; break;
+    case 'base': body = rBase(); break;
     case 'goldhome':
       body = `<div class="panel"><div class="sm">The Gold family home. Each activity can be done once per day. Day ${G.day}.</div>${Object.keys(HOME_ACTS).filter(k => !HOME_ACTS[k].ch || G.ch>=HOME_ACTS[k].ch).map(k => { const a = HOME_ACTS[k], done = G.bondDay['home_'+k]===G.day;
         return `<div class="ev ${done?'locked':''}"><div><b>${a.icon} ${a.n}</b></div><button ${done?'disabled':''} onclick="act(doHome,'${k}')">${done?'Done':'Do'}</button></div>`; }).join('')}</div>`; break;

@@ -31,6 +31,7 @@ const GEAR = {
   shadow_mail:{n:'Shadow Mail',icon:'🛡️',slot:'armor',rarity:'epic',bonus:{def:9,hp:30,spd:2}},
   forgotten_crown:{n:'Crown of the Forgotten Prince',icon:'🥀',slot:'accessory',rarity:'epic',bonus:{atk:4,mag:4,hp:20,spd:2}},
   dragon_prince_blade:{n:'Dragon Prince\'s Blade',icon:'🗡️',slot:'weapon',rarity:'epic',bonus:{atk:15,spd:3,hp:15},for:['chad']},
+  yvette_ornament:{n:'Yvette\'s Hair Ornament',icon:'🌸',slot:'accessory',rarity:'epic',bonus:{mag:6,hp:30,mp:20}},
   // ---- shop ----
   ash_bow:{n:'Ash Bow',icon:'🏹',slot:'weapon',rarity:'common',price:90,bonus:{atk:3,spd:1},for:['jade']},
   braided_whip:{n:'Braided Whip',icon:'🪢',slot:'weapon',rarity:'common',price:90,bonus:{atk:3,spd:1},for:['jade']},
