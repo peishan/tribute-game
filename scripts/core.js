@@ -206,6 +206,13 @@ function evolve(id, eid){
 /* ---------- recruiting / story ---------- */
 const ACTIVE_SLOTS = 4;
 const activeCount = () => G.active.filter(id => !isDisabled(id)).length;   // a disabled hero does not take a fighting slot
+/* Temporary members ("visiting guests"): fight beside the party (controllable, extra to the five) while a rule holds.
+   Add a row here when a journey introduces someone: { id, flag (story flag that makes them available), regions (where they travel with you) }.
+   Roc (once purified, flag roc_reborn) joins on Dragonvale ground and at the exile border; he never returns to the main party. */
+const GUEST_RULES = {
+  chad:{flag:'roc_reborn', regions:['dragon'], note:'Roc, reborn, fights beside the party on Dragonvale ground.'},
+};
+const presentGuests = () => !G ? [] : Object.keys(GUEST_RULES).filter(id => { const r = GUEST_RULES[id]; return G.flags[r.flag] && r.regions.includes(LOCATIONS[G.loc].region) && !isDisabled(id); });
 const isCompanion = id => !!(CHARACTERS[id] && CHARACTERS[id].companion);   // companions travel and fight with the party without using one of the active slots
 function recruit(id){ if(G.left && G.left[id]) return false; if(!G.party.includes(id)){ G.party.push(id); if(!isCompanion(id) && (fixedParty() || activeCount()<ACTIVE_SLOTS)) G.active.push(id); return true; } return false; }
 function toggleActive(id){ if(fixedParty() || id==='jade' || isCompanion(id) || (isAway(id) && !G.active.includes(id))) return; const i=G.active.indexOf(id); if(i>=0) G.active.splice(i,1); else if(activeCount()<ACTIVE_SLOTS) G.active.push(id); save(); }

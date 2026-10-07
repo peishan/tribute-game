@@ -108,3 +108,8 @@ Jade returns as Princess of Tribute and of Dragonvale, wife of a respected princ
 - Mismatch resolved with the comic: the couple skill is Jade Dragon Harmony (ch103), replacing Twin Dragon Harmony (planned ch77).
 - Valen Borderlands: location opens after ch103; spots: Westwatch Gate, Present the Sealed Order, Valen Crossing board, Moonfall Hamlet (envoys), Ruins of Valen (erased records), Spirit Healer's Hollow (sealed), hunts (Veilwood, Whispering Plains, Mourning Marsh, Ashen Ravine). Not built from the map: Mirror Lake, Forgotten Watchtower, Howling Pass, Sunken Shrine, Western Frontier Camp.
 - Fixed party from ch102: Jade, Devon, Seraphina, Levi, Sky all fight (no slots). The Ghost Healer is a hidden companion: not shown on the party screen; acts by himself in battle (heals, cleanses, shields, revives).
+
+## Temporary members (guests) — system, author's idea
+- GUEST_RULES in core.js: a row per visiting member { flag, regions, note }. While the story flag is set and the party is in one of the regions, the guest fights beside the five (controllable, extra unit). They never occupy the fixed party.
+- Roc (once purified, flag roc_reborn) is the first row: guest on Dragonvale ground only. Not in the main party.
+- To add a new traveller met along the way: add them to CHARACTERS (and ROSTER), set a story flag in CH_FLAGS when they join, add a GUEST_RULES row with the regions they travel in. For a passive helper like the Ghost Healer use `companion:true` on the character.

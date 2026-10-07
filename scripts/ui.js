@@ -37,7 +37,7 @@ function rParty(){
   const roster = ROSTER.filter(id => !isCompanion(id)).map(id => {
     const c=CHARACTERS[id], rec=isRecruited(id), join=JOIN_CH[id];
     return `<div class="rc ${sel===id?'sel':''} ${rec||profileKnown(id)?'':'lock'}" onclick="sel='${id}';render()"><img src="${portrait(id)}"><div><b>${profileKnown(id)||id==='seraphina'?c.n:'???'}</b><div class="sm">${rec?clsOf(id)+' · Lv'+U(id).lv+(G.guests[id]?' · guest':''):(profileKnown(id)?clsOf(id)+' · ':'')+(join!==undefined?'Joins Ch.'+join:'Unrecruited')}</div></div></div>`; }).join('');
-  return `<h2>Party</h2><div class="sm">${fixedParty()?'The travelling party: all five fight together.':`Active (${activeCount()}/${ACTIVE_SLOTS}) — fights use these four`}</div><div class="slots">${slots}</div><div class="rcs">${roster}</div>${rSheet(sel)}`;
+  return `<h2>Party</h2><div class="sm">${fixedParty()?'The travelling party: all five fight together.':`Active (${activeCount()}/${ACTIVE_SLOTS}) — fights use these four`}</div><div class="slots">${slots}</div>${presentGuests().map(id => `<div class="sm" style="margin:4px 0">🤝 Guest: ${GUEST_RULES[id].note}</div>`).join('')}<div class="rcs">${roster}</div>${rSheet(sel)}`;
 }
 function rSheet(id){
   const c=CHARACTERS[id], rec=isRecruited(id);
