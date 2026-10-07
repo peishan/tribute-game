@@ -33,6 +33,8 @@ const REPORTS = [
   {ch:131, loc:'The Celestial Ruins', threat:'A forgotten region beyond the known lands: floating mountains, a silent city and the broken-seal symbol on every gate.', status:'Jade\'s party is on site.'},
   {ch:132, loc:'The Celestial Ruins', threat:'An intact city with no people. A guardian says its people were erased, not attacked.', status:'Seal decay suspected.'},
   {ch:135, loc:'Seal Sites', threat:'A man named Varyn Noctis claims to be opening, not breaking, the old seals. Incidents across five kingdoms share his handwriting.', status:'Contact made.'},
+  {ch:139, loc:'The Land Beyond the Seal', threat:'Behind the opened seal lies a cut-off civilization of homes, schools and temples, not a realm of monsters.', status:'Jade\'s party is on site.'},
+  {ch:146, loc:'The Fifteen Evils', threat:'The truth of the curse is known, but the curse remains and the fifteen evils still walk the world. An ancient threat that retreated waits behind the barrier.', status:'Arc V closed. The journey continues.'},
   {ch:99, loc:'Tribute Roads', threat:'Bandits are returning to the coast road now the armies are home.', status:'Contracts posted.'},
 ];
 /* ---- Requests (optional; use the contract system, with trust rewards) ---- */
