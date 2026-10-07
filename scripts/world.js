@@ -586,6 +586,7 @@ function finishTravel(){
     if(p.ev.xp) gainXp(p.ev.xp, G.party).forEach(m => msgs.push(m));
     if(p.ev.gold){ G.gold += p.ev.gold; msgs.push('+'+p.ev.gold+' gold'); }
     if(p.ev.bond){ G.active.forEach(id => addBond(id, p.ev.bond)); msgs.push('Bond +'+p.ev.bond+' (active party)'); } }
+  if(typeof banterLines==='function') banterLines('travel', .5).forEach(m => msgs.push(m));
   gainXp(8 * p.r.days, G.party);
   const first = !G.visited[p.to];
   msgs.push.apply(msgs, onArrive(p.to));
@@ -852,6 +853,7 @@ function doMeal(){
   if(G.gold < 15) return ['A shared meal costs 15 gold.'];
   G.gold -= 15; G.mealDay[G.loc] = G.day; const msgs = ['🍶 A shared meal. Bond +2 for the active party.'];
   G.active.forEach(id => { const m = addBond(id, 2); if(m) msgs.push(m); });
+  if(typeof banterLines==='function') banterLines('rest').forEach(m => msgs.push(m));
   return msgs.concat(advanceDay(0));
 }
 function rumour(){

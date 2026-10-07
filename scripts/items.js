@@ -35,7 +35,7 @@ const REST_COST = () => 10 + avgPartyLv()*2;
 function restAtInn(){
   const c = REST_COST(); if(G.gold < c) return ['A bed costs '+c+' gold.'];
   G.gold -= c; restoreParty();
-  return ['🛏️ The party sleeps soundly. HP and MP fully restored. (-'+c+'g)'].concat(advanceDay(1));
+  return ['🛏️ The party sleeps soundly. HP and MP fully restored. (-'+c+'g)'].concat(typeof banterLines==='function' ? banterLines('rest', .6) : [], advanceDay(1));
 }
 function useConsumable(id, k){
   const u = USE[k]; if(!u || !(G.inv[k] > 0)) return false;

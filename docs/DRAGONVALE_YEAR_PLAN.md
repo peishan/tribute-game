@@ -117,3 +117,7 @@ Jade returns as Princess of Tribute and of Dragonvale, wife of a respected princ
 ## Sky's apprenticeship with the Ghost Healer (built, scripts/apprentice.js)
 - Three lessons from Sky's party sheet while the Ghost Healer is with the party: Reading the Body (healing +15%), Cleansing Light (more healing + skill Cleansing Light), The Old Light (needs the Ghost Healer's trust from the gift quest; skill Forgotten Light). Each lesson takes a day and uses herbs and materials; level gates 30 / 34 / 40 (draft).
 - Does not explain Sky's past: the "something very old" stays a mystery for the story.
+
+## Idle banter and comic relief (built, scripts/banter.js)
+- BANTER rows: who must be present, min chapter, contexts (any / travel / rest / battle). Shown on arrival after travel (50%), with shared meals, inn nights, at the start of some real battles, and on demand: "Listen to the party" at taverns and camps (once a day).
+- Add more by appending rows; keep each exchange short; gate by chapter to avoid spoilers.
