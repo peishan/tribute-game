@@ -75,11 +75,11 @@ const SKILLTREE = {
     nd('y_i2','Mirror Image','👥',sk('mirror_image','Mirror Image','👥',8,'support','self',0,{fx:[{k:'buff',stat:'eva',m:1.8,d:2}]},'Mirror copies make Sally very hard to hit.')),
     ps('y_i3','Dream Weave','💭',{mult:{mp:1.08},evaB:.04}),
     nd('y_i4','Hall of Mirrors','🏛️',sk('hall_of_mirrors','Hall of Mirrors','🏛️',18,'magic','foes',.8,{fx:[{k:'charm',d:1,all:true}]},'A maze of reflections bewilders every foe.'))]},
-  {id:'dance',n:'Dance',icon:'💃',desc:'Agile strikes.',nodes:[
-    ps('y_d1','Quick Steps','👣',{mult:{spd:1.08}}),
-    nd('y_d2','Petal Flurry','🌹',sk('petal_flurry','Petal Flurry','🌹',8,'phys','foes',1.1,{},'Razor petals fly in a spinning dance.')),
-    ps('y_d3','Dancer\'s Poise','🎀',{mult:{spd:1.06},critB:.06}),
-    nd('y_d4','Thousand Petals','🌸',sk('thousand_petals','Thousand Petals','🌸',16,'phys','foes',1.7,{fx:[{k:'slow',d:2}]},'A storm of petals that slows all enemies.'))]},
+  {id:'dance',n:'Intel',icon:'👂',desc:'Information and reading people.',nodes:[
+    ps('y_d1','Sharp Ears','👂',{mult:{spd:1.06}}),
+    nd('y_d2','Whisper Network','🕸️',sk('whisper_network','Whisper Network','🕸️',7,'support','foe',0,{fx:[{k:'analyze'},{k:'buff',stat:'def',m:.8,d:3}]},'Her contacts know the foe: it is revealed and its DEF drops.')),
+    ps('y_d3','Reading People','👁️',{critB:.06,mult:{mag:1.05}}),
+    nd('y_d4','Open Secrets','📜',sk('open_secrets','Open Secrets','📜',14,'support','foes',0,{fx:[{k:'buff',stat:'def',m:.8,d:3},{k:'slow',d:2}]},'Every foe\'s weakness is laid bare: DEF down and slowed.'))]},
   {id:'charm',n:'Charm',icon:'💋',desc:'Control through charm.',nodes:[
     ps('y_c1','Silver Tongue','🗣️',{mult:{mag:1.06,hp:1.06}}),
     nd('y_c2','Honeyed Words','🍯',sk('honeyed_words','Honeyed Words','🍯',8,'support','foe',0,{fx:[{k:'charm',d:3}]},'A long enchantment: the target loses its turns.')),
@@ -87,11 +87,11 @@ const SKILLTREE = {
     nd('y_c4','Heartstrike','💘',sk('heartstrike','Heartstrike','💘',12,'magic','foe',1.4,{fx:[{k:'charm',d:2},{k:'silence',d:2}]},'A beautiful, devastating blow. Charms and silences.'))]},
  ],
  levi:[
-  {id:'elemental',n:'Elemental',icon:'🔥',desc:'Magical ammunition.',nodes:[
-    ps('l_e1','Charged Quiver','🎒',{mult:{mag:1.08}}),
-    nd('l_e2','Twin Bolt','🔥',sk('twin_bolt','Twin Bolt','🔥',8,'phys','foe',1.0,{fx:[{k:'burn',d:3},{k:'slow',d:3}]},'A flame and frost bolt in one shot.')),
-    ps('l_e3','Spell Ammunition','🧿',{mult:{atk:1.06,mp:1.08}}),
-    nd('l_e4','Tempest Bolt','⛈️',sk('tempest_bolt','Tempest Bolt','⛈️',14,'phys','chain',1.8,{elem:'lightning'},'A storm of lightning arcs between foes.'))]},
+  {id:'elemental',n:'Trick Arrows',icon:'🧪',desc:'Poison, nets and pins.',nodes:[
+    ps('l_e1','Full Quiver','🎒',{mult:{atk:1.06}}),
+    nd('l_e2','Twin Arrow','🧪',sk('twin_bolt','Twin Arrow','🧪',8,'phys','foe',1.0,{fx:[{k:'burn',d:3},{k:'slow',d:3}]},'A poisoned and a pinning arrow in one draw.')),
+    ps('l_e3','Trick Craft','🧿',{mult:{atk:1.06,mp:1.08}}),
+    nd('l_e4','Arrow Storm','⛈️',sk('tempest_bolt','Arrow Storm','⛈️',14,'phys','chain',1.8,{},'A storm of ricocheting arrows.'))]},
   {id:'marksman',n:'Marksman',icon:'🎯',desc:'Pure precision.',nodes:[
     ps('l_m1','Steady Aim','🎯',{mult:{atk:1.08}}),
     nd('l_m2','Piercing Shot','📍',sk('piercing_shot','Piercing Shot','📍',7,'phys','foe',2.2,{},'A shot that finds the gap in any armour.')),
@@ -103,22 +103,56 @@ const SKILLTREE = {
     ps('l_t3','Field Training','🛡️',{mult:{hp:1.08,def:1.06}}),
     nd('l_t4','Rain of Bolts','☔',sk('rain_of_bolts','Rain of Bolts','☔',16,'phys','foes',1.5,{},'A volley on the whole battlefield.'))]},
  ],
+ripley:[
+  {id:'marksman',n:'Marksman',icon:'🎯',desc:'Precision.',nodes:[
+    ps('r_m1','Steady Hands','🤲',{mult:{atk:1.08}}),
+    nd('r_m2','Piercing Arrow','📍',sk('r_piercing','Piercing Arrow','📍',7,'phys','foe',2.2,{},'An arrow that finds the gap in armour.')),
+    ps('r_m3','Hawk\'s Eye','🦅',{mult:{atk:1.04},critB:.08}),
+    nd('r_m4','Perfect Draw','🏹',sk('perfect_draw','Perfect Draw','🏹',14,'phys','foe',3.3,{crit:true},'A held breath, a guaranteed critical.'))]},
+  {id:'scout',n:'Scout',icon:'👁️',desc:'Awareness and mobility.',nodes:[
+    ps('r_s1','Light Step','👟',{mult:{spd:1.08}}),
+    nd('r_s2','Net Arrow','🕸️',sk('net_arrow','Net Arrow','🕸️',8,'phys','foe',1.0,{fx:[{k:'bind',d:2}]},'An arrow trailing a net: the target loses its turns.')),
+    ps('r_s3','Watchful','🔍',{evaB:.05,mult:{spd:1.05}}),
+    nd('r_s4','Rear Guard','🛡️',sk('rear_guard','Rear Guard','🛡️',12,'support','allies',0,{fx:[{k:'buff',stat:'eva',m:1.35,d:3},{k:'buff',stat:'def',m:1.15,d:3}]},'She covers the party: evasion and DEF up.'))]},
+  {id:'handmaiden',n:'Handmaiden',icon:'🌸',desc:'Service and support.',nodes:[
+    ps('r_h1','Composure','🧘',{mult:{hp:1.08,def:1.05}}),
+    nd('r_h2','Tea and Tonic','🍵',sk('tea_tonic','Tea and Tonic','🍵',8,'heal','ally',1.0,{},'A calm moment: heals an ally.')),
+    ps('r_h3','Quiet Loyalty','🤍',{mult:{mp:1.1,def:1.05}}),
+    nd('r_h4','Veil of Silk','🪭',sk('veil_silk','Veil of Silk','🪭',14,'support','allies',0,{fx:[{k:'shield',v:.15,d:3},{k:'buff',stat:'eva',m:1.2,d:3}]},'Silk and a smile: a barrier and evasion for all.'))]},
+ ],
  devon:[
-  {id:'dragonmagic',n:'Dragon Magic',icon:'🔥',desc:'Royal dragon spells.',nodes:[
-    ps('d_m1','Draconic Focus','🔥',{mult:{mag:1.08}}),
-    nd('d_m2','Dragon Lance','🐉',sk('dragon_lance','Dragon Lance','🐉',9,'magic','foe',2.4,{elem:'fire',fx:[{k:'burn',d:3}]},'A spear of dragonfire.')),
-    ps('d_m3','Pearl Reservoir','🔮',{mult:{mp:1.1,mag:1.05}}),
-    nd('d_m4','Dragon Tempest','🌪️',sk('dragon_tempest','Dragon Tempest','🌪️',18,'magic','foes',1.9,{},'A storm of dragon magic.'))]},
-  {id:'scholarblade',n:'Scholar Blade',icon:'📖',desc:'Sword and spell.',nodes:[
-    ps('d_s1','Trained Arm','⚔️',{mult:{atk:1.08}}),
-    nd('d_s2','Runic Slash','📜',sk('runic_slash','Runic Slash','📜',6,'phys','foe',1.9,{fx:[{k:'analyze'}]},'A rune-etched strike that also analyses the foe.')),
-    ps('d_s3','Scholar\'s Poise','🎓',{mult:{def:1.06,hp:1.06}}),
-    nd('d_s4','Spellblade Flourish','✴️',sk('spellblade_flourish','Spellblade Flourish','✴️',12,'magic','foe',2.8,{},'Sword and spell as one cut.'))]},
-  {id:'pearl',n:'Pearl Knowledge',icon:'🔮',desc:'Dragon Pearl lore.',nodes:[
-    ps('d_p1','Ancient Memory','🧠',{mult:{mp:1.1}}),
+  {id:'command',n:'Royal Command',icon:'👑',desc:'Leadership and orders.',nodes:[
+    ps('d_c1','Commanding Presence','👑',{mult:{atk:1.05,spd:1.05}}),
+    nd('d_c2','Rally Order','📣',sk('rally_order','Rally Order','📣',9,'support','allies',0,{fx:[{k:'buff',stat:'atk',m:1.15,d:3},{k:'buff',stat:'spd',m:1.15,d:3}]},'A crisp order to the whole party: ATK and SPD up.')),
+    ps('d_c3','Cold Authority','🧊',{mult:{def:1.06,mag:1.05}}),
+    nd('d_c4','Sovereign\'s Decree','📜',sk('sovereigns_decree','Sovereign\'s Decree','📜',18,'support','allies',0,{fx:[{k:'buff',stat:'atk',m:1.3,d:3},{k:'buff',stat:'mag',m:1.3,d:3}]},'A decree the whole party obeys: ATK and MAG greatly up.'))]},
+  {id:'veil',n:'Dragon Veil',icon:'🛡️',desc:'Wards and protection.',nodes:[
+    ps('d_v1','Scale Skin','🐉',{mult:{hp:1.08,def:1.05}}),
+    nd('d_v2','Scale Ward','🪬',sk('scale_ward','Scale Ward','🪬',8,'support','ally',0,{fx:[{k:'shield',v:.25,d:3},{k:'buff',stat:'def',m:1.2,d:3}]},'Wards one ally with scales of light.')),
+    ps('d_v3','Veilwalker','🌫️',{evaB:.05,mult:{hp:1.06}}),
+    nd('d_v4','Veil of Scales','🛡️',sk('veil_scales','Veil of Scales','🛡️',16,'support','allies',0,{fx:[{k:'shield',v:.3,d:4},{k:'buff',stat:'eva',m:1.3,d:3}]},'A heavy barrier and evasion for the whole party.'))]},
+  {id:'pearl',n:'Black Pearl',icon:'🔮',desc:'Pearl lore and resonance.',nodes:[
+    ps('d_p1','Ancient Memory','🧠',{mult:{mp:1.1,mag:1.04}}),
     nd('d_p2','Pearl Light','💡',sk('pearl_light','Pearl Light','💡',8,'heal','ally',.9,{fx:[{k:'cleanse'}]},'Pearl light heals and cleanses an ally.')),
-    ps('d_p3','Dragon Ward','🛡️',{mult:{mag:1.06,def:1.06}}),
-    nd('d_p4','Pearl Bulwark','🌐',sk('pearl_bulwark','Pearl Bulwark','🌐',16,'support','allies',0,{fx:[{k:'buff',stat:'def',m:1.3,d:3},{k:'buff',stat:'mag',m:1.3,d:3}]},'The Pearl shields and empowers the party.'))]},
+    ps('d_p3','Pearl Memory','🔮',{mult:{mag:1.06,mp:1.08}}),
+    nd('d_p4','Pearl Tide','🌊',sk('pearl_tide','Pearl Tide','🌊',18,'heal','allies',1.2,{fx:[{k:'cleanse'},{k:'regen',v:.05,d:3}]},'A tide of pearl light: heals and cleanses the party and mends it over time.'))]},
+ ],
+ seraphina:[
+  {id:'blade',n:'Altan Blade',icon:'🗡️',desc:'Raw sabre damage.',nodes:[
+    ps('s_b1','Sabre Drill','💪',{mult:{atk:1.08}}),
+    nd('s_b2','Crescent Cut','🌙',sk('crescent_cut','Crescent Cut','🌙',7,'phys','foe',2.3,{fx:[{k:'buff',stat:'def',m:.8,d:3}]},'A curved cut that breaks guard (DEF down).')),
+    ps('s_b3','Killer Poise','🎯',{mult:{atk:1.04},critB:.08}),
+    nd('s_b4','Thousand Falcons','🦅',sk('thousand_falcons','Thousand Falcons','🦅',15,'phys','foe',3.3,{},'A storm of cuts ending in one decisive blow.'))]},
+  {id:'rider',n:'Rider',icon:'🐎',desc:'Speed and mobility.',nodes:[
+    ps('s_r1','Light Seat','👟',{mult:{spd:1.08}}),
+    nd('s_r2','Hit and Fade','👤',sk('hit_and_fade','Hit and Fade','👤',6,'support','self',0,{fx:[{k:'buff',stat:'eva',m:1.5,d:3},{k:'buff',stat:'spd',m:1.2,d:3}]},'Strikes and slips away: EVA and SPD up.')),
+    ps('s_r3','Wind at Her Back','🌬️',{mult:{spd:1.08},evaB:.04}),
+    nd('s_r4','Cavalry Charge','🐎',sk('cavalry_charge','Cavalry Charge','🐎',12,'phys','foes',1.6,{},'A thundering charge through every foe.'))]},
+  {id:'discipline',n:'Discipline',icon:'🏯',desc:'Royal training and endurance.',nodes:[
+    ps('s_d1','Tough Training','🛡️',{mult:{hp:1.08}}),
+    nd('s_d2','Unyielding','🦁',sk('unyielding','Unyielding','🦁',6,'support','self',0,{fx:[{k:'buff',stat:'def',m:1.5,d:3},{k:'buff',stat:'atk',m:1.2,d:3}]},'She holds the line: DEF and ATK up.')),
+    ps('s_d3','Royal Bearing','❤️',{mult:{hp:1.1,atk:1.05}}),
+    nd('s_d4','Banner of the Falcon','🚩',sk('banner_falcon','Banner of the Falcon','🚩',14,'support','allies',0,{fx:[{k:'buff',stat:'atk',m:1.35,d:3},{k:'buff',stat:'def',m:1.2,d:3}]},'Her banner rallies the whole party: ATK and DEF up.'))]},
  ],
 };
 
@@ -152,12 +186,24 @@ const BONDTREE = {
   {lvl:1, passive:{mult:{atk:1.05}}, n:'Steady Hand', icon:'🏹', desc:'Jade\'s trust steadies his aim.'},
   {lvl:2, skill:sk('covering_fire','Covering Fire','🏹',8,'phys','foe',1.2,{fx:[{k:'slow',d:2}]},'A shot that pins the foe.'), n:'Covering Fire', icon:'🏹'},
   {lvl:4, passive:{mult:{atk:1.05,spd:1.05},critB:.05}, n:'Eyes on Her Back', icon:'🎯', desc:'He always knows where Jade is.'},
-  {lvl:5, skill:sk('golden_volley','Golden Volley','🌟',22,'phys','chain',2.2,{pair:true,elem:'lightning'},'ULTIMATE. Levi\'s bolts carry the golden blood.'), n:'Golden Volley', icon:'🌟'},
+  {lvl:5, skill:sk('golden_volley','Golden Volley','🌟',22,'phys','chain',2.2,{pair:true,elem:'lightning'},'ULTIMATE. Levi\'s arrows carry the golden blood.'), n:'Golden Volley', icon:'🌟'},
+ ],
+ ripley:[
+  {lvl:1, passive:{mult:{atk:1.05}}, n:'Trained Eye', icon:'🎯', desc:'Serving Jade steadies her aim.'},
+  {lvl:2, skill:sk('attendants_cover','Attendant\'s Cover','🛡️',7,'phys','foe',1.3,{fx:[{k:'slow',d:2}]},'Covers Jade\'s flank with a pinning shot.'), n:'Attendant\'s Cover', icon:'🛡️'},
+  {lvl:4, passive:{mult:{spd:1.06,def:1.05},critB:.05}, n:'Trusted Retainer', icon:'🤍', desc:'Jade\'s trust sharpens her.'},
+  {lvl:5, skill:sk('twin_arrows','Twin Arrows','🌟',22,'phys','chain',2.1,{pair:true},'ULTIMATE. Ripley and Jade loose arrows as one.'), n:'Twin Arrows', icon:'🌟'},
  ],
  devon:[
   {lvl:1, passive:{mult:{mag:1.05}}, n:'Scholar\'s Interest', icon:'📖', desc:'Jade\'s bloodline fascinates him.'},
   {lvl:2, skill:sk('scholars_insight','Scholar\'s Insight','🔍',6,'support','foe',0,{fx:[{k:'analyze'},{k:'buff',stat:'def',m:.75,d:3}]},'A deep read of the enemy: weakness exposed (DEF down).'), n:'Scholar\'s Insight', icon:'🔍'},
   {lvl:4, passive:{mult:{mag:1.06,mp:1.08}}, n:'Pearl Resonance', icon:'🔮', desc:'Golden blood and the Pearl resonate.'},
-  {lvl:5, skill:sk('pearl_and_blood','Pearl & Blood','🌅',26,'magic','foes',3.0,{pair:true},'ULTIMATE. Dragon Pearl and golden blood, fully united.'), n:'Pearl & Blood', icon:'🌅'},
+  {lvl:5, skill:sk('pearl_and_blood','Pearl & Blood','🌅',26,'magic','foes',3.0,{pair:true},'ULTIMATE. Black Pearl and golden blood, fully united.'), n:'Pearl & Blood', icon:'🌅'},
+ ],
+ seraphina:[
+  {lvl:1, passive:{mult:{atk:1.05}}, n:'Allied Banner', icon:'🦅', desc:'Fighting beside Jade sharpens her.'},
+  {lvl:2, skill:sk('shield_sister','Shield Sister','🛡️',6,'support','ally',0,{fx:[{k:'buff',stat:'def',m:1.3,d:3}]},'Seraphina covers an ally: DEF up.'), n:'Shield Sister', icon:'🛡️'},
+  {lvl:4, passive:{mult:{atk:1.06,spd:1.06}}, n:'Matched Pace', icon:'⚔️', desc:'Her stride matches Jade\'s.'},
+  {lvl:5, skill:sk('falcon_and_phoenix','Falcon & Phoenix','🔥',22,'phys','foe',3.1,{pair:true},'ULTIMATE. Seraphina and Jade strike as one.'), n:'Falcon & Phoenix', icon:'🔥'},
  ],
 };

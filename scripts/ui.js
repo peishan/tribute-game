@@ -1,8 +1,8 @@
 /* =====================================================================
    TRIBUTE — UI (tabs, party sheets, journal, training, battle, stubs)
    ===================================================================== */
-const TABS = [['journal','📖 Journal'],['missions','✉️ Missions'],['travel','🛞 Travel'],['here','🧭 Here'],['party','👥 Party'],['training','🎯 Training'],
-              ['inventory','🎒 Items'],['bestiary','📕 Bestiary'],['equipment','🛡️ Gear'],['save','💾 Save'],['dev','🛠️ Dev']];
+const TABS = [['journal','📖 Journal'],['missions','✉️ Missions'],['travel','🛞 Travel'],['here','🧭 Here'],['party','👥 Party'],['cast','🎴 Cast'],['training','🎯 Training'],['skirmish','🎲 Skirmish'],
+              ['rewards','🎁 Rewards'],['network','🏛️ Network'],['inventory','🎒 Items'],['bestiary','📕 Bestiary'],['equipment','🛡️ Gear'],['save','💾 Save'],['dev','🛠️ Dev']];
 let tab = 'journal', sel = 'jade', openCh = null, chMsgs = [], origin = 'journal', trSel = 0, trLv = 5;
 const STAT_SCALE = {hp:420,mp:200,atk:130,mag:130,def:100,spd:90};
 const STAT_NAME = {hp:'HP',mp:'MP',atk:'ATK',mag:'MAG',def:'DEF',spd:'SPD'};
@@ -17,12 +17,15 @@ function render(){
   $('hloc').textContent = '📍 '+LOCATIONS[G.loc].n;
   const showBattle = !!B;
   $('nav').innerHTML = (showBattle?`<button class="${tab==='battle'?'on':''}" onclick="showTab('battle')">⚔️ Battle</button>`:'') +
-     TABS.map(([k,l]) => `<button class="${tab===k?'on':''}" onclick="showTab('${k}')">${l}${k==='missions'&&unreadCount()?' <b style="color:var(--r)">●</b>':''}</button>`).join('');
+     TABS.filter(([k]) => (k!=='network' || (typeof netOpen==='function' && netOpen())) && (k!=='skirmish' || G.ch>=12)).map(([k,l]) => `<button class="${tab===k?'on':''}" onclick="showTab('${k}')">${l}${k==='missions'&&unreadCount()?' <b style="color:var(--r)">●</b>':''}${k==='rewards'&&rewardsReady()?' <b style="color:var(--r)">●</b>':''}</button>`).join('');
   const R = { journal:rJournal, party:rParty, training:rTraining, battle:rBattle, inventory:rInventory, bestiary:rBestiary,
               equipment:rGear,
-              missions:rMissions, travel:rTravel, here:rHere, save:rSave,
+              missions:rMissions, rewards:rRewards, skirmish:rSkirmish, network:rNetwork, cast:rCast, travel:rTravel, here:rHere, save:rSave,
               dev:rDev }[tab] || rJournal;
   $('main').innerHTML = R();
+  if(typeof corrSky==='function') corrSky();
+  if(typeof renderTracker==='function') renderTracker();
+  if(typeof autoTick==='function') autoTick();
 }
 function stub(title, sub, items){
   return `<h2>${title}</h2><div class="sm">${sub}</div><div class="panel">${items.map(i=>`<div class="li">• ${i}</div>`).join('')}</div><div class="sm" style="margin-top:8px;opacity:.6">Skeleton placeholder — not built yet.</div>`;
@@ -30,30 +33,32 @@ function stub(title, sub, items){
 
 /* ---------------- PARTY ---------------- */
 function rParty(){
-  const slots = [0,1,2,3].map(i => { const id=G.active[i]; return id?`<div class="slot on" onclick="sel='${id}';render()"><img src="assets/party/${id}.webp"><b>${CHARACTERS[id].n.split(' ')[0]}</b></div>`:`<div class="slot"><b>empty</b></div>`; }).join('');
-  const roster = ROSTER.map(id => {
+  const nSlots = fixedParty() ? 5 : 4;
+  const slots = Array.from({length:nSlots}, (_,i) => i).map(i => { const id=G.active.filter(x => !isCompanion(x))[i]; return id?`<div class="slot on ${isDisabled(id)?'dis':''}" onclick="sel='${id}';render()"><img src="${portrait(id)}"><b>${CHARACTERS[id].n.split(' ')[0]}</b>${isDisabled(id)?'<span class="sm">⛔ cannot fight</span>':''}</div>`:`<div class="slot"><b>empty</b></div>`; }).join('');
+  const roster = ROSTER.filter(id => !isCompanion(id)).map(id => {
     const c=CHARACTERS[id], rec=isRecruited(id), join=JOIN_CH[id];
-    return `<div class="rc ${sel===id?'sel':''} ${rec||profileKnown(id)?'':'lock'}" onclick="sel='${id}';render()"><img src="assets/party/${id}.webp"><div><b>${profileKnown(id)||id==='princess'?c.n:'???'}</b><div class="sm">${rec?c.cls+' · Lv'+U(id).lv+(G.guests[id]?' · guest':''):(profileKnown(id)?c.cls+' · ':'')+(join!==undefined?'Joins Ch.'+join:'Unrecruited')}</div></div></div>`; }).join('');
-  return `<h2>Party</h2><div class="sm">Active (${G.active.length}/${ACTIVE_SLOTS}) — fights use these four</div><div class="slots">${slots}</div><div class="rcs">${roster}</div>${rSheet(sel)}`;
+    return `<div class="rc ${sel===id?'sel':''} ${rec||profileKnown(id)?'':'lock'}" onclick="sel='${id}';render()"><img src="${portrait(id)}"><div><b>${profileKnown(id)||id==='seraphina'?c.n:'???'}</b><div class="sm">${rec?clsOf(id)+' · Lv'+U(id).lv+(G.guests[id]?' · guest':''):(profileKnown(id)?clsOf(id)+' · ':'')+(join!==undefined?'Joins Ch.'+join:'Unrecruited')}</div></div></div>`; }).join('');
+  return `<h2>Party</h2><div class="sm">${fixedParty()?`The travelling party (${activeCount()}/5): Jade and Devon always fight; the others may be benched.`:`Active (${activeCount()}/${ACTIVE_SLOTS}) — fights use these four`}</div><div class="slots">${slots}</div>${presentGuests().map(id => `<div class="sm" style="margin:4px 0">🤝 Guest: ${GUEST_RULES[id].note}</div>`).join('')}<div class="rcs">${roster}</div>${rSheet(sel)}`;
 }
 function rSheet(id){
   const c=CHARACTERS[id], rec=isRecruited(id);
-  if(!rec && profileKnown(id)) return `<div class="panel"><div class="sh"><img src="assets/party/${id}.webp"><div><h3>${c.icon} ${c.n}</h3><div>${c.cls}</div><div class="sm">${c.role}</div></div></div><div class="sm" style="margin:6px 0">${c.identity}</div><div class="sm">Not in the party yet${JOIN_CH[id]!==undefined?' — joins at chapter '+JOIN_CH[id]:''}.</div></div>`;
-  if(!rec) return `<div class="panel"><h3>${id==='princess'?c.n:'???'}</h3><div class="sm">${id==='princess'?c.identity:(JOIN_CH[id]!==undefined?'Not yet recruited. Joins at chapter '+JOIN_CH[id]+'.':'Not yet recruited. Recruitment chapter still to be decided.')}</div></div>`;
+  if(!rec && profileKnown(id)) return `<div class="panel"><div class="sh"><img src="${portrait(id)}"><div><h3>${c.icon} ${c.n}</h3><div>${clsOf(id)}</div><div class="sm">${c.role}</div></div></div><div class="sm" style="margin:6px 0">${c.identity}</div><div class="sm">Not in the party yet${JOIN_CH[id]!==undefined?' — joins at chapter '+JOIN_CH[id]:''}.</div></div>`;
+  if(!rec) return `<div class="panel"><h3>${id==='seraphina'?c.n:'???'}</h3><div class="sm">${id==='seraphina'?c.identity:(JOIN_CH[id]!==undefined?'Not yet recruited. Joins at chapter '+JOIN_CH[id]+'.':'Not yet recruited. Recruitment chapter still to be decided.')}</div></div>`;
   const u=U(id), st=statsOf(id), bl=bondLevel(id), nextB=BOND_LEVELS[bl+1];
   const stats = STATS.map(s=>`<div class="st"><span>${STAT_NAME[s]}</span>${bar(st[s],STAT_SCALE[s],s)}<b>${st[s]}</b></div>`).join('');
   const skills = skillsOf(id).filter(s=>!(s.treeSkill&&!s.ok)).map(s=>`<div class="sk ${s.ok?'':'lk'}"><span class="si">${s.icon}</span><div><b>${s.n}</b> ${s.sig?'<em class="tag">signature</em>':''}${s.bondSkill?'<em class="tag b">bond</em>':''}${s.evoSkill?'<em class="tag e">evolution</em>':''}${s.treeSkill?'<em class="tag t">tree</em>':''}<div class="sm">${s.ok?s.desc:'🔒 '+s.why}</div></div><span class="mp">${s.mp?s.mp+' MP':''}</span></div>`).join('');
   const evo = evoState(id).map(e=>`<div class="ev ${e.st}"><div><b>${e.n}</b> <span class="sm">${e.tier===2?'final':'tier '+e.tier}</span><div class="sm">${e.desc}</div></div>${e.st==='ready'?`<button onclick="doEvolve('${id}','${e.id}')">Evolve</button>`:`<span class="sm">${e.st==='taken'?'✔ taken':e.st==='closed'?'closed':'🔒 '+e.why}</span>`}</div>`).join('') || '<div class="sm">No evolution designed yet.</div>';
   const act = G.active.includes(id);
-  return `<div class="panel sheet"><div class="sh"><img src="assets/party/${id}.webp"><div><h3>${c.icon} ${c.n}${G.guests[id]?' <em class="tag">guest</em>':''}</h3><div>${c.cls}</div><div class="sm">${c.role} · ${c.combat}</div><div class="sm">Lv ${u.lv}/${CFG.LEVEL_CAP}</div>${bar(u.xp,xpToNext(u.lv),'xp')}<div class="sm">XP ${u.xp}/${xpToNext(u.lv)}</div></div></div>
+  return `<div class="panel sheet"><div class="sh"><img src="${portrait(id)}"><div><h3>${c.icon} ${c.n}${G.guests[id]?' <em class="tag">guest</em>':''}</h3><div>${clsOf(id)}</div><div class="sm">${c.role} · ${c.combat}</div><div class="sm">Lv ${u.lv}</div>${bar(u.xp,xpToNext(u.lv,id),'xp')}<div class="sm">XP ${u.xp}/${xpToNext(u.lv,id)}</div></div></div>
    <div class="sm" style="margin:6px 0">${c.identity}</div>
    ${id!=='jade'?`<div class="sm">💞 Bond with Jade: ${bl}/5 ${nextB?`(${u.bp}/${nextB})`:'(max)'}</div>${bar(u.bp,nextB||u.bp||1,'bond')}`:''}
-   ${id!=='jade'?`<button onclick="toggleActive('${id}');render()">${act?'Remove from active party':'Add to active party'}</button>`:'<div class="sm">Jade always leads the active party.</div>'}
+   ${isCompanion(id)?'<div class="sm">🕯️ A companion: always travels and fights with the party, without using one of the four active slots.</div>':!unbenchable(id)?`<button onclick="toggleActive('${id}');render()">${act?'Remove from active party':'Add to active party'}</button>`:`<div class="sm">${id==='jade'?'Jade always leads the active party.':'Devon always stands beside Jade: he cannot be benched.'}</div>`}
+   ${isAway(id)?`<div class="panel bad"><b>🌹 Staying in Dragonvale</b><div class="sm">${id==='seraphina'?'Seraphina fights beside you only on Dragonvale grounds, in Roc\'s place, until she asks to join you for good.':'Sally can only join the party while you are in Dragonvale.'}</div></div>`:isDisabled(id)?'<div class="panel bad"><b>⛔ Critical — cannot fight</b><div class="sm">Cursed in chapter 42. He stays in the party but sits out battles until he recovers.</div></div>':''}
    <h4>Condition</h4><div class="sm">❤️ HP ${curHp(id)}/${st.hp} · 🔷 MP ${curMp(id)}/${st.mp}</div>${bar(curHp(id),st.hp,'hp')}${bar(curMp(id),st.mp,'mpb')}
    <h4>Stats</h4><div class="stg">${stats}</div>
    <h4>Weapon & Style</h4><div class="sm">${c.weapon} · ${c.style.join(', ')} · Strength: ${c.strength}</div>
    <h4>Special Ability — ${c.signature}</h4><div class="sm">${c.sigDesc}${c.fieldAbility?' <br><b>Field ability:</b> Ancient Dragon Knowledge (identify artefacts, unlock sealed areas — used by Explore later).':''}</div>
-   <h4>Skills</h4>${skills}${rTree(id)}${rBondRewards(id)}<h4>Evolution</h4>${evo}</div>`;
+   <h4>Skills</h4>${skills}${SKILLTREE[id]?rTree(id):''}${rBondRewards(id)}${id==='sky'&&typeof rApprentice==='function'?rApprentice():''}<h4>Evolution</h4>${evo}</div>`;
 }
 function rTree(id){
   const free = spFree(id);
@@ -90,7 +95,7 @@ function rChapter(n){
   let foot='';
   if(c.battle){
     const foes=c.battle.map(f=>{const e=ENEMIES[f.key];return `${e.icon} ${e.n}`;}).join(' · ');
-    foot = `<div class="panel"><b>⚔️ Battle</b> <span class="sm">(Lv ${c.lv})</span><div class="sm">${foes}</div><button class="pri" onclick="chapterFight(${c.n})">${done?'Replay battle':'Begin battle'}</button></div>`;
+    foot = `<div class="panel"><b>⚔️ Battle</b> <span class="sm">(recommended Lv ${c.lv})</span><div class="sm">${foes}</div><div class="sm">${fightersLv(c.n)<c.lv?'⚠️ Your fighters average Lv '+fightersLv(c.n)+': you may want to train first (Skirmish or the field). Enemies here will be Lv '+storyBattleLv(c.n)+'.':'Your fighters average Lv '+fightersLv(c.n)+'. Enemies will scale to Lv '+storyBattleLv(c.n)+'.'}</div><button class="pri" onclick="chapterFight(${c.n})">${done?'Replay battle':'Begin battle'}</button></div>`;
   } else if(!done){
     foot = `<button class="pri" onclick="finishChapter(${c.n})">${n===0?'Finish the opening — Jade joins the journey':'Complete chapter'} (+${c.sxp} XP)</button>`;
   }
@@ -132,7 +137,7 @@ function rTraining(){
 function trainFight(){ origin='training'; startBattle({foes:PRESETS[trSel][1].map(f=>({key:f.key,lv:trLv})), rewards:false}); tab='battle'; render(); }
 
 /* ---------------- BATTLE ---------------- */
-const CHIP = {burn:'🔥',slow:'🐌',bind:'⛓️',charm:'💫',silence:'🤐',shield:'🛡️',regen:'💚',crit:'👁️'};
+const CHIP = {burn:'🔥',slow:'🐌',bind:'⛓️',charm:'💫',silence:'🤐',shield:'🛡️',regen:'💚',crit:'👁️',oath:'🤝'};
 function chips(u){
   let h = Object.keys(u.st).map(k=>`<i title="${k}">${CHIP[k]||k}</i>`).join('');
   u.bf.forEach(b=>{ h += `<i class="${b.m>=1?'up':'dn'}">${b.stat.toUpperCase()}${b.m>=1?'↑':'↓'}</i>`; });
@@ -143,8 +148,8 @@ function chips(u){
 function rBattle(){
   if(!B) return '<div class="sm">No battle in progress.</div>';
   const tgtMode = B.ui.mode==='target', cand = tgtMode ? B.ui.cands.map(u=>u.uid) : [];
-  const foes = B.foes.map(f=>`<div class="unit foe ${f.dead?'dead':''} ${cand.includes(f.uid)?'tg':''}" ${cand.includes(f.uid)?`onclick="pickTarget('${f.uid}')"`:''}><div class="ic">${f.icon}</div><b>${f.name}</b>${bar(f.hp,f.mhp,'e')}<div class="sm">${f.hp}/${f.mhp}${f.known?' · DEF '+f.def:''}</div><div class="ch">${chips(f)}</div></div>`).join('');
-  const allies = B.allies.map(a=>`<div class="unit ally ${a.dead?'dead':''} ${B.cur===a&&!B.over?'cur':''} ${cand.includes(a.uid)?'tg':''}" ${cand.includes(a.uid)?`onclick="pickTarget('${a.uid}')"`:''}><img src="${a.img}"><div><b>${a.name.split(' ')[0]}</b>${bar(a.hp,a.mhp)}${bar(a.mp,a.mmp,'mpb')}<div class="sm">${a.hp}/${a.mhp} · ${a.mp}MP</div><div class="ch">${chips(a)}</div></div></div>`).join('');
+  const foes = B.foes.map(f=>`<div class="unit foe ${f.dead?'dead':''} ${cand.includes(f.uid)?'tg':''}" ${cand.includes(f.uid)?`onclick="pickTarget('${f.uid}')"`:''}><div class="ic">${f.icon}</div><b>${f.name}</b>${bar(f.hp,f.mhp,'e')}<div class="sm">${f.hp}/${f.mhp}${f.known?' · DEF '+f.def:''}</div>${f.traits&&f.traits.includes('corrupt')?`<div class="sm" style="color:var(--purple)">☠️ Corruption gauge ${Math.round(100*f.hp/f.mhp)}%</div>`:''}<div class="ch">${chips(f)}</div></div>`).join('');
+  const allies = B.allies.map(a=>`<div class="unit ally ${a.dead?'dead':''} ${B.cur===a&&!B.over?'cur':''} ${cand.includes(a.uid)?'tg':''}" ${cand.includes(a.uid)?`onclick="pickTarget('${a.uid}')"`:''}><img src="${a.img}"><div><b>${a.name.replace(/^The /,'').split(' ')[0]}</b>${bar(a.hp,a.mhp)}${bar(a.mp,a.mmp,'mpb')}<div class="sm">${a.hp}/${a.mhp} · ${a.mp}MP</div><div class="ch">${chips(a)}</div></div></div>`).join('');
   const log = B.log.slice(-9).map(l=>`<div class="lg ${l.cls}">${l.t}</div>`).join('');
   let act='';
   if(B.over==='win'){
@@ -154,12 +159,15 @@ function rBattle(){
     act = `<div class="panel bad"><b>Defeat…</b></div><button class="pri" onclick="battleDone()">Retreat</button>`;
   } else if(B.cur && B.cur.ally){
     const u=B.cur, m=B.ui.mode;
-    if(m==='menu') act = `<div class="sm">${u.name}'s turn</div><div class="row"><button class="pri" onclick="doAttack()">Attack</button><button onclick="B.ui={mode:'skills'};render()">Skills</button><button onclick="B.ui={mode:'items'};render()">Items</button><button onclick="playerAct('guard')">Guard</button></div>`;
+    if(m==='menu') act = `<div class="sm">${u.name}'s turn</div><div class="row"><button class="pri" onclick="doAttack()">Attack</button><button onclick="B.ui={mode:'skills'};render()">Skills</button><button onclick="B.ui={mode:'items'};render()">Items</button><button onclick="playerAct('guard')">Guard</button>${autoButton()}</div>`;
     else if(m==='items') act = (battleItems().map(i=>`<button class="skb" onclick="pickItem('${i.id}')">${i.icon} ${i.n} <small>×${i.qty||'∞'} ${i.text}</small></button>`).join('') || '<div class="sm">No consumables.</div>') + `<button onclick="B.ui={mode:'menu'};render()">◀ Back</button>`;
     else if(m==='skills') act = skillList(u).map(s=>`<button class="skb" ${s.usable?'':'disabled'} onclick="pickSkill('${s.id}')">${s.icon} ${s.n} <small>${s.cost?s.cost+'MP':''} ${s.note}</small></button>`).join('') + `<button onclick="B.ui={mode:'menu'};render()">◀ Back</button>`;
     else act = `<div class="sm">Choose a target</div><button onclick="B.ui={mode:'menu'};render()">◀ Cancel</button>`;
   }
-  return `<div class="foes">${foes}</div><div class="log">${log}</div><div class="allies">${allies}</div><div class="acts">${act}</div>`;
+  const autoBar = (B.auto && !B.over) ? `<div class="row"><span class="sm">🤖 Auto-battle running…</span>${autoButton()}</div>` : '';
+  const corrBar = (B.corr ? `<div class="sm" style="color:var(--purple)">☠️ Corruption ${corrAt(G.loc)}%</div>` : '');
+  const sealBar = (B.seal && !B.over) ? `<div class="panel" style="border-color:var(--gold)"><b>🔰 Ancient Seal ${B.seal.hp}%</b>${bar(B.seal.hp,100,B.seal.collapsed?'e':'')}<div class="row" style="margin-top:6px"><button class="${B.seal.mode==='jade'?'pri':''}" onclick="setSealMode('jade')">⚔️ Jade Mode</button><button class="${B.seal.mode==='devon'?'pri':''}" onclick="setSealMode('devon')">🔮 Devon Mode</button></div><div class="sm">${B.seal.mode==='jade'?'Jade guards: she hits harder and the seal decays slowly. Devon is held back.':'Devon channels: the seal repairs and his magic is stronger. Jade is held back.'}${B.seal.collapsed?' <b>The seal has collapsed: restore it above 30%!</b>':''}</div></div>` : '';
+  return `${corrBar}${sealBar}<div class="foes">${foes}</div><div class="log">${log}</div><div class="allies">${allies}</div>${autoBar}<div class="acts">${act}</div>`;
 }
 function doAttack(){ B.ui={mode:'target',kind:'attack',sid:null,cands:alive(B.foes)}; render(); }
 function pickSkill(sid){
@@ -172,16 +180,17 @@ function pickItem(k){ B.ui={mode:'target',kind:'item',sid:k,cands:alive(B.allies
 function pickTarget(uid){ const u=B.ui; playerAct(u.kind, u.sid, uid); render(); }
 function doGuardAct(){ playerAct('guard'); render(); }
 function battleDone(){
+  if(B && B.spec.rewards && typeof afterBattleBackup==='function'){ setTimeout(afterBattleBackup, 0); }
   if(B && B.over==='lose' && B.spec.onLose && !chapterDone(B.spec.chapter)){      // story duel: the chapter continues even if Jade loses
     const n = B.spec.chapter, msgs = ['Chad wins the duel, as the story goes.'].concat(B.spec.onLose()||[]); B = null; tab = origin; render(); storyResult(n, msgs); return; }
-  if(B && B.over==='lose' && typeof onBattleLost==='function') onBattleLost(); B=null; tab=origin; render(); }
+  if(B && B.over==='lose' && typeof onBattleLost==='function') onBattleLost(); if(B && B.over==='lose' && B.spec.skirmish && typeof skirmLost==='function') skirmLost(); B=null; tab=origin; render(); }
 // make menu actions re-render
 const _pa = playerAct; playerAct = function(k,s,t){ _pa(k,s,t); render(); };
 
 /* ---------------- ITEMS / BESTIARY ---------------- */
 function rInventory(){
   const ids = Object.keys(G.inv).filter(k=>G.inv[k]>0);
-  const heroes = G.party.filter(id => !CHARACTERS[id].placeholder);
+  const heroes = G.party.filter(id => !CHARACTERS[id].placeholder && !CHARACTERS[id].companion);
   if(!heroes.includes(itemHero)) itemHero = heroes[0];
   const rows = ids.length ? ids.map(k=>{const i=ITEMS[k]||{n:k,icon:'❔',type:'?',rarity:''}, us = USE[k];
     return `<div class="card" style="cursor:default"><span class="big">${i.icon}</span><div class="fl"><b>${i.n}</b><div class="sm">${i.type}${i.slot?' · '+i.slot:''} · ${i.rarity}${us?' · '+useText(us):''}</div></div>${us?`<button onclick="act(()=>{useConsumable(itemHero,'${k}')?toast('Used on '+CHARACTERS[itemHero].n.split(' ')[0]):0;return []})">Use</button>`:''}<b>×${G.inv[k]}</b></div>`;}).join('') : '<div class="sm">Empty. Win battles to roll loot.</div>';
@@ -189,6 +198,20 @@ function rInventory(){
   return `<h2>Items</h2>${flashHtml()}<div class="sm">Gold: ${G.gold}</div>${pick}<div class="row" style="margin:6px 0"><button onclick="act(brewTonic)">🍵 Brew tonic (3 herbs)</button></div>${rows}`;
 }
 let itemHero = 'jade';
+/* ---------------- CAST (character profile sheets) ---------------- */
+// Sheets reveal story characters, so each unlocks once the characters it shows have appeared (Dev tab can jump chapters).
+const CAST_SHEETS = [
+  {id:'main', n:'Main Characters', img:'assets/cast/main_characters.webp', ch:47, sub:'Jade, Roc, Sky, Sally, Levi and Devon'},
+  {id:'allies', n:'Allies & Recurring Characters', img:'assets/cast/allies.webp', ch:65, sub:'Greyson, Seraphina, Jenika, Ripley and Delilah'},
+];
+let castOpen = null;
+function rCast(){
+  if(castOpen){ const s = CAST_SHEETS.find(x=>x.id===castOpen);
+    return `<button onclick="castOpen=null;render()">◀ Cast</button><h2>${s.n}</h2><img class="pg" src="${s.img}" alt="${s.n}">`; }
+  const cards = CAST_SHEETS.map(s => { const open = G.ch >= s.ch;
+    return `<div class="card ${open?'':'lock'}" ${open?`onclick="castOpen='${s.id}';render()"`:''}><div class="fl"><b>${open?s.n:'???'}</b><div class="sm">${open?s.sub:'🔒 Unlocks at chapter '+s.ch}</div></div>${open?'<span class="sm">View</span>':''}</div>`; }).join('');
+  return `<h2>Cast</h2><div class="sm">Character profile sheets. Each unlocks as its characters appear in the story.</div>${cards}${typeof rArcGallery==='function'?rArcGallery():''}`;
+}
 function rBestiary(){
   const keys=Object.keys(ENEMIES), found=keys.filter(k=>G.bestiary[k]).length;
   return `<h2>Bestiary</h2><div class="sm">${found} / ${keys.length} discovered</div>`+keys.map(k=>{const e=ENEMIES[k],n=G.bestiary[k];
@@ -204,9 +227,9 @@ function rDev(){
    <button onclick="gainXp(500);save();render()">+500 XP (all)</button><button onclick="gainXp(5000);save();render()">+5000 XP</button>
    <button onclick="G.party.forEach(i=>addBond(i,60));save();render()">+60 bond (all)</button><button onclick="G.gold+=500;save();render()">+500 gold</button>
    <button onclick="G.flags.crossbow=!G.flags.crossbow;save();render()">Toggle crossbow flag (${G.flags.crossbow?'on':'off'})</button>
-   <button onclick="restoreParty();save();render()">Restore party HP/MP</button><button onclick="G.flags.greyson_arms=!G.flags.greyson_arms;save();render()">Unseal Greyson's dagger+flail (${G.flags.greyson_arms?'on':'off'})</button>
+   <button onclick="restoreParty();save();render()">Restore party HP/MP</button><button onclick="G.disabled={};save();render()">Clear disabled</button><button onclick="G.flags.greyson_arms=!G.flags.greyson_arms;save();render()">Unseal Greyson's dagger+flail (${G.flags.greyson_arms?'on':'off'})</button>
    <button onclick="G.flags.bracelet=!G.flags.bracelet;save();render()">Toggle bracelet (${G.flags.bracelet?'on':'off'})</button>
-   <button onclick="advanceDay(1);save();render()">+1 day</button><select id="devloc">${LOC_ORDER.filter(locOpen).map(k=>`<option value="${k}" ${k===G.loc?'selected':''}>${LOCATIONS[k].n}</option>`).join('')}</select><button onclick="G.loc=$('devloc').value;save();render()">Warp</button>
+   <button onclick="advanceDay(1);save();render()">+1 day</button><select id="devloc">${LOC_ORDER.filter(locOpen).map(k=>`<option value="${k}" ${k===G.loc?'selected':''}>${LOCATIONS[k].n}</option>`).join('')}</select><button onclick="G.loc=$('devloc').value;syncAway();save();render()">Warp</button>
    <button onclick="ROSTER.forEach(i=>recruit(i));save();render()">Recruit everyone</button></div></div>
    <div class="panel"><button onclick="if(confirm('Erase save?')){localStorage.removeItem(CFG.SAVE_KEY);location.reload()}">Erase save</button></div>`;
 }
@@ -217,6 +240,7 @@ function enter(newGame){
   if(newGame || !load()){ G = newState(); save(); }
   if(newGame && BRACELET_FROM_START) G.flags.bracelet = true;
   refreshBounties(); checkMissionOffers(); save();
+  if(newGame && typeof arcOnNewGame==='function') arcOnNewGame();
   $('landing').style.display='none'; $('app').style.display='flex'; render();
 }
 window.addEventListener('load', () => {
@@ -229,3 +253,5 @@ window.addEventListener('load', () => {
     p.style.left = Math.random()*100+'%'; p.style.animationDuration = (7+Math.random()*7)+'s'; p.style.animationDelay = (-Math.random()*12)+'s';
     p.style.transform = 'scale('+(.6+Math.random()*.9)+')'; L.appendChild(p); }
 });
+
+document.addEventListener('error', e => { const t=e.target; if(t && t.tagName==='IMG' && /_(noble|reborn)\.webp/.test(t.src)) t.src = t.src.replace(/_(noble|reborn)/,''); }, true);   // missing variant portrait -> base portrait

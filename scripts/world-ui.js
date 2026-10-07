@@ -20,21 +20,26 @@ function rMissions(){
   const comm = hasBracelet()
     ? '<div class="sm">📿 <b>Communication bracelet</b> — King Greyson reaches you instantly, anywhere.</div>'
     : `<div class="sm">🕊️ <b>Pigeon post</b> — letters from King Greyson reach you only in towns, and take about ${Math.max(1,hopsFromCapital(G.loc))} day(s) from here. (Upgrades to a communication bracelet later.)${G.pending.length?` <b>${G.pending.length} in flight.</b>`:''}</div>`;
+  const sallyBtn = (G.flags.sally_stays && G.flags.sally_gossip) ? `<div class="panel"><b>🌹 Sally (Dragonvale)</b><div class="sm">She stayed behind and keeps her ear to the court. Ask once a day.</div><button onclick="act(courtGossip)">Ask Sally for rumours</button></div>` : '';
   let body = '';
   if(mTab==='letters') body = rLetters(); else if(mTab==='missions') body = rMissionList();
   else if(mTab==='quests') body = rQuestsActive(); else body = rBountyList();
-  return `<h2>Missions & Contracts</h2>${comm}<div class="row" style="margin:6px 0">${subs.map(([k,l])=>`<button class="${mTab===k?'pri':''}" onclick="mTab='${k}';openLetter=null;render()">${l}</button>`).join('')}</div>${flashHtml()}${body}`;
+  return `<h2>Missions & Contracts</h2>${comm}${sallyBtn}<div class="row" style="margin:6px 0">${subs.map(([k,l])=>`<button class="${mTab===k?'pri':''}" onclick="mTab='${k}';openLetter=null;render()">${l}</button>`).join('')}</div>${flashHtml()}${body}`;
 }
 function rLetters(){
   if(openLetter){
-    const L = G.letters.find(l=>l.id===openLetter), m = missionById(L.mid), st = mState(m.id);
+    const L = G.letters.find(l=>l.id===openLetter);
+    if(L.fam){ L.read = true;
+      return `<button onclick="openLetter=null;render()">◀ Letters</button><div class="panel letter"><div class="sm">✉️ Messenger from Dragonvale · Day ${L.day}</div><h3>${L.subj}</h3><div style="margin:8px 0;font-style:italic">From ${L.from}</div><div>${L.body}</div>${L.gift?(L.claimed?'<div class="sm" style="margin-top:8px">🎁 Gift claimed</div>':`<button class="pri" style="margin-top:8px" onclick="act(claimFamGift,'${L.id}')">🎁 Open the enclosed gift (${rwText2(L.gift)})</button>`):''}</div>`; }
+    const m = missionById(L.mid), st = mState(m.id);
     L.read = true;
     return `<button onclick="openLetter=null;render()">◀ Letters</button><div class="panel letter"><div class="sm">${hasBracelet()?'📿 Bracelet message':'🕊️ Pigeon letter'} · Day ${L.day}</div><h3>${L.subj}</h3><div style="margin:8px 0;font-style:italic">From King Greyson</div><div>${L.body}</div>
       <h4>Mission: ${m.title}</h4><div class="sm">${objText(m)} · Reward: ${rwText(m.rw)}</div>
       ${st==='offered'?`<button class="pri" onclick="act(acceptMission,'${m.id}')">Accept mission</button>`:`<div class="sm">${st==='active'?'In progress':'✔ Done'}</div>`}</div>`;
   }
   if(!G.letters.length) return '<div class="sm">No letters yet. King Greyson writes once the prologue is complete.</div>';
-  return G.letters.map(l=>{ const st = mState(l.mid);
+  return G.letters.map(l=>{ if(l.fam) return `<div class="card" onclick="openLetter='${l.id}';render()"><span class="big">${l.read?'📭':'💌'}</span><div class="fl"><b>${l.subj}</b><div class="sm">${l.from} · Day ${l.day}${l.gift&&!l.claimed?' · 🎁 gift enclosed':''}</div></div></div>`;
+    const st = mState(l.mid);
     return `<div class="card" onclick="openLetter='${l.id}';render()"><span class="big">${l.read?'📭':'📬'}</span><div class="fl"><b>${l.subj}</b><div class="sm">King Greyson · Day ${l.day} · ${st==='offered'?'new mission':st==='active'?'active':'done'}</div></div></div>`; }).join('');
 }
 function objText(m){
@@ -43,6 +48,7 @@ function objText(m){
   if(o.type==='kill') return '⚔️ Defeat '+o.need+' '+o.label;
   if(o.type==='boss') return '👑 Defeat '+ENEMIES[o.key].n;
   if(o.type==='investigate') return '🔎 Investigate: '+spotById(o.spot).n;
+  if(o.type==='steps') return o.steps.map(s => (stepDone(m, s)?'☑ ':'☐ ')+s.label+(s.kill&&!stepDone(m,s)?' ('+(G.mprog[m.id+':'+s.kill]||0)+'/'+s.need+')':'')).join(' · ');
   return '✉️ Read the letter';
 }
 function rMissionList(){
@@ -64,18 +70,31 @@ function rBountyList(){
 }
 
 /* ---------------- TRAVEL TAB ---------------- */
+let mapView = null;
+const WORLD_MAPS = [
+  {id:'tribute', n:'Tribute', img:'assets/maps/tribute.webp', open:() => true},
+  {id:'dragonvale', n:'Dragonvale', img:'assets/maps/dragonvale.webp', open:() => locOpen('dragon_vale')},
+  {id:'valen', n:'Valen Borderlands', img:'assets/maps/valen.webp', open:() => locOpen('valen_borderlands')},   // shows Dragonvale places: unlocks with Dragonvale
+];
+function rMaps(){
+  const cur = mapView || (LOCATIONS[G.loc].region==='dragon' ? 'dragonvale' : LOCATIONS[G.loc].region==='valen' ? 'valen' : 'tribute');
+  const tabs = WORLD_MAPS.map(m => `<button class="${cur===m.id?'pri':''}" ${m.open()?'':'disabled'} onclick="mapView='${m.id}';render()">🗺️ ${m.open()?m.n:'???'}</button>`).join('');
+  const m = WORLD_MAPS.find(x => x.id===cur && x.open()) || WORLD_MAPS[0];
+  return `<h4>World maps</h4><div class="row" style="margin:4px 0">${tabs}</div><img class="pg" src="${m.img}" alt="${m.n} map" loading="lazy">`;
+}
 function rTravel(){
+  if(G.voyage) return rVoyage();
   const L = LOCATIONS[G.loc], opts = travelOptions();
   const riskText = r => r<.3?'low':r<.5?'medium':'high';
   const rows = opts.map(o=>{ const to = LOCATIONS[o.to], r = o.r;
-    return `<div class="card ${o.open&&o.modeOk?'':'lock'}"><span class="big">${MODES[r.mode].icon}</span><div class="fl"><b>${o.open?to.icon+' '+to.n:'❔ ???'}</b><div class="sm">${MODES[r.mode].n} · ${r.n} · ${r.days} day${r.days>1?'s':''} · risk ${riskText(r.risk)}</div>${o.open?(o.modeOk?'':`<div class="sm">🔒 Boat travel unlocks at chapter ${SHIP_CH}</div>`):`<div class="sm">🔒 ${unlockText(to.unlock)}</div>`}</div><button class="pri" ${o.can?'':'disabled'} onclick="doTravelUi(${ROUTES.indexOf(r)},'${o.to}')">${r.fare}g</button></div>`; }).join('');
+    return `<div class="card ${o.open&&o.modeOk?'':'lock'}"><span class="big">${MODES[r.mode].icon}</span><div class="fl"><b>${o.open?to.icon+' '+to.n:'❔ ???'}</b><div class="sm">${MODES[r.mode].n} · ${r.n} · ${voyageRoute(r)?VOYAGE_DAYS+' days (first crossing: a long voyage)':r.days+' day'+(r.days>1?'s':'')} · risk ${riskText(r.risk)}</div>${o.open?(o.modeOk?'':`<div class="sm">🔒 Boat travel unlocks at chapter ${SHIP_CH}</div>`):`<div class="sm">🔒 ${unlockText(to.unlock)}</div>`}</div><button class="pri" ${o.can?'':'disabled'} onclick="doTravelUi(${ROUTES.indexOf(r)},'${o.to}')">${r.fare}g</button></div>`; }).join('');
   const regions = Object.keys(REGIONS).map(rk=>{
     const locs = LOC_ORDER.filter(k=>LOCATIONS[k].region===rk);
     return `<h4>${REGIONS[rk].icon} ${REGIONS[rk].n}</h4>`+locs.map(k=>{ const l=LOCATIONS[k], open=locOpen(k);
       return `<div class="sm" style="padding:2px 0;${open?'':'opacity:.5'}">${k===G.loc?'📍 ':''}${open?l.icon+' '+l.n+(G.visited[k]?'':' (new)'):'❔ ??? — '+unlockText(l.unlock)}</div>`; }).join(''); }).join('');
   return `<h2>Travel</h2><div class="sm">You are at <b>${L.icon} ${L.n}</b> · Day ${G.day} · 💰 ${G.gold}</div>${flashHtml()}
     <div class="sm" style="margin:4px 0">🐎 Horse carriage: land routes, road encounters. ⛵ Ship: sea and river voyages. Fares are paid up front; a lost fight turns you back.</div>
-    ${rows||'<div class="panel sm">No routes from here.</div>'}<div class="panel">${regions}</div>`;
+    ${rows||'<div class="panel sm">No routes from here.</div>'}${rMaps()}<div class="panel">${regions}</div>`;
 }
 function doTravelUi(i, to){
   origin = 'travel';
@@ -90,10 +109,11 @@ function rHere(){
   if(spotOpen){ const sp = L.spots.find(s=>s.id===spotOpen); if(sp) return rSpot(L, sp); spotOpen = null; }
   const cards = L.spots.map(sp=>{ const lock = spotLock(sp);
     return `<div class="card ${lock?'lock':''}" onclick="${lock?'':`spotOpen='${sp.id}';render()`}"><span class="big">${sp.icon}</span><div class="fl"><b>${sp.n}</b><div class="sm">${lock||sp.desc}</div></div></div>`; }).join('');
-  return `${bandImg(L.img)}<h2>${L.icon} ${L.n}</h2><div class="sm">${REGIONS[L.region].icon} ${REGIONS[L.region].n} · Day ${G.day}</div><div class="sm" style="margin:4px 0">${L.desc}</div>${flashHtml()}${cards||'<div class="panel sm">Nothing to do here yet.</div>'}`;
+  return `${bandImg(L.img)}<h2>${L.icon} ${L.n}</h2>${typeof corrMeter==='function'?corrMeter(G.loc):''}<div class="sm">${REGIONS[L.region].icon} ${REGIONS[L.region].n} · Day ${G.day}</div><div class="sm" style="margin:4px 0">${L.desc}</div>${flashHtml()}${cards||'<div class="panel sm">Nothing to do here yet.</div>'}`;
 }
 function spotBack(){ spotOpen = null; render(); }
 function rSpot(L, sp){
+  const eb = (['investigate','hunt','gather','puzzle','purifypoint'].includes(sp.kind) && typeof exploreBar==='function') ? exploreBar() : '';
   const back = `<button onclick="spotBack()">◀ ${L.n}</button>`;
   const head = `${bandImg(sp.img)}<h2>${sp.icon} ${sp.n}</h2><div class="sm">${sp.desc}</div>${flashHtml()}`;
   let body = '';
@@ -109,16 +129,56 @@ function rSpot(L, sp){
     case 'archive': {
       const rows = LORE.filter(e => G.ch >= e.ch && (!e.party || isRecruited(e.party))).map(e=>`<div class="li"><b>${e.n}</b><div class="sm">${e.t}</div></div>`).join('');
       body = `<div class="panel">${rows}</div><div class="sm">Draft entries — more unlock with the story. The Bestiary is a separate tab.</div>`; break; }
+    case 'pavilion': {
+      const rec = RECIPES.map(r => { const have = Object.keys(r.need).every(k => (G.inv[k]||0) >= r.need[k]), cost = Object.keys(r.need).map(k => ITEMS[k].icon+' '+ITEMS[k].n+' ×'+r.need[k]).join(', ');
+        return `<div class="ev ${have?'':'locked'}"><div><b>${ITEMS[r.out].icon} ${ITEMS[r.out].n}</b> <span class="sm">${USE[r.out]?useText(USE[r.out]):'gear · '+bonusText(GEAR[r.out].bonus)}</span><div class="sm">${cost} · ${r.gold}g</div></div><button ${have&&G.gold>=r.gold?'':'disabled'} onclick="act(craftAt,'${r.out}')">Craft</button></div>`; }).join('');
+      body = `<div class="panel"><div class="row" style="align-items:center;gap:10px;flex-wrap:nowrap"><img src="assets/areas/jenika_512.webp" alt="Jenika Moon" style="width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)"><div><b>🌙 Jenika Moon</b><div class="sm">"Rest here, and let me look at you all."</div></div></div>
+        <button class="pri" onclick="act(pavilionRest)">Restore the party (once per day, free)</button></div><h4>Tonics & remedies</h4>${rec}`; break; }
     case 'village':
       body = `<div class="panel"><div class="sm">Each activity can be done once per day. Day ${G.day}.</div>${Object.keys(VILLAGE_ACTS).map(k => { const a = VILLAGE_ACTS[k], done = G.bondDay['vl_'+k]===G.day, miss = a.need && !isRecruited(a.need);
         return `<div class="ev ${done||miss?'locked':''}"><div><b>${a.icon} ${a.n}</b><div class="sm">${[a.bond&&'bond',a.xp&&a.xp+' XP',a.gold&&a.gold+'g',a.items&&'herbs',a.hint&&'rumour'].filter(Boolean).join(' · ')}${miss?' · 🔒 '+CHARACTERS[a.need].n.split(' ')[0]+' not in party':''}</div></div><button ${done||miss?'disabled':''} onclick="act(doVillage,'${k}')">${done?'Done':'Do'}</button></div>`; }).join('')}<button onclick="act(()=>advanceDay(1))">🌙 Rest until tomorrow</button></div>`; break;
+    case 'fireflies':
+      body = `<div class="panel"><div class="sm">Spirit fireflies drift over the luminous water. Devon keeps watch while the party rests.</div><button class="pri" onclick="act(fireflyRest)">Rest by the water — restore the party (once per day, free)</button></div>`; break;
+    case 'gift':
+      body = `<div class="panel"><div class="sm">A tea and herb stall. The stallholder says the best gifts are the ones that ask for nothing back.</div>
+        <div class="ev ${G.flags.ghost_gift_bought?'locked':''}"><div><b>🍵 Moon-Blossom tea set and herbs</b><div class="sm">${GHOST_GIFT_PRICE}g · a gift for someone who asks for nothing</div></div><button ${G.flags.ghost_gift_bought||G.gold<GHOST_GIFT_PRICE?'disabled':''} onclick="act(buyGhostGift)">Buy</button></div>
+        ${G.flags.ghost_gift_bought&&!G.flags.ghost_gifted?`<button class="pri" ${G.party.includes('ghost_healer')?'':'disabled'} onclick="act(giveGhostGift)">Give the gift to the Ghost Healer</button>`:''}${G.flags.ghost_gifted?'<div class="sm">✔ Given.</div>':''}</div>`; break;
+    case 'trial': {
+      const st = trialStage(), step = (label, state, btn) => `<div class="ev ${state==='done'?'taken':state==='now'?'ready':'locked'}"><div><b>${label}</b></div>${btn||''}</div>`;
+      const go = (fn, text, off) => `<button class="pri" ${off?'disabled':''} onclick="origin='here';const r=${fn}();if(r==='battle'){tab='battle'}else{flash(r||[]);save()}render()">${text}</button>`;
+      body = `<div class="panel"><div class="sm">An optional arc. Nothing in the main story depends on it. Roc was never evil, only lost: this is whether you choose to save him.</div>
+        ${step('1. The Shadow of Roc (the party alone) · min level '+TRIAL_MIN_LV.phase1, G.flags.roc_trial_p1?'done':st==='phase1'?'now':'wait', st==='phase1'?go('trialPhase1','Face the Shadow', !lvOK(TRIAL_MIN_LV.phase1)):'')}
+        ${step('2. The Shadow Crown (Roc joins; only his blade truly hurts it) · min level '+TRIAL_MIN_LV.phase2, G.flags.roc_trial_p2?'done':st==='phase2'?'now':'wait', st==='phase2'?go('trialPhase2','Fight with Roc', !lvOK(TRIAL_MIN_LV.phase2)):'')}
+        ${step('3. Purification (Jade, Devon and Sky together; Jenika\'s medicine)', G.flags.roc_purified?'done':st==='purify'?'now':'wait', st==='purify'?go('trialPurify','Begin the purification', !purifyReady()):'')}
+        ${G.flags.roc_purified?'<div class="sm">✔ Roc survives: Fallen Dragon Prince. His dark magic is now a Dark Dragon Aura.</div>':''}</div>`; break; }
+    case 'raid': {
+      const rows = RAID_LEVELS.map(L => { const open = raidOpen(L), left = raidAttempts(L.n), cleared = G.flags['raid_'+L.n], e = ENEMIES[L.key];
+        return `<div class="ev ${open?'':'locked'}"><div><b>${e.icon} Level ${L.n}: ${L.name}</b> ${cleared?'<span class="sm">· cleared</span>':''}<div class="sm">${L.desc}</div><div class="sm">Min level ${RAID_MIN_LV[L.n]} · Attempts today: ${left}/${RAID_ATTEMPTS}${open?'':(G.flags.roc_purified?(lvOK(RAID_MIN_LV[L.n])?' · 🔒 clear level '+(L.n-1)+' first':' · '+lvNeed(RAID_MIN_LV[L.n])):'')}</div></div>
+          <button class="pri" ${open&&left>0?'':'disabled'} onclick="origin='here';raidStart(${L.n});tab='battle';render()">Challenge</button></div>`; }).join('');
+      body = `<div class="panel"><div class="sm">Repeatable. Rewards: Dark Essence, Dragon Crystal, Royal Sigil; rare Shadow Steel, Shadow Mail, the Crown of the Forgotten Prince. Craft Dragon Prince's Blade at the Healing Pavilion.</div></div>${rows}`; break; }
+    case 'purifypoint':
+      body = `${corrMeter(G.loc)}<div class="panel"><button class="pri" onclick="act(usePurifyPoint)">Purify (once a day)</button></div>`; break;
+    case 'puzzle': {
+      const d = doorState();
+      body = `<div class="panel"><div class="sm">Four rings. Tap a ring to turn it. The Valen crest joins the healing flower to the dragon spine: life and balance.</div>
+        <div class="row" style="justify-content:center;gap:10px;margin:10px 0">${d.map((v,i) => `<button style="font-size:2rem;padding:10px 14px" ${G.flags.door_open?'disabled':''} onclick="turnRing(${i});render()">${SYMS[v]}</button>`).join('')}</div>
+        ${G.flags.door_open?'<div class="sm">✔ The door stands open.</div>':'<button class="pri" onclick="act(tryDoor)">Try the door</button>'}</div>`; break; }
+    case 'order':
+      body = `<div class="panel"><div class="sm">Jade carries the king's sealed order. Only its keepers may open it.</div>${G.flags.order_delivered?'<div class="sm">✔ Delivered.</div>':`<button class="pri" onclick="act(deliverOrder)">Present the sealed order</button>`}</div>`; break;
+    case 'base': body = rBase(); break;
+    case 'goldhome':
+      body = `<div class="panel"><div class="sm">The Gold family home. Each activity can be done once per day. Day ${G.day}.</div>${Object.keys(HOME_ACTS).filter(k => !HOME_ACTS[k].ch || G.ch>=HOME_ACTS[k].ch).map(k => { const a = HOME_ACTS[k], done = G.bondDay['home_'+k]===G.day;
+        return `<div class="ev ${done?'locked':''}"><div><b>${a.icon} ${a.n}</b></div><button ${done?'disabled':''} onclick="act(doHome,'${k}')">${done?'Done':'Do'}</button></div>`; }).join('')}</div>`; break;
+    case 'family':
+      body = `<div class="panel"><div class="sm">Life in the palace. Each activity can be done once per day. Day ${G.day}.</div>${Object.keys(FAMILY_ACTS).map(k => { const a = FAMILY_ACTS[k], done = G.bondDay['fam_'+k]===G.day;
+        return `<div class="ev ${done?'locked':''}"><div><b>${a.icon} ${a.n}</b></div><button ${done?'disabled':''} onclick="act(doFamily,'${k}')">${done?'Done':'Do'}</button></div>`; }).join('')}</div>`; break;
     case 'meditate':
       body = `<div class="panel"><div class="sm">Meditation and ancient teachings. Once per day.</div><button class="pri" onclick="act(doMeditate)">Meditate (1 day)</button></div>`; break;
     case 'garden': {
       const opts = G.party.filter(i=>i!=='jade').map(i=>`<option value="${i}" ${i===gardenSel?'selected':''}>${CHARACTERS[i].n}</option>`).join('');
       body = G.party.length>1 ? `<div class="panel"><div class="sm">Spend an evening together (once per member per day). Bond +5.</div><select onchange="gardenSel=this.value">${opts}</select><button class="pri" onclick="act(doGarden,gardenSel)">Walk together (1 day)</button></div>` : '<div class="panel sm">Jade walks alone for now. Companions will join her here as they are recruited.</div>'; break; }
     case 'tavern':
-      body = `<div class="panel"><button class="pri" onclick="act(restAtInn)">🛏️ Rest (${REST_COST()}g, full recovery, 1 day)</button><button onclick="act(doMeal)">Share a meal (15g)</button><button onclick="toast(rumour());render()">Buy a rumour (5g)</button></div>`; break;
+      body = `<div class="panel"><button onclick="act(chatParty)">🗣️ Listen to the party (once a day)</button>${G.flags.sally_gossip&&G.loc==='dragon_vale'?'<button onclick="act(courtGossip)">🌹 Ask Sally for court gossip (once a day)</button>':''}<button class="pri" onclick="act(restAtInn)">🛏️ Rest (${REST_COST()}g, full recovery, 1 day)</button><button onclick="act(doMeal)">Share a meal (15g)</button><button onclick="toast(rumour());render()">Buy a rumour (5g)</button></div>`; break;
     case 'board': body = rBoard(); break;
     case 'hunt':
       body = `<div class="panel"><div class="sm">Enemies: ${sp.pool.map(k=>ENEMIES[k].icon+' '+ENEMIES[k].n).join(', ')}${sp.elite?' · elite: '+ENEMIES[sp.elite].icon+' '+ENEMIES[sp.elite].n:''}. Scaled to party level (min Lv${sp.lo||1}).</div>
@@ -133,7 +193,7 @@ function rSpot(L, sp){
       const e = ENEMIES[sp.boss], beaten = G.flags['boss_'+sp.boss];
       body = `<div class="panel"><b>${e.icon} ${e.n}</b> <span class="sm">${beaten?'· defeated (replayable)':''}</span><div class="sm">${e.desc}</div><button class="pri" onclick="origin='here';doBoss('${sp.id}');tab='battle';render()">${beaten?'Challenge again':'Challenge'}</button></div>`; break; }
   }
-  return back+head+body;
+  return back+head+eb+body;
 }
 function gatherUi(id){ const r = doGather(id); if(r==='battle') tab='battle'; render(); }
 function investUi(id){ const r = doInvestigate(id); if(r==='battle') tab='battle'; render(); }

@@ -2,6 +2,12 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Tribute: Curse of the Hidden Isle</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#5a1420">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Tribute"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
 <link rel="stylesheet" href="styles.css"></head><body>
 <div id="landing">
   <img class="landing-cover" src="assets/splash.webp" alt="Tribute: Curse of the Hidden Isle">
@@ -15,10 +21,13 @@
   <p id="contnote" class="landing-quote" style="display:none;margin:2px 0 0;font-size:.85rem">A saved journey was found in this browser.</p>
 </div>
 <div id="app">
-  <div id="top"><span class="brand">TRIBUTE</span><span class="pill" id="hch"></span><span class="pill day" id="hday"></span><span class="pill loc" id="hloc"></span><span class="pill gold" id="hgold"></span><button onclick="save();toast('Saved')" title="Save">💾</button></div>
+  <div id="top"><span class="brand">TRIBUTE</span><span class="pill" id="hch"></span><span class="pill day" id="hday"></span><span class="pill loc" id="hloc"></span><span class="pill gold" id="hgold"></span><button id="trkbtn" onclick="toggleTracker()" title="Quest log">📜</button><button onclick="save();toast('Saved')" title="Save">💾</button></div>
   <div id="nav"></div><div id="main"></div>
 </div>
 <div id="story" aria-modal="true"></div>
+<div id="tracker"></div>
+<div id="arcpop"></div>
+<script>if("serviceWorker" in navigator) window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));</script>
 <div id="toast"></div>
 <script src="scripts/chapters.js"></script>
 <script src="scripts/characters.js"></script>
@@ -26,12 +35,26 @@
 <script src="scripts/core.js"></script>
 <script src="scripts/enemies.js"></script>
 <script src="scripts/battle.js"></script>
+<script src="scripts/autobattle.js"></script>
 <script src="scripts/journal.js"></script>
 <script src="scripts/world.js"></script>
 <script src="scripts/world-ui.js"></script>
+<script src="scripts/voyage.js"></script>
+<script src="scripts/family.js"></script>
+<script src="scripts/raid.js"></script>
+<script src="scripts/network.js"></script>
+<script src="scripts/apprentice.js"></script>
+<script src="scripts/banter.js"></script>
+<script src="scripts/corruption.js"></script>
+<script src="scripts/explore.js"></script>
+<script src="scripts/arcs.js"></script>
+<script src="scripts/base.js"></script>
+<script src="scripts/skirmish.js"></script>
 <script src="scripts/items.js"></script>
 <script src="scripts/gear.js"></script>
+<script src="scripts/rewards.js"></script>
 <script src="scripts/savedata.js"></script>
+<script src="scripts/tracker.js"></script>
 <script src="scripts/storypopup.js"></script>
 <script src="scripts/ui.js"></script>
 </body></html>

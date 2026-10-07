@@ -38,3 +38,10 @@ Spoilers. Nothing here is shown in the game yet. Dragon Vale and its sanctuary s
 ## Open questions
 - Who finds and nurses Levi at his grave?
 - What chapter does Levi die/leave, and what chapter does he return?
+
+## What the comic now shows (ch42-51, canon)
+- Ch42: Jade partially awakens; Sky is cursed (critical) -> in the party but disabled. Ch43: 49-day deadline; only the Pearl of Dragonvale can cure him.
+- Ch44: Greyson gives the bracelet + sealed box; Delilah is the Dragonvale Royal Consort. Ch46: Ripley assigned to Jade; Jenika Moon and the Royal Healing Pavilion appear (Jenika is the princes' cousin).
+- Ch47: Devon is Chad's twin. Ch48: Dima says Jade's destiny is with the owner of the Black Pearl (Devon); Sky is Jade's cousin; Delilah is pregnant.
+- Ch50: Jade becomes Princess of Tribute and may choose an unmarried prince; Levi (pale, weak) leaves the party. Ch51: Sally ennobled (new skill Noble Grace); Jade proposes a one-year marriage in name to Devon.
+- Still open: Ripley's joining chapter, the wedding chapter, Devon's recruitment, when Sky recovers, when Chad leaves (planned: when the new princess arrives).

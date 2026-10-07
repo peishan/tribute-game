@@ -105,5 +105,54 @@ function rSave(){
    ${c.gistId?`<div class="sm" style="margin:6px 0">Current Gist ID: <code style="user-select:all;overflow-wrap:anywhere">${c.gistId}</code> <button onclick="copyGistId()" style="padding:2px 8px">📋 Copy</button>${c.lastSync?'<br>Last sync: '+new Date(c.lastSync).toLocaleString():''}</div>`:''}
    <div class="row"><button onclick="saveGistCredsFromForm()">💾 Save Credentials</button><button onclick="clearGistCreds()">🗑️ Clear</button></div>
    <div class="row"><button class="pri" id="gistPushBtn" onclick="pushToGist()">⬆️ Push (back up)</button><button id="gistPullBtn" onclick="pullFromGist()">⬇️ Pull (restore)</button></div>
-   <div id="gistStatusMsg" class="sm" style="text-align:center;min-height:1.2em;margin-top:6px">${saveStatus}</div></div>`;
+   <div id="gistStatusMsg" class="sm" style="text-align:center;min-height:1.2em;margin-top:6px">${saveStatus}</div></div>${rBackupPanel()}`;
+}
+
+/* ---------------- AUTO BACKUP ----------------
+   After every real battle: save locally, keep a rolling set of 3 local backups, and (if a Gist token is saved) push to the Gist.
+   When you leave / hide the page: save, and (if enabled) download a JSON file — at most once per 10 minutes and only if progress changed.
+   Browsers may block downloads that are not started by a click; the Gist and local backups are the safety net. */
+const SETTINGS_KEY = 'tribute_settings', BACKUPS_KEY = 'tribute_backups';
+const settings = () => Object.assign({autoGist:true, autoLeaveDownload:true}, (()=>{ try{ return JSON.parse(localStorage.getItem(SETTINGS_KEY))||{}; }catch(e){ return {}; } })());
+function setSetting(k, v){ const s = settings(); s[k] = v; try{ localStorage.setItem(SETTINGS_KEY, JSON.stringify(s)); }catch(e){} render(); }
+function backupsList(){ try{ return JSON.parse(localStorage.getItem(BACKUPS_KEY))||[]; }catch(e){ return []; } }
+function rollingBackup(label){
+  if(!G) return;
+  const list = backupsList(); list.unshift({t:Date.now(), label, ch:G.ch, day:G.day, data:JSON.stringify(G)});
+  while(list.length > 3) list.pop();
+  try{ localStorage.setItem(BACKUPS_KEY, JSON.stringify(list)); }catch(e){ list.pop(); try{ localStorage.setItem(BACKUPS_KEY, JSON.stringify(list)); }catch(e2){} }
+}
+function restoreBackup(i){
+  const b = backupsList()[i]; if(!b || !confirm('Restore the backup from '+new Date(b.t).toLocaleString()+'? This replaces the current save.')) return;
+  try{ applySave(JSON.parse(b.data)); setStatus('Backup restored.'); render(); }catch(e){ toast('Could not restore that backup'); }
+}
+function afterBattleBackup(){
+  if(!G) return;
+  save(); rollingBackup('after battle');
+  const c = gistCreds();
+  if(settings().autoGist && c.token){ pushToGist().then(() => {}).catch(() => {}); }
+}
+let lastLeaveDownload = 0, lastLeaveSaved = 0;
+function leaveBackup(){
+  if(!G) return;
+  save(); rollingBackup('on leave');
+  const s = settings(), now = Date.now();
+  if(s.autoLeaveDownload && G.savedAt !== lastLeaveSaved && now - lastLeaveDownload > 600000){
+    lastLeaveSaved = G.savedAt; lastLeaveDownload = now;
+    try{
+      const blob = new Blob([JSON.stringify(G, null, 2)], {type:'application/json'}), url = URL.createObjectURL(blob), a = document.createElement('a');
+      a.href = url; a.download = 'tribute-autosave-'+new Date().toISOString().slice(0,16).replace(':','-')+'.json';
+      document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 4000);
+    }catch(e){}
+  }
+}
+document.addEventListener('visibilitychange', () => { if(document.visibilityState==='hidden') leaveBackup(); });
+window.addEventListener('pagehide', leaveBackup);
+function rBackupPanel(){
+  const s = settings(), c = gistCreds(), list = backupsList();
+  return `<div class="panel"><h3>🛡️ Auto Backup</h3>
+   <label class="sm" style="display:flex;gap:8px;align-items:center;margin:6px 0"><input type="checkbox" ${s.autoGist?'checked':''} onchange="setSetting('autoGist',this.checked)"> After every battle, push to my GitHub Gist${c.token?'':' (needs a saved token above)'}</label>
+   <label class="sm" style="display:flex;gap:8px;align-items:center;margin:6px 0"><input type="checkbox" ${s.autoLeaveDownload?'checked':''} onchange="setSetting('autoLeaveDownload',this.checked)"> Download a JSON file when I leave the page (max once per 10 min; browsers may block it)</label>
+   <div class="sm">A rolling set of the last 3 backups is also kept on this device (after each battle and when you leave).</div>
+   ${list.map((b,i)=>`<div class="ev"><div><b>${new Date(b.t).toLocaleString()}</b><div class="sm">${b.label} · Ch.${b.ch<0?'Prologue':b.ch} · Day ${b.day}</div></div><button onclick="restoreBackup(${i})">Restore</button></div>`).join('')||'<div class="sm">No backups yet.</div>'}</div>`;
 }

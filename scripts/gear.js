@@ -14,10 +14,24 @@ const GEAR = {
   venomed_cloak:{bonus:{def:4,spd:3}},
   warden_sigil:{bonus:{mag:5,def:3}},
   mahan_crown:{bonus:{hp:20,atk:3}},
+  cultist_robe:{bonus:{def:5,mag:3}},
+  wardens_lantern:{bonus:{mag:5,hp:20,spd:2}},
   ridge_cloak:{bonus:{def:6,spd:2}},
   bandit_lords_blade:{bonus:{atk:8}, for:['chad','jade']},
   minion_sigil:{bonus:{mag:3,hp:10}},
   mouse_charm:{bonus:{spd:3,atk:2}},
+  // ---- Jade's attires (ch58): Daily Royal Attire and the Phoenix Guard mission / battle attire ----
+  royal_attire:{n:'Daily Royal Attire',icon:'👘',slot:'armor',rarity:'rare',bonus:{hp:20,mag:4,def:3},for:['jade']},
+  phoenix_guard:{n:'Phoenix Guard Attire',icon:'🔥',slot:'armor',rarity:'epic',bonus:{hp:30,def:8,atk:3},for:['jade']},
+  // ---- Sky's recovery gear (ch87; he has had it since his recovery in Dragonvale) ----
+  skyward_staff:{n:'Skyward Spirit Staff',icon:'🪄',slot:'weapon',rarity:'rare',bonus:{mag:9,mp:15},for:['sky']},
+  healers_robes:{n:'Dragonvale Healer\'s Robes',icon:'🥼',slot:'armor',rarity:'rare',bonus:{def:6,hp:25,mag:3},for:['sky']},
+  childhood_charm:{n:'Childhood Flower Charm',icon:'🌸',slot:'accessory',rarity:'rare',bonus:{hp:20,def:3,mag:2},for:['jade']},
+  // ---- Guardian Raid rewards (Roc's arc) ----
+  shadow_mail:{n:'Shadow Mail',icon:'🛡️',slot:'armor',rarity:'epic',bonus:{def:9,hp:30,spd:2}},
+  forgotten_crown:{n:'Crown of the Forgotten Prince',icon:'🥀',slot:'accessory',rarity:'epic',bonus:{atk:4,mag:4,hp:20,spd:2}},
+  dragon_prince_blade:{n:'Dragon Prince\'s Blade',icon:'🗡️',slot:'weapon',rarity:'epic',bonus:{atk:15,spd:3,hp:15},for:['chad']},
+  yvette_ornament:{n:'Yvette\'s Hair Ornament',icon:'🌸',slot:'accessory',rarity:'epic',bonus:{mag:6,hp:30,mp:20}},
   // ---- shop ----
   ash_bow:{n:'Ash Bow',icon:'🏹',slot:'weapon',rarity:'common',price:90,bonus:{atk:3,spd:1},for:['jade']},
   braided_whip:{n:'Braided Whip',icon:'🪢',slot:'weapon',rarity:'common',price:90,bonus:{atk:3,spd:1},for:['jade']},
@@ -72,13 +86,13 @@ function sellGear(k){
 /* ---------------- UI ---------------- */
 let gearSel = 'jade', gearSub = 'equip';
 function rGear(){
-  const heroes = G.party.filter(id => !CHARACTERS[id].placeholder);
+  const heroes = G.party.filter(id => !CHARACTERS[id].placeholder && !CHARACTERS[id].companion);
   if(!heroes.includes(gearSel)) gearSel = heroes[0];
   const tabs = [['equip','Equip'],['shop','Shop']].map(([k,l]) => `<button class="${gearSub===k?'pri':''}" onclick="gearSub='${k}';render()">${l}</button>`).join('');
   return `<h2>🛡️ Gear</h2>${flashHtml()}<div class="row">${tabs}</div>${gearSub==='shop' ? rShop() : rEquip(heroes)}`;
 }
 function rEquip(heroes){
-  const pick = `<div class="rcs" style="margin:6px 0">${heroes.map(id => `<div class="rc ${gearSel===id?'sel':''}" onclick="gearSel='${id}';render()"><img src="assets/party/${id}.webp"><b>${CHARACTERS[id].n.split(' ')[0]}</b></div>`).join('')}</div>`;
+  const pick = `<div class="rcs" style="margin:6px 0">${heroes.map(id => `<div class="rc ${gearSel===id?'sel':''}" onclick="gearSel='${id}';render()"><img src="${portrait(id)}"><b>${CHARACTERS[id].n.split(' ')[0]}</b></div>`).join('')}</div>`;
   const id = gearSel, st = statsOf(id), gb = gearBonusSum(id), g = gearOf(id);
   const stats = STATS.map(s => `<div class="st"><span>${STAT_NAME[s]}</span>${bar(st[s],STAT_SCALE[s],s)}<b>${st[s]}${gb[s]?` <span class="sm" style="color:var(--green)">(+${gb[s]})</span>`:''}</b></div>`).join('');
   const slots = SLOTS.map(([slot,label]) => {

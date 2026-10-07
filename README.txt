@@ -157,3 +157,69 @@ Gear drops: Booyeong now drops Ridge Cloak / Bandit Lord's Blade (first clear gu
 scripts/items.js: heroes keep HP/MP between real battles (sandbox does not); a fallen hero is left at 20%. Recovery: inn rest (tavern spots, gold, full, 1 day), potions, +10% per travel/rest day.
 Consumables: Herbal Tonic, Moon Healing Tonic, Purification Elixir, Spirit Restoration Potion, Dragon Blood Remedy (rare). Use from Items tab or the battle Items action (costs the turn); buy in the Gear > Shop; brew a tonic from 3 herbs.
 Dragon Vale pavilion (Jenika) can now sit on top of this. Ch40 (major battle) sets flag greyson_arms to unseal Greyson's dagger+flail (CH_FLAGS 40; chapter 40 itself still has no entry/art).
+
+--- v6.2: AUTO BATTLE ---
+scripts/autobattle.js: Auto button in battle. Unlocks when the story reaches chapter AUTO_CH (12) OR average party level reaches AUTO_LV (10); disabled in boss fights. AI heals/tonics weak allies, uses area skills vs 3+ foes,
+else the strongest affordable skill on the weakest foe. Stop any time. (AUTO_CH / AUTO_LV provisional, top of autobattle.js.)
+
+--- v6.3: CH40-41 + AUTO BACKUP ---
+Ch40 "The Night Before the Offering" and Ch41 "The Offering at Moonrise" added from pages (art ch40/41.webp). Ch41 is the MAJOR BATTLE (greyson_arms unseals at 41, not 40): new enemies Crimson Cultist, Veil Stalker, Offering Lantern, boss The Offering Warden (+ gear Cultist Robe, Warden's Lantern). Auto-battle is off there (boss).
+Auto backup (savedata.js, Save tab): after every real battle -> rolling local backup (last 3) + Gist push if a token is saved; on leaving the page -> JSON download (max 1 per 10 min, only if progress changed; browsers may block). Toggles + Restore in the Save tab.
+
+--- v6.4: CHAPTERS 42-51 (Dragonvale arc) ---
+Entries 42-51 from pages (art ch42-51.webp). New: Dragonvale hub (unlock ch43; route from the capital, carriage 6d / ship 4d); Guest Wing, Royal Healing Pavilion (Jenika: free daily full restore + crafting tonics/remedies).
+Sky DISABLED from ch42 (stays in party, cannot fight; Dev 'Clear disabled'); Levi LEAVES the party at ch50 and cannot rejoin via recruit(); bracelet + sealed box at ch44 (box removed at ch50); Sally gets Noble Grace at ch51.
+Devon not recruitable yet; Ripley/Chad exits/wedding pending. Dragon Vale hunt/sanctuary/pearl spots stay parked (ch99).
+
+--- v6.5: RIPLEY + CHARACTER AUDIT ---
+Ripley (Court Archer, portrait assets/party/ripley.webp) joins ch52; Devon joins ch54; profiles visible from ch46/47. Ch52-54 have no entries yet (Journal shows "(?)").
+Disabled heroes no longer take an active slot; heroes who left keep their name in the party list. See docs/CHARACTER_AUDIT.md for the class/skill review against the comic.
+
+--- v6.6: AUDIT FIXES ---
+Jade golden blood at ch42 + Eclipse Saint; Chad martial kit (dark arts gated, flag chad_dark_arts); Sally info/charm recast; Levi Shadow Archer (bow); Black Pearl naming. See docs/CHARACTER_AUDIT.md.
+
+--- v6.7: CHAPTERS 52-56 ---
+Entries 52-56 from pages (art ch52-56.webp). Ripley joins 52, Devon 54 (banners). New: Sally court gossip (flag sally_gossip, Dragonvale Guest Wing), Royal Archives investigation + mission The Late Empress's Archive (ch53), Codex entries. Ch57 (wedding) pending: chapters 57 shows (?).
+
+--- v6.8: DEVON KIT + JENIKA PORTRAIT ---
+Devon recast as defensive mage/swordsman (see docs/CHARACTER_AUDIT.md). Jenika portrait: assets/areas/jenika.webp (pavilion banner) and jenika_512.webp (avatar in the pavilion panel).
+
+--- v6.9: CHAPTERS 57-60 ---
+Wedding (57), Princess of Dragonvale + attires (58), bond with Roc severed + Cavern of Fireflies (59), Jade poisoned (60). Chad's bond resets to 0 and no longer grows (flag roc_severed). New area Cavern of Fireflies (boat from Dragonvale, free daily rest). Sky is re-enabled when chapter 61 completes (CH_ENABLE).
+
+--- v7.0: CHAPTERS 61-62 ---
+Jenika/Sky beat (61); poison trail (62). New: Old Royal Archives investigation + mission The Erased Name, Masked Contracts board in Dragonvale (vigilante bounties from ch62). See docs/DRAGONVALE_YEAR_PLAN.md for the one-year arc plan.
+
+--- v7.1: REWARDS ---
+New Rewards tab (scripts/rewards.js): 7-day daily login cycle and AFK rewards (up to 8h, scaled by party level). New splash screen asset. Original PNG uploads removed (the WebP conversions are used).
+
+--- v7.2: CAST ---
+New Cast tab (profile sheets: assets/cast/*.webp, unlock at ch47 and ch65). Seraphina's final portrait replaces the placeholder.
+
+--- v7.3: VOYAGE ---
+First sailing capital -> Dragonvale is a staged 6-day voyage (scripts/voyage.js): storm, sea monster, abandoned island, ancient ruins, mist, then the Dragonvale reveal. Later crossings use the normal 4-day passage.
+Dragonvale now unlocks only after ch44 with the bracelet (flag), for the trip to save Sky.
+
+--- v7.4: CHAPTERS 63-73 ---
+Court of Suspicions to The Exiled Prince (art ch63-73.webp). Seraphina arrives 65, revealed 66; Roc/Seraphina marry 68; backlash 70-72; Roc exiled at 73 (Liora entrusted to Jade and Devon); one-year time skip, quests begin at 74. New: Restricted Archive investigation + mission The Access Log (ch71). Levi's return and Sally's departure moved to ch87 (CH_RETURN / CH_STAY).
+
+--- v7.5: MAPS + PWA ---
+World maps in the Travel tab (assets/maps/tribute.webp, dragonvale.webp; Dragonvale map unlocks with Dragonvale). PWA: manifest.webmanifest, sw.js (offline app shell), placeholder icons in assets/icons (replace with final art, same file names). Bump VERSION in sw.js when you want to force-refresh caches.
+
+--- v7.6: ICONS + CHAPTER 75 ---
+Final PWA icons (square, compass-only maskable, favicon). Chapter 75 'Whispers at the Border' sets the quest pattern: Main Story Quest with objectives (new 'steps' mission type), new area Dragonvale Border (border villages, ancient ruins; the source is locked until its chapter), Shade Beast enemy, masked contract.
+
+--- v7.7: CHAPTERS 74, 76, 77 + FIELD INVESTIGATION ARC ---
+Quest-period chapters 74-77 from the pages (art ch74/76/77.webp). Steps missions now support spot/visit/boss/mission/kill objectives (stepDone, checkSteps). New: Ancient Dragonvale Ruins dungeon (Forgotten Hall, Corrupted Spirit Chamber, Guardian boss, Seal Core boss), corruption gauge and purification (Devon: Spirit Purification, Twin Dragon Harmony), Jade: Guardian's Promise, story passives (Princess Guardian, Royal Spirit Authority), Spirit Caves and Cultivation Grounds, Dragonvale reputation.
+
+--- v7.8: CHAPTERS 78-83, 85 ---
+Comic pages 78-83 and 85 (84 not provided yet; shows art pending). Moonveil Temple (location unlocks ch78; sanctuary, symbol, Black Pearl records, Pearl Chamber ch80), mission Moonveil Temple; Life in the Palace daily activities (ch83); Eastern Border village and mountain shrine + mission The Last Duty Before Departure (ch85). Aster crowned (ch82).
+
+--- v7.9: CHAPTERS 84, 86 ---
+Liora at three (84) and the farewell (86). Dragonvale chapters 74-86 are complete; return to Tribute (87) next.
+
+--- v8.0: CHAPTER 87 ---
+The Shadow at Dragonvale's Gate: Levi rejoins (reborn), Seraphina permanent, Divorce Scroll, Sky's gear (Skyward Spirit Staff, Dragonvale Healer's Robes, auto-equipped), Sally stays. Chapter number for these is now canon.
+
+--- v8.1: CHAPTER 88 ---
+The Ghost Healer: slotless companion, quest A Gift for the Ghost Healer, Moon-Blossom Tea Stall (capital).

@@ -35,7 +35,7 @@ const REST_COST = () => 10 + avgPartyLv()*2;
 function restAtInn(){
   const c = REST_COST(); if(G.gold < c) return ['A bed costs '+c+' gold.'];
   G.gold -= c; restoreParty();
-  return ['🛏️ The party sleeps soundly. HP and MP fully restored. (-'+c+'g)'].concat(advanceDay(1));
+  return ['🛏️ The party sleeps soundly. HP and MP fully restored. (-'+c+'g)'].concat(typeof banterLines==='function' ? banterLines('rest', .6) : [], advanceDay(1));
 }
 function useConsumable(id, k){
   const u = USE[k]; if(!u || !(G.inv[k] > 0)) return false;
@@ -49,6 +49,31 @@ function brewTonic(){
 function buyConsumable(k){
   const p = CONSUMABLE_SHOP[k]; if(!p || G.gold < p || !isSettlement(G.loc)) return false;
   G.gold -= p; G.inv[k] = (G.inv[k]||0)+1; save(); return true;
+}
+
+/* ---- Royal Healing Pavilion (Jenika Moon, Dragonvale) ---- */
+const RECIPES = [
+  {out:'dragon_prince_blade', need:{dark_essence:5, dragon_crystal:3, royal_sigil:2, shadow_steel:1}, gold:400},
+  {out:'moon_tonic', need:{forest_herb:4}, gold:20},
+  {out:'purify_elixir', need:{forest_herb:2, demon_ash:1}, gold:25},
+  {out:'spirit_potion', need:{forest_herb:2, xima_shard:1}, gold:30},
+  {out:'dragon_remedy', need:{drake_scale:2, relic_dust:2}, gold:150},
+];
+function pavilionRest(){
+  if(G.bondDay.pavilion === G.day) return ['Jenika has already tended you today.'];
+  G.bondDay.pavilion = G.day; restoreParty();
+  return ['🌙 Jenika tends the party. HP and MP fully restored.'].concat(advanceDay(0));
+}
+function fireflyRest(){
+  if(G.bondDay.fireflies === G.day) return ['You have already rested in the cavern today.'];
+  G.bondDay.fireflies = G.day; restoreParty();
+  return ['✨ The spirit fireflies glow softly. HP and MP fully restored.'].concat(advanceDay(0));
+}
+function craftAt(out){
+  const r = RECIPES.find(x => x.out===out); if(!r) return [];
+  if(G.gold < r.gold || !Object.keys(r.need).every(k => (G.inv[k]||0) >= r.need[k])) return ['Not enough materials or gold.'];
+  Object.keys(r.need).forEach(k => G.inv[k] -= r.need[k]); G.gold -= r.gold; addItems([{id:out, qty:1}]); save();
+  return ['⚗️ Jenika crafts '+ITEMS[out].icon+' '+ITEMS[out].n+'.'];
 }
 
 /* ---- in-battle item use ---- */
