@@ -128,3 +128,9 @@ Jade returns as Princess of Tribute and of Dragonvale, wife of a respected princ
 - 105 The Borderland That Was Forgotten (Rowan Mirel, Mira Valen, Master Teren), 106 The People Left Behind (Lio, the west's resentment), 107 The Healer's Legacy (Sister Anwen; the Valen crest), 108 The Empty Records (hidden second archive).
 - Missions built from each quest box. Sealed objectives: m_people_behind 'search for the people behind the missing records' (flag people_behind_found), m_healers_legacy 'connection to the prophecy' (flag valen_prophecy_link), m_empty_records 'file on Yvette Sue Valen' (sealed spot yvette_file). The author sets those later.
 - Ch104's quest still uses the spots moonfall_hamlet and ruins_of_valen; the chapters 105-108 added their own spots (records hall, Mira and Lio, healer village, hidden archive).
+
+## Combat additions
+- Enemy area attacks: a move with `all:true` hits every ally at 70% power and ignores Protective Oath (Shade Beast's Dark Howl, Vale Drake's Tail Sweep, several boss moves).
+- Bosses ignore Protective Oath 35% of the time.
+- Boss phases: `phases:[{at:hpFraction, msg, moves?, atk?, shield?, summon?}]` on an enemy. Built for the Ancient Guardian Spirit (3 phases), the Awakened Spirit Core (3), Shadow of Roc (3), Shadow of Ambition, The Forgotten Prince.
+- Adrian's strategic decisions (built): Kingdom Status meters now move. One decision per 7 in-game days (DECISIONS in network.js): send soldiers / supplies / investigate etc.; four written so far.

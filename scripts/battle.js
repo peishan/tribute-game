@@ -83,10 +83,22 @@ function endTurn(u){
 }
 
 /* ---------- damage ---------- */
+function checkPhase(t){
+  if(!t.phases || t.dead || t.ally) return;
+  const next = t.phases[t.phaseIdx||0]; if(!next || t.hp/t.mhp > next.at) return;
+  t.phaseIdx = (t.phaseIdx||0) + 1;
+  blog('— '+next.msg+' —','sys');
+  if(next.moves) t.moves = next.moves;
+  if(next.atk) { t.atk = Math.round(t.atk*next.atk); t.mag = Math.round(t.mag*next.atk); }
+  if(next.shield) t.st.shield = {v:Math.round(t.mhp*next.shield), d:6};
+  if(next.heal) t.hp = Math.min(t.mhp, t.hp + Math.round(t.mhp*next.heal));
+  if(next.summon){ const key = next.summon; const u = mkFoeUnit(key, Math.max(1, Math.round(avgPartyLv()-2)), B.foes.length); B.foes.push(u); B.queue.push(u); blog('  '+u.name+' appears.','foe'); }
+}
 function hurt(t, d, ignoreShield){
   if(!ignoreShield && t.st.shield){ const a = Math.min(t.st.shield.v, d); t.st.shield.v -= a; d -= a; if(a>0) blog('  (barrier absorbs '+a+')'); if(t.st.shield.v<=0) delete t.st.shield; }
   if(t.guard) d = Math.round(d*.5);
   t.hp = Math.max(0, t.hp - d);
+  if(t.hp>0) checkPhase(t);
   if(t.hp<=0){ t.dead = true; if(t.traits && t.traits.includes('corrupt')) blog(t.name+' is freed from the corruption and collapses, alive.','good'); else blog(t.name+' falls!','bad'); }
   return d;
 }
@@ -213,8 +225,16 @@ function foeAct(f){
   const targets = alive(B.allies); if(!targets.length) return;
   let mv = AR(f.moves);
   if(f.st.silence && mv.spell) mv = f.moves.find(m => !m.spell) || f.moves[0];
-  const oath = targets.find(a => a.st.oath), t = oath || AR(targets);   // Protective Oath draws every attack
   const s = { n:mv.n, kind: mv.spell ? 'magic' : 'phys', pow:mv.pow, fx:mv.fx };
+  if(mv.all){   // area attack: hits every ally at reduced power, ignores the oath
+    blog(f.name+' unleashes '+mv.n+'!','foe');
+    targets.slice().forEach(a => { if(a.dead) return; const sa = Object.assign({}, s, {pow:(mv.pow||1)*.7}); const d = strike(f, a, sa); if(d>0) (mv.fx||[]).forEach(fx => { if(!a.dead && FOE_FX.includes(fx.k)) applyFx(f, a, fx); }); });
+    return;
+  }
+  const oathBearer = targets.find(a => a.st.oath);
+  const bossIgnores = f.boss && oathBearer && Math.random() < .35;   // bosses sometimes see past the oath
+  if(bossIgnores) blog('  '+f.name+' ignores the oath and strikes elsewhere.','foe');
+  const t = (oathBearer && !bossIgnores) ? oathBearer : AR(targets);   // Protective Oath draws attacks
   const dealt = strike(f, t, s);
   if(dealt>0){
     if(mv.steal && f.stolen!==true){ const g = Math.min(G.gold, 8); if(B.spec.rewards){ G.gold -= g; } f.stolen = true; blog('  '+f.name+' lifts '+g+' gold!','bad'); }

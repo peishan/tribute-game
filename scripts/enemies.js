@@ -19,7 +19,7 @@ const ENEMIES = {
   masked_assassin:{n:'Masked Assassin',icon:'🥷',area:'city',hp:110,atk:17,mag:0,def:8,spd:17,xp:70,gold:45,elite:true,
     moves:[{n:'Venom Blade',pow:1.2,fx:[{k:'burn',d:3}]},{n:'Throat Cut',pow:1.9},{n:'Vanish Strike',pow:1.4}],drops:[{id:'assassin_mask',chance:.35},{id:'venom_vial',chance:.4}],desc:'Hired to make people disappear.'},
   shade_beast:{n:'Shade Beast',icon:'🐺',area:'dragon',hp:120,atk:14,mag:10,def:8,spd:12,xp:50,gold:26,traits:['corrupt'],
-    moves:[{n:'Shadow Rend',pow:1.3},{n:'Dark Howl',pow:.9,spell:true,fx:[{k:'slow',d:2}]}],drops:[{id:'demon_ash',chance:.45}],desc:'A spirit beast corrupted by something beneath the ruins.'},
+    moves:[{n:'Shadow Rend',pow:1.3},{n:'Dark Howl',pow:.9,spell:true,all:true,fx:[{k:'slow',d:2}]}],drops:[{id:'demon_ash',chance:.45}],desc:'A spirit beast corrupted by something beneath the ruins.'},
   imp:{n:'Imp',icon:'👺',area:'demon',hp:60,atk:10,mag:11,def:5,spd:13,xp:32,gold:15,traits:['magic'],
     moves:[{n:'Claw',pow:1},{n:'Hex Spark',pow:1.2,spell:true}],drops:[{id:'demon_ash',chance:.5}],desc:'A lesser demon from the cursed isle.'},
   shade_wraith:{n:'Shade Wraith',icon:'👻',area:'demon',hp:95,atk:8,mag:15,def:6,spd:12,xp:48,gold:26,traits:['magic'],
@@ -54,16 +54,21 @@ const ENEMIES = {
   boss_masked_leader:{n:'Masked Leader',icon:'🎭',area:'city',boss:true,hp:520,atk:20,mag:6,def:11,spd:16,xp:220,gold:160,
     moves:[{n:'Venom Blade',pow:1.2,fx:[{k:'burn',d:3}]},{n:'Shadow Flurry',pow:1.8},{n:'Veil Step',pow:1.4}],desc:'Placeholder boss.'},
   boss_guardian_spirit:{n:'Ancient Guardian Spirit',icon:'🗿',area:'dragon',boss:true,hp:560,atk:19,mag:16,def:14,spd:9,xp:260,gold:180,traits:['magic'],
+    phases:[{at:.66,msg:'The Guardian\'s stone cracks and spiritual waves roll outward: Devon must hold the line',moves:[{n:'Spirit Wave',pow:1.2,spell:true,all:true,fx:[{k:'slow',d:1}]},{n:'Stone Verdict',pow:1.5}]},{at:.33,msg:'The Guardian\'s core is exposed. It tests them one last time',atk:1.25,moves:[{n:'Stone Verdict',pow:1.7},{n:'Ward Pulse',pow:1.0,spell:true,all:true}]}],
     moves:[{n:'Stone Verdict',pow:1.5},{n:'Spirit Wave',pow:1.1,spell:true,fx:[{k:'slow',d:2}]},{n:'Ward Pulse',pow:.8,spell:true}],drops:[{id:'seal_fragment',chance:1}],desc:'An ancient protector that tests those who come. It is not evil.'},
   boss_spirit_core:{n:'Awakened Spirit Core',icon:'🐉',area:'dragon',boss:true,hp:760,atk:21,mag:20,def:13,spd:10,xp:340,gold:240,traits:['corrupt','magic'],
+    phases:[{at:.7,msg:'The seal begins to collapse: corruption floods the chamber',moves:[{n:'Seal Collapse',pow:1.3,spell:true,all:true,fx:[{k:'burn',d:2}]},{n:'Corrupted Surge',pow:1.4,spell:true}],summon:'shade_beast'},{at:.35,msg:'The core burns brighter: it must be broken and purified together',atk:1.3,moves:[{n:'Ancient Fury',pow:1.8},{n:'Seal Collapse',pow:1.2,spell:true,all:true}]}],
     moves:[{n:'Corrupted Surge',pow:1.4,spell:true},{n:'Seal Collapse',pow:1.1,spell:true,fx:[{k:'burn',d:2}]},{n:'Ancient Fury',pow:1.7}],drops:[{id:'seal_fragment',chance:1}],desc:'A corrupted ancient protector. It was never meant to be a villain.'},
   boss_shadow_roc:{n:'The Shadow of Roc',icon:'🌑',area:'dragon',boss:true,hp:800,atk:20,mag:18,def:11,spd:12,xp:420,gold:300,traits:['corrupt','magic'],
+    phases:[{at:.6,msg:'The Shadow lifts a broken crown and darkness spreads across the field',moves:[{n:'Royal Ruin',pow:1.6},{n:'Shadow Crown',pow:1.2,spell:true,all:true,fx:[{k:'burn',d:2}]},{n:'Curse of Ambition',pow:1.0,spell:true,fx:[{k:'silence',d:2}]}]},{at:.3,msg:'The Shadow howls: ambition without a master',atk:1.3}],
     moves:[{n:'Royal Ruin',pow:1.6},{n:'Jealous Blade',pow:1.3,fx:[{k:'slow',d:2}]},{n:'Curse of Ambition',pow:1.0,spell:true,fx:[{k:'silence',d:2}]},{n:'Shadow Crown',pow:1.2,spell:true,fx:[{k:'burn',d:2}]}],desc:'A dark knight in a broken version of Roc\'s royal armour, made of his regrets.'},
   boss_shadow_roc_p2:{n:'The Shadow Crown',icon:'👑',area:'dragon',boss:true,hp:520,atk:22,mag:20,def:12,spd:12,xp:360,gold:260,traits:['corrupt','magic'],onlyBy:'chad',offMult:.15,
     moves:[{n:'Royal Ruin',pow:1.6},{n:'Jealous Blade',pow:1.4,fx:[{k:'bind',d:1}]},{n:'Curse of Ambition',pow:1.1,spell:true,fx:[{k:'silence',d:2}]}],desc:'The Shadow\'s crowned second form. Only Roc\'s own blade truly hurts it.'},
   boss_shadow_ambition:{n:'The Shadow of Ambition',icon:'🕷️',area:'dragon',boss:true,hp:1400,atk:25,mag:25,def:13,spd:13,xp:700,gold:500,traits:['corrupt','magic'],
+    phases:[{at:.6,msg:'Clones of ambition rise from the dark',summon:'shadow_clone',moves:[{n:'Ruinous Crown',pow:1.7},{n:'Envious Blade',pow:1.4,fx:[{k:'slow',d:2}]},{n:'Hollow Ambition',pow:1.1,spell:true,all:true}]},{at:.3,msg:'Ambition tears itself apart',atk:1.3}],
     moves:[{n:'Ruinous Crown',pow:1.7},{n:'Hollow Ambition',pow:1.2,spell:true,fx:[{k:'silence',d:2}]},{n:'Curse of Ambition',pow:1.2,spell:true,fx:[{k:'burn',d:3}]},{n:'Envious Blade',pow:1.4,fx:[{k:'slow',d:2}]}],desc:'Stronger dark magic, shadow clones and curses: ambition without a master.'},
   boss_forgotten_prince:{n:'The Forgotten Prince',icon:'🥀',area:'dragon',boss:true,hp:2300,atk:30,mag:30,def:15,spd:14,xp:1200,gold:900,traits:['corrupt','magic'],
+    phases:[{at:.7,msg:'The Forgotten Prince raises a hollow crown',moves:[{n:'Fallen Crown',pow:1.9},{n:'Endless Regret',pow:1.2,spell:true,all:true,fx:[{k:'bind',d:1}]},{n:'Curse of Ambition',pow:1.3,spell:true,fx:[{k:'burn',d:3}]}]},{at:.4,msg:'A possible future closes in around the party',summon:'shadow_clone',atk:1.2},{at:.2,msg:'The Forgotten Prince will not be forgotten',atk:1.3,shield:.1}],
     moves:[{n:'Fallen Crown',pow:1.9},{n:'Forgotten Verse',pow:1.3,spell:true,fx:[{k:'silence',d:2}]},{n:'Endless Regret',pow:1.3,spell:true,fx:[{k:'bind',d:1}]},{n:'Royal Ruin',pow:1.7},{n:'Curse of Ambition',pow:1.3,spell:true,fx:[{k:'burn',d:3}]}],desc:'A possible future where Roc never accepted himself.'},
   shadow_clone:{n:'Shadow Clone',icon:'👤',area:'dragon',hp:150,atk:15,mag:12,def:7,spd:12,xp:60,gold:30,traits:['corrupt'],
     moves:[{n:'Echo Strike',pow:1.1},{n:'Dark Echo',pow:.9,spell:true}],drops:[{id:'dark_essence',chance:.5}],desc:'An echo of the prince\'s regrets.'},
@@ -89,7 +94,7 @@ const ENEMIES = {
   river_serpent:{n:'River Serpent',icon:'🐍',area:'sea',elite:true,hp:160,atk:17,mag:0,def:9,spd:11,xp:85,gold:48,
     moves:[{n:'Coil',pow:1.2,fx:[{k:'bind',d:1}]},{n:'Venom Fang',pow:1.5,fx:[{k:'burn',d:3}]}],drops:[{id:'sea_pearl',chance:.5}],desc:'Long as a barge. Rarely surfaces.'},
   vale_drake:{n:'Vale Drake',icon:'🦎',area:'dragon',hp:115,atk:16,mag:6,def:9,spd:10,xp:48,gold:26,
-    moves:[{n:'Tail Sweep',pow:1.2},{n:'Flame Breath',pow:1.3,spell:true,fx:[{k:'burn',d:2}]}],drops:[{id:'drake_scale',chance:.4}],desc:'A lesser kin of the dragons Dragon Vale remembers.'},
+    moves:[{n:'Tail Sweep',pow:1.2,all:true},{n:'Flame Breath',pow:1.3,spell:true,fx:[{k:'burn',d:2}]}],drops:[{id:'drake_scale',chance:.4}],desc:'A lesser kin of the dragons Dragon Vale remembers.'},
   stone_sentinel:{n:'Stone Sentinel',icon:'🗿',area:'dragon',hp:150,atk:15,mag:0,def:15,spd:5,xp:52,gold:28,
     moves:[{n:'Crushing Blow',pow:1.4},{n:'Stone Guard',pow:.5}],drops:[{id:'relic_dust',chance:.45}],desc:'Ancient wardens still keeping watch.'},
   relic_spirit:{n:'Relic Spirit',icon:'🔮',area:'dragon',hp:85,atk:6,mag:17,def:6,spd:12,xp:54,gold:30,traits:['magic'],
@@ -106,7 +111,7 @@ function mkEnemy(key, lv){
   return { key, name:e.n, icon:e.icon, boss:!!e.boss, elite:!!e.elite, traits:e.traits||[], moves:e.moves, drops:e.drops||[],
     hp:Math.round(e.hp*m), mhp:Math.round(e.hp*m), mp:0, mmp:0,
     atk:Math.round(e.atk*m), mag:Math.round(e.mag*m), def:Math.round(e.def*m), spd:Math.round(e.spd*(1+(lv-1)*.02)),
-    xp:Math.round(e.xp*x), gold:Math.round(e.gold*x), onlyBy:e.onlyBy, offMult:e.offMult };
+    xp:Math.round(e.xp*x), gold:Math.round(e.gold*x), onlyBy:e.onlyBy, offMult:e.offMult, phases:e.phases ? e.phases.map(p => Object.assign({}, p)) : null };
 }
 
 /* ---- items (materials/consumables now; gear slots reserved for the Equipment system) ---- */

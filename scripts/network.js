@@ -90,7 +90,35 @@ const INTEL = {
   ],
 };
 /* ---- Kingdom status (strategic decisions are a later expansion) ---- */
-const KSTATUS = [{k:'Security', v:62}, {k:'Civilian Support', v:70}, {k:'Resources', v:55}];
+const KSTATUS_BASE = {sec:62, civ:70, res:55};
+const KLABEL = {sec:'Security', civ:'Civilian Support', res:'Resources'};
+const kstat = () => { const n = net(); if(!n.k) n.k = Object.assign({}, KSTATUS_BASE); return n.k; };
+/* Strategic decisions: Adrian lays a situation before Jade; she picks a response. One per in-game week (7 days). Trains her toward an advisor's role. */
+const DECISIONS = [
+  {id:'d_village', ch:90, title:'A village needs support', text:'A river village lost its grain store to a fire. Adrian: "Soldiers, supplies, or you. Choose, and I will make it so."',
+   opts:[{t:'Send soldiers', fx:{sec:+8, res:-6}, say:'Soldiers camp by the river. The roads feel safer, and the treasury a little lighter.'},
+         {t:'Send supplies', fx:{civ:+8, res:-8}, say:'Grain and blankets arrive. The village will remember who sent them.'},
+         {t:'Investigate personally', fx:{civ:+3}, say:'You set out yourself. A quest is posted for the Imperial Capital board.', trust:3}]},
+  {id:'d_envoy', ch:90, title:'An envoy asks for terms', text:'A western trade envoy asks for lower tolls. Adrian: "They will pay in goods or goodwill. Which do you prefer?"',
+   opts:[{t:'Keep the tolls', fx:{res:+8, civ:-4}, say:'The treasury grows. The envoy leaves unsmiling.'}, {t:'Lower the tolls', fx:{civ:+6, res:-4}, say:'Trade quickens. The merchants speak well of Tribute.'}, {t:'Ask for something in return', fx:{res:+3, civ:+3}, say:'A modest bargain. Adrian nods: "Balance."', trust:2}]},
+  {id:'d_border', ch:98, title:'Border patrols', text:'Guard captains ask for more patrols on the coast road. Adrian: "More patrols mean fewer farmers on the road."',
+   opts:[{t:'Double the patrols', fx:{sec:+10, civ:-4, res:-4}, say:'The roads grow quiet. So do the inns.'}, {t:'Keep the patrols as they are', fx:{}, say:'Nothing changes. Adrian writes it down anyway.'}, {t:'Recruit local watchmen', fx:{sec:+5, civ:+5, res:-5}, say:'Villagers volunteer. The captains grumble.', trust:2}]},
+  {id:'d_valen', ch:104, title:'The west asks for help', text:'Mira Valen\'s people ask Tribute for medicine and a road crew. Adrian: "The west has waited a long time."',
+   opts:[{t:'Send medicine', fx:{civ:+8, res:-6}, say:'Medicine crates head west. Mira will not forget it.'}, {t:'Send road crews', fx:{sec:+6, res:-8}, say:'The western road is mended, stone by stone.'}, {t:'Send both and ask for no thanks', fx:{civ:+6, sec:+4, res:-12}, say:'Both go west. Adrian says nothing, which is high praise.', trust:3}]},
+];
+const decisionDay = () => { const n = net(); return n.decDay === undefined ? -99 : n.decDay; };
+function openDecision(){
+  const n = net(); if(G.day - decisionDay() < 7) return null;
+  n.decDone = n.decDone || {};
+  return DECISIONS.find(d => G.ch >= d.ch && !n.decDone[d.id]) || null;
+}
+function decide(id, i){
+  const d = DECISIONS.find(x => x.id===id), o = d && d.opts[i]; if(!d || !o || net().decDone && net().decDone[id]) return [];
+  net().decDone = net().decDone || {}; net().decDone[id] = true; net().decDay = G.day;
+  const k = kstat(); Object.keys(o.fx).forEach(s => k[s] = Math.max(0, Math.min(100, k[s] + o.fx[s])));
+  if(o.trust) addTrust(o.trust);
+  return ['🏛️ '+d.title+': '+o.t+'. '+o.say].concat(Object.keys(o.fx).map(s => KLABEL[s]+' '+(o.fx[s]>0?'+':'')+o.fx[s]));
+}
 /* ---- Contacts: the tree shows only what is unlocked ---- */
 function contacts(){
   const c = [{n:'Adrian Gold', role:'Imperial Advisor'}, {n:'Tribute Intelligence', role:'Reports and archives'}];
@@ -114,7 +142,9 @@ function rNetwork(){
     body = sec('Kingdom records', INTEL.kingdoms)+sec('History and Xima\'s curse', INTEL.history)+sec('Enemy files', INTEL.enemies)+'<h4>Character files</h4>'+files+(lore.length?'<h4>Family lore</h4>'+lore.map(e => `<div class="li"><b>${e.n}</b><div class="sm">${e.t}</div></div>`).join(''):''); }
   if(netTab==='letters') body = net().letters.length ? net().letters.map((l,i) => `<div class="card" onclick="net().letters[${i}].read=true;netOpenLetter=${i};render()"><span class="big">${l.read?'📭':'💌'}</span><div class="fl"><b>${l.subj}</b><div class="sm">Adrian · Day ${l.day}</div></div></div>`).join('') : '<div class="sm">Adrian writes when you finish his requests.</div>';
   if(netTab==='letters' && netOpenLetter!==null && net().letters[netOpenLetter]){ const l = net().letters[netOpenLetter]; body = `<button onclick="netOpenLetter=null;render()">◀ Letters</button><div class="panel letter"><h3>${l.subj}</h3><div class="sm">From Adrian Gold · Day ${l.day}</div><div style="margin-top:8px;white-space:pre-line">${l.body}</div></div>`; }
-  if(netTab==='status') body = KSTATUS.map(s => `<div class="ev"><div><b>${s.k}</b>${bar(s.v,100)}<div class="sm">${s.v}/100</div></div></div>`).join('')+'<div class="sm">Adrian will let Jade shape these (send soldiers, send supplies, investigate herself) later in the story.</div>';
+  if(netTab==='status'){ const k = kstat(), d = openDecision();
+    body = Object.keys(KLABEL).map(s => `<div class="ev"><div><b>${KLABEL[s]}</b>${bar(k[s],100)}<div class="sm">${k[s]}/100</div></div></div>`).join('')
+      + (d ? `<div class="panel"><b>${d.title}</b><div class="sm" style="margin:4px 0">${d.text}</div>${d.opts.map((o,i) => `<button onclick="act(decide,'${d.id}',${i})">${o.t}</button>`).join(' ')}</div>` : `<div class="sm">Adrian has no new decision for you. One arrives each week of in-game time.</div>`); }
   return `<h2>Imperial Network</h2><div class="panel"><div class="row" style="align-items:center;gap:10px;flex-wrap:nowrap"><img src="assets/npc/adrian.webp" alt="Adrian Gold" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)"><div><b>TRIBUTE NETWORK</b><div>Adrian Gold</div><div class="sm">Imperial Advisor</div></div></div><div style="margin-top:6px">${tree}</div></div>
     <div class="row" style="margin:6px 0;flex-wrap:wrap">${tabs.map(([k,l]) => `<button class="${netTab===k?'pri':''}" onclick="netTab='${k}';netOpenLetter=null;render()">${l}${k==='letters'&&unread?' ●':''}</button>`).join('')}</div>${flashHtml()}${body}`;
 }
