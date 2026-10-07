@@ -60,6 +60,7 @@ function startBattle(spec){
   scaleForParty();
   if(spec.rewards && typeof corrAt==='function' && corrAt(G.loc) > 0){ B.corr = corrAt(G.loc); const m = corrFoeMult(G.loc); B.foes.forEach(f => { f.hp = f.mhp = Math.round(f.mhp*m); f.atk = Math.round(f.atk*m); f.mag = Math.round(f.mag*m); }); blog('☠️ The air is thick with corruption ('+B.corr+'%): foes are stronger and healing is weaker.','sys'); }
   blog('Battle begins!','sys');
+  if(spec.seal) sealInit();
   if(spec.rewards && !B.foes.some(f => f.boss) && typeof banterLines==='function' && Math.random() < .3){ const q = pickBanter('battle'); if(q) q.forEach(l => blog(l.replace('💬 ',''),'sys')); else if(Math.random()<.5) blog(AR(BATTLE_QUIPS),'sys'); }
   advance();
 }
@@ -78,7 +79,7 @@ function advance(){
   let guard = 400;
   while(guard-- > 0){
     if(checkEnd()) return;
-    if(!B.queue.length){ B.round++; buildQueue(); blog('— Round '+B.round+' —','sys'); }
+    if(!B.queue.length){ B.round++; buildQueue(); blog('— Round '+B.round+' —','sys'); if(B.seal) sealRound(); }
     const u = B.queue.shift(); if(u.dead) continue;
     B.cur = u;
     // start of turn
@@ -99,6 +100,24 @@ function endTurn(u){
 }
 
 /* ---------- damage ---------- */
+/* ---------- Seal fight: Jade Mode and Devon Mode ----------
+   While the Awakened Spirit Core corrupts the ancient seal, the party holds it together. A seal bar (0-100) decays each round.
+   Jade Mode (guard the formation): Jade hits +25%, the seal decays slowly; Devon's magic is held back (-15%).
+   Devon Mode (channel the seal): Devon's magic/healing +30%, the seal repairs each round; Jade hits at -20%.
+   At 0 the seal collapses: every ally is hurt each round until it is restored. Enemy area attacks batter the seal. */
+function sealInit(){ B.seal = {hp:100, mode:'jade', collapsed:false}; blog('🔰 The ancient seal is failing: hold it together. Choose Jade Mode (guard) or Devon Mode (channel) at any turn.','sys'); }
+function setSealMode(m){ if(!B || !B.seal || B.over) return; B.seal.mode = m; blog('🔰 '+(m==='jade'?'Jade Mode: Jade guards the formation.':'Devon Mode: Devon channels the seal.'),'sys'); render(); }
+function sealRound(){
+  const S = B.seal; if(!S) return;
+  const boss = B.foes.find(f => f.boss), late = boss && (boss.phaseIdx||0) >= 1;
+  if(S.mode==='devon'){ const g = isRecruited('devon') ? 16 : 6; S.hp = Math.min(100, S.hp + g - (late?6:0)); }
+  else S.hp = Math.max(0, S.hp - (late ? 8 : 4));
+  if(S.hp<=0 && !S.collapsed){ S.collapsed = true; blog('💥 The seal collapses! Corruption floods the chamber.','bad'); }
+  else if(S.hp>=30 && S.collapsed){ S.collapsed = false; blog('The seal holds again.','good'); }
+  if(S.collapsed) alive(B.allies).forEach(a => { const d = Math.max(1, Math.round(a.mhp*.1)); hurt(a, d, true); blog('  '+a.name+' is scorched by the collapse: '+d+'.','bad'); });
+  else blog('🔰 Seal '+S.hp+'%','sys');
+}
+function sealHit(n){ if(B && B.seal){ B.seal.hp = Math.max(0, B.seal.hp - n); } }
 function checkPhase(t){
   if(!t.phases || t.dead || t.ally) return;
   const next = t.phases[t.phaseIdx||0]; if(!next || t.hp/t.mhp > next.at) return;
@@ -126,6 +145,7 @@ function strike(src, tgt, s, opts){
   let raw = atkv * (s.pow||1) * (0.9 + Math.random()*.2) * (opts.decay||1);
   raw -= eff(tgt,'def') * (magic ? .35 : .6);
   let d = Math.max(1, Math.round(raw));
+  if(B.seal && src.ally){ const md = B.seal.mode; if(src.id==='jade') d = Math.round(d*(md==='jade'?1.25:.8)); if(src.id==='devon') d = Math.round(d*(md==='devon'?1.3:.85)); }
   if(s.antiMagic && tgt.traits.includes('magic')) d = Math.round(d*s.antiMagic);
   if(s.vsCorrupt && tgt.traits.includes('corrupt')) d = Math.round(d*s.vsCorrupt);
   if(tgt.onlyBy && src.id!==tgt.onlyBy) d = Math.max(1, Math.round(d*(tgt.offMult||.2)));   // e.g. the Shadow Crown only truly yields to Roc's own blade
@@ -243,7 +263,7 @@ function foeAct(f){
   if(f.st.silence && mv.spell) mv = f.moves.find(m => !m.spell) || f.moves[0];
   const s = { n:mv.n, kind: mv.spell ? 'magic' : 'phys', pow:mv.pow, fx:mv.fx };
   if(mv.all){   // area attack: hits every ally at reduced power, ignores the oath
-    blog(f.name+' unleashes '+mv.n+'!','foe');
+    blog(f.name+' unleashes '+mv.n+'!','foe'); sealHit(6);
     targets.slice().forEach(a => { if(a.dead) return; const sa = Object.assign({}, s, {pow:(mv.pow||1)*.7}); const d = strike(f, a, sa); if(d>0) (mv.fx||[]).forEach(fx => { if(!a.dead && FOE_FX.includes(fx.k)) applyFx(f, a, fx); }); });
     return;
   }

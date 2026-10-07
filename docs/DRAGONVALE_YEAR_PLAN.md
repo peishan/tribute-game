@@ -142,3 +142,6 @@ Jade returns as Princess of Tribute and of Dragonvale, wife of a respected princ
 ## Area corruption meter (built, scripts/corruption.js)
 - Corrupted areas: Ancient Dragonvale Ruins (starts 55%), Abyssal Frontier (70), Dragonvale Border (30), Valen Borderlands (25), Moonveil Temple (15). Rises per day spent there; −2% per corrupted foe defeated; Devon's Purification Points (−25%, once a day per area).
 - Effects: foes up to +30% HP and damage; healing up to −40%; the screen darkens at 40% and 70%.
+
+## Seal fight: Jade Mode / Devon Mode (built, battle.js)
+- The Seal Core boss fight shows a seal bar (100% at start). Jade Mode: Jade +25%, Devon -15%, the seal decays 4-8 per round. Devon Mode: Devon +30%, Jade -20%, the seal repairs 16 per round (less in late phases). The party can switch at any turn. Enemy area attacks batter the seal; at 0% it collapses and hurts the party each round until it is back above 30%.

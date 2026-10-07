@@ -166,7 +166,8 @@ function rBattle(){
   }
   const autoBar = (B.auto && !B.over) ? `<div class="row"><span class="sm">🤖 Auto-battle running…</span>${autoButton()}</div>` : '';
   const corrBar = (B.corr ? `<div class="sm" style="color:var(--purple)">☠️ Corruption ${corrAt(G.loc)}%</div>` : '');
-  return `${corrBar}<div class="foes">${foes}</div><div class="log">${log}</div><div class="allies">${allies}</div>${autoBar}<div class="acts">${act}</div>`;
+  const sealBar = (B.seal && !B.over) ? `<div class="panel" style="border-color:var(--gold)"><b>🔰 Ancient Seal ${B.seal.hp}%</b>${bar(B.seal.hp,100,B.seal.collapsed?'e':'')}<div class="row" style="margin-top:6px"><button class="${B.seal.mode==='jade'?'pri':''}" onclick="setSealMode('jade')">⚔️ Jade Mode</button><button class="${B.seal.mode==='devon'?'pri':''}" onclick="setSealMode('devon')">🔮 Devon Mode</button></div><div class="sm">${B.seal.mode==='jade'?'Jade guards: she hits harder and the seal decays slowly. Devon is held back.':'Devon channels: the seal repairs and his magic is stronger. Jade is held back.'}${B.seal.collapsed?' <b>The seal has collapsed: restore it above 30%!</b>':''}</div></div>` : '';
+  return `${corrBar}${sealBar}<div class="foes">${foes}</div><div class="log">${log}</div><div class="allies">${allies}</div>${autoBar}<div class="acts">${act}</div>`;
 }
 function doAttack(){ B.ui={mode:'target',kind:'attack',sid:null,cands:alive(B.foes)}; render(); }
 function pickSkill(sid){
