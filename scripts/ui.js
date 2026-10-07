@@ -23,6 +23,7 @@ function render(){
               missions:rMissions, rewards:rRewards, network:rNetwork, cast:rCast, travel:rTravel, here:rHere, save:rSave,
               dev:rDev }[tab] || rJournal;
   $('main').innerHTML = R();
+  if(typeof corrSky==='function') corrSky();
   if(typeof renderTracker==='function') renderTracker();
   if(typeof autoTick==='function') autoTick();
 }
@@ -164,7 +165,8 @@ function rBattle(){
     else act = `<div class="sm">Choose a target</div><button onclick="B.ui={mode:'menu'};render()">◀ Cancel</button>`;
   }
   const autoBar = (B.auto && !B.over) ? `<div class="row"><span class="sm">🤖 Auto-battle running…</span>${autoButton()}</div>` : '';
-  return `<div class="foes">${foes}</div><div class="log">${log}</div><div class="allies">${allies}</div>${autoBar}<div class="acts">${act}</div>`;
+  const corrBar = (B.corr ? `<div class="sm" style="color:var(--purple)">☠️ Corruption ${corrAt(G.loc)}%</div>` : '');
+  return `${corrBar}<div class="foes">${foes}</div><div class="log">${log}</div><div class="allies">${allies}</div>${autoBar}<div class="acts">${act}</div>`;
 }
 function doAttack(){ B.ui={mode:'target',kind:'attack',sid:null,cands:alive(B.foes)}; render(); }
 function pickSkill(sid){

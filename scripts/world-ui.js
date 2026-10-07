@@ -109,7 +109,7 @@ function rHere(){
   if(spotOpen){ const sp = L.spots.find(s=>s.id===spotOpen); if(sp) return rSpot(L, sp); spotOpen = null; }
   const cards = L.spots.map(sp=>{ const lock = spotLock(sp);
     return `<div class="card ${lock?'lock':''}" onclick="${lock?'':`spotOpen='${sp.id}';render()`}"><span class="big">${sp.icon}</span><div class="fl"><b>${sp.n}</b><div class="sm">${lock||sp.desc}</div></div></div>`; }).join('');
-  return `${bandImg(L.img)}<h2>${L.icon} ${L.n}</h2><div class="sm">${REGIONS[L.region].icon} ${REGIONS[L.region].n} · Day ${G.day}</div><div class="sm" style="margin:4px 0">${L.desc}</div>${flashHtml()}${cards||'<div class="panel sm">Nothing to do here yet.</div>'}`;
+  return `${bandImg(L.img)}<h2>${L.icon} ${L.n}</h2>${typeof corrMeter==='function'?corrMeter(G.loc):''}<div class="sm">${REGIONS[L.region].icon} ${REGIONS[L.region].n} · Day ${G.day}</div><div class="sm" style="margin:4px 0">${L.desc}</div>${flashHtml()}${cards||'<div class="panel sm">Nothing to do here yet.</div>'}`;
 }
 function spotBack(){ spotOpen = null; render(); }
 function rSpot(L, sp){
@@ -155,6 +155,8 @@ function rSpot(L, sp){
         return `<div class="ev ${open?'':'locked'}"><div><b>${e.icon} Level ${L.n}: ${L.name}</b> ${cleared?'<span class="sm">· cleared</span>':''}<div class="sm">${L.desc}</div><div class="sm">Min level ${RAID_MIN_LV[L.n]} · Attempts today: ${left}/${RAID_ATTEMPTS}${open?'':(G.flags.roc_purified?(lvOK(RAID_MIN_LV[L.n])?' · 🔒 clear level '+(L.n-1)+' first':' · '+lvNeed(RAID_MIN_LV[L.n])):'')}</div></div>
           <button class="pri" ${open&&left>0?'':'disabled'} onclick="origin='here';raidStart(${L.n});tab='battle';render()">Challenge</button></div>`; }).join('');
       body = `<div class="panel"><div class="sm">Repeatable. Rewards: Dark Essence, Dragon Crystal, Royal Sigil; rare Shadow Steel, Shadow Mail, the Crown of the Forgotten Prince. Craft Dragon Prince's Blade at the Healing Pavilion.</div></div>${rows}`; break; }
+    case 'purifypoint':
+      body = `${corrMeter(G.loc)}<div class="panel"><button class="pri" onclick="act(usePurifyPoint)">Purify (once a day)</button></div>`; break;
     case 'puzzle': {
       const d = doorState();
       body = `<div class="panel"><div class="sm">Four rings. Tap a ring to turn it. The Valen crest joins the healing flower to the dragon spine: life and balance.</div>

@@ -138,3 +138,7 @@ Jade returns as Princess of Tribute and of Dragonvale, wife of a respected princ
 - Enemy scaling for the fixed party (battle.js ENEMY_PER_EXTRA): baseline is four fighters; each extra adds +32% foe HP, +10% damage (bosses +12% more HP), +15% XP/gold. The Ghost Healer counts as half. Five fighters plus him is +48% HP. Not applied in sandbox fights. Tune the four numbers.
 - Valen map spots built (exploration only, no new story): Mirror Lake, Forgotten Watchtower, Howling Pass, Sunken Shrine, Western Frontier Camp. Still not on the map: Cloudrend Peaks, Veilwood is a hunt, Moonfall Hamlet and Ruins of Valen are story spots.
 - Symbol Door puzzle (Ruins of Valen, opens at ch107): four rings of dragon / moon / pearl / spirit; the order is a hint from the Valen crest (spirit, dragon, moon, pearl). Reward: Seal Fragment, relic dust, XP. Answer is DOOR_SOL in world.js.
+
+## Area corruption meter (built, scripts/corruption.js)
+- Corrupted areas: Ancient Dragonvale Ruins (starts 55%), Abyssal Frontier (70), Dragonvale Border (30), Valen Borderlands (25), Moonveil Temple (15). Rises per day spent there; −2% per corrupted foe defeated; Devon's Purification Points (−25%, once a day per area).
+- Effects: foes up to +30% HP and damage; healing up to −40%; the screen darkens at 40% and 70%.

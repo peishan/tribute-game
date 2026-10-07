@@ -58,6 +58,7 @@ function startBattle(spec){
   B = { allies:allyIds.map(id => mkAlly(id, !!spec.rewards)), foes:spec.foes.map((f,i)=>mkFoeUnit(f.key,f.lv,i)), queue:[], cur:null, log:[], over:null,
         round:0, ui:{mode:'menu'}, spec, rewards:null };
   scaleForParty();
+  if(spec.rewards && typeof corrAt==='function' && corrAt(G.loc) > 0){ B.corr = corrAt(G.loc); const m = corrFoeMult(G.loc); B.foes.forEach(f => { f.hp = f.mhp = Math.round(f.mhp*m); f.atk = Math.round(f.atk*m); f.mag = Math.round(f.mag*m); }); blog('☠️ The air is thick with corruption ('+B.corr+'%): foes are stronger and healing is weaker.','sys'); }
   blog('Battle begins!','sys');
   if(spec.rewards && !B.foes.some(f => f.boss) && typeof banterLines==='function' && Math.random() < .3){ const q = pickBanter('battle'); if(q) q.forEach(l => blog(l.replace('💬 ',''),'sys')); else if(Math.random()<.5) blog(AR(BATTLE_QUIPS),'sys'); }
   advance();
@@ -222,7 +223,7 @@ function resolve(u, s, t){
     foesHit.forEach((f,i) => { strike(u, f, s, {decay:Math.pow(.8,i)}); });
   } else if(s.kind==='heal'){
     alliesHit.forEach(a => { if(a.dead && !(s.fx||[]).some(f=>f.k==='revive')) return;
-      const h = Math.round((eff(u,'mag')*(s.pow||1)*1.2 + a.mhp*.05) * (0.95+Math.random()*.1) * (u.id==='sky' && typeof skyHealMult==='function' ? skyHealMult() : 1));
+      const h = Math.round((eff(u,'mag')*(s.pow||1)*1.2 + a.mhp*.05) * (0.95+Math.random()*.1) * (B.corr ? corrHealMult(G.loc) : 1) * (u.id==='sky' && typeof skyHealMult==='function' ? skyHealMult() : 1));
       if(!a.dead){ a.hp = Math.min(a.mhp, a.hp+h); blog(u.name+' uses '+s.n+' on '+a.name+': +'+h+' HP.','good'); }
       else blog(u.name+' uses '+s.n+'.','good'); });
   } else blog(u.name+' uses '+s.n+'.');
@@ -267,6 +268,7 @@ function foeAct(f){
 function finishWin(){
   const foes = B.foes, spec = B.spec;
   let xp = 0, gold = 0; const drops = [];
+  if(spec.rewards && typeof corrAdd==='function'){ const n = foes.filter(f => f.traits.includes('corrupt')).length; if(n) corrAdd(G.loc, -2*n); }
   foes.forEach(f => { xp += f.xp; gold += f.gold;
     f.drops.forEach(d => { if(Math.random()<d.chance) drops.push({id:d.id,qty:1}); });
     G.bestiary[f.key] = (G.bestiary[f.key]||0)+1; });

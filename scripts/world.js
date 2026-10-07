@@ -164,10 +164,12 @@ const LOCATIONS = {
        clues:['The barrier is flickering: the seal needs royal magic to steady it.','The seal is healing under their combined strength: Dragonvale\'s spirit still endures.','As the final seal is restored: "The path continues beyond this kingdom."'], rw:{xp:1800, gold:600}},
       {id:'spirit_caves', kind:'gather', n:'Spirit Caves', icon:'🕳️', ch:77, desc:'Caves where purified spirit energy gathers. Herbs and relic dust.', loot:[{id:'forest_herb',qty:[1,3]},{id:'relic_dust',qty:[1,2]}], ambush:['shade_beast'], lo:18},
       {id:'cultivation_grounds', kind:'meditate', n:'Cultivation Grounds', icon:'🧘', ch:77, desc:'A calm terrace for meditation and spirit training.'},
+      {id:'purify_border', kind:'purifypoint', n:'Purification Point', icon:'✨', ch:76, desc:'A weakened seal along the border road. Devon can steady it.'},
       {id:'border_hunt', kind:'hunt', n:'Mountain Road', icon:'🐺', desc:'Shadow beasts prowl the old road at night.', pool:['shade_beast','imp'], lo:17}]},
   dragon_ruins:{ n:'Ancient Dragonvale Ruins', region:'dragon', kind:'story', icon:'🏛️', unlock:{ch:76},
     desc:'A three-floor dungeon of ancient halls, a spirit chamber and the heart of Dragonvale\'s oldest seal. Corrupted spirits walk the dark.',
     spots:[
+      {id:'purify_ruins', kind:'purifypoint', n:'Purification Point', icon:'✨', ch:76, desc:'An old ward that still answers to royal magic. Devon can burn the corruption back.'},
       {id:'forgotten_hall', kind:'investigate', n:'Forgotten Hall (Floor 1)', icon:'🕯️', need:3, ambush:['shade_beast','relic_spirit'], lo:18,
        desc:'Spirit lamps, broken formations and old inscriptions. Jade reads the battle formations; Devon senses the magic.',
        clues:['Spirit lamps line the hall; lighting them in order restores a broken formation (Devon\'s Royal Spirit Sense).','Hidden paths and trap plates are visible to a trained eye (Jade\'s Warrior\'s Insight).','The inscriptions describe a seal core that stirred when something forced it to respond.'], rw:{xp:1200, gold:420}},
@@ -201,6 +203,7 @@ const LOCATIONS = {
   valen_borderlands:{ n:'Valen Borderlands', region:'valen', kind:'hub', icon:'🌄', unlock:{ch:103}, img:'assets/maps/valen.webp',
     desc:'The Forgotten Western Territory: once a frontier of healers, envoys and old alliances. Broken roads, emptied outposts and records someone removed.',
     spots:[
+      {id:'purify_valen', kind:'purifypoint', n:'Valen Ward Stone', icon:'✨', ch:107, desc:'A healer\'s ward stone, still faintly warm. Devon can wake it.'},
       {id:'westwatch_gate', kind:'tavern', n:'Westwatch Gate', icon:'🏰', desc:'The frontier gate on the main route east to Tribute. Rest here.'},
       {id:'sealed_order', kind:'order', n:'Present the Sealed Order', icon:'✉️', ch:104, desc:'Deliver Greyson\'s sealed order to the outpost\'s keepers.'},
       {id:'valen_crossing', kind:'board', n:'Valen Crossing Board', icon:'📜', ch:104, desc:'Contracts and bounties from the riverside outpost.'},
@@ -325,7 +328,7 @@ const FLAG_LABEL = { bracelet:'Communication Bracelet', crossbow:'Levi\'s Crossb
 
 /* ---------------- DAY CLOCK ---------------- */
 function advanceDay(n){
-  G.day += n; if(n>0 && typeof healParty==='function') healParty(Math.min(.5,.1*n)); refreshBounties();
+  G.day += n; if(typeof corrTick==='function') corrTick(n); if(n>0 && typeof healParty==='function') healParty(Math.min(.5,.1*n)); refreshBounties();
   return deliverLetters().concat(checkMissionOffers(), typeof famTick==='function' ? famTick() : []);
 }
 
