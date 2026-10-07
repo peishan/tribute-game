@@ -121,3 +121,5 @@ Jade returns as Princess of Tribute and of Dragonvale, wife of a respected princ
 ## Idle banter and comic relief (built, scripts/banter.js)
 - BANTER rows: who must be present, min chapter, contexts (any / travel / rest / battle). Shown on arrival after travel (50%), with shared meals, inn nights, at the start of some real battles, and on demand: "Listen to the party" at taverns and camps (once a day).
 - Add more by appending rows; keep each exchange short; gate by chapter to avoid spoilers.
+
+- Ghost Healer: no departure chapter (author). He stays with the party for now so Sky's apprenticeship can run over a long stretch. Add him to CH_LEAVE in core.js only when a chapter calls for it.
