@@ -123,3 +123,8 @@ Jade returns as Princess of Tribute and of Dragonvale, wife of a respected princ
 - Add more by appending rows; keep each exchange short; gate by chapter to avoid spoilers.
 
 - Ghost Healer: no departure chapter (author). He stays with the party for now so Sky's apprenticeship can run over a long stretch. Add him to CH_LEAVE in core.js only when a chapter calls for it.
+
+## Chapters 105-108 (Valen Borderlands arc)
+- 105 The Borderland That Was Forgotten (Rowan Mirel, Mira Valen, Master Teren), 106 The People Left Behind (Lio, the west's resentment), 107 The Healer's Legacy (Sister Anwen; the Valen crest), 108 The Empty Records (hidden second archive).
+- Missions built from each quest box. Sealed objectives: m_people_behind 'search for the people behind the missing records' (flag people_behind_found), m_healers_legacy 'connection to the prophecy' (flag valen_prophecy_link), m_empty_records 'file on Yvette Sue Valen' (sealed spot yvette_file). The author sets those later.
+- Ch104's quest still uses the spots moonfall_hamlet and ruins_of_valen; the chapters 105-108 added their own spots (records hall, Mira and Lio, healer village, hidden archive).
