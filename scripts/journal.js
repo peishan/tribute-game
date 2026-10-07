@@ -64,9 +64,14 @@ function completeChapter(n){
   save();
   return msgs;
 }
+/* Story battles: recommended level = the chapter's base level (c.lv). The foes scale with whoever fights: never below the base level,
+   otherwise the fighters' average level (so the story stays a fair fight at any level). */
+function fighterIds(n){ return (SOLO[n] || G.active.concat(G.party.filter(id => typeof isCompanion==='function' && isCompanion(id)))).filter(id => G.party.includes(id)); }
+function fightersLv(n){ const ids = fighterIds(n); return ids.length ? Math.round(ids.reduce((a,id) => a + U(id).lv, 0)/ids.length) : 1; }
+function storyBattleLv(n){ return Math.max(CHAPTERS[n].lv, fightersLv(n)); }
 function battleSpecFor(n){
-  const c = CHAPTERS[n];
-  return { foes:c.battle.map(f => ({key:f.key, lv:c.lv})), allies:SOLO[n], rewards:true, onLose: DUEL[n] ? (() => completeChapter(n)) : null, firstClear:!chapterDone(n), chapter:n,
+  const c = CHAPTERS[n], lvv = storyBattleLv(n);
+  return { foes:c.battle.map(f => ({key:f.key, lv:lvv})), allies:SOLO[n], rewards:true, onLose: DUEL[n] ? (() => completeChapter(n)) : null, firstClear:!chapterDone(n), chapter:n,
            onWin: () => { c.battle.forEach(f => { if(ENEMIES[f.key].boss) G.flags['boss_'+f.key] = true; }); return completeChapter(n); } };
 }
 // DEV: jump the save to "story at chapter n" (recruits, flags, levels)

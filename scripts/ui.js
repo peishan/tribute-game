@@ -95,7 +95,7 @@ function rChapter(n){
   let foot='';
   if(c.battle){
     const foes=c.battle.map(f=>{const e=ENEMIES[f.key];return `${e.icon} ${e.n}`;}).join(' · ');
-    foot = `<div class="panel"><b>⚔️ Battle</b> <span class="sm">(Lv ${c.lv})</span><div class="sm">${foes}</div><button class="pri" onclick="chapterFight(${c.n})">${done?'Replay battle':'Begin battle'}</button></div>`;
+    foot = `<div class="panel"><b>⚔️ Battle</b> <span class="sm">(recommended Lv ${c.lv})</span><div class="sm">${foes}</div><div class="sm">${fightersLv(c.n)<c.lv?'⚠️ Your fighters average Lv '+fightersLv(c.n)+': you may want to train first (Skirmish or the field). Enemies here will be Lv '+storyBattleLv(c.n)+'.':'Your fighters average Lv '+fightersLv(c.n)+'. Enemies will scale to Lv '+storyBattleLv(c.n)+'.'}</div><button class="pri" onclick="chapterFight(${c.n})">${done?'Replay battle':'Begin battle'}</button></div>`;
   } else if(!done){
     foot = `<button class="pri" onclick="finishChapter(${c.n})">${n===0?'Finish the opening — Jade joins the journey':'Complete chapter'} (+${c.sxp} XP)</button>`;
   }

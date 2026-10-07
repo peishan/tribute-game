@@ -10,7 +10,7 @@
 
 /* ---------------- REGIONS & LOCATIONS ---------------- */
 // Chapter that opens the optional Fallen Prince's Trial (Abyssal Frontier + its letter). 
-const TRIAL_CH = 75;   // the area opens with the Dragonvale border; the fights themselves are gated by party level (raid.js)
+const TRIAL_CH = 87;   // author: opens after the farewell to Dragonvale and the meeting with reborn Levi (ch87); the fights themselves are also level-gated (raid.js)
 const REGIONS = {
   tribute:{n:'Tribute Island', icon:'🏯'}, valen:{n:'Valen Borderlands (West)', icon:'🌄'}, faepool:{n:'Faepool Territory', icon:'🌲'},
   border:{n:'Border & Sea Areas', icon:'🌊'}, dragon:{n:'Dragon Vale', icon:'🐉'}, unknown:{n:'Unknown Lands', icon:'❔'}

@@ -151,6 +151,10 @@ Jade returns as Princess of Tribute and of Dragonvale, wife of a respected princ
 - Warrior's Insight (Jade): investigate ambush chance 40% -> 10% and the hidden path saves a day; hunt: foes start slowed; gather: ambush 30% -> 8%.
 - Royal Spirit Sense (Devon): investigate: bonus XP, no ambush when the ambushers are all magical, corruption -5%; hunt: foes revealed; Symbol Door: one ring set true; purification point: -35% instead of -25%.
 
+## Story battle levels and the trial gate (author)
+- Story battle enemies scale to the fighters' average level, never below the chapter's base level (journal.js storyBattleLv). Each battle chapter shows its recommended level and a warning if you are under it.
+- The Fallen Prince's Trial opens at ch87 (TRIAL_CH) and also needs average party level 30 / 32 (phases) and 35 / 45 / 55 (raid).
+
 ## Arc splash screens and Skirmish (built)
 - Arc covers (assets/arcs/arc1-4.webp, scripts/arcs.js): Arc I shows at the start of a new journey; Arc II after ch42; Arc III after ch86; Arc IV after ch103 (boundaries are provisional; change ARCS[].after). Saved in G.arcSeen; re-view from the Cast tab. Existing saves only see arcs they have not yet passed.
 - Skirmish tab (from ch12, scripts/skirmish.js): random battles with monsters from every unlocked area (or the current one), level = party average + difficulty offset (Normal/Hard/Brutal), win streak bonus.
