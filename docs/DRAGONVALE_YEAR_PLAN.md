@@ -190,3 +190,30 @@ Jade returns as Princess of Tribute and of Dragonvale, wife of a respected princ
 - Arc IV cast sheet (Jade, Devon, Sky, Levi, Mira, Lio, Master Teren, Corvin Hale) is gated at ch121, the end of the arc.
 - Arc V cover replaced with the revised art. The Arc V cast sheet (Jade, Devon, Sky, Levi, Cael Ardyn, Seris Valen, Eira, Varyn) is in the Cast tab's arc gallery, gated by `castCh` in `ARCS` (set to 145, the end of the arc, because Eira and Varyn are not introduced yet; lower it to taste).
 - 127 The Light That Remains and 128 The Path Remembered: both at the Forgotten Sanctuary, five spots each, missions m_light_remains and m_path_remembered. The map names no destination beyond "a forgotten region beyond the old seals".
+
+## Arc V design notes (author, DEV ONLY: keep out of in-game text)
+Arc V, The Broken Seals, runs ch122-145. Tone: exploration + ancient mysteries + battles (Valen was investigation + politics).
+
+**New locations (build as the chapters reach them; none exist yet except the Forgotten Battlefield and Forgotten Sanctuary):**
+1. The Celestial Ruins: ancient city of the Dima/Xima era; floating ruins, abandoned temples, forgotten magic.
+2. The Black Forest: normal creatures avoid it; corrupted monsters, ancient spirits, hidden settlements.
+3. The Sunken Kingdom: underwater ruin; may connect to Dragonvale through its sea links.
+4. The Forgotten Temple: main dungeon; the truth about Xima, Dima, the Gold lineage and the Dragon Pearl.
+
+**Character beats (story only; no mechanics implied):**
+- Jade: from "why am I special?" to "how do I use my position?": a true leader.
+- Devon: from Jade's husband to a prince who stands beside her, not behind. Possible conflict: Dragonvale asks him to return; Dragonvale prince or Jade's partner?
+- Sky: his mystery deepens; the ruins react to him because he has forgotten something, not because he is a chosen hero. Possible reveal: Yvette Sue did not just disappear, she protected Sky from something.
+- Levi: Reborn Levi shines; new class Spirit Ranger; ancient creatures recognise his survival; the Ghost Healer knew something about these seals.
+- Roc Chadwick: NOT brought back now. Redemption stays separate. Later, a single story beat shows him investigating dark-magic remnants. Not a party member and (since the arc is far from Dragonvale) not a guest either.
+- Seraphina: the diplomatic bridge; foreign kingdoms matter here.
+- Sally: information network; rumours about ancient sites.
+- Adrian: his hidden role begins (no full reveal); he finds old Imperial Advisor records showing the advisors knew about the seals.
+
+**Big mystery:** Xima did not create the curse; she used something that already existed.
+
+**Ch145, The Truth Before the Curse:** Dima reveals that long ago the world faced the same threat; she and Xima disagreed on how to stop it (Dima: balance; Xima: control) and their conflict created the curse. Jade: "Then why was I chosen?" Dima: "Because the Gold bloodline was never meant to defeat darkness. It was meant to choose what comes after."
+
+**Arc V ending:** the story enters its final phase. The question changes from "Can Jade defeat the curse?" to "Can Jade create a world that no longer needs heroes?"
+
+**Build notes:** Spirit Ranger, Sunken Kingdom routes to Dragonvale and the Devon-return choice need a mechanic or flag only once the matching chapter pages arrive. Adrian's advisor records can slot into the Imperial Network Intelligence tab; Sally's site rumours into her existing gossip feed.
