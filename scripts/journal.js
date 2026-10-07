@@ -57,6 +57,7 @@ function completeChapter(n){
   Object.keys(CH_BOND[n]||{}).forEach(id => { if(isRecruited(id)){ U(id).bp = Math.max(0, U(id).bp + CH_BOND[n][id]); msgs.push(CH_BOND[n][id]<=-9999 ? '💔 Jade severs her bond with Roc Chadwick ('+CHARACTERS[id].n.split(' ')[0]+').' : '💞 Bond with Jade ('+CHARACTERS[id].n.split(' ')[0]+'): '+(CH_BOND[n][id]>0?'+':'')+CH_BOND[n][id]); } });
   Object.keys(CH_EQUIP[n]||{}).forEach(id => { if(isRecruited(id)) CH_EQUIP[n][id].forEach(k => { if(equipItem(id,k)) msgs.push('🛡️ '+CHARACTERS[id].n.split(' ')[0]+' wears '+ITEMS[k].icon+' '+ITEMS[k].n); }); });
   (CH_FLAGS[n]||[]).forEach(f => { G.flags[f] = true; msgs.push('✦ Story event: '+(FLAG_LABEL[f]||f)+' unlocked'); });
+  if(typeof arcAfterChapter==='function') arcAfterChapter(n);
   msgs.push('Story XP +'+c.sxp);
   gainXp(c.sxp, G.party).forEach(m => msgs.push(m));
   checkMissionOffers();   // King Greyson's next letters

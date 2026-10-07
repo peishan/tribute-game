@@ -150,3 +150,8 @@ Jade returns as Princess of Tribute and of Dragonvale, wife of a respected princ
 - From ch76. Once a day each; arm it on a search/hunt/gather/puzzle/purification screen, it applies to your next action.
 - Warrior's Insight (Jade): investigate ambush chance 40% -> 10% and the hidden path saves a day; hunt: foes start slowed; gather: ambush 30% -> 8%.
 - Royal Spirit Sense (Devon): investigate: bonus XP, no ambush when the ambushers are all magical, corruption -5%; hunt: foes revealed; Symbol Door: one ring set true; purification point: -35% instead of -25%.
+
+## Arc splash screens and Skirmish (built)
+- Arc covers (assets/arcs/arc1-4.webp, scripts/arcs.js): Arc I shows at the start of a new journey; Arc II after ch42; Arc III after ch86; Arc IV after ch103 (boundaries are provisional; change ARCS[].after). Saved in G.arcSeen; re-view from the Cast tab. Existing saves only see arcs they have not yet passed.
+- Skirmish tab (from ch12, scripts/skirmish.js): random battles with monsters from every unlocked area (or the current one), level = party average + difficulty offset (Normal/Hard/Brutal), win streak bonus.
+- XP: one shared table for every hero, xpToNext(lv) = 40 + 22*lv + 1.2*lv^2; each hero tracks their own level and XP. Active fighters get the full award, the bench half. Cap 100.

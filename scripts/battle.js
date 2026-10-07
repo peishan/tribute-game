@@ -62,7 +62,7 @@ function startBattle(spec){
   blog('Battle begins!','sys');
   if(spec.seal) sealInit();
   if(spec.opening) spec.opening();
-  if(spec.rewards && !B.foes.some(f => f.boss) && typeof banterLines==='function' && Math.random() < .3){ const q = pickBanter('battle'); if(q) q.forEach(l => blog(l.replace('💬 ',''),'sys')); else if(Math.random()<.5) blog(AR(BATTLE_QUIPS),'sys'); }
+  if(spec.rewards && !spec.skirmish && !B.foes.some(f => f.boss) && typeof banterLines==='function' && Math.random() < .3){ const q = pickBanter('battle'); if(q) q.forEach(l => blog(l.replace('💬 ',''),'sys')); else if(Math.random()<.5) blog(AR(BATTLE_QUIPS),'sys'); }
   advance();
 }
 

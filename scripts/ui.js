@@ -1,7 +1,7 @@
 /* =====================================================================
    TRIBUTE — UI (tabs, party sheets, journal, training, battle, stubs)
    ===================================================================== */
-const TABS = [['journal','📖 Journal'],['missions','✉️ Missions'],['travel','🛞 Travel'],['here','🧭 Here'],['party','👥 Party'],['cast','🎴 Cast'],['training','🎯 Training'],
+const TABS = [['journal','📖 Journal'],['missions','✉️ Missions'],['travel','🛞 Travel'],['here','🧭 Here'],['party','👥 Party'],['cast','🎴 Cast'],['training','🎯 Training'],['skirmish','🎲 Skirmish'],
               ['rewards','🎁 Rewards'],['network','🏛️ Network'],['inventory','🎒 Items'],['bestiary','📕 Bestiary'],['equipment','🛡️ Gear'],['save','💾 Save'],['dev','🛠️ Dev']];
 let tab = 'journal', sel = 'jade', openCh = null, chMsgs = [], origin = 'journal', trSel = 0, trLv = 5;
 const STAT_SCALE = {hp:420,mp:200,atk:130,mag:130,def:100,spd:90};
@@ -17,10 +17,10 @@ function render(){
   $('hloc').textContent = '📍 '+LOCATIONS[G.loc].n;
   const showBattle = !!B;
   $('nav').innerHTML = (showBattle?`<button class="${tab==='battle'?'on':''}" onclick="showTab('battle')">⚔️ Battle</button>`:'') +
-     TABS.filter(([k]) => k!=='network' || (typeof netOpen==='function' && netOpen())).map(([k,l]) => `<button class="${tab===k?'on':''}" onclick="showTab('${k}')">${l}${k==='missions'&&unreadCount()?' <b style="color:var(--r)">●</b>':''}${k==='rewards'&&rewardsReady()?' <b style="color:var(--r)">●</b>':''}</button>`).join('');
+     TABS.filter(([k]) => (k!=='network' || (typeof netOpen==='function' && netOpen())) && (k!=='skirmish' || G.ch>=12)).map(([k,l]) => `<button class="${tab===k?'on':''}" onclick="showTab('${k}')">${l}${k==='missions'&&unreadCount()?' <b style="color:var(--r)">●</b>':''}${k==='rewards'&&rewardsReady()?' <b style="color:var(--r)">●</b>':''}</button>`).join('');
   const R = { journal:rJournal, party:rParty, training:rTraining, battle:rBattle, inventory:rInventory, bestiary:rBestiary,
               equipment:rGear,
-              missions:rMissions, rewards:rRewards, network:rNetwork, cast:rCast, travel:rTravel, here:rHere, save:rSave,
+              missions:rMissions, rewards:rRewards, skirmish:rSkirmish, network:rNetwork, cast:rCast, travel:rTravel, here:rHere, save:rSave,
               dev:rDev }[tab] || rJournal;
   $('main').innerHTML = R();
   if(typeof corrSky==='function') corrSky();
@@ -183,7 +183,7 @@ function battleDone(){
   if(B && B.spec.rewards && typeof afterBattleBackup==='function'){ setTimeout(afterBattleBackup, 0); }
   if(B && B.over==='lose' && B.spec.onLose && !chapterDone(B.spec.chapter)){      // story duel: the chapter continues even if Jade loses
     const n = B.spec.chapter, msgs = ['Chad wins the duel, as the story goes.'].concat(B.spec.onLose()||[]); B = null; tab = origin; render(); storyResult(n, msgs); return; }
-  if(B && B.over==='lose' && typeof onBattleLost==='function') onBattleLost(); B=null; tab=origin; render(); }
+  if(B && B.over==='lose' && typeof onBattleLost==='function') onBattleLost(); if(B && B.over==='lose' && B.spec.skirmish && typeof skirmLost==='function') skirmLost(); B=null; tab=origin; render(); }
 // make menu actions re-render
 const _pa = playerAct; playerAct = function(k,s,t){ _pa(k,s,t); render(); };
 
@@ -210,7 +210,7 @@ function rCast(){
     return `<button onclick="castOpen=null;render()">◀ Cast</button><h2>${s.n}</h2><img class="pg" src="${s.img}" alt="${s.n}">`; }
   const cards = CAST_SHEETS.map(s => { const open = G.ch >= s.ch;
     return `<div class="card ${open?'':'lock'}" ${open?`onclick="castOpen='${s.id}';render()"`:''}><div class="fl"><b>${open?s.n:'???'}</b><div class="sm">${open?s.sub:'🔒 Unlocks at chapter '+s.ch}</div></div>${open?'<span class="sm">View</span>':''}</div>`; }).join('');
-  return `<h2>Cast</h2><div class="sm">Character profile sheets. Each unlocks as its characters appear in the story.</div>${cards}`;
+  return `<h2>Cast</h2><div class="sm">Character profile sheets. Each unlocks as its characters appear in the story.</div>${cards}${typeof rArcGallery==='function'?rArcGallery():''}`;
 }
 function rBestiary(){
   const keys=Object.keys(ENEMIES), found=keys.filter(k=>G.bestiary[k]).length;
@@ -240,6 +240,7 @@ function enter(newGame){
   if(newGame || !load()){ G = newState(); save(); }
   if(newGame && BRACELET_FROM_START) G.flags.bracelet = true;
   refreshBounties(); checkMissionOffers(); save();
+  if(newGame && typeof arcOnNewGame==='function') arcOnNewGame();
   $('landing').style.display='none'; $('app').style.display='flex'; render();
 }
 window.addEventListener('load', () => {
