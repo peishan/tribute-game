@@ -194,7 +194,7 @@ function resolve(u, s, t){
     foesHit.forEach((f,i) => { strike(u, f, s, {decay:Math.pow(.8,i)}); });
   } else if(s.kind==='heal'){
     alliesHit.forEach(a => { if(a.dead && !(s.fx||[]).some(f=>f.k==='revive')) return;
-      const h = Math.round((eff(u,'mag')*(s.pow||1)*1.2 + a.mhp*.05) * (0.95+Math.random()*.1));
+      const h = Math.round((eff(u,'mag')*(s.pow||1)*1.2 + a.mhp*.05) * (0.95+Math.random()*.1) * (u.id==='sky' && typeof skyHealMult==='function' ? skyHealMult() : 1));
       if(!a.dead){ a.hp = Math.min(a.mhp, a.hp+h); blog(u.name+' uses '+s.n+' on '+a.name+': +'+h+' HP.','good'); }
       else blog(u.name+' uses '+s.n+'.','good'); });
   } else blog(u.name+' uses '+s.n+'.');

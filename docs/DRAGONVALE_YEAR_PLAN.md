@@ -113,3 +113,7 @@ Jade returns as Princess of Tribute and of Dragonvale, wife of a respected princ
 - GUEST_RULES in core.js: a row per visiting member { flag, regions, note }. While the story flag is set and the party is in one of the regions, the guest fights beside the five (controllable, extra unit). They never occupy the fixed party.
 - Roc (once purified, flag roc_reborn) is the first row: guest on Dragonvale ground only. Not in the main party.
 - To add a new traveller met along the way: add them to CHARACTERS (and ROSTER), set a story flag in CH_FLAGS when they join, add a GUEST_RULES row with the regions they travel in. For a passive helper like the Ghost Healer use `companion:true` on the character.
+
+## Sky's apprenticeship with the Ghost Healer (built, scripts/apprentice.js)
+- Three lessons from Sky's party sheet while the Ghost Healer is with the party: Reading the Body (healing +15%), Cleansing Light (more healing + skill Cleansing Light), The Old Light (needs the Ghost Healer's trust from the gift quest; skill Forgotten Light). Each lesson takes a day and uses herbs and materials; level gates 30 / 34 / 40 (draft).
+- Does not explain Sky's past: the "something very old" stays a mystery for the story.

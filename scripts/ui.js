@@ -57,7 +57,7 @@ function rSheet(id){
    <h4>Stats</h4><div class="stg">${stats}</div>
    <h4>Weapon & Style</h4><div class="sm">${c.weapon} · ${c.style.join(', ')} · Strength: ${c.strength}</div>
    <h4>Special Ability — ${c.signature}</h4><div class="sm">${c.sigDesc}${c.fieldAbility?' <br><b>Field ability:</b> Ancient Dragon Knowledge (identify artefacts, unlock sealed areas — used by Explore later).':''}</div>
-   <h4>Skills</h4>${skills}${SKILLTREE[id]?rTree(id):''}${rBondRewards(id)}<h4>Evolution</h4>${evo}</div>`;
+   <h4>Skills</h4>${skills}${SKILLTREE[id]?rTree(id):''}${rBondRewards(id)}${id==='sky'&&typeof rApprentice==='function'?rApprentice():''}<h4>Evolution</h4>${evo}</div>`;
 }
 function rTree(id){
   const free = spFree(id);

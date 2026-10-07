@@ -73,6 +73,8 @@ const CHARACTERS = {
   base:{hp:70,mp:40,atk:7,mag:13,def:9,spd:9}, grow:{hp:7,mp:4,atk:.9,mag:1.9,def:1.2,spd:.8},
   skills:[
    {id:'healing_arts',n:'Healing Arts',icon:'💚',mp:6,kind:'heal',tgt:'ally',pow:2.2,req:{lvl:1},desc:'Restores an ally\'s HP.'},
+   {id:'cleansing_light',n:'Cleansing Light',icon:'🕯️',mp:14,kind:'heal',tgt:'allies',pow:.9,fx:[{k:'cleanse'}],req:{flag:'sky_train_2'},desc:'Learned from the Ghost Healer: heals the party and draws out corruption.'},
+   {id:'forgotten_light',n:'Forgotten Light',icon:'🌅',mp:22,kind:'heal',tgt:'allies',pow:1.3,fx:[{k:'regen',v:.08,d:3},{k:'cleanse'}],req:{flag:'sky_train_3'},desc:'Learned from the Ghost Healer: something very old stirs in Sky\'s light. Heals the party with regeneration and cleansing.'},
    {id:'palm_strike',n:'Palm Strike',icon:'🖐️',mp:3,kind:'phys',tgt:'foe',pow:1.3,req:{lvl:2},desc:'Martial palm infused with inner energy.'},
    {id:'purification',n:'Purification',icon:'🕊️',mp:6,kind:'heal',tgt:'ally',pow:1.0,fx:[{k:'cleanse'}],req:{lvl:5},desc:'Cleanses ailments and heals a little.'},
    {id:'protective_barrier',n:'Protective Barrier',icon:'🔰',mp:8,kind:'support',tgt:'ally',fx:[{k:'shield',v:.3,d:4}],req:{lvl:8},desc:'An energy barrier absorbing damage.'},
