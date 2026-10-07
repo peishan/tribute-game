@@ -13,15 +13,16 @@ const ARCS = [
   {n:2, title:'The Dragonvale Court', img:'assets/arcs/arc2.webp', after:42},
   {n:3, title:'The Truth Beneath Tribute', img:'assets/arcs/arc3.webp', after:86},
   {n:4, title:'The Forgotten Valen Legacy', img:'assets/arcs/arc4.webp', after:103},
-  {n:5, title:'The Broken Seals', img:'assets/arcs/arc5.webp', after:121},   // Arc V runs from ch122 to ch145 (per the author)
+  {n:5, title:'The Broken Seals', img:'assets/arcs/arc5.webp', after:121, cast:'assets/arcs/arc5_cast.webp', castCh:145},   // Arc V runs from ch122 to ch145 (per the author)
 ];
 const ARC_ROMAN = ['','I','II','III','IV','V'];
 function arcFor(afterCh){ return ARCS.find(a => a.after === afterCh); }
-function showArc(n, manual){
+function showArc(n, manual, cast){
   const a = ARCS.find(x => x.n===n), el = $('arcpop'); if(!a || !el) return;
+  if(cast && !(a.cast && G.ch >= a.castCh)) return;
   if(!G.arcSeen) G.arcSeen = {};
-  G.arcSeen[n] = true; if(!manual) save();
-  el.innerHTML = `<div class="arcbox"><img src="${a.img}" alt="Arc ${ARC_ROMAN[n]}: ${a.title}"><button class="pri" onclick="closeArc()">${manual?'Close':'Continue'}</button></div>`;
+  if(!cast){ G.arcSeen[n] = true; if(!manual) save(); }
+  el.innerHTML = `<div class="arcbox"><img src="${cast?a.cast:a.img}" alt="Arc ${ARC_ROMAN[n]}: ${a.title}${cast?' cast':''}"><button class="pri" onclick="closeArc()">${manual?'Close':'Continue'}</button></div>`;
   el.classList.add('on');
 }
 function closeArc(){ const el = $('arcpop'); if(el){ el.classList.remove('on'); el.innerHTML = ''; } }
@@ -29,5 +30,5 @@ function arcAfterChapter(n){ const a = arcFor(n); if(a && G.arcSeen && !G.arcSee
 function arcOnNewGame(){ setTimeout(() => showArc(1), 300); }
 function rArcGallery(){
   const seen = G.arcSeen || {};
-  return `<h4>Arc covers</h4><div class="row" style="flex-wrap:wrap">${ARCS.map(a => seen[a.n] ? `<button onclick="showArc(${a.n},true)">Arc ${ARC_ROMAN[a.n]} · ${a.title}</button>` : `<button disabled>Arc ${ARC_ROMAN[a.n]} · ???</button>`).join('')}</div>`;
+  return `<h4>Arc covers</h4><div class="row" style="flex-wrap:wrap">${ARCS.map(a => seen[a.n] ? `<button onclick="showArc(${a.n},true)">Arc ${ARC_ROMAN[a.n]} · ${a.title}</button>` : `<button disabled>Arc ${ARC_ROMAN[a.n]} · ???</button>`).join('')}${ARCS.filter(a => a.cast).map(a => seen[a.n] && G.ch >= a.castCh ? `<button onclick="showArc(${a.n},true,true)">Arc ${ARC_ROMAN[a.n]} cast</button>` : `<button disabled>Arc ${ARC_ROMAN[a.n]} cast · ???</button>`).join('')}</div>`;
 }
