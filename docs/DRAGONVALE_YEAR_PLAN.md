@@ -180,3 +180,8 @@ Jade returns as Princess of Tribute and of Dragonvale, wife of a respected princ
 - Two pendants (author): Sky's own jade pendant (ch1, ch94) was lost; the pendant in ch117 is his mother's. Jade's teal-green pendant (123-125) "belonged to my family" and Cael calls it the Gold lineage's; kept separate until the author says otherwise.
 - Arc V cover/title pending: add the ARCS entry (after 121) once assets/arcs/arc5.webp exists.
 - Open: the gold-haired voice in the ch123 vision is unnamed; ch122's opening caption repeats ch121's; the Valen map image does not show the battlefield yet.
+
+## Arc V: The Broken Seals (ch122-145) and chapter 126
+- Arc V cover is in (assets/arcs/arc5.webp, shown after ch121). The arc concludes at ch145.
+- The golden-haired figure in ch123's vision is Dima, in a dream. Cael Ardyn looks like Dima; no relation is stated yet.
+- Ch126 The Saint of Forgotten Light: Seris Valen, the Forgotten Sanctuary (new location, unlocks after ch125), five spots matching the quest box, mission m_saint_light. Seris's relation to the Valen family and to Sky is not stated on the page.
