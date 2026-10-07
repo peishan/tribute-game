@@ -217,3 +217,8 @@ Arc V, The Broken Seals, runs ch122-145. Tone: exploration + ancient mysteries +
 **Arc V ending:** the story enters its final phase. The question changes from "Can Jade defeat the curse?" to "Can Jade create a world that no longer needs heroes?"
 
 **Build notes:** Spirit Ranger, Sunken Kingdom routes to Dragonvale and the Devon-return choice need a mechanic or flag only once the matching chapter pages arrive. Adrian's advisor records can slot into the Imperial Network Intelligence tab; Sally's site rumours into her existing gossip feed.
+
+## Chapters 129-138 (Arc V, the forgotten path to the first choice)
+- 129 Eira Solenne, 130 The Forgotten Path (both at the Forgotten Sanctuary), 131 The Forgotten Road, 132 The City That Forgot, 133 The Broken Seal Chamber, 134 The Name Behind the Ruins, 135 The Seal Breaker, 136 The Truth He Refuses to Bury, 137 What the Seals Were Made For, 138 The First Choice (story battle vs Varyn Noctis: Jade, Devon, Sky, Levi; losing still completes it since neither side seeks to kill).
+- New location: The Celestial Ruins (unlocks after ch130; the page never names it, the name comes from the author's Arc V notes). 38 spots across the ten chapters, 10 missions, lore, reports, flags.
+- Open mismatches: Levi reappears in ch131 with no rejoin scene; Seraphina is absent from every page of 119-138 (and from the Arc V cast sheet) although the code still treats her as one of the fixed five; ch135 and ch136 repeat the Varyn confrontation; ch138 was sent twice (the wider version is used); hair colours of Eira, Seris and Cael are close, so who speaks some lines is inferred.

@@ -30,6 +30,9 @@ const REPORTS = [
   {ch:122, loc:'Northern Border', threat:'Sightings match locations whose seals have recently weakened. The remaining fifteen evils may be stirring.', status:'Watching.'},
   {ch:123, loc:'The Forgotten Battlefield', threat:'A field of statues, older than Xima\'s war. Scouts will not go near it. A man who calls himself the last Seal Keeper stands watch.', status:'Jade\'s party is on site.'},
   {ch:124, loc:'The Forgotten Battlefield', threat:'A cracked ancient seal beneath the field. Cael Ardyn warns that it is a prison, and that it remembers its prisoner.', status:'Critical.'},
+  {ch:131, loc:'The Celestial Ruins', threat:'A forgotten region beyond the known lands: floating mountains, a silent city and the broken-seal symbol on every gate.', status:'Jade\'s party is on site.'},
+  {ch:132, loc:'The Celestial Ruins', threat:'An intact city with no people. A guardian says its people were erased, not attacked.', status:'Seal decay suspected.'},
+  {ch:135, loc:'Seal Sites', threat:'A man named Varyn Noctis claims to be opening, not breaking, the old seals. Incidents across five kingdoms share his handwriting.', status:'Contact made.'},
   {ch:99, loc:'Tribute Roads', threat:'Bandits are returning to the coast road now the armies are home.', status:'Contracts posted.'},
 ];
 /* ---- Requests (optional; use the contract system, with trust rewards) ---- */
