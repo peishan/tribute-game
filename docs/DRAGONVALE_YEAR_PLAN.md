@@ -155,3 +155,5 @@ Jade returns as Princess of Tribute and of Dragonvale, wife of a respected princ
 - Arc covers (assets/arcs/arc1-4.webp, scripts/arcs.js): Arc I shows at the start of a new journey; Arc II after ch42; Arc III after ch86; Arc IV after ch103 (boundaries are provisional; change ARCS[].after). Saved in G.arcSeen; re-view from the Cast tab. Existing saves only see arcs they have not yet passed.
 - Skirmish tab (from ch12, scripts/skirmish.js): random battles with monsters from every unlocked area (or the current one), level = party average + difficulty offset (Normal/Hard/Brutal), win streak bonus.
 - XP: one shared table for every hero, xpToNext(lv) = 40 + 22*lv + 1.2*lv^2; each hero tracks their own level and XP. Active fighters get the full award, the bench half. Cap 100.
+
+- XP is now per class (author): XP_TABLES in core.js, XP_CLASS maps each hero. Swift fighters (Roc, Seraphina) need less XP per level, rangers (Levi, Ripley, Sally) slightly less, support (Sky, Ghost Healer) and the scholar (Devon) more; Jade is the standard curve. There is no level cap (CFG.LEVEL_CAP = Infinity).

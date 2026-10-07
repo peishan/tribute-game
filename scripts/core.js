@@ -1,7 +1,7 @@
 /* =====================================================================
    TRIBUTE — CORE: state, save, progression (levels, bond, evolution)
    ===================================================================== */
-const CFG = { SAVE_KEY:'tribute_rpg_v3', LEVEL_CAP:100, START_LEVEL:1 };
+const CFG = { SAVE_KEY:'tribute_rpg_v3', LEVEL_CAP:Infinity, START_LEVEL:1 };   // no level ceiling (author's decision)
 
 // WHO JOINS WHEN (chapter number at which the hero is recruited). PROVISIONAL — correct these.
 // Permanent joins. Chad and Sky both accept the mission in ch4 (Chad was hired in ch3, Sky first meets Jade in ch4). Sally 28 and Levi 30 match the comic's chapter titles. Devon open.
@@ -66,7 +66,19 @@ function applyStoryStates(n){
 const isRecruited = id => G.party.includes(id);
 
 /* ---------- levels & stats ---------- */
-const xpToNext = lv => Math.round(40 + lv*22 + lv*lv*1.2);
+/* Per-class XP tables: xp to next level = a + b*lv + c*lv^2. Martial damage dealers climb a little faster, support and casters a little slower.
+   Level 1 -> 2 / level 30 / level 60 / level 100 (xp for that step):
+     standard   63 / 1,780 / 5,680 / 14,240      swift fighters 59 / 1,640 / 5,230 / 13,100      support 69 / 1,940 / 6,160 / 15,500
+     scholars   72 / 2,060 / 6,440 / 16,000 */
+const XP_TABLES = {
+  standard:{a:40, b:22, c:1.2},
+  fighter:{a:36, b:20, c:1.1},     // Roc, Seraphina: martial burst
+  ranger:{a:38, b:21, c:1.15},     // Levi, Ripley, Sally: agile
+  support:{a:44, b:24, c:1.3},     // Sky, the Ghost Healer
+  scholar:{a:46, b:25, c:1.35},    // Devon: defensive mage
+};
+const XP_CLASS = {jade:'standard', chad:'fighter', seraphina:'fighter', levi:'ranger', ripley:'ranger', sally:'ranger', sky:'support', ghost_healer:'support', devon:'scholar'};
+const xpToNext = (lv, id) => { const t = XP_TABLES[XP_CLASS[id] || 'standard']; return Math.round(t.a + lv*t.b + lv*lv*t.c); };
 
 function gearBonus(id){ return typeof gearBonusSum==='function' ? gearBonusSum(id) : {hp:0,mp:0,atk:0,mag:0,def:0,spd:0}; }   // see gear.js
 
@@ -170,8 +182,8 @@ function gainXp(amount, ids){
     const u = U(id);
     if(u.lv >= CFG.LEVEL_CAP) return;
     u.xp += amount;
-    while(u.lv < CFG.LEVEL_CAP && u.xp >= xpToNext(u.lv)){
-      u.xp -= xpToNext(u.lv); u.lv++;
+    while(u.lv < CFG.LEVEL_CAP && u.xp >= xpToNext(u.lv, id)){
+      u.xp -= xpToNext(u.lv, id); u.lv++;
       msgs.push(CHARACTERS[id].n+' reached Lv'+u.lv+'!');
       skillsOf(id).filter(s => !s.evoSkill && s.req && s.req.lvl === u.lv).forEach(s => msgs.push('  ✦ New skill: '+s.n));
     }
