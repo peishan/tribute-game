@@ -35,6 +35,6 @@ function usePurifyPoint(){
   if(!isRecruited('devon') || isDisabled('devon')) return ['Devon is not here to purify.'];
   if(G.bondDay['purify_'+loc] === G.day) return ['The point has already been used today.'];
   G.bondDay['purify_'+loc] = G.day;
-  const before = corrAt(loc), after = corrAdd(loc, -25);
+  const sense = typeof takeSense==='function' && takeSense(), before = corrAt(loc), after = corrAdd(loc, sense ? -35 : -25);
   return ['✨ Devon sets his hand on the old ward and the Valen light runs through it. Corruption '+before+'% → '+after+'%.'];
 }

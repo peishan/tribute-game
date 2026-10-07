@@ -324,7 +324,7 @@ function grantReward(rw, label){
   msgs.unshift(label+' · '+[rw.xp&&'+'+rw.xp+' XP', rw.gold&&'+'+rw.gold+'g', rw.rep&&'+'+rw.rep+' renown'].filter(Boolean).join(' · '));
   return msgs;
 }
-const FLAG_LABEL = { bracelet:'Communication Bracelet', crossbow:'Levi\'s Crossbow', jade_awakened:'Golden Blood Awakening', door_open:'The Symbol Door opened', people_behind_found:'The people behind the missing records', valen_prophecy_link:'The Valen crest and the prophecy', sky_train_1:'Sky: Reading the Body', sky_train_2:'Sky: Cleansing Light', sky_train_3:'Sky: The Old Light', jade_dragon_harmony:'Couple skill: Jade Dragon Harmony', husband_wife_truth:'Jade and Devon are husband and wife in truth', order_delivered:'Greyson\'s sealed order delivered',  princess_of_tribute:'Jade is Princess of Tribute, Greyson\'s sworn sister', visions_shared:'Jade shared her hidden visions', luck_known:'Luck: a lasting blessing from the accident', roc_trial_p1:'Shadow of Roc defeated', roc_trial_p2:'The Shadow Crown ended by Roc\'s own blade', roc_purified:'Roc is purified', roc_reborn:'Roc is reborn: Dark Dragon Aura', gold_family_met:'Jade\'s family: the Gold residence', sky_resembles_yvette:'Sky looks like Yvette Sue Valen', sky_pendant_lost:'Sky\'s jade pendant is lost', ghost_healer_met:'The Ghost Healer travels with the party', ghost_trust:'The Ghost Healer trusts you: Ancient Remedy', ghost_gift_bought:'A gift for the Ghost Healer bought', ghost_gifted:'Gift given to the Ghost Healer', dragonvale_honoured:'Honoured by Dragonvale', aster_crown_prince:'Aster is Crown Prince of Dragonvale', dv_purify:'Devon: Spirit Purification', partner_actions:'Partner action: Guardian\'s Promise', princess_guardian:'Jade: Princess Guardian', royal_spirit_authority:'Devon: Royal Spirit Authority', twin_dragon:'Couple skill: Twin Dragon Harmony', dv_exploration:'Dragonvale exploration areas', roc_exiled:'Roc is exiled from Dragonvale', liora_apart:'Liora stays in Dragonvale; letters follow', seraphina_free:'Seraphina is free: the Divorce Scroll from King Chadstone', liora_ward:'Liora is in Jade and Devon\'s care', levi_reborn:'Levi returns, reborn', sally_stays:'Sally stays in Dragonvale as a rumour source', chad_dark_deep:'Roc\'s dark arts deepen', chad_backlash_1:'Dark-magic backlash (Roc): stats permanently altered', chad_backlash_2:'Dark-magic backlash worsens (Roc)', chad_backlash_3:'Dark-magic backlash, final (Roc)', roc_severed:'Bond with Roc Chadwick severed', jade_poisoned:'Jade is poisoned (slow-acting)', royal_attire:'Daily Royal Attire and Phoenix Guard attire', sally_gossip:'Sally\'s court gossip', chad_dark_arts:'Chad\'s dark arts', greyson_arms:'Greyson\'s dagger and flail unsealed', greyson_gift:'Greyson\'s gift received', cleansing_touch:'Cleansing Touch (Jade)', sally_noble:'Sally\'s noble title and Noble Grace' };
+const FLAG_LABEL = { bracelet:'Communication Bracelet', crossbow:'Levi\'s Crossbow', jade_awakened:'Golden Blood Awakening', warriors_insight:'Jade: Warrior\'s Insight', royal_sense:'Devon: Royal Spirit Sense', door_open:'The Symbol Door opened', people_behind_found:'The people behind the missing records', valen_prophecy_link:'The Valen crest and the prophecy', sky_train_1:'Sky: Reading the Body', sky_train_2:'Sky: Cleansing Light', sky_train_3:'Sky: The Old Light', jade_dragon_harmony:'Couple skill: Jade Dragon Harmony', husband_wife_truth:'Jade and Devon are husband and wife in truth', order_delivered:'Greyson\'s sealed order delivered',  princess_of_tribute:'Jade is Princess of Tribute, Greyson\'s sworn sister', visions_shared:'Jade shared her hidden visions', luck_known:'Luck: a lasting blessing from the accident', roc_trial_p1:'Shadow of Roc defeated', roc_trial_p2:'The Shadow Crown ended by Roc\'s own blade', roc_purified:'Roc is purified', roc_reborn:'Roc is reborn: Dark Dragon Aura', gold_family_met:'Jade\'s family: the Gold residence', sky_resembles_yvette:'Sky looks like Yvette Sue Valen', sky_pendant_lost:'Sky\'s jade pendant is lost', ghost_healer_met:'The Ghost Healer travels with the party', ghost_trust:'The Ghost Healer trusts you: Ancient Remedy', ghost_gift_bought:'A gift for the Ghost Healer bought', ghost_gifted:'Gift given to the Ghost Healer', dragonvale_honoured:'Honoured by Dragonvale', aster_crown_prince:'Aster is Crown Prince of Dragonvale', dv_purify:'Devon: Spirit Purification', partner_actions:'Partner action: Guardian\'s Promise', princess_guardian:'Jade: Princess Guardian', royal_spirit_authority:'Devon: Royal Spirit Authority', twin_dragon:'Couple skill: Twin Dragon Harmony', dv_exploration:'Dragonvale exploration areas', roc_exiled:'Roc is exiled from Dragonvale', liora_apart:'Liora stays in Dragonvale; letters follow', seraphina_free:'Seraphina is free: the Divorce Scroll from King Chadstone', liora_ward:'Liora is in Jade and Devon\'s care', levi_reborn:'Levi returns, reborn', sally_stays:'Sally stays in Dragonvale as a rumour source', chad_dark_deep:'Roc\'s dark arts deepen', chad_backlash_1:'Dark-magic backlash (Roc): stats permanently altered', chad_backlash_2:'Dark-magic backlash worsens (Roc)', chad_backlash_3:'Dark-magic backlash, final (Roc)', roc_severed:'Bond with Roc Chadwick severed', jade_poisoned:'Jade is poisoned (slow-acting)', royal_attire:'Daily Royal Attire and Phoenix Guard attire', sally_gossip:'Sally\'s court gossip', chad_dark_arts:'Chad\'s dark arts', greyson_arms:'Greyson\'s dagger and flail unsealed', greyson_gift:'Greyson\'s gift received', cleansing_touch:'Cleansing Touch (Jade)', sally_noble:'Sally\'s noble title and Noble Grace' };
 
 /* ---------------- DAY CLOCK ---------------- */
 function advanceDay(n){
@@ -753,7 +753,11 @@ function bountyKill(key){
 function doHunt(spotId, elite){
   const sp = spotById(spotId), lv = lvFor(sp, elite?2:0);
   const foes = elite ? [{key:sp.elite, lv}, ...foeGroup(sp.pool, lv, 1)] : foeGroup(sp.pool, lv, 2 + (Math.random()<.4?1:0));
-  startBattle({foes, rewards:true});
+  const ins = typeof takeInsight==='function' && takeInsight(), sen = typeof takeSense==='function' && takeSense();
+  startBattle({foes, rewards:true, opening:() => {
+    if(ins){ B.foes.forEach(f => { f.st.slow = {d:3}; }); blog('⚔️ Jade read their formation: the foes start slowed.','good'); }
+    if(sen){ B.foes.forEach(f => { f.known = true; }); blog('🔮 Devon senses their magic: the foes are revealed.','good'); }
+  }});
 }
 function doGather(spotId){
   const sp = spotById(spotId), msgs = [];
@@ -762,7 +766,8 @@ function doGather(spotId){
     if(sp.bonus && Math.random()<sp.bonus.chance){ addItems([{id:sp.bonus.id, qty:1}]); msgs.push('✨ Lucky find: '+ITEMS[sp.bonus.id].icon+' '+ITEMS[sp.bonus.id].n); }
     msgs.push.apply(msgs, advanceDay(1)); save();
   };
-  if(Math.random() < .3){
+  const insG = typeof takeInsight==='function' && takeInsight();
+  if(Math.random() < (insG ? .08 : .3)){
     startBattle({foes:foeGroup(sp.ambush, lvFor(sp), 2), rewards:true, onWin:()=>{ gotLoot(); return msgs; }});
     return 'battle';
   }
@@ -770,14 +775,18 @@ function doGather(spotId){
 }
 function doInvestigate(spotId){
   const sp = spotById(spotId); if((G.clues[spotId]||0) >= sp.need) return;
+  const ins = typeof takeInsight==='function' && takeInsight(), sen = typeof takeSense==='function' && takeSense();
   const found = () => {
     const n = G.clues[spotId] = (G.clues[spotId]||0)+1, msgs = ['🔎 Clue '+n+'/'+sp.need+': '+sp.clues[n-1]];
+    if(ins) msgs.push('⚔️ Jade\'s Insight finds a hidden path: no time lost.');
+    if(sen){ gainXp(300+avgPartyLv()*10, G.party).forEach(m => msgs.push(m)); msgs.push('🔮 Devon reads the magic residue (bonus XP).'); if(typeof corrAdd==='function' && isCorrupted(G.loc)){ corrAdd(G.loc, -5); msgs.push('Corruption −5%.'); } }
     if(n >= sp.need){ G.flags['inv_'+spotId] = true; msgs.push.apply(msgs, grantReward(sp.rw, '🕯️ Investigation complete: '+sp.n));
       MISSIONS.forEach(m => { if(mState(m.id)==='active' && m.obj.type==='investigate' && m.obj.spot===spotId) msgs.push.apply(msgs, completeMission(m.id)); });
       msgs.push.apply(msgs, checkSteps()); }
-    msgs.push.apply(msgs, advanceDay(1)); save(); return msgs;
+    msgs.push.apply(msgs, advanceDay(ins ? 0 : 1)); save(); return msgs;
   };
-  if(sp.ambush && sp.ambush.length && Math.random() < .4){
+  const magicOnly = sen && sp.ambush && sp.ambush.length && sp.ambush.every(k => (ENEMIES[k].traits||[]).includes('magic'));
+  if(sp.ambush && sp.ambush.length && !magicOnly && Math.random() < (ins ? .1 : .4)){
     startBattle({foes:foeGroup(sp.ambush, lvFor(sp), 2), rewards:true, onWin:found});
     return 'battle';
   }
@@ -878,6 +887,7 @@ const SYMS = ['🐉','🌙','🔮','🍃'], DOOR_SOL = [3,0,1,2];
 function doorState(){ if(!G.door) G.door = [0,0,0,0]; return G.door; }
 function turnRing(i){ const d = doorState(); d[i] = (d[i]+1) % 4; return []; }
 function tryDoor(){
+  if(!G.flags.door_open && typeof takeSense==='function' && takeSense()){ const d = doorState(), wrong = d.map((v,i) => v!==DOOR_SOL[i] ? i : -1).filter(i => i>=0); if(wrong.length){ const i = wrong[0]; d[i] = DOOR_SOL[i]; return ['🔮 Devon\'s Sense rings one symbol true: '+SYMS[DOOR_SOL[i]]+' settles into place.']; } }
   if(G.flags.door_open) return ['The door is already open.'];
   const d = doorState(), right = d.filter((v,i) => v===DOOR_SOL[i]).length;
   if(right < 4){ return ['🔣 The door hums, then stills. '+right+' of 4 symbols sit true.'+(right>=2?' (Hint: the crest joins the healing flower to the dragon spine: life and balance.)':'')]; }

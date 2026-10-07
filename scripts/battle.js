@@ -61,6 +61,7 @@ function startBattle(spec){
   if(spec.rewards && typeof corrAt==='function' && corrAt(G.loc) > 0){ B.corr = corrAt(G.loc); const m = corrFoeMult(G.loc); B.foes.forEach(f => { f.hp = f.mhp = Math.round(f.mhp*m); f.atk = Math.round(f.atk*m); f.mag = Math.round(f.mag*m); }); blog('☠️ The air is thick with corruption ('+B.corr+'%): foes are stronger and healing is weaker.','sys'); }
   blog('Battle begins!','sys');
   if(spec.seal) sealInit();
+  if(spec.opening) spec.opening();
   if(spec.rewards && !B.foes.some(f => f.boss) && typeof banterLines==='function' && Math.random() < .3){ const q = pickBanter('battle'); if(q) q.forEach(l => blog(l.replace('💬 ',''),'sys')); else if(Math.random()<.5) blog(AR(BATTLE_QUIPS),'sys'); }
   advance();
 }

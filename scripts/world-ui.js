@@ -113,6 +113,7 @@ function rHere(){
 }
 function spotBack(){ spotOpen = null; render(); }
 function rSpot(L, sp){
+  const eb = (['investigate','hunt','gather','puzzle','purifypoint'].includes(sp.kind) && typeof exploreBar==='function') ? exploreBar() : '';
   const back = `<button onclick="spotBack()">◀ ${L.n}</button>`;
   const head = `${bandImg(sp.img)}<h2>${sp.icon} ${sp.n}</h2><div class="sm">${sp.desc}</div>${flashHtml()}`;
   let body = '';
@@ -191,7 +192,7 @@ function rSpot(L, sp){
       const e = ENEMIES[sp.boss], beaten = G.flags['boss_'+sp.boss];
       body = `<div class="panel"><b>${e.icon} ${e.n}</b> <span class="sm">${beaten?'· defeated (replayable)':''}</span><div class="sm">${e.desc}</div><button class="pri" onclick="origin='here';doBoss('${sp.id}');tab='battle';render()">${beaten?'Challenge again':'Challenge'}</button></div>`; break; }
   }
-  return back+head+body;
+  return back+head+eb+body;
 }
 function gatherUi(id){ const r = doGather(id); if(r==='battle') tab='battle'; render(); }
 function investUi(id){ const r = doInvestigate(id); if(r==='battle') tab='battle'; render(); }

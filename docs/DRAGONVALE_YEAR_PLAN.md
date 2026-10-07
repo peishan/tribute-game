@@ -145,3 +145,8 @@ Jade returns as Princess of Tribute and of Dragonvale, wife of a respected princ
 
 ## Seal fight: Jade Mode / Devon Mode (built, battle.js)
 - The Seal Core boss fight shows a seal bar (100% at start). Jade Mode: Jade +25%, Devon -15%, the seal decays 4-8 per round. Devon Mode: Devon +30%, Jade -20%, the seal repairs 16 per round (less in late phases). The party can switch at any turn. Enemy area attacks batter the seal; at 0% it collapses and hurts the party each round until it is back above 30%.
+
+## Exploration abilities (built, scripts/explore.js)
+- From ch76. Once a day each; arm it on a search/hunt/gather/puzzle/purification screen, it applies to your next action.
+- Warrior's Insight (Jade): investigate ambush chance 40% -> 10% and the hidden path saves a day; hunt: foes start slowed; gather: ambush 30% -> 8%.
+- Royal Spirit Sense (Devon): investigate: bonus XP, no ambush when the ambushers are all magical, corruption -5%; hunt: foes revealed; Symbol Door: one ring set true; purification point: -35% instead of -25%.
