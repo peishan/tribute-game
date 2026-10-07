@@ -38,7 +38,7 @@ function rParty(){
   const roster = ROSTER.filter(id => !isCompanion(id)).map(id => {
     const c=CHARACTERS[id], rec=isRecruited(id), join=JOIN_CH[id];
     return `<div class="rc ${sel===id?'sel':''} ${rec||profileKnown(id)?'':'lock'}" onclick="sel='${id}';render()"><img src="${portrait(id)}"><div><b>${profileKnown(id)||id==='seraphina'?c.n:'???'}</b><div class="sm">${rec?clsOf(id)+' · Lv'+U(id).lv+(G.guests[id]?' · guest':''):(profileKnown(id)?clsOf(id)+' · ':'')+(join!==undefined?'Joins Ch.'+join:'Unrecruited')}</div></div></div>`; }).join('');
-  return `<h2>Party</h2><div class="sm">${fixedParty()?'The travelling party: all five fight together.':`Active (${activeCount()}/${ACTIVE_SLOTS}) — fights use these four`}</div><div class="slots">${slots}</div>${presentGuests().map(id => `<div class="sm" style="margin:4px 0">🤝 Guest: ${GUEST_RULES[id].note}</div>`).join('')}<div class="rcs">${roster}</div>${rSheet(sel)}`;
+  return `<h2>Party</h2><div class="sm">${fixedParty()?`The travelling party (${activeCount()}/5): Jade and Devon always fight; the others may be benched.`:`Active (${activeCount()}/${ACTIVE_SLOTS}) — fights use these four`}</div><div class="slots">${slots}</div>${presentGuests().map(id => `<div class="sm" style="margin:4px 0">🤝 Guest: ${GUEST_RULES[id].note}</div>`).join('')}<div class="rcs">${roster}</div>${rSheet(sel)}`;
 }
 function rSheet(id){
   const c=CHARACTERS[id], rec=isRecruited(id);
@@ -52,7 +52,7 @@ function rSheet(id){
   return `<div class="panel sheet"><div class="sh"><img src="${portrait(id)}"><div><h3>${c.icon} ${c.n}${G.guests[id]?' <em class="tag">guest</em>':''}</h3><div>${clsOf(id)}</div><div class="sm">${c.role} · ${c.combat}</div><div class="sm">Lv ${u.lv}</div>${bar(u.xp,xpToNext(u.lv,id),'xp')}<div class="sm">XP ${u.xp}/${xpToNext(u.lv,id)}</div></div></div>
    <div class="sm" style="margin:6px 0">${c.identity}</div>
    ${id!=='jade'?`<div class="sm">💞 Bond with Jade: ${bl}/5 ${nextB?`(${u.bp}/${nextB})`:'(max)'}</div>${bar(u.bp,nextB||u.bp||1,'bond')}`:''}
-   ${isCompanion(id)?'<div class="sm">🕯️ A companion: always travels and fights with the party, without using one of the four active slots.</div>':id!=='jade'?`<button onclick="toggleActive('${id}');render()">${act?'Remove from active party':'Add to active party'}</button>`:'<div class="sm">Jade always leads the active party.</div>'}
+   ${isCompanion(id)?'<div class="sm">🕯️ A companion: always travels and fights with the party, without using one of the four active slots.</div>':!unbenchable(id)?`<button onclick="toggleActive('${id}');render()">${act?'Remove from active party':'Add to active party'}</button>`:`<div class="sm">${id==='jade'?'Jade always leads the active party.':'Devon always stands beside Jade: he cannot be benched.'}</div>`}
    ${isAway(id)?`<div class="panel bad"><b>🌹 Staying in Dragonvale</b><div class="sm">${id==='seraphina'?'Seraphina fights beside you only on Dragonvale grounds, in Roc\'s place, until she asks to join you for good.':'Sally can only join the party while you are in Dragonvale.'}</div></div>`:isDisabled(id)?'<div class="panel bad"><b>⛔ Critical — cannot fight</b><div class="sm">Cursed in chapter 42. He stays in the party but sits out battles until he recovers.</div></div>':''}
    <h4>Condition</h4><div class="sm">❤️ HP ${curHp(id)}/${st.hp} · 🔷 MP ${curMp(id)}/${st.mp}</div>${bar(curHp(id),st.hp,'hp')}${bar(curMp(id),st.mp,'mpb')}
    <h4>Stats</h4><div class="stg">${stats}</div>

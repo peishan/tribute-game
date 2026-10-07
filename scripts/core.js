@@ -217,6 +217,8 @@ function evolve(id, eid){
 
 /* ---------- recruiting / story ---------- */
 const ACTIVE_SLOTS = 4;
+const slotCap = () => fixedParty() ? 5 : ACTIVE_SLOTS;   // the travelling party has five seats; Jade and Devon are the unbenchable pair, the other three may be benched
+const unbenchable = id => id==='jade' || (fixedParty() && id==='devon');
 const activeCount = () => G.active.filter(id => !isDisabled(id)).length;   // a disabled hero does not take a fighting slot
 /* Temporary members ("visiting guests"): fight beside the party (controllable, extra to the five) while a rule holds.
    Add a row here when a journey introduces someone: { id, flag (story flag that makes them available), regions (where they travel with you) }.
@@ -226,6 +228,6 @@ const GUEST_RULES = {
 };
 const presentGuests = () => !G ? [] : Object.keys(GUEST_RULES).filter(id => { const r = GUEST_RULES[id]; return G.flags[r.flag] && r.regions.includes(LOCATIONS[G.loc].region) && !isDisabled(id); });
 const isCompanion = id => !!(CHARACTERS[id] && CHARACTERS[id].companion);   // companions travel and fight with the party without using one of the active slots
-function recruit(id){ if(G.left && G.left[id]) return false; if(!G.party.includes(id)){ G.party.push(id); if(!isCompanion(id) && (fixedParty() || activeCount()<ACTIVE_SLOTS)) G.active.push(id); return true; } return false; }
-function toggleActive(id){ if(fixedParty() || id==='jade' || isCompanion(id) || (isAway(id) && !G.active.includes(id))) return; const i=G.active.indexOf(id); if(i>=0) G.active.splice(i,1); else if(activeCount()<ACTIVE_SLOTS) G.active.push(id); save(); }
+function recruit(id){ if(G.left && G.left[id]) return false; if(!G.party.includes(id)){ G.party.push(id); if(!isCompanion(id) && activeCount()<slotCap()) G.active.push(id); return true; } return false; }
+function toggleActive(id){ if(unbenchable(id) || isCompanion(id) || (isAway(id) && !G.active.includes(id))) return; const i=G.active.indexOf(id); if(i>=0) G.active.splice(i,1); else if(activeCount()<slotCap()) G.active.push(id); save(); }
 function recruitsAtChapter(ch){ return Object.keys(JOIN_CH).filter(id => JOIN_CH[id] === ch); }
