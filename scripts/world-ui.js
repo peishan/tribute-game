@@ -71,13 +71,16 @@ function rBountyList(){
 
 /* ---------------- TRAVEL TAB ---------------- */
 let mapView = null;
+const ARC5_MAP_CH = 122;   // the Arc V world map opens when the arc begins (author: a map to explore all Arc V locations)
+const ARC5_LOCS = ['forgotten_battlefield','forgotten_sanctuary','celestial_ruins','land_beyond_seal'];
 const WORLD_MAPS = [
   {id:'tribute', n:'Tribute', img:'assets/maps/tribute.webp', open:() => true},
   {id:'dragonvale', n:'Dragonvale', img:'assets/maps/dragonvale.webp', open:() => locOpen('dragon_vale')},
   {id:'valen', n:'Valen Borderlands', img:'assets/maps/valen.webp', open:() => locOpen('valen_borderlands')},   // shows Dragonvale places: unlocks with Dragonvale
+  {id:'seals', n:'The Broken Seals', img:'assets/maps/broken_seals.webp', open:() => G.ch >= ARC5_MAP_CH},
 ];
 function rMaps(){
-  const cur = mapView || (LOCATIONS[G.loc].region==='dragon' ? 'dragonvale' : LOCATIONS[G.loc].region==='valen' ? 'valen' : 'tribute');
+  const cur = mapView || (ARC5_LOCS.includes(G.loc) && G.ch >= ARC5_MAP_CH ? 'seals' : LOCATIONS[G.loc].region==='dragon' ? 'dragonvale' : LOCATIONS[G.loc].region==='valen' ? 'valen' : 'tribute');
   const tabs = WORLD_MAPS.map(m => `<button class="${cur===m.id?'pri':''}" ${m.open()?'':'disabled'} onclick="mapView='${m.id}';render()">🗺️ ${m.open()?m.n:'???'}</button>`).join('');
   const m = WORLD_MAPS.find(x => x.id===cur && x.open()) || WORLD_MAPS[0];
   return `<h4>World maps</h4><div class="row" style="margin:4px 0">${tabs}</div><img class="pg" src="${m.img}" alt="${m.n} map" loading="lazy">`;
