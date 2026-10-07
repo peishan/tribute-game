@@ -85,7 +85,7 @@ function sellGear(k){
 /* ---------------- UI ---------------- */
 let gearSel = 'jade', gearSub = 'equip';
 function rGear(){
-  const heroes = G.party.filter(id => !CHARACTERS[id].placeholder);
+  const heroes = G.party.filter(id => !CHARACTERS[id].placeholder && !CHARACTERS[id].companion);
   if(!heroes.includes(gearSel)) gearSel = heroes[0];
   const tabs = [['equip','Equip'],['shop','Shop']].map(([k,l]) => `<button class="${gearSub===k?'pri':''}" onclick="gearSub='${k}';render()">${l}</button>`).join('');
   return `<h2>🛡️ Gear</h2>${flashHtml()}<div class="row">${tabs}</div>${gearSub==='shop' ? rShop() : rEquip(heroes)}`;

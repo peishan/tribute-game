@@ -102,3 +102,9 @@ Jade returns as Princess of Tribute and of Dragonvale, wife of a respected princ
 - 99 The King and His Sister (Jade named Princess of Tribute), 100 The Visions She Hid (three sources of her visions; Xima's evil still exists), 101 The King's Request (mission beyond Tribute: missing envoys, hidden records, old alliance).
 - Note: the author said chapter 99 is the last story chapter in Tribute and 100 leaves Tribute; the pages show 100 and 101 are still in Tribute and the party sets out after 101. Built from the pages.
 - m_kings_request has four sealed objectives (flags beyond_tribute, envoys_found, hidden_records_found, tribute_represented): set by the next chapters (the territory beyond Tribute: Altan?). TRIBUTE party mode (fixed five) is still undecided.
+
+## Chapters 102-104 and the fixed party
+- 102 The Road Beyond Tribute (the departure; original plan was 100, it stretched), 103 The Choice He Made (Jade and Devon husband and wife in truth; couple skill Jade Dragon Harmony), 104 The Forgotten Western Territory (arrive in the Valen Borderlands; the map is in assets/maps/valen.webp).
+- Mismatch resolved with the comic: the couple skill is Jade Dragon Harmony (ch103), replacing Twin Dragon Harmony (planned ch77).
+- Valen Borderlands: location opens after ch103; spots: Westwatch Gate, Present the Sealed Order, Valen Crossing board, Moonfall Hamlet (envoys), Ruins of Valen (erased records), Spirit Healer's Hollow (sealed), hunts (Veilwood, Whispering Plains, Mourning Marsh, Ashen Ravine). Not built from the map: Mirror Lake, Forgotten Watchtower, Howling Pass, Sunken Shrine, Western Frontier Camp.
+- Fixed party from ch102: Jade, Devon, Seraphina, Levi, Sky all fight (no slots). The Ghost Healer is a hidden companion: not shown on the party screen; acts by himself in battle (heals, cleanses, shields, revives).

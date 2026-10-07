@@ -73,10 +73,11 @@ function rBountyList(){
 let mapView = null;
 const WORLD_MAPS = [
   {id:'tribute', n:'Tribute', img:'assets/maps/tribute.webp', open:() => true},
-  {id:'dragonvale', n:'Dragonvale', img:'assets/maps/dragonvale.webp', open:() => locOpen('dragon_vale')},   // shows Dragonvale places: unlocks with Dragonvale
+  {id:'dragonvale', n:'Dragonvale', img:'assets/maps/dragonvale.webp', open:() => locOpen('dragon_vale')},
+  {id:'valen', n:'Valen Borderlands', img:'assets/maps/valen.webp', open:() => locOpen('valen_borderlands')},   // shows Dragonvale places: unlocks with Dragonvale
 ];
 function rMaps(){
-  const cur = mapView || (LOCATIONS[G.loc].region==='dragon' ? 'dragonvale' : 'tribute');
+  const cur = mapView || (LOCATIONS[G.loc].region==='dragon' ? 'dragonvale' : LOCATIONS[G.loc].region==='valen' ? 'valen' : 'tribute');
   const tabs = WORLD_MAPS.map(m => `<button class="${cur===m.id?'pri':''}" ${m.open()?'':'disabled'} onclick="mapView='${m.id}';render()">🗺️ ${m.open()?m.n:'???'}</button>`).join('');
   const m = WORLD_MAPS.find(x => x.id===cur && x.open()) || WORLD_MAPS[0];
   return `<h4>World maps</h4><div class="row" style="margin:4px 0">${tabs}</div><img class="pg" src="${m.img}" alt="${m.n} map" loading="lazy">`;
@@ -154,6 +155,8 @@ function rSpot(L, sp){
         return `<div class="ev ${open?'':'locked'}"><div><b>${e.icon} Level ${L.n}: ${L.name}</b> ${cleared?'<span class="sm">· cleared</span>':''}<div class="sm">${L.desc}</div><div class="sm">Min level ${RAID_MIN_LV[L.n]} · Attempts today: ${left}/${RAID_ATTEMPTS}${open?'':(G.flags.roc_purified?(lvOK(RAID_MIN_LV[L.n])?' · 🔒 clear level '+(L.n-1)+' first':' · '+lvNeed(RAID_MIN_LV[L.n])):'')}</div></div>
           <button class="pri" ${open&&left>0?'':'disabled'} onclick="origin='here';raidStart(${L.n});tab='battle';render()">Challenge</button></div>`; }).join('');
       body = `<div class="panel"><div class="sm">Repeatable. Rewards: Dark Essence, Dragon Crystal, Royal Sigil; rare Shadow Steel, Shadow Mail, the Crown of the Forgotten Prince. Craft Dragon Prince's Blade at the Healing Pavilion.</div></div>${rows}`; break; }
+    case 'order':
+      body = `<div class="panel"><div class="sm">Jade carries the king's sealed order. Only its keepers may open it.</div>${G.flags.order_delivered?'<div class="sm">✔ Delivered.</div>':`<button class="pri" onclick="act(deliverOrder)">Present the sealed order</button>`}</div>`; break;
     case 'goldhome':
       body = `<div class="panel"><div class="sm">The Gold family home. Each activity can be done once per day. Day ${G.day}.</div>${Object.keys(HOME_ACTS).filter(k => !HOME_ACTS[k].ch || G.ch>=HOME_ACTS[k].ch).map(k => { const a = HOME_ACTS[k], done = G.bondDay['home_'+k]===G.day;
         return `<div class="ev ${done?'locked':''}"><div><b>${a.icon} ${a.n}</b></div><button ${done?'disabled':''} onclick="act(doHome,'${k}')">${done?'Done':'Do'}</button></div>`; }).join('')}</div>`; break;

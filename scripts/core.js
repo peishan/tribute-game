@@ -14,7 +14,7 @@ const INTRO_CH = { ghost_healer:88, seraphina:65, chad:1, sky:1, sally:28, riple
 const CH_BOND = { 98:{sky:5}, 93:{sky:10}, 94:{sky:10}, 59:{chad:-9999}, 24:{sky:20}, 25:{chad:20}, 27:{chad:-20}, 29:{sky:20}, 31:{chad:-40}, 32:{levi:20}, 33:{levi:20, chad:-20}, 34:{levi:20, chad:-10}, 38:{levi:20, sky:20}, 39:{levi:20, chad:-5}, 40:{levi:20, sky:20} };   // banners: ch31 Jade+Chad -2, ch32 Jade+Levi +1, ch33 Jade+Levi +1 / Jade+Chad -1 (Sky+Levi and Chad+Sally banners not modelled)
 const profileKnown = id => isRecruited(id) || !!(G.left && G.left[id]) || (INTRO_CH[id]!==undefined && G.ch >= INTRO_CH[id]);
 // Story flags set when a chapter is completed (e.g. Levi's crossbow goes to Jade in ch30).
-const CH_FLAGS = { 99:['princess_of_tribute'], 100:['visions_shared'], 90:['gold_family_met'], 93:['sky_resembles_yvette'], 94:['sky_pendant_lost'], 88:['ghost_healer_met'], 86:['dragonvale_honoured'], 82:['aster_crown_prince'], 75:['dv_purify','partner_actions'], 77:['princess_guardian','royal_spirit_authority','twin_dragon','dv_exploration'], 87:['levi_reborn','sally_stays','liora_apart','seraphina_free'], 73:['roc_exiled','liora_ward'], 63:['chad_dark_arts'], 67:['chad_dark_deep'], 70:['chad_backlash_1'], 71:['chad_backlash_2'], 72:['chad_backlash_3'], 59:['roc_severed'], 60:['jade_poisoned'], 58:['royal_attire'], 52:['sally_gossip'], 42:['jade_awakened'], 44:['bracelet'], 51:['sally_noble'], 0:['greyson_gift'], 38:['cleansing_touch'], 41:['greyson_arms'], 30:['crossbow'] };   // greyson_arms: dagger+flail unseal at the major battle, chapter 41 (per the author)
+const CH_FLAGS = { 103:['jade_dragon_harmony','husband_wife_truth'], 99:['princess_of_tribute'], 100:['visions_shared'], 90:['gold_family_met'], 93:['sky_resembles_yvette'], 94:['sky_pendant_lost'], 88:['ghost_healer_met'], 86:['dragonvale_honoured'], 82:['aster_crown_prince'], 75:['dv_purify','partner_actions'], 77:['princess_guardian','royal_spirit_authority','dv_exploration'], 87:['levi_reborn','sally_stays','liora_apart','seraphina_free'], 73:['roc_exiled','liora_ward'], 63:['chad_dark_arts'], 67:['chad_dark_deep'], 70:['chad_backlash_1'], 71:['chad_backlash_2'], 72:['chad_backlash_3'], 59:['roc_severed'], 60:['jade_poisoned'], 58:['royal_attire'], 52:['sally_gossip'], 42:['jade_awakened'], 44:['bracelet'], 51:['sally_noble'], 0:['greyson_gift'], 38:['cleansing_touch'], 41:['greyson_arms'], 30:['crossbow'] };   // greyson_arms: dagger+flail unseal at the major battle, chapter 41 (per the author)
 // Items handed over when a chapter completes. Greyson gives Jade a dagger and flail in the Prologue; she may not use them until the major battle (chapter TBD, flag greyson_arms).
 const CH_ITEMS = { 90:[{id:'childhood_charm',qty:1}], 87:[{id:'divorce_scroll',qty:1},{id:'skyward_staff',qty:1},{id:'healers_robes',qty:1}], 58:[{id:'royal_attire',qty:1},{id:'phoenix_guard',qty:1}], 44:[{id:'sealed_box',qty:1}], 0:[{id:'greyson_dagger',qty:1},{id:'greyson_flail',qty:1}] };   // (the communication bracelet comes from the Greyson mission m_bracelet, see world.js)
 
@@ -45,6 +45,9 @@ const CH_DISABLE = { 42:['sky'] };   // Sky is critically cursed in ch42; no rec
 // PROVISIONAL chapter numbers (75+ not yet planned): Levi returns "reborn" before the party goes home; Sally stays in Dragonvale when the party returns to Tribute.
 const CH_EQUIP = { 87:{sky:['skyward_staff','healers_robes']} };   // gear equipped automatically when the chapter completes
 const CH_RETURN = { 87:['levi'] };   // ch87 (author): Levi's rejoin / return to Tribute
+const FIXED_PARTY_CH = 102;   // from the departure beyond Tribute the party is fixed: Jade, Devon, Seraphina, Levi, Sky all fight (no slots); the Ghost Healer is a hidden passive companion
+const FIXED_FIVE = ['jade','devon','seraphina','levi','sky'];
+const fixedParty = () => !!G && G.ch >= FIXED_PARTY_CH;
 const CH_STAY = { 87:['sally'] };   // leaves the party but stays reachable as a Dragonvale rumour source
 const CH_ENABLE = { 61:['sky'] };   // Sky is healed after chapter 61 and returns to active duty
 const CH_LEAVE = { 50:['levi'], 73:['chad'], 87:['ripley'] };   // ch87: Levi is back, so Ripley returns to being Jade's attendant (the travelling party is fixed at five: Jade, Devon, Seraphina, Levi, Sky)    // Levi leaves the party in ch50 (mutual end of the engagement)
@@ -56,6 +59,7 @@ function applyStoryStates(n){
   (CH_DISABLE[n]||[]).forEach(id => { if(G.party.includes(id)) G.disabled[id] = true; });
   (CH_ENABLE[n]||[]).forEach(id => { delete G.disabled[id]; });
   (CH_RETURN[n]||[]).forEach(id => { delete G.left[id]; if(!G.party.includes(id)) G.party.push(id); });
+  if(n===FIXED_PARTY_CH){ FIXED_FIVE.forEach(id => { if(!(G.left && G.left[id]) && !G.party.includes(id)) G.party.push(id); }); G.active = FIXED_FIVE.filter(id => G.party.includes(id)); }
   syncAway();
   (CH_LEAVE[n]||[]).forEach(id => { G.party = G.party.filter(x => x!==id); G.active = G.active.filter(x => x!==id); G.left[id] = true; });
 }
@@ -106,6 +110,8 @@ function respec(id){ if(!U(id).nodes.length || G.gold < respecCost(id)) return f
 const STORY_PASSIVES = [
   {id:'jade', flag:'princess_guardian', mult:{hp:1.06, def:1.06}},
   {id:'devon', flag:'royal_spirit_authority', mult:{mag:1.08, mp:1.05}},
+  {id:'jade', flag:'jade_dragon_harmony', mult:{def:1.05, mag:1.04}},
+  {id:'devon', flag:'jade_dragon_harmony', mult:{def:1.05, atk:1.04}},
 ];
 function passivesOf(id){
   const out = {mult:{}, critB:0, evaB:0};
@@ -123,7 +129,7 @@ function reqText(r){
   if(!r) return '';
   if(r.lvl) return 'Level '+r.lvl;
   if(r.bond) return 'Bond '+r.bond+' with Jade';   // (Jade: average companion bond)
-  if(r.flag) return r.flag==='jade_awakened' ? 'Story: Jade\'s partial awakening (chapter 42)' : r.flag==='roc_reborn' ? 'Story: purify Roc (the Fallen Prince\'s Trial)' : r.flag==='dv_purify' ? 'Story: the border unrest (chapter 75)' : r.flag==='partner_actions' ? 'Story: the border unrest (chapter 75)' : r.flag==='twin_dragon' ? 'Story: the heart of the ruins (chapter 77)' : r.flag==='levi_reborn' ? 'Story: Levi returns reborn (chapter 87)' : r.flag==='chad_dark_arts' ? 'Story: Roc begins to learn the dark arts (chapter 63)' : r.flag==='chad_dark_deep' ? 'Story: Roc\'s dark arts deepen (chapter 67)' : r.flag==='sally_noble' ? 'Story: Sally\'s noble title (chapter 51)' : r.flag==='cleansing_touch' ? 'Story: Jade\'s restoring power (chapter 38)' : r.flag==='greyson_arms' ? 'Not usable until the major battle (chapter TBD)' : 'Story: '+r.flag;
+  if(r.flag) return r.flag==='jade_awakened' ? 'Story: Jade\'s partial awakening (chapter 42)' : r.flag==='roc_reborn' ? 'Story: purify Roc (the Fallen Prince\'s Trial)' : r.flag==='dv_purify' ? 'Story: the border unrest (chapter 75)' : r.flag==='partner_actions' ? 'Story: the border unrest (chapter 75)' : r.flag==='jade_dragon_harmony' ? 'Story: Jade and Devon become husband and wife in truth (chapter 103)' : r.flag==='levi_reborn' ? 'Story: Levi returns reborn (chapter 87)' : r.flag==='chad_dark_arts' ? 'Story: Roc begins to learn the dark arts (chapter 63)' : r.flag==='chad_dark_deep' ? 'Story: Roc\'s dark arts deepen (chapter 67)' : r.flag==='sally_noble' ? 'Story: Sally\'s noble title (chapter 51)' : r.flag==='cleansing_touch' ? 'Story: Jade\'s restoring power (chapter 38)' : r.flag==='greyson_arms' ? 'Not usable until the major battle (chapter TBD)' : 'Story: '+r.flag;
   return '';
 }
 function reqMet(id, r){
@@ -201,6 +207,6 @@ function evolve(id, eid){
 const ACTIVE_SLOTS = 4;
 const activeCount = () => G.active.filter(id => !isDisabled(id)).length;   // a disabled hero does not take a fighting slot
 const isCompanion = id => !!(CHARACTERS[id] && CHARACTERS[id].companion);   // companions travel and fight with the party without using one of the active slots
-function recruit(id){ if(G.left && G.left[id]) return false; if(!G.party.includes(id)){ G.party.push(id); if(!isCompanion(id) && activeCount()<ACTIVE_SLOTS) G.active.push(id); return true; } return false; }
-function toggleActive(id){ if(id==='jade' || isCompanion(id) || (isAway(id) && !G.active.includes(id))) return; const i=G.active.indexOf(id); if(i>=0) G.active.splice(i,1); else if(activeCount()<ACTIVE_SLOTS) G.active.push(id); save(); }
+function recruit(id){ if(G.left && G.left[id]) return false; if(!G.party.includes(id)){ G.party.push(id); if(!isCompanion(id) && (fixedParty() || activeCount()<ACTIVE_SLOTS)) G.active.push(id); return true; } return false; }
+function toggleActive(id){ if(fixedParty() || id==='jade' || isCompanion(id) || (isAway(id) && !G.active.includes(id))) return; const i=G.active.indexOf(id); if(i>=0) G.active.splice(i,1); else if(activeCount()<ACTIVE_SLOTS) G.active.push(id); save(); }
 function recruitsAtChapter(ch){ return Object.keys(JOIN_CH).filter(id => JOIN_CH[id] === ch); }

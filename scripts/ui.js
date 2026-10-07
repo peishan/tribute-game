@@ -32,11 +32,12 @@ function stub(title, sub, items){
 
 /* ---------------- PARTY ---------------- */
 function rParty(){
-  const slots = [0,1,2,3].map(i => { const id=G.active[i]; return id?`<div class="slot on ${isDisabled(id)?'dis':''}" onclick="sel='${id}';render()"><img src="${portrait(id)}"><b>${CHARACTERS[id].n.split(' ')[0]}</b>${isDisabled(id)?'<span class="sm">⛔ cannot fight</span>':''}</div>`:`<div class="slot"><b>empty</b></div>`; }).join('');
-  const roster = ROSTER.map(id => {
+  const nSlots = fixedParty() ? 5 : 4;
+  const slots = Array.from({length:nSlots}, (_,i) => i).map(i => { const id=G.active.filter(x => !isCompanion(x))[i]; return id?`<div class="slot on ${isDisabled(id)?'dis':''}" onclick="sel='${id}';render()"><img src="${portrait(id)}"><b>${CHARACTERS[id].n.split(' ')[0]}</b>${isDisabled(id)?'<span class="sm">⛔ cannot fight</span>':''}</div>`:`<div class="slot"><b>empty</b></div>`; }).join('');
+  const roster = ROSTER.filter(id => !isCompanion(id)).map(id => {
     const c=CHARACTERS[id], rec=isRecruited(id), join=JOIN_CH[id];
     return `<div class="rc ${sel===id?'sel':''} ${rec||profileKnown(id)?'':'lock'}" onclick="sel='${id}';render()"><img src="${portrait(id)}"><div><b>${profileKnown(id)||id==='seraphina'?c.n:'???'}</b><div class="sm">${rec?clsOf(id)+' · Lv'+U(id).lv+(G.guests[id]?' · guest':''):(profileKnown(id)?clsOf(id)+' · ':'')+(join!==undefined?'Joins Ch.'+join:'Unrecruited')}</div></div></div>`; }).join('');
-  return `<h2>Party</h2><div class="sm">Active (${activeCount()}/${ACTIVE_SLOTS}) — fights use these four</div><div class="slots">${slots}</div><div class="rcs">${roster}</div>${rSheet(sel)}`;
+  return `<h2>Party</h2><div class="sm">${fixedParty()?'The travelling party: all five fight together.':`Active (${activeCount()}/${ACTIVE_SLOTS}) — fights use these four`}</div><div class="slots">${slots}</div><div class="rcs">${roster}</div>${rSheet(sel)}`;
 }
 function rSheet(id){
   const c=CHARACTERS[id], rec=isRecruited(id);
@@ -186,7 +187,7 @@ const _pa = playerAct; playerAct = function(k,s,t){ _pa(k,s,t); render(); };
 /* ---------------- ITEMS / BESTIARY ---------------- */
 function rInventory(){
   const ids = Object.keys(G.inv).filter(k=>G.inv[k]>0);
-  const heroes = G.party.filter(id => !CHARACTERS[id].placeholder);
+  const heroes = G.party.filter(id => !CHARACTERS[id].placeholder && !CHARACTERS[id].companion);
   if(!heroes.includes(itemHero)) itemHero = heroes[0];
   const rows = ids.length ? ids.map(k=>{const i=ITEMS[k]||{n:k,icon:'❔',type:'?',rarity:''}, us = USE[k];
     return `<div class="card" style="cursor:default"><span class="big">${i.icon}</span><div class="fl"><b>${i.n}</b><div class="sm">${i.type}${i.slot?' · '+i.slot:''} · ${i.rarity}${us?' · '+useText(us):''}</div></div>${us?`<button onclick="act(()=>{useConsumable(itemHero,'${k}')?toast('Used on '+CHARACTERS[itemHero].n.split(' ')[0]):0;return []})">Use</button>`:''}<b>×${G.inv[k]}</b></div>`;}).join('') : '<div class="sm">Empty. Win battles to roll loot.</div>';

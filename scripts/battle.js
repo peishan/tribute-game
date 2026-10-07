@@ -68,6 +68,7 @@ function advance(){
     if(u.st.burn){ const d = Math.max(1, Math.round(u.mhp*.06)); hurt(u,d,true); blog(u.name+' burns for '+d+'.','bad'); if(u.dead){ continue; } }
     if(u.st.regen){ const h = Math.round(u.mhp*u.st.regen.v); u.hp = Math.min(u.mhp, u.hp+h); blog(u.name+' regenerates '+h+'.','good'); }
     if(u.st.bind || u.st.charm){ blog(u.name+(u.st.bind?' is bound and cannot move.':' is charmed and loses the turn.')); endTurn(u); continue; }
+    if(u.ally && isCompanion(u.id)){ companionAct(u); endTurn(u); continue; }   // companions act by themselves
     if(u.ally){ B.ui = {mode:'menu'}; return; }   // wait for the player
     foeAct(u); endTurn(u);
   }
@@ -161,6 +162,24 @@ function playerAct(kind, sid, tuid){
   resolve(u, s, t);
   endTurn(u);
   advance();
+}
+/* A companion (the Ghost Healer) acts passively: revive > heal the weakest > cleanse/shield now and then > a light attack. Uncontrollable. */
+function companionAct(u){
+  const skills = skillList(u).filter(s => s.usable), allies = alive(B.allies), foes = alive(B.foes);
+  const spend = s => { u.mp -= (s.cost!==undefined ? s.cost : s.mp); if(s.once) u.used[s.id] = true; };
+  const down = B.allies.find(a => a.dead && a.id!==u.id), rev = skills.find(s => s.tgt==='allyDown');
+  if(down && rev){ spend(rev); return resolve(u, rev, down); }
+  const weak = allies.slice().sort((a,b) => a.hp/a.mhp - b.hp/b.mhp)[0];
+  const sick = allies.some(a => a.st.burn || a.st.slow || a.st.bind || a.st.silence || a.st.charm);
+  const avgLow = allies.reduce((x,a) => x + a.hp/a.mhp, 0)/allies.length < .75;
+  const one = skills.filter(s => s.kind==='heal' && s.tgt==='ally' && !(s.fx||[]).some(f => f.k==='revive')).sort((a,b) => (b.pow||0)-(a.pow||0))[0];
+  const group = skills.find(s => s.kind==='heal' && s.tgt==='allies');
+  if(weak && weak.hp/weak.mhp < .55 && one){ spend(one); return resolve(u, one, weak); }
+  if((sick || avgLow) && group){ spend(group); return resolve(u, group, null); }
+  const veil = skills.find(s => s.id==='veil_of_dawn');
+  if(veil && B.round%3===1){ spend(veil); return resolve(u, veil, null); }
+  if(weak && weak.hp/weak.mhp < .85 && one){ spend(one); return resolve(u, one, weak); }
+  if(foes.length){ const t = foes.slice().sort((a,b) => a.hp-b.hp)[0]; return resolve(u, {id:'attack', n:'Quiet Strike', kind:'phys', tgt:'foe', pow:1, mp:0}, t); }
 }
 function resolve(u, s, t){
   const hit = s.kind==='phys' || s.kind==='magic';
