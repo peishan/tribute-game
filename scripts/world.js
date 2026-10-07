@@ -262,7 +262,7 @@ const LOCATIONS = {
       {id:'mourning_marsh', kind:'hunt', n:'Mourning Marsh (Where Spirits Linger)', icon:'🕯️', ch:104, desc:'Spirits linger in the mist.', pool:['shade_wraith','relic_spirit','bog_toad'], lo:23},
       {id:'ashen_ravine', kind:'hunt', n:'Ashen Ravine (Scars of the War)', icon:'🔥', ch:104, desc:'A burned gorge from an old war.', pool:['imp','shade_beast','stone_sentinel'], lo:24}]},
   forgotten_battlefield:{ n:'The Forgotten Battlefield', region:'valen', kind:'hub', icon:'🏛️', unlock:{ch:122},
-    desc:'An ancient battlefield far older than Xima\'s war: no bodies, no broken weapons, only silent statues of warriors, mages and creatures standing together against a greater enemy. The demons will not come near it.',
+    desc:'The first zone of the Celestial Ruins region: an ancient battlefield far older than Xima\'s war: no bodies, no broken weapons, only silent statues of warriors, mages and creatures standing together against a greater enemy. The demons will not come near it.',
     spots:[
       {id:'battlefield_camp', kind:'tavern', n:'Camp Among the Statues', icon:'⛺', ch:123, desc:'A sheltered corner between the statues. Rest, a shared meal and the party\'s talk.'},
       {id:'battlefield_survey', kind:'investigate', n:'The Silent Battlefield', icon:'🗿', ch:123, need:3, ambush:['stone_sentinel','relic_spirit'], lo:27,
