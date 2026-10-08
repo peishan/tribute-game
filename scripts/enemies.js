@@ -62,6 +62,9 @@ const ENEMIES = {
   boss_shadow_roc:{n:'The Shadow of Roc',icon:'🌑',area:'dragon',boss:true,hp:800,atk:20,mag:18,def:11,spd:12,xp:420,gold:300,traits:['corrupt','magic'],
     phases:[{at:.6,msg:'The Shadow lifts a broken crown and darkness spreads across the field',moves:[{n:'Royal Ruin',pow:1.6},{n:'Shadow Crown',pow:1.2,spell:true,all:true,fx:[{k:'burn',d:2}]},{n:'Curse of Ambition',pow:1.0,spell:true,fx:[{k:'silence',d:2}]}]},{at:.3,msg:'The Shadow howls: ambition without a master',atk:1.3}],
     moves:[{n:'Royal Ruin',pow:1.6},{n:'Jealous Blade',pow:1.3,fx:[{k:'slow',d:2}]},{n:'Curse of Ambition',pow:1.0,spell:true,fx:[{k:'silence',d:2}]},{n:'Shadow Crown',pow:1.2,spell:true,fx:[{k:'burn',d:2}]}],desc:'A dark knight in a broken version of Roc\'s royal armour, made of his regrets.'},
+  boss_thorned_widow:{n:'The Thorned Widow',icon:'🥀',area:'dragon',boss:true,hp:2300,atk:28,mag:27,def:15,spd:12,xp:1000,gold:760,traits:['corrupt','magic'],
+    phases:[{at:.6,msg:'The thorns close in from every side: the Widow keeps regenerating',moves:[{n:'Thorn Storm',pow:1.4,spell:true,all:true,fx:[{k:'burn',d:2}]},{n:'Binding Roots',pow:1.1,fx:[{k:'bind',d:1}]},{n:'Blood and Roots',pow:1.6}]},{at:.3,msg:'"Still here... still mine... the forest never dies"',atk:1.25}],
+    moves:[{n:'Grasping Thorns',pow:1.4},{n:'Binding Roots',pow:1.1,fx:[{k:'bind',d:1}]},{n:'Widow Grief',pow:1.1,spell:true,fx:[{k:'silence',d:2}]},{n:'Blood and Roots',pow:1.5}],desc:'A twisted remnant of a once-benign forest spirit, draped in thorns, grief and corruption.'},
   boss_varyn:{n:'Varyn Noctis',icon:'🦅',area:'dragon',boss:true,hp:1900,atk:27,mag:28,def:14,spd:14,xp:900,gold:700,traits:['magic'],
     phases:[{at:.6,msg:'Varyn: "You still think you can stop what must be opened?" The seal rings like a bell',moves:[{n:'Unbinding Sigil',pow:1.5,spell:true,all:true},{n:'Raven Veil',pow:1.2,spell:true,fx:[{k:'silence',d:2}]},{n:'Noctis Edge',pow:1.5}]},{at:.3,msg:'The seal destabilises faster than expected',atk:1.25}],
     moves:[{n:'Noctis Edge',pow:1.5},{n:'Raven Veil',pow:1.2,spell:true,fx:[{k:'slow',d:2}]},{n:'Unbinding Sigil',pow:1.2,spell:true},{n:'Unsealed Memory',pow:1.0,spell:true,fx:[{k:'bind',d:1}]}],desc:'The Seal Breaker. He does not want to kill: it is a battle of conviction.'},
@@ -145,6 +148,7 @@ const ITEMS = {
    guaranteed: always drop.  rolls: independent chance rolls.  firstClear: only on the first win.
    qty: [min,max]. Bosses use these; normal enemies use their own `drops`. */
 const LOOT = {
+  boss_thorned_widow:{guaranteed:[{id:'dark_essence',qty:[2,3]},{id:'relic_dust',qty:[1,2]}],rolls:[{id:'royal_sigil',chance:.4}],firstClear:[{id:'dragon_crystal',qty:[1,1]}]},
   boss_varyn:{guaranteed:[{id:'relic_dust',qty:[2,3]},{id:'dragon_crystal',qty:[1,1]}],rolls:[{id:'royal_sigil',chance:.4}],firstClear:[{id:'royal_sigil',qty:[1,1]}]},
   boss_shadow_roc:{guaranteed:[{id:'dark_essence',qty:[2,3]},{id:'dragon_crystal',qty:[1,1]}],rolls:[{id:'royal_sigil',chance:.35},{id:'shadow_steel',chance:.1}],firstClear:[{id:'royal_sigil',qty:[1,1]}]},
   boss_shadow_roc_p2:{guaranteed:[{id:'dark_essence',qty:[2,2]}],rolls:[{id:'dragon_crystal',chance:.4}],firstClear:[{id:'dragon_crystal',qty:[1,1]}]},

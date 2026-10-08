@@ -38,6 +38,9 @@ const REPORTS = [
   {ch:147, loc:'Royal Council', threat:'Fifteen major entities have been identified across the continent. Jade is entrusted with the investigation.', status:'The Fifteen Register is open.'},
   {ch:148, loc:'Northern Forest', threat:'Villages near the northern forest attacked overnight; people vanishing; a forest gone silent. Sally believes it is the first Evil.', status:'Jade\'s party is travelling north.'},
   {ch:149, loc:'The Black Forest', threat:'A Spirit Ranger, Rin Kaede, is already tracking the First Evil. It leaves both a corrupted and a spiritual trail.', status:'Hunt under way.'},
+  {ch:152, loc:'The Forest of Thorns', threat:'The Thorned Widow has fallen and the corruption is fading. The shrine names it a guardian spirit. Register: 1/15 Resolved.', status:'Resolved.'},
+  {ch:153, loc:'Mourning Valley', threat:'A spectral stag attacks anyone who enters the valley. The villagers want it killed. Spirit readings say it is not simple corruption.', status:'Investigating.'},
+  {ch:155, loc:'Mourning Valley', threat:'Looters and corrupt officials\' soldiers have repeatedly desecrated a burial ground beneath the valley. The hart guards it.', status:'Under protection.'},
   {ch:99, loc:'Tribute Roads', threat:'Bandits are returning to the coast road now the armies are home.', status:'Contracts posted.'},
 ];
 /* ---- Requests (optional; use the contract system, with trust rewards) ---- */
