@@ -64,5 +64,6 @@ function chatParty(){
   const a = pickBanter('rest') || pickBanter('any'), b = pickBanter('any');
   const out = ['🗣️ You sit and listen to the party.'].concat(a||['The party is quiet. Even that is a kind of company.']);
   if(b && b!==a) out.push.apply(out, b);
+  if(typeof overheardLines==='function'){ overheardLines(.55).forEach(l => out.push(l)); momentLines(.5).forEach(l => out.push(l)); }
   return out.concat(advanceDay(0));
 }
