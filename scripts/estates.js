@@ -88,3 +88,36 @@ RANKS.forEach((k, i) => { if(i) deed('rank'+i, 'world', 'Rank: '+k.n, '🔥', 'Y
 deed('est1', 'home', 'Something built', '🏗️', 'A wing was built at one of your homes.', () => Object.keys(ESTATES).some(id => WING_IDS.some(w => estLv(id, w) >= 1)));
 deed('est5', 'home', 'A fine house', '🏗️', 'A wing reached its highest level.', () => Object.keys(ESTATES).some(id => WING_IDS.some(w => estLv(id, w) >= WING_MAX)));
 deed('estall', 'home', 'A house complete', '🏗️', 'Every wing of one home reached its highest level.', () => Object.keys(ESTATES).some(id => WING_IDS.every(w => estLv(id, w) >= WING_MAX)));
+/* ---------------- GUESTS OF THE HOUSE (names pooled from a list) ----------------
+   A traveller now and then stays a while at each home. Names and trades are drawn from the two lists below (replace them with your own).
+   Fixed and narrative, like Crimson Tide's temporary residents: nothing to invest in, no trust meter, no cost. They stay HOUSE_STAY days, then leave
+   a small thank-you (a few herbs, or a little gold). At most one guest per home at a time. State: G.hguests = {homeId:{n,job,left}}, G.hgNext = {homeId:day}, G.hgUsed = [names]. */
+const HOUSE_NAMES = ['Aldis','Brenna','Corwin','Dessa','Edrin','Fenna','Garrick','Hollis','Iveta','Jorun','Kestrel','Lysa','Marek','Nessa','Orrin','Pell','Quill','Rowan','Sorrel','Tamsin','Ulric','Vesper','Wren','Yarrow','Zeke','Alma','Bram','Cora','Dunstan','Elsbeth'];
+const HOUSE_JOBS = [['a travelling scholar','scholar'],['a herbalist between villages','herbs'],['a minstrel with a mended lute','minstrel'],['a carter waiting out the weather','carter'],['a stonemason on the road to a commission','mason'],['a mapmaker with ink-stained hands','mapmaker'],['a retired guard visiting family','guard'],['a young apprentice sent ahead by their master','apprentice']];
+const HOUSE_STAY = 10, HOUSE_GAP = [6, 12];
+const hguests = () => { if(!G.hguests) G.hguests = {}; return G.hguests; };
+function houseGuestSync(){
+  if(!G || typeof G.day !== 'number') return;
+  if(!G.hgNext) G.hgNext = {}; if(!G.hgUsed) G.hgUsed = [];
+  Object.keys(ESTATES).forEach(id => {
+    if(!estateOpen(id)) return;
+    const g = hguests()[id];
+    if(g && G.day >= g.left){   // leaves with a thank-you
+      const herb = g.job[1]==='herbs' || g.job[1]==='apprentice', msgs = [];
+      if(herb){ addItems([{id:'forest_herb', qty:3}]); } else { G.gold += 40; }
+      chronicle(g.n+', '+g.job[0]+', has moved on from '+ESTATES[id].n+', leaving '+(herb?'a bundle of herbs':'a little gold')+' for the house.', '🏡'); toast('🏡 '+g.n+' has moved on');
+      delete hguests()[id]; G.hgNext[id] = G.day + HOUSE_GAP[0] + Math.floor(Math.random()*(HOUSE_GAP[1]-HOUSE_GAP[0]+1)); save();
+    } else if(!g){
+      if(G.hgNext[id] === undefined){ G.hgNext[id] = G.day + 2; return; }
+      if(G.day >= G.hgNext[id]){
+        const free = HOUSE_NAMES.filter(n => !G.hgUsed.includes(n)), pool = free.length ? free : HOUSE_NAMES, n = pool[Math.floor(Math.random()*pool.length)], job = HOUSE_JOBS[Math.floor(Math.random()*HOUSE_JOBS.length)];
+        G.hgUsed.push(n); if(G.hgUsed.length > HOUSE_NAMES.length-3) G.hgUsed.shift();
+        hguests()[id] = {n, job, left:G.day + HOUSE_STAY}; chronicle(n+', '+job[0]+', is staying at '+ESTATES[id].n+'.', '🏡'); save();
+      }
+    }
+  });
+}
+function rHouseGuests(){
+  const id = baseHere(), g = id && hguests()[id]; if(!id || !estateOpen(id)) return '';
+  return `<h4>🛖 Guests</h4>` + (g ? `<div class="sm">${g.n}, ${g.job[0]}, is staying here and will move on around day ${g.left}. Nothing is asked of them, and nothing is asked of you.</div>` : '<div class="sm">No guest at the moment. Travellers stop by now and then.</div>');
+}

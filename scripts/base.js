@@ -52,7 +52,7 @@ function rBase(){
   const mem = homeMemoriesFor(baseHere());
   return `<div class="panel"><div class="sm">Your home. Resting here is free. Day ${G.day}.</div>${mem.length?`<div class="sm" style="margin:6px 0"><b>Memories of this home</b> (${mem.length}/${HOME_MEMORIES.filter(m => m.home===baseHere()).length})${mem.map(m => '<div>🏡 '+m.t+'</div>').join('')}</div>`:''}
     <button class="pri" onclick="act(baseRest)">🛏️ Rest (free, full recovery, 1 day)</button><button onclick="act(baseMeal)">🍲 Home-cooked meal (free, bond)</button><button onclick="act(chatParty)">🗣️ Listen to the party</button></div>
-    ${typeof rEstates==='function'?rEstates():''}
+    ${typeof rEstates==='function'?rEstates():''}${typeof rHouseGuests==='function'?rHouseGuests():''}
     <h4>📦 Stash</h4><div class="sm">Keep items safe here. Quest items cannot be stashed.</div>
     <div class="sm" style="margin-top:6px"><b>In the stash</b></div>${kept.map(k => row(k, s[k], 'stashTake')).join('') || '<div class="sm">Empty.</div>'}
     <div class="sm" style="margin-top:6px"><b>In your pack</b></div>${mine.map(k => row(k, G.inv[k], 'stashPut')).join('') || '<div class="sm">Nothing to store.</div>'}`;
