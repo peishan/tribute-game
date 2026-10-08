@@ -32,7 +32,8 @@
 if("serviceWorker" in navigator) window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
 /* cache version shown at the bottom of the page (the service worker's cache name), so you can tell which build a phone is running */
 /* a missing character portrait (e.g. a new guest whose image is not uploaded yet) shows the character's emoji instead of a broken image */
-window.addEventListener("error", e => { const t = e.target; if(!t || t.tagName!=="IMG" || t.dataset.fb || !/assets\/party\/([a-z_]+)(_[a-z]+)?\.webp/.test(t.src)) return;
+window.addEventListener("error", e => { const t = e.target; if(t && t.tagName==="IMG" && /assets\/party\/[a-z_]+_battle\.webp/.test(t.src) && !t.dataset.bt){ t.dataset.bt = "1"; t.src = t.src.replace("_battle.webp", ".webp"); return; }
+  if(!t || t.tagName!=="IMG" || t.dataset.fb || !/assets\/party\/([a-z_]+)(_[a-z]+)?\.webp/.test(t.src)) return;
   const id = t.src.match(/assets\/party\/([a-z_]+?)(?:_noble|_reborn)?\.webp/)[1], c = (typeof CHARACTERS!=="undefined" && CHARACTERS[id]) || {icon:"?"};
   t.dataset.fb = 1; t.src = "data:image/svg+xml," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="#2a1418"/><text x="32" y="43" font-size="34" text-anchor="middle">'+c.icon+'</text></svg>'); }, true);
 function showCacheVersion(){
