@@ -72,7 +72,7 @@ function rBountyList(){
 /* ---------------- TRAVEL TAB ---------------- */
 let mapView = null;
 const ARC5_MAP_CH = 122;   // the Arc V world map opens when the arc begins (author: a map to explore all Arc V locations)
-const ARC5_LOCS = ['forgotten_battlefield','forgotten_sanctuary','celestial_ruins','land_beyond_seal'];
+const ARC5_LOCS = ['forgotten_battlefield','forgotten_sanctuary','celestial_ruins','land_beyond_seal','northern_frontier','black_forest'];   // the Arc V map also shows the Black Forest
 const WORLD_MAPS = [
   {id:'tribute', n:'Tribute', img:'assets/maps/tribute.webp', open:() => true},
   {id:'dragonvale', n:'Dragonvale', img:'assets/maps/dragonvale.webp', open:() => locOpen('dragon_vale')},
