@@ -27,6 +27,8 @@ const PASSAGE_REGIONS = [
   {id:'mourning', n:'Mourning Valley', vis:() => locOpen('mourning_valley'), rules:[
     [() => true, 'unclassified', 'A spectral guardian watches the valley. Those who disturb its ancient grounds risk its wrath.'],
     [() => G.ch >= 156, 'restricted', 'By royal decree, the valley\'s sacred grounds are protected. None may disturb the resting spirits. General access to the valley has not been decided.']]},
+  {id:'marches', n:'The Crownless Marches', vis:() => locOpen('crownless_marches'), rules:[
+    [() => true, 'unclassified', 'A lost kingdom, cut away from the world by the seals.']]},
   {id:'dima', n:'Dima\'s Sanctuary', vis:() => locOpen('dima_sanctuary'), rules:[]},
   {id:'xima', n:'Xima Realm', vis:() => locOpen('xima_realm'), rules:[]},
 ];

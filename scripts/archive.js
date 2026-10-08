@@ -25,6 +25,7 @@ const RECORDS = [
   {id:'faction', icon:'👁️', n:'The Third Faction', cat:'Powers', st:['symbol_traced','faction_identified','third_faction_known'].map(stageFlag)},
   {id:'valen', icon:'🛡️', n:'The Valen Legacy', cat:'Powers', st:['valen_restored','valen_prophecy_link','yvette_truth'].map(stageFlag)},
   {id:'hart', icon:'🦌', n:'The Burial Ground', cat:'The Fifteen', st:['hart_found','burial_ground_known','royal_link_known'].map(stageFlag)},
+  {id:'register', icon:'📕', n:'The Fifteen Register', cat:'The Fifteen', st:['register_rewritten','fourth_entry_missing','nameless_witness_met'].map(stageFlag)},
   {id:'fifteen', icon:'🕯️', n:'The Fifteen Evils', cat:'The Fifteen', st:[stageFlag('fifteen_named'), stageFn(() => evilsResolved() >= 1, 'The first Evil is resolved'), stageFn(() => evilsResolved() >= 8, 'More than half of the Fifteen are resolved')]},
 ];
 function recStage(r){ let s = -1; r.st.forEach((x, i) => { try{ if(x.ok()) s = i; }catch(e){} }); return s; }
@@ -45,6 +46,8 @@ const DOSSIERS = [   // card: [Network, Allegiance, Attitude, Reliability]; each
    entries:[['oath_changed','RECORD ALTERED'],['ardyn_inheritance','LINK NOTED'],['adviser_known','NAMED AS ABSENT']]},
   {id:'third', icon:'👁️', n:'The Third Faction', sub:'The sun-and-eye symbol', open:'symbol_traced', card:[['Unconfirmed', ['third_faction_known','Marked by a sun-and-eye symbol']], ['Unconfirmed'], ['Unconfirmed'], ['Unconfirmed']],
    entries:[['symbol_traced','TRACED'],['faction_identified','IDENTIFIED'],['third_faction_known','SYMBOL KNOWN'],['people_behind_found','PEOPLE BEHIND THE RECORDS']]},
+  {id:'witness', icon:'🕴️', n:'The Nameless Witness', sub:'Someone who saw the Fifteen before they were named', open:'nameless_witness_met', card:[['Unconfirmed'], ['Unconfirmed'], ['Unconfirmed'], ['Unconfirmed']],
+   entries:[['fourth_entry_missing','ENTRY IV REMOVED'],['nameless_witness_met','SPOKE TO THE PARTY']]},
   {id:'hale', icon:'📋', n:'Magistrate Hale', sub:'Provincial administration', open:'hale_met', card:[['Provincial administration'], ['Unconfirmed'], ['Unconfirmed', ['hale_met','An unwilling guardian of the truth']], ['Unconfirmed']],
    entries:[['hale_met','MET IN PERSON']]},
 ];

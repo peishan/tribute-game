@@ -9,20 +9,25 @@ const EVIL_STATUS = {unknown:'Unknown', active:'Active', investigating:'Investig
 const EVIL_RESOLVED = ['contained','purified','destroyed','reconciled','resolved'];   // all count as Resolved: resolving is not killing
 const EVIL_ARC_END = 166;   // The Fifteen Shadows: the arc's closing screen
 const EVILS = [
-  {id:'thorned_widow', n:'The Thorned Widow', loc:'forest_of_thorns', activeCh:148, resolveCh:152, how:'destroyed',
-   original:'A thorned abomination of Xima\'s curse (traditional record; wording first-pass)', revised:{spot:'widow_origin', t:'Corrupted guardian spirit: dangerously corrupted, originally benign'}, home:'The Black Forest', intel:[
+  {id:'thorned_widow', n:'The Thorned Widow', epithet:'The Corrupted Guardian', loc:'forest_of_thorns', activeCh:148, resolveCh:152, how:'destroyed',
+   original:'Ancient guardian spirit / rampaging corruption entity', revised:{spot:'widow_origin', t:'Corrupted guardian spirit: dangerously corrupted, originally benign'}, home:'The Black Forest', intel:[
      {label:'Threat to Civilians', value:'Critical', spot:'witness_accounts'},
      {label:'Corruption', value:'High', spot:'forest_physical'},
      {label:'Spiritual Origin', value:'Confirmed', spot:'forest_spirit'},
      {label:'Sentience', value:'Low', spot:'first_evil_search'},
      {label:'Origin', value:'A guardian spirit of the forest', spot:'widow_origin'}]},
-  {id:'mourning_hart', n:'The Mourning Hart', loc:'mourning_valley', activeCh:153, resolveCh:156, how:'reconciled', home:'Mourning Valley',
+  {id:'mourning_hart', n:'The Mourning Hart', epithet:'The Misidentified Protector', loc:'mourning_valley', activeCh:153, resolveCh:156, how:'reconciled', home:'Mourning Valley',
    original:'Hostile cursed beast', revised:{spot:'hart_motive', t:'Ancient territorial guardian: corruption uncertain'}, intel:[
      {label:'Corruption', value:'Low', spot:'hart_protective'},
      {label:'Guardian Behaviour', value:'Confirmed', spot:'hart_shrine'},
      {label:'Threat', value:'Territorial', spot:'treasure_seekers'},
      {label:'Sentience', value:'High', spot:'hart_motive'}]},
-  {id:'hollow_king', n:'The Hollow King', loc:'crownless_marches', resolveCh:161, how:'contained', home:'The Crownless Marches (not yet reached)', intel:[]},
+  {id:'hollow_king', n:'The Hollow King', epithet:'The Historical Victim', loc:'crownless_marches', activeCh:157, resolveCh:161, how:'contained', home:'The Crownless Marches',
+   original:'Hostile undead ruler / village destroyer', revised:{spot:'sealed_kingdom', t:'A historical victim who became dangerous: contained'}, intel:[
+     {label:'Corruption', value:'Memory and sorrow, not beast-like corruption', spot:'memory_energy'},
+     {label:'Sentience', value:'High: he speaks and remembers', spot:'hk_account'},
+     {label:'Origin', value:'A king of a kingdom the seals erased', spot:'sealed_kingdom'},
+     {label:'Threat to Civilians', value:'Real: he has killed in the present', spot:'present_crimes'}]},
   {id:'black_tide', n:'The Black Tide', intel:[]}, {id:'silent_flame', n:'The Silent Flame', intel:[]}, {id:'weeping_stone', n:'The Weeping Stone', intel:[]},
   {id:'sky_eater', n:'The Sky Eater', intel:[]}, {id:'bone_river', n:'The Bone River', intel:[]}, {id:'sunless_child', n:'The Sunless Child', intel:[]},
   {id:'drowned_crown', n:'The Drowned Crown', intel:[]}, {id:'ashen_serpent', n:'The Ashen Serpent', intel:[]}, {id:'mirror_queen', n:'The Mirror Queen', intel:[]},
@@ -81,7 +86,7 @@ function rCounsel(e){
 function rRegister(){
   const rows = EVILS.map((e,i) => { const st = evilState(e), intel = evilIntel(e);
     const cls = e.original && st!=='unknown' ? (evilRevised(e) ? `<div class="sm" style="opacity:.6;text-decoration:line-through">Original classification: ${e.original}</div><div class="sm"><b>Revised classification:</b> ${e.revised.t}</div>` : `<div class="sm">Classification: ${e.original}</div>`) : '';
-    return `<div class="ev"><div><b>${i+1}. ${e.hidden?'???':e.n}</b> <span class="sm">· ${EVIL_STATUS[st]}${e.home&&st!=='unknown'?' · '+e.home:''}</span>${cls}${rCounsel(e)}${intel.length?`<div class="sm">Classification: ${intel.map(x => x.label+': '+x.value).join(' · ')}${intel.length<e.intel.length?' · '+(e.intel.length-intel.length)+' more to learn':''}</div>`:''}</div></div>`; }).join('');
+    return `<div class="ev"><div><b>${i+1}. ${e.hidden?'???':e.n}</b>${e.epithet&&G.ch>=162&&st!=='unknown'?` <span class="sm" style="color:var(--gold)">· ${e.epithet}</span>`:''} <span class="sm">· ${EVIL_STATUS[st]}${e.home&&st!=='unknown'?' · '+e.home:''}</span>${cls}${rCounsel(e)}${intel.length?`<div class="sm">Classification: ${intel.map(x => x.label+': '+x.value).join(' · ')}${intel.length<e.intel.length?' · '+(e.intel.length-intel.length)+' more to learn':''}</div>`:''}</div></div>`; }).join('');
   const done = evilsResolved(), revised = EVILS.filter(evilRevised).length;
   return `<div class="panel"><b>THE FIFTEEN EVILS</b><div><b>Resolved: ${done} / 15</b> · Remaining: ${15-done} · Unknown classifications: ${G.ch>=EVIL_ARC_END?'?':15-revised}</div><div class="sm">Kept by ${evilKeeper()}. Not "killed": each Evil is destroyed, purified, contained, reconciled or otherwise resolved once Jade has learned what it is. Find them. Understand them. Then decide what must be done.</div>${G.ch>=EVIL_ARC_END?'<div class="sm" style="margin-top:4px"><i>Not every monster was born a monster. Not every victim remained innocent. And not every name history gave them was true.</i></div>':''}</div>${rows}`;
 }

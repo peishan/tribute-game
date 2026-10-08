@@ -62,6 +62,9 @@ const ENEMIES = {
   boss_shadow_roc:{n:'The Shadow of Roc',icon:'🌑',area:'dragon',boss:true,hp:800,atk:20,mag:18,def:11,spd:12,xp:420,gold:300,traits:['corrupt','magic'],
     phases:[{at:.6,msg:'The Shadow lifts a broken crown and darkness spreads across the field',moves:[{n:'Royal Ruin',pow:1.6},{n:'Shadow Crown',pow:1.2,spell:true,all:true,fx:[{k:'burn',d:2}]},{n:'Curse of Ambition',pow:1.0,spell:true,fx:[{k:'silence',d:2}]}]},{at:.3,msg:'The Shadow howls: ambition without a master',atk:1.3}],
     moves:[{n:'Royal Ruin',pow:1.6},{n:'Jealous Blade',pow:1.3,fx:[{k:'slow',d:2}]},{n:'Curse of Ambition',pow:1.0,spell:true,fx:[{k:'silence',d:2}]},{n:'Shadow Crown',pow:1.2,spell:true,fx:[{k:'burn',d:2}]}],desc:'A dark knight in a broken version of Roc\'s royal armour, made of his regrets.'},
+  boss_hollow_king:{n:'The Hollow King',icon:'👑',area:'dragon',boss:true,hp:3000,atk:30,mag:32,def:18,spd:14,xp:1400,gold:1000,traits:['magic'],
+    phases:[{at:.6,msg:'"I would rather this world burn than kneel again."',moves:[{n:'Roll of the Fallen',pow:1.3,spell:true,all:true},{n:'Crownless Command',pow:1.5},{n:'Ruin\'s Weight',pow:1.2,fx:[{k:'slow',d:2}]}]},{at:.3,msg:'"So this is my fate... Very well. Bind me, then."',atk:1.2}],
+    moves:[{n:'Names of the Dead',pow:1.2,spell:true},{n:'Crownless Command',pow:1.4},{n:'Ruin\'s Weight',pow:1.1,fx:[{k:'slow',d:2}]},{n:'A King\'s Wrath',pow:1.5}],desc:'A king long dead, clad in the remnants of ancient royalty: wronged by history, and still a wielder of present violence.'},
   boss_thorned_widow:{n:'The Thorned Widow',icon:'🥀',area:'dragon',boss:true,hp:2300,atk:28,mag:27,def:15,spd:12,xp:1000,gold:760,traits:['corrupt','magic'],
     phases:[{at:.6,msg:'The thorns close in from every side: the Widow keeps regenerating',moves:[{n:'Thorn Storm',pow:1.4,spell:true,all:true,fx:[{k:'burn',d:2}]},{n:'Binding Roots',pow:1.1,fx:[{k:'bind',d:1}]},{n:'Blood and Roots',pow:1.6}]},{at:.3,msg:'"Still here... still mine... the forest never dies"',atk:1.25}],
     moves:[{n:'Grasping Thorns',pow:1.4},{n:'Binding Roots',pow:1.1,fx:[{k:'bind',d:1}]},{n:'Widow Grief',pow:1.1,spell:true,fx:[{k:'silence',d:2}]},{n:'Blood and Roots',pow:1.5}],desc:'A twisted remnant of a once-benign forest spirit, draped in thorns, grief and corruption.'},
@@ -148,6 +151,7 @@ const ITEMS = {
    guaranteed: always drop.  rolls: independent chance rolls.  firstClear: only on the first win.
    qty: [min,max]. Bosses use these; normal enemies use their own `drops`. */
 const LOOT = {
+  boss_hollow_king:{guaranteed:[{id:'dark_essence',qty:[2,3]},{id:'relic_dust',qty:[1,2]}],rolls:[{id:'royal_sigil',chance:.4},{id:'forgotten_glass',chance:.3}],firstClear:[{id:'celestial_shard',qty:[1,1]}]},
   boss_thorned_widow:{guaranteed:[{id:'dark_essence',qty:[2,3]},{id:'relic_dust',qty:[1,2]}],rolls:[{id:'royal_sigil',chance:.4}],firstClear:[{id:'dragon_crystal',qty:[1,1]}]},
   boss_varyn:{guaranteed:[{id:'relic_dust',qty:[2,3]},{id:'dragon_crystal',qty:[1,1]}],rolls:[{id:'royal_sigil',chance:.4}],firstClear:[{id:'royal_sigil',qty:[1,1]}]},
   boss_shadow_roc:{guaranteed:[{id:'dark_essence',qty:[2,3]},{id:'dragon_crystal',qty:[1,1]}],rolls:[{id:'royal_sigil',chance:.35},{id:'shadow_steel',chance:.1}],firstClear:[{id:'royal_sigil',qty:[1,1]}]},
