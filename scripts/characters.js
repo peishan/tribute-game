@@ -204,6 +204,10 @@ const CHARACTERS = {
   evo:{ tiers:[
    {id:'altan_champion',n:'Altan Champion',tier:1,group:'route',req:{lvl:40},mult:{atk:1.25,hp:1.1,def:1.1},desc:'Honour and force.',skills:[{id:'champions_cut',n:'Champion\'s Cut',icon:'🏆',mp:12,kind:'phys',tgt:'foe',pow:2.9,fx:[{k:'buff',stat:'def',m:1.3,d:2,self:true}],desc:'A decisive blow that steels her guard.'}]},
    {id:'wind_rider',n:'Wind Rider',tier:1,group:'route',req:{lvl:40},mult:{atk:1.2,spd:1.2},desc:'Speed and mobility.',skills:[{id:'wind_charge',n:'Wind Charge',icon:'💨',mp:13,kind:'phys',tgt:'foes',pow:1.9,desc:'A cavalry charge through the whole line.'}]},
+   {id:'twilight_blade',n:'Twilight Blade',tier:1,group:'route',req:{lvl:40},mult:{atk:1.2,spd:1.15,def:1.05},desc:'Her hair turns snow white and her blade cuts through shadow: a duellist of dusk, in white and violet.',skills:[
+     {id:'dusk_cut',n:'Dusk Cut',icon:'🌗',mp:11,kind:'phys',tgt:'foe',pow:2.3,fx:[{k:'buff',stat:'def',m:.8,d:2}],desc:'A cut that finds the gap in a guard: heavy damage, and the target\'s defence drops.'},
+     {id:'veiled_step',n:'Veiled Step',icon:'🌫️',mp:8,kind:'support',tgt:'self',fx:[{k:'buff',stat:'eva',m:1.4,d:3},{k:'crit',d:2}],desc:'She slips into the shadows: evasion up, and her next strikes find the opening.'},
+     {id:'shadowcutter',n:'Shadowcutter',icon:'🌒',mp:15,kind:'phys',tgt:'foes',pow:1.8,fx:[{k:'buff',stat:'def',m:.9,d:2}],desc:'A sweeping cut through every shadow on the field: hits all enemies and wears down their defence.'}]},
   ]},
   bond:null }
 };
