@@ -10,13 +10,15 @@ Object.keys(COMIC_TITLES).forEach(i => TITLES[i] = COMIC_TITLES[i]);
 Object.keys(CHAPTER_DESIGN).forEach(i => TITLES[i] = CHAPTER_DESIGN[i].title);
 const ART = {0:['pr1','pr2','pr3'],1:['c1_intro','c1a','c1b'],2:['c2a','c2b'],3:['c3a','c3b','c3c'],4:['c4a','c4b']};
 for(let i=5;i<=17;i++) ART[i]=['c'+i];
-for(let i=18;i<=149;i++) ART[i]=['ch'+i];   // converted from the uploaded PNGs
+for(let i=18;i<=155;i++) ART[i]=['ch'+i];   // converted from the uploaded PNGs
 
 // Chapter battles (PLACEHOLDER encounters — replace with the real fights).
 const BATTLES = {
   // Only fights confirmed by canon chapter text so far (placeholder foes/stats). Ch2 has NO fight (the spar is only set up); ch3 duel is confirmed by its pages. Others are added as chapters are converted.
   3:[{key:'chad_trial'}],                                  // Three Blows: Jade vs Chad duel (canon pages: Chad wins twice)
   13:[{key:'inn_thug'},{key:'inn_thug'},{key:'inn_thug'}],
+  150:[{key:'shade_beast'},{key:'shade_beast'},{key:'shade_wraith'},{key:'shade_beast'}],   // the corrupted ambush
+  151:[{key:'boss_thorned_widow'}],   // the first round against the first Evil (Jade and Devon)
   138:[{key:'boss_varyn'}],   // the first choice: Varyn at the seal (Jade, Devon, Sky and Levi; nobody seeks to kill)
   41:[{key:'crimson_cultist'},{key:'veil_stalker'},{key:'offering_lantern'},{key:'boss_offering_warden'}],   // the major battle at the altar
   35:[{key:'xima_minion'},{key:'xima_minion'},{key:'xima_minion'}],           // scouting attack at the shrine
@@ -27,9 +29,9 @@ const BATTLES = {
   30:[{key:'booyeong_guard'},{key:'booyeong_guard'},{key:'booyeong_guard'}],  // the ambush; Jade uses the crossbow   // Uninvited Encounter: Chad fights off the inn's employees
 };
 const DUEL = { 3:true, 138:true };   // story duels: losing still completes the chapter (the story has Chad win)
-const SOLO = { 138:['jade','devon','sky','levi'], 116:['jade','devon'], 3:['jade'], 13:['chad'], 21:['jade'], 35:['jade','chad','sky','levi'], 41:['jade','chad','sky','levi'] };   // who fights (Sky is captive in ch5)
+const SOLO = { 151:['jade','devon'], 138:['jade','devon','sky','levi'], 116:['jade','devon'], 3:['jade'], 13:['chad'], 21:['jade'], 35:['jade','chad','sky','levi'], 41:['jade','chad','sky','levi'] };   // who fights (Sky is captive in ch5)
 const CHAPTERS = [];
-for(let i=0;i<=150;i++){
+for(let i=0;i<=156;i++){
   CHAPTERS.push({ n:i, title: TITLES[i] || ('Chapter '+i+' (?)'), art: ART[i]||[],
     sxp: 80 + i*40,                         // story XP (tune)
     lv: Math.max(1, Math.round(i*0.9)+1),    // enemy level for this chapter's battle
@@ -56,6 +58,7 @@ function completeChapter(n){
   if(n===50){ G.inv.sealed_box = 0; }
   if(n===89){ restoreParty(); msgs.push('🛏️ A week of rest in Tribute: HP and MP fully restored.'); }
   if(CH_ITEMS[n]){ addItems(CH_ITEMS[n]); CH_ITEMS[n].forEach(d => msgs.push('Received '+ITEMS[d.id].icon+' '+ITEMS[d.id].n)); }
+  if(typeof relApplyChapter==='function') relApplyChapter(n).forEach(m => msgs.push(m));
   Object.keys(CH_BOND[n]||{}).forEach(id => { if(isRecruited(id)){ U(id).bp = Math.max(0, U(id).bp + CH_BOND[n][id]); msgs.push(CH_BOND[n][id]<=-9999 ? '💔 Jade severs her bond with Roc Chadwick ('+CHARACTERS[id].n.split(' ')[0]+').' : '💞 Bond with Jade ('+CHARACTERS[id].n.split(' ')[0]+'): '+(CH_BOND[n][id]>0?'+':'')+CH_BOND[n][id]); } });
   Object.keys(CH_EQUIP[n]||{}).forEach(id => { if(isRecruited(id)) CH_EQUIP[n][id].forEach(k => { if(equipItem(id,k)) msgs.push('🛡️ '+CHARACTERS[id].n.split(' ')[0]+' wears '+ITEMS[k].icon+' '+ITEMS[k].n); }); });
   (CH_FLAGS[n]||[]).forEach(f => { G.flags[f] = true; msgs.push('✦ Story event: '+(FLAG_LABEL[f]||f)+' unlocked'); });
@@ -70,7 +73,7 @@ function completeChapter(n){
    otherwise the fighters' average level (so the story stays a fair fight at any level). */
 function fighterIds(n){ return (SOLO[n] || G.active.concat(G.party.filter(id => typeof isCompanion==='function' && isCompanion(id)))).filter(id => G.party.includes(id)); }
 function fightersLv(n){ const ids = fighterIds(n); return ids.length ? Math.round(ids.reduce((a,id) => a + U(id).lv, 0)/ids.length) : 1; }
-const PARTY_SCALED = {116:true, 138:true};   // late chapters whose base level (from the chapter number) would overshoot: scale to the fighters instead
+const PARTY_SCALED = {116:true, 138:true, 151:true};   // late chapters whose base level (from the chapter number) would overshoot: scale to the fighters instead
 function storyBattleLv(n){ return PARTY_SCALED[n] ? fightersLv(n)+1 : Math.max(CHAPTERS[n].lv, fightersLv(n)); }
 function battleSpecFor(n){
   const c = CHAPTERS[n], lvv = storyBattleLv(n);

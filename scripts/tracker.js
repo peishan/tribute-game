@@ -22,6 +22,6 @@ function renderTracker(){
   const open = (G.bounties ? G.bounties.list : []).filter(b => !b.done), live = open.filter(b => b.c>0), idle = open.length - live.length;
   const bs = live.map(b => `<div class="trk"><b>${b.icon} ${b.name}</b><div class="sm">${b.c}/${b.need}</div></div>`).join('');
   el.innerHTML = `<div class="trkh"><b>Quest Log</b><button onclick="toggleTracker()">✕</button></div>
-    <h5>Missions</h5>${ms||'<div class="sm">None</div>'}<h5>Contracts ${G.quests.active.length}/${MAX_QUESTS}</h5>${qs||'<div class="sm">None. Take some from a Quest Board.</div>'}
+    ${typeof evilsOpen==='function' && evilsOpen() ? `<div class="trk"><b>🕯️ The Fifteen Evils</b><div class="sm">${evilsResolved()}/15 resolved</div></div>` : ''}<h5>Missions</h5>${ms||'<div class="sm">None</div>'}<h5>Contracts ${G.quests.active.length}/${MAX_QUESTS}</h5>${qs||'<div class="sm">None. Take some from a Quest Board.</div>'}
     <h5>Bounties</h5>${bs}${idle?`<div class="sm">${idle} more posted. Just hunt the targets.</div>`:(bs?'':'<div class="sm">None</div>')}<div class="sm" style="margin-top:6px">Boards refresh daily; bounties every 2 days.</div>`;
 }

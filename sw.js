@@ -1,8 +1,8 @@
 /* Tribute service worker: app shell is cached for offline play; images and other assets are cached as you play. */
-const VERSION = 'tribute-v28';
+const VERSION = 'tribute-v33';
 const SHELL = ['./', './index.html', './styles.css', './manifest.webmanifest',
   './scripts/chapters.js','./scripts/characters.js','./scripts/skilltree.js','./scripts/core.js','./scripts/enemies.js','./scripts/battle.js','./scripts/autobattle.js',
-  './scripts/journal.js','./scripts/world.js','./scripts/world-ui.js','./scripts/voyage.js','./scripts/family.js','./scripts/raid.js','./scripts/network.js','./scripts/evils.js','./scripts/apprentice.js','./scripts/banter.js','./scripts/corruption.js','./scripts/explore.js','./scripts/arcs.js','./scripts/base.js','./scripts/skirmish.js','./scripts/items.js','./scripts/gear.js','./scripts/rewards.js','./scripts/tracker.js',
+  './scripts/journal.js','./scripts/world.js','./scripts/world-ui.js','./scripts/maps.js','./scripts/voyage.js','./scripts/family.js','./scripts/raid.js','./scripts/network.js','./scripts/evils.js','./scripts/relations.js','./scripts/apprentice.js','./scripts/banter.js','./scripts/corruption.js','./scripts/explore.js','./scripts/arcs.js','./scripts/base.js','./scripts/skirmish.js','./scripts/items.js','./scripts/gear.js','./scripts/rewards.js','./scripts/tracker.js',
   './scripts/savedata.js','./scripts/storypopup.js','./scripts/ui.js','./assets/splash.webp','./assets/icons/icon-192.png'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(VERSION).then(c => c.addAll(SHELL)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== VERSION).map(k => caches.delete(k)))).then(() => self.clients.claim())); });

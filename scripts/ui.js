@@ -1,7 +1,7 @@
 /* =====================================================================
    TRIBUTE — UI (tabs, party sheets, journal, training, battle, stubs)
    ===================================================================== */
-const TABS = [['journal','📖 Journal'],['missions','✉️ Missions'],['travel','🛞 Travel'],['here','🧭 Here'],['party','👥 Party'],['cast','🎴 Cast'],['training','🎯 Training'],['skirmish','🎲 Skirmish'],
+const TABS = [['journal','📖 Journal'],['missions','✉️ Missions'],['travel','🛞 Travel'],['here','🧭 Here'],['party','👥 Party'],['cast','🎴 Cast'],['bonds','💞 Bonds'],['training','🎯 Training'],['skirmish','🎲 Skirmish'],
               ['rewards','🎁 Rewards'],['network','🏛️ Network'],['inventory','🎒 Items'],['bestiary','📕 Bestiary'],['equipment','🛡️ Gear'],['save','💾 Save'],['dev','🛠️ Dev']];
 let tab = 'journal', sel = 'jade', openCh = null, chMsgs = [], origin = 'journal', trSel = 0, trLv = 5;
 const STAT_SCALE = {hp:420,mp:200,atk:130,mag:130,def:100,spd:90};
@@ -20,7 +20,7 @@ function render(){
      TABS.filter(([k]) => (k!=='network' || (typeof netOpen==='function' && netOpen())) && (k!=='skirmish' || G.ch>=12)).map(([k,l]) => `<button class="${tab===k?'on':''}" onclick="showTab('${k}')">${l}${k==='missions'&&unreadCount()?' <b style="color:var(--r)">●</b>':''}${k==='rewards'&&rewardsReady()?' <b style="color:var(--r)">●</b>':''}</button>`).join('');
   const R = { journal:rJournal, party:rParty, training:rTraining, battle:rBattle, inventory:rInventory, bestiary:rBestiary,
               equipment:rGear,
-              missions:rMissions, rewards:rRewards, skirmish:rSkirmish, network:rNetwork, cast:rCast, travel:rTravel, here:rHere, save:rSave,
+              missions:rMissions, rewards:rRewards, skirmish:rSkirmish, network:rNetwork, bonds:rBonds, cast:rCast, travel:rTravel, here:rHere, save:rSave,
               dev:rDev }[tab] || rJournal;
   $('main').innerHTML = R();
   if(typeof corrSky==='function') corrSky();
