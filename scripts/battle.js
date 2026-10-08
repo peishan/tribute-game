@@ -303,6 +303,7 @@ function finishWin(){
   const bossKey = (foes.find(f=>f.boss)||{}).key;
   const first = spec.firstClear;
   if(bossKey) rollLoot(LOOT[bossKey], first).forEach(d => drops.push(d));
+  if(spec.rewards && typeof areaLoot==='function'){ if(bossKey) themedLoot(bossKey, first).forEach(d => drops.push(d)); else if(!spec.chapter) areaLoot().forEach(d => drops.push(d)); }
   B.rewards = { xp, gold, drops, msgs:[], real:!!spec.rewards };
   blog('Victory!','good');
   if(!spec.rewards) return;

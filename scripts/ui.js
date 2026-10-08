@@ -90,7 +90,7 @@ function rJournal(){
   const rows = CHAPTERS.map(c => {
     const done=chapterDone(c.n), avail=chapterAvailable(c.n);
     const joins = recruitsAtChapter(c.n).map(id=>CHARACTERS[id].n.split(' ')[0]);
-    return `<div class="card ${avail?'':'lock'} ${c.n===G.ch+1?'cur':''}" onclick="${avail?`openChapter(${c.n})`:''}"><div class="fl"><b>${c.n===0?'':c.n+'. '}${avail?c.title:'???'}</b><div class="sm">${done?'✔ Complete':avail?'Available':(c.n<=G.ch+1&&CH_LOC[c.n]?'📍 Travel to '+LOCATIONS[CH_LOC[c.n]].n:'Locked')}${CH_LOC[c.n]&&avail&&!done?' · 📍 '+LOCATIONS[CH_LOC[c.n]].n:''}${c.battle?' · ⚔️ battle':''}${joins.length?' · ★ '+joins.join(', ')+' joins':''}${c.art.length?'':' · art pending'}</div></div><span class="sm">XP ${c.sxp}</span></div>`; }).join('');
+    return `<div class="card ${avail?'':'lock'} ${c.n===G.ch+1?'cur':''}" onclick="${avail?`openChapter(${c.n})`:''}"><div class="fl"><b>${c.n===0?'':c.n+'. '}${avail||(c.n===G.ch+1&&chapterLevelLock(c.n))?c.title:'???'}</b><div class="sm">${done?'✔ Complete':avail?'Available':(c.n<=G.ch+1&&chapterLevelLock(c.n)?chapterLevelLock(c.n):c.n<=G.ch+1&&CH_LOC[c.n]?'📍 Travel to '+LOCATIONS[CH_LOC[c.n]].n:'Locked')}${!done&&chapterGate(c.n)&&c.n>G.ch?' · ⚖️ level gate '+chapterGate(c.n).lv:''}${CH_LOC[c.n]&&avail&&!done?' · 📍 '+LOCATIONS[CH_LOC[c.n]].n:''}${c.battle?' · ⚔️ battle':''}${joins.length?' · ★ '+joins.join(', ')+' joins':''}${c.art.length?'':' · art pending'}</div></div><span class="sm">XP ${c.sxp}</span></div>`; }).join('');
   return `${jtabs}<h2>Chapter Journal</h2><div class="sm">Chapters unlock in order. Each gives story XP; battle chapters also roll loot.</div>${rows}`;
 }
 function openChapter(n){ openCh=n; chMsgs=[]; render(); if(CHAPTERS[n].art.length && !G.read[n] && !chapterDone(n)) openStory(n); }
@@ -103,6 +103,7 @@ function nextChapterBtn(n){
   if(!hasNextChapter(n)) return '';
   const m = n+1;
   if(chapterAvailable(m)) return `<button class="pri" onclick="goNextChapter(${m})">Next chapter ▶ ${m}. ${CHAPTERS[m].title}</button>`;
+  if(chapterLevelLock(m)) return `<div class="panel"><b>🔒 Chapter ${m}: ${CHAPTERS[m].title}</b><div class="sm">${chapterLevelLock(m)}. ${chapterGate(m).label}</div></div>`;
   const at = CH_LOC[m] && LOCATIONS[CH_LOC[m]];
   return at ? `<div class="sm" style="margin:6px 0">Chapter ${m} begins at 📍 ${at.n}.</div><button class="pri" onclick="goTravelForChapter()">🛞 Travel to ${at.n}</button>` : '';
 }
@@ -231,7 +232,7 @@ function rCast(){
 }
 function rBestiary(){
   const keys=Object.keys(ENEMIES), found=keys.filter(k=>G.bestiary[k]).length;
-  return `<h2>Bestiary</h2><div class="sm">${found} / ${keys.length} discovered</div>`+keys.map(k=>{const e=ENEMIES[k],n=G.bestiary[k];
+  return `<h2>Bestiary</h2><div class="sm">${found} / ${keys.length} discovered</div>${typeof rLootGuide==='function'?rLootGuide():''}<h4>Creatures</h4>`+keys.map(k=>{const e=ENEMIES[k],n=G.bestiary[k];
     return n?`<div class="card"><span class="big">${e.icon}</span><div class="fl"><b>${e.n}</b><div class="sm">${e.area}${e.boss?' · boss':e.elite?' · elite':''} · HP ${e.hp} · defeated ${n}</div><div class="sm">${e.desc}</div></div></div>`
             :`<div class="card lock"><span class="big">❔</span><div class="fl"><b>???</b><div class="sm">Undiscovered</div></div></div>`;}).join('');
 }

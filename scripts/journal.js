@@ -37,7 +37,7 @@ for(let i=0;i<=156;i++){
     lv: Math.max(1, Math.round(i*0.9)+1),    // enemy level for this chapter's battle
     battle: BATTLES[i] || null });
 }
-const chapterAvailable = n => n <= G.ch + 1 && (!CH_LOC[n] || G.loc === CH_LOC[n] || n <= G.ch);
+const chapterAvailable = n => n <= G.ch + 1 && (!CH_LOC[n] || G.loc === CH_LOC[n] || n <= G.ch) && !(typeof chapterLevelLock==='function' && chapterLevelLock(n));
 const chapterDone = n => n <= G.ch;
 
 function avgPartyLv(){ return Math.round(G.party.reduce((a,id)=>a+U(id).lv,0)/G.party.length); }
