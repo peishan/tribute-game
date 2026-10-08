@@ -137,7 +137,8 @@ function doGesture(id, k){
   return g.day ? msgs.concat(advanceDay(g.day)) : msgs;
 }
 
-function rBonds(){
+function rBonds(){ return rBondsMain() + (typeof rGrowth==='function' ? rGrowth() : ''); }
+function rBondsMain(){
   const comp = G.party.filter(id => id!=='jade' && !CHARACTERS[id].placeholder && !CHARACTERS[id].companion).map(id => {
     const bl = bondLevel(id), bp = U(id).bp, nxt = BOND_LEVELS[bl+1], prev = BOND_LEVELS[bl];
     return `<div class="card" style="cursor:default"><img src="${portrait(id)}" alt="" style="width:44px;height:44px;border-radius:50%;object-fit:cover"><div class="fl"><b>${CHARACTERS[id].n}</b> <span class="sm">· Bond ${bl}</span>${nxt!==undefined?bar(bp-prev, nxt-prev)+`<div class="sm">${bp} / ${nxt} to Bond ${bl+1}</div>`:'<div class="sm">Bond complete</div>'}</div></div>`; }).join('');

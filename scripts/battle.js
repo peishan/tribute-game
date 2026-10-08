@@ -87,6 +87,7 @@ function advance(){
     // start of turn
     if(u.st.burn){ const d = Math.max(1, Math.round(u.mhp*.06)); hurt(u,d,true); blog(u.name+' burns for '+d+'.','bad'); if(u.dead){ continue; } }
     if(u.st.regen){ const h = Math.round(u.mhp*u.st.regen.v); u.hp = Math.min(u.mhp, u.hp+h); blog(u.name+' regenerates '+h+'.','good'); }
+    if(u.ally && typeof growthCheck==='function') growthCheck(u);
     if(u.st.bind || u.st.charm){ blog(u.name+(u.st.bind?' is bound and cannot move.':' is charmed and loses the turn.')); endTurn(u); continue; }
     if(u.ally && isCompanion(u.id)){ companionAct(u); endTurn(u); continue; }   // companions act by themselves
     if(u.ally){ B.ui = {mode:'menu'}; return; }   // wait for the player

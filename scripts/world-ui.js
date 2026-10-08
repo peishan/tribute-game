@@ -180,7 +180,7 @@ function rSpot(L, sp){
       body = `<div class="panel"><div class="sm">Clues ${n}/${sp.need}${done?' — investigation complete':''}</div>${found}${done?'':`<button class="pri" onclick="origin='here';investUi('${sp.id}')">Search for clues (1 day)</button>`}</div>`; break; }
     case 'boss': {
       const e = ENEMIES[sp.boss], beaten = G.flags['boss_'+sp.boss];
-      body = `<div class="panel"><b>${e.icon} ${e.n}</b> <span class="sm">${beaten?'· defeated (replayable)':''}</span><div class="sm">${e.desc}</div><button class="pri" onclick="origin='here';doBoss('${sp.id}');tab='battle';render()">${beaten?'Challenge again':'Challenge'}</button></div>`; break; }
+      body = `<div class="panel"><b>${e.icon} ${e.n}</b> <span class="sm">${beaten?'· defeated (replayable)':''}</span><div class="sm">${e.desc}</div><button class="pri" onclick="origin='here';doBoss('${sp.id}');tab='battle';render()">${beaten?'Challenge again':'Challenge'}</button>${echoOk(sp)?`<button onclick="origin='here';doEcho('${sp.id}');tab='battle';render()">🔁 Meet its echo (+${ECHO_LEVELS} levels${echoes()[sp.boss]?', ×'+echoes()[sp.boss]:''})</button>`:''}</div>`; break; }
   }
   return back+head+eb+body;
 }

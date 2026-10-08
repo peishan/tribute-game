@@ -175,3 +175,6 @@ What fits Tribute (ranked)
 4. Shrine vows: LOW-MEDIUM. A short board at spirit shrines (and later at the Field Camp) with a few vows: leave a guardian in peace, chart a spirit path, clear a path. Uses systems we already have.
 5. Hired help: LOW. Fixed five plus area guests already cover this.
 Not needed: the rest of core-engine is voyage, ship and market code with no Tribute counterpart.
+
+## Built from scan 9 (items 1-3)
+Moments of strength (scripts/growth.js): four once-per-battle passives, fired only in real fights and logged on first sight (Twin Resolve for Jade and Devon when they are the last two and their track is at tier 1; Light in the Dark for Sky when an ally has fallen; Opening Volley for Levi in round one with no one down; Held in Reserve for Seraphina when an ally falls below a third). Shown in the Bonds tab as discovered or "???". Echoes (scripts/echoes.js): a "Meet its echo" button on a cleared boss (+3 levels, normal drops plus gold and two area-material rolls); not offered for the Fifteen Evils, Varyn or sealed fights. Second accessory slot ("Charm") in Gear. Numbers, names and lines are first-pass.
