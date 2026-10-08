@@ -42,13 +42,13 @@ function drawStory(){
       ${c.battle?`<div class="panel"><b>⚔️ Battle ahead</b><div class="sm">${c.battle.map(f=>ENEMIES[f.key].icon+' '+ENEMIES[f.key].n).join(' · ')}</div></div>`:''}</div>`;
     bar = `<button onclick="S.i=0;drawStory()">↺ Read again</button>`+
       (c.battle ? `<button class="pri" onclick="storyBeginBattle()">${done?'Replay battle':'Begin battle'}</button>`
-                : done ? `<button class="pri" onclick="closeStory()">Close</button>`
+                : done ? `<button onclick="closeStory()">Close</button>${nextChapterBtn(S.n)}`
                        : `<button class="pri" onclick="storyComplete()">${S.n===0?'Jade joins the journey':'Complete chapter'} (+${c.sxp} XP)</button>`);
   } else {   // result
     body = `<div class="story-end"><h2>${S.n===0?'The journey begins':'Chapter complete'}</h2>
       <div class="panel good">${S.msgs.map(m=>`<div>${m}</div>`).join('')}</div>
       ${S.unlocks.length?`<div class="panel"><h4 style="margin-top:0">Unlocked</h4>${S.unlocks.map(u=>`<div class="li">✅ ${u}</div>`).join('')}</div>`:''}</div>`;
-    bar = `<button class="pri" onclick="closeStory()">Continue</button>`;
+    bar = `<button ${hasNextChapter(S.n)?'':'class="pri" '}onclick="closeStory()">${hasNextChapter(S.n)?'Close':'Continue'}</button>${nextChapterBtn(S.n)}`;
   }
   e.innerHTML = `<div class="story-shell">${head}<div class="story-body">${body}</div><div class="story-bar">${bar}</div></div>`;
   const b = e.querySelector('.story-body'); if(b) b.scrollTop = 0;

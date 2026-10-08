@@ -1,10 +1,10 @@
 /* =====================================================================
    TRIBUTE — THE IMPERIAL NETWORK (Adrian Gold, support NPC; not playable)
    Unlocks at chapter 90 (the Gold reunion). Adrian is Tribute's connection: reports, requests, an intelligence
-   archive, letters and a kingdom status board. What the player learns: he exists, he is Jade's older brother, he is an
+   archive, letters and a kingdom status board. What the player learns: he exists, he is Jade\'s older brother, he is an
    Imperial Advisor. NOT revealed here: his personal story, past assignments, his true influence, or his link to
-   Greyson's family (reserved: a contact slot is added later by the flag `contact_evelyne`, see CONTACTS).
-   Hidden stat: Adrian's trust (G.net.trust) rises with finished requests and read letters; thresholds unlock
+   Greyson\'s family (reserved: a contact slot is added later by the flag `contact_evelyne`, see CONTACTS).
+   Hidden stat: Adrian\'s trust (G.net.trust) rises with finished requests and read letters; thresholds unlock
    childhood memories and Gold family lore. State: G.net = {trust, read:{}, letters:[], reqDay, reqs:[], seen:{}}
    ===================================================================== */
 const NET_CH = 90;
@@ -35,6 +35,9 @@ const REPORTS = [
   {ch:135, loc:'Seal Sites', threat:'A man named Varyn Noctis claims to be opening, not breaking, the old seals. Incidents across five kingdoms share his handwriting.', status:'Contact made.'},
   {ch:139, loc:'The Land Beyond the Seal', threat:'Behind the opened seal lies a cut-off civilization of homes, schools and temples, not a realm of monsters.', status:'Jade\'s party is on site.'},
   {ch:146, loc:'The Fifteen Evils', threat:'The truth of the curse is known, but the curse remains and the fifteen evils still walk the world. An ancient threat that retreated waits behind the barrier.', status:'Arc V closed. The journey continues.'},
+  {ch:147, loc:'Royal Council', threat:'Fifteen major entities have been identified across the continent. Jade is entrusted with the investigation.', status:'The Fifteen Register is open.'},
+  {ch:148, loc:'Northern Forest', threat:'Villages near the northern forest attacked overnight; people vanishing; a forest gone silent. Sally believes it is the first Evil.', status:'Jade\'s party is travelling north.'},
+  {ch:149, loc:'The Black Forest', threat:'A Spirit Ranger, Rin Kaede, is already tracking the First Evil. It leaves both a corrupted and a spiritual trail.', status:'Hunt under way.'},
   {ch:99, loc:'Tribute Roads', threat:'Bandits are returning to the coast road now the armies are home.', status:'Contracts posted.'},
 ];
 /* ---- Requests (optional; use the contract system, with trust rewards) ---- */
@@ -139,10 +142,11 @@ function contacts(){
 }
 let netTab = 'reports';
 function rNetwork(){
-  const tabs = [['reports','Reports'],['requests','Requests'],['intel','Intelligence'],['letters','Letters'],['status','Kingdom Status']];
+  const tabs = [['reports','Reports'],['requests','Requests'],['intel','Intelligence'],['letters','Letters'],['status','Kingdom Status']].concat(typeof evilsOpen==='function' && evilsOpen() ? [['register','Fifteen Evils']] : []);
   const unread = net().letters.filter(l => !l.read).length;
   const tree = contacts().map(c => `<span class="sm" style="${c.locked?'opacity:.5':''}">${c.n}${c.locked?'':' · '+c.role}</span>`).join(' ↓ ');
   let body = '';
+  if(netTab==='register') body = rRegister();
   if(netTab==='reports') body = REPORTS.filter(r => G.ch>=r.ch).map(r => `<div class="ev"><div><b>Imperial Report</b><div class="sm">📍 ${r.loc}</div><div class="sm">Threat: ${r.threat}</div><div class="sm">Status: ${r.status}</div></div></div>`).join('') || '<div class="sm">No reports.</div>';
   if(netTab==='requests'){ const rs = refreshRequests();
     body = `<div class="sm">Adrian\'s optional requests (they use your contract log: ${G.quests.active.length}/${MAX_QUESTS}). New requests each day.</div>`+(rs.length?rs.map((r,i) => `<div class="ev"><div><b>${r.icon} ${r.name}</b> <span class="sm">· ${r.kind}</span><div class="sm">${r.desc}</div><div class="sm">${rwText(r.rw)} · Adrian\'s regard</div></div><button class="pri" onclick="act(takeRequest,${i})">Accept</button></div>`).join(''):'<div class="sm">Nothing today.</div>'); }

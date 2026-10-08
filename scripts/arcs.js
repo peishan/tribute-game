@@ -6,6 +6,7 @@
      Arc II  The Dragonvale Court   : after ch42 (Sky falls, the party goes to Dragonvale)
      Arc III The Truth Beneath Tribute : after ch86 (farewell to Dragonvale, return to Tribute)
      Arc IV  The Forgotten Valen Legacy : after ch103 (leave Tribute for the west)
+     Arc VI  (title and cover pending) : begins with ch147 (The Fifteen Names); add the entry after ch146 once assets/arcs/arc6.webp exists
      Arc V   The Broken Seals : after ch121 (ch122 The First Omen begins it); the arc concludes at ch146 (The Truth Before the Curse)
    ===================================================================== */
 const ARCS = [
