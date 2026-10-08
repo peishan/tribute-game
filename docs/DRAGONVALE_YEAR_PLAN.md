@@ -282,3 +282,9 @@ Built from the roadmap now (no new pages needed): Register outcomes (destroyed, 
 Roadmap vs what is built: the roadmap's example calls the Hart "EVIL III" but the register (and the roadmap's own order) makes it Evil II; the Black Forest is built as the Hart/Widow region start, Rin Kaede is not yet a party member (guide only); ch147-148 also show Seraphina with the group.
 
 - Levi's class after his rebirth is Noble Ranger (author; was the placeholder "Reborn Shadow"). Rin Kaede is the Spirit Ranger. Levi: noble ranger, physical tracking, archery; Rin: spirit trails and corrupted-energy detection.
+
+## Arc guests: Rin Kaede and Cael Ardyn (author)
+- Rin Kaede (Spirit Ranger) and Cael Ardyn (last Seal Keeper) are GUESTS: they fight beside the party (extra to the five, controllable) for the length of their arc and then leave. Arc VI starts at ch147 but Rin is only met at ch149, so she is a guest from ch149 (once the chapter completes) until the arc ends (ch166 planned: `untilCh` in GUEST_RULES, core.js); Cael from ch123 until ch146, when Arc V ends.
+- Mechanics: GUEST_RULES rows take fromCh/untilCh (no flag or region needed). Guests level with the party's active fighters (mkAlly), carry no XP, are hidden from the Party roster (guestOnly) and show as a Guest note. Rin: Spirit Ranger, short recurved bow and spirit talismans (Charm Arrow, Purging Talisman, Spirit Volley, signature Spirit Trail). Cael: Last Seal Keeper, wards and support (Keeper's Light, Sealing Word, Warding Circle, signature Seal of the Keepers). Skill names, stats and numbers are first-pass.
+- Portraits: none supplied yet. A missing portrait now shows the character's emoji instead of a broken image. Drop assets/party/rin.webp and assets/party/cael.webp (512x512, like the others).
+- The Levi & Rin bond track now follows the guest rule (active while Rin is with the party, gone when she leaves). If Rin should stay beyond Arc VI, change untilCh or make her permanent.

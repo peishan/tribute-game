@@ -35,7 +35,7 @@ function stub(title, sub, items){
 function rParty(){
   const nSlots = fixedParty() ? 5 : 4;
   const slots = Array.from({length:nSlots}, (_,i) => i).map(i => { const id=G.active.filter(x => !isCompanion(x))[i]; return id?`<div class="slot on ${isDisabled(id)?'dis':''}" onclick="sel='${id}';render()"><img src="${portrait(id)}"><b>${CHARACTERS[id].n.split(' ')[0]}</b>${isDisabled(id)?'<span class="sm">⛔ cannot fight</span>':''}</div>`:`<div class="slot"><b>empty</b></div>`; }).join('');
-  const roster = ROSTER.filter(id => !isCompanion(id)).map(id => {
+  const roster = ROSTER.filter(id => !isCompanion(id) && !CHARACTERS[id].guestOnly).map(id => {
     const c=CHARACTERS[id], rec=isRecruited(id), join=JOIN_CH[id];
     return `<div class="rc ${sel===id?'sel':''} ${rec||profileKnown(id)?'':'lock'}" onclick="sel='${id}';render()"><img src="${portrait(id)}"><div><b>${profileKnown(id)||id==='seraphina'?c.n:'???'}</b><div class="sm">${rec?clsOf(id)+' · Lv'+U(id).lv+(G.guests[id]?' · guest':''):(profileKnown(id)?clsOf(id)+' · ':'')+(join!==undefined?'Joins Ch.'+join:'Unrecruited')}</div></div></div>`; }).join('');
   return `<h2>Party</h2><div class="sm">${fixedParty()?`The travelling party (${activeCount()}/5): Jade and Devon always fight; the others may be benched.`:`Active (${activeCount()}/${ACTIVE_SLOTS}) — fights use these four`}</div><div class="slots">${slots}</div>${presentGuests().map(id => `<div class="sm" style="margin:4px 0">🤝 Guest: ${GUEST_RULES[id].note}</div>`).join('')}<div class="rcs">${roster}</div>${rSheet(sel)}`;
@@ -241,7 +241,7 @@ function rDev(){
    <button onclick="restoreParty();save();render()">Restore party HP/MP</button><button onclick="G.disabled={};save();render()">Clear disabled</button><button onclick="G.flags.greyson_arms=!G.flags.greyson_arms;save();render()">Unseal Greyson's dagger+flail (${G.flags.greyson_arms?'on':'off'})</button>
    <button onclick="G.flags.bracelet=!G.flags.bracelet;save();render()">Toggle bracelet (${G.flags.bracelet?'on':'off'})</button>
    <button onclick="advanceDay(1);save();render()">+1 day</button><select id="devloc">${LOC_ORDER.filter(locOpen).map(k=>`<option value="${k}" ${k===G.loc?'selected':''}>${LOCATIONS[k].n}</option>`).join('')}</select><button onclick="G.loc=$('devloc').value;syncAway();save();render()">Warp</button>
-   <button onclick="ROSTER.forEach(i=>recruit(i));save();render()">Recruit everyone</button></div></div>
+   <button onclick="ROSTER.filter(i=>!CHARACTERS[i].guestOnly).forEach(i=>recruit(i));save();render()">Recruit everyone</button></div></div>
    <div class="panel"><button onclick="if(confirm('Erase save?')){localStorage.removeItem(CFG.SAVE_KEY);location.reload()}">Erase save</button></div>`;
 }
 

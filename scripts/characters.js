@@ -206,5 +206,31 @@ const CHARACTERS = {
   ]},
   bond:null }
 };
-const ROSTER = ['jade','chad','sky','sally','levi','ripley','devon','seraphina','ghost_healer'];
+/* Arc guests: temporary party members who fight beside the party for the length of an arc, then leave (GUEST_RULES in core.js).
+   They level with the party (see mkAlly), carry no XP of their own and are not part of the roster list. Portrait: assets/party/<id>.webp (512x512); until it exists an emoji stands in. */
+CHARACTERS.rin = {
+  n:'Rin Kaede', icon:'🏹', cls:'Spirit Ranger', role:'Spirit tracker / Ranged (Arc VI guest)', combat:'Ranged Physical with spirit talismans', guestOnly:true,
+  identity:'A Spirit Ranger and monster tracker from a remote frontier community. Reads spirit trails and corrupted energy; distrusts royal officials. Short recurved bow and spirit charms. Travels with the party for the Fifteen Evils.',
+  style:['Short recurved bow','Spirit charms','Spirit tracking'], strength:'Spirit trails and corruption',
+  weapon:'Recurved bow', signature:'Spirit Trail', sigDesc:'Marks a target\'s spirit trail: it cannot hide, and takes extra damage from corruption-breaking attacks.',
+  base:{hp:64,mp:34,atk:13,mag:11,def:7,spd:12}, grow:{hp:6,mp:2.8,atk:1.9,mag:1.5,def:.8,spd:1.2},
+  skills:[
+   {id:'charm_arrow',n:'Charm Arrow',icon:'📿',mp:5,kind:'phys',tgt:'foe',pow:1.5,fx:[{k:'slow',d:2}],req:{lvl:1},desc:'An arrow tied with a spirit charm: damage that slows.'},
+   {id:'purging_talisman',n:'Purging Talisman',icon:'🧿',mp:8,kind:'magic',tgt:'foe',pow:1.3,vsCorrupt:2.2,req:{lvl:1},desc:'A talisman that burns corruption: heavy damage to the corrupted.'},
+   {id:'spirit_volley',n:'Spirit Volley',icon:'🌿',mp:12,kind:'phys',tgt:'foes',pow:1.5,req:{lvl:5},desc:'A volley that follows the spirit paths: hits every enemy.'},
+   {id:'spirit_trail',n:'Spirit Trail',icon:'👣',mp:9,kind:'support',tgt:'self',fx:[{k:'crit',d:3},{k:'buff',stat:'atk',m:1.25,d:3}],req:{lvl:8},sig:true,desc:'SIGNATURE. She reads the trail: guaranteed crits and a sharper aim.'},
+  ], evo:{tiers:[]}, bond:null };
+CHARACTERS.cael = {
+  n:'Cael Ardyn', icon:'🗝️', cls:'Last Seal Keeper', role:'Seal ward / Support (Arc V guest)', combat:'Wards and sealing magic', guestOnly:true,
+  identity:'The last Seal Keeper, a golden-haired guardian of a vanished order who looks strikingly like Dima. Keeps and breaks seals. Travels with the party through the Broken Seals.',
+  style:['Seal wards','Binding words','Keeper\'s light'], strength:'Seals and protection',
+  weapon:'Keeper\'s staff', signature:'Seal of the Keepers', sigDesc:'Raises a seal around the party: a barrier that holds and heals a little each turn.',
+  base:{hp:72,mp:48,atk:7,mag:14,def:9,spd:10}, grow:{hp:6.5,mp:4,atk:.8,mag:2,def:1.1,spd:.9},
+  skills:[
+   {id:'keepers_light',n:'Keeper\'s Light',icon:'💡',mp:7,kind:'heal',tgt:'ally',pow:1.5,req:{lvl:1},desc:'A warm light that mends one ally.'},
+   {id:'sealing_word',n:'Sealing Word',icon:'🔏',mp:7,kind:'magic',tgt:'foe',pow:1.2,fx:[{k:'bind',d:1}],req:{lvl:1},desc:'A word of binding: damage, and the target loses its turn.'},
+   {id:'warding_circle',n:'Warding Circle',icon:'⭕',mp:11,kind:'support',tgt:'allies',fx:[{k:'shield',v:.2,d:3}],req:{lvl:5},desc:'A circle of wards: a barrier for the whole party.'},
+   {id:'seal_of_keepers',n:'Seal of the Keepers',icon:'🔆',mp:14,kind:'support',tgt:'allies',fx:[{k:'shield',v:.25,d:3},{k:'regen',v:.06,d:3}],req:{lvl:8},sig:true,desc:'SIGNATURE. A seal around the party: a strong barrier and slow healing.'},
+  ], evo:{tiers:[]}, bond:null };
+const ROSTER = ['jade','chad','sky','sally','levi','ripley','devon','seraphina','ghost_healer','rin','cael'];
 const BOND_LEVELS = [0,20,60,120,200,300];   // cumulative bond points for bond lvl 0..5

@@ -77,7 +77,7 @@ const XP_TABLES = {
   support:{a:44, b:24, c:1.3},     // Sky, the Ghost Healer
   scholar:{a:46, b:25, c:1.35},    // Devon: defensive mage
 };
-const XP_CLASS = {jade:'standard', chad:'fighter', seraphina:'fighter', levi:'ranger', ripley:'ranger', sally:'ranger', sky:'support', ghost_healer:'support', devon:'scholar'};
+const XP_CLASS = {jade:'standard', chad:'fighter', seraphina:'fighter', levi:'ranger', ripley:'ranger', sally:'ranger', sky:'support', ghost_healer:'support', devon:'scholar', rin:'ranger', cael:'support'};
 const xpToNext = (lv, id) => { const t = XP_TABLES[XP_CLASS[id] || 'standard']; return Math.round(t.a + lv*t.b + lv*lv*t.c); };
 
 function gearBonus(id){ return typeof gearBonusSum==='function' ? gearBonusSum(id) : {hp:0,mp:0,atk:0,mag:0,def:0,spd:0}; }   // see gear.js
@@ -225,8 +225,14 @@ const activeCount = () => G.active.filter(id => !isDisabled(id)).length;   // a 
    Roc (once purified, flag roc_reborn) joins on Dragonvale ground and at the exile border; he never returns to the main party. */
 const GUEST_RULES = {
   chad:{flag:'roc_reborn', regions:['dragon'], note:'Roc, reborn, fights beside the party on Dragonvale ground.'},
+  // Arc guests: present from chapter fromCh is complete until chapter untilCh is complete, anywhere; they level with the party and leave when the arc ends.
+  cael:{fromCh:123, untilCh:146, note:'Cael Ardyn, the last Seal Keeper, travels with the party until the Broken Seals arc ends.'},
+  rin:{fromCh:149, untilCh:166, note:'Rin Kaede, the Spirit Ranger, travels with the party until the Fifteen Evils arc ends.'},
 };
-const presentGuests = () => !G ? [] : Object.keys(GUEST_RULES).filter(id => { const r = GUEST_RULES[id]; return G.flags[r.flag] && r.regions.includes(LOCATIONS[G.loc].region) && !isDisabled(id); });
+const presentGuests = () => !G ? [] : Object.keys(GUEST_RULES).filter(id => { const r = GUEST_RULES[id];
+  const ok = (r.flag===undefined || G.flags[r.flag]) && (!r.regions || r.regions.includes(LOCATIONS[G.loc].region)) && (r.fromCh===undefined || G.ch>=r.fromCh) && (r.untilCh===undefined || G.ch<r.untilCh);
+  return ok && !isDisabled(id); });
+const isGuestNow = id => presentGuests().includes(id);
 const isCompanion = id => !!(CHARACTERS[id] && CHARACTERS[id].companion);   // companions travel and fight with the party without using one of the active slots
 function recruit(id){ if(G.left && G.left[id]) return false; if(!G.party.includes(id)){ G.party.push(id); if(!isCompanion(id) && activeCount()<slotCap()) G.active.push(id); return true; } return false; }
 function toggleActive(id){ if(unbenchable(id) || isCompanion(id) || (isAway(id) && !G.active.includes(id))) return; const i=G.active.indexOf(id); if(i>=0) G.active.splice(i,1); else if(activeCount()<slotCap()) G.active.push(id); save(); }

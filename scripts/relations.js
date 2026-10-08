@@ -105,7 +105,7 @@ const BOND_TRACKS = {
     acts:[{id:'herbs',icon:'🌿',n:'Gather herbs together',line:'The Ghost Healer names each leaf and waits for Sky to name it back.'},{id:'lesson',icon:'📖',n:'A lesson in the old healing',line:'A patient lesson, repeated until it settles.'},{id:'tea',icon:'🍵',n:'Tea after the work',line:'You leave the two of them to talk shop over tea.'}]},
   levi_rin:{label:'Levi & Rin', icon:'🏹', members:['levi','rin'], bonus:'crit', amounts:[0,.02,.03,.04,.05],
     names:['Rival Trackers','Comparing Notes','Two Ways of Reading','Hunting Partners','One Trail, Two Eyes'],
-    open:() => !!G.flags.rin_met, why:'Levi fielded and Rin travelling with the party (her joining is not decided yet)',
+    open:() => !!G.flags.rin_met, why:'Levi fielded and Rin with the party (Arc VI guest)',
     acts:[{id:'tracks',icon:'👣',n:'Compare tracking notes',line:'Levi reads the ground, Rin reads what the ground cannot say.'},{id:'range',icon:'🎯',n:'Target practice',line:'A friendly contest between a long bow and a short recurved one.'},{id:'fire',icon:'🔥',n:'Sit by the fire',line:'Two hunters, slowly deciding to trust each other.'}]},
   circle:{label:'The Travelling Circle', icon:'👥', headcount:4, bonus:'both', amounts:[0,.02,.04,.06,.08],
     names:['Companions on the Road','Easy Company','Trusted Hands','Found Family','This Is Home'],
@@ -123,7 +123,7 @@ function trackSynergy(k){   // are the bonded members fielded right now?
   const T = BOND_TRACKS[k], act = id => G.active.includes(id) && !isDisabled(id);
   if(T.headcount) return FIXED_FIVE.filter(act).length >= T.headcount;
   if(T.bonus===null) return false;
-  if(k==='levi_rin') return act('levi') && !!G.flags.rin_travelling;
+  if(k==='levi_rin') return act('levi') && isGuestNow('rin');
   if(k==='sky_ghost') return act('sky') && isRecruited('ghost_healer');
   return T.members.every(act);
 }
@@ -140,6 +140,7 @@ function trackActLock(k, a){
   const st = trackState(k);
   if(st.last === G.day) return 'Already today';
   if(a.base && typeof baseHere==='function' && !baseHere()) return '📍 Only at a home (Devon\'s Palace or Gold Manor)';
+  if(k==='levi_rin' && !isGuestNow('rin')) return 'Rin is not with you';
   const T = BOND_TRACKS[k]; if(T.members && k!=='levi_rin' && k!=='sky_ghost' && !T.members.every(id => isRecruited(id))) return 'Not all of them are with you';
   return '';
 }
