@@ -306,3 +306,5 @@ Roadmap vs what is built: the roadmap's example calls the Hart "EVIL III" but th
 ## Chapter 166 (Arc VI finale) and decisions
 - 166 Fifteen Shadows: the party reports to Greyson, the mandate changes from Destroy to Resolve, Adrian revises the mission register, final card Resolved 3/15, Remaining 12, Unknown classifications ?. Arc VI is now fully built (147-166). The page has no quest box, so the chapter's mission is built from its beats; the two blonde women at court are not named on the page.
 - Author decision: the register keeps the chapter 147 names (4 The Black Tide, 5 The Silent Flame, 6 The Weeping Stone). Chapter 164's page wording (V The Silent Tide, VI The Ashen Crown) is treated as the artist's variation.
+
+- Author decision (Eira): Eira Solenne is an ally and guest, not a party member, and is not locked to the Broken Seals area: she is with the party in the capital from ch162 and at the archive-shrine, and also an analyst for leads. The second golden-haired woman in 165-166 is Seraphina in her new look.
