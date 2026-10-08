@@ -134,3 +134,6 @@ What fits Tribute (ranked)
 6. Reserves (Field Camp stockpile): LOW. Wait for the War Room chapters.
 Skipped: port traffic and settlement trade, family settlement/children (no counterpart in Tribute's story), real-time cooldowns (we use game days).
 Needs your input: the list of regions to classify and what each one's starting status should be (I would start everything Unclassified and set only what the chapters already say), and which spirit-path nodes are canon versus invented.
+
+## Built from scan 7 (items 1-4): scripts/passages.js
+Passages tab (region status Open/Conditional/Shared/Restricted/Sealed/Unclassified; everything starts Unclassified; only the barrier region has a story rule so far, "controlled passage opened" = Conditional; chapters can call setPassage(id, status)); Spirit Paths tab from ch149 (Rin's 6 nodes only with Rin present in the north, Sky's 5 nodes whenever Sky is in the party; one day each; two-way guardian node "The Watching Place": leave it be or provoke it); allegiance cards (Network / Allegiance / Attitude / Reliability) in Dossiers. Node names and text are invented first-pass. Item 5 (guests of the house) not built: no canon guest exists yet, so the slot would be empty; it waits for a named character.
