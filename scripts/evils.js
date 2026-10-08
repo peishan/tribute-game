@@ -46,10 +46,36 @@ function resolveEvil(id, how){
   G.evils[id] = {state:how}; save();
   return [EVIL_RESOLVED.includes(how) ? '✔ '+e.n+': '+EVIL_STATUS[how]+'. Resolved '+evilsResolved()+'/15.' : e.n+': '+EVIL_STATUS[how]+'.'];
 }
+/* ---- Ask the party (from Crimson Tide's disagreement-and-repair idea): before Jade decides an Evil's fate she can hear each companion's view.
+   No point is ever lost for disagreeing: each view heard adds understanding and a little bond; with enough understanding the Evil is flagged
+   learned_<id>, which the chapter that resolves it can check. State: G.counsel = { evilId: {asked:{who:true}} }. Wording is first-pass. */
+const EVIL_COUNSEL = {
+  mourning_hart:{fromCh:154, need:3, question:'The villagers want it killed. Jade stopped the fight. What does the party think?',
+    views:{sky:'Its energy felt like protection, not corruption. I would not call it a monster.',
+           levi:'The tracks circle the shrine. It was guarding something, not hunting.',
+           devon:'The villagers are afraid and they are owed an answer, but not a kill we cannot take back.',
+           seraphina:'Treasure seekers and officials sending soldiers is a failure of governance, and it should be answered as one.',
+           rin:'A guardian spirit forgives trespass once, if ever. We should learn what it is asking for.'}},
+};
+const counselState = id => { if(!G.counsel) G.counsel = {}; if(!G.counsel[id]) G.counsel[id] = {asked:{}}; return G.counsel[id]; };
+const counselWho = id => Object.keys(EVIL_COUNSEL[id].views).filter(w => w==='rin' ? !!G.flags.rin_met : isRecruited(w));
+const evilLearned = id => !!G.flags['learned_'+id];
+function askParty(id, who){
+  const C = EVIL_COUNSEL[id], st = counselState(id); if(!C || !C.views[who] || st.asked[who]) return [];
+  st.asked[who] = true; const msgs = [(who==='rin'?'Rin':CHARACTERS[who].n.split(' ')[0])+': "'+C.views[who]+'"'];
+  if(CHARACTERS[who] && isRecruited(who)){ const m = addBond(who, 5); if(m) msgs.push(m); }
+  if(Object.keys(st.asked).length >= C.need && !G.flags['learned_'+id]){ G.flags['learned_'+id] = true; msgs.push('🕯️ Jade has heard enough to decide with open eyes.'); }
+  return msgs;
+}
+function rCounsel(e){
+  const C = EVIL_COUNSEL[e.id]; if(!C || G.ch < C.fromCh || EVIL_RESOLVED.includes(evilState(e))) return '';
+  const st = counselState(e.id), n = Object.keys(st.asked).length;
+  return `<div class="sm" style="margin-top:4px"><b>Ask the party</b> (${n}/${C.need} to be ready): ${C.question}</div><div class="row" style="flex-wrap:wrap;margin:4px 0">${counselWho(e.id).map(w => `<button ${st.asked[w]?'disabled':''} onclick="act(askParty,'${e.id}','${w}')">${st.asked[w]?'✓ ':''}${w==='rin'?'Rin':CHARACTERS[w].n.split(' ')[0]}</button>`).join(' ')}</div>${Object.keys(st.asked).map(w => `<div class="sm">${w==='rin'?'Rin':CHARACTERS[w].n.split(' ')[0]}: “${C.views[w]}”</div>`).join('')}${evilLearned(e.id)?'<div class="sm">✔ Ready to decide.</div>':''}`;
+}
 function rRegister(){
   const rows = EVILS.map((e,i) => { const st = evilState(e), intel = evilIntel(e);
     const cls = e.original && st!=='unknown' ? (evilRevised(e) ? `<div class="sm" style="opacity:.6;text-decoration:line-through">Original classification: ${e.original}</div><div class="sm"><b>Revised classification:</b> ${e.revised.t}</div>` : `<div class="sm">Classification: ${e.original}</div>`) : '';
-    return `<div class="ev"><div><b>${i+1}. ${e.hidden?'???':e.n}</b> <span class="sm">· ${EVIL_STATUS[st]}${e.home&&st!=='unknown'?' · '+e.home:''}</span>${cls}${intel.length?`<div class="sm">Classification: ${intel.map(x => x.label+': '+x.value).join(' · ')}${intel.length<e.intel.length?' · '+(e.intel.length-intel.length)+' more to learn':''}</div>`:''}</div></div>`; }).join('');
+    return `<div class="ev"><div><b>${i+1}. ${e.hidden?'???':e.n}</b> <span class="sm">· ${EVIL_STATUS[st]}${e.home&&st!=='unknown'?' · '+e.home:''}</span>${cls}${rCounsel(e)}${intel.length?`<div class="sm">Classification: ${intel.map(x => x.label+': '+x.value).join(' · ')}${intel.length<e.intel.length?' · '+(e.intel.length-intel.length)+' more to learn':''}</div>`:''}</div></div>`; }).join('');
   const done = evilsResolved(), revised = EVILS.filter(evilRevised).length;
   return `<div class="panel"><b>THE FIFTEEN EVILS</b><div><b>Resolved: ${done} / 15</b> · Remaining: ${15-done} · Unknown classifications: ${G.ch>=EVIL_ARC_END?'?':15-revised}</div><div class="sm">Kept by ${evilKeeper()}. Not "killed": each Evil is destroyed, purified, contained, reconciled or otherwise resolved once Jade has learned what it is. Find them. Understand them. Then decide what must be done.</div>${G.ch>=EVIL_ARC_END?'<div class="sm" style="margin-top:4px"><i>Not every monster was born a monster. Not every victim remained innocent. And not every name history gave them was true.</i></div>':''}</div>${rows}`;
 }

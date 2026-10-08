@@ -38,8 +38,8 @@ function relAdd(id, pts){
   const t = relTier(id), perk = r.perks.find(p => p.tier===t && t>before);
   return t > before ? '💞 '+r.n+': '+REL_LADDER[r.ladder][t]+'.'+(perk?' Favour unlocked: '+perk.n+'.':'') : (t < before ? '💔 '+r.n+': the bond has cooled to '+REL_LADDER[r.ladder][t]+'.' : null);
 }
-function relPerk(key){   // total of every unlocked favour with this key (only for allies met so far)
-  return RELATIONS.reduce((sum, r) => sum + (relOpen(r) ? r.perks.filter(p => p.key===key && relTier(r.id) >= p.tier).reduce((a,p) => a + p.v, 0) : 0), 0);
+function relPerk(key){   // total of every unlocked favour with this key (allies met so far) plus the companion tracks whose synergy is active
+  return RELATIONS.reduce((sum, r) => sum + (relOpen(r) ? r.perks.filter(p => p.key===key && relTier(r.id) >= p.tier).reduce((a,p) => a + p.v, 0) : 0), 0) + (typeof trackPerk==='function' ? trackPerk(key) : 0);
 }
 const fareOf = r => Math.max(0, Math.ceil(r.fare * (1 - Math.min(.4, relPerk('fareOff')))));
 function relApplyChapter(n){ const msgs = []; Object.keys(CH_REL[n]||{}).forEach(id => { if(relOf(id)){ const m = relAdd(id, CH_REL[n][id]); if(m) msgs.push(m); } }); return msgs; }
@@ -80,5 +80,85 @@ function rBonds(){
     return `<div class="panel"><div class="row" style="align-items:center;gap:10px;flex-wrap:nowrap">${r.img?`<img src="${r.img}" alt="" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)">`:`<span class="big">${r.icon}</span>`}<div><b>${r.n}</b><div class="sm">${r.kind}</div><div><b>${REL_LADDER[r.ladder][t]}</b> <span class="sm">· standing ${s}/${REL_MAX}</span></div></div></div>
       ${bar(s - REL_AT[t], (next===undefined?REL_MAX:next) - REL_AT[t])}<div class="sm">${next===undefined?'The deepest bond.':(next-s)+' more to '+REL_LADDER[r.ladder][t+1]}</div>
       <div class="sm" style="margin:4px 0">${r.desc}</div>${perks}<div class="row" style="margin-top:6px;flex-wrap:wrap">${gest}</div>${locks.length?`<div class="sm" style="opacity:.6;margin-top:2px">${locks.join(' · ')}</div>`:''}</div>`; }).join('');
-  return `<h2>Bonds</h2><div class="sm">Who Jade is close to. Companions deepen by spending time together; allies and family respond to letters, gifts, visits and counsel, once per day each, and their favours unlock as the bond grows.</div>${flashHtml()}<h4>Allies and family</h4>${allies}<h4>Companions</h4>${comp||'<div class="sm">No companions yet.</div>'}`;
+  return `<h2>Bonds</h2><div class="sm">Who Jade is close to. Companions deepen by spending time together; allies and family respond to letters, gifts, visits and counsel, once per day each, and their favours unlock as the bond grows.</div>${flashHtml()}<h4>Allies and family</h4>${allies}<h4>Hang out</h4><div class="sm">Time together, once per day for each bond. Progress always counts; the bonus only works while they are fielded.</div>${rTracks()}<h4>Companions</h4>${comp||'<div class="sm">No companions yet.</div>'}`;
+}
+
+/* =====================================================================
+   COMPANION TRACKS (from Crimson Tide's bond tracks): bonds between companions and groups, not only with Jade.
+   - Each track has five named tiers (thresholds 0/50/150/300/600) and gains 15 points per Hang Out, once per day per track.
+   - Progress always accrues; the BONUS only applies while the bonded members are actually fielded (benching someone costs the bonus,
+     never the progress). Bonuses are small. Companion tracks marked bonus:null are story-driven and carry no bonus on purpose.
+   - Hang Out: a menu of flavoured activities (some need to be at a home or somewhere) that all feed the same points and daily cap,
+     and are recorded in the Shared Moments log, a memory collection and not a second score.
+   State: G.tracks = { key: {pts, last} }, G.moments = [ {t, a, d} ].   Activity wording is first-pass: the author can rewrite freely.
+   ===================================================================== */
+const TRACK_PTS = 15, MOMENTS_MAX = 200;
+const TRACK_AT = [0,50,150,300,600];
+const BOND_TRACKS = {
+  jade_devon:{label:'Jade & Devon', icon:'🐉', members:['jade','devon'], bonus:'crit', amounts:[0,.02,.03,.04,.05],
+    names:['Partners in the Field','Moving as One','Two Paths, One Rhythm','Unshakeable','Standing Beside'],
+    open:() => isRecruited('devon'), why:'Jade and Devon fighting together',
+    acts:[{id:'spar',icon:'⚔️',n:'Spar together',line:'Practice blades against practice spells until neither of you can stop smiling.'},{id:'walk',icon:'🌇',n:'Walk at dusk',line:'You walk the long way back and talk about nothing in particular.'},{id:'plan',icon:'🗺️',n:'Plan the next step',line:'Maps, candles and an honest argument about which road to take.'},{id:'stayin',icon:'🏠',n:'A quiet evening at home',line:'No plans, no reports. Just the two of you.',base:true}]},
+  sky_ghost:{label:'Sky & the Ghost Healer', icon:'💙', members:['sky','ghost_healer'], bonus:'xp', amounts:[0,.02,.03,.04,.05],
+    names:['Master and Pupil','Steady Hands','Shared Rhythm','The Old Light, Handed Down','Healers Together'],
+    open:() => !!G.flags.ghost_healer_met, why:'Sky fielded with the Ghost Healer',
+    acts:[{id:'herbs',icon:'🌿',n:'Gather herbs together',line:'The Ghost Healer names each leaf and waits for Sky to name it back.'},{id:'lesson',icon:'📖',n:'A lesson in the old healing',line:'A patient lesson, repeated until it settles.'},{id:'tea',icon:'🍵',n:'Tea after the work',line:'You leave the two of them to talk shop over tea.'}]},
+  levi_rin:{label:'Levi & Rin', icon:'🏹', members:['levi','rin'], bonus:'crit', amounts:[0,.02,.03,.04,.05],
+    names:['Rival Trackers','Comparing Notes','Two Ways of Reading','Hunting Partners','One Trail, Two Eyes'],
+    open:() => !!G.flags.rin_met, why:'Levi fielded and Rin travelling with the party (her joining is not decided yet)',
+    acts:[{id:'tracks',icon:'👣',n:'Compare tracking notes',line:'Levi reads the ground, Rin reads what the ground cannot say.'},{id:'range',icon:'🎯',n:'Target practice',line:'A friendly contest between a long bow and a short recurved one.'},{id:'fire',icon:'🔥',n:'Sit by the fire',line:'Two hunters, slowly deciding to trust each other.'}]},
+  circle:{label:'The Travelling Circle', icon:'👥', headcount:4, bonus:'both', amounts:[0,.02,.04,.06,.08],
+    names:['Companions on the Road','Easy Company','Trusted Hands','Found Family','This Is Home'],
+    open:() => fixedParty(), why:'four or more of the travelling five fielded',
+    acts:[{id:'meal',icon:'🍲',n:'Share a meal',line:'Everyone pulls a stool to the same table.'},{id:'cards',icon:'🃏',n:'An evening game',line:'Loud, petty and exactly what the group needed.'},{id:'stories',icon:'🔥',n:'Stories round the fire',line:'Each of you tells one that you have never told before.'},{id:'rest',icon:'🛏️',n:'A day of rest together',line:'Nobody is in a hurry. It shows.'},{id:'homemeal',icon:'🏠',n:'A meal at home',line:'Home cooking, a full table, no schedule.',base:true}]},
+  sera_circle:{label:'Seraphina & the Circle', icon:'🌸', members:['seraphina'], bonus:null, amounts:[0,0,0,0,0],
+    names:['Strangers Still','Getting to Know Them','Trusted Hands','Found Family','This Is Home'],
+    open:() => isRecruited('seraphina') && G.ch >= 87, why:'story-driven: no bonus, it measures how much she belongs',
+    acts:[{id:'tea',icon:'🫖',n:'Tea with Sera',line:'She asks the questions this time, and listens to every answer.'},{id:'market',icon:'🏮',n:'Explore a market with Sera',line:'She knows the foreign goods and the right way to haggle for them.'},{id:'stories',icon:'📜',n:'Trade stories of home',line:'Where each of you grew up, and what you miss about it.'},{id:'letters',icon:'✉️',n:'Help Sera with a letter',line:'You sit with her while she finds the right words.'}]},
+};
+function trackState(k){ if(!G.tracks) G.tracks = {}; if(!G.tracks[k]) G.tracks[k] = {pts:0, last:-1}; return G.tracks[k]; }
+function trackTier(k){ const p = trackState(k).pts; let t = 0; TRACK_AT.forEach((need,i) => { if(p >= need) t = i; }); return t; }
+const trackOpen = k => BOND_TRACKS[k].open();
+function trackSynergy(k){   // are the bonded members fielded right now?
+  const T = BOND_TRACKS[k], act = id => G.active.includes(id) && !isDisabled(id);
+  if(T.headcount) return FIXED_FIVE.filter(act).length >= T.headcount;
+  if(T.bonus===null) return false;
+  if(k==='levi_rin') return act('levi') && !!G.flags.rin_travelling;
+  if(k==='sky_ghost') return act('sky') && isRecruited('ghost_healer');
+  return T.members.every(act);
+}
+function trackPerk(key){   // xp/gold bonuses from the active tracks
+  return Object.keys(BOND_TRACKS).reduce((s,k) => { const T = BOND_TRACKS[k];
+    if(!trackOpen(k) || !trackSynergy(k) || !T.bonus) return s;
+    return s + ((T.bonus==='both' ? (key==='xpBonus'||key==='goldBonus') : T.bonus==='xp' ? key==='xpBonus' : false) ? T.amounts[trackTier(k)] : 0); }, 0);
+}
+function trackCritB(id){   // extra crit chance for a fielded member of a crit track
+  return Object.keys(BOND_TRACKS).reduce((s,k) => { const T = BOND_TRACKS[k];
+    return s + (T.bonus==='crit' && T.members.includes(id) && trackOpen(k) && trackSynergy(k) ? T.amounts[trackTier(k)] : 0); }, 0);
+}
+function trackActLock(k, a){
+  const st = trackState(k);
+  if(st.last === G.day) return 'Already today';
+  if(a.base && typeof baseHere==='function' && !baseHere()) return '📍 Only at a home (Devon\'s Palace or Gold Manor)';
+  const T = BOND_TRACKS[k]; if(T.members && k!=='levi_rin' && k!=='sky_ghost' && !T.members.every(id => isRecruited(id))) return 'Not all of them are with you';
+  return '';
+}
+function doHangOut(k, actId){
+  const T = BOND_TRACKS[k], a = T && T.acts.find(x => x.id===actId); if(!a || !trackOpen(k) || trackActLock(k,a)) return [];
+  const st = trackState(k), before = trackTier(k); st.pts += TRACK_PTS; st.last = G.day;
+  if(!G.moments) G.moments = []; G.moments.push({t:k, a:actId, d:G.day}); if(G.moments.length > MOMENTS_MAX) G.moments.splice(0, G.moments.length - MOMENTS_MAX);
+  const msgs = [a.icon+' '+a.line+' (+'+TRACK_PTS+')'], now = trackTier(k);
+  if(now > before) msgs.push('💞 '+T.label+': '+T.names[now]+'.'+(T.bonus&&T.amounts[now]?' Bonus now +'+Math.round(T.amounts[now]*100)+'%.':''));
+  return msgs.concat(advanceDay(1));
+}
+const momentsFor = k => (G.moments||[]).filter(m => m.t===k);
+function rTracks(){
+  const rows = Object.keys(BOND_TRACKS).filter(trackOpen).map(k => { const T = BOND_TRACKS[k], t = trackTier(k), pts = trackState(k).pts, nxt = TRACK_AT[t+1], syn = trackSynergy(k), mm = momentsFor(k);
+    const btns = T.acts.map(a => { const lock = trackActLock(k,a); return `<button ${lock?'disabled':''} title="${lock}" onclick="act(doHangOut,'${k}','${a.id}')">${a.icon} ${a.n}</button>`; }).join(' ');
+    const counts = T.acts.map(a => { const n = mm.filter(m => m.a===a.id).length; return n ? a.icon+' ×'+n : ''; }).filter(Boolean).join(' · ');
+    return `<div class="panel"><b>${T.icon} ${T.label}</b> <span class="sm">· ${T.names[t]}</span>
+      ${nxt!==undefined?bar(pts-TRACK_AT[t], nxt-TRACK_AT[t])+`<div class="sm">${pts} / ${nxt} to ${T.names[t+1]}</div>`:'<div class="sm">Deepest bond reached.</div>'}
+      <div class="sm">${T.bonus ? (T.amounts[t] ? '+'+Math.round(T.amounts[t]*100)+'% '+(T.bonus==='crit'?'crit chance':T.bonus==='xp'?'XP':'XP and gold')+' · '+(syn?'✅ active now':'⚪ not active: needs '+T.why) : 'No bonus yet · needs '+T.why) : '🌸 '+T.why}</div>
+      <div class="row" style="margin-top:6px;flex-wrap:wrap">${btns}</div>${mm.length?`<div class="sm" style="margin-top:4px">Shared moments (${mm.length}): ${counts}</div>`:''}</div>`; }).join('');
+  return rows || '<div class="sm">No companion bonds to tend yet.</div>';
 }

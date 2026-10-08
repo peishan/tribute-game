@@ -204,3 +204,4 @@ img.band{width:100%;max-height:210px;object-fit:cover;object-position:center 30%
 .mlabel{position:absolute;transform:translate(-50%,20px);background:rgba(18,9,13,.92);border:1px solid var(--gold-dark);border-radius:6px;padding:2px 6px;font-size:.7rem;white-space:nowrap;pointer-events:none;z-index:2}
 
 .ver{text-align:center;font-size:.68rem;opacity:.5;padding:10px 0 14px;letter-spacing:.5px}
+.ev>div:first-child{min-width:0;flex:1;overflow-wrap:anywhere}

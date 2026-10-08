@@ -9,7 +9,7 @@ function mkAlly(id, persist){
   const s = statsOf(id), c = CHARACTERS[id], hp = persist ? curHp(id) : s.hp, mp = persist ? curMp(id) : s.mp;
   return { uid:id, id, ally:true, name:c.n, icon:c.icon, img:portrait(id), traits:[],
     hp:Math.max(hp,1), mhp:s.hp, mp:mp, mmp:s.mp, atk:s.atk, mag:s.mag, def:s.def, spd:s.spd,
-    st:{}, bf:[], state:null, used:{}, dead:false, guard:false, critB:passivesOf(id).critB, evaB:passivesOf(id).evaB };
+    st:{}, bf:[], state:null, used:{}, dead:false, guard:false, critB:passivesOf(id).critB + (typeof trackCritB==='function' ? trackCritB(id) : 0), evaB:passivesOf(id).evaB };
 }
 function mkFoeUnit(key, lv, i){
   const e = mkEnemy(key, lv);
