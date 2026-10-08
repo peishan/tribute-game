@@ -68,6 +68,7 @@ deed('gold20k', 'craft', 'A treasury of one\'s own', '💰', 'Held 20,000 gold.'
 const deedState = () => { if(!G.deeds) G.deeds = {}; return G.deeds; };
 function checkDeeds(){
   if(!G || !G.flags) return;
+  if(typeof renownSync==='function') renownSync();
   const reg = deedState(), fresh = [];
   DEEDS.forEach(d => { if(!reg[d.id]){ let ok = false; try{ ok = !!d.ok(); }catch(e){} if(ok){ reg[d.id] = G.day; fresh.push(d); } } });
   if(!fresh.length) return;

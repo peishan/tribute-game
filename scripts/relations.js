@@ -97,7 +97,7 @@ function relAdd(id, pts){
   return t > before ? '💞 '+r.n+': '+REL_LADDER[r.ladder][t]+'.'+(perk?' Favour unlocked: '+perk.n+'.':'') : (t < before ? '💔 '+r.n+': the bond has cooled to '+REL_LADDER[r.ladder][t]+'.' : null);
 }
 function relPerk(key){   // total of every unlocked favour with this key (allies met so far) plus the companion tracks whose synergy is active
-  return RELATIONS.reduce((sum, r) => sum + (relOpen(r) && !strainActive(r.id) ? r.perks.filter(p => p.key===key && relTier(r.id) >= p.tier).reduce((a,p) => a + p.v, 0) : 0), 0) + (typeof trackPerk==='function' ? trackPerk(key) : 0);
+  return RELATIONS.reduce((sum, r) => sum + (relOpen(r) && !strainActive(r.id) ? r.perks.filter(p => p.key===key && relTier(r.id) >= p.tier).reduce((a,p) => a + p.v, 0) : 0), 0) + (typeof trackPerk==='function' ? trackPerk(key) : 0) + (typeof estatePerk==='function' ? estatePerk(key) + rankPerk(key) : 0);
 }
 const fareOf = r => Math.max(0, Math.ceil(r.fare * (1 - Math.min(.4, relPerk('fareOff')))));
 function relStoryApply(n, quiet){
