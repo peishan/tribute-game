@@ -72,8 +72,8 @@ function fireflyRest(){
 }
 function craftAt(out){
   const r = RECIPES.find(x => x.out===out); if(!r) return [];
-  if(G.gold < r.gold || !Object.keys(r.need).every(k => (G.inv[k]||0) >= r.need[k])) return ['Not enough materials or gold.'];
-  Object.keys(r.need).forEach(k => G.inv[k] -= r.need[k]); G.gold -= r.gold; addItems([{id:out, qty:1}]); G.crafted = (G.crafted||0) + 1; save();
+  if(G.gold < craftCost(r) || !Object.keys(r.need).every(k => (G.inv[k]||0) >= r.need[k])) return ['Not enough materials or gold.'];
+  Object.keys(r.need).forEach(k => G.inv[k] -= r.need[k]); G.gold -= craftCost(r); addItems([{id:out, qty:1}]); G.crafted = (G.crafted||0) + 1; save();
   return ['⚗️ Jenika crafts '+ITEMS[out].icon+' '+ITEMS[out].n+'.'];
 }
 
