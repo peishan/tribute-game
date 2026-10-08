@@ -115,6 +115,7 @@ function rSpot(L, sp){
       const lv = avgPartyLv();
       body = `<div class="panel"><div class="sm">Safe zone: no monsters. Low EXP — useful until about Lv15. (Party avg Lv${lv})</div>
         <button class="pri" onclick="act(doPractice)">Sword practice (1 day)</button><button onclick="showTab('training')">Sparring ring (sandbox battles)</button></div>`; break; }
+    case 'vows': body = rVows(); break;
     case 'archive': {
       const rows = LORE.filter(e => G.ch >= e.ch && (!e.party || isRecruited(e.party))).map(e=>`<div class="li"><b>${e.n}</b><div class="sm">${e.t}</div></div>`).join('');
       body = `<div class="panel">${rows}</div><div class="sm">Draft entries — more unlock with the story. The Bestiary is a separate tab.</div>`; break; }
