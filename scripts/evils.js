@@ -68,7 +68,7 @@ const counselWho = id => Object.keys(EVIL_COUNSEL[id].views).filter(w => w==='ri
 const evilLearned = id => !!G.flags['learned_'+id];
 function askParty(id, who){
   const C = EVIL_COUNSEL[id], st = counselState(id); if(!C || !C.views[who] || st.asked[who]) return [];
-  st.asked[who] = true; const msgs = [(who==='rin'?'Rin':CHARACTERS[who].n.split(' ')[0])+': "'+C.views[who]+'"'];
+  st.asked[who] = true; if(typeof standHeard==='function') standHeard(who); const msgs = [(who==='rin'?'Rin':CHARACTERS[who].n.split(' ')[0])+': "'+C.views[who]+'"'];
   if(CHARACTERS[who] && isRecruited(who)){ const m = addBond(who, 5); if(m) msgs.push(m); }
   if(Object.keys(st.asked).length >= C.need && !G.flags['learned_'+id]){ G.flags['learned_'+id] = true; msgs.push('🕯️ Jade has heard enough to decide with open eyes.'); }
   return msgs;

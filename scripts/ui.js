@@ -23,6 +23,7 @@ function render(){
               missions:rMissions, rewards:rRewards, skirmish:rSkirmish, network:rNetwork, bonds:rBonds, cast:rCast, travel:rTravel, here:rHere, save:rSave,
               dev:rDev }[tab] || rJournal;
   if(typeof relCatchUp==='function') relCatchUp();
+  if(typeof standCatchUp==='function') standCatchUp();
   if(typeof checkDeeds==='function') checkDeeds();   // before drawing, so the Deeds screen is never one render behind
   $('main').innerHTML = R();
   if(typeof corrSky==='function') corrSky();
