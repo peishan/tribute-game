@@ -46,6 +46,7 @@ const REPORTS = [
   {ch:161, loc:'The Crownless Marches', threat:'The Hollow King has been contained. Register: 3/15 Resolved.', status:'Resolved.'},
   {ch:164, loc:'Royal Archive', threat:'Entry IV of the Fifteen Register was deliberately removed from every official copy.', status:'Investigating.'},
   {ch:165, loc:'The Abandoned Archive-Shrine', threat:'A hooded figure who claims to have seen the Fifteen before they were named waited at the archive-shrine tied to the missing Fourth Entry.', status:'Unresolved.'},
+  {ch:166, loc:'The Imperial Court', threat:'The campaign continues under a new mandate: Resolve the Fifteen Evils. The mission register has been revised. Register: 3/15 Resolved, 12 remaining.', status:'New mandate.'},
   {ch:99, loc:'Tribute Roads', threat:'Bandits are returning to the coast road now the armies are home.', status:'Contracts posted.'},
 ];
 /* ---- Requests (optional; use the contract system, with trust rewards) ---- */
