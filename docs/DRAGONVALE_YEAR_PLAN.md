@@ -295,3 +295,5 @@ Roadmap vs what is built: the roadmap's example calls the Hart "EVIL III" but th
 
 - Stipend note: each salary payment comes with a short note from Greyson (SALARY_NOTES in salary.js; arc-specific lines join the pool from ch104, ch122 and ch147). The last note shows on the Missions panel. Wording is first-pass.
 - Passive companions and guests (Ghost Healer, Rin, Cael, Eira) have no portraits: in battle each shows a symbol tile plus a row of its ability icons, so guests can pile up over arcs without art. Party/Cast screens never list them.
+
+- Devon (author): he is both a prince of Dragonvale and Jade's companion; no "return to Dragonvale" choice. They allocate his time, and travelling for a while makes him a better prince. Do not build a Devon-return conflict.
