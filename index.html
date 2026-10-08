@@ -19,15 +19,26 @@
   <input type="file" id="landingImport" accept=".json,application/json" style="display:none" onchange="importSave(event,true)">
   <button class="btn-continue" onclick="document.getElementById('landingImport').click()">📥 Import Save File</button>
   <p id="contnote" class="landing-quote" style="display:none;margin:2px 0 0;font-size:.85rem">A saved journey was found in this browser.</p>
+<div class="ver"></div>
 </div>
 <div id="app">
   <div id="top"><span class="brand">TRIBUTE</span><span class="pill" id="hch"></span><span class="pill day" id="hday"></span><span class="pill loc" id="hloc"></span><span class="pill gold" id="hgold"></span><button id="trkbtn" onclick="toggleTracker()" title="Quest log">📜</button><button onclick="save();toast('Saved')" title="Save">💾</button></div>
-  <div id="nav"></div><div id="main"></div>
+  <div id="nav"></div><div id="main"></div><div class="ver"></div>
 </div>
 <div id="story" aria-modal="true"></div>
 <div id="tracker"></div>
 <div id="arcpop"></div>
-<script>if("serviceWorker" in navigator) window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));</script>
+<script>
+if("serviceWorker" in navigator) window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+/* cache version shown at the bottom of the page (the service worker's cache name), so you can tell which build a phone is running */
+function showCacheVersion(){
+  const set = t => document.querySelectorAll(".ver").forEach(e => e.textContent = t);
+  if(!window.caches){ set("Cache: not supported"); return; }
+  caches.keys().then(ks => { const v = ks.filter(k => k.indexOf("tribute-")===0).sort((a,b) => parseInt(a.slice(9))-parseInt(b.slice(9))).pop(); set(v ? "Cache version: "+v : "Cache version: none yet (reload once)"); }).catch(() => set(""));
+}
+window.addEventListener("load", () => { showCacheVersion(); setTimeout(showCacheVersion, 2500); });
+if("serviceWorker" in navigator) navigator.serviceWorker.addEventListener("controllerchange", () => setTimeout(showCacheVersion, 800));
+</script>
 <div id="toast"></div>
 <script src="scripts/chapters.js"></script>
 <script src="scripts/characters.js"></script>
