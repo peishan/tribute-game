@@ -89,6 +89,17 @@ function rJournal(){
 }
 function openChapter(n){ openCh=n; chMsgs=[]; render(); if(CHAPTERS[n].art.length && !G.read[n] && !chapterDone(n)) openStory(n); }
 function closeChapter(){ openCh=null; render(); }
+// "Go to the next chapter": offered once chapter n is complete and the next chapter has pages. If it starts elsewhere, point to Travel instead.
+const hasNextChapter = n => chapterDone(n) && !!CHAPTERS[n+1] && CHAPTERS[n+1].art.length > 0;
+function goNextChapter(m){ if(typeof S!=='undefined' && S){ S = null; const e = storyEl(); e.classList.remove('on'); e.innerHTML = ''; } tab = 'journal'; openChapter(m); window.scrollTo(0,0); }
+function goTravelForChapter(){ if(typeof S!=='undefined' && S){ S = null; const e = storyEl(); e.classList.remove('on'); e.innerHTML = ''; } openCh = null; showTab('travel'); }
+function nextChapterBtn(n){
+  if(!hasNextChapter(n)) return '';
+  const m = n+1;
+  if(chapterAvailable(m)) return `<button class="pri" onclick="goNextChapter(${m})">Next chapter ▶ ${m}. ${CHAPTERS[m].title}</button>`;
+  const at = CH_LOC[m] && LOCATIONS[CH_LOC[m]];
+  return at ? `<div class="sm" style="margin:6px 0">Chapter ${m} begins at 📍 ${at.n}.</div><button class="pri" onclick="goTravelForChapter()">🛞 Travel to ${at.n}</button>` : '';
+}
 function rChapter(n){
   const c=CHAPTERS[n], done=chapterDone(n);
   const pages = c.art.length ? `<div class="panel"><button class="pri" onclick="openStory(${n})">📖 ${G.read[n]?'Read again':'Read story'} (${c.art.length} page${c.art.length>1?'s':''})</button><details><summary class="sm">Show pages inline</summary>${c.art.map(a=>`<img class="pg" loading="lazy" src="assets/comics/${a}.webp" alt="">`).join('')}</details></div>` : `<div class="panel sm">Artwork for this chapter hasn't been added yet (drop pages into assets/comics and list them in journal.js › ART).</div>`;
@@ -99,7 +110,7 @@ function rChapter(n){
   } else if(!done){
     foot = `<button class="pri" onclick="finishChapter(${c.n})">${n===0?'Finish the opening — Jade joins the journey':'Complete chapter'} (+${c.sxp} XP)</button>`;
   }
-  return `<button onclick="closeChapter()">◀ Journal</button><h2>${n===0?'':'Chapter '+n+' · '}${c.title}</h2>${rDesign(n)}${pages}${chMsgs.length?`<div class="panel good">${chMsgs.map(m=>`<div>${m}</div>`).join('')}</div>`:''}${foot}`;
+  return `<button onclick="closeChapter()">◀ Journal</button><h2>${n===0?'':'Chapter '+n+' · '}${c.title}</h2>${rDesign(n)}${pages}${chMsgs.length?`<div class="panel good">${chMsgs.map(m=>`<div>${m}</div>`).join('')}</div>`:''}${foot}${nextChapterBtn(n)}`;
 }
 function rDesign(n){
   const d = CHAPTER_DESIGN[n];
