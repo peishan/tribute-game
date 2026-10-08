@@ -5,7 +5,8 @@
    Optional `for:[heroIds]` limits who may use it; `flag` seals it until a story flag is set.
    Shops open in settlements (hub / town / harbour). ALL numbers and prices are PROVISIONAL.
    ===================================================================== */
-const SLOTS = [['weapon','⚔️ Weapon'],['armor','🛡️ Armor'],['accessory','📿 Accessory']];
+const SLOTS = [['weapon','⚔️ Weapon'],['armor','🛡️ Armor'],['accessory','📿 Accessory'],['charm','🧿 Charm (a second accessory)']];
+const slotKind = slot => slot==='charm' ? 'accessory' : slot;   // the charm slot takes accessory-type items
 const GEAR = {
   // ---- drops (already in ITEMS) ----
   chiefs_cleaver:{bonus:{atk:6}, for:['chad']},
@@ -51,7 +52,7 @@ const SHOP = Object.keys(GEAR).filter(k => GEAR[k].price);
 const gearPrice = k => GEAR[k].price || ({common:40,uncommon:80,rare:160,epic:300}[ITEMS[k].rarity] || 50);
 const bonusText = b => Object.keys(b).map(s => '+'+b[s]+' '+STAT_NAME[s]).join(', ');
 
-function gearOf(id){ G.gear = G.gear || {}; return G.gear[id] = G.gear[id] || {weapon:null, armor:null, accessory:null}; }
+function gearOf(id){ G.gear = G.gear || {}; return G.gear[id] = G.gear[id] || {weapon:null, armor:null, accessory:null, charm:null}; }
 function gearBonusSum(id){
   const out = {hp:0,mp:0,atk:0,mag:0,def:0,spd:0}, g = gearOf(id);
   Object.keys(g).forEach(slot => { const k = g[slot]; if(k && GEAR[k]) Object.keys(GEAR[k].bonus).forEach(s => out[s] += GEAR[k].bonus[s]); });
@@ -64,9 +65,9 @@ function canEquip(id, k){
   if(g.flag && !G.flags[g.flag]) return 'Sealed until the major battle';
   return '';
 }
-function equipItem(id, k){
+function equipItem(id, k, target){
   if(canEquip(id,k) || !(G.inv[k] > 0)) return false;
-  const slot = ITEMS[k].slot, cur = gearOf(id)[slot];
+  const slot = target && slotKind(target)===ITEMS[k].slot ? target : ITEMS[k].slot, cur = gearOf(id)[slot];
   if(cur) G.inv[cur] = (G.inv[cur]||0) + 1;
   G.inv[k]--; gearOf(id)[slot] = k; save(); return true;
 }
@@ -96,8 +97,8 @@ function rEquip(heroes){
   const id = gearSel, st = statsOf(id), gb = gearBonusSum(id), g = gearOf(id);
   const stats = STATS.map(s => `<div class="st"><span>${STAT_NAME[s]}</span>${bar(st[s],STAT_SCALE[s],s)}<b>${st[s]}${gb[s]?` <span class="sm" style="color:var(--green)">(+${gb[s]})</span>`:''}</b></div>`).join('');
   const slots = SLOTS.map(([slot,label]) => {
-    const cur = g[slot], opts = Object.keys(G.inv).filter(k => G.inv[k] > 0 && ITEMS[k] && ITEMS[k].type==='gear' && ITEMS[k].slot===slot && GEAR[k]);
-    const list = opts.map(k => { const why = canEquip(id,k); return `<div class="ev ${why?'locked':''}"><div><b>${ITEMS[k].icon} ${ITEMS[k].n}</b> <span class="sm">×${G.inv[k]} · ${bonusText(GEAR[k].bonus)}</span>${why?`<div class="sm">🔒 ${why}</div>`:''}</div>${why?'':`<button onclick="act(()=>{equipItem('${id}','${k}');return []})">Equip</button>`}</div>`; }).join('');
+    const cur = g[slot], opts = Object.keys(G.inv).filter(k => G.inv[k] > 0 && ITEMS[k] && ITEMS[k].type==='gear' && ITEMS[k].slot===slotKind(slot) && GEAR[k]);
+    const list = opts.map(k => { const why = canEquip(id,k); return `<div class="ev ${why?'locked':''}"><div><b>${ITEMS[k].icon} ${ITEMS[k].n}</b> <span class="sm">×${G.inv[k]} · ${bonusText(GEAR[k].bonus)}</span>${why?`<div class="sm">🔒 ${why}</div>`:''}</div>${why?'':`<button onclick="act(()=>{equipItem('${id}','${k}','${slot}');return []})">Equip</button>`}</div>`; }).join('');
     return `<h4>${label}</h4>${cur?`<div class="ev taken"><div><b>${ITEMS[cur].icon} ${ITEMS[cur].n}</b><div class="sm">${bonusText(GEAR[cur].bonus)}</div></div><button onclick="unequipSlot('${id}','${slot}');render()">Unequip</button></div>`:'<div class="sm">Empty</div>'}${list}`;
   }).join('');
   return pick+`<div class="panel"><h3>${CHARACTERS[id].icon} ${CHARACTERS[id].n}</h3><div class="stg">${stats}</div>${slots}</div>`;
