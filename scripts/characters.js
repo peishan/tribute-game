@@ -188,7 +188,7 @@ const CHARACTERS = {
   ], evo:{tiers:[]}, bond:null, companion:true },
  seraphina:{
   n:'Seraphina Altan', icon:'🦅', cls:'Altan Blademaster', role:'Physical DPS (replaces Roc)', combat:'Physical Attack',
-  battleLook:true,   // her hair is part of her power (explained later in her own arc): golden at rest (assets/party/seraphina.webp), snow white in battle (assets/party/seraphina_battle.webp). The battle portrait and the Twilight Blade route stay hidden until the flag sera_shift_known is set by that arc.
+  battleLook:true,   // her hair is part of her power (explained later in her own arc): golden at rest (assets/party/seraphina.webp), snow white in battle (assets/party/seraphina_battle.webp). The white battle portrait and the Twilight Blade route switch on at ch161 (flag sera_shift_known), where the pages first show her white-haired in battle; the reason is explained later.
   identity:'Princess of the Kingdom of Altan. Observant, proud and fair: she judges people by how they treat others. She takes the front line in Roc\'s place inside Dragonvale after his exile (chapter 73) and, after she asks to join, travels with the party for good (chapter 87).',
   style:['Curved sabre','Mounted techniques','Discipline'], strength:'Sustained high damage',
   weapon:'Altan Sabre', signature:'Falcon Banner',
