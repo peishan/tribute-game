@@ -25,7 +25,44 @@ const RELATIONS = [
    desc:'Jade\'s older brother, a royal scholar and Greyson\'s trusted official. He runs the Imperial Network.',
    perks:[{tier:1,key:'trustBonus',v:1,n:'A Quiet Word',d:'Each gain of trust with Adrian is +1'},{tier:2,key:'repBonus',v:.10,n:'Informed Counsel',d:'+10% renown'},{tier:4,key:'goldBonus',v:.05,n:'Family Ledger',d:'+5% gold from missions and investigations'},{tier:5,key:'fareOff',v:.10,n:'Trade Letters',d:'Travel fares −10%'}]},
 ];
-const CH_REL = {};   // {chapter:{allyId:delta}} applied when the chapter completes: filled in as the author sets story shifts
+const CH_REL = {};   // never negative: a falling-out is modelled as STRAIN (below), not as lost standing
+/* STRAIN (Crimson Tide's disagreement-and-repair): a story disagreement with an ally. It never subtracts standing: bonds measure how well people understand each
+   one another, not how often they agree. While it lasts the ally's favours are paused (progress is kept). The player listens, gives time and asks companions;
+   with enough understanding a repair follows, and the ally keeps a permanent learned_<issue> flag that later dialogue can check.
+   State: G.strain = { ally: {state:'strained'|'understanding'|'repaired', issue, pts, step, asked:{}} }.
+   Add an issue: STRAIN_ISSUES[id] = {ally, title, text, need, views:{who:'line'}, steps:[{n, line}], standing}.  Start it with startStrain(ally, id), or from
+   a chapter via CH_STRAIN = {chapter:{ally:issueId}}. No issue is active yet: the author supplies the story moments. */
+const STRAIN_ISSUES = {};
+const CH_STRAIN = {};
+const strainOf = id => (G.strain && G.strain[id]) || null;
+const strainActive = id => { const s = strainOf(id); return !!s && (s.state==='strained' || s.state==='understanding'); };
+function startStrain(ally, issue){
+  const I = STRAIN_ISSUES[issue], r = relOf(ally); if(!I || !r || strainActive(ally)) return [];
+  if(!G.strain) G.strain = {}; G.strain[ally] = {state:'strained', issue, pts:0, step:0, asked:{}, last:-1};
+  if(typeof chronicle==='function') chronicle(r.n+': a disagreement, '+I.title+'.', '💔');
+  return ['💔 '+r.n+' and Jade disagree: '+I.title+'. Their favours are paused until it is understood. No standing is lost.'];
+}
+function strainRespond(ally, how, who){
+  const s = strainOf(ally), I = s && STRAIN_ISSUES[s.issue]; if(!I || s.state!=='strained') return [];
+  const need = I.need || 3, msgs = [];
+  if(how==='listen'){ if(s.last===G.day) return ['You have already listened today.']; s.last = G.day; s.pts++; msgs.push('You listen properly this time. Understanding '+s.pts+'/'+need+'.'); }
+  else if(how==='ask'){ if(s.asked[who] || !I.views || !I.views[who]) return []; s.asked[who] = true; s.pts++; msgs.push((who==='rin'?'Rin':CHARACTERS[who].n.split(' ')[0])+': "'+I.views[who]+'" Understanding '+s.pts+'/'+need+'.'); }
+  else if(how==='push'){ return ['You press your point. It changes nothing, and costs nothing: the bond is safe.']; }
+  if(s.pts >= need){ s.state = 'understanding'; msgs.push('🕯️ You understand each other. Now to repair it.'); }
+  return msgs;
+}
+function strainRepair(ally){
+  const s = strainOf(ally), I = s && STRAIN_ISSUES[s.issue]; if(!I || s.state!=='understanding') return [];
+  const st = I.steps[s.step], msgs = [st.n+': '+st.line]; s.step++;
+  if(s.step >= I.steps.length){ s.state = 'repaired'; G.flags['learned_'+s.issue] = true; msgs.push('✔ Repaired. '+relOf(ally).n+' and Jade understand each other better than before.'); const m = relAdd(ally, I.standing||10); if(m) msgs.push(m); chronicle(relOf(ally).n+': the disagreement is repaired.', '💞'); }
+  return msgs;
+}
+function rStrain(r){
+  const s = strainOf(r.id); if(!s || s.state==='repaired') return s && s.state==='repaired' ? '<div class="sm">✔ A past disagreement was repaired and understood.</div>' : '';
+  const I = STRAIN_ISSUES[s.issue], need = I.need||3;
+  if(s.state==='strained') return `<div class="panel" style="border-color:rgba(232,120,90,.5)"><b>💔 Strained: ${I.title}</b><div class="sm">${I.text}</div><div class="sm">Understanding ${s.pts}/${need}. Favours paused; nothing is lost.</div><div class="row" style="flex-wrap:wrap;margin:4px 0"><button onclick="act(strainRespond,'${r.id}','listen')">Listen</button><button onclick="act(strainRespond,'${r.id}','push')">Press the point</button>${Object.keys(I.views||{}).filter(w => w==='rin' ? isGuestNow('rin') : isRecruited(w)).map(w => `<button ${s.asked[w]?'disabled':''} onclick="act(strainRespond,'${r.id}','ask','${w}')">Ask ${w==='rin'?'Rin':CHARACTERS[w].n.split(' ')[0]}</button>`).join(' ')}</div></div>`;
+  return `<div class="panel" style="border-color:rgba(232,197,71,.5)"><b>💔 Understanding: ${I.title}</b><div class="sm">Repair, step ${s.step+1} of ${I.steps.length}.</div><button class="pri" onclick="act(strainRepair,'${r.id}')">${I.steps[s.step].n}</button></div>`;
+}   // {chapter:{allyId:delta}} applied when the chapter completes: filled in as the author sets story shifts
 
 const relOf = id => RELATIONS.find(r => r.id===id);
 const relOpen = r => !!G && G.ch >= r.from;
@@ -36,13 +73,14 @@ function relAdd(id, pts){
   const r = relOf(id); if(!r) return null;
   const before = relTier(id); G.rel[id] = clamp(relScore(id) + pts, 0, REL_MAX);
   const t = relTier(id), perk = r.perks.find(p => p.tier===t && t>before);
+  if(t > before && typeof chronicle==='function') chronicle(r.n+': '+REL_LADDER[r.ladder][t]+'.', '💞');
   return t > before ? '💞 '+r.n+': '+REL_LADDER[r.ladder][t]+'.'+(perk?' Favour unlocked: '+perk.n+'.':'') : (t < before ? '💔 '+r.n+': the bond has cooled to '+REL_LADDER[r.ladder][t]+'.' : null);
 }
 function relPerk(key){   // total of every unlocked favour with this key (allies met so far) plus the companion tracks whose synergy is active
-  return RELATIONS.reduce((sum, r) => sum + (relOpen(r) ? r.perks.filter(p => p.key===key && relTier(r.id) >= p.tier).reduce((a,p) => a + p.v, 0) : 0), 0) + (typeof trackPerk==='function' ? trackPerk(key) : 0);
+  return RELATIONS.reduce((sum, r) => sum + (relOpen(r) && !strainActive(r.id) ? r.perks.filter(p => p.key===key && relTier(r.id) >= p.tier).reduce((a,p) => a + p.v, 0) : 0), 0) + (typeof trackPerk==='function' ? trackPerk(key) : 0);
 }
 const fareOf = r => Math.max(0, Math.ceil(r.fare * (1 - Math.min(.4, relPerk('fareOff')))));
-function relApplyChapter(n){ const msgs = []; Object.keys(CH_REL[n]||{}).forEach(id => { if(relOf(id)){ const m = relAdd(id, CH_REL[n][id]); if(m) msgs.push(m); } }); return msgs; }
+function relApplyChapter(n){ const msgs = []; Object.keys(CH_REL[n]||{}).forEach(id => { if(relOf(id)){ const m = relAdd(id, Math.max(0, CH_REL[n][id])); if(m) msgs.push(m); } }); Object.keys(CH_STRAIN[n]||{}).forEach(id => startStrain(id, CH_STRAIN[n][id]).forEach(m => msgs.push(m))); return msgs; }
 
 const REL_GESTURES = {
   letter:  {n:'Write a letter', icon:'✉️', pts:2, line:'You write a few honest lines and send them off.'},
@@ -79,8 +117,8 @@ function rBonds(){
     const locks = Object.keys(REL_GESTURES).map(k => relGestureLock(r,k) && relGestureLock(r,k).startsWith('🔒')||relGestureLock(r,k).startsWith('📍') ? REL_GESTURES[k].n+': '+relGestureLock(r,k) : '').filter(Boolean);
     return `<div class="panel"><div class="row" style="align-items:center;gap:10px;flex-wrap:nowrap">${r.img?`<img src="${r.img}" alt="" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)">`:`<span class="big">${r.icon}</span>`}<div><b>${r.n}</b><div class="sm">${r.kind}</div><div><b>${REL_LADDER[r.ladder][t]}</b> <span class="sm">· standing ${s}/${REL_MAX}</span></div></div></div>
       ${bar(s - REL_AT[t], (next===undefined?REL_MAX:next) - REL_AT[t])}<div class="sm">${next===undefined?'The deepest bond.':(next-s)+' more to '+REL_LADDER[r.ladder][t+1]}</div>
-      <div class="sm" style="margin:4px 0">${r.desc}</div>${perks}<div class="row" style="margin-top:6px;flex-wrap:wrap">${gest}</div>${locks.length?`<div class="sm" style="opacity:.6;margin-top:2px">${locks.join(' · ')}</div>`:''}</div>`; }).join('');
-  return `<h2>Bonds</h2><div class="sm">Who Jade is close to. Companions deepen by spending time together; allies and family respond to letters, gifts, visits and counsel, once per day each, and their favours unlock as the bond grows.</div>${flashHtml()}<h4>Allies and family</h4>${allies}<h4>Hang out</h4><div class="sm">Time together, once per day for each bond. Progress always counts; the bonus only works while they are fielded.</div>${rTracks()}<h4>Companions</h4>${comp||'<div class="sm">No companions yet.</div>'}`;
+      <div class="sm" style="margin:4px 0">${r.desc}</div>${rStrain(r)}${perks}<div class="row" style="margin-top:6px;flex-wrap:wrap">${gest}</div>${locks.length?`<div class="sm" style="opacity:.6;margin-top:2px">${locks.join(' · ')}</div>`:''}</div>`; }).join('');
+  return `<h2>Bonds</h2><div class="sm">Who Jade is close to. Companions deepen by spending time together; allies and family respond to letters, gifts, visits and counsel, once per day each, and their favours unlock as the bond grows.</div>${flashHtml()}<h4>Allies and family</h4>${allies}<h4>Local regard</h4>${rRegard()}<h4>Hang out</h4><div class="sm">Time together, once per day for each bond. Progress always counts; the bonus only works while they are fielded.</div>${rTracks()}<h4>Companions</h4>${comp||'<div class="sm">No companions yet.</div>'}`;
 }
 
 /* =====================================================================
@@ -149,6 +187,7 @@ function doHangOut(k, actId){
   const st = trackState(k), before = trackTier(k); st.pts += TRACK_PTS; st.last = G.day;
   if(!G.moments) G.moments = []; G.moments.push({t:k, a:actId, d:G.day}); if(G.moments.length > MOMENTS_MAX) G.moments.splice(0, G.moments.length - MOMENTS_MAX);
   const msgs = [a.icon+' '+a.line+' (+'+TRACK_PTS+')'], now = trackTier(k);
+  if(now > before){ chronicle(T.label+': '+T.names[now]+'.', '💞'); }
   if(now > before) msgs.push('💞 '+T.label+': '+T.names[now]+'.'+(T.bonus&&T.amounts[now]?' Bonus now +'+Math.round(T.amounts[now]*100)+'%.':''));
   return msgs.concat(advanceDay(1));
 }

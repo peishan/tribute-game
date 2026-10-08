@@ -207,9 +207,10 @@ const CHARACTERS = {
   bond:null }
 };
 /* Arc guests: temporary party members who fight beside the party for the length of an arc, then leave (GUEST_RULES in core.js).
-   They level with the party (see mkAlly), carry no XP of their own and are not part of the roster list. Portrait: assets/party/<id>.webp (512x512); until it exists an emoji stands in. */
+   Like the Ghost Healer they are passive companions: they fight by themselves, cannot be equipped or controlled and are not shown in the Party screen.
+   They level with the party (see mkAlly) and carry no XP of their own. No portrait needed (an emoji stands in unless assets/party/<id>.webp exists). */
 CHARACTERS.rin = {
-  n:'Rin Kaede', icon:'🏹', cls:'Spirit Ranger', role:'Spirit tracker / Ranged (Arc VI guest)', combat:'Ranged Physical with spirit talismans', guestOnly:true,
+  n:'Rin Kaede', icon:'🏹', cls:'Spirit Ranger', role:'Spirit tracker / Ranged (Arc VI guest)', combat:'Ranged Physical with spirit talismans', guestOnly:true, companion:true,
   identity:'A Spirit Ranger and monster tracker from a remote frontier community. Reads spirit trails and corrupted energy; distrusts royal officials. Short recurved bow and spirit charms. Travels with the party for the Fifteen Evils.',
   style:['Short recurved bow','Spirit charms','Spirit tracking'], strength:'Spirit trails and corruption',
   weapon:'Recurved bow', signature:'Spirit Trail', sigDesc:'Marks a target\'s spirit trail: it cannot hide, and takes extra damage from corruption-breaking attacks.',
@@ -221,7 +222,7 @@ CHARACTERS.rin = {
    {id:'spirit_trail',n:'Spirit Trail',icon:'👣',mp:9,kind:'support',tgt:'self',fx:[{k:'crit',d:3},{k:'buff',stat:'atk',m:1.25,d:3}],req:{lvl:8},sig:true,desc:'SIGNATURE. She reads the trail: guaranteed crits and a sharper aim.'},
   ], evo:{tiers:[]}, bond:null };
 CHARACTERS.cael = {
-  n:'Cael Ardyn', icon:'🗝️', cls:'Last Seal Keeper', role:'Seal ward / Support (Arc V guest)', combat:'Wards and sealing magic', guestOnly:true,
+  n:'Cael Ardyn', icon:'🗝️', cls:'Last Seal Keeper', role:'Seal ward / Support (Arc V guest)', combat:'Wards and sealing magic', guestOnly:true, companion:true,
   identity:'The last Seal Keeper, a golden-haired guardian of a vanished order who looks strikingly like Dima. Keeps and breaks seals. Travels with the party through the Broken Seals.',
   style:['Seal wards','Binding words','Keeper\'s light'], strength:'Seals and protection',
   weapon:'Keeper\'s staff', signature:'Seal of the Keepers', sigDesc:'Raises a seal around the party: a barrier that holds and heals a little each turn.',
@@ -232,5 +233,17 @@ CHARACTERS.cael = {
    {id:'warding_circle',n:'Warding Circle',icon:'⭕',mp:11,kind:'support',tgt:'allies',fx:[{k:'shield',v:.2,d:3}],req:{lvl:5},desc:'A circle of wards: a barrier for the whole party.'},
    {id:'seal_of_keepers',n:'Seal of the Keepers',icon:'🔆',mp:14,kind:'support',tgt:'allies',fx:[{k:'shield',v:.25,d:3},{k:'regen',v:.06,d:3}],req:{lvl:8},sig:true,desc:'SIGNATURE. A seal around the party: a strong barrier and slow healing.'},
   ], evo:{tiers:[]}, bond:null };
-const ROSTER = ['jade','chad','sky','sally','levi','ripley','devon','seraphina','ghost_healer','rin','cael'];
+CHARACTERS.eira = {
+  n:'Eira Solenne', icon:'📖', cls:'Forgotten Scholar', role:'Lore / Magic support (Arc V guest)', combat:'Magic and insight', guestOnly:true, companion:true,
+  identity:'A scholar who inherited a small part of the knowledge of a forgotten age. She guides the party along the Forgotten Path and reads the old records; she is the world map itself.',
+  style:['Records and maps','Insight','Light magic'], strength:'Knowledge of the old world',
+  weapon:'Book of records', signature:'Reading of the Old World', sigDesc:'Reads the foes\' pattern: they are slowed and take more damage.',
+  base:{hp:60,mp:52,atk:5,mag:15,def:7,spd:11}, grow:{hp:5.5,mp:4.2,atk:.6,mag:2.1,def:.9,spd:1},
+  skills:[
+   {id:'record_light',n:'Lantern of Records',icon:'📖',mp:6,kind:'magic',tgt:'foe',pow:1.5,req:{lvl:1},desc:'Words of an old record flare into light and strike.'},
+   {id:'old_remedy',n:'Old Remedy',icon:'🌿',mp:8,kind:'heal',tgt:'ally',pow:1.3,fx:[{k:'cleanse'}],req:{lvl:1},desc:'A remedy copied from a forgotten text: heals and cleanses.'},
+   {id:'path_reading',n:'Reading the Path',icon:'🧭',mp:10,kind:'support',tgt:'allies',fx:[{k:'buff',stat:'spd',m:1.2,d:3},{k:'crit',d:2}],req:{lvl:5},desc:'She marks the road ahead: the party moves faster and sees openings.'},
+   {id:'reading_old_world',n:'Reading of the Old World',icon:'🔆',mp:12,kind:'magic',tgt:'foes',pow:1.4,fx:[{k:'slow',d:2}],req:{lvl:8},sig:true,desc:'SIGNATURE. She reads the foes\' pattern aloud: every enemy is struck and slowed.'},
+  ], evo:{tiers:[]}, bond:null };
+const ROSTER = ['jade','chad','sky','sally','levi','ripley','devon','seraphina','ghost_healer','rin','cael','eira'];
 const BOND_LEVELS = [0,20,60,120,200,300];   // cumulative bond points for bond lvl 0..5

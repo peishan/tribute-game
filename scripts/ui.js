@@ -38,7 +38,7 @@ function rParty(){
   const roster = ROSTER.filter(id => !isCompanion(id) && !CHARACTERS[id].guestOnly).map(id => {
     const c=CHARACTERS[id], rec=isRecruited(id), join=JOIN_CH[id];
     return `<div class="rc ${sel===id?'sel':''} ${rec||profileKnown(id)?'':'lock'}" onclick="sel='${id}';render()"><img src="${portrait(id)}"><div><b>${profileKnown(id)||id==='seraphina'?c.n:'???'}</b><div class="sm">${rec?clsOf(id)+' · Lv'+U(id).lv+(G.guests[id]?' · guest':''):(profileKnown(id)?clsOf(id)+' · ':'')+(join!==undefined?'Joins Ch.'+join:'Unrecruited')}</div></div></div>`; }).join('');
-  return `<h2>Party</h2><div class="sm">${fixedParty()?`The travelling party (${activeCount()}/5): Jade and Devon always fight; the others may be benched.`:`Active (${activeCount()}/${ACTIVE_SLOTS}) — fights use these four`}</div><div class="slots">${slots}</div>${presentGuests().map(id => `<div class="sm" style="margin:4px 0">🤝 Guest: ${GUEST_RULES[id].note}</div>`).join('')}<div class="rcs">${roster}</div>${rSheet(sel)}`;
+  return `<h2>Party</h2><div class="sm">${fixedParty()?`The travelling party (${activeCount()}/5): Jade and Devon always fight; the others may be benched.`:`Active (${activeCount()}/${ACTIVE_SLOTS}) — fights use these four`}</div><div class="slots">${slots}</div>${presentGuests().filter(id => !CHARACTERS[id].guestOnly).map(id => `<div class="sm" style="margin:4px 0">🤝 Guest: ${GUEST_RULES[id].note}</div>`).join('')}<div class="rcs">${roster}</div>${rSheet(sel)}`;
 }
 function rSheet(id){
   const c=CHARACTERS[id], rec=isRecruited(id);
@@ -79,13 +79,19 @@ function doRespec(id){ if(respec(id)){ toast('Skill tree reset'); render(); } }
 function doEvolve(id,eid){ if(evolve(id,eid)){ toast(CHARACTERS[id].n+' evolved!'); render(); } }
 
 /* ---------------- JOURNAL ---------------- */
+let jView = 'chapters';
+const JVIEWS = () => [['chapters','📖 Chapters'],['chronicle','📜 Chronicle']].concat(G.ch>=29 ? [['whispers','👂 Whispers']] : [], [['regard','🏮 Regard']]);
 function rJournal(){
   if(openCh!==null) return rChapter(openCh);
+  const jtabs = `<div class="row" style="margin:4px 0 8px">${JVIEWS().map(([k,l]) => `<button class="${jView===k?'pri':''}" onclick="jView='${k}';render()">${l}</button>`).join('')}</div>`;
+  if(jView==='chronicle') return jtabs+rChronicle();
+  if(jView==='whispers') return jtabs+'<h2>Whispers</h2>'+rWhispers();
+  if(jView==='regard') return jtabs+'<h2>Local Regard</h2>'+rRegard();
   const rows = CHAPTERS.map(c => {
     const done=chapterDone(c.n), avail=chapterAvailable(c.n);
     const joins = recruitsAtChapter(c.n).map(id=>CHARACTERS[id].n.split(' ')[0]);
     return `<div class="card ${avail?'':'lock'} ${c.n===G.ch+1?'cur':''}" onclick="${avail?`openChapter(${c.n})`:''}"><div class="fl"><b>${c.n===0?'':c.n+'. '}${avail?c.title:'???'}</b><div class="sm">${done?'✔ Complete':avail?'Available':(c.n<=G.ch+1&&CH_LOC[c.n]?'📍 Travel to '+LOCATIONS[CH_LOC[c.n]].n:'Locked')}${CH_LOC[c.n]&&avail&&!done?' · 📍 '+LOCATIONS[CH_LOC[c.n]].n:''}${c.battle?' · ⚔️ battle':''}${joins.length?' · ★ '+joins.join(', ')+' joins':''}${c.art.length?'':' · art pending'}</div></div><span class="sm">XP ${c.sxp}</span></div>`; }).join('');
-  return `<h2>Chapter Journal</h2><div class="sm">Chapters unlock in order. Each gives story XP; battle chapters also roll loot.</div>${rows}`;
+  return `${jtabs}<h2>Chapter Journal</h2><div class="sm">Chapters unlock in order. Each gives story XP; battle chapters also roll loot.</div>${rows}`;
 }
 function openChapter(n){ openCh=n; chMsgs=[]; render(); if(CHAPTERS[n].art.length && !G.read[n] && !chapterDone(n)) openStory(n); }
 function closeChapter(){ openCh=null; render(); }

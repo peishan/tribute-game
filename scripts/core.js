@@ -77,7 +77,7 @@ const XP_TABLES = {
   support:{a:44, b:24, c:1.3},     // Sky, the Ghost Healer
   scholar:{a:46, b:25, c:1.35},    // Devon: defensive mage
 };
-const XP_CLASS = {jade:'standard', chad:'fighter', seraphina:'fighter', levi:'ranger', ripley:'ranger', sally:'ranger', sky:'support', ghost_healer:'support', devon:'scholar', rin:'ranger', cael:'support'};
+const XP_CLASS = {jade:'standard', chad:'fighter', seraphina:'fighter', levi:'ranger', ripley:'ranger', sally:'ranger', sky:'support', ghost_healer:'support', devon:'scholar', rin:'ranger', cael:'support', eira:'support'};
 const xpToNext = (lv, id) => { const t = XP_TABLES[XP_CLASS[id] || 'standard']; return Math.round(t.a + lv*t.b + lv*lv*t.c); };
 
 function gearBonus(id){ return typeof gearBonusSum==='function' ? gearBonusSum(id) : {hp:0,mp:0,atk:0,mag:0,def:0,spd:0}; }   // see gear.js
@@ -227,6 +227,7 @@ const GUEST_RULES = {
   chad:{flag:'roc_reborn', regions:['dragon'], note:'Roc, reborn, fights beside the party on Dragonvale ground.'},
   // Arc guests: present from chapter fromCh is complete until chapter untilCh is complete, anywhere; they level with the party and leave when the arc ends.
   cael:{fromCh:123, untilCh:146, note:'Cael Ardyn, the last Seal Keeper, travels with the party until the Broken Seals arc ends.'},
+  eira:{fromCh:129, untilCh:146, note:'Eira Solenne, the scholar of the sanctuary, guides the party until the Broken Seals arc ends.'},
   rin:{fromCh:149, untilCh:166, note:'Rin Kaede, the Spirit Ranger, travels with the party until the Fifteen Evils arc ends.'},
 };
 const presentGuests = () => !G ? [] : Object.keys(GUEST_RULES).filter(id => { const r = GUEST_RULES[id];

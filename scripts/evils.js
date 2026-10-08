@@ -9,20 +9,20 @@ const EVIL_STATUS = {unknown:'Unknown', active:'Active', investigating:'Investig
 const EVIL_RESOLVED = ['contained','purified','destroyed','reconciled','resolved'];   // all count as Resolved: resolving is not killing
 const EVIL_ARC_END = 166;   // The Fifteen Shadows: the arc's closing screen
 const EVILS = [
-  {id:'thorned_widow', n:'The Thorned Widow', activeCh:148, resolveCh:152, how:'destroyed',
+  {id:'thorned_widow', n:'The Thorned Widow', loc:'forest_of_thorns', activeCh:148, resolveCh:152, how:'destroyed',
    original:'A thorned abomination of Xima\'s curse (traditional record; wording first-pass)', revised:{spot:'widow_origin', t:'Corrupted guardian spirit: dangerously corrupted, originally benign'}, home:'The Black Forest', intel:[
      {label:'Threat to Civilians', value:'Critical', spot:'witness_accounts'},
      {label:'Corruption', value:'High', spot:'forest_physical'},
      {label:'Spiritual Origin', value:'Confirmed', spot:'forest_spirit'},
      {label:'Sentience', value:'Low', spot:'first_evil_search'},
      {label:'Origin', value:'A guardian spirit of the forest', spot:'widow_origin'}]},
-  {id:'mourning_hart', n:'The Mourning Hart', activeCh:153, resolveCh:156, how:'reconciled', home:'Mourning Valley',
+  {id:'mourning_hart', n:'The Mourning Hart', loc:'mourning_valley', activeCh:153, resolveCh:156, how:'reconciled', home:'Mourning Valley',
    original:'Hostile cursed beast', revised:{spot:'hart_motive', t:'Ancient territorial guardian: corruption uncertain'}, intel:[
      {label:'Corruption', value:'Low', spot:'hart_protective'},
      {label:'Guardian Behaviour', value:'Confirmed', spot:'hart_shrine'},
      {label:'Threat', value:'Territorial', spot:'treasure_seekers'},
      {label:'Sentience', value:'High', spot:'hart_motive'}]},
-  {id:'hollow_king', n:'The Hollow King', resolveCh:161, how:'contained', home:'The Crownless Marches (not yet reached)', intel:[]},
+  {id:'hollow_king', n:'The Hollow King', loc:'crownless_marches', resolveCh:161, how:'contained', home:'The Crownless Marches (not yet reached)', intel:[]},
   {id:'black_tide', n:'The Black Tide', intel:[]}, {id:'silent_flame', n:'The Silent Flame', intel:[]}, {id:'weeping_stone', n:'The Weeping Stone', intel:[]},
   {id:'sky_eater', n:'The Sky Eater', intel:[]}, {id:'bone_river', n:'The Bone River', intel:[]}, {id:'sunless_child', n:'The Sunless Child', intel:[]},
   {id:'drowned_crown', n:'The Drowned Crown', intel:[]}, {id:'ashen_serpent', n:'The Ashen Serpent', intel:[]}, {id:'mirror_queen', n:'The Mirror Queen', intel:[]},
@@ -40,10 +40,16 @@ function evilState(e){
 const evilRevised = e => !!(e.revised && G.flags['inv_'+e.revised.spot]);
 const evilKeeper = () => G.ch >= 162 ? 'Master Orin Vale, with Adrian Gold' : 'Adrian Gold';
 const evilsResolved = () => EVILS.filter(e => EVIL_RESOLVED.includes(evilState(e))).length;
+/* called when chapter n completes: records each Evil the chapter resolves in the Chronicle and in the regard of nearby places */
+function evilsChapterDone(n){
+  const msgs = [];
+  EVILS.filter(e => e.resolveCh===n).forEach(e => { chronicle(e.n+': '+EVIL_STATUS[e.how]+'. Resolved '+evilsResolved()+' / 15.', '🕯️'); if(e.loc && LOCATIONS[e.loc]){ const m = regardAdd(e.loc, 40); if(m) msgs.push(m); const nb = LOC_ORDER.filter(k => k!==e.loc && LOCATIONS[k].region===LOCATIONS[e.loc].region && isSettlement(k)); nb.forEach(k => regardAdd(k, 20)); } });
+  return msgs;
+}
 function resolveEvil(id, how){
   const e = EVILS.find(x => x.id===id); if(!e || !EVIL_STATUS[how]) return [];
   if(!G.evils) G.evils = {};
-  G.evils[id] = {state:how}; save();
+  G.evils[id] = {state:how}; chronicle(e.n+': '+EVIL_STATUS[how]+'.', '🕯️'); save();
   return [EVIL_RESOLVED.includes(how) ? '✔ '+e.n+': '+EVIL_STATUS[how]+'. Resolved '+evilsResolved()+'/15.' : e.n+': '+EVIL_STATUS[how]+'.'];
 }
 /* ---- Ask the party (from Crimson Tide's disagreement-and-repair idea): before Jade decides an Evil's fate she can hear each companion's view.

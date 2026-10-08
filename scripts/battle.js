@@ -230,7 +230,13 @@ function companionAct(u){
   const veil = skills.find(s => s.id==='veil_of_dawn');
   if(veil && B.round%3===1){ spend(veil); return resolve(u, veil, null); }
   if(weak && weak.hp/weak.mhp < .85 && one){ spend(one); return resolve(u, one, weak); }
-  if(foes.length){ const t = foes.slice().sort((a,b) => a.hp-b.hp)[0]; return resolve(u, {id:'attack', n:'Quiet Strike', kind:'phys', tgt:'foe', pow:1, mp:0}, t); }
+  const wards = skills.find(s => s.kind==='support' && s.tgt==='allies');
+  if(wards && B.round%3===2){ spend(wards); return resolve(u, wards, null); }   // arc guests with wards and marks (Cael, Eira)
+  if(foes.length){
+    const hitters = skills.filter(s => (s.kind==='phys' || s.kind==='magic') && (s.tgt==='foe' || s.tgt==='foes')).sort((a,b) => (b.pow||0)*(b.tgt==='foes' && foes.length>=3 ? 1.4 : 1) - (a.pow||0)*(a.tgt==='foes' && foes.length>=3 ? 1.4 : 1));
+    const corr = foes.find(f => f.traits && f.traits.includes('corrupt')), pick = (corr && hitters.find(s => s.vsCorrupt)) || hitters[0];   // arc guests that attack (Rin)
+    if(pick){ spend(pick); return resolve(u, pick, pick.tgt==='foes' ? null : (corr && pick.vsCorrupt ? corr : foes.slice().sort((a,b) => a.hp-b.hp)[0])); }
+    const t = foes.slice().sort((a,b) => a.hp-b.hp)[0]; return resolve(u, {id:'attack', n:'Quiet Strike', kind:'phys', tgt:'foe', pow:1, mp:0}, t); }
 }
 function resolve(u, s, t){
   const hit = s.kind==='phys' || s.kind==='magic';
@@ -304,7 +310,9 @@ function finishWin(){
   const act = G.active, bench = G.party.filter(id => !act.includes(id));
   B.rewards.msgs = gainXp(xp, act).concat(gainXp(Math.round(xp*.5), bench));
   act.forEach(id => { const m = addBond(id, bossKey ? 8 : 3); if(m) B.rewards.msgs.push(m); });
+  const gBonus = typeof whisperBonus==='function' ? whisperBonus('purse') : 0; if(gBonus){ gold = Math.round(gold*(1+gBonus)); B.rewards.gold = gold; }
   G.gold += gold; addItems(drops);
+  if(!spec.chapter && !bossKey && typeof regardAdd==='function' && G.bondDay['rg_'+G.loc] !== G.day){ G.bondDay['rg_'+G.loc] = G.day; const rm = regardAdd(G.loc, 2); if(rm) B.rewards.msgs.push(rm); }
   if(typeof onFoesDefeated==='function') B.rewards.msgs = B.rewards.msgs.concat(onFoesDefeated(foes));   // quests / bounties / missions
   if(spec.onWin) B.rewards.msgs = B.rewards.msgs.concat(spec.onWin() || []);
   save();

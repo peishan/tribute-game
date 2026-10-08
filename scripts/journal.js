@@ -55,6 +55,7 @@ function completeChapter(n){
     if(recruit(id)){ G.guests[id] = true; U(id).lv = Math.max(U(id).lv, avgPartyLv()-1); msgs.push('☆ '+CHARACTERS[id].n+' joins as a guest (temporary).'); }
   });
   applyStoryStates(n);
+  if(typeof chronicle==='function'){ chronicle('Chapter '+n+': '+c.title, '📖'); if(typeof evilsChapterDone==='function') evilsChapterDone(n).forEach(m => msgs.push(m)); }
   if(n===50){ G.inv.sealed_box = 0; }
   if(n===89){ restoreParty(); msgs.push('🛏️ A week of rest in Tribute: HP and MP fully restored.'); }
   if(CH_ITEMS[n]){ addItems(CH_ITEMS[n]); CH_ITEMS[n].forEach(d => msgs.push('Received '+ITEMS[d.id].icon+' '+ITEMS[d.id].n)); }
