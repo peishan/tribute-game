@@ -747,7 +747,7 @@ const FLAG_LABEL = { bracelet:'Communication Bracelet', crossbow:'Levi\'s Crossb
 /* ---------------- DAY CLOCK ---------------- */
 function advanceDay(n){
   G.day += n; if(typeof corrTick==='function') corrTick(n); if(n>0 && typeof healParty==='function') healParty(Math.min(.5,.1*n)); refreshBounties();
-  return deliverLetters().concat(checkMissionOffers(), typeof famTick==='function' ? famTick() : []);
+  return deliverLetters().concat(checkMissionOffers(), typeof famTick==='function' ? famTick() : [], typeof salaryTick==='function' ? salaryTick() : []);
 }
 
 /* ---------------- LETTERS & MISSIONS (King Greyson) ---------------- */
@@ -1207,6 +1207,7 @@ function acceptMission(id){
 function completeMission(id){
   const m = missionById(id); G.missions[id] = {st:'done'};
   const msgs = grantReward(m.rw, '📜 Mission complete: '+m.title);
+  if(typeof regardAdd==='function'){ const rm = regardAdd(G.loc, 15); if(rm) msgs.push(rm); chronicle('Mission complete: '+m.title+'.', '📜'); }
   save(); return msgs.concat(checkMissionOffers());
 }
 function missionProgress(m){
@@ -1288,7 +1289,7 @@ function startTravel(r, to){
   if(voyageRoute(r)) return startVoyage(ROUTES.indexOf(r), to);
   const ev = Math.random() < (r.mode==='ship' ? .5 : .35) ? AR(EVENTS[r.mode]) : null;
   PEND = {r, to, ev, from:G.loc};
-  if(Math.random() < ((G.flags.valen_restored && r.restoredRisk!==undefined) ? r.restoredRisk : r.risk)){
+  if(Math.random() < Math.max(0, ((G.flags.valen_restored && r.restoredRisk!==undefined) ? r.restoredRisk : r.risk) - (typeof whisperBonus==='function' ? whisperBonus('road') : 0))){
     const lv = Math.max(1, avgPartyLv() + (r.mode==='ship'?1:0));
     const group = foeGroup(r.pool, lv, 2 + (Math.random()<.35?1:0));
     flash(['⚠️ '+(r.mode==='ship'?'Raiders and weather':'Trouble on the road')+' on the '+r.n+'!']);
@@ -1311,7 +1312,7 @@ function finishTravel(){
   const first = !G.visited[p.to];
   msgs.push.apply(msgs, onArrive(p.to));
   msgs.push.apply(msgs, advanceDay(p.r.days));
-  if(first) msgs.push('📍 New location discovered: '+LOCATIONS[p.to].n);
+  if(first){ msgs.push('📍 New location discovered: '+LOCATIONS[p.to].n); if(typeof chronicle==='function') chronicle('Reached '+LOCATIONS[p.to].n+' for the first time.', '📍'); }
   save(); return msgs;
 }
 function onBattleLost(){
@@ -1379,6 +1380,7 @@ function finishQuest(q, msgs){
   if(q.trust && typeof addTrust==='function'){ addTrust(q.trust); const l = nextAdrianLetter(); if(l) msgs.push('💌 A letter from Adrian: "'+l+'"'); }
   grantReward(q.rw, '').forEach(m => msgs.push(m.replace(/^ · /,'')));
   msgs.unshift('🎯 Quest complete: '+q.name);
+  if(typeof regardAdd==='function'){ const rm = regardAdd(G.loc, 8); if(rm) msgs.push(rm); }
 }
 function questKill(key){
   const msgs = [];
@@ -1460,6 +1462,7 @@ function doInvestigate(spotId){
     if(ins) msgs.push('⚔️ Jade\'s Insight finds a hidden path: no time lost.');
     if(sen){ gainXp(300+avgPartyLv()*10, G.party).forEach(m => msgs.push(m)); msgs.push('🔮 Devon reads the magic residue (bonus XP).'); if(typeof corrAdd==='function' && isCorrupted(G.loc)){ corrAdd(G.loc, -5); msgs.push('Corruption −5%.'); } }
     if(n >= sp.need){ G.flags['inv_'+spotId] = true; msgs.push.apply(msgs, grantReward(sp.rw, '🕯️ Investigation complete: '+sp.n));
+      if(typeof regardAdd==='function'){ const rm = regardAdd(G.loc, 10); if(rm) msgs.push(rm); chronicle('Investigation complete: '+sp.n+'.', '🕯️'); }
       MISSIONS.forEach(m => { if(mState(m.id)==='active' && m.obj.type==='investigate' && m.obj.spot===spotId) msgs.push.apply(msgs, completeMission(m.id)); });
       msgs.push.apply(msgs, checkSteps()); }
     msgs.push.apply(msgs, advanceDay(ins ? 0 : 1)); save(); return msgs;
@@ -1591,15 +1594,17 @@ function doGarden(id){
   const msgs = ['🌸 You walk the garden with '+CHARACTERS[id].n.split(' ')[0]+'. Bond +5.']; if(m) msgs.push(m);
   return msgs.concat(advanceDay(1));
 }
+const MEAL_COST = () => typeof discounted==='function' ? discounted(G.loc, 15) : 15;
 function doMeal(){
   if(G.mealDay[G.loc] === G.day) return ['You have already eaten here today.'];
-  if(G.gold < 15) return ['A shared meal costs 15 gold.'];
-  G.gold -= 15; G.mealDay[G.loc] = G.day; const msgs = ['🍶 A shared meal. Bond +2 for the active party.'];
+  if(G.gold < MEAL_COST()) return ['A shared meal costs '+MEAL_COST()+' gold.'];
+  G.gold -= MEAL_COST(); G.mealDay[G.loc] = G.day; const msgs = ['🍶 A shared meal. Bond +2 for the active party.'];
   G.active.forEach(id => { const m = addBond(id, 2); if(m) msgs.push(m); });
   if(typeof banterLines==='function') banterLines('rest').forEach(m => msgs.push(m));
   return msgs.concat(advanceDay(0));
 }
 function rumour(){
+  if(typeof hearWhisper==='function') return hearWhisper();   // the Whisper Ledger (whispers.js)
   if(G.gold < 5) return '"Rumours cost 5 gold, friend."';
   G.gold -= 5;
   const hints = [];

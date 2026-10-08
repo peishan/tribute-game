@@ -16,6 +16,7 @@ function unreadCount(){ return G.letters.filter(l=>!l.read).length; }
 /* ---------------- MISSIONS TAB ---------------- */
 function rMissions(){
   const unread = unreadCount();
+  const salaryPanel = typeof rSalary==='function' ? rSalary() : '';
   const subs = [['letters','✉️ Letters'+(unread?' ('+unread+')':'')],['missions','📜 Missions'],['quests','🎯 Quests'],['bounties','💰 Bounties']];
   const comm = hasBracelet()
     ? '<div class="sm">📿 <b>Communication bracelet</b> — King Greyson reaches you instantly, anywhere.</div>'
@@ -24,7 +25,7 @@ function rMissions(){
   let body = '';
   if(mTab==='letters') body = rLetters(); else if(mTab==='missions') body = rMissionList();
   else if(mTab==='quests') body = rQuestsActive(); else body = rBountyList();
-  return `<h2>Missions & Contracts</h2>${comm}${sallyBtn}<div class="row" style="margin:6px 0">${subs.map(([k,l])=>`<button class="${mTab===k?'pri':''}" onclick="mTab='${k}';openLetter=null;render()">${l}</button>`).join('')}</div>${flashHtml()}${body}`;
+  return `<h2>Missions & Contracts</h2>${comm}${salaryPanel}${sallyBtn}<div class="row" style="margin:6px 0">${subs.map(([k,l])=>`<button class="${mTab===k?'pri':''}" onclick="mTab='${k}';openLetter=null;render()">${l}</button>`).join('')}</div>${flashHtml()}${body}`;
 }
 function rLetters(){
   if(openLetter){
@@ -97,7 +98,7 @@ function rHere(){
   if(spotOpen){ const sp = L.spots.find(s=>s.id===spotOpen); if(sp) return rSpot(L, sp); spotOpen = null; }
   const cards = L.spots.map(sp=>{ const lock = spotLock(sp);
     return `<div class="card ${lock?'lock':''}" onclick="${lock?'':`spotOpen='${sp.id}';render()`}"><span class="big">${sp.icon}</span><div class="fl"><b>${sp.n}</b><div class="sm">${lock||sp.desc}</div></div></div>`; }).join('');
-  return `${bandImg(L.img)}<h2>${L.icon} ${L.n}</h2>${typeof corrMeter==='function'?corrMeter(G.loc):''}<div class="sm">${REGIONS[L.region].icon} ${REGIONS[L.region].n} · Day ${G.day}</div><div class="sm" style="margin:4px 0">${L.desc}</div>${flashHtml()}${cards||'<div class="panel sm">Nothing to do here yet.</div>'}`;
+  return `${bandImg(L.img)}<h2>${L.icon} ${L.n}</h2>${typeof corrMeter==='function'?corrMeter(G.loc):''}<div class="sm">${REGIONS[L.region].icon} ${REGIONS[L.region].n} · Day ${G.day}</div>${typeof regardLine==='function' && isSettlement(G.loc) ? regardLine(G.loc) : ''}<div class="sm" style="margin:4px 0">${L.desc}</div>${flashHtml()}${cards||'<div class="panel sm">Nothing to do here yet.</div>'}`;
 }
 function spotBack(){ spotOpen = null; render(); }
 function rSpot(L, sp){
@@ -166,7 +167,7 @@ function rSpot(L, sp){
       const opts = G.party.filter(i=>i!=='jade').map(i=>`<option value="${i}" ${i===gardenSel?'selected':''}>${CHARACTERS[i].n}</option>`).join('');
       body = G.party.length>1 ? `<div class="panel"><div class="sm">Spend an evening together (once per member per day). Bond +5.</div><select onchange="gardenSel=this.value">${opts}</select><button class="pri" onclick="act(doGarden,gardenSel)">Walk together (1 day)</button></div>` : '<div class="panel sm">Jade walks alone for now. Companions will join her here as they are recruited.</div>'; break; }
     case 'tavern':
-      body = `<div class="panel"><button onclick="act(chatParty)">🗣️ Listen to the party (once a day)</button>${G.flags.sally_gossip&&G.loc==='dragon_vale'?'<button onclick="act(courtGossip)">🌹 Ask Sally for court gossip (once a day)</button>':''}<button class="pri" onclick="act(restAtInn)">🛏️ Rest (${REST_COST()}g, full recovery, 1 day)</button><button onclick="act(doMeal)">Share a meal (15g)</button><button onclick="toast(rumour());render()">Buy a rumour (5g)</button></div>`; break;
+      body = `<div class="panel"><button onclick="act(chatParty)">🗣️ Listen to the party (once a day)</button>${G.flags.sally_gossip&&G.loc==='dragon_vale'?'<button onclick="act(courtGossip)">🌹 Ask Sally for court gossip (once a day)</button>':''}<button class="pri" onclick="act(restAtInn)">🛏️ Rest (${REST_COST()}g, full recovery, 1 day)</button><button onclick="act(doMeal)">Share a meal (${MEAL_COST()}g)</button><button onclick="toast(rumour());render()">Buy a rumour (${typeof WHISPER_COST==='function'?WHISPER_COST():5}g)</button></div>`; break;
     case 'board': body = rBoard(); break;
     case 'hunt':
       body = `<div class="panel"><div class="sm">Enemies: ${sp.pool.map(k=>ENEMIES[k].icon+' '+ENEMIES[k].n).join(', ')}${sp.elite?' · elite: '+ENEMIES[sp.elite].icon+' '+ENEMIES[sp.elite].n:''}. Scaled to party level (min Lv${sp.lo||1}).</div>

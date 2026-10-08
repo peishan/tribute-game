@@ -15,8 +15,9 @@ const ARCS = [
   {n:3, title:'The Truth Beneath Tribute', img:'assets/arcs/arc3.webp', after:86},
   {n:4, title:'The Forgotten Valen Legacy', img:'assets/arcs/arc4.webp', after:103, cast:'assets/arcs/arc4_cast.webp', castCh:121},
   {n:5, title:'The Broken Seals', img:'assets/arcs/arc5.webp', after:121, cast:'assets/arcs/arc5_cast.webp', castCh:146},   // Arc V runs from ch122 to ch146 (per the pages)
+  {n:6, title:'The Fifteen Evils', img:'assets/arcs/arc6.webp', after:146},   // begins with ch147; the tagline on the cover: "A name is not the same as the truth"
 ];
-const ARC_ROMAN = ['','I','II','III','IV','V'];
+const ARC_ROMAN = ['','I','II','III','IV','V','VI'];
 function arcFor(afterCh){ return ARCS.find(a => a.after === afterCh); }
 function showArc(n, manual, cast){
   const a = ARCS.find(x => x.n===n), el = $('arcpop'); if(!a || !el) return;

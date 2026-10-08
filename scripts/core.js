@@ -77,7 +77,7 @@ const XP_TABLES = {
   support:{a:44, b:24, c:1.3},     // Sky, the Ghost Healer
   scholar:{a:46, b:25, c:1.35},    // Devon: defensive mage
 };
-const XP_CLASS = {jade:'standard', chad:'fighter', seraphina:'fighter', levi:'ranger', ripley:'ranger', sally:'ranger', sky:'support', ghost_healer:'support', devon:'scholar'};
+const XP_CLASS = {jade:'standard', chad:'fighter', seraphina:'fighter', levi:'ranger', ripley:'ranger', sally:'ranger', sky:'support', ghost_healer:'support', devon:'scholar', rin:'ranger', cael:'support', eira:'support'};
 const xpToNext = (lv, id) => { const t = XP_TABLES[XP_CLASS[id] || 'standard']; return Math.round(t.a + lv*t.b + lv*lv*t.c); };
 
 function gearBonus(id){ return typeof gearBonusSum==='function' ? gearBonusSum(id) : {hp:0,mp:0,atk:0,mag:0,def:0,spd:0}; }   // see gear.js
@@ -89,7 +89,7 @@ function evoMult(id, stat){
 // Permanent stat changes from Roc's dark-magic backlash (chapters 70-72; the author's plan). Multipliers on base stats.
 const BACKLASH = { chad_backlash_1:{hp:.92, def:.92, mag:1.35}, chad_backlash_2:{spd:.9, hp:.94, mag:1.2}, chad_backlash_3:{hp:.9, def:.9, atk:1.1, mag:1.15} };
 const REBORN_LEVI = {atk:1.15, mag:1.2, spd:1.1, hp:.95};   // draft: "reborn" Levi is not the same man as before
-const clsOf = id => (id==='levi' && G && G.flags.levi_reborn) ? 'Reborn Shadow' : (id==='chad' && G && G.flags.roc_reborn) ? 'Fallen Dragon Prince' : CHARACTERS[id].cls;
+const clsOf = id => (id==='levi' && G && G.flags.levi_reborn) ? 'Noble Ranger' : (id==='chad' && G && G.flags.roc_reborn) ? 'Fallen Dragon Prince' : CHARACTERS[id].cls;
 // Portrait variants: assets/party/<id>_noble.webp (Sally from ch51) and <id>_reborn.webp (Levi); a missing file falls back to the base portrait.
 const portrait = id => 'assets/party/'+id+((id==='sally' && G && G.flags.sally_noble) ? '_noble' : (id==='levi' && G && G.flags.levi_reborn) ? '_reborn' : '')+'.webp';
 function backlashMult(id, s){
@@ -223,10 +223,19 @@ const activeCount = () => G.active.filter(id => !isDisabled(id)).length;   // a 
 /* Temporary members ("visiting guests"): fight beside the party (controllable, extra to the five) while a rule holds.
    Add a row here when a journey introduces someone: { id, flag (story flag that makes them available), regions (where they travel with you) }.
    Roc (once purified, flag roc_reborn) joins on Dragonvale ground and at the exile border; he never returns to the main party. */
+const AREA_BROKEN_SEALS = ['forgotten_battlefield','forgotten_sanctuary','celestial_ruins','land_beyond_seal'];
+const AREA_NORTH = ['northern_frontier','black_forest','forest_of_thorns','mourning_valley'];
 const GUEST_RULES = {
   chad:{flag:'roc_reborn', regions:['dragon'], note:'Roc, reborn, fights beside the party on Dragonvale ground.'},
+  // Area guests: fight beside the party (passive companions) only while the party is inside their area (locs), from chapter fromCh. Leave the area and they leave.
+  cael:{fromCh:123, locs:AREA_BROKEN_SEALS, note:'Cael Ardyn, the last Seal Keeper, fights beside the party while it is in the Broken Seals area.'},
+  eira:{fromCh:129, locs:AREA_BROKEN_SEALS, note:'Eira Solenne, the scholar of the sanctuary, fights beside the party while it is in the Broken Seals area.'},
+  rin:{fromCh:149, locs:AREA_NORTH, note:'Rin Kaede, the Spirit Ranger, fights beside the party while it is in the northern forest country.'},
 };
-const presentGuests = () => !G ? [] : Object.keys(GUEST_RULES).filter(id => { const r = GUEST_RULES[id]; return G.flags[r.flag] && r.regions.includes(LOCATIONS[G.loc].region) && !isDisabled(id); });
+const presentGuests = () => !G ? [] : Object.keys(GUEST_RULES).filter(id => { const r = GUEST_RULES[id];
+  const ok = (r.flag===undefined || G.flags[r.flag]) && (!r.regions || r.regions.includes(LOCATIONS[G.loc].region)) && (!r.locs || r.locs.includes(G.loc)) && (r.fromCh===undefined || G.ch>=r.fromCh) && (r.untilCh===undefined || G.ch<r.untilCh);
+  return ok && !isDisabled(id); });
+const isGuestNow = id => presentGuests().includes(id);
 const isCompanion = id => !!(CHARACTERS[id] && CHARACTERS[id].companion);   // companions travel and fight with the party without using one of the active slots
 function recruit(id){ if(G.left && G.left[id]) return false; if(!G.party.includes(id)){ G.party.push(id); if(!isCompanion(id) && activeCount()<slotCap()) G.active.push(id); return true; } return false; }
 function toggleActive(id){ if(unbenchable(id) || isCompanion(id) || (isAway(id) && !G.active.includes(id))) return; const i=G.active.indexOf(id); if(i>=0) G.active.splice(i,1); else if(activeCount()<slotCap()) G.active.push(id); save(); }

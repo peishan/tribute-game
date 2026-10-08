@@ -35,10 +35,10 @@ function stub(title, sub, items){
 function rParty(){
   const nSlots = fixedParty() ? 5 : 4;
   const slots = Array.from({length:nSlots}, (_,i) => i).map(i => { const id=G.active.filter(x => !isCompanion(x))[i]; return id?`<div class="slot on ${isDisabled(id)?'dis':''}" onclick="sel='${id}';render()"><img src="${portrait(id)}"><b>${CHARACTERS[id].n.split(' ')[0]}</b>${isDisabled(id)?'<span class="sm">⛔ cannot fight</span>':''}</div>`:`<div class="slot"><b>empty</b></div>`; }).join('');
-  const roster = ROSTER.filter(id => !isCompanion(id)).map(id => {
+  const roster = ROSTER.filter(id => !isCompanion(id) && !CHARACTERS[id].guestOnly).map(id => {
     const c=CHARACTERS[id], rec=isRecruited(id), join=JOIN_CH[id];
     return `<div class="rc ${sel===id?'sel':''} ${rec||profileKnown(id)?'':'lock'}" onclick="sel='${id}';render()"><img src="${portrait(id)}"><div><b>${profileKnown(id)||id==='seraphina'?c.n:'???'}</b><div class="sm">${rec?clsOf(id)+' · Lv'+U(id).lv+(G.guests[id]?' · guest':''):(profileKnown(id)?clsOf(id)+' · ':'')+(join!==undefined?'Joins Ch.'+join:'Unrecruited')}</div></div></div>`; }).join('');
-  return `<h2>Party</h2><div class="sm">${fixedParty()?`The travelling party (${activeCount()}/5): Jade and Devon always fight; the others may be benched.`:`Active (${activeCount()}/${ACTIVE_SLOTS}) — fights use these four`}</div><div class="slots">${slots}</div>${presentGuests().map(id => `<div class="sm" style="margin:4px 0">🤝 Guest: ${GUEST_RULES[id].note}</div>`).join('')}<div class="rcs">${roster}</div>${rSheet(sel)}`;
+  return `<h2>Party</h2><div class="sm">${fixedParty()?`The travelling party (${activeCount()}/5): Jade and Devon always fight; the others may be benched.`:`Active (${activeCount()}/${ACTIVE_SLOTS}) — fights use these four`}</div><div class="slots">${slots}</div>${presentGuests().filter(id => !CHARACTERS[id].guestOnly).map(id => `<div class="sm" style="margin:4px 0">🤝 Guest: ${GUEST_RULES[id].note}</div>`).join('')}<div class="rcs">${roster}</div>${rSheet(sel)}`;
 }
 function rSheet(id){
   const c=CHARACTERS[id], rec=isRecruited(id);
@@ -79,13 +79,19 @@ function doRespec(id){ if(respec(id)){ toast('Skill tree reset'); render(); } }
 function doEvolve(id,eid){ if(evolve(id,eid)){ toast(CHARACTERS[id].n+' evolved!'); render(); } }
 
 /* ---------------- JOURNAL ---------------- */
+let jView = 'chapters';
+const JVIEWS = () => [['chapters','📖 Chapters'],['chronicle','📜 Chronicle']].concat(G.ch>=29 ? [['whispers','👂 Whispers']] : [], [['regard','🏮 Regard']]);
 function rJournal(){
   if(openCh!==null) return rChapter(openCh);
+  const jtabs = `<div class="row" style="margin:4px 0 8px">${JVIEWS().map(([k,l]) => `<button class="${jView===k?'pri':''}" onclick="jView='${k}';render()">${l}</button>`).join('')}</div>`;
+  if(jView==='chronicle') return jtabs+rChronicle();
+  if(jView==='whispers') return jtabs+'<h2>Whispers</h2>'+rWhispers();
+  if(jView==='regard') return jtabs+'<h2>Local Regard</h2>'+rRegard();
   const rows = CHAPTERS.map(c => {
     const done=chapterDone(c.n), avail=chapterAvailable(c.n);
     const joins = recruitsAtChapter(c.n).map(id=>CHARACTERS[id].n.split(' ')[0]);
-    return `<div class="card ${avail?'':'lock'} ${c.n===G.ch+1?'cur':''}" onclick="${avail?`openChapter(${c.n})`:''}"><div class="fl"><b>${c.n===0?'':c.n+'. '}${avail?c.title:'???'}</b><div class="sm">${done?'✔ Complete':avail?'Available':(c.n<=G.ch+1&&CH_LOC[c.n]?'📍 Travel to '+LOCATIONS[CH_LOC[c.n]].n:'Locked')}${CH_LOC[c.n]&&avail&&!done?' · 📍 '+LOCATIONS[CH_LOC[c.n]].n:''}${c.battle?' · ⚔️ battle':''}${joins.length?' · ★ '+joins.join(', ')+' joins':''}${c.art.length?'':' · art pending'}</div></div><span class="sm">XP ${c.sxp}</span></div>`; }).join('');
-  return `<h2>Chapter Journal</h2><div class="sm">Chapters unlock in order. Each gives story XP; battle chapters also roll loot.</div>${rows}`;
+    return `<div class="card ${avail?'':'lock'} ${c.n===G.ch+1?'cur':''}" onclick="${avail?`openChapter(${c.n})`:''}"><div class="fl"><b>${c.n===0?'':c.n+'. '}${avail||(c.n===G.ch+1&&chapterLevelLock(c.n))?c.title:'???'}</b><div class="sm">${done?'✔ Complete':avail?'Available':(c.n<=G.ch+1&&chapterLevelLock(c.n)?chapterLevelLock(c.n):c.n<=G.ch+1&&CH_LOC[c.n]?'📍 Travel to '+LOCATIONS[CH_LOC[c.n]].n:'Locked')}${!done&&chapterGate(c.n)&&c.n>G.ch?' · ⚖️ level gate '+chapterGate(c.n).lv:''}${CH_LOC[c.n]&&avail&&!done?' · 📍 '+LOCATIONS[CH_LOC[c.n]].n:''}${c.battle?' · ⚔️ battle':''}${joins.length?' · ★ '+joins.join(', ')+' joins':''}${c.art.length?'':' · art pending'}</div></div><span class="sm">XP ${c.sxp}</span></div>`; }).join('');
+  return `${jtabs}<h2>Chapter Journal</h2><div class="sm">Chapters unlock in order. Each gives story XP; battle chapters also roll loot.</div>${rows}`;
 }
 function openChapter(n){ openCh=n; chMsgs=[]; render(); if(CHAPTERS[n].art.length && !G.read[n] && !chapterDone(n)) openStory(n); }
 function closeChapter(){ openCh=null; render(); }
@@ -97,6 +103,7 @@ function nextChapterBtn(n){
   if(!hasNextChapter(n)) return '';
   const m = n+1;
   if(chapterAvailable(m)) return `<button class="pri" onclick="goNextChapter(${m})">Next chapter ▶ ${m}. ${CHAPTERS[m].title}</button>`;
+  if(chapterLevelLock(m)) return `<div class="panel"><b>🔒 Chapter ${m}: ${CHAPTERS[m].title}</b><div class="sm">${chapterLevelLock(m)}. ${chapterGate(m).label}</div></div>`;
   const at = CH_LOC[m] && LOCATIONS[CH_LOC[m]];
   return at ? `<div class="sm" style="margin:6px 0">Chapter ${m} begins at 📍 ${at.n}.</div><button class="pri" onclick="goTravelForChapter()">🛞 Travel to ${at.n}</button>` : '';
 }
@@ -160,7 +167,7 @@ function rBattle(){
   if(!B) return '<div class="sm">No battle in progress.</div>';
   const tgtMode = B.ui.mode==='target', cand = tgtMode ? B.ui.cands.map(u=>u.uid) : [];
   const foes = B.foes.map(f=>`<div class="unit foe ${f.dead?'dead':''} ${cand.includes(f.uid)?'tg':''}" ${cand.includes(f.uid)?`onclick="pickTarget('${f.uid}')"`:''}><div class="ic">${f.icon}</div><b>${f.name}</b>${bar(f.hp,f.mhp,'e')}<div class="sm">${f.hp}/${f.mhp}${f.known?' · DEF '+f.def:''}</div>${f.traits&&f.traits.includes('corrupt')?`<div class="sm" style="color:var(--purple)">☠️ Corruption gauge ${Math.round(100*f.hp/f.mhp)}%</div>`:''}<div class="ch">${chips(f)}</div></div>`).join('');
-  const allies = B.allies.map(a=>`<div class="unit ally ${a.dead?'dead':''} ${B.cur===a&&!B.over?'cur':''} ${cand.includes(a.uid)?'tg':''}" ${cand.includes(a.uid)?`onclick="pickTarget('${a.uid}')"`:''}><img src="${a.img}"><div><b>${a.name.replace(/^The /,'').split(' ')[0]}</b>${bar(a.hp,a.mhp)}${bar(a.mp,a.mmp,'mpb')}<div class="sm">${a.hp}/${a.mhp} · ${a.mp}MP</div><div class="ch">${chips(a)}</div></div></div>`).join('');
+  const allies = B.allies.map(a=>`<div class="unit ally ${a.dead?'dead':''} ${B.cur===a&&!B.over?'cur':''} ${cand.includes(a.uid)?'tg':''}" ${cand.includes(a.uid)?`onclick="pickTarget('${a.uid}')"`:''}> ${isCompanion(a.id) ? `<span class="sym" title="${a.name}">${a.icon}</span>` : `<img src="${a.img}">`}<div><b>${a.name.replace(/^The /,'').split(' ')[0]}</b>${isCompanion(a.id) ? '<span class="sm"> '+CHARACTERS[a.id].skills.filter(s => s.req && s.req.lvl!==undefined ? U(a.id).lv >= s.req.lvl : true).map(s => s.icon).join(' ')+'</span>' : ''}${bar(a.hp,a.mhp)}${bar(a.mp,a.mmp,'mpb')}<div class="sm">${a.hp}/${a.mhp} · ${a.mp}MP</div><div class="ch">${chips(a)}</div></div></div>`).join('');
   const log = B.log.slice(-9).map(l=>`<div class="lg ${l.cls}">${l.t}</div>`).join('');
   let act='';
   if(B.over==='win'){
@@ -225,7 +232,7 @@ function rCast(){
 }
 function rBestiary(){
   const keys=Object.keys(ENEMIES), found=keys.filter(k=>G.bestiary[k]).length;
-  return `<h2>Bestiary</h2><div class="sm">${found} / ${keys.length} discovered</div>`+keys.map(k=>{const e=ENEMIES[k],n=G.bestiary[k];
+  return `<h2>Bestiary</h2><div class="sm">${found} / ${keys.length} discovered</div>${typeof rLootGuide==='function'?rLootGuide():''}<h4>Creatures</h4>`+keys.map(k=>{const e=ENEMIES[k],n=G.bestiary[k];
     return n?`<div class="card"><span class="big">${e.icon}</span><div class="fl"><b>${e.n}</b><div class="sm">${e.area}${e.boss?' · boss':e.elite?' · elite':''} · HP ${e.hp} · defeated ${n}</div><div class="sm">${e.desc}</div></div></div>`
             :`<div class="card lock"><span class="big">❔</span><div class="fl"><b>???</b><div class="sm">Undiscovered</div></div></div>`;}).join('');
 }
@@ -241,7 +248,7 @@ function rDev(){
    <button onclick="restoreParty();save();render()">Restore party HP/MP</button><button onclick="G.disabled={};save();render()">Clear disabled</button><button onclick="G.flags.greyson_arms=!G.flags.greyson_arms;save();render()">Unseal Greyson's dagger+flail (${G.flags.greyson_arms?'on':'off'})</button>
    <button onclick="G.flags.bracelet=!G.flags.bracelet;save();render()">Toggle bracelet (${G.flags.bracelet?'on':'off'})</button>
    <button onclick="advanceDay(1);save();render()">+1 day</button><select id="devloc">${LOC_ORDER.filter(locOpen).map(k=>`<option value="${k}" ${k===G.loc?'selected':''}>${LOCATIONS[k].n}</option>`).join('')}</select><button onclick="G.loc=$('devloc').value;syncAway();save();render()">Warp</button>
-   <button onclick="ROSTER.forEach(i=>recruit(i));save();render()">Recruit everyone</button></div></div>
+   <button onclick="ROSTER.filter(i=>!CHARACTERS[i].guestOnly).forEach(i=>recruit(i));save();render()">Recruit everyone</button></div></div>
    <div class="panel"><button onclick="if(confirm('Erase save?')){localStorage.removeItem(CFG.SAVE_KEY);location.reload()}">Erase save</button></div>`;
 }
 

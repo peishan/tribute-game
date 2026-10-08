@@ -31,7 +31,7 @@ function persistBattle(){
   if(!B || !B.spec.rewards) return;
   B.allies.forEach(a => { const u = U(a.id); if(!u) return; u.hp = a.dead ? Math.max(1, Math.round(a.mhp*.2)) : a.hp; u.mp = a.mp; });
 }
-const REST_COST = () => 10 + avgPartyLv()*2;
+const REST_COST = () => { const c = 10 + avgPartyLv()*2; return typeof discounted==='function' ? discounted(G.loc, c) : c; };
 function restAtInn(){
   const c = REST_COST(); if(G.gold < c) return ['A bed costs '+c+' gold.'];
   G.gold -= c; restoreParty();
@@ -46,8 +46,9 @@ function brewTonic(){
   G.inv.forest_herb -= 3; addItems([{id:'herbal_tonic', qty:1}]); save();
   return ['🍵 You brew a Herbal Tonic from 3 herbs.'];
 }
+const shopPrice = k => { const p = CONSUMABLE_SHOP[k]; return Math.max(1, Math.round(p * (1 - (typeof regardDisc==='function' ? regardDisc() : 0)) * (1 - (typeof whisperBonus==='function' ? whisperBonus('shop') : 0)))); };
 function buyConsumable(k){
-  const p = CONSUMABLE_SHOP[k]; if(!p || G.gold < p || !isSettlement(G.loc)) return false;
+  const p = shopPrice(k); if(!p || G.gold < p || !isSettlement(G.loc)) return false;
   G.gold -= p; G.inv[k] = (G.inv[k]||0)+1; save(); return true;
 }
 
