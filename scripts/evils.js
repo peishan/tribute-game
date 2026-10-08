@@ -5,21 +5,24 @@
    the evidence is in (resolveEvil(id, how) is called by that chapter). Investigation spots fill the Classification meter.
    State: G.evils = { id: { state } }.   Values marked (design) are the author's example values, not canon until the hunt's chapters.
    ===================================================================== */
-const EVIL_STATUS = {unknown:'Unknown', active:'Active', investigating:'Investigating', corrupted:'Corrupted', guardian:'Guardian', contained:'Contained', purified:'Purified', destroyed:'Destroyed', resolved:'Resolved'};
-const EVIL_RESOLVED = ['contained','purified','destroyed','resolved'];
+const EVIL_STATUS = {unknown:'Unknown', active:'Active', investigating:'Investigating', corrupted:'Corrupted', guardian:'Guardian', contained:'Contained', purified:'Purified', destroyed:'Destroyed', reconciled:'Reconciled', resolved:'Resolved'};
+const EVIL_RESOLVED = ['contained','purified','destroyed','reconciled','resolved'];   // all count as Resolved: resolving is not killing
+const EVIL_ARC_END = 166;   // The Fifteen Shadows: the arc's closing screen
 const EVILS = [
-  {id:'thorned_widow', n:'The Thorned Widow', activeCh:148, resolveCh:152, how:'resolved', home:'The Black Forest', intel:[
+  {id:'thorned_widow', n:'The Thorned Widow', activeCh:148, resolveCh:152, how:'destroyed',
+   original:'A thorned abomination of Xima\'s curse (traditional record; wording first-pass)', revised:{spot:'widow_origin', t:'Corrupted guardian spirit: dangerously corrupted, originally benign'}, home:'The Black Forest', intel:[
      {label:'Threat to Civilians', value:'Critical', spot:'witness_accounts'},
      {label:'Corruption', value:'High', spot:'forest_physical'},
      {label:'Spiritual Origin', value:'Confirmed', spot:'forest_spirit'},
      {label:'Sentience', value:'Low', spot:'first_evil_search'},
      {label:'Origin', value:'A guardian spirit of the forest', spot:'widow_origin'}]},
-  {id:'mourning_hart', n:'The Mourning Hart', activeCh:153, home:'Mourning Valley', intel:[
+  {id:'mourning_hart', n:'The Mourning Hart', activeCh:153, resolveCh:156, how:'reconciled', home:'Mourning Valley',
+   original:'Hostile cursed beast', revised:{spot:'hart_motive', t:'Ancient territorial guardian: corruption uncertain'}, intel:[
      {label:'Corruption', value:'Low', spot:'hart_protective'},
      {label:'Guardian Behaviour', value:'Confirmed', spot:'hart_shrine'},
      {label:'Threat', value:'Territorial', spot:'treasure_seekers'},
      {label:'Sentience', value:'High', spot:'hart_motive'}]},
-  {id:'hollow_king', n:'The Hollow King', home:'The Crownless Marches (not yet reached)', intel:[]},
+  {id:'hollow_king', n:'The Hollow King', resolveCh:161, how:'contained', home:'The Crownless Marches (not yet reached)', intel:[]},
   {id:'black_tide', n:'The Black Tide', intel:[]}, {id:'silent_flame', n:'The Silent Flame', intel:[]}, {id:'weeping_stone', n:'The Weeping Stone', intel:[]},
   {id:'sky_eater', n:'The Sky Eater', intel:[]}, {id:'bone_river', n:'The Bone River', intel:[]}, {id:'sunless_child', n:'The Sunless Child', intel:[]},
   {id:'drowned_crown', n:'The Drowned Crown', intel:[]}, {id:'ashen_serpent', n:'The Ashen Serpent', intel:[]}, {id:'mirror_queen', n:'The Mirror Queen', intel:[]},
@@ -34,6 +37,8 @@ function evilState(e){
   if(evilIntel(e).length) return 'investigating';
   return (e.activeCh && G.ch >= e.activeCh) ? 'active' : 'unknown';
 }
+const evilRevised = e => !!(e.revised && G.flags['inv_'+e.revised.spot]);
+const evilKeeper = () => G.ch >= 162 ? 'Master Orin Vale, with Adrian Gold' : 'Adrian Gold';
 const evilsResolved = () => EVILS.filter(e => EVIL_RESOLVED.includes(evilState(e))).length;
 function resolveEvil(id, how){
   const e = EVILS.find(x => x.id===id); if(!e || !EVIL_STATUS[how]) return [];
@@ -43,6 +48,8 @@ function resolveEvil(id, how){
 }
 function rRegister(){
   const rows = EVILS.map((e,i) => { const st = evilState(e), intel = evilIntel(e);
-    return `<div class="ev"><div><b>${i+1}. ${e.hidden?'???':e.n}</b> <span class="sm">· ${EVIL_STATUS[st]}${e.home&&st!=='unknown'?' · '+e.home:''}</span>${intel.length?`<div class="sm">Classification: ${intel.map(x => x.label+': '+x.value).join(' · ')}${intel.length<e.intel.length?' · '+(e.intel.length-intel.length)+' more to learn':''}</div>`:''}</div></div>`; }).join('');
-  return `<div class="panel"><b>Resolved: ${evilsResolved()}/15</b><div class="sm">Not "killed": each Evil is destroyed, purified, contained or otherwise resolved once Jade has learned what it is.</div></div>${rows}`;
+    const cls = e.original && st!=='unknown' ? (evilRevised(e) ? `<div class="sm" style="opacity:.6;text-decoration:line-through">Original classification: ${e.original}</div><div class="sm"><b>Revised classification:</b> ${e.revised.t}</div>` : `<div class="sm">Classification: ${e.original}</div>`) : '';
+    return `<div class="ev"><div><b>${i+1}. ${e.hidden?'???':e.n}</b> <span class="sm">· ${EVIL_STATUS[st]}${e.home&&st!=='unknown'?' · '+e.home:''}</span>${cls}${intel.length?`<div class="sm">Classification: ${intel.map(x => x.label+': '+x.value).join(' · ')}${intel.length<e.intel.length?' · '+(e.intel.length-intel.length)+' more to learn':''}</div>`:''}</div></div>`; }).join('');
+  const done = evilsResolved(), revised = EVILS.filter(evilRevised).length;
+  return `<div class="panel"><b>THE FIFTEEN EVILS</b><div><b>Resolved: ${done} / 15</b> · Remaining: ${15-done} · Unknown classifications: ${G.ch>=EVIL_ARC_END?'?':15-revised}</div><div class="sm">Kept by ${evilKeeper()}. Not "killed": each Evil is destroyed, purified, contained, reconciled or otherwise resolved once Jade has learned what it is. Find them. Understand them. Then decide what must be done.</div>${G.ch>=EVIL_ARC_END?'<div class="sm" style="margin-top:4px"><i>Not every monster was born a monster. Not every victim remained innocent. And not every name history gave them was true.</i></div>':''}</div>${rows}`;
 }
