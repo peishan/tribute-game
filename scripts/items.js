@@ -35,7 +35,7 @@ const REST_COST = () => { const c = 10 + avgPartyLv()*2; return typeof discounte
 function restAtInn(){
   const c = REST_COST(); if(G.gold < c) return ['A bed costs '+c+' gold.'];
   G.gold -= c; restoreParty();
-  return ['🛏️ The party sleeps soundly. HP and MP fully restored. (-'+c+'g)'].concat(typeof banterLines==='function' ? banterLines('rest', .6) : [], advanceDay(1));
+  return ['🛏️ The party sleeps soundly. HP and MP fully restored. (-'+c+'g)'].concat(typeof banterLines==='function' ? banterLines('rest', .6) : [], typeof momentLines==='function' ? momentLines(.35) : [], advanceDay(1));
 }
 function useConsumable(id, k){
   const u = USE[k]; if(!u || !(G.inv[k] > 0)) return false;
@@ -73,7 +73,7 @@ function fireflyRest(){
 function craftAt(out){
   const r = RECIPES.find(x => x.out===out); if(!r) return [];
   if(G.gold < r.gold || !Object.keys(r.need).every(k => (G.inv[k]||0) >= r.need[k])) return ['Not enough materials or gold.'];
-  Object.keys(r.need).forEach(k => G.inv[k] -= r.need[k]); G.gold -= r.gold; addItems([{id:out, qty:1}]); save();
+  Object.keys(r.need).forEach(k => G.inv[k] -= r.need[k]); G.gold -= r.gold; addItems([{id:out, qty:1}]); G.crafted = (G.crafted||0) + 1; save();
   return ['⚗️ Jenika crafts '+ITEMS[out].icon+' '+ITEMS[out].n+'.'];
 }
 

@@ -22,6 +22,7 @@ function render(){
               equipment:rGear,
               missions:rMissions, rewards:rRewards, skirmish:rSkirmish, network:rNetwork, bonds:rBonds, cast:rCast, travel:rTravel, here:rHere, save:rSave,
               dev:rDev }[tab] || rJournal;
+  if(typeof checkDeeds==='function') checkDeeds();   // before drawing, so the Deeds screen is never one render behind
   $('main').innerHTML = R();
   if(typeof corrSky==='function') corrSky();
   if(typeof renderTracker==='function') renderTracker();
@@ -80,11 +81,13 @@ function doEvolve(id,eid){ if(evolve(id,eid)){ toast(CHARACTERS[id].n+' evolved!
 
 /* ---------------- JOURNAL ---------------- */
 let jView = 'chapters';
-const JVIEWS = () => [['chapters','📖 Chapters'],['chronicle','📜 Chronicle']].concat(G.ch>=29 ? [['whispers','👂 Whispers']] : [], [['regard','🏮 Regard']]);
+const JVIEWS = () => [['chapters','📖 Chapters'],['chronicle','📜 Chronicle'],['deeds','🏆 Deeds']].concat(G.ch>=29 ? [['whispers','👂 Whispers'],['overheard','💬 Overheard']] : [], [['regard','🏮 Regard']]);
 function rJournal(){
   if(openCh!==null) return rChapter(openCh);
   const jtabs = `<div class="row" style="margin:4px 0 8px">${JVIEWS().map(([k,l]) => `<button class="${jView===k?'pri':''}" onclick="jView='${k}';render()">${l}</button>`).join('')}</div>`;
   if(jView==='chronicle') return jtabs+rChronicle();
+  if(jView==='deeds') return jtabs+rDeeds();
+  if(jView==='overheard') return jtabs+rOverheard();
   if(jView==='whispers') return jtabs+'<h2>Whispers</h2>'+rWhispers();
   if(jView==='regard') return jtabs+'<h2>Local Regard</h2>'+rRegard();
   const rows = CHAPTERS.map(c => {

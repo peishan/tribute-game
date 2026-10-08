@@ -11,6 +11,7 @@ function baseRest(){
   restoreParty();
   const b = BASE_SPOTS[baseHere()], msgs = ['🏡 You sleep soundly in '+(b?b.name:'your own bed')+'. HP and MP fully restored. (free)'];
   if(typeof banterLines==='function') banterLines('rest', .7).forEach(m => msgs.push(m));
+  if(typeof momentLines==='function') momentLines(.45).forEach(m => msgs.push(m));
   return msgs.concat(advanceDay(1));
 }
 function baseMeal(){
