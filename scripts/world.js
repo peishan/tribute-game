@@ -734,9 +734,9 @@ const flash = list => { FLASH = FLASH.concat(list); };
 
 function grantReward(rw, label){
   const msgs = [];
-  if(rw.xp) gainXp(rw.xp, G.party).forEach(m => msgs.push(m));
-  if(rw.gold) G.gold += rw.gold;
-  if(rw.rep) G.rep += rw.rep;
+  if(rw.xp) gainXp(Math.round(rw.xp*(1+relPerk('xpBonus'))), G.party).forEach(m => msgs.push(m));
+  if(rw.gold) G.gold += Math.round(rw.gold*(1+relPerk('goldBonus')));
+  if(rw.rep) G.rep += Math.round(rw.rep*(1+relPerk('repBonus')));
   if(rw.items){ addItems(rw.items); rw.items.forEach(d => msgs.push('Received '+(ITEMS[d.id]?ITEMS[d.id].icon+' '+ITEMS[d.id].n:d.id)+' ×'+d.qty)); }
   if(rw.flag){ G.flags[rw.flag] = true; msgs.unshift('✦ '+(FLAG_LABEL[rw.flag]||rw.flag)+' unlocked'); }
   msgs.unshift(label+' · '+[rw.xp&&'+'+rw.xp+' XP', rw.gold&&'+'+rw.gold+'g', rw.rep&&'+'+rw.rep+' renown'].filter(Boolean).join(' · '));
@@ -1280,11 +1280,11 @@ function onArrive(loc){
 /* ---------------- TRAVEL ---------------- */
 let PEND = null;   // travel in progress while its encounter battle is running
 function travelOptions(){
-  return routesFrom(G.loc).map(({r,to}) => ({r, to, open: locOpen(to), modeOk: modeOpen(r.mode), cost: r.fare, can: locOpen(to) && modeOpen(r.mode) && G.gold >= r.fare}));
+  return routesFrom(G.loc).map(({r,to}) => ({r, to, open: locOpen(to), modeOk: modeOpen(r.mode), cost: fareOf(r), can: locOpen(to) && modeOpen(r.mode) && G.gold >= fareOf(r)}));
 }
 function startTravel(r, to){
-  if(!locOpen(to) || !modeOpen(r.mode) || G.gold < r.fare) return;
-  G.gold -= r.fare;
+  if(!locOpen(to) || !modeOpen(r.mode) || G.gold < fareOf(r)) return;
+  G.gold -= fareOf(r);
   if(voyageRoute(r)) return startVoyage(ROUTES.indexOf(r), to);
   const ev = Math.random() < (r.mode==='ship' ? .5 : .35) ? AR(EVENTS[r.mode]) : null;
   PEND = {r, to, ev, from:G.loc};

@@ -58,6 +58,7 @@ function completeChapter(n){
   if(n===50){ G.inv.sealed_box = 0; }
   if(n===89){ restoreParty(); msgs.push('🛏️ A week of rest in Tribute: HP and MP fully restored.'); }
   if(CH_ITEMS[n]){ addItems(CH_ITEMS[n]); CH_ITEMS[n].forEach(d => msgs.push('Received '+ITEMS[d.id].icon+' '+ITEMS[d.id].n)); }
+  if(typeof relApplyChapter==='function') relApplyChapter(n).forEach(m => msgs.push(m));
   Object.keys(CH_BOND[n]||{}).forEach(id => { if(isRecruited(id)){ U(id).bp = Math.max(0, U(id).bp + CH_BOND[n][id]); msgs.push(CH_BOND[n][id]<=-9999 ? '💔 Jade severs her bond with Roc Chadwick ('+CHARACTERS[id].n.split(' ')[0]+').' : '💞 Bond with Jade ('+CHARACTERS[id].n.split(' ')[0]+'): '+(CH_BOND[n][id]>0?'+':'')+CH_BOND[n][id]); } });
   Object.keys(CH_EQUIP[n]||{}).forEach(id => { if(isRecruited(id)) CH_EQUIP[n][id].forEach(k => { if(equipItem(id,k)) msgs.push('🛡️ '+CHARACTERS[id].n.split(' ')[0]+' wears '+ITEMS[k].icon+' '+ITEMS[k].n); }); });
   (CH_FLAGS[n]||[]).forEach(f => { G.flags[f] = true; msgs.push('✦ Story event: '+(FLAG_LABEL[f]||f)+' unlocked'); });

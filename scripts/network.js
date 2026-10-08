@@ -12,7 +12,7 @@ const TRUST_LV = [0, 15, 40, 80, 130];
 const netOpen = () => !!G && G.ch >= NET_CH;
 function net(){ if(!G.net) G.net = {trust:0, letters:[], reqDay:0, reqs:[], read:{}, nextLetter:0}; return G.net; }
 const trustLv = () => { let l = 0; TRUST_LV.forEach((t,i) => { if(net().trust >= t) l = i; }); return l; };
-function addTrust(n){ net().trust += n; }
+function addTrust(n){ net().trust += n>0 ? n + relPerk('trustBonus') : n; }
 
 /* ---- Reports (world-building; chapter gated) ---- */
 const REPORTS = [
