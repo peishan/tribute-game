@@ -38,20 +38,22 @@ function rRecords(){
     return `<div class="li"><b>${r.icon} ${r.n}</b> <span class="sm">· ${REC_STATUS[s]}</span>${r.st.slice(0, s+1).map((x, i) => `<div class="sm">${REC_STATUS[i]}: ${x.t}</div>`).join('')}</div>`; }).join('')).join('') || '<div class="sm">Nothing recorded yet.</div>');
 }
 /* ---------------- DOSSIERS ---------------- */
-const DOSSIERS = [
-  {id:'varyn', icon:'🗝️', n:'Varyn Noctis', sub:'The Seal Breaker', open:'varyn_met', fields:[['Motive','Unconfirmed'],['Allegiance','Unconfirmed']],
+const DOSSIERS = [   // card: [Network, Allegiance, Attitude, Reliability]; each is the default text, or [default, [flag, text], ...] (last true flag wins)
+  {id:'varyn', icon:'🗝️', n:'Varyn Noctis', sub:'The Seal Breaker', open:'varyn_met', card:[['Unconfirmed'], ['Unconfirmed'], ['Unconfirmed'], ['Unconfirmed']],
    entries:[['one_hand_known','PATTERN NOTED'],['varyn_met','MET IN PERSON']]},
-  {id:'adviser', icon:'🕴️', n:'The Unnamed Adviser', sub:'Behind the war', open:'adviser_known', fields:[['Identity','Unconfirmed'],['Whereabouts','Unconfirmed']],
+  {id:'adviser', icon:'🕴️', n:'The Unnamed Adviser', sub:'Behind the war', open:'adviser_known', card:[['Unconfirmed', ['adviser_known','The unnamed adviser behind the war']], ['Unconfirmed'], ['Unconfirmed'], ['Unconfirmed']],
    entries:[['oath_changed','RECORD ALTERED'],['ardyn_inheritance','LINK NOTED'],['adviser_known','NAMED AS ABSENT']]},
-  {id:'third', icon:'👁️', n:'The Third Faction', sub:'The sun-and-eye symbol', open:'symbol_traced', fields:[['Members','Unconfirmed'],['Aims','Unconfirmed']],
+  {id:'third', icon:'👁️', n:'The Third Faction', sub:'The sun-and-eye symbol', open:'symbol_traced', card:[['Unconfirmed', ['third_faction_known','Marked by a sun-and-eye symbol']], ['Unconfirmed'], ['Unconfirmed'], ['Unconfirmed']],
    entries:[['symbol_traced','TRACED'],['faction_identified','IDENTIFIED'],['third_faction_known','SYMBOL KNOWN'],['people_behind_found','PEOPLE BEHIND THE RECORDS']]},
-  {id:'hale', icon:'📋', n:'Magistrate Hale', sub:'Provincial administration', open:'hale_met', fields:[['Loyalty','Unconfirmed']],
+  {id:'hale', icon:'📋', n:'Magistrate Hale', sub:'Provincial administration', open:'hale_met', card:[['Provincial administration'], ['Unconfirmed'], ['Unconfirmed', ['hale_met','An unwilling guardian of the truth']], ['Unconfirmed']],
    entries:[['hale_met','MET IN PERSON']]},
 ];
+const CARD_LABELS = ['Network','Allegiance','Attitude','Reliability'];
+const cardVal = c => { let v = c[0]; c.slice(1).forEach(x => { if(G.flags[x[0]]) v = x[1]; }); return v; };
 function rDossiers(){
   const list = DOSSIERS.filter(d => G.flags[d.open]);
   return `<div class="sm">Files fill in as the story moves; there is nothing to do here but read. Where the story has not answered something, the file says so.</div>` + (list.map(d =>
-    `<div class="panel"><b>${d.icon} ${d.n}</b> <span class="sm">· ${d.sub}</span>${d.fields.map(f => `<div class="sm">${f[0]}: ${f[1]}</div>`).join('')}${d.entries.filter(e => G.flags[e[0]]).map(e => `<div class="li"><span class="sm"><b>${e[1]}</b> · ${FLAG_LABEL[e[0]]||e[0]}</span></div>`).join('')}</div>`).join('') || '<div class="sm">No files opened yet.</div>');
+    `<div class="panel"><b>${d.icon} ${d.n}</b> <span class="sm">· ${d.sub}</span>${d.card.map((c, i) => `<div class="sm">${CARD_LABELS[i]}: ${cardVal(c)}</div>`).join('')}${d.entries.filter(e => G.flags[e[0]]).map(e => `<div class="li"><span class="sm"><b>${e[1]}</b> · ${FLAG_LABEL[e[0]]||e[0]}</span></div>`).join('')}</div>`).join('') || '<div class="sm">No files opened yet.</div>');
 }
 /* ---------------- LEADS AND ANALYSTS ---------------- */
 const ANALYSTS = [
@@ -147,8 +149,8 @@ function archiveSync(){
     if(p){ chronicle('Research finished: '+p.t+' ('+analystOf(p.who).n+').', '📚'); toast('📚 '+p.t+': finished'); gainXp(60+avgPartyLv()*6, G.party); if(CHARACTERS[p.who] && isRecruited(p.who)) addBond(p.who, 3); } } });
   if(ch) save();
 }
-const archiveTabs = () => G && G.ch >= 123 ? [['records','Records'],['dossiers','Dossiers'],['leads','Leads'],['research','Research']] : [];
-function rArchiveTab(t){ return t==='records' ? rRecords() : t==='dossiers' ? rDossiers() : t==='leads' ? rLeads() : t==='research' ? rResearch() : ''; }
+const archiveTabs = () => G && G.ch >= 123 ? [['records','Records'],['dossiers','Dossiers'],['leads','Leads'],['research','Research'],['passages','Passages']].concat(typeof spiritOpen==='function' && spiritOpen() ? [['spirit','Spirit Paths']] : []) : [];
+function rArchiveTab(t){ return t==='records' ? rRecords() : t==='dossiers' ? rDossiers() : t==='leads' ? rLeads() : t==='research' ? rResearch() : t==='passages' ? rPassages() : t==='spirit' ? rSpirit() : ''; }
 deed('rec1', 'story', 'The first record opened', '🗂️', 'The first entry was opened in the Record of the Hidden Isle.', () => recSeen().length >= 1);
 deed('rec_arch', 'story', 'Nothing left unwritten', '🗂️', 'A record reached Archived.', () => recArchived() >= 1);
 deed('rec_all', 'story', 'The whole record', '🗂️', 'Every record is Archived.', () => recArchived() >= RECORDS.length);
