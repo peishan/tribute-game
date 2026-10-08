@@ -5,12 +5,13 @@
    Corruption effects apply to fights in the area (battle.js reads corrAt / corrFoeMult / corrHealMult).
    State: G.corr = { locId: percent }
    ===================================================================== */
-const CORR_START = {dragon_ruins:55, abyssal_frontier:70, dragon_border:30, valen_borderlands:25, moonveil_temple:15, black_forest:35, northern_frontier:15, forest_of_thorns:60, mourning_valley:20};
-const CORR_RISE_PER_DAY = {dragon_ruins:3, abyssal_frontier:4, dragon_border:2, valen_borderlands:1, moonveil_temple:1, black_forest:2, northern_frontier:1, forest_of_thorns:3, mourning_valley:1};
+const CORR_START = {dragon_ruins:55, abyssal_frontier:70, dragon_border:30, valen_borderlands:25, moonveil_temple:15, black_forest:35, northern_frontier:15, forest_of_thorns:60, mourning_valley:20, crownless_marches:35};
+const CORR_RISE_PER_DAY = {dragon_ruins:3, abyssal_frontier:4, dragon_border:2, valen_borderlands:1, moonveil_temple:1, black_forest:2, northern_frontier:1, forest_of_thorns:3, mourning_valley:1, crownless_marches:2};
 const isCorrupted = loc => CORR_START[loc] !== undefined;
 function corrAt(loc){
   if(!isCorrupted(loc)) return 0;
-  if(loc==='forest_of_thorns' && G.ch>=152) return 10;   // the Thorned Widow is resolved: the forest begins to heal
+  if(loc==='forest_of_thorns' && G.ch>=152) return 10;
+  if(loc==='crownless_marches' && G.ch>=161) return 10;   // the Hollow King is contained: the ruins quieten   // the Thorned Widow is resolved: the forest begins to heal
   if(!G.corr) G.corr = {};
   if(G.corr[loc] === undefined) G.corr[loc] = (loc==='valen_borderlands' && G.flags.valen_restored) ? 5 : CORR_START[loc];
   return G.corr[loc];

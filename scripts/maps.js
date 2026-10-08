@@ -38,8 +38,8 @@ const WORLD_MAPS = [
           {k:'The Land Beyond the Seal',x:91,y:90,loc:'land_beyond_seal'},{k:'Tribute',x:74,y:68,loc:'capital',ref:true},{k:'Dragonvale',x:83,y:25,loc:'dragon_vale',ref:true},{k:'Valen Territory',x:21.4,y:43,loc:'valen_borderlands',ref:true},
           {k:'Black Forest',x:33,y:27.6,loc:'black_forest',ref:true}]},
   {id:'hunt', n:'The Fifteen Evils', img:'assets/maps/fifteen_evils.webp', open:() => G.ch >= ARC6_MAP_CH, schem:true,   // Arc VI map: picture not generated yet; schematic positions are placeholders
-   locs:['northern_frontier','black_forest','forest_of_thorns','mourning_valley'],
-   nodes:[{k:'Tribute',x:50,y:88,loc:'capital',ref:true},{k:'The Northern Frontier',x:50,y:66,loc:'northern_frontier'},{k:'The Black Forest',x:30,y:46,loc:'black_forest'},{k:'The Forest of Thorns',x:36,y:24,loc:'forest_of_thorns'},{k:'Mourning Valley',x:68,y:28,loc:'mourning_valley'}]},
+   locs:['northern_frontier','black_forest','forest_of_thorns','mourning_valley','crownless_marches','archive_shrine'],
+   nodes:[{k:'Tribute',x:50,y:88,loc:'capital',ref:true},{k:'The Northern Frontier',x:50,y:66,loc:'northern_frontier'},{k:'The Black Forest',x:30,y:46,loc:'black_forest'},{k:'The Forest of Thorns',x:36,y:24,loc:'forest_of_thorns'},{k:'Mourning Valley',x:68,y:28,loc:'mourning_valley'},{k:'The Crownless Marches',x:84,y:12,loc:'crownless_marches'},{k:'The Abandoned Archive-Shrine',x:16,y:70,loc:'archive_shrine'}]},
 ];
 const mapFor = locId => (WORLD_MAPS.find(m => m.locs.includes(locId)) || WORLD_MAPS[0]).id;
 function mapEntries(m){

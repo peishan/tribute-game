@@ -41,6 +41,11 @@ const REPORTS = [
   {ch:152, loc:'The Forest of Thorns', threat:'The Thorned Widow has fallen and the corruption is fading. The shrine names it a guardian spirit. Register: 1/15 Resolved.', status:'Resolved.'},
   {ch:153, loc:'Mourning Valley', threat:'A spectral stag attacks anyone who enters the valley. The villagers want it killed. Spirit readings say it is not simple corruption.', status:'Investigating.'},
   {ch:155, loc:'Mourning Valley', threat:'Looters and corrupt officials\' soldiers have repeatedly desecrated a burial ground beneath the valley. The hart guards it.', status:'Under protection.'},
+  {ch:156, loc:'Mourning Valley', threat:'The Mourning Hart has withdrawn into its sanctuary. The valley and its forests are now protected land under the crown. Register: 2/15 Resolved.', status:'Resolved.'},
+  {ch:157, loc:'The Crownless Marches', threat:'New reports of a humanoid figure walking abandoned settlements and speaking names no living person knows.', status:'Investigating.'},
+  {ch:161, loc:'The Crownless Marches', threat:'The Hollow King has been contained. Register: 3/15 Resolved.', status:'Resolved.'},
+  {ch:164, loc:'Royal Archive', threat:'Entry IV of the Fifteen Register was deliberately removed from every official copy.', status:'Investigating.'},
+  {ch:165, loc:'The Abandoned Archive-Shrine', threat:'A hooded figure who claims to have seen the Fifteen before they were named waited at the archive-shrine tied to the missing Fourth Entry.', status:'Unresolved.'},
   {ch:99, loc:'Tribute Roads', threat:'Bandits are returning to the coast road now the armies are home.', status:'Contracts posted.'},
 ];
 /* ---- Requests (optional; use the contract system, with trust rewards) ---- */

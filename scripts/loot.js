@@ -49,6 +49,7 @@ const AREA_LOOT = {
   northern_frontier:[{id:'frontier_hide',chance:.35,qty:[1,2],needCh:148},{id:'moonroot',chance:.20,needCh:148},{id:'hunters_talisman',chance:.03,needCh:148}],
   black_forest:[{id:'moonroot',chance:.35,qty:[1,3],needCh:149},{id:'spirit_thread',chance:.25,needCh:149},{id:'thorn_resin',chance:.15,needCh:149}],
   forest_of_thorns:[{id:'thorn_resin',chance:.40,qty:[1,2],needCh:150},{id:'spirit_thread',chance:.20,needCh:150},{id:'thorn_resin_amulet',chance:.03,needCh:150}],
+  crownless_marches:[{id:'battlefield_relic',chance:.30,needCh:157},{id:'seal_dust',chance:.20,needCh:157},{id:'forgotten_glass',chance:.10,needCh:157},{id:'spirit_thread',chance:.15,needCh:157}],
   mourning_valley:[{id:'mist_water',chance:.35,needCh:153},{id:'spirit_thread',chance:.25,needCh:153},{id:'antler_chip',chance:.06,needCh:153},{id:'hart_antler_charm',chance:.01,needCh:153}],
 };
 // boss-name themes (Crimson Tide's LOOT_THEMES): a boss whose name contains a keyword also rolls this item at 20% (first clear +25%)
