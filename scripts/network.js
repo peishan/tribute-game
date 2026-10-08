@@ -145,11 +145,12 @@ function contacts(){
 }
 let netTab = 'reports';
 function rNetwork(){
-  const tabs = [['reports','Reports'],['requests','Requests'],['intel','Intelligence'],['letters','Letters'],['status','Kingdom Status']].concat(typeof evilsOpen==='function' && evilsOpen() ? [['register','Fifteen Evils']] : []);
+  const tabs = [['reports','Reports'],['requests','Requests'],['intel','Intelligence'],['letters','Letters'],['status','Kingdom Status']].concat(typeof evilsOpen==='function' && evilsOpen() ? [['register','Fifteen Evils']] : [], typeof archiveTabs==='function' ? archiveTabs() : []);
   const unread = net().letters.filter(l => !l.read).length;
   const tree = contacts().map(c => `<span class="sm" style="${c.locked?'opacity:.5':''}">${c.n}${c.locked?'':' · '+c.role}</span>`).join(' ↓ ');
   let body = '';
   if(netTab==='register') body = rRegister();
+  if(typeof rArchiveTab==='function' && rArchiveTab(netTab)) body = rArchiveTab(netTab);
   if(netTab==='reports') body = REPORTS.filter(r => G.ch>=r.ch).map(r => `<div class="ev"><div><b>Imperial Report</b><div class="sm">📍 ${r.loc}</div><div class="sm">Threat: ${r.threat}</div><div class="sm">Status: ${r.status}</div></div></div>`).join('') || '<div class="sm">No reports.</div>';
   if(netTab==='requests'){ const rs = refreshRequests();
     body = `<div class="sm">Adrian\'s optional requests (they use your contract log: ${G.quests.active.length}/${MAX_QUESTS}). New requests each day.</div>`+(rs.length?rs.map((r,i) => `<div class="ev"><div><b>${r.icon} ${r.name}</b> <span class="sm">· ${r.kind}</span><div class="sm">${r.desc}</div><div class="sm">${rwText(r.rw)} · Adrian\'s regard</div></div><button class="pri" onclick="act(takeRequest,${i})">Accept</button></div>`).join(''):'<div class="sm">Nothing today.</div>'); }

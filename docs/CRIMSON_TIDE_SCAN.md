@@ -111,3 +111,6 @@ What fits Tribute (ranked)
 5. Readiness for the frontier villages / Field Camp: LOW. Tribute has Local Regard already; a Readiness readout could wait for Arc VI's War Room.
 Not applicable: real-time timers, trade-network and ship readiness.
 Needs your input before building: which chapters reveal each Record stage (I would draft from chapters 1-155 and flag every guess); who analyses what; whether the Nameless Witness dossier should say "Recruitable: No" or stay silent.
+
+## Built from scan 6 (items 1-4): scripts/archive.js
+Four tabs on the Imperial Network from ch123: Records (9 records, staged by existing story flags, wording taken from FLAG_LABEL), Dossiers (Varyn, the unnamed adviser, the third faction, Magistrate Hale; unanswered fields read "Unconfirmed"; nothing about recruitment or fate), Leads (every investigation finished from ch123 leaves a lead; companions analyse it in 1 game day, speciality match 55% Confirmed vs 20%; one cross-check can expose a planted trail) and Research (5 optional 3-day projects). Analysts: Adrian, Seraphina, Sky, Devon, Levi, Rin (Cael and Eira are area guests and so are not analysts). Speciality assignments, lead categories (by spot name), rewards and all project text are first-pass. Readiness (item 5) not built.
