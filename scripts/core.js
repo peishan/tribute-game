@@ -89,7 +89,7 @@ function evoMult(id, stat){
 // Permanent stat changes from Roc's dark-magic backlash (chapters 70-72; the author's plan). Multipliers on base stats.
 const BACKLASH = { chad_backlash_1:{hp:.92, def:.92, mag:1.35}, chad_backlash_2:{spd:.9, hp:.94, mag:1.2}, chad_backlash_3:{hp:.9, def:.9, atk:1.1, mag:1.15} };
 const REBORN_LEVI = {atk:1.15, mag:1.2, spd:1.1, hp:.95};   // draft: "reborn" Levi is not the same man as before
-const clsOf = id => (id==='levi' && G && G.flags.levi_reborn) ? 'Reborn Shadow' : (id==='chad' && G && G.flags.roc_reborn) ? 'Fallen Dragon Prince' : CHARACTERS[id].cls;
+const clsOf = id => (id==='levi' && G && G.flags.levi_reborn) ? 'Noble Ranger' : (id==='chad' && G && G.flags.roc_reborn) ? 'Fallen Dragon Prince' : CHARACTERS[id].cls;
 // Portrait variants: assets/party/<id>_noble.webp (Sally from ch51) and <id>_reborn.webp (Levi); a missing file falls back to the base portrait.
 const portrait = id => 'assets/party/'+id+((id==='sally' && G && G.flags.sally_noble) ? '_noble' : (id==='levi' && G && G.flags.levi_reborn) ? '_reborn' : '')+'.webp';
 function backlashMult(id, s){
