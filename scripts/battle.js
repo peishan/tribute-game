@@ -8,7 +8,7 @@ let B = null;
 function mkAlly(id, persist){
   if(typeof GUEST_RULES!=='undefined' && GUEST_RULES[id] && GUEST_RULES[id].fromCh!==undefined){ const act = G.active.filter(x => !CHARACTERS[x].placeholder && !CHARACTERS[x].companion); U(id).lv = Math.max(1, Math.round(act.reduce((a,x) => a+U(x).lv, 0)/Math.max(1,act.length))); }   // arc guests level with the party
   const s = statsOf(id), c = CHARACTERS[id], hp = persist ? curHp(id) : s.hp, mp = persist ? curMp(id) : s.mp;
-  return { uid:id, id, ally:true, name:c.n, icon:c.icon, img:(c.battleLook ? portrait(id).replace('.webp','_battle.webp') : portrait(id)), traits:[],
+  return { uid:id, id, ally:true, name:c.n, icon:c.icon, img:(c.battleLook && G.flags.sera_shift_known ? portrait(id).replace('.webp','_battle.webp') : portrait(id)), traits:[],
     hp:Math.max(hp,1), mhp:s.hp, mp:mp, mmp:s.mp, atk:s.atk, mag:s.mag, def:s.def, spd:s.spd,
     st:{}, bf:[], state:null, used:{}, dead:false, guard:false, critB:passivesOf(id).critB + (typeof trackCritB==='function' ? trackCritB(id) : 0), evaB:passivesOf(id).evaB };
 }

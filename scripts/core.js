@@ -199,10 +199,11 @@ function evoState(id){
     if(u.evo.includes(t.id)) st = 'taken';
     else {
       const needOk = !t.requiresAny || t.requiresAny.some(x => u.evo.includes(x));
-      const lvlOk = u.lv >= t.req.lvl;
+      const lvlOk = u.lv >= t.req.lvl, flagOk = !t.req.flag || !!G.flags[t.req.flag];
       const rival = t.tier===1 && (t.group==='path'||t.group==='route') && c.evo.tiers.some(o => o.id!==t.id && o.tier===1 && o.group===t.group && u.evo.includes(o.id));
       if(rival){ st='closed'; why='Another path was chosen'; }
       else if(!needOk){ why = 'Requires: '+t.requiresAny.map(x=>c.evo.tiers.find(o=>o.id===x).n).join(' or '); }
+      else if(!flagOk){ why = 'A path not yet revealed in her story'; }
       else if(!lvlOk){ why = 'Level '+t.req.lvl; }
       else { st = 'ready'; why = ''; }
     }
