@@ -16,6 +16,7 @@ function unreadCount(){ return G.letters.filter(l=>!l.read).length; }
 /* ---------------- MISSIONS TAB ---------------- */
 function rMissions(){
   const unread = unreadCount();
+  const salaryPanel = typeof rSalary==='function' ? rSalary() : '';
   const subs = [['letters','✉️ Letters'+(unread?' ('+unread+')':'')],['missions','📜 Missions'],['quests','🎯 Quests'],['bounties','💰 Bounties']];
   const comm = hasBracelet()
     ? '<div class="sm">📿 <b>Communication bracelet</b> — King Greyson reaches you instantly, anywhere.</div>'
@@ -24,7 +25,7 @@ function rMissions(){
   let body = '';
   if(mTab==='letters') body = rLetters(); else if(mTab==='missions') body = rMissionList();
   else if(mTab==='quests') body = rQuestsActive(); else body = rBountyList();
-  return `<h2>Missions & Contracts</h2>${comm}${sallyBtn}<div class="row" style="margin:6px 0">${subs.map(([k,l])=>`<button class="${mTab===k?'pri':''}" onclick="mTab='${k}';openLetter=null;render()">${l}</button>`).join('')}</div>${flashHtml()}${body}`;
+  return `<h2>Missions & Contracts</h2>${comm}${salaryPanel}${sallyBtn}<div class="row" style="margin:6px 0">${subs.map(([k,l])=>`<button class="${mTab===k?'pri':''}" onclick="mTab='${k}';openLetter=null;render()">${l}</button>`).join('')}</div>${flashHtml()}${body}`;
 }
 function rLetters(){
   if(openLetter){

@@ -143,7 +143,7 @@ const BOND_TRACKS = {
     acts:[{id:'herbs',icon:'🌿',n:'Gather herbs together',line:'The Ghost Healer names each leaf and waits for Sky to name it back.'},{id:'lesson',icon:'📖',n:'A lesson in the old healing',line:'A patient lesson, repeated until it settles.'},{id:'tea',icon:'🍵',n:'Tea after the work',line:'You leave the two of them to talk shop over tea.'}]},
   levi_rin:{label:'Levi & Rin', icon:'🏹', members:['levi','rin'], bonus:'crit', amounts:[0,.02,.03,.04,.05],
     names:['Rival Trackers','Comparing Notes','Two Ways of Reading','Hunting Partners','One Trail, Two Eyes'],
-    open:() => !!G.flags.rin_met, why:'Levi fielded and Rin with the party (Arc VI guest)',
+    open:() => !!G.flags.rin_met, why:'Levi fielded and Rin beside you (she only travels the northern forest country)',
     acts:[{id:'tracks',icon:'👣',n:'Compare tracking notes',line:'Levi reads the ground, Rin reads what the ground cannot say.'},{id:'range',icon:'🎯',n:'Target practice',line:'A friendly contest between a long bow and a short recurved one.'},{id:'fire',icon:'🔥',n:'Sit by the fire',line:'Two hunters, slowly deciding to trust each other.'}]},
   circle:{label:'The Travelling Circle', icon:'👥', headcount:4, bonus:'both', amounts:[0,.02,.04,.06,.08],
     names:['Companions on the Road','Easy Company','Trusted Hands','Found Family','This Is Home'],

@@ -223,15 +223,17 @@ const activeCount = () => G.active.filter(id => !isDisabled(id)).length;   // a 
 /* Temporary members ("visiting guests"): fight beside the party (controllable, extra to the five) while a rule holds.
    Add a row here when a journey introduces someone: { id, flag (story flag that makes them available), regions (where they travel with you) }.
    Roc (once purified, flag roc_reborn) joins on Dragonvale ground and at the exile border; he never returns to the main party. */
+const AREA_BROKEN_SEALS = ['forgotten_battlefield','forgotten_sanctuary','celestial_ruins','land_beyond_seal'];
+const AREA_NORTH = ['northern_frontier','black_forest','forest_of_thorns','mourning_valley'];
 const GUEST_RULES = {
   chad:{flag:'roc_reborn', regions:['dragon'], note:'Roc, reborn, fights beside the party on Dragonvale ground.'},
-  // Arc guests: present from chapter fromCh is complete until chapter untilCh is complete, anywhere; they level with the party and leave when the arc ends.
-  cael:{fromCh:123, untilCh:146, note:'Cael Ardyn, the last Seal Keeper, travels with the party until the Broken Seals arc ends.'},
-  eira:{fromCh:129, untilCh:146, note:'Eira Solenne, the scholar of the sanctuary, guides the party until the Broken Seals arc ends.'},
-  rin:{fromCh:149, untilCh:166, note:'Rin Kaede, the Spirit Ranger, travels with the party until the Fifteen Evils arc ends.'},
+  // Area guests: fight beside the party (passive companions) only while the party is inside their area (locs), from chapter fromCh. Leave the area and they leave.
+  cael:{fromCh:123, locs:AREA_BROKEN_SEALS, note:'Cael Ardyn, the last Seal Keeper, fights beside the party while it is in the Broken Seals area.'},
+  eira:{fromCh:129, locs:AREA_BROKEN_SEALS, note:'Eira Solenne, the scholar of the sanctuary, fights beside the party while it is in the Broken Seals area.'},
+  rin:{fromCh:149, locs:AREA_NORTH, note:'Rin Kaede, the Spirit Ranger, fights beside the party while it is in the northern forest country.'},
 };
 const presentGuests = () => !G ? [] : Object.keys(GUEST_RULES).filter(id => { const r = GUEST_RULES[id];
-  const ok = (r.flag===undefined || G.flags[r.flag]) && (!r.regions || r.regions.includes(LOCATIONS[G.loc].region)) && (r.fromCh===undefined || G.ch>=r.fromCh) && (r.untilCh===undefined || G.ch<r.untilCh);
+  const ok = (r.flag===undefined || G.flags[r.flag]) && (!r.regions || r.regions.includes(LOCATIONS[G.loc].region)) && (!r.locs || r.locs.includes(G.loc)) && (r.fromCh===undefined || G.ch>=r.fromCh) && (r.untilCh===undefined || G.ch<r.untilCh);
   return ok && !isDisabled(id); });
 const isGuestNow = id => presentGuests().includes(id);
 const isCompanion = id => !!(CHARACTERS[id] && CHARACTERS[id].companion);   // companions travel and fight with the party without using one of the active slots

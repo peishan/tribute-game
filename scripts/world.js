@@ -747,7 +747,7 @@ const FLAG_LABEL = { bracelet:'Communication Bracelet', crossbow:'Levi\'s Crossb
 /* ---------------- DAY CLOCK ---------------- */
 function advanceDay(n){
   G.day += n; if(typeof corrTick==='function') corrTick(n); if(n>0 && typeof healParty==='function') healParty(Math.min(.5,.1*n)); refreshBounties();
-  return deliverLetters().concat(checkMissionOffers(), typeof famTick==='function' ? famTick() : []);
+  return deliverLetters().concat(checkMissionOffers(), typeof famTick==='function' ? famTick() : [], typeof salaryTick==='function' ? salaryTick() : []);
 }
 
 /* ---------------- LETTERS & MISSIONS (King Greyson) ---------------- */
