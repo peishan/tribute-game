@@ -25,7 +25,27 @@ const RELATIONS = [
    desc:'Jade\'s older brother, a royal scholar and Greyson\'s trusted official. He runs the Imperial Network.',
    perks:[{tier:1,key:'trustBonus',v:1,n:'A Quiet Word',d:'Each gain of trust with Adrian is +1'},{tier:2,key:'repBonus',v:.10,n:'Informed Counsel',d:'+10% renown'},{tier:4,key:'goldBonus',v:.05,n:'Family Ledger',d:'+5% gold from missions and investigations'},{tier:5,key:'fareOff',v:.10,n:'Trade Letters',d:'Travel fares −10%'}]},
 ];
-const CH_REL = {};   // never negative: a falling-out is modelled as STRAIN (below), not as lost standing
+// Story beats that deepen a bond, read from the comic chapters (first-pass numbers; never negative: a falling-out is modelled as STRAIN, below).
+// CH_REL: standing with allies and family.  CH_TRACK: points on companion tracks (story-driven, like Crimson Tide's belonging ladders).
+const CH_REL = {
+  50:{chadstone:5},    // Jade presents Greyson's sealed box with respect
+  52:{chadstone:5},    // Jade declares her choice before the king
+  57:{chadstone:10},   // the king blesses the union: Jade becomes his daughter-in-law
+  81:{chadstone:5},    // the king praises how Jade carries her duties
+  82:{chadstone:5},    // Devon refuses the crown for his brother; the king sees the wisdom in his house
+  86:{chadstone:15},   // "You leave as someone Dragonvale will never forget"
+  96:{adrian:8},       // the brother who remembers
+  98:{adrian:5},       // working through the missing ledgers together
+  99:{greyson:20},     // sworn sister, Princess of Tribute, in front of the court
+  101:{greyson:5},     // entrusted with a duty only she can fulfil
+  121:{greyson:5},     // returns with Corvin's testimony and the Valen records
+  147:{greyson:5, adrian:5},   // entrusted with the investigation of the Fifteen Evils
+};
+const CH_TRACK = {
+  57:{jade_devon:30}, 82:{jade_devon:15}, 103:{jade_devon:30}, 138:{jade_devon:10}, 151:{jade_devon:10},
+  87:{sera_circle:20}, 89:{sera_circle:10}, 104:{sera_circle:15}, 147:{sera_circle:15}, 149:{sera_circle:10},
+  88:{sky_ghost:20}, 102:{circle:30},
+};
 /* STRAIN (Crimson Tide's disagreement-and-repair): a story disagreement with an ally. It never subtracts standing: bonds measure how well people understand each
    one another, not how often they agree. While it lasts the ally's favours are paused (progress is kept). The player listens, gives time and asks companions;
    with enough understanding a repair follows, and the ally keeps a permanent learned_<issue> flag that later dialogue can check.
@@ -80,7 +100,19 @@ function relPerk(key){   // total of every unlocked favour with this key (allies
   return RELATIONS.reduce((sum, r) => sum + (relOpen(r) && !strainActive(r.id) ? r.perks.filter(p => p.key===key && relTier(r.id) >= p.tier).reduce((a,p) => a + p.v, 0) : 0), 0) + (typeof trackPerk==='function' ? trackPerk(key) : 0);
 }
 const fareOf = r => Math.max(0, Math.ceil(r.fare * (1 - Math.min(.4, relPerk('fareOff')))));
-function relApplyChapter(n){ const msgs = []; Object.keys(CH_REL[n]||{}).forEach(id => { if(relOf(id)){ const m = relAdd(id, Math.max(0, CH_REL[n][id])); if(m) msgs.push(m); } }); Object.keys(CH_STRAIN[n]||{}).forEach(id => startStrain(id, CH_STRAIN[n][id]).forEach(m => msgs.push(m))); return msgs; }
+function relStoryApply(n, quiet){
+  const msgs = [];
+  Object.keys(CH_REL[n]||{}).forEach(id => { if(relOf(id)){ const m = relAdd(id, Math.max(0, CH_REL[n][id])); if(m && !quiet) msgs.push(m); } });
+  Object.keys(CH_TRACK[n]||{}).forEach(k => { if(BOND_TRACKS[k]){ const st = trackState(k), before = trackTier(k); st.pts += CH_TRACK[n][k]; if(trackTier(k) > before && !quiet) msgs.push('💞 '+BOND_TRACKS[k].label+': '+BOND_TRACKS[k].names[trackTier(k)]+'.'); } });
+  if(!G.relDone) G.relDone = {}; G.relDone[n] = true;
+  return msgs;
+}
+function relCatchUp(){   // a save from before these beats existed gets the ones it has already passed, once and quietly
+  if(!G || G.ch < 0) return;
+  if(!G.relDone) G.relDone = {};
+  Object.keys(Object.assign({}, CH_REL, CH_TRACK)).map(Number).sort((a,b) => a-b).forEach(n => { if(n <= G.ch && !G.relDone[n]) relStoryApply(n, true); });
+}
+function relApplyChapter(n){ const msgs = relStoryApply(n, false); Object.keys(CH_STRAIN[n]||{}).forEach(id => startStrain(id, CH_STRAIN[n][id]).forEach(m => msgs.push(m))); return msgs; }
 
 const REL_GESTURES = {
   letter:  {n:'Write a letter', icon:'✉️', pts:2, line:'You write a few honest lines and send them off.'},

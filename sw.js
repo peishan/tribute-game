@@ -1,5 +1,5 @@
 /* Tribute service worker: app shell is cached for offline play; images and other assets are cached as you play. */
-const VERSION = 'tribute-v44';
+const VERSION = 'tribute-v45';
 const SHELL = ['./', './index.html', './styles.css', './manifest.webmanifest',
   './scripts/chapters.js','./scripts/characters.js','./scripts/skilltree.js','./scripts/core.js','./scripts/enemies.js','./scripts/battle.js','./scripts/autobattle.js',
   './scripts/journal.js','./scripts/world.js','./scripts/world-ui.js','./scripts/maps.js','./scripts/voyage.js','./scripts/family.js','./scripts/raid.js','./scripts/network.js','./scripts/evils.js','./scripts/relations.js','./scripts/regard.js','./scripts/whispers.js','./scripts/chronicle.js','./scripts/salary.js','./scripts/apprentice.js','./scripts/banter.js','./scripts/corruption.js','./scripts/explore.js','./scripts/arcs.js','./scripts/base.js','./scripts/skirmish.js','./scripts/items.js','./scripts/gear.js','./scripts/loot.js','./scripts/gates.js','./scripts/overheard.js','./scripts/deeds.js','./scripts/rewards.js','./scripts/tracker.js',
