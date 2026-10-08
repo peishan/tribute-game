@@ -13,16 +13,31 @@ const PASSAGE_LEVELS = {
   shared:{icon:'🔵', n:'Shared', d:'Others have been trusted with the way.'}, restricted:{icon:'🔴', n:'Restricted', d:'Judged unsafe or wrong to open.'},
   sealed:{icon:'⚫', n:'Sealed', d:'It cannot be opened.'}, unclassified:{icon:'⚪', n:'Unclassified', d:'No decision has been made.'},
 };
+/* rules: [test (flag name or function), status, note]; the last one that is true wins. Wording and chapters follow the storyline session's review: the land beyond the seal
+   (the forgotten world and the cut-off civilization are the same place) was only opened temporarily at ch138 and nothing permanent is decided; Mourning Valley's sacred grounds
+   are protected by decree at ch156 (general access to the valley is not decided); Forest of Thorns stays Unclassified. Altan, the Black Forest and the Northern Frontier are not
+   barrier regions and are not listed; the Crownless Marches and Cloudrend Peaks stay hidden until their chapters exist. */
 const PASSAGE_REGIONS = [
-  {id:'beyond_seal', n:'The Land Beyond the Seal', vis:() => locOpen('land_beyond_seal'), rules:[]},
-  {id:'forgotten_world', n:'The forgotten world behind the seal', vis:() => !!G.flags.forgotten_world_seen, rules:[]},
-  {id:'barrier', n:'The land behind the barrier', vis:() => !!G.flags.barrier_people, rules:[['inv_controlled_passage','conditional','A controlled passage was opened.']]},
+  {id:'beyond_seal', n:'The Land Beyond the Seal', vis:() => locOpen('land_beyond_seal'), rules:[
+    [() => G.ch === 138, 'conditional', 'Beyond the ancient seal lies a forgotten land. A narrow passage has been opened, but the way remains uncertain.'],
+    [() => G.ch >= 139, 'unclassified', 'The barrier concealed more than danger. Its purpose must be understood before the way can be judged.']]},
+  {id:'thorns', n:'The Forest of Thorns', vis:() => locOpen('forest_of_thorns'), rules:[
+    [() => true, 'unclassified', 'The forest has fallen beneath a spreading corruption. Dangerous creatures wander among its thorns.'],
+    [() => G.ch >= 152, 'unclassified', 'The Thorned Widow has fallen. What remains of the forest\'s corruption is not yet known.']]},
+  {id:'mourning', n:'Mourning Valley', vis:() => locOpen('mourning_valley'), rules:[
+    [() => true, 'unclassified', 'A spectral guardian watches the valley. Those who disturb its ancient grounds risk its wrath.'],
+    [() => G.ch >= 156, 'restricted', 'By royal decree, the valley\'s sacred grounds are protected. None may disturb the resting spirits. General access to the valley has not been decided.']]},
   {id:'dima', n:'Dima\'s Sanctuary', vis:() => locOpen('dima_sanctuary'), rules:[]},
   {id:'xima', n:'Xima Realm', vis:() => locOpen('xima_realm'), rules:[]},
 ];
 function passageOf(r){
   const set = G.passage && G.passage[r.id]; if(set) return {s:set, note:''};
-  let s = 'unclassified', note = ''; r.rules.forEach(x => { if(G.flags[x[0]]){ s = x[1]; note = x[2]; } }); return {s, note};
+  let s = 'unclassified', note = ''; r.rules.forEach(x => { let t = false; try{ t = typeof x[0]==='function' ? x[0]() : !!G.flags[x[0]]; }catch(e){} if(t){ s = x[1]; note = x[2]; } }); return {s, note};
+}
+function passageSync(){   // a change of status is written to the Chronicle once; the first sync is quiet
+  if(!G.passSeen){ G.passSeen = {}; PASSAGE_REGIONS.forEach(r => { try{ if(r.vis()) G.passSeen[r.id] = passageOf(r).s; }catch(e){} }); return; }
+  PASSAGE_REGIONS.forEach(r => { let v = false; try{ v = r.vis(); }catch(e){} if(!v) return; const s = passageOf(r).s, was = G.passSeen[r.id];
+    if(was !== s){ G.passSeen[r.id] = s; if(was !== undefined || s !== 'unclassified'){ chronicle('Passage to '+r.n+': '+PASSAGE_LEVELS[s].n+'.', '🚪'); } } });
 }
 function setPassage(id, status){   // called by a chapter that decides a passage
   const r = PASSAGE_REGIONS.find(x => x.id===id); if(!r || !PASSAGE_LEVELS[status]) return [];
@@ -64,7 +79,7 @@ function spiritChart(pool){
 function guardianLeave(){
   const st = spirit(); if(!st.guard) return []; const n = SPIRIT_NODES.find(x => x.id===st.guard); st.guard = null;
   chronicle('A guardian on the spirit path was left in peace: '+n.n+'.', '🌿');
-  const msgs = ['🌿 You step back and wait. The presence settles, and the air eases. Rin: "That was kind."']; gainXp(60+avgPartyLv()*6, G.party).forEach(m => msgs.push(m));
+  const msgs = ['🌿 You step back and wait. The presence settles, and the air eases. Rin: "That was kind."']; if(typeof matGift==='function'){ matGift('spirit_thread'); msgs.push('🧵 It leaves a Spirit Thread at your feet, freely given.'); } gainXp(60+avgPartyLv()*6, G.party).forEach(m => msgs.push(m));
   if(typeof regardAdd==='function'){ const m = regardAdd(G.loc, 5); if(m) msgs.push(m); } return msgs;
 }
 function guardianProvoke(){

@@ -139,6 +139,8 @@ function rResearch(){
 /* ---------------- SYNC (called from checkDeeds, i.e. after every render) ---------------- */
 function archiveSync(){
   if(!G || !G.flags) return;
+  if(typeof passageSync==='function') passageSync();
+  if(typeof codexSync==='function') codexSync();
   if(!G.recSeen){ G.recSeen = {}; RECORDS.forEach(r => { G.recSeen[r.id] = recStage(r); }); }
   else RECORDS.forEach(r => { const s = recStage(r), was = G.recSeen[r.id] === undefined ? -1 : G.recSeen[r.id];
     if(s > was){ G.recSeen[r.id] = s; chronicle('Record '+(s===0?'opened':REC_STATUS[s].toLowerCase())+': '+r.n+'.', '🗂️'); toast('🗂️ '+r.n+': '+REC_STATUS[s]); } });
@@ -149,8 +151,8 @@ function archiveSync(){
     if(p){ chronicle('Research finished: '+p.t+' ('+analystOf(p.who).n+').', '📚'); toast('📚 '+p.t+': finished'); gainXp(60+avgPartyLv()*6, G.party); if(CHARACTERS[p.who] && isRecruited(p.who)) addBond(p.who, 3); } } });
   if(ch) save();
 }
-const archiveTabs = () => G && G.ch >= 123 ? [['records','Records'],['dossiers','Dossiers'],['leads','Leads'],['research','Research'],['passages','Passages']].concat(typeof spiritOpen==='function' && spiritOpen() ? [['spirit','Spirit Paths']] : []) : [];
-function rArchiveTab(t){ return t==='records' ? rRecords() : t==='dossiers' ? rDossiers() : t==='leads' ? rLeads() : t==='research' ? rResearch() : t==='passages' ? rPassages() : t==='spirit' ? rSpirit() : ''; }
+const archiveTabs = () => G && G.ch >= 90 && G.ch < 123 ? [['codex','Materials']] : G && G.ch >= 123 ? [['records','Records'],['dossiers','Dossiers'],['leads','Leads'],['research','Research'],['codex','Materials'],['passages','Passages']].concat(typeof spiritOpen==='function' && spiritOpen() ? [['spirit','Spirit Paths']] : []) : [];
+function rArchiveTab(t){ return t==='records' ? rRecords() : t==='dossiers' ? rDossiers() : t==='leads' ? rLeads() : t==='research' ? rResearch() : t==='codex' ? rCodex() : t==='passages' ? rPassages() : t==='spirit' ? rSpirit() : ''; }
 deed('rec1', 'story', 'The first record opened', '🗂️', 'The first entry was opened in the Record of the Hidden Isle.', () => recSeen().length >= 1);
 deed('rec_arch', 'story', 'Nothing left unwritten', '🗂️', 'A record reached Archived.', () => recArchived() >= 1);
 deed('rec_all', 'story', 'The whole record', '🗂️', 'Every record is Archived.', () => recArchived() >= RECORDS.length);
