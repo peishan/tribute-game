@@ -317,4 +317,4 @@ Mismatches to confirm: the author expected new Jade and Devon gear at ch114/115;
 
 ## Seraphina's change is explained later (author)
 In chapter 161 Seraphina fights with snow-white hair in a white-and-purple battle outfit (not golden); the reason is to be explained later in her own arc. So from ch161 (flag sera_shift_known, set by the chapter) her battle portrait is the white one (assets/party/seraphina_battle.webp) and the Twilight Blade level-40 route is available; before ch161 she keeps her normal portrait. The arc that explains it needs no flag from the game.
-Portraits installed: rin.webp (the dark-haired archer with teal tassels), eira.webp (the pale-haired scholar with the book of records), seraphina_battle.webp (snow white with purple). Cael's portrait is still missing.
+Portraits installed: rin.webp (the dark-haired archer with teal tassels), eira.webp (the pale-haired scholar with the book of records), seraphina_battle.webp (snow white with purple). Cael's portrait is installed (assets/party/cael.webp, the golden-haired keeper with the armillary sphere).
