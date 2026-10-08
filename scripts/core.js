@@ -229,11 +229,11 @@ const GUEST_RULES = {
   chad:{flag:'roc_reborn', regions:['dragon'], note:'Roc, reborn, fights beside the party on Dragonvale ground.'},
   // Area guests: fight beside the party (passive companions) only while the party is inside their area (locs), from chapter fromCh. Leave the area and they leave.
   cael:{fromCh:123, locs:AREA_BROKEN_SEALS, note:'Cael Ardyn, the last Seal Keeper, fights beside the party while it is in the Broken Seals area.'},
-  eira:{fromCh:129, locs:AREA_BROKEN_SEALS, note:'Eira Solenne, the scholar of the sanctuary, fights beside the party while it is in the Broken Seals area.'},
+  eira:{fromCh:129, locs:AREA_BROKEN_SEALS, extraLocs:{capital:162, archive_shrine:165}, note:'Eira Solenne, the scholar of the sanctuary, is an ally and guest (not a party member): she fights beside the party in the Broken Seals area, and is with it in the capital from chapter 162 and at the archive-shrine.'},
   rin:{fromCh:149, locs:AREA_NORTH, note:'Rin Kaede, the Spirit Ranger, fights beside the party while it is in the northern forest country.'},
 };
 const presentGuests = () => !G ? [] : Object.keys(GUEST_RULES).filter(id => { const r = GUEST_RULES[id];
-  const ok = (r.flag===undefined || G.flags[r.flag]) && (!r.regions || r.regions.includes(LOCATIONS[G.loc].region)) && (!r.locs || r.locs.includes(G.loc)) && (r.fromCh===undefined || G.ch>=r.fromCh) && (r.untilCh===undefined || G.ch<r.untilCh);
+  const ok = (r.flag===undefined || G.flags[r.flag]) && (!r.regions || r.regions.includes(LOCATIONS[G.loc].region)) && (!r.locs || r.locs.includes(G.loc) || (r.extraLocs && r.extraLocs[G.loc] !== undefined && G.ch >= r.extraLocs[G.loc])) && (r.fromCh===undefined || G.ch>=r.fromCh) && (r.untilCh===undefined || G.ch<r.untilCh);
   return ok && !isDisabled(id); });
 const isGuestNow = id => presentGuests().includes(id);
 const isCompanion = id => !!(CHARACTERS[id] && CHARACTERS[id].companion);   // companions travel and fight with the party without using one of the active slots
