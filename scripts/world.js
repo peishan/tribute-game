@@ -1003,7 +1003,7 @@ const FLAG_LABEL = { evelyne_wed:'Adrian and Princess Evelyne are wed: the royal
 /* ---------------- DAY CLOCK ---------------- */
 function advanceDay(n){
   G.day += n; if(typeof corrTick==='function') corrTick(n); if(n>0 && typeof healParty==='function') healParty(Math.min(.5,.1*n)); refreshBounties();
-  return deliverLetters().concat(checkMissionOffers(), typeof famTick==='function' ? famTick() : [], typeof salaryTick==='function' ? salaryTick() : []);
+  return deliverLetters().concat(checkMissionOffers(), typeof famTick==='function' ? famTick() : [], typeof timedTick==='function' ? timedTick() : [], typeof salaryTick==='function' ? salaryTick() : []);
 }
 
 /* ---------------- LETTERS & MISSIONS (King Greyson) ---------------- */

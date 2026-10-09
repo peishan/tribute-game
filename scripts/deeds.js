@@ -72,6 +72,7 @@ function checkDeeds(){
   if(typeof archiveSync==='function') archiveSync();
   if(typeof houseGuestSync==='function') houseGuestSync();
   if(typeof outfitsCatchUp==='function') outfitsCatchUp();
+  if(typeof timedTick==='function') timedTick();
   const reg = deedState(), fresh = [];
   DEEDS.forEach(d => { if(!reg[d.id]){ let ok = false; try{ ok = !!d.ok(); }catch(e){} if(ok){ reg[d.id] = G.day; fresh.push(d); } } });
   if(!fresh.length) return;

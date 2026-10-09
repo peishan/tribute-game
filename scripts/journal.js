@@ -60,6 +60,7 @@ function completeChapter(n){
   applyStoryStates(n);
   if(typeof standApplyChapter==='function') standApplyChapter(n).forEach(m => msgs.push(m));
   if(typeof chronicle==='function'){ chronicle('Chapter '+n+': '+c.title, '📖'); if(typeof evilsChapterDone==='function') evilsChapterDone(n).forEach(m => msgs.push(m)); }
+  if(n===89){ G.returnDay = G.day; }   // the return to Tribute after Arc II: the anchor of the time-sensitive events
   if(n===50){ G.inv.sealed_box = 0; }
   if(n===89){ restoreParty(); msgs.push('🛏️ A week of rest in Tribute: HP and MP fully restored.'); }
   if(CH_ITEMS[n]){ addItems(CH_ITEMS[n]); CH_ITEMS[n].forEach(d => msgs.push('Received '+ITEMS[d.id].icon+' '+ITEMS[d.id].n)); }
