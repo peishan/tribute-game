@@ -17,15 +17,15 @@ function unreadCount(){ return G.letters.filter(l=>!l.read).length; }
 function rMissions(){
   const unread = unreadCount();
   const salaryPanel = typeof rSalary==='function' ? rSalary() : '';
-  const subs = [['letters','✉️ Letters'+(unread?' ('+unread+')':'')],['missions','📜 Missions'],['quests','🎯 Quests'],['bounties','💰 Bounties']];
+  const subs = [['letters','✉️ Letters'+(unread?' ('+unread+')':'')],['missions','📜 Missions'],['quests','🎯 Quests'],['bounties','💰 Bounties']].concat(typeof rWays==='function' ? [['ways','⚖️ Ways'+(typeof jdPending==='function' && jdPending().length ? ' ('+jdPending().length+')' : '')]] : []);
   const comm = hasBracelet()
     ? '<div class="sm">📿 <b>Communication bracelet</b> — King Greyson reaches you instantly, anywhere.</div>'
     : `<div class="sm">🕊️ <b>Pigeon post</b> — letters from King Greyson reach you only in towns, and take about ${Math.max(1,hopsFromCapital(G.loc))} day(s) from here. (Upgrades to a communication bracelet later.)${G.pending.length?` <b>${G.pending.length} in flight.</b>`:''}</div>`;
   const sallyBtn = (G.flags.sally_stays && G.flags.sally_gossip) ? `<div class="panel"><b>🌹 Sally (Dragonvale)</b><div class="sm">She stayed behind and keeps her ear to the court. Ask once a day.</div><button onclick="act(courtGossip)">Ask Sally for rumours</button></div>` : '';
   let body = '';
   if(mTab==='letters') body = rLetters(); else if(mTab==='missions') body = rMissionList();
-  else if(mTab==='quests') body = rQuestsActive(); else body = rBountyList();
-  return `<h2>Missions & Contracts</h2>${comm}${salaryPanel}${sallyBtn}<div class="row" style="margin:6px 0">${subs.map(([k,l])=>`<button class="${mTab===k?'pri':''}" onclick="mTab='${k}';openLetter=null;render()">${l}</button>`).join('')}</div>${flashHtml()}${body}`;
+  else if(mTab==='quests') body = rQuestsActive(); else if(mTab==='ways') body = rWays(); else body = rBountyList();
+  return `<h2>Missions & Contracts</h2>${comm}${salaryPanel}${sallyBtn}${typeof rJadeDecisions==='function' ? rJadeDecisions() : ''}<div class="row" style="margin:6px 0">${subs.map(([k,l])=>`<button class="${mTab===k?'pri':''}" onclick="mTab='${k}';openLetter=null;render()">${l}</button>`).join('')}</div>${flashHtml()}${body}`;
 }
 function rLetters(){
   if(openLetter){
