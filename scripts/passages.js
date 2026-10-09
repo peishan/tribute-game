@@ -29,6 +29,8 @@ const PASSAGE_REGIONS = [
     [() => G.ch >= 156, 'restricted', 'By royal decree, the valley\'s sacred grounds are protected. None may disturb the resting spirits. General access to the valley has not been decided.']]},
   {id:'marches', n:'The Crownless Marches', vis:() => locOpen('crownless_marches'), rules:[
     [() => true, 'unclassified', 'A lost kingdom, cut away from the world by the seals.']]},
+  {id:'sunken', n:'The Sunken Kingdom', vis:() => locOpen('sunken_kingdom'), rules:[
+    [() => true, 'unclassified', 'A kingdom that chose the sea: its barriers still hold, and the Black Dragon Pearl can wake them.']]},
   {id:'dima', n:'Dima\'s Sanctuary', vis:() => locOpen('dima_sanctuary'), rules:[]},
   {id:'xima', n:'Xima Realm', vis:() => locOpen('xima_realm'), rules:[]},
 ];
@@ -67,7 +69,7 @@ const SPIRIT_NODES = [
 ];
 function spirit(){ if(!G.spirit) G.spirit = {charted:{}, guard:null}; return G.spirit; }
 const spiritOpen = () => !!G && !!G.flags && !!G.flags.rin_met && G.ch >= 149;
-const spiritPool = pool => pool==='rin' ? (typeof presentGuests==='function' && presentGuests().includes('rin')) : isRecruited('sky');
+const spiritPool = pool => pool==='rin' ? ((typeof presentGuests==='function' && presentGuests().includes('rin')) || (G.ch >= 172 && G.active.includes('rin'))) : isRecruited('sky');
 const spiritNext = pool => SPIRIT_NODES.find(n => n.pool===pool && !spirit().charted[n.id]);
 function spiritChart(pool){
   const st = spirit(); if(st.guard || !spiritPool(pool)) return [];
@@ -96,7 +98,7 @@ function rSpirit(){
   const sec = (pool, title, who) => { const d = done(pool), here = spiritPool(pool), nx = spiritNext(pool);
     return `<h4>${title} <span class="sm">${d.length}/${nodes(pool).length}</span></h4>${d.map(n => `<div class="li"><b>${n.icon} ${n.n}</b><div class="sm">${n.t}</div></div>`).join('')}${nx?`<button ${here&&!st.guard?'':'disabled'} onclick="act(spiritChart,'${pool}')">🧭 Chart the next node</button>${here?'':`<div class="sm">${who}</div>`}`:'<div class="sm">Everything here has been charted.</div>'}`; };
   return `<div class="sm">Spirit paths are charted one node at a time and cost a day. They are discoveries, not treasure.</div>` + (g ? `<div class="panel"><b>${g.icon} ${g.n}</b><div class="sm">${g.t}</div><button onclick="act(guardianLeave)">🌿 Leave it be</button><button onclick="guardianProvoke()">⚔️ Provoke it</button></div>` : '')
-    + sec('rin', 'Rin\'s paths', 'Rin only walks these in the northern areas.') + (isRecruited('sky') ? sec('sky', 'Sky\'s paths', '') : '');
+    + sec('rin', 'Rin\'s paths', 'Rin walks these in the northern areas, and anywhere once she has joined the party.') + (isRecruited('sky') ? sec('sky', 'Sky\'s paths', '') : '');
 }
 deed('pass1', 'world', 'A way recorded', '🚪', 'A region behind a seal or barrier was recorded.', () => PASSAGE_REGIONS.some(r => { try{ return r.vis(); }catch(e){ return false; } }));
 deed('spirit3', 'world', 'Walker of the paths', '🌿', 'Three spirit-path nodes charted.', () => Object.keys(spirit().charted).length >= 3);

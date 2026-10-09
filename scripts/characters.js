@@ -142,6 +142,7 @@ const CHARACTERS = {
    {id:'analyze',n:'Scholar\'s Read',icon:'🔍',mp:3,kind:'support',tgt:'foe',fx:[{k:'analyze'},{k:'buff',stat:'def',m:.8,d:3}],req:{lvl:2},desc:'Reads the enemy like a scroll: reveals it and lowers its DEF.'},
    {id:'royal_command',n:'Royal Command',icon:'👑',mp:7,kind:'support',tgt:'ally',fx:[{k:'buff',stat:'atk',m:1.25,d:3},{k:'buff',stat:'spd',m:1.2,d:3}],req:{lvl:4},desc:'An order no one questions: an ally\'s ATK and SPD rise for 3 turns.'},
    {id:'dragon_veil',n:'Dragon Veil',icon:'🛡️',mp:12,kind:'support',tgt:'allies',fx:[{k:'shield',v:.18,d:3},{k:'buff',stat:'eva',m:1.25,d:3}],req:{lvl:7},desc:'A veil of dragon scale light: a barrier and evasion for the whole party.'},
+   {id:'pearl_resonance',n:'Pearl Resonance',icon:'🔮',mp:14,kind:'heal',tgt:'allies',pow:.8,fx:[{k:'cleanse'},{k:'regen',v:.08,d:3}],req:{flag:'pearl_purpose'},desc:'The Black Dragon Pearl as a restoration anchor (ch176): heals and cleanses the party and restores a little each turn.'},
    {id:'spirit_purification',n:'Spirit Purification',icon:'✨',mp:9,kind:'magic',tgt:'foe',pow:1.5,vsCorrupt:2.2,purify:true,req:{flag:'dv_purify'},desc:'Royal magic that burns corruption away: double damage to corrupted foes, and a purified spirit gives bonus XP. Jade weakens, Devon purifies.'},
    {id:'jade_dragon_harmony',n:'Jade Dragon Harmony',icon:'🐉',mp:20,kind:'magic',tgt:'foe',pow:3.2,pair:true,vsCorrupt:1.5,purify:true,fx:[{k:'shield',v:.2,d:3,self:true}],req:{flag:'jade_dragon_harmony'},desc:'COUPLE SKILL (chapter 103). Dragon and phoenix strike as one: synchronized spiritual power, with a shared protective barrier. Needs Jade.'},
    {id:'protective_oath',n:'Protective Oath',icon:'🤝',mp:10,kind:'support',tgt:'self',fx:[{k:'buff',stat:'def',m:1.5,d:3},{k:'shield',v:.25,d:3},{k:'oath',d:3}],req:{lvl:10},desc:'He swears to stand between the party and harm for 3 turns: foes target only him, and he strikes back when hit. DEF up and a barrier.'},
@@ -215,7 +216,7 @@ const CHARACTERS = {
    Like the Ghost Healer they are passive companions: they fight by themselves, cannot be equipped or controlled and are not shown in the Party screen.
    They level with the party (see mkAlly) and carry no XP of their own. No portrait needed (an emoji stands in unless assets/party/<id>.webp exists). */
 CHARACTERS.rin = {
-  n:'Rin Kaede', icon:'🏹', cls:'Spirit Ranger', role:'Spirit tracker / Ranged (Arc VI guest)', combat:'Ranged Physical with spirit talismans', guestOnly:true, companion:true,
+  n:'Rin Kaede', icon:'🏹', cls:'Spirit Ranger', role:'Archer / Scout: spirit tracker (guest from ch149, joins the party at ch172)', combat:'Ranged Physical with spirit talismans',
   identity:'A Spirit Ranger and monster tracker from a remote frontier community. Reads spirit trails and corrupted energy; distrusts royal officials. Short recurved bow and spirit charms. Travels with the party for the Fifteen Evils.',
   style:['Short recurved bow','Spirit charms','Spirit tracking'], strength:'Spirit trails and corruption',
   weapon:'Recurved bow', signature:'Spirit Trail', sigDesc:'Marks a target\'s spirit trail: it cannot hide, and takes extra damage from corruption-breaking attacks.',
@@ -225,7 +226,10 @@ CHARACTERS.rin = {
    {id:'purging_talisman',n:'Purging Talisman',icon:'🧿',mp:8,kind:'magic',tgt:'foe',pow:1.3,vsCorrupt:2.2,req:{lvl:1},desc:'A talisman that burns corruption: heavy damage to the corrupted.'},
    {id:'spirit_volley',n:'Spirit Volley',icon:'🌿',mp:12,kind:'phys',tgt:'foes',pow:1.5,req:{lvl:5},desc:'A volley that follows the spirit paths: hits every enemy.'},
    {id:'spirit_trail',n:'Spirit Trail',icon:'👣',mp:9,kind:'support',tgt:'self',fx:[{k:'crit',d:3},{k:'buff',stat:'atk',m:1.25,d:3}],req:{lvl:8},sig:true,desc:'SIGNATURE. She reads the trail: guaranteed crits and a sharper aim.'},
-  ], evo:{tiers:[]}, bond:null };
+  ], evo:{ tiers:[
+   {id:'trailwarden',n:'Trailwarden',tier:1,group:'route',req:{lvl:40},mult:{atk:1.2,spd:1.15},desc:'Precision and reconnaissance: the best shot on the road.',skills:[{id:'hunters_precision',n:'Hunter\'s Precision',icon:'🎯',mp:12,kind:'phys',tgt:'foe',pow:2.8,fx:[{k:'crit',d:2,self:true}],desc:'One patient shot that finds the gap: heavy damage, and her next shots crit.'}]},
+   {id:'spirit_stalker',n:'Spirit Stalker',tier:1,group:'route',req:{lvl:40},mult:{mag:1.2,atk:1.1,hp:1.1},desc:'Spirit charms and trails: the corrupted cannot hide from her.',skills:[{id:'thousand_charms',n:'Thousand Charms',icon:'📿',mp:14,kind:'magic',tgt:'foes',pow:1.9,vsCorrupt:1.6,desc:'A rain of charm arrows: hits every enemy, hardest against the corrupted.'}]},
+  ]}, bond:null };
 CHARACTERS.cael = {
   n:'Cael Ardyn', icon:'🗝️', cls:'Last Seal Keeper', role:'Seal ward / Support (Arc V guest)', combat:'Wards and sealing magic', guestOnly:true, companion:true,
   identity:'The last Seal Keeper, a golden-haired guardian of a vanished order who looks strikingly like Dima. Keeps and breaks seals. Travels with the party through the Broken Seals.',

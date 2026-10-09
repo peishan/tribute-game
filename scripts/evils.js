@@ -28,9 +28,18 @@ const EVILS = [
      {label:'Sentience', value:'High: he speaks and remembers', spot:'hk_account'},
      {label:'Origin', value:'A king of a kingdom the seals erased', spot:'sealed_kingdom'},
      {label:'Threat to Civilians', value:'Real: he has killed in the present', spot:'present_crimes'}]},
-  {id:'black_tide', n:'The Black Tide', intel:[]}, {id:'silent_flame', n:'The Silent Flame', intel:[]}, {id:'weeping_stone', n:'The Weeping Stone', intel:[]},
+  {id:'black_tide', n:'The Black Tide', loc:'black_tide_waters', activeCh:167, home:'The Forbidden Sea Route', original:'Waters that swallow ships (the Register: extreme danger)', intel:[
+     {label:'Threat', value:'Extreme danger (Register)', spot:'register_blacktide'},
+     {label:'Origin', value:'Tied to an erased maritime boundary', spot:'maritime_records'},
+     {label:'Behaviour', value:'Turns the sea black after sunset', spot:'sea_calm'},
+     {label:'Residue', value:'Claw marks and residue older than the first sightings', spot:'tide_evidence'}]},
+  {id:'silent_flame', n:'The Silent Flame', intel:[]}, {id:'weeping_stone', n:'The Weeping Stone', intel:[]},
   {id:'sky_eater', n:'The Sky Eater', intel:[]}, {id:'bone_river', n:'The Bone River', intel:[]}, {id:'sunless_child', n:'The Sunless Child', intel:[]},
-  {id:'drowned_crown', n:'The Drowned Crown', intel:[]}, {id:'ashen_serpent', n:'The Ashen Serpent', intel:[]}, {id:'mirror_queen', n:'The Mirror Queen', intel:[]},
+  {id:'drowned_crown', n:'The Drowned Crown', loc:'sunken_kingdom', activeCh:177, home:'The Sunken Kingdom',
+   original:'Cursed monarch and destroyer (Dragonvale\'s histories)', revised:{spot:'crown_hostile', t:'A royal will defending something: it warns before it strikes'}, intel:[
+     {label:'Sentience', value:'Many voices layered through time', spot:'drowned_crown_meet'},
+     {label:'Behaviour', value:'Warns intruders away', spot:'crown_warnings'},
+     {label:'Guardians', value:'Spectral royal guard', spot:'approach_palace'}]}, {id:'ashen_serpent', n:'The Ashen Serpent', intel:[]}, {id:'mirror_queen', n:'The Mirror Queen', intel:[]},
   {id:'endless_winter', n:'The Endless Winter', intel:[]},
   {id:'evil_14', n:'???', hidden:true, intel:[]}, {id:'evil_15', n:'???', hidden:true, intel:[]},
 ];

@@ -23,6 +23,9 @@ const OUTFITS = [
   {id:'levi_ranger_garb', who:'levi', ch:87, n:'Reborn Ranger\'s Garb', icon:'🏹', slot:'armor', rarity:'rare', bonus:{hp:20,def:5,spd:3}, look:'A dark green and brown robe with gold embroidery and a quiver (his return, reborn).'},
   {id:'levi_road_cloak', who:'levi', ch:131, n:'Keeper\'s Road Cloak', icon:'🧥', slot:'armor', rarity:'epic', bonus:{hp:40,def:9,spd:4}, look:'A dark green cloak and tunic with gold trim, with the quiver on his back.'},
   {id:'levi_hooded_cloak', who:'levi', ch:152, n:'Hooded Ranger\'s Cloak', icon:'🌲', slot:'armor', rarity:'epic', bonus:{hp:55,def:12,spd:5}, look:'A brown hooded cloak with a dark scarf and a light metal clasp, short auburn hair.'},
+  // Rin (a party member from ch172)
+  {id:'rin_ranger_coat', who:'rin', ch:172, n:'Spirit Ranger\'s Coat', icon:'🧥', slot:'armor', rarity:'rare', bonus:{hp:40,def:8,spd:4}, look:'A dark teal-green coat with gold embroidery, white fur trim and bracers.'},
+  {id:'rin_charm_bow', who:'rin', ch:172, n:'Charmed Recurved Bow', icon:'🏹', slot:'weapon', rarity:'rare', bonus:{atk:12,spd:3}, look:'A short recurved bow hung with spirit charms.'},
   // Seraphina (silent party member until her return to Altan)
   {id:'sera_altan_robe', who:'seraphina', ch:87, n:'Altan Travelling Robes', icon:'🦅', slot:'armor', rarity:'rare', bonus:{hp:30,def:6,spd:2}, look:'A white and gold robe, as she joins the party.'},
   {id:'sera_twilight_raiment', who:'seraphina', ch:161, n:'Twilight Raiment', icon:'🌗', slot:'armor', rarity:'epic', bonus:{hp:70,def:12,atk:7,spd:5}, look:'A light white-and-lavender armoured dress with gold filigree and purple accents.'},

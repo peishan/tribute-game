@@ -5,8 +5,8 @@
    Corruption effects apply to fights in the area (battle.js reads corrAt / corrFoeMult / corrHealMult).
    State: G.corr = { locId: percent }
    ===================================================================== */
-const CORR_START = {dragon_ruins:55, abyssal_frontier:70, dragon_border:30, valen_borderlands:25, moonveil_temple:15, black_forest:35, northern_frontier:15, forest_of_thorns:60, mourning_valley:20, crownless_marches:35};
-const CORR_RISE_PER_DAY = {dragon_ruins:3, abyssal_frontier:4, dragon_border:2, valen_borderlands:1, moonveil_temple:1, black_forest:2, northern_frontier:1, forest_of_thorns:3, mourning_valley:1, crownless_marches:2};
+const CORR_START = {dragon_ruins:55, abyssal_frontier:70, dragon_border:30, valen_borderlands:25, moonveil_temple:15, black_forest:35, northern_frontier:15, forest_of_thorns:60, mourning_valley:20, crownless_marches:35, black_tide_waters:55};
+const CORR_RISE_PER_DAY = {dragon_ruins:3, abyssal_frontier:4, dragon_border:2, valen_borderlands:1, moonveil_temple:1, black_forest:2, northern_frontier:1, forest_of_thorns:3, mourning_valley:1, crownless_marches:2, black_tide_waters:3};
 const isCorrupted = loc => CORR_START[loc] !== undefined;
 function corrAt(loc){
   if(!isCorrupted(loc)) return 0;

@@ -154,6 +154,23 @@ ripley:[
     ps('s_d3','Royal Bearing','❤️',{mult:{hp:1.1,atk:1.05}}),
     nd('s_d4','Banner of the Falcon','🚩',sk('banner_falcon','Banner of the Falcon','🚩',14,'support','allies',0,{fx:[{k:'buff',stat:'atk',m:1.35,d:3},{k:'buff',stat:'def',m:1.2,d:3}]},'Her banner rallies the whole party: ATK and DEF up.'))]},
  ],
+ rin:[
+  {id:'scout',n:'Scout',icon:'🏹',desc:'Tracking, precision and reconnaissance.',nodes:[
+    ps('r_s1','Trailwise','👣',{mult:{spd:1.06},critB:.04}),
+    nd('r_s2','Flushing Shot','🎯',sk('flushing_shot','Flushing Shot','🎯',7,'phys','foe',1.9,{fx:[{k:'buff',stat:'eva',m:.7,d:3}]},'An arrow that flushes the target out: its evasion drops.')),
+    ps('r_s3','Wilderness Eye','👁️',{mult:{atk:1.06},critB:.06}),
+    nd('r_s4','Ambush Volley','🌿',sk('ambush_volley','Ambush Volley','🌿',13,'phys','foes',1.7,{fx:[{k:'slow',d:1}]},'A volley from cover: hits every enemy and slows them.'))]},
+  {id:'spirit',n:'Spirit Tracker',icon:'🧿',desc:'Charms and spirit trails.',nodes:[
+    ps('r_p1','Charm Craft','📿',{mult:{mag:1.08,mp:1.06}}),
+    nd('r_p2','Warding Charm','🛡️',sk('warding_charm','Warding Charm','🛡️',8,'support','ally',0,{fx:[{k:'shield',v:.2,d:3}]},'A spirit charm that shields an ally.')),
+    ps('r_p3','Quiet Step','🍃',{mult:{spd:1.05},evaB:.05}),
+    nd('r_p4','Spirit Barrage','🌠',sk('spirit_barrage','Spirit Barrage','🌠',16,'magic','foes',1.6,{vsCorrupt:1.8},'A barrage of spirit arrows: hits every enemy, hardest against the corrupted.'))]},
+  {id:'wild',n:'Wilderness',icon:'🌲',desc:'Survival and field care.',nodes:[
+    ps('r_w1','Hardy','🥾',{mult:{hp:1.08,def:1.05}}),
+    nd('r_w2','Field Dressing','🌿',sk('field_dressing','Field Dressing','🌿',7,'heal','ally',1.2,{fx:[{k:'cleanse'}]},'Herbs and bandages: heals and cleanses an ally.')),
+    ps('r_w3','Forest Stride','🌲',{mult:{spd:1.06,hp:1.05}}),
+    nd('r_w4','Hidden Camp','⛺',sk('hidden_camp','Hidden Camp','⛺',15,'heal','allies',.8,{fx:[{k:'regen',v:.06,d:3}]},'A hasty camp in cover: heals the party and restores a little each turn.'))]},
+ ],
 };
 
 // Bond unlocks. lvl 1/4 = passive, lvl 2 = skill, lvl 5 = pair ultimate. (Bond 3 = existing pair skill, characters.js)
@@ -205,5 +222,11 @@ const BONDTREE = {
   {lvl:2, skill:sk('shield_sister','Shield Sister','🛡️',6,'support','ally',0,{fx:[{k:'buff',stat:'def',m:1.3,d:3}]},'Seraphina covers an ally: DEF up.'), n:'Shield Sister', icon:'🛡️'},
   {lvl:4, passive:{mult:{atk:1.06,spd:1.06}}, n:'Matched Pace', icon:'⚔️', desc:'Her stride matches Jade\'s.'},
   {lvl:5, skill:sk('falcon_and_phoenix','Falcon & Phoenix','🔥',22,'phys','foe',3.1,{pair:true},'ULTIMATE. Seraphina and Jade strike as one.'), n:'Falcon & Phoenix', icon:'🔥'},
+ ],
+ rin:[
+  {lvl:1, passive:{mult:{spd:1.05}}, n:'Shared Trail', icon:'👣', desc:'Walking the road beside Jade sharpens her tracking.'},
+  {lvl:2, skill:sk('spirit_mark','Spirit Mark','🧿',6,'support','foe',0,{fx:[{k:'analyze'},{k:'buff',stat:'def',m:.85,d:3}]},'Rin marks a foe\'s spirit trail: it is revealed and its defence drops.'), n:'Spirit Mark', icon:'🧿'},
+  {lvl:4, passive:{mult:{atk:1.06,spd:1.06}}, n:'Quiet Understanding', icon:'🌿', desc:'She stops asking whether Jade can be trusted.'},
+  {lvl:5, skill:sk('trail_and_phoenix','Trail & Phoenix','🔥',22,'phys','foe',3.0,{pair:true},'ULTIMATE. Rin marks the target and Jade strikes: one blow.'), n:'Trail & Phoenix', icon:'🔥'},
  ],
 };

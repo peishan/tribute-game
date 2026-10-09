@@ -47,6 +47,11 @@ const REPORTS = [
   {ch:164, loc:'Royal Archive', threat:'Entry IV of the Fifteen Register was deliberately removed from every official copy.', status:'Investigating.'},
   {ch:165, loc:'The Abandoned Archive-Shrine', threat:'A hooded figure who claims to have seen the Fifteen before they were named waited at the archive-shrine tied to the missing Fourth Entry.', status:'Unresolved.'},
   {ch:166, loc:'The Imperial Court', threat:'The campaign continues under a new mandate: Resolve the Fifteen Evils. The mission register has been revised. Register: 3/15 Resolved, 12 remaining.', status:'New mandate.'},
+  {ch:167, loc:'Dragonvale\'s old sea route', threat:'Ships vanish without wreckage along an abandoned maritime route; the sea turns black after sunset and an ancient palace is said to rise beneath it. The Register matches the Black Tide.', status:'Investigating.'},
+  {ch:171, loc:'Dragonvale Harbour', threat:'A forbidden route to a kingdom on no modern map. A chart names it Aelyndra.', status:'Investigating.'},
+  {ch:172, loc:'The Forbidden Waters', threat:'The Black Tide attacked the expedition ship and was driven back by the Black Dragon Pearl. It has not been defeated.', status:'Unresolved.'},
+  {ch:174, loc:'The Sunken Kingdom', threat:'A whole kingdom preserved beneath the sea by its own council, to protect something vital. The records end there.', status:'Investigating.'},
+  {ch:177, loc:'The Drowned Palace', threat:'The Drowned Crown warns intruders away and its dead guardians defend the palace.', status:'Investigating.'},
   {ch:99, loc:'Tribute Roads', threat:'Bandits are returning to the coast road now the armies are home.', status:'Contracts posted.'},
 ];
 /* ---- Requests (optional; use the contract system, with trust rewards) ---- */

@@ -62,6 +62,15 @@ const ENEMIES = {
   boss_shadow_roc:{n:'The Shadow of Roc',icon:'🌑',area:'dragon',boss:true,hp:800,atk:20,mag:18,def:11,spd:12,xp:420,gold:300,traits:['corrupt','magic'],
     phases:[{at:.6,msg:'The Shadow lifts a broken crown and darkness spreads across the field',moves:[{n:'Royal Ruin',pow:1.6},{n:'Shadow Crown',pow:1.2,spell:true,all:true,fx:[{k:'burn',d:2}]},{n:'Curse of Ambition',pow:1.0,spell:true,fx:[{k:'silence',d:2}]}]},{at:.3,msg:'The Shadow howls: ambition without a master',atk:1.3}],
     moves:[{n:'Royal Ruin',pow:1.6},{n:'Jealous Blade',pow:1.3,fx:[{k:'slow',d:2}]},{n:'Curse of Ambition',pow:1.0,spell:true,fx:[{k:'silence',d:2}]},{n:'Shadow Crown',pow:1.2,spell:true,fx:[{k:'burn',d:2}]}],desc:'A dark knight in a broken version of Roc\'s royal armour, made of his regrets.'},
+  tide_horror:{n:'Tide Horror',icon:'🦈',area:'sea',hp:160,atk:17,mag:8,def:9,spd:12,xp:62,gold:32,traits:['corrupt'],
+    moves:[{n:'Black Bite',pow:1.3},{n:'Tidal Lash',pow:1.0,fx:[{k:'slow',d:1}]}],drops:[{id:'dark_essence',chance:.3}],desc:'A red-eyed, many-toothed creature of the black water.'},
+  drowned_shade:{n:'Drowned Shade',icon:'🌊',area:'sea',hp:115,atk:9,mag:17,def:7,spd:12,xp:56,gold:30,traits:['corrupt','magic'],
+    moves:[{n:'Drowning Whisper',pow:1.1,spell:true,fx:[{k:'silence',d:2}]},{n:'Cold Tide',pow:1.0,spell:true,all:true}],drops:[{id:'mist_water',chance:.3}],desc:'A shade of the sea that still remembers drowning.'},
+  spectral_guardian:{n:'Spectral Guardian',icon:'🗡️',area:'sea',hp:180,atk:18,mag:12,def:13,spd:12,xp:66,gold:34,traits:['magic'],
+    moves:[{n:'Royal Blade',pow:1.3},{n:'Warding Strike',pow:1.0,fx:[{k:'buff',stat:'def',m:.9,d:2}]}],drops:[{id:'seal_dust',chance:.2}],desc:'A dead guardian of the drowned kingdom, defending what it was set to keep.'},
+  boss_royal_guardian:{n:'Captain of the Royal Guard',icon:'🛡️',area:'sea',boss:true,hp:2700,atk:30,mag:27,def:17,spd:13,xp:1150,gold:820,traits:['magic'],
+    phases:[{at:.6,msg:'"Leave this place. The sea remembers what the land chose to forget."',moves:[{n:'Crown\'s Command',pow:1.4,spell:true,all:true},{n:'Royal Blade',pow:1.5},{n:'Guardian\'s Wall',pow:1.0,fx:[{k:'bind',d:1}]}]},{at:.3,msg:'"Disturb not what still rests beneath our care."',atk:1.2}],
+    moves:[{n:'Royal Blade',pow:1.4},{n:'Warding Strike',pow:1.1,fx:[{k:'buff',stat:'def',m:.85,d:2}]},{n:'Tidal Verdict',pow:1.3,spell:true},{n:'Guardian\'s Wall',pow:1.0,fx:[{k:'bind',d:1}]}],desc:'The captain of the Sunken Kingdom\'s dead guard: a warning with a blade.'},
   boss_hollow_king:{n:'The Hollow King',icon:'👑',area:'dragon',boss:true,hp:3000,atk:30,mag:32,def:18,spd:14,xp:1400,gold:1000,traits:['magic'],
     phases:[{at:.6,msg:'"I would rather this world burn than kneel again."',moves:[{n:'Roll of the Fallen',pow:1.3,spell:true,all:true},{n:'Crownless Command',pow:1.5},{n:'Ruin\'s Weight',pow:1.2,fx:[{k:'slow',d:2}]}]},{at:.3,msg:'"So this is my fate... Very well. Bind me, then."',atk:1.2}],
     moves:[{n:'Names of the Dead',pow:1.2,spell:true},{n:'Crownless Command',pow:1.4},{n:'Ruin\'s Weight',pow:1.1,fx:[{k:'slow',d:2}]},{n:'A King\'s Wrath',pow:1.5}],desc:'A king long dead, clad in the remnants of ancient royalty: wronged by history, and still a wielder of present violence.'},
@@ -151,6 +160,7 @@ const ITEMS = {
    guaranteed: always drop.  rolls: independent chance rolls.  firstClear: only on the first win.
    qty: [min,max]. Bosses use these; normal enemies use their own `drops`. */
 const LOOT = {
+  boss_royal_guardian:{guaranteed:[{id:'relic_dust',qty:[2,3]},{id:'seal_dust',qty:[1,2]}],rolls:[{id:'royal_sigil',chance:.4},{id:'forgotten_glass',chance:.35}],firstClear:[{id:'celestial_shard',qty:[1,1]}]},
   boss_hollow_king:{guaranteed:[{id:'dark_essence',qty:[2,3]},{id:'relic_dust',qty:[1,2]}],rolls:[{id:'royal_sigil',chance:.4},{id:'forgotten_glass',chance:.3}],firstClear:[{id:'celestial_shard',qty:[1,1]}]},
   boss_thorned_widow:{guaranteed:[{id:'dark_essence',qty:[2,3]},{id:'relic_dust',qty:[1,2]}],rolls:[{id:'royal_sigil',chance:.4}],firstClear:[{id:'dragon_crystal',qty:[1,1]}]},
   boss_varyn:{guaranteed:[{id:'relic_dust',qty:[2,3]},{id:'dragon_crystal',qty:[1,1]}],rolls:[{id:'royal_sigil',chance:.4}],firstClear:[{id:'royal_sigil',qty:[1,1]}]},
