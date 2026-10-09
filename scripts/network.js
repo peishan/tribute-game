@@ -129,15 +129,15 @@ const kstat = () => { const n = net(); if(!n.k) n.k = Object.assign({}, KSTATUS_
 /* Strategic decisions: Adrian lays a situation before Jade; she picks a response. One per in-game week (7 days). Trains her toward an advisor's role. */
 const DECISIONS = [
   {id:'d_village', ch:90, title:'A village needs support', text:'A river village lost its grain store to a fire. Adrian: "Soldiers, supplies, or you. Choose, and I will make it so."',
-   opts:[{t:'Send soldiers', fx:{sec:+8, res:-6}, say:'Soldiers camp by the river. The roads feel safer, and the treasury a little lighter.'},
-         {t:'Send supplies', fx:{civ:+8, res:-8}, say:'Grain and blankets arrive. The village will remember who sent them.'},
-         {t:'Investigate personally', fx:{civ:+3}, say:'You set out yourself. A quest is posted for the Imperial Capital board.', trust:3}]},
+   opts:[{t:'Send soldiers', w:{law:1}, fx:{sec:+8, res:-6}, say:'Soldiers camp by the river. The roads feel safer, and the treasury a little lighter.'},
+         {t:'Send supplies', w:{folk:1, mercy:1}, fx:{civ:+8, res:-8}, say:'Grain and blankets arrive. The village will remember who sent them.'},
+         {t:'Investigate personally', w:{caution:1}, fx:{civ:+3}, say:'You set out yourself. A quest is posted for the Imperial Capital board.', trust:3}]},
   {id:'d_envoy', ch:90, title:'An envoy asks for terms', text:'A western trade envoy asks for lower tolls. Adrian: "They will pay in goods or goodwill. Which do you prefer?"',
-   opts:[{t:'Keep the tolls', fx:{res:+8, civ:-4}, say:'The treasury grows. The envoy leaves unsmiling.'}, {t:'Lower the tolls', fx:{civ:+6, res:-4}, say:'Trade quickens. The merchants speak well of Tribute.'}, {t:'Ask for something in return', fx:{res:+3, civ:+3}, say:'A modest bargain. Adrian nods: "Balance."', trust:2}]},
+   opts:[{t:'Keep the tolls', w:{folk:-1}, fx:{res:+8, civ:-4}, say:'The treasury grows. The envoy leaves unsmiling.'}, {t:'Lower the tolls', w:{folk:1}, fx:{civ:+6, res:-4}, say:'Trade quickens. The merchants speak well of Tribute.'}, {t:'Ask for something in return', w:{caution:1}, fx:{res:+3, civ:+3}, say:'A modest bargain. Adrian nods: "Balance."', trust:2}]},
   {id:'d_border', ch:98, title:'Border patrols', text:'Guard captains ask for more patrols on the coast road. Adrian: "More patrols mean fewer farmers on the road."',
-   opts:[{t:'Double the patrols', fx:{sec:+10, civ:-4, res:-4}, say:'The roads grow quiet. So do the inns.'}, {t:'Keep the patrols as they are', fx:{}, say:'Nothing changes. Adrian writes it down anyway.'}, {t:'Recruit local watchmen', fx:{sec:+5, civ:+5, res:-5}, say:'Villagers volunteer. The captains grumble.', trust:2}]},
+   opts:[{t:'Double the patrols', w:{law:1, folk:-1}, fx:{sec:+10, civ:-4, res:-4}, say:'The roads grow quiet. So do the inns.'}, {t:'Keep the patrols as they are', w:{caution:1}, fx:{}, say:'Nothing changes. Adrian writes it down anyway.'}, {t:'Recruit local watchmen', w:{folk:1}, fx:{sec:+5, civ:+5, res:-5}, say:'Villagers volunteer. The captains grumble.', trust:2}]},
   {id:'d_valen', ch:104, title:'The west asks for help', text:'Mira Valen\'s people ask Tribute for medicine and a road crew. Adrian: "The west has waited a long time."',
-   opts:[{t:'Send medicine', fx:{civ:+8, res:-6}, say:'Medicine crates head west. Mira will not forget it.'}, {t:'Send road crews', fx:{sec:+6, res:-8}, say:'The western road is mended, stone by stone.'}, {t:'Send both and ask for no thanks', fx:{civ:+6, sec:+4, res:-12}, say:'Both go west. Adrian says nothing, which is high praise.', trust:3}]},
+   opts:[{t:'Send medicine', w:{mercy:1, folk:1}, fx:{civ:+8, res:-6}, say:'Medicine crates head west. Mira will not forget it.'}, {t:'Send road crews', w:{caution:1}, fx:{sec:+6, res:-8}, say:'The western road is mended, stone by stone.'}, {t:'Send both and ask for no thanks', w:{mercy:1, folk:1}, fx:{civ:+6, sec:+4, res:-12}, say:'Both go west. Adrian says nothing, which is high praise.', trust:3}]},
 ];
 const decisionDay = () => { const n = net(); return n.decDay === undefined ? -99 : n.decDay; };
 function openDecision(){
@@ -150,7 +150,8 @@ function decide(id, i){
   net().decDone = net().decDone || {}; net().decDone[id] = true; net().decDay = G.day;
   const k = kstat(); Object.keys(o.fx).forEach(s => k[s] = Math.max(0, Math.min(100, k[s] + o.fx[s])));
   if(o.trust) addTrust(o.trust);
-  return ['🏛️ '+d.title+': '+o.t+'. '+o.say].concat(Object.keys(o.fx).map(s => KLABEL[s]+' '+(o.fx[s]>0?'+':'')+o.fx[s]));
+  const wm = o.w && typeof wayAdd==='function' ? wayAdd(o.w).concat(wayApproval(o.w)) : [];
+  return ['🏛️ '+d.title+': '+o.t+'. '+o.say].concat(wm).concat(Object.keys(o.fx).map(s => KLABEL[s]+' '+(o.fx[s]>0?'+':'')+o.fx[s]));
 }
 /* ---- Contacts: the tree shows only what is unlocked ---- */
 function contacts(){
