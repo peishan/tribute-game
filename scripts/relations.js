@@ -137,7 +137,7 @@ function doGesture(id, k){
   return g.day ? msgs.concat(advanceDay(g.day)) : msgs;
 }
 
-function rBonds(){ return rBondsMain() + (typeof rGrowth==='function' ? rGrowth() : ''); }
+function rBonds(){ return rBondsMain() + (typeof rGrowth==='function' ? rGrowth() : '') + (typeof rTimedEvents==='function' ? rTimedEvents() : ''); }
 function rBondsMain(){
   const comp = G.party.filter(id => id!=='jade' && !CHARACTERS[id].placeholder && !isCompanion(id)).map(id => {
     const bl = bondLevel(id), bp = U(id).bp, nxt = BOND_LEVELS[bl+1], prev = BOND_LEVELS[bl];
