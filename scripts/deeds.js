@@ -8,13 +8,13 @@
 const DEED_CATS = [['story','📖 Story'],['bonds','💞 Bonds'],['hunt','🕯️ The Fifteen'],['world','🗺️ World'],['home','🏡 Home'],['craft','⚒️ Deeds of work']];
 const countFlags = pre => Object.keys(G.flags).filter(k => k.indexOf(pre)===0 && G.flags[k]).length;
 const missionsDone = () => Object.keys(G.missions||{}).filter(k => G.missions[k].st==='done').length;
-const DEED_CHAPTERS = [4,13,21,30,41,44,50,57,59,61,73,77,87,88,90,94,99,103,108,114,117,118,123,125,131,138,152,155,156,161,165,166,167,172,175,177,178];
-const ARC_ENDS = [[1,'The Hidden Isle',42],[2,'The Dragonvale Court',86],[3,'The Truth Beneath Tribute',103],[4,'The Forgotten Valen Legacy',121],[5,'The Broken Seals',146],[6,'The Fifteen Evils',166]];
+const DEED_CHAPTERS = [4,13,21,30,41,44,50,57,59,61,73,77,87,88,90,94,99,103,108,114,117,118,123,125,131,138,152,155,156,161,165,166,167,172,175,177,178,180,182,184,185];
+const ARC_ENDS = [[1,'The Hidden Isle',42],[2,'The Dragonvale Court',86],[3,'The Truth Beneath Tribute',103],[4,'The Forgotten Valen Legacy',121],[5,'The Broken Seals',146],[6,'The Fifteen Evils',166],[7,'The Sunken Crown',185]];
 const DEEDS = [];
 const deed = (id, cat, n, icon, t, ok) => DEEDS.push({id, cat, n, icon, t, ok});
 DEED_CHAPTERS.forEach(n => { if(!CHAPTERS[n] || !CHAPTERS[n].title) return; const d = CHAPTER_DESIGN[n] || {};
   deed('ch'+n, 'story', CHAPTERS[n].title, '📖', 'Chapter '+n+(d.reward?': '+d.reward+'.':'.'), () => G.ch >= n); });
-ARC_ENDS.forEach(([k, title, end]) => deed('arc'+k, 'story', 'Arc '+['','I','II','III','IV','V','VI'][k]+' complete: '+title, '🏅', 'You saw the arc through to its end.', () => G.ch >= end));
+ARC_ENDS.forEach(([k, title, end]) => deed('arc'+k, 'story', 'Arc '+['','I','II','III','IV','V','VI','VII'][k]+' complete: '+title, '🏅', 'You saw the arc through to its end.', () => G.ch >= end));
 // companions and recruits
 [['chad','Roc joins the road'],['sky','Sky joins the road'],['sally','Sally joins the road'],['levi','Levi joins the road'],['devon','Devon joins the road'],['seraphina','Seraphina joins the road'],['ghost_healer','The Ghost Healer travels with you']].forEach(([id, n]) => deed('join_'+id, 'bonds', n, '🤝', CHARACTERS[id].n+' is part of the story now.', () => isRecruited(id) || (G.left && G.left[id])));
 // bonds

@@ -5,8 +5,8 @@
    the evidence is in (resolveEvil(id, how) is called by that chapter). Investigation spots fill the Classification meter.
    State: G.evils = { id: { state } }.   Values marked (design) are the author's example values, not canon until the hunt's chapters.
    ===================================================================== */
-const EVIL_STATUS = {unknown:'Unknown', active:'Active', investigating:'Investigating', corrupted:'Corrupted', guardian:'Guardian', contained:'Contained', purified:'Purified', destroyed:'Destroyed', reconciled:'Reconciled', resolved:'Resolved'};
-const EVIL_RESOLVED = ['contained','purified','destroyed','reconciled','resolved'];   // all count as Resolved: resolving is not killing
+const EVIL_STATUS = {unknown:'Unknown', active:'Active', investigating:'Investigating', corrupted:'Corrupted', guardian:'Guardian', contained:'Contained', purified:'Purified', destroyed:'Destroyed', reconciled:'Reconciled', restored:'Restored', reclassified:'Reclassified: not an Evil', resolved:'Resolved'};
+const EVIL_RESOLVED = ['contained','purified','destroyed','reconciled','restored','reclassified','resolved'];   // all count as Resolved: resolving is not killing
 const EVIL_ARC_END = 166;   // The Fifteen Shadows: the arc's closing screen
 const EVILS = [
   {id:'thorned_widow', n:'The Thorned Widow', epithet:'The Corrupted Guardian', loc:'forest_of_thorns', activeCh:148, resolveCh:152, how:'destroyed',
@@ -28,18 +28,21 @@ const EVILS = [
      {label:'Sentience', value:'High: he speaks and remembers', spot:'hk_account'},
      {label:'Origin', value:'A king of a kingdom the seals erased', spot:'sealed_kingdom'},
      {label:'Threat to Civilians', value:'Real: he has killed in the present', spot:'present_crimes'}]},
-  {id:'black_tide', n:'The Black Tide', loc:'black_tide_waters', activeCh:167, home:'The Forbidden Sea Route', original:'Waters that swallow ships (the Register: extreme danger)', intel:[
+  {id:'black_tide', n:'The Black Tide', loc:'black_tide_waters', activeCh:167, resolveCh:182, how:'restored', home:'The Forbidden Sea Route', original:'Waters that swallow ships (the Register: extreme danger)', revised:{spot:'tide_origin', t:'A corrupted natural and spiritual phenomenon: a guardian current twisted by centuries of magical damage. Restored.'}, intel:[
      {label:'Threat', value:'Extreme danger (Register)', spot:'register_blacktide'},
      {label:'Origin', value:'Tied to an erased maritime boundary', spot:'maritime_records'},
      {label:'Behaviour', value:'Turns the sea black after sunset', spot:'sea_calm'},
-     {label:'Residue', value:'Claw marks and residue older than the first sightings', spot:'tide_evidence'}]},
+     {label:'Residue', value:'Claw marks and residue older than the first sightings', spot:'tide_evidence'},
+     {label:'Nature', value:'A natural spiritual force, corrupted: not born evil', spot:'tide_layered'}]},
   {id:'silent_flame', n:'The Silent Flame', intel:[]}, {id:'weeping_stone', n:'The Weeping Stone', intel:[]},
   {id:'sky_eater', n:'The Sky Eater', intel:[]}, {id:'bone_river', n:'The Bone River', intel:[]}, {id:'sunless_child', n:'The Sunless Child', intel:[]},
-  {id:'drowned_crown', n:'The Drowned Crown', loc:'sunken_kingdom', activeCh:177, home:'The Sunken Kingdom',
-   original:'Cursed monarch and destroyer (Dragonvale\'s histories)', revised:{spot:'crown_hostile', t:'A royal will defending something: it warns before it strikes'}, intel:[
+  {id:'drowned_crown', n:'The Drowned Crown', loc:'sunken_kingdom', activeCh:177, resolveCh:182, how:'reclassified', home:'The Sunken Kingdom',
+   original:'Cursed monarch and destroyer (Dragonvale\'s histories)', revised:{spot:'crown_recognition', t:'An ancient royal preservation construct: the council\'s final command, not an Evil'}, intel:[
      {label:'Sentience', value:'Many voices layered through time', spot:'drowned_crown_meet'},
      {label:'Behaviour', value:'Warns intruders away', spot:'crown_warnings'},
-     {label:'Guardians', value:'Spectral royal guard', spot:'approach_palace'}]}, {id:'ashen_serpent', n:'The Ashen Serpent', intel:[]}, {id:'mirror_queen', n:'The Mirror Queen', intel:[]},
+     {label:'Guardians', value:'Spectral royal guard', spot:'approach_palace'},
+     {label:'Origin', value:'A collective construct of the royal council', spot:'crown_origin'},
+     {label:'Purpose', value:'To keep the deepest chamber from those who do not understand', spot:'council_command'}]}, {id:'ashen_serpent', n:'The Ashen Serpent', intel:[]}, {id:'mirror_queen', n:'The Mirror Queen', intel:[]},
   {id:'endless_winter', n:'The Endless Winter', intel:[]},
   {id:'evil_14', n:'???', hidden:true, intel:[]}, {id:'evil_15', n:'???', hidden:true, intel:[]},
 ];

@@ -26,7 +26,9 @@ const RECORDS = [
   {id:'valen', icon:'🛡️', n:'The Valen Legacy', cat:'Powers', st:['valen_restored','valen_prophecy_link','yvette_truth'].map(stageFlag)},
   {id:'hart', icon:'🦌', n:'The Burial Ground', cat:'The Fifteen', st:['hart_found','burial_ground_known','royal_link_known'].map(stageFlag)},
   {id:'sunken', icon:'🌊', n:'The Sunken Kingdom', cat:'The old world', st:['aelyndra_named','deliberate_submersion','pearl_purpose'].map(stageFlag)},
+  {id:'alliance', icon:'🤝', n:'The Ancient Alliance', cat:'The old world', st:[stageFlag('ancient_alliance_known'), stageFn(() => !!G.flags.inv_erased_routes, 'Routes and records were deliberately erased'), stageFlag('sunken_kingdom_remembered')]},
   {id:'register', icon:'📕', n:'The Fifteen Register', cat:'The Fifteen', st:['register_rewritten','fourth_entry_missing','nameless_witness_met'].map(stageFlag)},
+  {id:'impossible', icon:'🗂️', n:'The Impossible Entry', cat:'The Fifteen', st:['register_doubted','impossible_entry','inv_adrian_message'].map(stageFlag)},
   {id:'fifteen', icon:'🕯️', n:'The Fifteen Evils', cat:'The Fifteen', st:[stageFlag('fifteen_named'), stageFn(() => evilsResolved() >= 1, 'The first Evil is resolved'), stageFn(() => evilsResolved() >= 8, 'More than half of the Fifteen are resolved')]},
 ];
 function recStage(r){ let s = -1; r.st.forEach((x, i) => { try{ if(x.ok()) s = i; }catch(e){} }); return s; }
