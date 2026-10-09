@@ -65,7 +65,7 @@ function rDossiers(){
 const ANALYSTS = [
   {id:'adrian', n:'Adrian', spec:['records'], ok:() => G.ch >= 90}, {id:'seraphina', n:'Seraphina', spec:['seals'], ok:() => isRecruited('seraphina')},
   {id:'sky', n:'Sky', spec:['spirit'], ok:() => isRecruited('sky')}, {id:'devon', n:'Devon', spec:['records'], ok:() => isRecruited('devon')},
-  {id:'levi', n:'Levi', spec:['field'], ok:() => isRecruited('levi')}, {id:'rin', n:'Rin', spec:['field','spirit'], ok:() => !!G.flags.rin_met}, {id:'eira', n:'Eira', spec:['seals','records'], ok:() => G.ch >= 162}, {id:'maris', n:'Maris', spec:['records'], ok:() => !!G.flags.maris_met},
+  {id:'levi', n:'Levi', spec:['field'], ok:() => isRecruited('levi')}, {id:'rin', n:'Rin', spec:['field','spirit'], ok:() => !!G.flags.rin_met}, {id:'eira', n:'Eira', spec:['seals','records'], ok:() => G.ch >= 147}, {id:'maris', n:'Maris', spec:['records'], ok:() => !!G.flags.maris_met},
 ];
 const analystsNow = () => ANALYSTS.filter(a => { try{ return a.ok(); }catch(e){ return false; } });
 const LEAD_CATS = {seals:['🔆','seals and oaths'], spirit:['✨','spirit and healing'], records:['📂','records and testimony'], field:['🥾','tracks and terrain']};

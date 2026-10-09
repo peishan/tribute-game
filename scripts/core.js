@@ -5,12 +5,13 @@ const CFG = { SAVE_KEY:'tribute_rpg_v3', LEVEL_CAP:Infinity, START_LEVEL:1 };   
 
 // WHO JOINS WHEN (chapter number at which the hero is recruited). PROVISIONAL — correct these.
 // Permanent joins. Chad and Sky both accept the mission in ch4 (Chad was hired in ch3, Sky first meets Jade in ch4). Sally 28 and Levi 30 match the comic's chapter titles. Devon open.
+const EIRA_JOIN_CH = 147;   // Eira Solenne is recruited after Arc V ends (ch146): an area guest in the Broken Seals until then
 const RIN_JOIN_CH = 172;   // Rin is an area guest in the north from ch149, and joins the party for good at ch172 (when she sails with the expedition)
-const JOIN_CH = { jade:0, chad:4, sky:4, sally:29, levi:30, ripley:52, devon:54, seraphina:87, ghost_healer:88, rin:RIN_JOIN_CH };   // sally: introduced ch28, recruited ch28/29 per the author (29 provisional); levi leaves temporarily later (chapter TBD); devon open   // ch4 "We are in": Chad (hired in ch3) and Sky accept the mission together
+const JOIN_CH = { jade:0, chad:4, sky:4, sally:29, levi:30, ripley:52, devon:54, seraphina:87, ghost_healer:88, rin:RIN_JOIN_CH, eira:EIRA_JOIN_CH };   // sally: introduced ch28, recruited ch28/29 per the author (29 provisional); levi leaves temporarily later (chapter TBD); devon open   // ch4 "We are in": Chad (hired in ch3) and Sky accept the mission together
 // Guest (temporary) party members. (None yet: the ch4 "Sally guest" came from the discarded story-file list. Per the comic Sally appears in ch28.)
 const GUEST_CH = { seraphina:73 };   // guest (temporary Roc replacement) inside Dragonvale from ch73; joins permanently at ch87 when she asks to
 // Chapter at which a hero's profile becomes visible even before they join ("Chad profile / Sky profile" unlock in ch1).
-const INTRO_CH = { rin:149, ghost_healer:88, seraphina:65, chad:1, sky:1, sally:28, ripley:46, devon:47 };
+const INTRO_CH = { eira:129, rin:149, ghost_healer:88, seraphina:65, chad:1, sky:1, sally:28, ripley:46, devon:47 };
 // Bond changes shown by the comic's banners (bond points with Jade; level thresholds in BOND_LEVELS). Applied when the chapter completes.
 const CH_BOND = { 98:{sky:5}, 93:{sky:10}, 94:{sky:10}, 59:{chad:-9999}, 24:{sky:20}, 25:{chad:20}, 27:{chad:-20}, 29:{sky:20}, 31:{chad:-40}, 32:{levi:20}, 33:{levi:20, chad:-20}, 34:{levi:20, chad:-10}, 38:{levi:20, sky:20}, 39:{levi:20, chad:-5}, 40:{levi:20, sky:20} };   // banners: ch31 Jade+Chad -2, ch32 Jade+Levi +1, ch33 Jade+Levi +1 / Jade+Chad -1 (Sky+Levi and Chad+Sally banners not modelled)
 const profileKnown = id => isRecruited(id) || !!(G.left && G.left[id]) || (INTRO_CH[id]!==undefined && G.ch >= INTRO_CH[id]);
@@ -230,15 +231,15 @@ const AREA_NORTH = ['northern_frontier','black_forest','forest_of_thorns','mourn
 const GUEST_RULES = {
   chad:{flag:'roc_reborn', regions:['dragon'], note:'Roc, reborn, fights beside the party on Dragonvale ground.'},
   // Area guests: fight beside the party (passive companions) only while the party is inside their area (locs), from chapter fromCh. Leave the area and they leave.
-  cael:{fromCh:123, locs:AREA_BROKEN_SEALS, note:'Cael Ardyn, the last Seal Keeper, fights beside the party while it is in the Broken Seals area.'},
-  eira:{fromCh:129, locs:AREA_BROKEN_SEALS, extraLocs:{capital:162, archive_shrine:165}, note:'Eira Solenne, the scholar of the sanctuary, is an ally and guest (not a party member): she fights beside the party in the Broken Seals area, and is with it in the capital from chapter 162 and at the archive-shrine.'},
+  cael:{fromCh:123, locs:AREA_BROKEN_SEALS, note:'Cael Ardyn, the last Seal Keeper, stays in the Broken Seals area to keep the peace, and fights beside the party while it is there.'},
+  eira:{fromCh:129, untilCh:EIRA_JOIN_CH, locs:AREA_BROKEN_SEALS, note:'Eira Solenne, the scholar of the sanctuary, fights beside the party while it is in the Broken Seals area (she joins the party for good after Arc V).'},
   rin:{fromCh:149, untilCh:RIN_JOIN_CH, locs:AREA_NORTH, note:'Rin Kaede, the Spirit Ranger, fights beside the party while it is in the northern forest country.'},
 };
 const presentGuests = () => !G ? [] : Object.keys(GUEST_RULES).filter(id => { const r = GUEST_RULES[id];
   const ok = (r.flag===undefined || [].concat(r.flag).every(f => G.flags[f])) && (!r.regions || r.regions.includes(LOCATIONS[G.loc].region)) && (!r.locs || r.locs.includes(G.loc) || (r.extraLocs && r.extraLocs[G.loc] !== undefined && G.ch >= r.extraLocs[G.loc])) && (r.fromCh===undefined || G.ch>=r.fromCh) && (r.untilCh===undefined || G.ch<r.untilCh);
   return ok && !isDisabled(id); });
 const isGuestNow = id => presentGuests().includes(id);
-const isCompanion = id => !!(CHARACTERS[id] && CHARACTERS[id].companion) || (id==='rin' && !!G && G.ch < RIN_JOIN_CH);   // companions travel and fight with the party without using one of the active slots
+const isCompanion = id => !!(CHARACTERS[id] && CHARACTERS[id].companion) || (!!G && ((id==='rin' && G.ch < RIN_JOIN_CH) || (id==='eira' && G.ch < EIRA_JOIN_CH)));   // companions travel and fight with the party without using one of the active slots
 function recruit(id){ if(G.left && G.left[id]) return false; if(!G.party.includes(id)){ G.party.push(id); if(!isCompanion(id) && activeCount()<slotCap()) G.active.push(id); return true; } return false; }
 function toggleActive(id){ if(unbenchable(id) || isCompanion(id) || (isAway(id) && !G.active.includes(id))) return; const i=G.active.indexOf(id); if(i>=0) G.active.splice(i,1); else if(activeCount()<slotCap()) G.active.push(id); save(); }
 function recruitsAtChapter(ch){ return Object.keys(JOIN_CH).filter(id => JOIN_CH[id] === ch); }
