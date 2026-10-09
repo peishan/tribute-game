@@ -31,13 +31,16 @@ function wayAdd(delta){
 function wayEpithet(k){ const v = ways()[k], t = wayTier(k); if(!t) return ''; const e = WAYS[k].ep[v > 0 ? 'hi' : 'lo']; return e[t-1]; }
 const wayLeanings = () => WAY_KEYS.filter(k => wayTier(k) > 0).sort((a, b) => Math.abs(ways()[b]) - Math.abs(ways()[a]));
 const wayEpithets = () => wayLeanings().map(wayEpithet);
-/* who approves of what: [axis, sign]. Approval is a little bond, never a penalty. */
+/* who approves of what: [axis, sign]. Approval is +1 bond; disagreement is a -1 that can never lower a bond level. */
 const WAY_LIKES = {sky:[['mercy',1],['folk',1]], devon:[['law',1],['caution',1]], levi:[['caution',1],['folk',1]], seraphina:[['law',1],['mercy',-1]], rin:[['folk',1],['mercy',1]], eira:[['caution',1],['law',1]], sally:[['law',-1],['folk',1]], ripley:[['folk',1]]};
 function wayApproval(delta){
-  const who = G.active.filter(id => WAY_LIKES[id] && WAY_LIKES[id].some(([k, s]) => (delta[k]||0) * s > 0));
-  if(!who.length) return [];
-  const id = who[0], name = id==='sally' ? 'Sally' : CHARACTERS[id].n.split(' ')[0], m = addBond(id, 1);
-  return ['💬 '+name+' approves.'+(m ? ' '+m : '')];
+  const out = [], nm = id => id==='sally' ? 'Sally' : CHARACTERS[id].n.split(' ')[0];
+  const likes = id => WAY_LIKES[id].some(([k, s]) => (delta[k]||0) * s > 0), dislikes = id => WAY_LIKES[id].some(([k, s]) => (delta[k]||0) * s < 0) && !likes(id);
+  const yes = G.active.find(id => WAY_LIKES[id] && likes(id)), no = G.active.find(id => WAY_LIKES[id] && dislikes(id));
+  if(yes){ const m = addBond(yes, 1); out.push('💬 '+nm(yes)+' approves.'+(m ? ' '+m : '')); }
+  if(no){ if(typeof isRecruited==='function' && isRecruited(no) && no!=='sally'){ const b = U(no); const floor = BOND_LEVELS[bondLevel(no)] || 0; if(b.bp - 1 >= floor) b.bp -= 1; }   // a bond never drops a level
+    out.push('💬 '+nm(no)+' disagrees, and says so. (a little strain, never a lost bond level)'); }
+  return out;
 }
 
 /* ---------------- decisions ---------------- */
@@ -169,7 +172,7 @@ function rJadeDecisions(){
 }
 function rWays(){
   const M = mar(), L = jdData().log.slice(-8).reverse(), eps = wayEpithets();
-  return `<div class="panel"><b>JADE'S WAYS</b><div class="sm">Four leanings that her choices shape. Neither end is right or wrong, nothing is ever lost, and a companion who shares a leaning approves when a choice matches it.${eps.length?' People now call her '+eps.slice(0,2).map(e => '“'+e+'”').join(' and ')+'.':' She has not yet leaned strongly either way.'}</div>${WAY_KEYS.map(rWayBar).join('')}</div>`
+  return `<div class="panel"><b>JADE'S WAYS</b><div class="sm">Four leanings that her choices shape. Neither end is right or wrong, and a companion who shares a leaning approves when a choice matches it, and one who holds the opposite view disagrees (a -1 that can never lower a bond level).${eps.length?' People now call her '+eps.slice(0,2).map(e => '“'+e+'”').join(' and ')+'.':' She has not yet leaned strongly either way.'}</div>${WAY_KEYS.map(rWayBar).join('')}</div>`
    + (G.flags.marroway_files ? `<div class="panel"><b>🎭 THE MARROWAY FILES</b><div class="sm">${marOpen() ? 'Open cases are posted on the Dragonvale Masked board, and you can hunt Marroway\'s retainers at the lodges.' : 'Closed.'} Cases completed ${M.cases} · women freed ${M.rescued} · villages freed ${M.villages} · evidence ${M.evidence}.</div></div>` : '')
    + (L.length ? `<h4>Recent decisions</h4>${L.map(l => { const d = JADE_DECISIONS[l.id]; return `<div class="li"><span class="sm">${d?d.icon:'📜'} Day ${l.d} · ${l.n}: ${d && d.opts[l.o] ? fillD(d.opts[l.o].t, {}).replace(/ \{name\}/g,'') : ''}</span></div>`; }).join('')}` : '<div class="sm">No decisions yet. Some contracts end with a choice.</div>');
 }
