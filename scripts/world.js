@@ -1969,6 +1969,7 @@ function finishQuest(q, msgs){
   grantReward(q.rw, '').forEach(m => msgs.push(m.replace(/^ · /,'')));
   msgs.unshift('🎯 Quest complete: '+q.name);
   if(typeof questDecision==='function') questDecision(q, msgs);
+  if(typeof questRepute==='function') questRepute(q, msgs);
   if(typeof regardAdd==='function'){ const rm = regardAdd(G.loc, 8); if(rm) msgs.push(rm); }
 }
 function questKill(key){

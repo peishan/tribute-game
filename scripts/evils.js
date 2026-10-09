@@ -83,6 +83,7 @@ const evilsResolved = () => EVILS.filter(e => EVIL_RESOLVED.includes(evilState(e
 /* called when chapter n completes: records each Evil the chapter resolves in the Chronicle and in the regard of nearby places */
 function evilsChapterDone(n){
   const msgs = [];
+  EVILS.filter(e => e.resolveCh===n).forEach(() => { if(typeof evilReputeDone==='function') evilReputeDone(n); });
   EVILS.filter(e => e.resolveCh===n).forEach(e => { chronicle(e.n+': '+EVIL_STATUS[e.how]+'. Resolved '+evilsResolved()+' / 15.', '🕯️'); if(e.loc && LOCATIONS[e.loc]){ const m = regardAdd(e.loc, 40); if(m) msgs.push(m); const nb = LOC_ORDER.filter(k => k!==e.loc && LOCATIONS[k].region===LOCATIONS[e.loc].region && isSettlement(k)); nb.forEach(k => regardAdd(k, 20)); } });
   return msgs;
 }
