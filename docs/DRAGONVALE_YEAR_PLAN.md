@@ -380,3 +380,16 @@ Arc VII: The Sunken Kingdom. Author range: chapters 166-185 (20 chapters), then 
 - **Names:** the outline says Roc Chadwick and Sally Sin; the pages and the game say Roc Chadstone and Sally Sun (flagged earlier).
 - **Epilogue:** the game currently has it as page 3 of chapter 185 ("Final Scene") and a mission; the outline says it is unnumbered. Either keep as is, or split it into a non-chapter story card after 185.
 - **Fixed companion:** the outline calls Sera a "fixed battle companion"; the game lets the party choose its five and lists Sera as a normal party member (FIXED_FIVE is only the default).
+
+### Author's answers and the game's adjusted phases
+- **Roc Chadwick** is the alias of Prince Roc Chadstone (already how the game treats him). No change.
+- **Sally Sin** is Sally's original name; "Sun" was a typo on the pages, kept as the surname she took on adoption into nobility. The game records her as Sally Sin (Sun, her noble name); the cast sheet is therefore correct.
+- **Epilogue:** the page is titled "Final Scene" in the author's GPT doc; the author made it an unnumbered epilogue. In the game it stays page 3 of chapter 185 plus its own mission and is now described as the epilogue.
+- **Sera** is a normal party member now (the outline predates the extra party members). The party is Jade, Devon, Sky, Levi, Rin, Seraphina, Eira and the rest by chapter, with five in the field.
+- **Phase boundaries, taking the lead from the built chapters** (the outline's boundaries put Dragonvale-surface chapters inside "exploring the submerged civilization"). Use these for the GPT session:
+  - I The Forgotten Sea, 167-171: The Message from Dragonvale, Letters Beneath the Blossoms (Jade and Adrian; Eve Gray), The Pearl That Remembers, Return to Dragonvale, The Forbidden Sea Route.
+  - II The Sunken Kingdom, 172-176: The Black Tide (first manifestation), Beneath the Waves, The Kingdom That Chose the Sea, Maris of the Deep Archives, The Dragon Pearl.
+  - III The Drowned Crown, 177-180: The Drowned Crown, Roc's Inheritance, A Crown Without a King, Trial of the Drowned Court.
+  - IV The Black Tide, 181-184: The Black Tide Returns, The Black Tide Restored, What the Drowned Crown Guarded, The Crown Returns the Pearl.
+  - V The Sea Remembers, 185 + the epilogue.
+  - Chapter 166 (Fifteen Shadows) is the end of Arc VI and sets the mandate that opens Arc VII; the outline's "166-185" becomes 167-185 (19 chapters) plus the epilogue.
