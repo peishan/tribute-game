@@ -68,6 +68,9 @@ const ENEMIES = {
     moves:[{n:'Drowning Whisper',pow:1.1,spell:true,fx:[{k:'silence',d:2}]},{n:'Cold Tide',pow:1.0,spell:true,all:true}],drops:[{id:'mist_water',chance:.3}],desc:'A shade of the sea that still remembers drowning.'},
   spectral_guardian:{n:'Spectral Guardian',icon:'🗡️',area:'sea',hp:180,atk:18,mag:12,def:13,spd:12,xp:66,gold:34,traits:['magic'],
     moves:[{n:'Royal Blade',pow:1.3},{n:'Warding Strike',pow:1.0,fx:[{k:'buff',stat:'def',m:.9,d:2}]}],drops:[{id:'seal_dust',chance:.2}],desc:'A dead guardian of the drowned kingdom, defending what it was set to keep.'},
+  boss_black_tide:{n:'The Black Tide: Corrupted Manifestation',icon:'🌊',area:'sea',boss:true,hp:3400,atk:33,mag:31,def:18,spd:14,xp:1300,gold:900,traits:['corrupt','magic'],
+    phases:[{at:.6,msg:'The Tide surges against the pearl\'s barriers: corruption layered over something older',moves:[{n:'Black Surge',pow:1.4,spell:true,all:true},{n:'Drowning Dark',pow:1.1,spell:true,fx:[{k:'silence',d:2}]},{n:'Crushing Current',pow:1.5}]},{at:.3,msg:'The darkness thins. Beneath it, a guardian current stirs: it can be saved',atk:1.15}],
+    moves:[{n:'Crushing Current',pow:1.4},{n:'Tidal Lash',pow:1.1,fx:[{k:'slow',d:2}]},{n:'Black Surge',pow:1.2,spell:true,all:true},{n:'Fractured Memory',pow:1.0,spell:true,fx:[{k:'silence',d:2}]}],desc:'A vast convergence of corrupted water and fractured memory: a wounded guardian, not a monster by birth.'},
   boss_royal_guardian:{n:'Captain of the Royal Guard',icon:'🛡️',area:'sea',boss:true,hp:2700,atk:30,mag:27,def:17,spd:13,xp:1150,gold:820,traits:['magic'],
     phases:[{at:.6,msg:'"Leave this place. The sea remembers what the land chose to forget."',moves:[{n:'Crown\'s Command',pow:1.4,spell:true,all:true},{n:'Royal Blade',pow:1.5},{n:'Guardian\'s Wall',pow:1.0,fx:[{k:'bind',d:1}]}]},{at:.3,msg:'"Disturb not what still rests beneath our care."',atk:1.2}],
     moves:[{n:'Royal Blade',pow:1.4},{n:'Warding Strike',pow:1.1,fx:[{k:'buff',stat:'def',m:.85,d:2}]},{n:'Tidal Verdict',pow:1.3,spell:true},{n:'Guardian\'s Wall',pow:1.0,fx:[{k:'bind',d:1}]}],desc:'The captain of the Sunken Kingdom\'s dead guard: a warning with a blade.'},
@@ -160,6 +163,7 @@ const ITEMS = {
    guaranteed: always drop.  rolls: independent chance rolls.  firstClear: only on the first win.
    qty: [min,max]. Bosses use these; normal enemies use their own `drops`. */
 const LOOT = {
+  boss_black_tide:{guaranteed:[{id:'dark_essence',qty:[2,3]},{id:'mist_water',qty:[2,3]}],rolls:[{id:'forgotten_glass',chance:.4},{id:'royal_sigil',chance:.3}],firstClear:[{id:'celestial_shard',qty:[1,1]}]},
   boss_royal_guardian:{guaranteed:[{id:'relic_dust',qty:[2,3]},{id:'seal_dust',qty:[1,2]}],rolls:[{id:'royal_sigil',chance:.4},{id:'forgotten_glass',chance:.35}],firstClear:[{id:'celestial_shard',qty:[1,1]}]},
   boss_hollow_king:{guaranteed:[{id:'dark_essence',qty:[2,3]},{id:'relic_dust',qty:[1,2]}],rolls:[{id:'royal_sigil',chance:.4},{id:'forgotten_glass',chance:.3}],firstClear:[{id:'celestial_shard',qty:[1,1]}]},
   boss_thorned_widow:{guaranteed:[{id:'dark_essence',qty:[2,3]},{id:'relic_dust',qty:[1,2]}],rolls:[{id:'royal_sigil',chance:.4}],firstClear:[{id:'dragon_crystal',qty:[1,1]}]},

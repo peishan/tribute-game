@@ -52,6 +52,11 @@ const REPORTS = [
   {ch:172, loc:'The Forbidden Waters', threat:'The Black Tide attacked the expedition ship and was driven back by the Black Dragon Pearl. It has not been defeated.', status:'Unresolved.'},
   {ch:174, loc:'The Sunken Kingdom', threat:'A whole kingdom preserved beneath the sea by its own council, to protect something vital. The records end there.', status:'Investigating.'},
   {ch:177, loc:'The Drowned Palace', threat:'The Drowned Crown warns intruders away and its dead guardians defend the palace.', status:'Investigating.'},
+  {ch:179, loc:'The Drowned Palace', threat:'The Drowned Crown is not one king\'s ghost but the royal council\'s final command, made to guard the deepest chamber.', status:'Investigating.'},
+  {ch:181, loc:'The Sunken Kingdom', threat:'The Black Tide returned and attacked the expedition ships and the ruins. It is a corrupted guardian current, not a monster by birth.', status:'Unresolved.'},
+  {ch:182, loc:'The Sunken Kingdom', threat:'The Black Tide has been restored and the Drowned Crown reclassified as a Preservation Construct. Register: 5/15 Resolved.', status:'Resolved.'},
+  {ch:183, loc:'The Deepest Archive', threat:'Records of an ancient maritime alliance of Dragonvale, Tribute, the Sunken Kingdom and vanished civilizations, with its routes deliberately erased.', status:'Investigating.'},
+  {ch:185, loc:'Royal Archive', threat:'One name from the Register appears in records from three kingdoms in Year 412, 7th Moon. No copying error was found.', status:'Unresolved.'},
   {ch:99, loc:'Tribute Roads', threat:'Bandits are returning to the coast road now the armies are home.', status:'Contracts posted.'},
 ];
 /* ---- Requests (optional; use the contract system, with trust rewards) ---- */

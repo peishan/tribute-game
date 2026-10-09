@@ -30,7 +30,8 @@ const PASSAGE_REGIONS = [
   {id:'marches', n:'The Crownless Marches', vis:() => locOpen('crownless_marches'), rules:[
     [() => true, 'unclassified', 'A lost kingdom, cut away from the world by the seals.']]},
   {id:'sunken', n:'The Sunken Kingdom', vis:() => locOpen('sunken_kingdom'), rules:[
-    [() => true, 'unclassified', 'A kingdom that chose the sea: its barriers still hold, and the Black Dragon Pearl can wake them.']]},
+    [() => true, 'unclassified', 'A kingdom that chose the sea: its barriers still hold, and the Black Dragon Pearl can wake them.'],
+    [() => G.ch >= 185, 'conditional', 'The maritime route is reopened under supervision: monitored vessels, registered crews and established routes only.']]},
   {id:'dima', n:'Dima\'s Sanctuary', vis:() => locOpen('dima_sanctuary'), rules:[]},
   {id:'xima', n:'Xima Realm', vis:() => locOpen('xima_realm'), rules:[]},
 ];
