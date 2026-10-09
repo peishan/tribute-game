@@ -41,6 +41,9 @@ const WORLD_MAPS = [
    locs:['northern_frontier','black_forest','forest_of_thorns','mourning_valley','crownless_marches','archive_shrine'],
    nodes:[{k:'Tribute',x:50,y:88,loc:'capital',ref:true},{k:'The Northern Frontier',x:50,y:66,loc:'northern_frontier'},{k:'The Black Forest',x:30,y:46,loc:'black_forest'},{k:'The Forest of Thorns',x:36,y:24,loc:'forest_of_thorns'},{k:'Mourning Valley',x:68,y:28,loc:'mourning_valley'},{k:'The Crownless Marches',x:84,y:12,loc:'crownless_marches'},{k:'The Abandoned Archive-Shrine',x:16,y:70,loc:'archive_shrine'}]},
 ];
+WORLD_MAPS.push({id:'sunken', n:'The Sunken Crown', img:'assets/maps/sunken_crown.webp', open:() => G.ch >= 167, schem:true,   // Arc VII map: picture not generated yet; schematic positions are placeholders
+   locs:['black_tide_waters','sunken_kingdom'],
+   nodes:[{k:'Dragonvale',x:50,y:14,loc:'dragon_vale',ref:true},{k:'The Forbidden Waters',x:50,y:46,loc:'black_tide_waters'},{k:'The Sunken Kingdom',x:50,y:82,loc:'sunken_kingdom'}]});
 const mapFor = locId => (WORLD_MAPS.find(m => m.locs.includes(locId)) || WORLD_MAPS[0]).id;
 function mapEntries(m){
   const out = m.nodes.map(n => ({key:n.loc+'|'+(n.spot||''), label:n.k, loc:n.loc, spot:n.spot, ref:n.ref, node:n}));

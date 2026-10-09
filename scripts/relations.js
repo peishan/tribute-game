@@ -139,7 +139,7 @@ function doGesture(id, k){
 
 function rBonds(){ return rBondsMain() + (typeof rGrowth==='function' ? rGrowth() : ''); }
 function rBondsMain(){
-  const comp = G.party.filter(id => id!=='jade' && !CHARACTERS[id].placeholder && !CHARACTERS[id].companion).map(id => {
+  const comp = G.party.filter(id => id!=='jade' && !CHARACTERS[id].placeholder && !isCompanion(id)).map(id => {
     const bl = bondLevel(id), bp = U(id).bp, nxt = BOND_LEVELS[bl+1], prev = BOND_LEVELS[bl];
     return `<div class="card" style="cursor:default"><img src="${portrait(id)}" alt="" style="width:44px;height:44px;border-radius:50%;object-fit:cover"><div class="fl"><b>${CHARACTERS[id].n}</b> <span class="sm">· Bond ${bl}</span>${nxt!==undefined?bar(bp-prev, nxt-prev)+`<div class="sm">${bp} / ${nxt} to Bond ${bl+1}</div>`:'<div class="sm">Bond complete</div>'}</div></div>`; }).join('');
   const allies = RELATIONS.filter(relOpen).map(r => {
@@ -194,7 +194,7 @@ function trackSynergy(k){   // are the bonded members fielded right now?
   const T = BOND_TRACKS[k], act = id => G.active.includes(id) && !isDisabled(id);
   if(T.headcount) return FIXED_FIVE.filter(act).length >= T.headcount;
   if(T.bonus===null) return false;
-  if(k==='levi_rin') return act('levi') && isGuestNow('rin');
+  if(k==='levi_rin') return act('levi') && (isGuestNow('rin') || act('rin'));
   if(k==='sky_ghost') return act('sky') && isRecruited('ghost_healer');
   return T.members.every(act);
 }
@@ -211,7 +211,7 @@ function trackActLock(k, a){
   const st = trackState(k);
   if(st.last === G.day) return 'Already today';
   if(a.base && typeof baseHere==='function' && !baseHere()) return '📍 Only at a home (Devon\'s Palace or Gold Manor)';
-  if(k==='levi_rin' && !isGuestNow('rin')) return 'Rin is not with you';
+  if(k==='levi_rin' && !(isGuestNow('rin') || G.active.includes('rin'))) return 'Rin is not with you';
   const T = BOND_TRACKS[k]; if(T.members && k!=='levi_rin' && k!=='sky_ghost' && !T.members.every(id => isRecruited(id))) return 'Not all of them are with you';
   return '';
 }

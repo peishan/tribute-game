@@ -25,6 +25,7 @@ const RECORDS = [
   {id:'faction', icon:'👁️', n:'The Third Faction', cat:'Powers', st:['symbol_traced','faction_identified','third_faction_known'].map(stageFlag)},
   {id:'valen', icon:'🛡️', n:'The Valen Legacy', cat:'Powers', st:['valen_restored','valen_prophecy_link','yvette_truth'].map(stageFlag)},
   {id:'hart', icon:'🦌', n:'The Burial Ground', cat:'The Fifteen', st:['hart_found','burial_ground_known','royal_link_known'].map(stageFlag)},
+  {id:'sunken', icon:'🌊', n:'The Sunken Kingdom', cat:'The old world', st:['aelyndra_named','deliberate_submersion','pearl_purpose'].map(stageFlag)},
   {id:'register', icon:'📕', n:'The Fifteen Register', cat:'The Fifteen', st:['register_rewritten','fourth_entry_missing','nameless_witness_met'].map(stageFlag)},
   {id:'fifteen', icon:'🕯️', n:'The Fifteen Evils', cat:'The Fifteen', st:[stageFlag('fifteen_named'), stageFn(() => evilsResolved() >= 1, 'The first Evil is resolved'), stageFn(() => evilsResolved() >= 8, 'More than half of the Fifteen are resolved')]},
 ];
@@ -46,6 +47,8 @@ const DOSSIERS = [   // card: [Network, Allegiance, Attitude, Reliability]; each
    entries:[['oath_changed','RECORD ALTERED'],['ardyn_inheritance','LINK NOTED'],['adviser_known','NAMED AS ABSENT']]},
   {id:'third', icon:'👁️', n:'The Third Faction', sub:'The sun-and-eye symbol', open:'symbol_traced', card:[['Unconfirmed', ['third_faction_known','Marked by a sun-and-eye symbol']], ['Unconfirmed'], ['Unconfirmed'], ['Unconfirmed']],
    entries:[['symbol_traced','TRACED'],['faction_identified','IDENTIFIED'],['third_faction_known','SYMBOL KNOWN'],['people_behind_found','PEOPLE BEHIND THE RECORDS']]},
+  {id:'maris', icon:'🧜', n:'Maris Aurel', sub:'Tide Archivist of the Deep Archives', open:'maris_met', img:'assets/npc/maris.webp', card:[['Deep Archives'], ['Unconfirmed'], ['Wary of royal hands'], ['Unconfirmed']],
+   entries:[['maris_met','MET IN PERSON'],['pearl_purpose','KNOWS THE PEARL']]},
   {id:'witness', icon:'🕴️', n:'The Nameless Witness', sub:'Someone who saw the Fifteen before they were named', open:'nameless_witness_met', card:[['Unconfirmed'], ['Unconfirmed'], ['Unconfirmed'], ['Unconfirmed']],
    entries:[['fourth_entry_missing','ENTRY IV REMOVED'],['nameless_witness_met','SPOKE TO THE PARTY']]},
   {id:'hale', icon:'📋', n:'Magistrate Hale', sub:'Provincial administration', open:'hale_met', card:[['Provincial administration'], ['Unconfirmed'], ['Unconfirmed', ['hale_met','An unwilling guardian of the truth']], ['Unconfirmed']],
@@ -56,13 +59,13 @@ const cardVal = c => { let v = c[0]; c.slice(1).forEach(x => { if(G.flags[x[0]])
 function rDossiers(){
   const list = DOSSIERS.filter(d => G.flags[d.open]);
   return `<div class="sm">Files fill in as the story moves; there is nothing to do here but read. Where the story has not answered something, the file says so.</div>` + (list.map(d =>
-    `<div class="panel"><b>${d.icon} ${d.n}</b> <span class="sm">· ${d.sub}</span>${d.card.map((c, i) => `<div class="sm">${CARD_LABELS[i]}: ${cardVal(c)}</div>`).join('')}${d.entries.filter(e => G.flags[e[0]]).map(e => `<div class="li"><span class="sm"><b>${e[1]}</b> · ${FLAG_LABEL[e[0]]||e[0]}</span></div>`).join('')}</div>`).join('') || '<div class="sm">No files opened yet.</div>');
+    `<div class="panel">${d.img?`<img src="${d.img}" alt="${d.n}" style="width:72px;height:72px;border-radius:50%;object-fit:cover;float:right;margin-left:8px">`:''}<b>${d.icon} ${d.n}</b> <span class="sm">· ${d.sub}</span>${d.card.map((c, i) => `<div class="sm">${CARD_LABELS[i]}: ${cardVal(c)}</div>`).join('')}${d.entries.filter(e => G.flags[e[0]]).map(e => `<div class="li"><span class="sm"><b>${e[1]}</b> · ${FLAG_LABEL[e[0]]||e[0]}</span></div>`).join('')}</div>`).join('') || '<div class="sm">No files opened yet.</div>');
 }
 /* ---------------- LEADS AND ANALYSTS ---------------- */
 const ANALYSTS = [
   {id:'adrian', n:'Adrian', spec:['records'], ok:() => G.ch >= 90}, {id:'seraphina', n:'Seraphina', spec:['seals'], ok:() => isRecruited('seraphina')},
   {id:'sky', n:'Sky', spec:['spirit'], ok:() => isRecruited('sky')}, {id:'devon', n:'Devon', spec:['records'], ok:() => isRecruited('devon')},
-  {id:'levi', n:'Levi', spec:['field'], ok:() => isRecruited('levi')}, {id:'rin', n:'Rin', spec:['field','spirit'], ok:() => !!G.flags.rin_met}, {id:'eira', n:'Eira', spec:['seals','records'], ok:() => G.ch >= 162},
+  {id:'levi', n:'Levi', spec:['field'], ok:() => isRecruited('levi')}, {id:'rin', n:'Rin', spec:['field','spirit'], ok:() => !!G.flags.rin_met}, {id:'eira', n:'Eira', spec:['seals','records'], ok:() => G.ch >= 162}, {id:'maris', n:'Maris', spec:['records'], ok:() => !!G.flags.maris_met},
 ];
 const analystsNow = () => ANALYSTS.filter(a => { try{ return a.ok(); }catch(e){ return false; } });
 const LEAD_CATS = {seals:['🔆','seals and oaths'], spirit:['✨','spirit and healing'], records:['📂','records and testimony'], field:['🥾','tracks and terrain']};
