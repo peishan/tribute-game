@@ -130,6 +130,9 @@ function resolveJadeDecision(i, o){
   if(op.flag){ G.flags[op.flag] = true; if(p.id==='dec_marroway'){ G.flags.marroway_closed = true; chronicle(op.mar==='law' ? 'Lucien Marroway was handed to the authorities.' : 'Lucien Marroway\'s story ended quietly.', '🕯️'); } }
   if(op.rw){ const rw = Object.assign({}, op.rw); grantReward(rw, '').forEach(m => msgs.push(m.replace(/^ · /,''))); }
   wayAdd(op.w).forEach(m => msgs.push(m));
+  if(typeof reputeFromWays==='function') reputeFromWays(op.w).forEach(m => msgs.push(m));
+  if(op.flag==='marroway_law' && typeof repAdd==='function'){ repAdd('law', 10); repAdd('court', 3); repAdd('folk', 6); }
+  if(op.flag==='marroway_blood' && typeof repAdd==='function'){ repAdd('shadow', 10); repAdd('mask', 6); repAdd('susp', 10); }
   wayApproval(op.w).forEach(m => msgs.push(m));
   chronicle(fillD(d.title, p.ctx)+': '+fillD(op.t, p.ctx)+'.', d.icon);
   save(); return msgs;
@@ -173,7 +176,7 @@ function rJadeDecisions(){
 function rWays(){
   const M = mar(), L = jdData().log.slice(-8).reverse(), eps = wayEpithets();
   return `<div class="panel"><b>JADE'S WAYS</b><div class="sm">Four leanings that her choices shape. Neither end is right or wrong, and a companion who shares a leaning approves when a choice matches it, and one who holds the opposite view disagrees (a -1 that can never lower a bond level).${eps.length?' People now call her '+eps.slice(0,2).map(e => '“'+e+'”').join(' and ')+'.':' She has not yet leaned strongly either way.'}</div>${WAY_KEYS.map(rWayBar).join('')}</div>`
-   + (G.flags.marroway_files ? `<div class="panel"><b>🎭 THE MARROWAY FILES</b><div class="sm">${marOpen() ? 'Open cases are posted on the Dragonvale Masked board, and you can hunt Marroway\'s retainers at the lodges.' : 'Closed.'} Cases completed ${M.cases} · women freed ${M.rescued} · villages freed ${M.villages} · evidence ${M.evidence}.</div></div>` : '')
+   + (typeof rReputation==='function' ? rReputation() : '') + (G.flags.marroway_files ? `<div class="panel"><b>🎭 THE MARROWAY FILES</b><div class="sm">${marOpen() ? 'Open cases are posted on the Dragonvale Masked board, and you can hunt Marroway\'s retainers at the lodges.' : 'Closed.'} Cases completed ${M.cases} · women freed ${M.rescued} · villages freed ${M.villages} · evidence ${M.evidence}.</div></div>` : '')
    + (L.length ? `<h4>Recent decisions</h4>${L.map(l => { const d = JADE_DECISIONS[l.id]; return `<div class="li"><span class="sm">${d?d.icon:'📜'} Day ${l.d} · ${l.n}: ${d && d.opts[l.o] ? fillD(d.opts[l.o].t, {}).replace(/ \{name\}/g,'') : ''}</span></div>`; }).join('')}` : '<div class="sm">No decisions yet. Some contracts end with a choice.</div>');
 }
 deed('ways_lean', 'world', 'Known for something', '🕊️', 'One of Jade\'s ways became strong enough for people to name her by it.', () => wayLeanings().length >= 1);

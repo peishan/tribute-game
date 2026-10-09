@@ -150,7 +150,7 @@ function decide(id, i){
   net().decDone = net().decDone || {}; net().decDone[id] = true; net().decDay = G.day;
   const k = kstat(); Object.keys(o.fx).forEach(s => k[s] = Math.max(0, Math.min(100, k[s] + o.fx[s])));
   if(o.trust) addTrust(o.trust);
-  const wm = o.w && typeof wayAdd==='function' ? wayAdd(o.w).concat(wayApproval(o.w)) : [];
+  const wm = o.w && typeof wayAdd==='function' ? wayAdd(o.w).concat(wayApproval(o.w), typeof reputeFromWays==='function' ? reputeFromWays(o.w) : []) : [];
   return ['🏛️ '+d.title+': '+o.t+'. '+o.say].concat(wm).concat(Object.keys(o.fx).map(s => KLABEL[s]+' '+(o.fx[s]>0?'+':'')+o.fx[s]));
 }
 /* ---- Contacts: the tree shows only what is unlocked ---- */
