@@ -393,3 +393,10 @@ Arc VII: The Sunken Kingdom. Author range: chapters 166-185 (20 chapters), then 
   - IV The Black Tide, 181-184: The Black Tide Returns, The Black Tide Restored, What the Drowned Crown Guarded, The Crown Returns the Pearl.
   - V The Sea Remembers, 185 + the epilogue.
   - Chapter 166 (Fifteen Shadows) is the end of Arc VI and sets the mandate that opens Arc VII; the outline's "166-185" becomes 167-185 (19 chapters) plus the epilogue.
+
+## Arc VII mechanics built (cache v68)
+- **C. Register findings** (evils.js): from ch172 each Register entry shows a Finding (Uninvestigated, Confirmed Hostile, Corrupted, Restorable, Preservation Construct) plus its Outcome and "Case: Resolved". Findings are not counters; only Resolved cases count to 15. Rules per Evil: Widow hostile then corrupted; Hart corrupted then restorable; Hollow King hostile; Black Tide hostile, corrupted (tide_layered), restorable (stabilize_network); Drowned Crown hostile then construct (crown_origin, and Reclassified at 182). The legend says restoration is only possible where the evidence allows.
+- **A. Historical Evidence** (sunken.js, Imperial Network tab "Evidence" from ch172): six sets (inscriptions, council records, maritime charts, pearl records, restoration records, diplomatic documents) built from the existing investigation spots; each finished set pays XP once; two deeds.
+- **B. Preservation Network** (tab "Network" from ch172): five nodes (Maritime Barrier, Archive Seal, Restoration Chamber, Dragon Pearl Anchor, Central Preservation Core) with inactive/unstable/restored states from story progress and a small schematic map; all restored sets the permanent flag network_restored, a Chronicle line and a deed.
+- ch181 boss now announces the three phases (Maritime Assault, Submerged Corruption at 66%, Corrupted Manifestation at 33%). ch185 sets arc8_unlocked.
+- Not built: a picture for the network map (it is a small drawn schematic), Devon/Sky optional upgrades, the Arc VIII investigation itself.

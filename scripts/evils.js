@@ -46,6 +46,29 @@ const EVILS = [
   {id:'endless_winter', n:'The Endless Winter', intel:[]},
   {id:'evil_14', n:'???', hidden:true, intel:[]}, {id:'evil_15', n:'???', hidden:true, intel:[]},
 ];
+/* ---- Classification (Arc VII): what the investigation has found an entry to be. These are findings, not counters: the case counter above only counts Resolved.
+   Restoration is not always possible (the Thorned Widow's corruption could not be undone): the outcome depends on the evidence gathered.
+   cls rules: [spot, class]; the last one whose spot is done wins. */
+const EVIL_CLASSES = {
+  uninvestigated:{icon:'⚪', n:'Uninvestigated', d:'The original Register entry.'},
+  hostile:{icon:'🔴', n:'Confirmed Hostile', d:'A dangerous entity that needs intervention.'},
+  corrupted:{icon:'🟣', n:'Corrupted', d:'Its original nature is hidden under corruption.'},
+  restorable:{icon:'🟢', n:'Restorable', d:'Its original essence can be recovered.'},
+  construct:{icon:'🔷', n:'Preservation Construct', d:'An ancient magical system mistaken for an Evil.'},
+};
+const EVIL_CLS_RULES = {
+  thorned_widow:[['witness_accounts','hostile'],['forest_spirit','corrupted']],
+  mourning_hart:[['hart_protective','corrupted'],['hart_motive','restorable']],
+  hollow_king:[['present_crimes','hostile']],
+  black_tide:[['tide_evidence','hostile'],['tide_layered','corrupted'],['stabilize_network','restorable']],
+  drowned_crown:[['crown_warnings','hostile'],['crown_origin','construct']],
+};
+function evilClass(e){
+  const st = evilState(e); if(st==='unknown') return null;
+  let k = 'uninvestigated'; (EVIL_CLS_RULES[e.id]||[]).forEach(r => { if(G.flags['inv_'+r[0]]) k = r[1]; });
+  if(st==='reclassified') k = 'construct';
+  return k;
+}
 const evilsOpen = () => !!G && G.ch >= 147;
 function evilIntel(e){ return e.intel.filter(i => G.flags['inv_'+i.spot]); }
 function evilState(e){
@@ -95,10 +118,15 @@ function rCounsel(e){
   const st = counselState(e.id), n = Object.keys(st.asked).length;
   return `<div class="sm" style="margin-top:4px"><b>Ask the party</b> (${n}/${C.need} to be ready): ${C.question}</div><div class="row" style="flex-wrap:wrap;margin:4px 0">${counselWho(e.id).map(w => `<button ${st.asked[w]?'disabled':''} onclick="act(askParty,'${e.id}','${w}')">${st.asked[w]?'✓ ':''}${w==='rin'?'Rin':CHARACTERS[w].n.split(' ')[0]}</button>`).join(' ')}</div>${Object.keys(st.asked).map(w => `<div class="sm">${w==='rin'?'Rin':CHARACTERS[w].n.split(' ')[0]}: “${C.views[w]}”</div>`).join('')}${evilLearned(e.id)?'<div class="sm">✔ Ready to decide.</div>':''}`;
 }
+function evilClassLine(e, st){
+  const k = evilClass(e); if(!k || G.ch < 172) return '';
+  const c = EVIL_CLASSES[k], done = EVIL_RESOLVED.includes(st);
+  return `<div class="sm"><b>Finding:</b> ${c.icon} ${c.n}${done?` · Outcome: ${EVIL_STATUS[st]} · Case: ✔ Resolved`:''}</div>`;
+}
 function rRegister(){
   const rows = EVILS.map((e,i) => { const st = evilState(e), intel = evilIntel(e);
     const cls = e.original && st!=='unknown' ? (evilRevised(e) ? `<div class="sm" style="opacity:.6;text-decoration:line-through">Original classification: ${e.original}</div><div class="sm"><b>Revised classification:</b> ${e.revised.t}</div>` : `<div class="sm">Classification: ${e.original}</div>`) : '';
-    return `<div class="ev"><div><b>${i+1}. ${e.hidden?'???':e.n}</b>${e.epithet&&G.ch>=162&&st!=='unknown'?` <span class="sm" style="color:var(--gold)">· ${e.epithet}</span>`:''} <span class="sm">· ${EVIL_STATUS[st]}${e.home&&st!=='unknown'?' · '+e.home:''}</span>${cls}${rCounsel(e)}${intel.length?`<div class="sm">Classification: ${intel.map(x => x.label+': '+x.value).join(' · ')}${intel.length<e.intel.length?' · '+(e.intel.length-intel.length)+' more to learn':''}</div>`:''}</div></div>`; }).join('');
+    return `<div class="ev"><div><b>${i+1}. ${e.hidden?'???':e.n}</b>${e.epithet&&G.ch>=162&&st!=='unknown'?` <span class="sm" style="color:var(--gold)">· ${e.epithet}</span>`:''} <span class="sm">· ${EVIL_STATUS[st]}${e.home&&st!=='unknown'?' · '+e.home:''}</span>${cls}${evilClassLine(e, st)}${rCounsel(e)}${intel.length?`<div class="sm">Classification: ${intel.map(x => x.label+': '+x.value).join(' · ')}${intel.length<e.intel.length?' · '+(e.intel.length-intel.length)+' more to learn':''}</div>`:''}</div></div>`; }).join('');
   const done = evilsResolved(), revised = EVILS.filter(evilRevised).length;
-  return `<div class="panel"><b>THE FIFTEEN EVILS</b><div><b>Resolved: ${done} / 15</b> · Remaining: ${15-done} · Unknown classifications: ${G.ch>=EVIL_ARC_END?'?':15-revised}</div><div class="sm">Kept by ${evilKeeper()}. Not "killed": each Evil is destroyed, purified, contained, reconciled or otherwise resolved once Jade has learned what it is. Find them. Understand them. Then decide what must be done.</div>${G.ch>=EVIL_ARC_END?'<div class="sm" style="margin-top:4px"><i>Not every monster was born a monster. Not every victim remained innocent. And not every name history gave them was true.</i></div>':''}</div>${rows}`;
+  return `<div class="panel"><b>THE FIFTEEN EVILS</b><div><b>Resolved: ${done} / 15</b> · Remaining: ${15-done} · Unknown classifications: ${G.ch>=EVIL_ARC_END?'?':15-revised}</div>${G.ch>=172?`<div class="sm">Findings: ${Object.keys(EVIL_CLASSES).map(k => EVIL_CLASSES[k].icon+' '+EVIL_CLASSES[k].n).join(' · ')}. A finding is what the investigation has learned; only Resolved cases are counted, and a restoration is only possible where the evidence allows it.</div>`:''}<div class="sm">Kept by ${evilKeeper()}. Not "killed": each Evil is destroyed, purified, contained, reconciled or otherwise resolved once Jade has learned what it is. Find them. Understand them. Then decide what must be done.</div>${G.ch>=EVIL_ARC_END?'<div class="sm" style="margin-top:4px"><i>Not every monster was born a monster. Not every victim remained innocent. And not every name history gave them was true.</i></div>':''}</div>${rows}`;
 }
