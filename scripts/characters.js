@@ -243,7 +243,7 @@ CHARACTERS.cael = {
    {id:'seal_of_keepers',n:'Seal of the Keepers',icon:'🔆',mp:14,kind:'support',tgt:'allies',fx:[{k:'shield',v:.25,d:3},{k:'regen',v:.06,d:3}],req:{lvl:8},sig:true,desc:'SIGNATURE. A seal around the party: a strong barrier and slow healing.'},
   ], evo:{tiers:[]}, bond:null };
 CHARACTERS.eira = {
-  n:'Eira Solenne', icon:'📖', cls:'Forgotten Scholar', role:'Lore / Magic support (Arc V guest)', combat:'Magic and insight', guestOnly:true, companion:true,
+  n:'Eira Solenne', icon:'📖', cls:'Forgotten Scholar', role:'Scholar / Arcane researcher (guest in the Broken Seals; joins the party after Arc V, ch147)', combat:'Magic and insight',
   identity:'A scholar who inherited a small part of the knowledge of a forgotten age. She guides the party along the Forgotten Path and reads the old records; she is the world map itself.',
   style:['Records and maps','Insight','Light magic'], strength:'Knowledge of the old world',
   weapon:'Book of records', signature:'Reading of the Old World', sigDesc:'Reads the foes\' pattern: they are slowed and take more damage.',
@@ -253,6 +253,9 @@ CHARACTERS.eira = {
    {id:'old_remedy',n:'Old Remedy',icon:'🌿',mp:8,kind:'heal',tgt:'ally',pow:1.3,fx:[{k:'cleanse'}],req:{lvl:1},desc:'A remedy copied from a forgotten text: heals and cleanses.'},
    {id:'path_reading',n:'Reading the Path',icon:'🧭',mp:10,kind:'support',tgt:'allies',fx:[{k:'buff',stat:'spd',m:1.2,d:3},{k:'crit',d:2}],req:{lvl:5},desc:'She marks the road ahead: the party moves faster and sees openings.'},
    {id:'reading_old_world',n:'Reading of the Old World',icon:'🔆',mp:12,kind:'magic',tgt:'foes',pow:1.4,fx:[{k:'slow',d:2}],req:{lvl:8},sig:true,desc:'SIGNATURE. She reads the foes\' pattern aloud: every enemy is struck and slowed.'},
-  ], evo:{tiers:[]}, bond:null };
+  ], evo:{ tiers:[
+   {id:'arcane_decipherer',n:'Arcane Decipherer',tier:1,group:'route',req:{lvl:40},mult:{mag:1.2,spd:1.1},desc:'She reads magic like script: wards and defences come apart.',skills:[{id:'unmaking_gloss',n:'Unmaking Gloss',icon:'🔣',mp:14,kind:'magic',tgt:'foes',pow:1.8,fx:[{k:'buff',stat:'def',m:.8,d:3}],desc:'A gloss that unpicks magical defences: hits every enemy and lowers their defence.'}]},
+   {id:'keeper_of_records',n:'Keeper of Records',tier:1,group:'route',req:{lvl:40},mult:{hp:1.15,mag:1.1,def:1.1},desc:'The memory of the old world, as a shield for the party.',skills:[{id:'archive_ward',n:'Archive Ward',icon:'📚',mp:15,kind:'support',tgt:'allies',fx:[{k:'shield',v:.25,d:3},{k:'regen',v:.05,d:3}],desc:'The weight of recorded history: a strong barrier and a little healing each turn.'}]},
+  ]}, bond:null };
 const ROSTER = ['jade','chad','sky','sally','levi','ripley','devon','seraphina','ghost_healer','rin','cael','eira'];
 const BOND_LEVELS = [0,20,60,120,200,300];   // cumulative bond points for bond lvl 0..5

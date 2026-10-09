@@ -154,6 +154,23 @@ ripley:[
     ps('s_d3','Royal Bearing','❤️',{mult:{hp:1.1,atk:1.05}}),
     nd('s_d4','Banner of the Falcon','🚩',sk('banner_falcon','Banner of the Falcon','🚩',14,'support','allies',0,{fx:[{k:'buff',stat:'atk',m:1.35,d:3},{k:'buff',stat:'def',m:1.2,d:3}]},'Her banner rallies the whole party: ATK and DEF up.'))]},
  ],
+ eira:[
+  {id:'records',n:'Records',icon:'📖',desc:'Old words turned into light.',nodes:[
+    ps('e_r1','Quick Reader','📖',{mult:{mag:1.08}}),
+    nd('e_r2','Marginal Note','✒️',sk('marginal_note','Marginal Note','✒️',7,'magic','foe',2.1,{},'A note scribbled in the margin flares into a bolt of light.')),
+    ps('e_r3','Old Tongue','🗣️',{mult:{mag:1.06,mp:1.08}}),
+    nd('e_r4','Burning Index','🔥',sk('burning_index','Burning Index','🔥',15,'magic','foes',1.5,{vsCorrupt:1.5},'A page of the index ignites: hits every enemy, hardest against the corrupted.'))]},
+  {id:'insight',n:'Insight',icon:'🔍',desc:'Reading ancient magic and breaking it.',nodes:[
+    ps('e_i1','Sharp Eye','🔍',{mult:{spd:1.06},critB:.04}),
+    nd('e_i2','Decipher Ward','🔣',sk('decipher_ward','Decipher Ward','🔣',8,'support','foe',0,{fx:[{k:'analyze'},{k:'buff',stat:'def',m:.8,d:3}]},'She reads the foe\'s ward aloud: it is revealed and its defence drops.')),
+    ps('e_i3','Pattern Sense','🧩',{mult:{mag:1.05},critB:.06}),
+    nd('e_i4','Unwrite','🧽',sk('unwrite','Unwrite','🧽',14,'magic','foes',1.3,{fx:[{k:'silence',d:2}]},'A line is struck out of the air: hits every enemy and silences them.'))]},
+  {id:'remedies',n:'Remedies',icon:'🌿',desc:'Cures copied from forgotten texts.',nodes:[
+    ps('e_m1','Steady Hands','🤲',{mult:{hp:1.08,def:1.05}}),
+    nd('e_m2','Copied Cure','🌿',sk('copied_cure','Copied Cure','🌿',8,'heal','ally',1.4,{fx:[{k:'cleanse'}]},'A cure copied from an old page: heals and cleanses an ally.')),
+    ps('e_m3','Archive Calm','🕯️',{mult:{hp:1.06,mp:1.08}}),
+    nd('e_m4','Lantern Vigil','🏮',sk('lantern_vigil','Lantern Vigil','🏮',15,'heal','allies',.9,{fx:[{k:'regen',v:.06,d:3}]},'A watch kept by lantern light: heals the party and restores a little each turn.'))]},
+ ],
  rin:[
   {id:'scout',n:'Scout',icon:'🏹',desc:'Tracking, precision and reconnaissance.',nodes:[
     ps('r_s1','Trailwise','👣',{mult:{spd:1.06},critB:.04}),
@@ -222,6 +239,12 @@ const BONDTREE = {
   {lvl:2, skill:sk('shield_sister','Shield Sister','🛡️',6,'support','ally',0,{fx:[{k:'buff',stat:'def',m:1.3,d:3}]},'Seraphina covers an ally: DEF up.'), n:'Shield Sister', icon:'🛡️'},
   {lvl:4, passive:{mult:{atk:1.06,spd:1.06}}, n:'Matched Pace', icon:'⚔️', desc:'Her stride matches Jade\'s.'},
   {lvl:5, skill:sk('falcon_and_phoenix','Falcon & Phoenix','🔥',22,'phys','foe',3.1,{pair:true},'ULTIMATE. Seraphina and Jade strike as one.'), n:'Falcon & Phoenix', icon:'🔥'},
+ ],
+ eira:[
+  {lvl:1, passive:{mult:{mag:1.05}}, n:'Shared Margins', icon:'📖', desc:'Reading beside Jade sharpens her.'},
+  {lvl:2, skill:sk('read_aloud','Read Aloud','🔆',6,'support','allies',0,{fx:[{k:'buff',stat:'mag',m:1.2,d:3},{k:'crit',d:2}]},'She reads the old words aloud: the party\'s magic rises and openings show.'), n:'Read Aloud', icon:'🔆'},
+  {lvl:4, passive:{mult:{mag:1.06,spd:1.06}}, n:'Fluent', icon:'🧭', desc:'She stops apologising for her notes.'},
+  {lvl:5, skill:sk('light_and_phoenix','Light & Phoenix','🔥',22,'magic','foe',3.0,{pair:true},'ULTIMATE. Eira reads the line and Jade strikes it home.'), n:'Light & Phoenix', icon:'🔥'},
  ],
  rin:[
   {lvl:1, passive:{mult:{spd:1.05}}, n:'Shared Trail', icon:'👣', desc:'Walking the road beside Jade sharpens her tracking.'},
