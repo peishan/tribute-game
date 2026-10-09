@@ -92,7 +92,7 @@ const BACKLASH = { chad_backlash_1:{hp:.92, def:.92, mag:1.35}, chad_backlash_2:
 const REBORN_LEVI = {atk:1.15, mag:1.2, spd:1.1, hp:.95};   // draft: "reborn" Levi is not the same man as before
 const clsOf = id => (id==='levi' && G && G.flags.levi_reborn) ? 'Noble Ranger' : (id==='chad' && G && G.flags.roc_reborn) ? 'Fallen Dragon Prince' : CHARACTERS[id].cls;
 // Portrait variants: assets/party/<id>_noble.webp (Sally from ch51) and <id>_reborn.webp (Levi); a missing file falls back to the base portrait.
-const portrait = id => 'assets/party/'+id+((id==='sally' && G && G.flags.sally_noble) ? '_noble' : (id==='levi' && G && G.flags.levi_reborn) ? '_reborn' : '')+'.webp';
+const portrait = id => (id==='adrian' ? 'assets/npc/adrian.webp' : 'assets/party/'+id+((id==='sally' && G && G.flags.sally_noble) ? '_noble' : (id==='levi' && G && G.flags.levi_reborn) ? '_reborn' : '')+'.webp');
 function backlashMult(id, s){
   if(id==='levi' && G && G.flags.levi_reborn) return REBORN_LEVI[s]||1;
   if(id!=='chad' || !G) return 1;
@@ -235,7 +235,7 @@ const GUEST_RULES = {
   rin:{fromCh:149, untilCh:RIN_JOIN_CH, locs:AREA_NORTH, note:'Rin Kaede, the Spirit Ranger, fights beside the party while it is in the northern forest country.'},
 };
 const presentGuests = () => !G ? [] : Object.keys(GUEST_RULES).filter(id => { const r = GUEST_RULES[id];
-  const ok = (r.flag===undefined || G.flags[r.flag]) && (!r.regions || r.regions.includes(LOCATIONS[G.loc].region)) && (!r.locs || r.locs.includes(G.loc) || (r.extraLocs && r.extraLocs[G.loc] !== undefined && G.ch >= r.extraLocs[G.loc])) && (r.fromCh===undefined || G.ch>=r.fromCh) && (r.untilCh===undefined || G.ch<r.untilCh);
+  const ok = (r.flag===undefined || [].concat(r.flag).every(f => G.flags[f])) && (!r.regions || r.regions.includes(LOCATIONS[G.loc].region)) && (!r.locs || r.locs.includes(G.loc) || (r.extraLocs && r.extraLocs[G.loc] !== undefined && G.ch >= r.extraLocs[G.loc])) && (r.fromCh===undefined || G.ch>=r.fromCh) && (r.untilCh===undefined || G.ch<r.untilCh);
   return ok && !isDisabled(id); });
 const isGuestNow = id => presentGuests().includes(id);
 const isCompanion = id => !!(CHARACTERS[id] && CHARACTERS[id].companion) || (id==='rin' && !!G && G.ch < RIN_JOIN_CH);   // companions travel and fight with the party without using one of the active slots
