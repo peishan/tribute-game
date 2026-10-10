@@ -7,7 +7,7 @@
      kind    'letter' (a letter, delivered when the party is in a settlement) | 'notice' (a Chronicle and Journal line) | 'scene' (an optional scene open for `window` days)
    A scene that is not attended before its window ends is marked missed: it passes quietly and the friendship simply goes on slowly (nothing is ever lost).
    State: G.timed = {id: {day, state:'due'|'open'|'done'|'missed', until}}, G.returnDay (day ch89 was completed).  Wording and numbers are first-pass.
-   byCh: the comic chapter that shows this event. From that chapter on the event fires whatever the day counter says (an earlier one in the chain fires first), so the comic and the game never contradict each other; the clock only fills in the time between chapters. Comic dates (Year 712...) are in-world dates in records, not the day counter.
+   ch is the EARLIEST chapter an event may fire; byCh is the LATEST: the comic chapter that shows it. From byCh on, the event fires whatever the day counter says (an earlier one in the chain fires first). The comic does not always run in story order (it jumps back and forth, like Jade's consummation chapter), so a chapter that shows an event only proves it has happened by then, never that it must wait for that chapter. Comic dates (Year 712...) are in-world dates in records, not the day counter.
    The first route is Sally's (Arc VII onward, no comic chapter of its own): Lucien Marroway, the marriage, the divorce, and a quiet drink with Levi.
    ===================================================================== */
 const TIMED_ANCHOR_YEAR = 360;   // Arc VII starts roughly a year (game time) after the return to Tribute
@@ -15,7 +15,7 @@ const TIMED = [
   {id:'sally_match', ch:167, byCh:191, after:'anchor', gap:TIMED_ANCHOR_YEAR, kind:'letter', icon:'💌', from:'Sally', subj:'A respectable match',
    body:"Jade,\n\nMother and Father have found me a gentleman, which is their way of saying they are tired of watching me read the rumour rolls. His name is Lucien Marroway: old family, excellent manners, and he did not flinch when I told him I had once travelled with an exiled prince. He seems to understand that I have lived a less tidy life than most ladies.\n\nI have agreed to be courted. Do not laugh.\n\nSally",
    log:'Sally has agreed to be courted by Lucien Marroway, a match her adoptive parents arranged.'},
-  {id:'sally_wed', ch:191, byCh:191, after:'sally_match', gap:40, kind:'notice', needs:() => !!(G.timed && G.timed.sally_match && G.timed.sally_match.state==='done'), icon:'💍', t:'Word from court: Lady Sally is now Lady Marroway. Her parents wept at the wedding, and the groom smiled for everyone.',
+  {id:'sally_wed', ch:169, byCh:191, after:'sally_match', gap:40, kind:'notice', needs:() => !!(G.timed && G.timed.sally_match && G.timed.sally_match.state==='done'), icon:'💍', t:'Word from court: Lady Sally is now Lady Marroway. Her parents wept at the wedding, and the groom smiled for everyone.',
    log:'Sally married Lucien Marroway.'},
   {id:'sally_cracks', ch:172, byCh:192, after:'sally_wed', gap:60, kind:'letter', icon:'💌', from:'Sally', subj:'Nothing to report',
    body:"Jade,\n\nNothing to report. The house is large, the servants are efficient and Lucien is a very private man. Rather more private than I understood before. I am sure it is nothing.\n\nDo not send anyone to ask after me. I mean it.\n\nSally",
