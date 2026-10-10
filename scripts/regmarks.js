@@ -37,6 +37,9 @@ const REG_EXTRA = [
   {id:'impossible', n:'The Impossible Entry', icon:'🗂️', open:() => !!G.flags.impossible_entry || G.ch >= 186,
    t:() => 'A name from the Register appears in three kingdoms (Tribute, Dragonvale and the Sunken Kingdom) on the same date, '+recordDate()+'. The dates are identical and the places are not.', extra:() => rCompare(),
    rules:[['crosskingdom', () => regInv('three_accounts') || !!G.flags.impossible_entry], ['impossible', () => regInv('no_copy_error')], ['unresolved', () => !!G.flags.impossible_entry]]},
+  {id:'anomalies', n:'Entries beyond the Fifteen categories', icon:'❔', open:() => !!G.flags.register_beyond_fifteen,
+   t:'Anomalies that fit none of the Traditional Fifteen categories (Celestial, Abyssal, Infernal, Bestial, Fae, Elemental, Undead, Spiritual, Construct, Aetherial, Vile, Blessed, Human, Draconic, Unknown): different patterns, symbols and behaviours, connected by similar symbols, shared effects and a repeating sequence. Next: their source, the purpose behind the Register, the links between past and present anomalies, and the effect on Tribute and other kingdoms.',
+   rules:[['unresolved', () => true], ['crosskingdom', () => true]]},
 ];
 /* the date all three records share (the author's canon): Year 712, 3rd Month, 14th Day. The comic's dates are in-world historical dates, not the game's day counter. */
 const recordDate = () => 'Year 712, 3rd Month, 14th Day';
@@ -51,8 +54,10 @@ function rCompare(){
   const card = c => `<div style="flex:1 1 140px;min-width:140px;border:1px solid rgba(128,128,128,.5);border-radius:8px;padding:6px"><b>${c.k}</b><div class="sm">📅 ${recordDate()}</div>
     <div class="sm" style="${showAs?'border-left:3px solid #d9a441;padding-left:5px':''}">${showAs ? '🧾 '+c.as : '🧾 ???'}</div>
     <div class="sm" style="${showPort&&true?'border-left:3px solid #9a6bd6;padding-left:5px':''}">${showPort ? '⚓ '+c.port : '⚓ ???'}</div></div>`;
-  const verdicts = [['✔ The dates are identical in all three records.', true], ['✔ The records are genuine: translations, calendars and writing styles agree, and there is no sign of copying.', genuine], ['⚠ The three accounts disagree about what the name is.', showAs], ['⚠ The same port is recorded three ways, and later copies altered or omitted its destinations.', showPort]].filter(x => x[1]);
-  return `<div class="sm" style="margin-top:6px"><b>Cross-Kingdom Record Compare</b></div><div style="display:flex;flex-wrap:wrap;gap:6px;margin:6px 0">${COMPARE_CARDS.map(card).join('')}</div>${verdicts.map(v => `<div class="sm">${v[0]}</div>`).join('')}`;
+  const fourth = !!F.fourth_record;
+  const card4 = `<div style="flex:1 1 140px;min-width:140px;border:1px solid #9a6bd6;border-radius:8px;padding:6px"><b>A regional Register</b><div class="sm">📅 Several years earlier</div><div class="sm">🧾 A different place and a different name</div><div class="sm">🔏 The same unrecognised seal and phrasing, and a reference to the hidden isle</div></div>`;
+  const verdicts = [['✔ The dates are identical in all three records.', true], ['✔ The records are genuine: translations, calendars and writing styles agree, and there is no sign of copying.', genuine], ['⚠ The three accounts disagree about what the name is.', showAs], ['⚠ The same port is recorded three ways, and later copies altered or omitted its destinations.', showPort], ['⚠ A fourth record, from a regional Register several years earlier, carries the same seal, phrasing and hidden-isle reference under a different name.', fourth], ['⚠ The contradictions link to the ancient alliance of chapter 183: the same symbol and oath in different kingdoms.', !!F.pattern_across_kingdoms], ['✔ The name is a pattern, not a single being: a creature in some records, a title, a place or a role in others.', !!F.name_is_framework]].filter(x => x[1]);
+  return `<div class="sm" style="margin-top:6px"><b>Cross-Kingdom Record Compare</b></div><div style="display:flex;flex-wrap:wrap;gap:6px;margin:6px 0">${COMPARE_CARDS.map(card).join('')}${fourth ? card4 : ''}</div>${verdicts.map(v => `<div class="sm">${v[0]}</div>`).join('')}`;
 }
 const regMarksOpen = () => !!G && !!G.flags && (!!G.flags.impossible_entry || G.ch >= 186);
 function regMarksOf(id, rules){

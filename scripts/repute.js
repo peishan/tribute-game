@@ -46,6 +46,9 @@ function questRepute(q, msgs){
   if(q.masked){ const big = q.mar==='case'; [].push.apply(msgs, repAdd('mask', big ? 5 : 4)); [].push.apply(msgs, repAdd('folk', big ? 3 : 2)); [].push.apply(msgs, repAdd('susp', big ? 3 : 2)); }
   else { [].push.apply(msgs, repAdd('folk', 1)); if(q.type==='kill') [].push.apply(msgs, repAdd('law', 1)); }
 }
+/* what the comic chapters themselves settle (fixed outcomes, not Jade's choices) */
+const CH_REPUTE = {201:{folk:6}, 202:{court:4}, 204:{law:8, folk:4, court:2}, 207:{court:2}};
+function reputeChapterDone(n){ const m = CH_REPUTE[n]; if(m) Object.keys(m).forEach(k => repAdd(k, m[k])); }
 function evilReputeDone(n){
   repAdd('folk', 3); repAdd('court', 2);
 }

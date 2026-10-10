@@ -97,7 +97,7 @@ const JADE_DECISIONS = {
    {t:'Return every coin to the families it came from', r:'The headman counts it twice, then a third time, and weeps. The ledger goes to Sally with the rest.', w:{folk:2, mercy:1}, rw:{rep:5}, mar:'village'},
    {t:'Return the money and leave the Phoenix and the Dragon\'s mark on the door', r:'By morning the whole district knows someone is watching Marroway\'s men. They are less brave by evening.', w:{law:-2, caution:-1, folk:1}, rw:{rep:5}, mar:'village'},
    {t:'Take the ledger and the box to the court clerk, under seal', r:'It is slow, and it is lawful. The clerk gives you a receipt, and the families get their money back after the next assize.', w:{law:2, caution:2}, rw:{rep:5}, mar:'village'}]},
- dec_marroway:{icon:'🕯️', title:'What becomes of Lucien Marroway', text:'Sally has put everything on the table: the divorce is signed, the evidence is arranged, and Lucien Marroway is alone in his lodge with his lawyers and no illusions. “I will not ask you to be me,” she says. “I only ask you to be sure.”', opts:[
+ dec_marroway:{icon:'🕯️', title:'What becomes of Lucien Marroway', text:'Sally has put everything on the table: the divorce is signed, the evidence is arranged, and Lucien Marroway sits in custody awaiting judgement, with his lawyers and no illusions. “I will not ask you to be me,” she says. “I only ask you to be sure.”', opts:[
    {t:'Take the evidence to the authorities', r:'law', w:{law:3, mercy:1, caution:2}, flag:'marroway_law', mar:'law'},
    {t:'End it quietly: the Silent Dragon finishes what the law cannot reach', r:'blood', w:{law:-3, mercy:-3, caution:-1}, flag:'marroway_blood', mar:'blood'}]},
 };
@@ -111,12 +111,12 @@ function openJadeDecision(id, ctx){
 }
 const fillD = (t, ctx) => String(t).replace(/\{name\}/g, (ctx && ctx.name) || 'her');
 function marResult(kind){
-  const strong = marEv() >= 6, mid = marEv() >= 3;
+  const strong = marEv() >= 8, mid = marEv() >= 4;
   if(kind==='law') return strong
     ? 'Sally\'s files, the villagers\' testimony and the women\'s signed statements make a case nobody can wave away. Lucien Marroway is stripped of his name and estates, tried in open court and sentenced to hard labour for the rest of his life. His lodges are sold and the money goes to the people he hurt. He does not look at Sally once.'
     : mid ? 'Sally\'s files and a few testimonies are enough for an arrest, a public trial and a long sentence, though his family\'s lawyers fight every line. Some of his lodges are sold; some are quietly kept by cousins. It is justice, though not the whole of it.'
     : 'The authorities take what you bring and arrest him, but the evidence is thin and his family is old. He is stripped of his office, fined heavily and confined to his estate. It is something, and it is not nearly enough. Sally says only: “It is a beginning.”';
-  return 'Lucien Marroway is found at his lodge one morning, and the house is silent. The servants say nothing. The coroner writes “a fall”, and the family does not argue. The Phoenix and the Dragon were never there. Sally reads the notice, folds it, and does not say a word about it.';
+  return 'Lucien Marroway is found in his cell one morning, and the guards say nothing. The coroner writes “a fall”, and the family does not argue. The Phoenix and the Dragon were never there. Sally reads the notice, folds it, and does not say a word about it.';
 }
 function resolveJadeDecision(i, o){
   const D = jdData(), p = D.pending[i]; if(!p) return [];
@@ -138,8 +138,8 @@ function resolveJadeDecision(i, o){
   save(); return msgs;
 }
 /* ---------------- the Marroway files ---------------- */
-/* evidence = what the cases add plus what the comic chapters showed: the levies (1), the survivor's testimony (2), the ledger (3) */
-const marEv = () => mar().evidence + (G.flags.marroway_levies ? 1 : 0) + (G.flags.marroway_testimony ? 2 : 0) + (G.flags.marroway_ledger ? 3 : 0);
+/* evidence = what the cases add plus what the comic chapters showed: the levies (1), the survivor's testimony (1), the ledger (2), the night search (1), the villagers' stand (1) */
+const marEv = () => mar().evidence + (G.flags.marroway_levies ? 1 : 0) + (G.flags.marroway_testimony ? 1 : 0) + (G.flags.marroway_ledger ? 2 : 0) + (G.flags.marroway_night ? 1 : 0) + (G.flags.marroway_villagers ? 1 : 0);
 const mar = () => { if(!G.mar) G.mar = {cases:0, rescued:0, villages:0, evidence:0}; return G.mar; };
 function marDone(kind, msgs){
   const M = mar();

@@ -65,6 +65,11 @@ const REPORTS = [
   {ch:194, loc:'A village under Marroway House', threat:'Levies for "road maintenance" and "security", grain and children taken for labour, punishments for refusal.', status:'Investigating.'},
   {ch:196, loc:'A tavern by the river', threat:'An anonymous survivor testified that Marroway House ordered the diversion of grain and the removal of women who refused.', status:'Investigating.'},
   {ch:197, loc:'Marroway House', threat:'A hidden ledger records payments for "relocation" and "special handling" matching the villages visited. Key pages were copied.', status:'Investigating.'},
+  {ch:198, loc:'Dragonvale', threat:'Carly, Sally\'s handmaiden, asked for protection for villagers and women in Marroway House\'s lands.', status:'Investigating.'},
+  {ch:199, loc:'Marroway House', threat:'The party found proof of a wider network: diverted goods, a token, a hidden storage room.', status:'Investigating.'},
+  {ch:204, loc:'The Authorities of Dragonvale', threat:'Lucien Marroway was taken into custody to face formal charges.', status:'Resolved.'},
+  {ch:206, loc:'The Dragonvale archives', threat:'A fourth record of the impossible entry, from a regional Register several years earlier.', status:'Investigating.'},
+  {ch:210, loc:'The Register', threat:'The Register records anomalies outside the Traditional Fifteen framework.', status:'Investigating.'},
   {ch:99, loc:'Tribute Roads', threat:'Bandits are returning to the coast road now the armies are home.', status:'Contracts posted.'},
 ];
 /* ---- Requests (optional; use the contract system, with trust rewards) ---- */
