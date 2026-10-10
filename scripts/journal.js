@@ -50,7 +50,7 @@ function avgPartyLv(){ return Math.round(G.party.reduce((a,id)=>a+U(id).lv,0)/G.
 function completeChapter(n){
   const msgs = [];
   if(G.ch >= n) return msgs;
-  G.ch = n;
+  G.ch = n; if(!G.chDay) G.chDay = {}; G.chDay[n] = G.day;   // the day each chapter was completed (time-sensitive events can count from it)
   const c = CHAPTERS[n];
   recruitsAtChapter(n).forEach(id => {
     if(G.guests[id]){ delete G.guests[id]; if(!G.active.includes(id) && activeCount()<slotCap()) G.active.push(id); msgs.push('★ '+CHARACTERS[id].n+(id==='seraphina'?' asks to join you, and the party welcomes her. She joins for good!':' joins the party permanently!')); }

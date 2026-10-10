@@ -2073,7 +2073,7 @@ function boardFor(loc){
   const bd = b[loc];
   if(bd.day === G.day && bd.list.length) return bd.list;
   const taken = new Set(G.quests.active.map(q => q.id));
-  const pool = QUEST_POOL.filter(q => q.dynamic || (locOpen(q.needLoc) && !taken.has(q.id) && (!q.needCh || G.ch >= q.needCh) && (loc==='dragon_vale' ? q.masked : !q.masked)));
+  const pool = QUEST_POOL.filter(q => q.dynamic || (locOpen(q.needLoc) && !taken.has(q.id) && (!q.needCh || G.ch >= q.needCh) && (loc==='dragon_vale' ? (q.masked || q.envoy) : (!q.masked && !q.envoy))));
   const marCase = loc==='dragon_vale' && typeof marOpen==='function' && marOpen() ? [genMarroway()] : [];
   const picks = pool.map(q => q).sort(() => Math.random()-.5).slice(0, 4 - marCase.length);
   bd.list = marCase.concat(picks.map(q => q.dynamic ? genDelivery(loc) : Object.assign({}, q, {c:0})).filter(Boolean));
@@ -2092,6 +2092,7 @@ function finishQuest(q, msgs){
   msgs.unshift('🎯 Quest complete: '+q.name);
   if(typeof questDecision==='function') questDecision(q, msgs);
   if(typeof questRepute==='function') questRepute(q, msgs);
+  if(typeof rocIntel==='function') rocIntel(q, msgs);
   if(typeof regardAdd==='function'){ const rm = regardAdd(G.loc, 8); if(rm) msgs.push(rm); }
 }
 function questKill(key){

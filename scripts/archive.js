@@ -151,6 +151,7 @@ function archiveSync(){
   if(typeof passageSync==='function') passageSync();
   if(typeof codexSync==='function') codexSync();
   if(typeof sunkenSync==='function') sunkenSync();
+  if(typeof rocSync==='function') rocSync();
   if(!G.recSeen){ G.recSeen = {}; RECORDS.forEach(r => { G.recSeen[r.id] = recStage(r); }); }
   else RECORDS.forEach(r => { const s = recStage(r), was = G.recSeen[r.id] === undefined ? -1 : G.recSeen[r.id];
     if(s > was){ G.recSeen[r.id] = s; chronicle('Record '+(s===0?'opened':REC_STATUS[s].toLowerCase())+': '+r.n+'.', '🗂️'); toast('🗂️ '+r.n+': '+REC_STATUS[s]); } });
