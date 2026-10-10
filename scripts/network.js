@@ -70,6 +70,7 @@ const REPORTS = [
   {ch:204, loc:'The Authorities of Dragonvale', threat:'Lucien Marroway was taken into custody to face formal charges.', status:'Resolved.'},
   {ch:206, loc:'The Dragonvale archives', threat:'A fourth record of the impossible entry, from a regional Register several years earlier.', status:'Investigating.'},
   {ch:210, loc:'The Register', threat:'The Register records anomalies outside the Traditional Fifteen framework.', status:'Investigating.'},
+  {ch:211, loc:'Dragonvale: the old trade route', threat:'Bandits ambushed the survey; a seal with the Register\'s emblem, intentionally defaced, was found in a storeroom.', status:'Investigating.'},
   {ch:99, loc:'Tribute Roads', threat:'Bandits are returning to the coast road now the armies are home.', status:'Contracts posted.'},
 ];
 /* ---- Requests (optional; use the contract system, with trust rewards) ---- */
