@@ -8,7 +8,7 @@
      caution  Daring (-) .. Prudent (+)          proof and patience against acting at once
      folk     Court (-) .. Common folk (+)       whether she weighs the realm's order or ordinary people's lives first
    JADE_DECISIONS: short moral choices attached to quests (and one to the Marroway questline). A finished quest with a `decision` opens it under Missions -> Ways.
-   THE MARROWAY FILES: from Sally's letter (a few months after her marriage) until the matter is settled, the capital's contract board posts repeatable cases from her
+   THE MARROWAY FILES: from Sally's letter (a few months after her marriage) until the matter is settled, the Dragonvale Masked board posts repeatable cases from her
    evidence: rescue a woman Lucien Marroway took by force, or free a village he has squeezed. Each case adds to the evidence; after the divorce, Sally asks Jade
    to decide what becomes of him (hand him to the authorities, or end his life). More evidence makes the authorities' case firmer.
    State: G.ways, G.dec = {pending:[{id,ctx}], log:[{id,o,d}]}, G.mar = {cases,rescued,villages,evidence}.  Wording and numbers are first-pass.
@@ -178,7 +178,7 @@ function rJadeDecisions(){
 function rWays(){
   const M = mar(), L = jdData().log.slice(-8).reverse(), eps = wayEpithets();
   return `<div class="panel"><b>JADE'S WAYS</b><div class="sm">Four leanings that her choices shape. Neither end is right or wrong, and a companion who shares a leaning approves when a choice matches it, and one who holds the opposite view disagrees (a -1 that can never lower a bond level).${eps.length?' People now call her '+eps.slice(0,2).map(e => '“'+e+'”').join(' and ')+'.':' She has not yet leaned strongly either way.'}</div>${WAY_KEYS.map(rWayBar).join('')}</div>`
-   + (typeof rReputation==='function' ? rReputation() : '') + (typeof rRocFamily==='function' ? rRocFamily() : '') + (G.flags.marroway_files ? `<div class="panel"><b>🎭 THE MARROWAY FILES</b><div class="sm">${marOpen() ? 'Open cases are posted on the capital\'s contract board, and you can hunt Marroway\'s retainers at the lodges.' : 'Closed.'} Cases completed ${M.cases} · women freed ${M.rescued} · villages freed ${M.villages} · evidence ${marEv()}.</div></div>` : '')
+   + (typeof rReputation==='function' ? rReputation() : '') + (typeof rRocFamily==='function' ? rRocFamily() : '') + (G.flags.marroway_files ? `<div class="panel"><b>🎭 THE MARROWAY FILES</b><div class="sm">${marOpen() ? 'Open cases are posted on the Dragonvale Masked board, and you can hunt Marroway\'s retainers at the lodges.' : 'Closed.'} Cases completed ${M.cases} · women freed ${M.rescued} · villages freed ${M.villages} · evidence ${marEv()}.</div></div>` : '')
    + (L.length ? `<h4>Recent decisions</h4>${L.map(l => { const d = JADE_DECISIONS[l.id]; return `<div class="li"><span class="sm">${d?d.icon:'📜'} Day ${l.d} · ${l.n}: ${d && d.opts[l.o] ? fillD(d.opts[l.o].t, {}).replace(/ \{name\}/g,'') : ''}</span></div>`; }).join('')}` : '<div class="sm">No decisions yet. Some contracts end with a choice.</div>');
 }
 deed('ways_lean', 'world', 'Known for something', '🕊️', 'One of Jade\'s ways became strong enough for people to name her by it.', () => wayLeanings().length >= 1);
