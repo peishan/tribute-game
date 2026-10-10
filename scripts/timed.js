@@ -47,6 +47,10 @@ function timedAnchor(){
   const e = (G.chron||[]).find(x => x.c===89); if(e) return e.d;
   return G.ch >= 89 ? G.day - TIMED_ANCHOR_YEAR : undefined;   // an older save: the year is taken as already passed
 }
+function timedChapterDay(n){   // the day chapter n was completed (an older save: the day it is noticed)
+  if(G.chDay && G.chDay[n] !== undefined) return G.chDay[n];
+  return G.ch >= n ? G.day : undefined;
+}
 function timedDeliver(ev, st){   // a letter or notice reaches the party
   if(ev.kind==='letter'){
     G.letters.unshift({id:'F_'+ev.id, fam:true, from:ev.from, subj:ev.subj, body:typeof ev.body==='function' ? ev.body() : ev.body, day:G.day, read:false});
@@ -64,7 +68,7 @@ function timedTick(){
     let st = T[ev.id];
     if(!st){
       if(G.ch < ev.ch) return;
-      const base = ev.after==='anchor' ? timedAnchor() : (T[ev.after] && T[ev.after].day), forced = !!ev.byCh && G.ch >= ev.byCh;   // a comic chapter that shows the event overrides the day counter
+      const base = ev.after==='anchor' ? timedAnchor() : /^ch\d+$/.test(ev.after) ? timedChapterDay(+ev.after.slice(2)) : (T[ev.after] && T[ev.after].day), forced = !!ev.byCh && G.ch >= ev.byCh;   // a comic chapter that shows the event overrides the day counter
       if(!forced && (base === undefined || G.day < base + ev.gap)) return;
       if(forced && ev.after!=='anchor' && base === undefined) return;
       if(ev.needs && !ev.needs()) return;
@@ -81,7 +85,7 @@ const timedOpen = () => TIMED.filter(ev => ev.kind==='scene' && timed()[ev.id] &
 function timedCanEnter(ev){ return !!G.flags && (!ev.locs || ev.locs.includes(G.loc)) && (!ev.needs || ev.needs()); }
 function timedEnter(id){
   const ev = TIMED.find(e => e.id===id), st = timed()[id]; if(!ev || !st || st.state!=='open' || !timedCanEnter(ev)) return [];
-  st.state = 'done'; st.doneDay = G.day;
+  st.state = 'done'; st.doneDay = G.day; if(ev.setFlag) G.flags[ev.setFlag] = true;
   const lines = ev.scene.map(([w, t]) => '💬 '+(w==='sally'?'Sally':CHARACTERS[w].n.split(' ')[0])+': "'+t+'"');
   chronicle(ev.log, ev.icon); if(ev.track && typeof trackState==='function') trackState('levi_sally').pts += ev.track;
   return lines.concat(['🕯️ '+ev.after_t]).concat(advanceDay(1));
