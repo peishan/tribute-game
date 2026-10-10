@@ -34,9 +34,25 @@ const REG_MARK_RULES = {
 /* entries beyond the Fifteen */
 const REG_EXTRA = [
   {id:'impossible', n:'The Impossible Entry', icon:'🗂️', open:() => !!G.flags.impossible_entry || G.ch >= 186,
-   t:'A name from the Register appears in three kingdoms (Tribute, Dragonvale and the Sunken Kingdom) in Year 412, 7th Moon. The dates are identical and the places are not.',
+   t:() => 'A name from the Register appears in three kingdoms (Tribute, Dragonvale and the Sunken Kingdom) on the same date, '+recordDate()+'. The dates are identical and the places are not.', extra:() => rCompare(),
    rules:[['crosskingdom', () => regInv('three_accounts') || !!G.flags.impossible_entry], ['impossible', () => regInv('no_copy_error')], ['unresolved', () => !!G.flags.impossible_entry]]},
 ];
+/* the date the three records share: ch185 and ch186 write it Year 412, 7th Moon; ch187-190 write it Year 712, 3rd Month, 14th Day (author to confirm which is canon) */
+const recordDate = () => (G.flags && G.flags.impossible_verified) || G.ch >= 187 ? 'Year 712, 3rd Month, 14th Day' : 'Year 412, 7th Moon';
+/* ---- Cross-Kingdom Record Compare: the three records side by side. What each shows is revealed by the evidence found; contradictions are highlighted once the supporting evidence is in. */
+const COMPARE_CARDS = [
+  {k:'Tribute', as:'A visitor who arrived without escorts', port:'Haiyue Port (Sea-Moon Port): a trade hub and neutral city'},
+  {k:'Dragonvale', as:'A natural phenomenon witnessed near the northern border', port:'Moonreach (Moon Bridge): a strategic trading post; restricted cargo, closed ledgers'},
+  {k:'Sunken Kingdom', as:'A figure associated with a ritual at the coastal ruins', port:'Yueluo (Moon Anchorage): a sacred port, the meeting place of three tides'},
+];
+function rCompare(){
+  const F = G.flags, showAs = !!F.name_without_body, showPort = !!F.haiyue_port_lead, genuine = !!F.impossible_verified;
+  const card = c => `<div style="flex:1 1 140px;min-width:140px;border:1px solid rgba(128,128,128,.5);border-radius:8px;padding:6px"><b>${c.k}</b><div class="sm">📅 ${recordDate()}</div>
+    <div class="sm" style="${showAs?'border-left:3px solid #d9a441;padding-left:5px':''}">${showAs ? '🧾 '+c.as : '🧾 ???'}</div>
+    <div class="sm" style="${showPort&&true?'border-left:3px solid #9a6bd6;padding-left:5px':''}">${showPort ? '⚓ '+c.port : '⚓ ???'}</div></div>`;
+  const verdicts = [['✔ The dates are identical in all three records.', true], ['✔ The records are genuine: translations, calendars and writing styles agree, and there is no sign of copying.', genuine], ['⚠ The three accounts disagree about what the name is.', showAs], ['⚠ The same port is recorded three ways, and later copies altered or omitted its destinations.', showPort]].filter(x => x[1]);
+  return `<div class="sm" style="margin-top:6px"><b>Cross-Kingdom Record Compare</b></div><div style="display:flex;flex-wrap:wrap;gap:6px;margin:6px 0">${COMPARE_CARDS.map(card).join('')}</div>${verdicts.map(v => `<div class="sm">${v[0]}</div>`).join('')}`;
+}
 const regMarksOpen = () => !!G && !!G.flags && (!!G.flags.impossible_entry || G.ch >= 186);
 function regMarksOf(id, rules){
   const out = [];
@@ -56,7 +72,7 @@ function rRegisterBeyond(){
   if(!regMarksOpen()) return '';
   const open = REG_EXTRA.filter(x => { try{ return x.open(); }catch(e){ return false; } }); if(!open.length) return '';
   return `<div class="panel"><b>BEYOND THE FIFTEEN</b><div class="sm">Entries that do not fit the old categories. They are not counted among the Fifteen.</div>`
-    + open.map(x => { const ms = regMarksOf(x.id, x.rules); return `<div class="ev"><div><b>${x.icon} ${x.n}</b><div class="sm">${x.t}</div>${ms.length ? `<div class="sm"><b>Record:</b> ${ms.map(regChip).join('')}</div>` : ''}</div></div>`; }).join('') + `</div>`;
+    + open.map(x => { const ms = regMarksOf(x.id, x.rules); return `<div class="ev"><div><b>${x.icon} ${x.n}</b><div class="sm">${typeof x.t==='function' ? x.t() : x.t}</div>${x.extra ? x.extra() : ''}${ms.length ? `<div class="sm"><b>Record:</b> ${ms.map(regChip).join('')}</div>` : ''}</div></div>`; }).join('') + `</div>`;
 }
 const regMarkCount = () => EVILS.reduce((a, e) => a + evilMarks(e).length, 0) + REG_EXTRA.reduce((a, x) => a + (x.open() ? regMarksOf(x.id, x.rules).length : 0), 0);
 deed('regmark1', 'hunt', 'The Register is not always right', '✂️', 'A mark was set on a Register entry: the record itself is in doubt.', () => regMarksOpen() && regMarkCount() >= 1);
