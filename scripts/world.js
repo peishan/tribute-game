@@ -2637,6 +2637,7 @@ function doInvestigate(spotId){
   const found = () => {
     const n = G.clues[spotId] = (G.clues[spotId]||0)+1, msgs = ['🔎 Clue '+n+'/'+sp.need+': '+sp.clues[n-1]];
     if(ins) msgs.push('⚔️ Jade\'s Insight finds a hidden path: no time lost.');
+    const gb = typeof investigationGuestBonus==='function' && investigationGuestBonus(); if(gb){ gainXp(gb.xp, G.party).forEach(m => msgs.push(m)); msgs.push('🔍 '+gb.who.join(' and ')+' notice what others miss (bonus XP).'); }
     if(sen){ gainXp(300+avgPartyLv()*10, G.party).forEach(m => msgs.push(m)); msgs.push('🔮 Devon reads the magic residue (bonus XP).'); if(typeof corrAdd==='function' && isCorrupted(G.loc)){ corrAdd(G.loc, -5); msgs.push('Corruption −5%.'); } }
     if(n >= sp.need){ G.flags['inv_'+spotId] = true; if(typeof leadAdd==='function') leadAdd(spotId); msgs.push.apply(msgs, grantReward(sp.rw, '🕯️ Investigation complete: '+sp.n));
       if(typeof regardAdd==='function'){ const rm = regardAdd(G.loc, 10); if(rm) msgs.push(rm); chronicle('Investigation complete: '+sp.n+'.', '🕯️'); }
@@ -2645,7 +2646,7 @@ function doInvestigate(spotId){
     msgs.push.apply(msgs, advanceDay(ins ? 0 : 1)); save(); return msgs;
   };
   const magicOnly = sen && sp.ambush && sp.ambush.length && sp.ambush.every(k => (ENEMIES[k].traits||[]).includes('magic'));
-  if(sp.ambush && sp.ambush.length && !magicOnly && Math.random() < (ins ? .1 : .4)){
+  if(sp.ambush && sp.ambush.length && !magicOnly && Math.random() < (ins ? .1 : (typeof eveEdge==='function' && eveEdge() ? .25 : .4))){
     startBattle({foes:foeGroup(sp.ambush, lvFor(sp), 2), rewards:true, onWin:found});
     return 'battle';
   }

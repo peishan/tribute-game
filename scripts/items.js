@@ -20,7 +20,7 @@ Object.assign(ITEMS, {
   dragon_remedy:{n:'Dragon Blood Remedy',icon:'🐉',type:'consumable',rarity:'epic'},
 });
 const CONSUMABLE_SHOP = {herbal_tonic:30, moon_tonic:90, purify_elixir:70, spirit_potion:60};
-const useText = u => [u.hp&&(u.hp>=9999?'full HP':'+'+u.hp+' HP'), u.mp&&(u.mp>=9999?'full MP':'+'+u.mp+' MP'), u.cleanse&&'cleanses'].filter(Boolean).join(', ');
+const useText = u => [u.hp&&(u.hp>=9999?'full HP':'+'+u.hp+' HP'), u.mp&&(u.mp>=9999?'full MP':'+'+u.mp+' MP'), u.cleanse&&'cleanses', u.foeFx&&(u.foeFx.k==='bind'?'startles every foe (1 turn)':u.foeFx.k==='slow'?'slows every foe':'affects every foe'), u.open&&'open it'].filter(Boolean).join(', ');
 
 const curHp = id => { const m = statsOf(id).hp, v = U(id).hp; return v===undefined ? m : clamp(v,0,m); };
 const curMp = id => { const m = statsOf(id).mp, v = U(id).mp; return v===undefined ? m : clamp(v,0,m); };
@@ -39,7 +39,10 @@ function restAtInn(){
 }
 function useConsumable(id, k){
   const u = USE[k]; if(!u || !(G.inv[k] > 0)) return false;
-  G.inv[k]--; healUnit(id, u.hp, u.mp); save(); return true;
+  if(u.foeFx && !u.hp && !u.mp && !u.open) return false;   // battle-only (firecrackers, party poppers)
+  G.inv[k]--;
+  if(u.open && typeof openGift==='function'){ openGift(k).forEach(m => toast(m)); save(); return true; }
+  healUnit(id, u.hp, u.mp); save(); return true;
 }
 function brewTonic(){
   if((G.inv.forest_herb||0) < 3) return ['Brewing a tonic needs 3 Faepool Herbs.'];
@@ -78,12 +81,13 @@ function craftAt(out){
 }
 
 /* ---- in-battle item use ---- */
-function battleItems(){ return Object.keys(USE).filter(k => (G.inv[k]||0) > 0 || (B && !B.spec.rewards)).map(k => ({id:k, n:ITEMS[k].n, icon:ITEMS[k].icon, qty:G.inv[k]||0, text:useText(USE[k])})); }
+function battleItems(){ return Object.keys(USE).filter(k => !USE[k].open && ((G.inv[k]||0) > 0 || (B && !B.spec.rewards))).map(k => ({id:k, n:ITEMS[k].n, icon:ITEMS[k].icon, qty:G.inv[k]||0, text:useText(USE[k])})); }
 function battleUseItem(u, k, t){
   const e = USE[k]; if(!e || !t) return false;
   if(B.spec.rewards){ if(!(G.inv[k] > 0)) return false; G.inv[k]--; }
   if(e.hp){ const h = Math.min(e.hp, t.mhp - t.hp); t.hp += h; blog(u.name+' uses '+ITEMS[k].n+' on '+t.name+': +'+h+' HP.','good'); }
   if(e.mp){ const m = Math.min(e.mp, t.mmp - t.mp); t.mp += m; blog('  '+t.name+' regains '+m+' MP.','good'); }
   if(e.cleanse) applyFx(u, t, {k:'cleanse'});
+  if(e.foeFx){ blog(u.name+' sets off '+ITEMS[k].n+'!'); alive(B.foes).forEach(f => applyFx(u, f, e.foeFx)); }
   return true;
 }

@@ -93,7 +93,8 @@ const BACKLASH = { chad_backlash_1:{hp:.92, def:.92, mag:1.35}, chad_backlash_2:
 const REBORN_LEVI = {atk:1.15, mag:1.2, spd:1.1, hp:.95};   // draft: "reborn" Levi is not the same man as before
 const clsOf = id => (id==='levi' && G && G.flags.levi_reborn) ? 'Noble Ranger' : (id==='chad' && G && G.ch>=170) ? 'Maritime Envoy' : (id==='chad' && G && G.flags.roc_reborn) ? 'Fallen Dragon Prince' : CHARACTERS[id].cls;
 // Portrait variants: assets/party/<id>_noble.webp (Sally from ch51) and <id>_reborn.webp (Levi); a missing file falls back to the base portrait.
-const portrait = id => (id==='adrian' ? 'assets/npc/adrian.webp' : 'assets/party/'+id+((id==='sally' && G && G.flags.sally_noble) ? '_noble' : (id==='levi' && G && G.flags.levi_reborn) ? '_reborn' : (id==='chad' && G && G.ch>=170) ? '_envoy' : '')+'.webp');
+const PORTRAIT_VARIANTS = {adrian_wed:false, adrian_official:false};   // set to true when assets/npc/adrian_wed.webp (the red dragon robes after the royal wedding) and adrian_official.webp (the married court official) exist
+const portrait = id => (id==='adrian' ? (PORTRAIT_VARIANTS.adrian_official && G && G.flags && G.flags.adrian_official ? 'assets/npc/adrian_official.webp' : PORTRAIT_VARIANTS.adrian_wed && G && G.flags && G.flags.evelyne_wed ? 'assets/npc/adrian_wed.webp' : 'assets/npc/adrian.webp') : 'assets/party/'+id+((id==='sally' && G && G.flags.sally_noble) ? '_noble' : (id==='levi' && G && G.flags.levi_reborn) ? '_reborn' : (id==='chad' && G && G.ch>=170) ? '_envoy' : '')+'.webp');
 function backlashMult(id, s){
   if(id==='levi' && G && G.flags.levi_reborn) return REBORN_LEVI[s]||1;
   if(id!=='chad' || !G) return 1;
@@ -236,7 +237,8 @@ const GUEST_RULES = {
   rin:{fromCh:149, untilCh:RIN_JOIN_CH, locs:AREA_NORTH, note:'Rin Kaede, the Spirit Ranger, fights beside the party while it is in the northern forest country.'},
 };
 const presentGuests = () => !G ? [] : Object.keys(GUEST_RULES).filter(id => { const r = GUEST_RULES[id];
-  const ok = (r.flag===undefined || [].concat(r.flag).every(f => G.flags[f])) && (!r.regions || r.regions.includes(LOCATIONS[G.loc].region)) && (!r.locs || r.locs.includes(G.loc) || (r.extraLocs && r.extraLocs[G.loc] !== undefined && G.ch >= r.extraLocs[G.loc])) && (r.fromCh===undefined || G.ch>=r.fromCh) && (r.untilCh===undefined || G.ch<r.untilCh) && (!r.when || r.when());
+  const base = (r.flag===undefined || [].concat(r.flag).every(f => G.flags[f])) && (!r.regions || r.regions.includes(LOCATIONS[G.loc].region)) && (!r.locs || r.locs.includes(G.loc) || (r.extraLocs && r.extraLocs[G.loc] !== undefined && G.ch >= r.extraLocs[G.loc])) && (r.fromCh===undefined || G.ch>=r.fromCh) && (r.untilCh===undefined || G.ch<r.untilCh) && (!r.when || r.when());
+  const ok = base || !!(r.alt && r.alt());   // alt: a second way to be present (an arc where the story has the guest travel with the party)
   return ok && !isDisabled(id); });
 const isGuestNow = id => presentGuests().includes(id);
 const isCompanion = id => !!(CHARACTERS[id] && CHARACTERS[id].companion) || (!!G && ((id==='rin' && G.ch < RIN_JOIN_CH) || (id==='eira' && G.ch < EIRA_JOIN_CH)));   // companions travel and fight with the party without using one of the active slots
