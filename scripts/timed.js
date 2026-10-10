@@ -7,6 +7,7 @@
      kind    'letter' (a letter, delivered when the party is in a settlement) | 'notice' (a Chronicle and Journal line) | 'scene' (an optional scene open for `window` days)
    A scene that is not attended before its window ends is marked missed: it passes quietly and the friendship simply goes on slowly (nothing is ever lost).
    State: G.timed = {id: {day, state:'due'|'open'|'done'|'missed', until}}, G.returnDay (day ch89 was completed).  Wording and numbers are first-pass.
+   after2/gap2: an optional second condition (also this many days after another event). The separation (Sally's divorce) is the author's own rule, not real-world divorce law: she files about 3 months after the wedding (the comic shows her leaving then) and it is final about 3 months after that, 6 months in all.
    ch is the EARLIEST chapter an event may fire; byCh is the LATEST: the comic chapter that shows it. From byCh on, the event fires whatever the day counter says (an earlier one in the chain fires first). The comic does not always run in story order (it jumps back and forth, like Jade's consummation chapter), so a chapter that shows an event only proves it has happened by then, never that it must wait for that chapter. Comic dates (Year 712...) are in-world dates in records, not the day counter.
    The first route is Sally's (Arc VII onward, no comic chapter of its own): Lucien Marroway, the marriage, the divorce, and a quiet drink with Levi.
    ===================================================================== */
@@ -23,7 +24,9 @@ const TIMED = [
   {id:'sally_evidence', ch:198, byCh:198, after:'sally_cracks', gap:20, kind:'letter', icon:'💌', from:'Sally', subj:'Not for the household to read', flag:'marroway_files',
    body:"Jade,\n\nI told you not to send anyone, and I meant it. I did not tell you that I would start keeping a ledger of my own.\n\nLucien is not private. Lucien is hiding things. There are women in the lodges who were never guests, and villages that pay him money they do not owe, and he has a way of smiling when they refuse. I have copied what I could. I have names.\n\nI cannot go to his friends, and the magistrate dines at his table. But the Crimson Phoenix and the Silent Dragon do not dine anywhere. If you are willing, the Masked contracts board in Dragonvale will carry what I send: women to bring out, villages to free. I will add each thing you bring me to the file.\n\nDo not do anything foolish. Do all of it carefully.\n\nSally",
    log:'Sally has sent Jade her evidence against Lucien Marroway and asked for masked help: women held against their will, and villages he has squeezed. New cases will be posted on the Dragonvale Masked board.'},
-  {id:'sally_divorce', ch:205, byCh:205, after:'sally_wed', gap:180, kind:'letter', icon:'💌', from:'Sally', subj:'It is done',
+  {id:'sally_filed', ch:203, byCh:204, after:'sally_wed', gap:90, kind:'notice', icon:'📜', t:'Word from Dragonvale: Lady Sally has filed to end her marriage to Lucien Marroway.',
+   log:'Sally filed to end her marriage to Lucien Marroway, about three months after the wedding. The proceedings will take another three months.'},
+  {id:'sally_divorce', ch:205, byCh:210, after:'sally_wed', gap:180, after2:'sally_filed', gap2:90, kind:'letter', icon:'💌', from:'Sally', subj:'It is done',
    body:"Jade,\n\nIt is done. Six months of being told how lucky I was. I have my name back, and my own rooms, and a great deal of embarrassment that I intend to carry quietly.\n\nI keep thinking one thing. Roc never pretended to be harmless.\n\nDo not send a carriage.\n\nSally",
    log:'Sally has separated from Lucien Marroway, and the marriage is formally ended.'},
   {id:'sally_reckoning', ch:204, after:'sally_divorce', gap:10, kind:'letter', icon:'💌', from:'Sally', subj:'One more thing, and then never again', decision:'dec_marroway',
@@ -70,6 +73,7 @@ function timedTick(){
       if(G.ch < ev.ch) return;
       const base = ev.after==='anchor' ? timedAnchor() : /^ch\d+$/.test(ev.after) ? timedChapterDay(+ev.after.slice(2)) : (T[ev.after] && T[ev.after].day), forced = !!ev.byCh && G.ch >= ev.byCh;   // a comic chapter that shows the event overrides the day counter
       if(!forced && (base === undefined || G.day < base + ev.gap)) return;
+      if(ev.after2 && !forced){ const b2 = T[ev.after2] && T[ev.after2].day; if(b2 === undefined || G.day < b2 + ev.gap2) return; }   // a second condition: also so many days after another event
       if(forced && ev.after!=='anchor' && base === undefined) return;
       if(ev.needs && !ev.needs()) return;
       st = T[ev.id] = {day:G.day, state:'due'};
