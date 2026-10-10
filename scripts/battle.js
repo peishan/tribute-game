@@ -176,6 +176,13 @@ function applyFx(src, tgt, fx){
     case 'crit': tgt.st.crit = {d:(fx.d||2)+1}; blog('  '+tgt.name+' sees the openings (crits).'); break;
     case 'cleanse': ['burn','slow','bind','charm','silence'].forEach(k => delete tgt.st[k]); blog('  '+tgt.name+' is cleansed.'); break;
     case 'analyze': { const f = tgt.ally ? alive(B.foes)[0] : tgt; if(f){ f.known = true; blog('  Analysed '+f.name+': HP '+f.hp+'/'+f.mhp+', DEF '+f.def+(f.traits.includes('magic')?', magical':'')+'.'); } break; }
+    case 'disengage': {   // Tactical Retreat: try to break off the fight (never in a story battle or against a boss)
+      if(!B || B.over) break;
+      if(B.spec.chapter || B.foes.some(f => f.boss)){ blog('  There is no way out of this fight.','bad'); break; }
+      const lone = !B.allies.some(x => !x.dead && (x.id==='jade' || x.id==='evelyne'));   // Scholar's Survival: Adrian alone is better at slipping away
+      if(Math.random() < .55 + (lone ? .25 : 0)){ B.over = 'fled'; blog('The party slips away through the smoke.','good'); if(typeof persistBattle==='function') persistBattle(); save(); }
+      else blog('  The retreat fails: the foes are on them.','bad');
+      break; }
     case 'revive': if(tgt.dead){ tgt.dead = false; tgt.hp = Math.round(tgt.mhp*.4); blog('  '+tgt.name+' is revived!','good'); } break;
     case 'state': tgt.state = {id:fx.id, d:(fx.d||3)+1}; blog('  '+tgt.name+(fx.id==='awakened'?' awakens with golden blood!':' manifests the dragon!'),'good'); break;
   }
@@ -279,11 +286,17 @@ function foeAct(f){
   const oathBearer = targets.find(a => a.st.oath);
   const bossIgnores = f.boss && oathBearer && Math.random() < .35;   // bosses sometimes see past the oath
   if(bossIgnores) blog('  '+f.name+' ignores the oath and strikes elsewhere.','foe');
-  const t = (oathBearer && !bossIgnores) ? oathBearer : AR(targets);   // Protective Oath draws attacks
+  let t = (oathBearer && !bossIgnores) ? oathBearer : AR(targets);   // Protective Oath draws attacks
+  // Protective Bonds (small, passive): Jade steps in for a wounded Adrian
+  if(t.id==='adrian' && t.hp/t.mhp < .4 && !oathBearer){ const j = targets.find(x => x.id==='jade' && !x.dead); if(j && Math.random() < .35){ blog('  Jade steps in front of Adrian!','good'); t = j; } }
   const dealt = strike(f, t, s);
   if(dealt>0){
     if(mv.steal && f.stolen!==true){ const g = Math.min(G.gold, 8); if(B.spec.rewards){ G.gold -= g; } f.stolen = true; blog('  '+f.name+' lifts '+g+' gold!','bad'); }
     (mv.fx||[]).forEach(fx => { if(!t.dead && FOE_FX.includes(fx.k)) applyFx(f, t, fx); });
+  }
+  if(t.id==='adrian' && !f.dead){   // Reunited Hearts: Eve answers an attack on Adrian
+    const ev = targets.find(x => x.id==='evelyne' && !x.dead);
+    if(ev && Math.random() < .5){ const c = Math.max(1, Math.round(eff(ev,'atk')*.55 - eff(f,'def')*.3)); f.hp = Math.max(0, f.hp - c); blog('  Eve strikes back at '+f.name+' for Adrian: '+c+'.','good'); if(f.hp<=0){ f.dead = true; blog(f.name+' falls!','bad'); } }
   }
   if(s.landed){
     if(t.st.oath && !t.dead && !f.dead){      // the oath-bearer strikes back
@@ -302,6 +315,7 @@ function finishWin(){
     f.drops.forEach(d => { if(Math.random()<d.chance) drops.push({id:d.id,qty:1}); });
     G.bestiary[f.key] = (G.bestiary[f.key]||0)+1; });
   const bossKey = (foes.find(f=>f.boss)||{}).key;
+  if(spec.rewards && typeof weddingDrops==='function') weddingDrops(foes).forEach(d => drops.push(d));   // the wedding theme
   const first = spec.firstClear;
   if(bossKey) rollLoot(LOOT[bossKey], first).forEach(d => drops.push(d));
   if(spec.rewards && typeof areaLoot==='function'){ if(bossKey) themedLoot(bossKey, first).forEach(d => drops.push(d)); else if(!spec.chapter) areaLoot().forEach(d => drops.push(d)); }

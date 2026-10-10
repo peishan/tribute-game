@@ -178,6 +178,8 @@ function rBattle(){
   if(B.over==='win'){
     const r=B.rewards;
     act = `<div class="panel good"><b>Victory!</b><div>XP +${r.xp} · Gold +${r.gold}${r.real?'':' (sandbox: not awarded)'}</div>${r.drops.length?`<div>Loot: ${r.drops.map(d=>(ITEMS[d.id]?ITEMS[d.id].icon+' '+ITEMS[d.id].n:d.id)+' ×'+d.qty).join(', ')}</div>`:''}${r.msgs.map(m=>`<div class="sm">${m}</div>`).join('')}</div><button class="pri" onclick="battleDone()">Continue</button>`;
+  } else if(B.over==='fled'){
+    act = `<div class="panel"><b>The party slips away.</b><div class="sm">No rewards, no losses.</div></div><button class="pri" onclick="battleDone()">Continue</button>`;
   } else if(B.over==='lose'){
     act = `<div class="panel bad"><b>Defeat…</b></div><button class="pri" onclick="battleDone()">Retreat</button>`;
   } else if(B.cur && B.cur.ally){

@@ -82,6 +82,7 @@ const ADRIAN_REQ = [
   {id:'ar_supplies', kind:'Diplomatic', type:'deliver', to:'faepool_harbour', from:'capital', icon:'📦', name:'Relief Supplies', desc:'Adrian is moving grain and medicine to the harbour. Deliver the manifest.', rw:{xp:320, gold:220, rep:8}, trust:4, needCh:90},
 ];
 function refreshRequests(){
+  if(adrianAway()) return [];
   const n = net(); if(n.reqDay === G.day && n.reqs.length) return n.reqs;
   const taken = new Set(G.quests.active.map(q => q.id));
   const pool = ADRIAN_REQ.filter(r => G.ch >= r.needCh && (!r.needLoc || locOpen(r.needLoc)) && !taken.has(r.id) && !(G.quests.doneIds||{})[r.id]);
@@ -154,6 +155,7 @@ const DECISIONS = [
 ];
 const decisionDay = () => { const n = net(); return n.decDay === undefined ? -99 : n.decDay; };
 function openDecision(){
+  if(adrianAway()) return null;
   const n = net(); if(G.day - decisionDay() < 7) return null;
   n.decDone = n.decDone || {};
   return DECISIONS.find(d => G.ch >= d.ch && !n.decDone[d.id]) || null;
@@ -167,14 +169,16 @@ function decide(id, i){
   return ['🏛️ '+d.title+': '+o.t+'. '+o.say].concat(wm).concat(Object.keys(o.fx).map(s => KLABEL[s]+' '+(o.fx[s]>0?'+':'')+o.fx[s]));
 }
 /* ---- Contacts: the tree shows only what is unlocked ---- */
+const adrianAway = () => typeof adrianWith==='function' && adrianWith();   // travelling with the party: not at the Palace
 function contacts(){
-  const c = [{n:'Adrian Gold', role:'Imperial Advisor'}, {n:'Tribute Intelligence', role:'Reports and archives'}];
-  if(G.flags.contact_evelyne) c.push({n:'Princess Evelyne Greyson', role:'Royal Diplomatic Liaison'});   // reserved for her reveal chapter
-  else c.push({n:'Unknown Contacts', role:'Locked', locked:true});
+  const c = [adrianAway() ? {n:'Adrian Gold', role:'travelling with the party: unavailable', locked:true} : {n:'Adrian Gold', role:'Imperial Advisor'}, {n:'Tribute Intelligence', role:'Reports and archives'}];
+  if(G.flags.evelyne_returned || G.flags.contact_evelyne) c.push({n:'Princess Evelyne Greyson', role:'Royal Diplomatic Liaison'});   // selectable at the Palace only after her return to Tribute
+  else c.push({n:'???', role:'Locked', locked:true});
   return c;
 }
 let netTab = 'reports';
 function rNetwork(){
+  if(adrianAway() && (netTab==='requests' || netTab==='status')) netTab = 'reports';
   const tabs = [['reports','Reports'],['requests','Requests'],['intel','Intelligence'],['letters','Letters'],['status','Kingdom Status']].concat(typeof evilsOpen==='function' && evilsOpen() ? [['register','Fifteen Evils']] : [], typeof archiveTabs==='function' ? archiveTabs() : []);
   const unread = net().letters.filter(l => !l.read).length;
   const tree = contacts().map(c => `<span class="sm" style="${c.locked?'opacity:.5':''}">${c.n}${c.locked?'':' · '+c.role}</span>`).join(' ↓ ');
@@ -194,7 +198,7 @@ function rNetwork(){
   if(netTab==='status'){ const k = kstat(), d = openDecision();
     body = Object.keys(KLABEL).map(s => `<div class="ev"><div><b>${KLABEL[s]}</b>${bar(k[s],100)}<div class="sm">${k[s]}/100</div></div></div>`).join('')
       + (d ? `<div class="panel"><b>${d.title}</b><div class="sm" style="margin:4px 0">${d.text}</div>${d.opts.map((o,i) => `<button onclick="act(decide,'${d.id}',${i})">${o.t}</button>`).join(' ')}</div>` : `<div class="sm">Adrian has no new decision for you. One arrives each week of in-game time.</div>`); }
-  return `<h2>Imperial Network</h2><div class="panel"><div class="row" style="align-items:center;gap:10px;flex-wrap:nowrap"><img src="assets/npc/adrian.webp" alt="Adrian Gold" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)"><div><b>TRIBUTE NETWORK</b><div>Adrian Gold</div><div class="sm">Imperial Advisor</div></div></div><div style="margin-top:6px">${tree}</div></div>
-    <div class="row" style="margin:6px 0;flex-wrap:wrap">${tabs.map(([k,l]) => `<button class="${netTab===k?'pri':''}" onclick="netTab='${k}';netOpenLetter=null;render()">${l}${k==='letters'&&unread?' ●':''}</button>`).join('')}</div>${flashHtml()}${body}`;
+  return `<h2>Imperial Network</h2><div class="panel"><div class="row" style="align-items:center;gap:10px;flex-wrap:nowrap"><img src="${portrait('adrian')}" alt="Adrian Gold" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);${adrianAway()?'filter:grayscale(1);opacity:.6':''}"><div><b>TRIBUTE NETWORK</b><div>Adrian Gold</div><div class="sm">${adrianAway() ? 'Away: travelling with Jade\'s party. He cannot be reached or asked for anything until he is back at the Palace.' : 'Imperial Advisor'}</div></div></div><div style="margin-top:6px">${tree}</div></div>
+    <div class="row" style="margin:6px 0;flex-wrap:wrap">${tabs.map(([k,l]) => { const off = adrianAway() && (k==='requests' || k==='status'); return `<button class="${netTab===k?'pri':''}" ${off?'disabled title="Adrian is away"':''} onclick="netTab='${k}';netOpenLetter=null;render()">${l}${k==='letters'&&unread?' ●':''}</button>`; }).join('')}</div>${flashHtml()}${body}`;
 }
 let netOpenLetter = null;
