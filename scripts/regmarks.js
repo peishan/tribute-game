@@ -2,23 +2,24 @@
    TRIBUTE — REGISTER MARKS (Arc VIII's first mechanic: the Register is not always right)
    A FINDING (evils.js) says what an entry IS once investigated (Corrupted, Preservation Construct...). A MARK says what is true of the RECORD ITSELF: whether the
    Register can be trusted on this entry. An entry can carry several marks at once, and marks never close a case or change the Resolved count.
-     Verified               confirmed on the ground by an investigation
-     Contradictory          two sources disagree about it
      Impossible             the records agree with each other and still cannot be true
-     Deliberately Altered   somebody changed or removed it on purpose
-     Identity Unresolved    the name is known but not who or what bears it
      Cross-Kingdom Match    the same name or entity turns up in more than one kingdom
+     Identity Unresolved    the name is known but not who or what bears it
+     Verified               the historical RECORD itself has been authenticated (not: the entity is understood)
+     Contradictory          accounts of it disagree
+     Deliberately Altered   somebody changed or removed it on purpose
+   The usual escalation, as in the Impossible Entry: Impossible, Cross-Kingdom Match, Identity Unresolved, Verified record, Contradictory accounts, Deliberately Altered.
    Marks come from evidence the party has already found (rules below) or from a chapter that sets the flag rm_<entry>_<mark> (so later chapters can add marks
    without new code: put 'rm_impossible_contradictory' in that chapter's CH_FLAGS). "Beyond the Fifteen": entries that do not fit the Fifteen at all, from the
    Impossible Entry (end of Arc VII). Marks appear from the epilogue of ch185 onward. First-pass wording and rules: edit freely.
    ===================================================================== */
 const REG_MARKS = {
-  verified:{icon:'✔️', n:'Verified', d:'Confirmed on the ground by an investigation.'},
-  contradictory:{icon:'↔️', n:'Contradictory', d:'Two sources disagree about it.'},
   impossible:{icon:'♾️', n:'Impossible', d:'The records agree with each other and still cannot be true.'},
-  altered:{icon:'✂️', n:'Deliberately Altered', d:'Somebody changed or removed it on purpose.'},
-  unresolved:{icon:'❔', n:'Identity Unresolved', d:'The name is known, but not who or what bears it.'},
   crosskingdom:{icon:'🌐', n:'Cross-Kingdom Match', d:'The same name or entity appears in more than one kingdom.'},
+  unresolved:{icon:'❔', n:'Identity Unresolved', d:'The name is known, but not who or what bears it.'},
+  verified:{icon:'✔️', n:'Verified', d:'The historical record itself has been authenticated. It does not mean the entity it describes is understood.'},
+  contradictory:{icon:'↔️', n:'Contradictory', d:'Accounts of it disagree.'},
+  altered:{icon:'✂️', n:'Deliberately Altered', d:'Somebody changed or removed it on purpose.'},
 };
 const REG_MARK_KEYS = Object.keys(REG_MARKS);
 const regInv = s => !!(G.flags && G.flags['inv_'+s]);
@@ -37,8 +38,8 @@ const REG_EXTRA = [
    t:() => 'A name from the Register appears in three kingdoms (Tribute, Dragonvale and the Sunken Kingdom) on the same date, '+recordDate()+'. The dates are identical and the places are not.', extra:() => rCompare(),
    rules:[['crosskingdom', () => regInv('three_accounts') || !!G.flags.impossible_entry], ['impossible', () => regInv('no_copy_error')], ['unresolved', () => !!G.flags.impossible_entry]]},
 ];
-/* the date the three records share: ch185 and ch186 write it Year 412, 7th Moon; ch187-190 write it Year 712, 3rd Month, 14th Day (author to confirm which is canon) */
-const recordDate = () => (G.flags && G.flags.impossible_verified) || G.ch >= 187 ? 'Year 712, 3rd Month, 14th Day' : 'Year 412, 7th Moon';
+/* the date all three records share (the author's canon): Year 712, 3rd Month, 14th Day. The comic's dates are in-world historical dates, not the game's day counter. */
+const recordDate = () => 'Year 712, 3rd Month, 14th Day';
 /* ---- Cross-Kingdom Record Compare: the three records side by side. What each shows is revealed by the evidence found; contradictions are highlighted once the supporting evidence is in. */
 const COMPARE_CARDS = [
   {k:'Tribute', as:'A visitor who arrived without escorts', port:'Haiyue Port (Sea-Moon Port): a trade hub and neutral city'},

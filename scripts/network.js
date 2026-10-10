@@ -56,7 +56,7 @@ const REPORTS = [
   {ch:181, loc:'The Sunken Kingdom', threat:'The Black Tide returned and attacked the expedition ships and the ruins. It is a corrupted guardian current, not a monster by birth.', status:'Unresolved.'},
   {ch:182, loc:'The Sunken Kingdom', threat:'The Black Tide has been restored and the Drowned Crown reclassified as a Preservation Construct. Register: 5/15 Resolved.', status:'Resolved.'},
   {ch:183, loc:'The Deepest Archive', threat:'Records of an ancient maritime alliance of Dragonvale, Tribute, the Sunken Kingdom and vanished civilizations, with its routes deliberately erased.', status:'Investigating.'},
-  {ch:185, loc:'Royal Archive', threat:'One name from the Register appears in records from three kingdoms in Year 412, 7th Moon. No copying error was found.', status:'Unresolved.'},
+  {ch:185, loc:'Royal Archive', threat:'One name from the Register appears in records from three kingdoms in Year 712, 3rd Month, 14th Day. No copying error was found.', status:'Unresolved.'},
   {ch:186, loc:'Royal Archive', threat:'Adrian found one Register name recorded in Tribute, Dragonvale and the Sunken Kingdom with the same date and different places. No copying error.', status:'Investigating.'},
   {ch:187, loc:'Dragonvale', threat:'Adrian\'s report: translations, calendars and originals all check out. The three records are genuine.', status:'Investigating.'},
   {ch:188, loc:'Dragonvale', threat:'The three accounts disagree about what the name is: a visitor, a natural phenomenon, a ritual figure.', status:'Investigating.'},

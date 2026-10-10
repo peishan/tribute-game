@@ -18,7 +18,8 @@ const ARCS = [
   {n:6, title:'The Fifteen Evils', img:'assets/arcs/arc6.webp', after:146},
   {n:7, title:'The Sunken Crown', img:'assets/arcs/arc7.webp', after:166, cast:'assets/arcs/arc7_cast.webp', castCh:185},   // begins with ch167 (The Message from Dragonvale)   // begins with ch147; the tagline on the cover: "A name is not the same as the truth"
 ];
-const ARC_ROMAN = ['','I','II','III','IV','V','VI','VII'];
+// Arc VIII, "The Impossible Entry" (the author's canon title): begins with ch186; add {n:8, title:'The Impossible Entry', img:'assets/arcs/arc8.webp', after:185} once the splash art exists.
+const ARC_ROMAN = ['','I','II','III','IV','V','VI','VII','VIII'];
 function arcFor(afterCh){ return ARCS.find(a => a.after === afterCh); }
 function showArc(n, manual, cast){
   const a = ARCS.find(x => x.n===n), el = $('arcpop'); if(!a || !el) return;
