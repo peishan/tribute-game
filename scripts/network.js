@@ -61,6 +61,10 @@ const REPORTS = [
   {ch:187, loc:'Dragonvale', threat:'Adrian\'s report: translations, calendars and originals all check out. The three records are genuine.', status:'Investigating.'},
   {ch:188, loc:'Dragonvale', threat:'The three accounts disagree about what the name is: a visitor, a natural phenomenon, a ritual figure.', status:'Investigating.'},
   {ch:190, loc:'Dragonvale Harbour', threat:'The shared name leads to a neutral trade port, Haiyue, recorded three ways. Later copies of ship records altered or omitted their destinations.', status:'Investigating.'},
+  {ch:191, loc:'The Royal Court', threat:'Lady Sally returned to society and married Lucien Marroway, a respected nobleman.', status:'Resolved.'},
+  {ch:194, loc:'A village under Marroway House', threat:'Levies for "road maintenance" and "security", grain and children taken for labour, punishments for refusal.', status:'Investigating.'},
+  {ch:196, loc:'A tavern by the river', threat:'An anonymous survivor testified that Marroway House ordered the diversion of grain and the removal of women who refused.', status:'Investigating.'},
+  {ch:197, loc:'Marroway House', threat:'A hidden ledger records payments for "relocation" and "special handling" matching the villages visited. Key pages were copied.', status:'Investigating.'},
   {ch:99, loc:'Tribute Roads', threat:'Bandits are returning to the coast road now the armies are home.', status:'Contracts posted.'},
 ];
 /* ---- Requests (optional; use the contract system, with trust rewards) ---- */
