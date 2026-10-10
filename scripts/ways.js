@@ -8,7 +8,7 @@
      caution  Daring (-) .. Prudent (+)          proof and patience against acting at once
      folk     Court (-) .. Common folk (+)       whether she weighs the realm's order or ordinary people's lives first
    JADE_DECISIONS: short moral choices attached to quests (and one to the Marroway questline). A finished quest with a `decision` opens it under Missions -> Ways.
-   THE MARROWAY FILES: from Sally's letter (a few months after her marriage) until the matter is settled, the Dragonvale Masked board posts repeatable cases from her
+   THE MARROWAY FILES: from Sally's letter (a few months after her marriage) until the matter is settled, the capital's contract board posts repeatable cases from her
    evidence: rescue a woman Lucien Marroway took by force, or free a village he has squeezed. Each case adds to the evidence; after the divorce, Sally asks Jade
    to decide what becomes of him (hand him to the authorities, or end his life). More evidence makes the authorities' case firmer.
    State: G.ways, G.dec = {pending:[{id,ctx}], log:[{id,o,d}]}, G.mar = {cases,rescued,villages,evidence}.  Wording and numbers are first-pass.
@@ -111,7 +111,7 @@ function openJadeDecision(id, ctx){
 }
 const fillD = (t, ctx) => String(t).replace(/\{name\}/g, (ctx && ctx.name) || 'her');
 function marResult(kind){
-  const M = mar(), strong = M.evidence >= 6, mid = M.evidence >= 3;
+  const strong = marEv() >= 6, mid = marEv() >= 3;
   if(kind==='law') return strong
     ? 'Sally\'s files, the villagers\' testimony and the women\'s signed statements make a case nobody can wave away. Lucien Marroway is stripped of his name and estates, tried in open court and sentenced to hard labour for the rest of his life. His lodges are sold and the money goes to the people he hurt. He does not look at Sally once.'
     : mid ? 'Sally\'s files and a few testimonies are enough for an arrest, a public trial and a long sentence, though his family\'s lawyers fight every line. Some of his lodges are sold; some are quietly kept by cousins. It is justice, though not the whole of it.'
@@ -138,11 +138,13 @@ function resolveJadeDecision(i, o){
   save(); return msgs;
 }
 /* ---------------- the Marroway files ---------------- */
+/* evidence = what the cases add plus what the comic chapters showed: the levies (1), the survivor's testimony (2), the ledger (3) */
+const marEv = () => mar().evidence + (G.flags.marroway_levies ? 1 : 0) + (G.flags.marroway_testimony ? 2 : 0) + (G.flags.marroway_ledger ? 3 : 0);
 const mar = () => { if(!G.mar) G.mar = {cases:0, rescued:0, villages:0, evidence:0}; return G.mar; };
 function marDone(kind, msgs){
   const M = mar();
-  if(kind==='rescued'){ M.rescued++; M.evidence += 2; msgs.push('🗂️ Sally adds her testimony to the files. Evidence: '+M.evidence+'.'); }
-  else if(kind==='village'){ M.villages++; M.evidence += 1; msgs.push('🗂️ The ledger goes to Sally. Evidence: '+M.evidence+'.'); }
+  if(kind==='rescued'){ M.rescued++; M.evidence += 2; msgs.push('🗂️ Sally adds her testimony to the files. Evidence: '+marEv()+'.'); }
+  else if(kind==='village'){ M.villages++; M.evidence += 1; msgs.push('🗂️ The ledger goes to Sally. Evidence: '+marEv()+'.'); }
 }
 const marOpen = () => !!(G.flags && G.flags.marroway_files && !G.flags.marroway_closed);
 const MAR_NAMES = ['Elin','Maren','Tessa','Odile','Brisa','Wyn','Aveline','Corra','Isolde','Neve'];
@@ -151,10 +153,10 @@ function genMarroway(){
   const M = mar(), rescue = Math.random() < .5, id = 'q_mar_'+Math.random().toString(36).slice(2,7), tag = ' (Masked contract · the Crimson Phoenix and the Silent Dragon)';
   if(rescue){ const name = MAR_NAMES[Math.floor(Math.random()*MAR_NAMES.length)];
     return {id, type:'kill', key:'marroway_guard', need:3, c:0, icon:'🎭', name:'The Marroway Files: Free '+name, masked:true, decision:'dec_captive', ctxName:name, mar:'case',
-      desc:'Sally\'s evidence places '+name+' in a locked wing of one of Lucien Marroway\'s lodges. She refused him, so he took her. Strike the guards, not the household, and bring her out.'+tag, rw:{xp:520+M.evidence*10, gold:140, rep:10}}; }
+      desc:'Sally\'s evidence places '+name+' in a locked wing of one of Lucien Marroway\'s lodges. She refused him, so he took her. Strike the guards, not the household, and bring her out.'+tag, rw:{xp:520+marEv()*10, gold:140, rep:10}}; }
   const name = MAR_VILLAGES[Math.floor(Math.random()*MAR_VILLAGES.length)];
   return {id, type:'kill', key:'marroway_enforcer', need:3, c:0, icon:'🎭', name:'The Marroway Files: '+name, masked:true, decision:'dec_shakedown', ctxName:name, mar:'case',
-    desc:name+' pays Lucien Marroway\'s “fees” or loses its roofs and its mill. Sally has the ledger\'s trail. Break the collectors and bring the money back.'+tag, rw:{xp:480+M.evidence*10, gold:120, rep:9}};
+    desc:name+' pays Lucien Marroway\'s “fees” or loses its roofs and its mill. Sally has the ledger\'s trail. Break the collectors and bring the money back.'+tag, rw:{xp:480+marEv()*10, gold:120, rep:9}};
 }
 /* called by finishQuest in world.js */
 function questDecision(q, msgs){
@@ -176,7 +178,7 @@ function rJadeDecisions(){
 function rWays(){
   const M = mar(), L = jdData().log.slice(-8).reverse(), eps = wayEpithets();
   return `<div class="panel"><b>JADE'S WAYS</b><div class="sm">Four leanings that her choices shape. Neither end is right or wrong, and a companion who shares a leaning approves when a choice matches it, and one who holds the opposite view disagrees (a -1 that can never lower a bond level).${eps.length?' People now call her '+eps.slice(0,2).map(e => '“'+e+'”').join(' and ')+'.':' She has not yet leaned strongly either way.'}</div>${WAY_KEYS.map(rWayBar).join('')}</div>`
-   + (typeof rReputation==='function' ? rReputation() : '') + (typeof rRocFamily==='function' ? rRocFamily() : '') + (G.flags.marroway_files ? `<div class="panel"><b>🎭 THE MARROWAY FILES</b><div class="sm">${marOpen() ? 'Open cases are posted on the Dragonvale Masked board, and you can hunt Marroway\'s retainers at the lodges.' : 'Closed.'} Cases completed ${M.cases} · women freed ${M.rescued} · villages freed ${M.villages} · evidence ${M.evidence}.</div></div>` : '')
+   + (typeof rReputation==='function' ? rReputation() : '') + (typeof rRocFamily==='function' ? rRocFamily() : '') + (G.flags.marroway_files ? `<div class="panel"><b>🎭 THE MARROWAY FILES</b><div class="sm">${marOpen() ? 'Open cases are posted on the capital\'s contract board, and you can hunt Marroway\'s retainers at the lodges.' : 'Closed.'} Cases completed ${M.cases} · women freed ${M.rescued} · villages freed ${M.villages} · evidence ${marEv()}.</div></div>` : '')
    + (L.length ? `<h4>Recent decisions</h4>${L.map(l => { const d = JADE_DECISIONS[l.id]; return `<div class="li"><span class="sm">${d?d.icon:'📜'} Day ${l.d} · ${l.n}: ${d && d.opts[l.o] ? fillD(d.opts[l.o].t, {}).replace(/ \{name\}/g,'') : ''}</span></div>`; }).join('')}` : '<div class="sm">No decisions yet. Some contracts end with a choice.</div>');
 }
 deed('ways_lean', 'world', 'Known for something', '🕊️', 'One of Jade\'s ways became strong enough for people to name her by it.', () => wayLeanings().length >= 1);
