@@ -3,6 +3,8 @@
    From the Arc VIII investigations on, Adrian can travel with Jade's party, and Eve Gray (Princess Evelyne, in disguise) joins as an ally. They are GUEST allies:
    passive companions at the party's level who never take a party slot and never become permanent members. While Adrian travels, the Tribute Palace's Imperial
    Network shows him UNAVAILABLE (no requests, no decisions from him); Eve can later be selected at the Palace only after her return to Tribute.
+   Arc IX, The Forgotten Alliance: ch211-235. Evelyne's revelation is in ch221-225 (CH_FLAGS sets evelyne_revealed and evelyne_returned at 225, the end of that window: set them earlier from the
+   chapter itself when it is known); the royal wedding is ch234 (sets evelyne_wed; Eve stops being a guest, eve_left) and ch235 completes the arc (Adrian is home: adrian_home).
    Windows are set by story flags so the chapters can move them without code:
      adrian_home      set when Adrian is back at the Palace (ends his travelling guest period)   [default window: ch206 until this flag]
      eve_left         set when Eve leaves the party
