@@ -28,6 +28,7 @@ const RECORDS = [
   {id:'sunken', icon:'🌊', n:'The Sunken Kingdom', cat:'The old world', st:['aelyndra_named','deliberate_submersion','pearl_purpose'].map(stageFlag)},
   {id:'alliance', icon:'🤝', n:'The Ancient Alliance', cat:'The old world', st:[stageFlag('ancient_alliance_known'), stageFn(() => !!G.flags.inv_erased_routes, 'Routes and records were deliberately erased'), stageFlag('sunken_kingdom_remembered')]},
   {id:'register', icon:'📕', n:'The Fifteen Register', cat:'The Fifteen', st:['register_rewritten','fourth_entry_missing','nameless_witness_met'].map(stageFlag)},
+  {id:'moonport', icon:'⚓', n:'The Moon Port', cat:'The old world', st:['neutral_archives_lead','haiyue_port_lead'].map(stageFlag)},
   {id:'impossible', icon:'🗂️', n:'The Impossible Entry', cat:'The Fifteen', st:['register_doubted','impossible_entry','inv_adrian_message'].map(stageFlag)},
   {id:'fifteen', icon:'🕯️', n:'The Fifteen Evils', cat:'The Fifteen', st:[stageFlag('fifteen_named'), stageFn(() => evilsResolved() >= 1, 'The first Evil is resolved'), stageFn(() => evilsResolved() >= 8, 'More than half of the Fifteen are resolved')]},
 ];
