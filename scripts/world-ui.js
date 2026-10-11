@@ -25,7 +25,7 @@ function rMissions(){
   let body = '';
   if(mTab==='letters') body = rLetters(); else if(mTab==='missions') body = rMissionList();
   else if(mTab==='quests') body = rQuestsActive(); else if(mTab==='ways') body = rWays(); else body = rBountyList();
-  return `<h2>Missions & Contracts</h2>${comm}${salaryPanel}${sallyBtn}${typeof rJadeDecisions==='function' ? rJadeDecisions() : ''}<div class="row" style="margin:6px 0">${subs.map(([k,l])=>`<button class="${mTab===k?'pri':''}" onclick="mTab='${k}';openLetter=null;render()">${l}</button>`).join('')}</div>${flashHtml()}${body}`;
+  return `<h2>Missions & Contracts</h2>${typeof weddingBanner==='function' ? weddingBanner() : ''}${comm}${salaryPanel}${sallyBtn}${typeof rJadeDecisions==='function' ? rJadeDecisions() : ''}<div class="row" style="margin:6px 0">${subs.map(([k,l])=>`<button class="${mTab===k?'pri':''}" onclick="mTab='${k}';openLetter=null;render()">${l}</button>`).join('')}</div>${flashHtml()}${body}`;
 }
 function rLetters(){
   if(openLetter){
