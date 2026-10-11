@@ -599,3 +599,10 @@ Request (author): emulate Whiteout Survival's survivors: residents who come and 
 
 ## Portrait windows around the wedding (cache v88)
 Author: the wedding portraits should last the 14-day celebration and then everyone returns to their default portraits. Built: **Evelyne**: Eve Gray (disguise) until the reveal (ch222); the new pre-wedding princess portrait (`assets/party/evelyne_pre.webp`) from the reveal until the wedding (ch234); a wedding portrait (`evelyne_wed.webp`, not drawn yet, switch `PORTRAIT_VARIANTS.evelyne_wed`) during the 14 days; then her default princess portrait (`evelyne.webp`). **Adrian**: default (`adrian.webp`, green and gold) until the wedding; the red dragon robes (`adrian_wed.webp`) only during the 14 days; then default again (the married-official look `adrian_official.webp` stays reserved for later). Assumption to confirm: the new image is the pre-wedding portrait and `evelyne.webp` (from the first pair) is her default.
+
+## Chapters 226–230 (v89)
+
+- Ch226 image replaced with the corrected upload. Ch227 The Dragonvale Accord, 228 The Price of Silence (both Dragonvale), 229 A Question of Marriage, 230 The King's Blessing (both capital).
+- **Diplomatic Investigation** (from ch228, in Evelyne's Palace tab): six Accord sections, each an official line against a confidential letter; judge "protective" or "politically motivated". No penalty for a wrong call; XP and court reputation once per section; all six sets `accord_compared`. The two categories are the author's; the six example sections are first-pass wording by us and need the author's real decisions.
+- **Engagement milestone**: ch229 sets `adrian_evelyne_engaged`; a Chronicle line, a toast and an "Engaged to Adrian Gold" panel. Fixed story, no choice.
+- Mismatches to confirm: Jade's recovered childhood memories at 230 (linked to Devon's herbal tonics); only Jade and Devon go to Dragonvale in 227; Adrian shown in navy-gold in 229.
