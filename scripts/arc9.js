@@ -50,6 +50,8 @@ Object.assign(USE, {
 const WEDDING_DROPS = [['firecracker',34],['party_popper',28],['red_packet',20],['double_happiness_sweets',12],['door_gift',6]];
 function weddingThemeActive(){ return !!G && !!G.flags && !!G.flags.evelyne_wed && G.weddingDay !== undefined && G.day - G.weddingDay <= WEDDING_THEME_DAYS; }
 function weddingSync(){
+  if(G && G.ch >= 211 && !(G.arcSeen && G.arcSeen[9]) && typeof showArc==='function') setTimeout(() => showArc(9), 500);   // the Arc IX cover, also for saves already past ch210
+  if(G && G.flags && G.flags.arc9_complete && !G.arc9Logged){ G.arc9Logged = true; chronicle('Arc IX ends: Adrian and Evelyne are married, Tribute and Dragonvale begin restoring cooperation, and the alliance reaches further than anyone knew.', '🏯'); save(); }
   if(G && G.flags && G.flags.adrian_evelyne_engaged && !G.engagedLogged){ G.engagedLogged = true; chronicle('Adrian Gold and Princess Evelyne became engaged. The king gave his blessing soon after.', '💍'); toast('💍 Adrian and Evelyne are engaged.'); save(); }
   if(!G || !G.flags || !G.flags.evelyne_wed || G.weddingDay !== undefined) return;
   G.weddingDay = G.day; chronicle('The royal wedding: Adrian Gold and Princess Evelyne. The streets are red with lanterns and paper.', '🧧'); toast('🧧 The wedding season has begun: firecrackers, party poppers and red packets are about.'); save(); setTimeout(showWedding, 600);
@@ -97,6 +99,7 @@ const EVE_REPORTS = [
   {ch:224, n:'Her announcement', t:'Princess Evelyne asked to serve through diplomacy, administration and the alliance with neighbouring kingdoms. No official objected in the hall; several were heard afterwards.'},
   {ch:226, n:'The match', t:'Some courtiers doubt a scholar suits a princess, citing alliance, stability and protection. The king supports her. Expect the matter to be raised again.'},
   {ch:227, n:'Neighbouring courts', t:'The North Kingdom, the Western Isles, the Southern Ports and the Eastern Coast all appear on the investigation\'s map of related incidents. Their courts have been told nothing yet.', show:() => !!G.flags.name_is_framework},
+  {ch:233, n:'Restored channels', t:'The court has been told that Tribute will reopen research channels with Dragonvale. Reaction is cautious: some houses welcome it, a few ask what the old records might cost them.'},
   {ch:200, n:'The fall of a house', t:'Marroway House is in turmoil after its master\'s arrest. Several families are quietly reassessing their ties to it.', show:() => !!G.flags.marroway_fallen},
 ];
 const EVE_INQUIRIES = [
@@ -156,3 +159,66 @@ function rEvelyne(){
 }
 deed('eve_reveal', 'story', 'A princess in disguise', '👑', 'Eve Gray was revealed as Princess Evelyne Greyson.', () => !!G.flags.evelyne_revealed);
 deed('eve_inq4', 'world', 'Four courts', '🏛️', 'Evelyne sounded out all four neighbouring courts.', () => (G.eveInq && G.eveInq.n >= 4));
+
+/* =====================================================================
+   ANCIENT ALLIANCE INVESTIGATION BOARD (Imperial Network tab "Alliance"): a read-only extension of the journal. It gathers what Jade has already found in the field
+   under five headings: historical documents, missing seals, map fragments, witness testimonies, diplomatic correspondence. No new state.
+   ===================================================================== */
+const allianceOpen = () => !!G && G.ch >= 211;
+const ALLIANCE_BOARD = [
+  {n:'Historical documents', icon:'📜', items:[['The Dragonvale Accord','dragonvale_accord_found'],['Sealed records opened','sealed_records_opened'],['Concealed for two reasons','records_two_reasons'],['Alliance records divided','alliance_divided_records']]},
+  {n:'Missing seals', icon:'🔏', items:[['The old route seal','old_route_seal_found'],['The diplomatic seal','diplomatic_seal_removed']]},
+  {n:'Map fragments', icon:'🧭', items:null},
+  {n:'Witness testimonies', icon:'🗣️', items:[['The nameless witness','nameless_witness_met'],['The last witness of the Accord','last_witness_found']]},
+  {n:'Diplomatic correspondence', icon:'✉️', items:[['Letters kept','letters_kept'],['Accord against the letters','accord_compared'],['Neighbouring courts sounded out',null]]},
+];
+function allianceCounts(){
+  return ALLIANCE_BOARD.map(c => {
+    if(!c.items) return {c, have:typeof routeCount==='function' ? routeCount() : 0, total:typeof ROUTE_FRAGMENTS!=='undefined' ? ROUTE_FRAGMENTS.length : 6, rows:[]};
+    const rows = c.items.map(([n, f]) => [n, f ? !!G.flags[f] : !!(G.eveInq && G.eveInq.n >= 4)]);
+    return {c, have:rows.filter(r => r[1]).length, total:rows.length, rows};
+  });
+}
+function rAlliance(){
+  const cs = allianceCounts(), have = cs.reduce((a, x) => a + x.have, 0), total = cs.reduce((a, x) => a + x.total, 0);
+  const status = G.flags.cooperation_begun ? 'Tribute and Dragonvale have begun restoring historical cooperation.' : G.flags.alliance_history_pieced ? 'The alliance\'s history is partly reconstructed.' : 'Gathering evidence.';
+  return `<div class="panel"><b>ANCIENT ALLIANCE INVESTIGATION BOARD</b><div class="sm">${have} / ${total} pieces gathered. ${status}${G.flags.impossible_entry_open ? ' One Register entry stays impossible: its systems may still be active.' : ''}${G.flags.wider_network_hinted ? ' New records point beyond Tribute and Dragonvale.' : ''}</div></div>`
+   + cs.map(x => `<h4>${x.c.icon} ${x.c.n} <span class="sm">(${x.have}/${x.total})</span></h4>` + (x.rows.length ? x.rows.map(r => `<div class="li">${r[1] ? '✅' : '❔'} ${r[1] ? r[0] : '???'}</div>`).join('') : `<div class="sm">${x.have} of ${x.total} found. See Old Routes.</div>`)).join('');
+}
+/* =====================================================================
+   ADRIAN, ROYAL SCHOLAR (Imperial Network tab "Adrian", from ch221 once he is home at the palace). Adrian keeps the research; Evelyne (tab "Evelyne") keeps the courts. After the wedding both
+   stay separately available. Review the Register's findings (free), research an ancient document or identify an inconsistency (one of them every 3 days). State: G.adrRes = {last, n}. First-pass wording.
+   ===================================================================== */
+const adrianPalaceOpen = () => !!G && !!G.flags && !!G.flags.adrian_home && G.ch >= 221;
+const ADR_DOCS = [
+  'Adrian copies the scribe\'s testimony in a fair hand and notes where its dates leave a gap.',
+  'Adrian cross-reads the Accord against the old route ledgers. The three safeguards appear in both, worded differently.',
+  'Adrian reads the diplomatic seals under glass: three kingdoms used the same carved compass rose.',
+  'Adrian dates a torn section of the Accord by its paper: later than the rest.',
+];
+const ADR_FINDINGS = [
+  'A treaty clause cites an envoy who, by the Register\'s own dates, was not yet born.',
+  'Two kingdoms\' archives describe the same meeting in the same words, but name different hosts.',
+  'The Register entry that does not fit is written in the ink the Accord used, not the ink its neighbours used.',
+  'A tariff table was re-ruled by a later hand to hide the route that matched the old checkpoint.',
+];
+const adrRes = () => { if(!G.adrRes) G.adrRes = {last:-99, n:0}; return G.adrRes; };
+const adrReady = () => G.day - adrRes().last >= 3;
+function adrianResearch(kind){
+  if(!adrianPalaceOpen() || !adrReady()) return [];
+  const A = adrRes(); A.last = G.day; A.n++;
+  const list = kind === 'doc' ? ADR_DOCS : ADR_FINDINGS, msgs = [(kind === 'doc' ? '📜 ' : '🔎 ')+list[A.n % list.length]];
+  gainXp(60 + avgPartyLv()*6, G.party).forEach(m => msgs.push(m));
+  if(typeof repAdd==='function') repAdd('court', 1).forEach(m => msgs.push(m));
+  if(A.n === 6) chronicle('Adrian has catalogued six documents and inconsistencies for the Register.', '📜');
+  save(); return msgs.concat(advanceDay(1));
+}
+function rAdrian(){
+  const A = adrRes(), ready = adrReady(), n = typeof evilsResolved==='function' ? evilsResolved() : 0;
+  return `<div class="panel"><div class="row" style="align-items:center;gap:10px;flex-wrap:nowrap"><img src="${portrait('adrian')}" alt="Adrian Gold" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)"><div><b>ADRIAN GOLD</b><div class="sm">Royal Scholar · the Register, ancient documents, historical inconsistencies</div></div></div>
+   <div class="sm" style="margin-top:6px">Adrian keeps the research; Evelyne keeps the courts. Marriage does not merge their work.</div></div>
+   <h4>Register findings</h4><div class="li"><b>🗂️ ${n} / 15 resolved</b><div class="sm">${G.flags.impossible_entry_open ? 'One entry beyond the Fifteen remains impossible: a meeting that never happened.' : 'The Register is kept up to date from the field.'}</div></div>
+   <h4>Research <span class="sm">(one every 3 days · ${A.n} done)</span></h4>
+   <div class="row" style="flex-wrap:wrap;margin:6px 0"><button ${ready?'':'disabled'} onclick="act(adrianResearch,'doc')">Research an ancient document</button><button ${ready?'':'disabled'} onclick="act(adrianResearch,'gap')">Identify an inconsistency</button></div>`;
+}
+deed('adr_six', 'world', 'The scholar at work', '📜', 'Adrian catalogued six documents and inconsistencies.', () => (G.adrRes && G.adrRes.n >= 6));

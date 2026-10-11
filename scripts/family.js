@@ -48,7 +48,23 @@ function lioTick(){
   }
   return msgs;
 }
+/* Royal tribute from Dragonvale (from the return to Tribute, ch87): every ~18 days a caravan reaches the party in a settlement with Dragonvale tonics for the Princess of Tribute.
+   State: G.trib = {next, n}. First-pass wording. */
+const TRIBUTE_NOTES = [
+  'Princess Jade. The Royal Healing Pavilion prepared these for the Princess of Tribute, as is the custom after her marriage. One each morning, and rest when you can. — Jenika',
+  'The tribute of the season, with the king\'s compliments. The tonics are brewed from Dragonvale herbs that do not grow in Tribute. — Devon\'s steward',
+  'Dragonvale remembers its princess. Please take these and do not give them all away. — Jenika',
+];
+function tributeTick(){
+  if(!G.flags || !G.flags.liora_apart) return [];
+  if(!G.trib) G.trib = {next:G.day + 10, n:0};
+  if(G.day < G.trib.next || !isSettlement(G.loc)) return [];
+  const body = TRIBUTE_NOTES[G.trib.n % TRIBUTE_NOTES.length]; G.trib.n++; G.trib.next = G.day + 18;
+  G.letters.unshift({id:'F_trib_'+G.day, fam:true, from:'Dragonvale Court', subj:'Royal tribute from Dragonvale', body, gift:{items:[{id:'dragonvale_tonic', qty:2}]}, day:G.day, read:false});
+  const m = '🍵 A tribute caravan arrives from Dragonvale: tonics for the Princess of Tribute.'; toast(m); return [m];
+}
 function famTick(){
+  tributeTick();
   lioTick();
   if(!G.flags.liora_apart) return [];
   if(!G.fam) G.fam = {since:G.day, sent:[], next:G.day + 6, queue:0};
