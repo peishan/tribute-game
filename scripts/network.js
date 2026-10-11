@@ -76,6 +76,9 @@ const REPORTS = [
   {ch:216, loc:'The old checkpoint', threat:'A major alliance route between Tribute and Dragonvale, dismantled and missing from maps.', status:'Investigating.'},
   {ch:217, loc:'The royal archives', threat:'Sealed records show history rewritten after the Dima–Xima crisis.', status:'Investigating.'},
   {ch:220, loc:'The royal archives', threat:'Letters show the alliance divided its records on purpose to hide dangerous knowledge.', status:'Investigating.'},
+  {ch:222, loc:'The Imperial Palace', threat:'Princess Evelyne Greyson, the king\'s younger sister, was revealed: she had travelled as Eve Gray.', status:'Resolved.'},
+  {ch:224, loc:'The Imperial Palace', threat:'Evelyne will serve as a government official. Greyson supports her.', status:'Resolved.'},
+  {ch:226, loc:'The Imperial Palace', threat:'Some courtiers doubt the match between Evelyne and Adrian; the king supports it.', status:'Investigating.'},
   {ch:99, loc:'Tribute Roads', threat:'Bandits are returning to the coast road now the armies are home.', status:'Contracts posted.'},
 ];
 /* ---- Requests (optional; use the contract system, with trust rewards) ---- */
@@ -178,7 +181,8 @@ function decide(id, i){
 const adrianAway = () => typeof adrianWith==='function' && adrianWith();   // travelling with the party: not at the Palace
 function contacts(){
   const c = [adrianAway() ? {n:'Adrian Gold', role:'travelling with the party: unavailable', locked:true} : {n:'Adrian Gold', role:'Imperial Advisor'}, {n:'Tribute Intelligence', role:'Reports and archives'}];
-  if(G.flags.evelyne_returned || G.flags.contact_evelyne) c.push({n:'Princess Evelyne Greyson', role:'Royal Diplomatic Liaison'});   // selectable at the Palace only after her return to Tribute
+  if(G.flags.evelyne_returned || G.flags.contact_evelyne) c.push({n:'Princess Evelyne Greyson', role:'Royal Court Official: political intelligence and diplomacy'});   // selectable at the Palace once she announces her official role (ch224)
+  else if(G.flags.evelyne_revealed) c.push({n:'Princess Evelyne Greyson', role:'her Palace role opens after her announcement', locked:true});
   else if(G.ch >= 217 && G.flags.eve_ally && !G.flags.eve_left) c.push({n:'Eve Gray', role:'visiting scholar, met at the Palace during investigations'});
   else c.push({n:'???', role:'Locked', locked:true});
   return c;
