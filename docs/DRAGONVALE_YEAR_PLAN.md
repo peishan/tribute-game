@@ -621,3 +621,11 @@ Author: the wedding portraits should last the 14-day celebration and then everyo
 - Mismatches to confirm: Eve is out of the party flags at 234 (`eve_left`) though she is present at the wedding; the setting of 232 (Dragonvale archive vs ruins) is inferred; the 231 timing of "Dima–Xima crisis" is not stated; 234/235 portraits are generic.
 
 - Portraits (v93): Adrian's official portrait (green-and-gold court robes, assets/npc/adrian_official.webp) is his portrait once Arc IX closes (flag `adrian_official`, set at ch235) and the 14-day wedding window has ended; Evelyne's wedding portrait (assets/party/evelyne_wed.webp, cropped from the pair of portraits) shows only during the 14-day window. Both variants are now on. Evelyne's wedding portrait is the red-and-gold princess one.
+
+## Decisions taken on open items (v94)
+
+- `eve_left` at ch234 stays: it only ends Evelyne's travelling-guest status (party and contacts); she is still at the wedding and keeps her Palace tab.
+- Ch232 stays set in Dragonvale (the archive from 231); the page shows no new location.
+- The Dima–Xima crisis is left undated; no timing is invented. Add it when the author states one.
+- Adrian's official portrait stays his permanent look after the wedding window, from ch235.
+- Royal tribute tonics, tonic numbers and the tribute cadence (~18 days, 2 tonics) stay as first-pass values.
