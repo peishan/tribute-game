@@ -9,12 +9,14 @@
 const USE = {
   herbal_tonic:{hp:70},
   moon_tonic:{hp:220},
+  dragonvale_tonic:{hp:300, mp:40, cleanse:true},
   purify_elixir:{hp:30, cleanse:true},
   spirit_potion:{mp:60},
   dragon_remedy:{hp:9999, mp:9999, cleanse:true},
 };
 Object.assign(ITEMS, {
   moon_tonic:{n:'Moon Healing Tonic',icon:'🌙',type:'consumable',rarity:'uncommon'},
+  dragonvale_tonic:{n:'Dragonvale Tonic',icon:'🍵',type:'consumable',rarity:'rare'},
   purify_elixir:{n:'Purification Elixir',icon:'🧪',type:'consumable',rarity:'uncommon'},
   spirit_potion:{n:'Spirit Restoration Potion',icon:'🔷',type:'consumable',rarity:'uncommon'},
   dragon_remedy:{n:'Dragon Blood Remedy',icon:'🐉',type:'consumable',rarity:'epic'},

@@ -18,6 +18,7 @@ const ARCS = [
   {n:6, title:'The Fifteen Evils', img:'assets/arcs/arc6.webp', after:146},
   {n:7, title:'The Sunken Crown', img:'assets/arcs/arc7.webp', after:166, cast:'assets/arcs/arc7_cast.webp', castCh:185},   // begins with ch167 (The Message from Dragonvale)   // begins with ch147; the tagline on the cover: "A name is not the same as the truth"
   {n:8, title:'The Impossible Entry', img:'assets/arcs/arc8.webp', after:185},   // begins with ch186
+  {n:9, title:'The Forgotten Alliance', img:'assets/arcs/arc9.webp', after:210},   // ch211-235
 ];
 const ARC_ROMAN = ['','I','II','III','IV','V','VI','VII','VIII','IX'];
 // Arc IX, "The Forgotten Alliance" (the author's canon title): begins with ch211 and ends with ch235 (the royal wedding is ch234); add {n:9, title:'The Forgotten Alliance', img:'assets/arcs/arc9.webp', after:210} once the splash art exists.

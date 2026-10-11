@@ -608,3 +608,14 @@ Author: the wedding portraits should last the 14-day celebration and then everyo
 - Mismatches to confirm: Jade's "I can actually remember you now" at 230 is the author's slip: the childhood drowning cost her some memories but never Adrian, so in-game text says her childhood details are clearing with Devon's Arc II tonics; only Jade and Devon go to Dragonvale in 227; Adrian shown in navy-gold in 229.
 
 - Memory canon (author): Jade's drowning is the transmigration (original Jade died, the 21st-century newcomer took her place). Both were children, so the memories merged: fuzzy, never lost. Dragonvale tonics given after her marriage, and sometimes sent as royal tribute, help her recover them. At ch230 she says she remembers Adrian better. Transmigration stays out of game text; ch90 "lost many memories" in the comic is read as "blurred". Earlier summary line about Arc II tonics is superseded by this.
+
+## Chapters 231–235 and Arc IX close (v92)
+
+- Arc IX cover added (assets/arcs/arc9.webp, "The Forgotten Alliance", 211–235). Shown after ch210, and once for any save already past ch210.
+- 231 The Last Witness of the Accord, 232 What the Kingdoms Forgot (both Dragonvale); 233 The Forgotten Alliance, 234 The Wedding Beneath the Blossoms, 235 Two Hearts, One Kingdom (all Tribute). Chapters 234 and 235 are placeholder-quality art per the author, to be replaced.
+- **Ancient Alliance Investigation Board** (Network, "Alliance" tab, from ch211): read-only; gathers documents, missing seals, map fragments (Old Routes), witness testimonies and diplomatic correspondence from existing flags. No new state.
+- **Palace**: Adrian "Royal Scholar" tab (from ch221, once home): review the Register's findings, research a document or identify an inconsistency (one every 3 days). Evelyne's tab is unchanged. Both stay available after the wedding; their work is not merged.
+- Guest allies: unchanged (Adrian and Evelyne are chapter-controlled guests; the Imperial Guard escort is not a recruit).
+- Final outcomes at 235: married; Evelyne public; both palace roles; alliance history partly reconstructed; Tribute and Dragonvale restoring cooperation; the impossible Register entry unresolved (Register stays 5/15); the mystery beyond the Fifteen continues into Arc X (flag `wider_network_hinted`).
+- **Royal tribute**: from the return to Tribute (ch87), a caravan with 2 Dragonvale Tonics reaches the party in a settlement about every 18 days. Dragonvale Tonic heals 300 HP, 40 MP and cleanses. First-pass wording and numbers.
+- Mismatches to confirm: Eve is out of the party flags at 234 (`eve_left`) though she is present at the wedding; the setting of 232 (Dragonvale archive vs ruins) is inferred; the 231 timing of "Dima–Xima crisis" is not stated; 234/235 portraits are generic.

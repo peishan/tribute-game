@@ -82,6 +82,10 @@ const REPORTS = [
   {ch:227, loc:'Dragonvale royal archives', threat:'The Dragonvale Accord found: safeguards against misuse of the preservation systems, partly destroyed later.', status:'Investigating.'},
   {ch:228, loc:'Dragonvale royal archives', threat:'Records were concealed both to prevent misuse and to protect powerful families.', status:'Investigating.'},
   {ch:230, loc:'The Imperial Palace', threat:'King Greyson blessed Adrian and Evelyne\'s marriage.', status:'Resolved.'},
+  {ch:231, loc:'Dragonvale ruins', threat:'A scribe\'s testimony: the alliance ended in many decisions, not one betrayal.', status:'Investigating.'},
+  {ch:232, loc:'Dragonvale archive', threat:'The alliance\'s history partly reconstructed: a real danger, then fear and ambition.', status:'Investigating.'},
+  {ch:233, loc:'The Imperial Palace', threat:'Tribute and Dragonvale to restore historical cooperation. The impossible Register entry remains unresolved.', status:'Watching.'},
+  {ch:235, loc:'The Imperial Palace', threat:'New records suggest the alliance\'s surviving mechanisms reach other kingdoms.', status:'Investigating.'},
   {ch:99, loc:'Tribute Roads', threat:'Bandits are returning to the coast road now the armies are home.', status:'Contracts posted.'},
 ];
 /* ---- Requests (optional; use the contract system, with trust rewards) ---- */
