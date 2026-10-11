@@ -57,7 +57,7 @@ CHARACTERS.greyson = {
   ], evo:{tiers:[]}, bond:null };
 ROYAL_GUESTS.forEach(id => { ROSTER.push(id); XP_CLASS[id] = 'support'; GUEST_RULES[id] = {flag:['evelyne_wed','special_mission_on'], sync:true, note:CHARACTERS[id].n+' joins the party for this special mission only.'}; });
 // Adrian and Eve are also temporary guests of the Arc VIII and IX investigations (see arc9.js): they travel with the party while the story says so
-GUEST_RULES.adrian.alt = () => typeof adrianWith==='function' && adrianWith();
+GUEST_RULES.adrian.alt = () => typeof adrianGuest==='function' && adrianGuest();
 GUEST_RULES.adrian.note = 'Adrian Gold travels with the party for the investigation (a scholar: his defence is better than his offence). He is a guest, never a permanent member.';
 GUEST_RULES.evelyne.alt = () => typeof eveWith==='function' && eveWith();
 GUEST_RULES.evelyne.note = 'Eve Gray travels with the party as an ally of the investigation (a guest, not a party member).';
