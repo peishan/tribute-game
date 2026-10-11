@@ -82,3 +82,46 @@ function weddingBanner(){
   const left = Math.max(0, WEDDING_THEME_DAYS - (G.day - G.weddingDay));
   return `<div class="panel" style="border-color:#c0392b"><b>🧧 The Royal Wedding Celebrations</b><div class="sm">The whole kingdom celebrates: ${left} day${left===1?'':'s'} left. Enemies drop firecrackers, party poppers, red packets and wedding door gifts.</div><button onclick="showWedding()">View the wedding</button></div>`;
 }
+
+/* =====================================================================
+   EVELYNE'S PALACE ROLE (from ch224, after she announces she will serve Tribute as a government official)
+   Imperial Network tab "Evelyne": POLITICAL INTELLIGENCE, DIPLOMATIC INVESTIGATIONS and CONFIDENTIAL REPORTS. Adrian keeps the historical research and the Register; the two
+   responsibilities stay separate. Her combat abilities and personality do not change because her identity is public.
+   A diplomatic inquiry (once every 3 in-game days) asks one of four neighbouring courts for its view: a little XP, court reputation, and a finding. State: G.eveInq = {last, n}.
+   First-pass wording.
+   ===================================================================== */
+const evelynePalaceOpen = () => !!G && !!G.flags && !!G.flags.evelyne_returned;
+const EVE_REPORTS = [
+  {ch:222, n:'The court after the reveal', t:'Officials from several departments watched the princess enter. Most were surprised, a few were not. The king\'s support was visible to everyone.'},
+  {ch:224, n:'Her announcement', t:'Princess Evelyne asked to serve through diplomacy, administration and the alliance with neighbouring kingdoms. No official objected in the hall; several were heard afterwards.'},
+  {ch:226, n:'The match', t:'Some courtiers doubt a scholar suits a princess, citing alliance, stability and protection. The king supports her. Expect the matter to be raised again.'},
+  {ch:227, n:'Neighbouring courts', t:'The North Kingdom, the Western Isles, the Southern Ports and the Eastern Coast all appear on the investigation\'s map of related incidents. Their courts have been told nothing yet.', show:() => !!G.flags.name_is_framework},
+  {ch:200, n:'The fall of a house', t:'Marroway House is in turmoil after its master\'s arrest. Several families are quietly reassessing their ties to it.', show:() => !!G.flags.marroway_fallen},
+];
+const EVE_INQUIRIES = [
+  ['North Kingdom','Its court is polite and silent about records older than three generations.'],
+  ['Western Isles','The harbour guilds remember an alliance road, but not who closed it.'],
+  ['Southern Ports','A customs clerk keeps a ledger that does not match the official tariff tables.'],
+  ['Eastern Coast','A minister admits a route was "reclassified" in his grandfather\'s time, and will say no more in public.'],
+];
+const eveInq = () => { if(!G.eveInq) G.eveInq = {last:-99, n:0}; return G.eveInq; };
+const eveInqReady = () => G.day - eveInq().last >= 3;
+function eveInquire(i){
+  if(!evelynePalaceOpen() || !eveInqReady()) return [];
+  const E = eveInq(), q = EVE_INQUIRIES[i % EVE_INQUIRIES.length]; E.last = G.day; E.n++;
+  const msgs = ['🏛️ Evelyne sounds out the '+q[0]+': '+q[1]]; gainXp(60 + avgPartyLv()*6, G.party).forEach(m => msgs.push(m));
+  if(typeof repAdd==='function') repAdd('court', 2).forEach(m => msgs.push(m));
+  if(E.n === 4) chronicle('Evelyne has sounded out the four neighbouring courts on the Register\'s behalf.', '🏛️');
+  save(); return msgs.concat(advanceDay(1));
+}
+function rEvelyne(){
+  const reps = EVE_REPORTS.filter(r => G.ch >= r.ch && (!r.show || r.show()));
+  const E = eveInq(), ready = eveInqReady();
+  return `<div class="panel"><div class="row" style="align-items:center;gap:10px;flex-wrap:nowrap"><img src="${portrait('evelyne')}" alt="Princess Evelyne" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)"><div><b>PRINCESS EVELYNE GREYSON</b><div class="sm">Royal Court Official · political intelligence, diplomatic investigations, confidential reports</div></div></div>
+   <div class="sm" style="margin-top:6px">Adrian keeps the historical research and the Register; Evelyne keeps the courts. Their responsibilities are separate.</div></div>
+   <h4>Diplomatic investigations</h4><div class="sm">Ask a neighbouring court for its view (once every 3 days). ${E.n} made.</div>
+   <div class="row" style="flex-wrap:wrap;margin:6px 0">${EVE_INQUIRIES.map((q, i) => `<button ${ready?'':'disabled'} onclick="act(eveInquire,${i})">${q[0]}</button>`).join('')}</div>
+   <h4>Confidential reports</h4>${reps.map(r => `<div class="li"><b>🔒 ${r.n}</b><div class="sm">${r.t}</div></div>`).join('') || '<div class="sm">None yet.</div>'}`;
+}
+deed('eve_reveal', 'story', 'A princess in disguise', '👑', 'Eve Gray was revealed as Princess Evelyne Greyson.', () => !!G.flags.evelyne_revealed);
+deed('eve_inq4', 'world', 'Four courts', '🏛️', 'Evelyne sounded out all four neighbouring courts.', () => (G.eveInq && G.eveInq.n >= 4));
