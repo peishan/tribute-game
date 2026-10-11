@@ -79,6 +79,9 @@ const REPORTS = [
   {ch:222, loc:'The Imperial Palace', threat:'Princess Evelyne Greyson, the king\'s younger sister, was revealed: she had travelled as Eve Gray.', status:'Resolved.'},
   {ch:224, loc:'The Imperial Palace', threat:'Evelyne will serve as a government official. Greyson supports her.', status:'Resolved.'},
   {ch:226, loc:'The Imperial Palace', threat:'Some courtiers doubt the match between Evelyne and Adrian; the king supports it.', status:'Investigating.'},
+  {ch:227, loc:'Dragonvale royal archives', threat:'The Dragonvale Accord found: safeguards against misuse of the preservation systems, partly destroyed later.', status:'Investigating.'},
+  {ch:228, loc:'Dragonvale royal archives', threat:'Records were concealed both to prevent misuse and to protect powerful families.', status:'Investigating.'},
+  {ch:230, loc:'The Imperial Palace', threat:'King Greyson blessed Adrian and Evelyne\'s marriage.', status:'Resolved.'},
   {ch:99, loc:'Tribute Roads', threat:'Bandits are returning to the coast road now the armies are home.', status:'Contracts posted.'},
 ];
 /* ---- Requests (optional; use the contract system, with trust rewards) ---- */

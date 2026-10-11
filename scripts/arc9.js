@@ -50,6 +50,7 @@ Object.assign(USE, {
 const WEDDING_DROPS = [['firecracker',34],['party_popper',28],['red_packet',20],['double_happiness_sweets',12],['door_gift',6]];
 function weddingThemeActive(){ return !!G && !!G.flags && !!G.flags.evelyne_wed && G.weddingDay !== undefined && G.day - G.weddingDay <= WEDDING_THEME_DAYS; }
 function weddingSync(){
+  if(G && G.flags && G.flags.adrian_evelyne_engaged && !G.engagedLogged){ G.engagedLogged = true; chronicle('Adrian Gold and Princess Evelyne became engaged. The king gave his blessing soon after.', '💍'); toast('💍 Adrian and Evelyne are engaged.'); save(); }
   if(!G || !G.flags || !G.flags.evelyne_wed || G.weddingDay !== undefined) return;
   G.weddingDay = G.day; chronicle('The royal wedding: Adrian Gold and Princess Evelyne. The streets are red with lanterns and paper.', '🧧'); toast('🧧 The wedding season has begun: firecrackers, party poppers and red packets are about.'); save(); setTimeout(showWedding, 600);
 }
@@ -114,6 +115,34 @@ function eveInquire(i){
   if(E.n === 4) chronicle('Evelyne has sounded out the four neighbouring courts on the Register\'s behalf.', '🏛️');
   save(); return msgs.concat(advanceDay(1));
 }
+/* ---- DIPLOMATIC INVESTIGATION (from ch228): official agreements against confidential correspondence. Was each old decision protective, or politically motivated?
+   No penalty for a wrong call: the player may re-judge. Each section is rewarded once; all six judged correctly sets accord_compared. State: G.accord = {id: choice}. First-pass section wording. */
+const ACCORD_SECTIONS = [
+  {id:'a1', n:'Closing the northern pass', official:'The pass was closed "for the safety of travellers".', letter:'A private letter names a sealed chamber beyond the pass and asks that no one be allowed near it.', ans:'protective'},
+  {id:'a2', n:'Relocating the river tolls', official:'Toll rights moved to the royal treasury "to simplify collection".', letter:'A minister writes that two noble houses will lose a great deal, and that the king must not hear of it from them.', ans:'political'},
+  {id:'a3', n:'Sealing the old archive', official:'The archive was closed to the public after "water damage".', letter:'Its keeper warns that the records contain methods of the old curse and that copying them would be reckless.', ans:'protective'},
+  {id:'a4', n:'Renaming the Hidden Isle charts', official:'The charts were reissued under a "standard naming convention".', letter:'A court secretary notes that the new names strike a family\'s claim from every map.', ans:'political'},
+  {id:'a5', n:'Moving the witnesses', official:'Three witnesses were "relocated for administrative reasons".', letter:'A guard captain writes that each had been threatened, and that their new homes are known only to him.', ans:'protective'},
+  {id:'a6', n:'Amending the alliance terms', official:'A clause on shared custody of the record was removed "by mutual consent".', letter:'One signatory admits he agreed only after a favour was promised to his house.', ans:'political'},
+];
+const accordOpen = () => !!G && !!G.flags && !!G.flags.records_two_reasons && evelynePalaceOpen();
+const accordState = () => { if(!G.accord) G.accord = {}; return G.accord; };
+function accordJudge(id, choice){
+  if(!accordOpen()) return [];
+  const sec = ACCORD_SECTIONS.find(x => x.id === id); if(!sec) return [];
+  const A = accordState(), had = A[id] === sec.ans; A[id] = choice;
+  if(choice !== sec.ans) return ['🔎 That does not quite fit the letter. Read it again; you may judge the section a second time.'];
+  const msgs = ['🔎 '+sec.n+': judged '+choice+'.'];
+  if(!had){ gainXp(50 + avgPartyLv()*5, G.party).forEach(m => msgs.push(m)); if(typeof repAdd==='function') repAdd('court', 1).forEach(m => msgs.push(m)); }
+  if(ACCORD_SECTIONS.every(x => A[x.id] === x.ans) && !G.flags.accord_compared){ G.flags.accord_compared = true; chronicle('The Dragonvale Accord was compared against the confidential letters: some decisions protected people, others protected houses.', '📜'); msgs.push('📜 Every section of the Accord has been compared.'); }
+  save(); return msgs;
+}
+function rAccord(){
+  if(!accordOpen()) return '';
+  const A = accordState(), done = ACCORD_SECTIONS.filter(x => A[x.id] === x.ans).length;
+  return `<h4>Protective or political? <span class="sm">(${done}/${ACCORD_SECTIONS.length})</span></h4><div class="sm">Compare each official agreement with its confidential letter. A wrong call costs nothing.</div>`
+   + ACCORD_SECTIONS.map(x => { const ok = A[x.id] === x.ans; return `<div class="li"><b>${ok?'✅':'📜'} ${x.n}</b><div class="sm">Official: ${x.official}</div><div class="sm">Letter: ${x.letter}</div>${ok?'<div class="sm">Judged '+x.ans+'.</div>':`<div class="row"><button onclick="act(accordJudge,'${x.id}','protective')">Protective</button><button onclick="act(accordJudge,'${x.id}','political')">Politically motivated</button></div>`}</div>`; }).join('');
+}
 function rEvelyne(){
   const reps = EVE_REPORTS.filter(r => G.ch >= r.ch && (!r.show || r.show()));
   const E = eveInq(), ready = eveInqReady();
@@ -121,6 +150,8 @@ function rEvelyne(){
    <div class="sm" style="margin-top:6px">Adrian keeps the historical research and the Register; Evelyne keeps the courts. Their responsibilities are separate.</div></div>
    <h4>Diplomatic investigations</h4><div class="sm">Ask a neighbouring court for its view (once every 3 days). ${E.n} made.</div>
    <div class="row" style="flex-wrap:wrap;margin:6px 0">${EVE_INQUIRIES.map((q, i) => `<button ${ready?'':'disabled'} onclick="act(eveInquire,${i})">${q[0]}</button>`).join('')}</div>
+   ${rAccord()}
+   ${G.flags.adrian_evelyne_engaged?`<div class="panel"><b>💍 Engaged to Adrian Gold</b><div class="sm">A fixed story development, not a choice.${G.flags.greyson_blessing?' The king has given his blessing.':''}</div></div>`:''}
    <h4>Confidential reports</h4>${reps.map(r => `<div class="li"><b>🔒 ${r.n}</b><div class="sm">${r.t}</div></div>`).join('') || '<div class="sm">None yet.</div>'}`;
 }
 deed('eve_reveal', 'story', 'A princess in disguise', '👑', 'Eve Gray was revealed as Princess Evelyne Greyson.', () => !!G.flags.evelyne_revealed);
