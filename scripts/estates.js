@@ -51,7 +51,7 @@ function estateUpgrade(id, w){
 function estateClaim(id, w){
   if(baseHere()!==id || !estLv(id, w)) return [];
   const key = 'est_'+id+'_'+w; if(G.bondDay[key] === G.day) return ['Already done here today.'];
-  G.bondDay[key] = G.day; const L = estLv(id, w), t = ESTATES[id].tend[w];
+  G.bondDay[key] = G.day; const L = Math.min(WING_MAX+2, estLv(id, w) + (typeof resWingBonus==='function' ? resWingBonus(id, w) : 0)), t = ESTATES[id].tend[w];
   if(w === 'apothecary'){
     const items = [{id:'forest_herb', qty:1+L}]; if(L >= 4) items.push({id:'moonroot', qty:1}); addItems(items); save();
     return ['🌿 '+t+' has gathered '+items.map(d => ITEMS[d.id].icon+' '+ITEMS[d.id].n+' ×'+d.qty).join(', ')+'.'];
