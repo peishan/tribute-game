@@ -683,3 +683,7 @@ Built: 247 The Banner Before the Crown (Falcon Terrains), 248 The Last Known Rou
 - Hidden Sera/Greyson flags now follow the pages: 244 (reads the letter, Jade notices), 256 `greyson_concern`, 259 `private_report_disaster`. Still provisional: `banquet_disaster` (260), `no_more_matchmaking` and `conversation_without_help` (261).
 - Mismatches (cleaning pass, author: low priority): ch255 draws Sera with dark brown hair and a red outfit in the command panels, golden in the reactions; the page title on 250; ch253's title "What Followed Him Home" (nothing follows him home); "tell the king" on 253 read as Altan's king; Altan's crest and Rheon's hair colour (above); 259's hall is blue-and-gold Altan, but the caption says the palace of Greyson (Tribute) after the cut.
 - Phone reading: comic pages scale to the screen width, so panels are small. The story reader has zoom (Fit, 2x, 2.6x, 3.4x) from v102.
+
+## Notes after v103 (author)
+- No story-reader zoom: the zoom added in v102 was removed (v104). Comic panels are expected to be small on a phone; the author generates on a free plan and does not want to over-polish the art.
+- Prince Rheon's hair: confirmed. A chapter states he had already manifested (white hair); the teenage flashbacks (ch238, ch241) show him before, with brown hair. Not a mismatch.
