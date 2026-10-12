@@ -169,6 +169,7 @@ function rSpot(L, sp){
       body = G.party.length>1 ? `<div class="panel"><div class="sm">Spend an evening together (once per member per day). Bond +5.</div><select onchange="gardenSel=this.value">${opts}</select><button class="pri" onclick="act(doGarden,gardenSel)">Walk together (1 day)</button></div>` : '<div class="panel sm">Jade walks alone for now. Companions will join her here as they are recruited.</div>'; break; }
     case 'tavern':
       body = `<div class="panel"><button onclick="act(chatParty)">🗣️ Listen to the party (once a day)</button>${G.flags.sally_gossip&&G.loc==='dragon_vale'?'<button onclick="act(courtGossip)">🌹 Ask Sally for court gossip (once a day)</button>':''}<button class="pri" onclick="act(restAtInn)">🛏️ Rest (${REST_COST()}g, full recovery, 1 day)</button><button onclick="act(doMeal)">Share a meal (${MEAL_COST()}g)</button><button onclick="toast(rumour());render()">Buy a rumour (${typeof WHISPER_COST==='function'?WHISPER_COST():5}g)</button></div>`; break;
+    case 'place': body = `<div class="panel"><div class="sm">${sp.note||''}</div></div>`; break;
     case 'board': body = rBoard(); break;
     case 'hunt':
       body = `<div class="panel"><div class="sm">Enemies: ${sp.pool.map(k=>ENEMIES[k].icon+' '+ENEMIES[k].n).join(', ')}${sp.elite?' · elite: '+ENEMIES[sp.elite].icon+' '+ENEMIES[sp.elite].n:''}. Scaled to party level (min Lv${sp.lo||1}).</div>
@@ -178,7 +179,7 @@ function rSpot(L, sp){
     case 'investigate': {
       const n = G.clues[sp.id]||0, done = n>=sp.need;
       const found = sp.clues.slice(0,n).map(c=>`<div class="li">🔎 ${c}</div>`).join('');
-      body = `<div class="panel"><div class="sm">Clues ${n}/${sp.need}${done?' — investigation complete':''}</div>${found}${done?'':`<button class="pri" onclick="origin='here';investUi('${sp.id}')">Search for clues (1 day)</button>`}</div>`; break; }
+      body = `<div class="panel"><div class="sm">Clues ${n}/${sp.need}${done?' — investigation complete':''}</div>${typeof rolesLine==='function'?rolesLine(sp):''}${found}${done?'':`<button class="pri" onclick="origin='here';investUi('${sp.id}')">Search for clues (1 day)</button>`}</div>`; break; }
     case 'boss': {
       const e = ENEMIES[sp.boss], beaten = G.flags['boss_'+sp.boss];
       body = `<div class="panel"><b>${e.icon} ${e.n}</b> <span class="sm">${beaten?'· defeated (replayable)':''}</span><div class="sm">${e.desc}</div><button class="pri" onclick="origin='here';doBoss('${sp.id}');tab='battle';render()">${beaten?'Challenge again':'Challenge'}</button>${echoOk(sp)?`<button onclick="origin='here';doEcho('${sp.id}');tab='battle';render()">🔁 Meet its echo (+${ECHO_LEVELS} levels${echoes()[sp.boss]?', ×'+echoes()[sp.boss]:''})</button>`:''}</div>`; break; }
