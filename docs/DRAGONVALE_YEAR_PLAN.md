@@ -638,3 +638,8 @@ Author: the wedding portraits should last the 14-day celebration and then everyo
 - New King Greyson portrait (assets/npc/greyson.webp): black-and-gold dragon robes, crown, no blue-and-fur.
 - Mismatches to confirm: ch235 shows an unnamed cat with the couple (not built); Jade's findings come "from her visions and research" (visions are not otherwise built into the alliance research); in ch234 Jade's gown in the group panel looks cream; "beyond this island" in ch235 (Tribute is the island in this text).
 - Ch186 still needs a regenerated page: only the three record cards change, from "Year 412, 7th Moon" to "Year 712, 3rd Month, 14th Day". Everything else on the page stays.
+
+## Chapter 186 regenerated (v98)
+
+- Ch186 page replaced: the three record cards now read "Year 712, 3rd Month, 14th Day". Adrian stays in navy-and-gold on this page. Author: navy/black/blue is his secondary outfit, worn on missions and when he has no court to attend; green-and-gold scholar robes are his court look. Not a mismatch.
+- Still pending: Arc IX cover replacement (the author is regenerating it; swap assets/arcs/arc9.webp), the Arc VI and Arc VII map images, and a new Greyson-style check of any page that shows him in the old fur robes. No Arc IX cast sheet: the arc introduces only Eve.
