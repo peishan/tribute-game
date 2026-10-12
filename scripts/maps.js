@@ -37,11 +37,14 @@ const WORLD_MAPS = [
    nodes:[{k:'Celestial Ruins',x:57.7,y:10,loc:'celestial_ruins'},{k:'Forgotten Battlefield',x:50,y:17,loc:'forgotten_battlefield'},{k:'Sanctuary of Forgotten Light',x:69,y:38.7,loc:'forgotten_sanctuary'},
           {k:'The Land Beyond the Seal',x:91,y:90,loc:'land_beyond_seal'},{k:'Tribute',x:74,y:68,loc:'capital',ref:true},{k:'Dragonvale',x:83,y:25,loc:'dragon_vale',ref:true},{k:'Valen Territory',x:21.4,y:43,loc:'valen_borderlands',ref:true},
           {k:'Black Forest',x:33,y:27.6,loc:'black_forest',ref:true}]},
-  {id:'hunt', n:'The Fifteen Evils', img:'assets/maps/fifteen_evils.webp', open:() => G.ch >= ARC6_MAP_CH, schem:true,   // Arc VI map: picture not generated yet; schematic positions are placeholders
+  {id:'hunt', n:'The Fifteen Evils', img:'assets/maps/fifteen_evils.webp', open:() => G.ch >= ARC6_MAP_CH, schem:true,   // Arc VI picture (titled 'The Fifteen Shadows'): its places do not match the game's Arc VI locations, so Nodes mode stays a schematic
    locs:['northern_frontier','black_forest','forest_of_thorns','mourning_valley','crownless_marches','archive_shrine'],
    nodes:[{k:'Tribute',x:50,y:88,loc:'capital',ref:true},{k:'The Northern Frontier',x:50,y:66,loc:'northern_frontier'},{k:'The Black Forest',x:30,y:46,loc:'black_forest'},{k:'The Forest of Thorns',x:36,y:24,loc:'forest_of_thorns'},{k:'Mourning Valley',x:68,y:28,loc:'mourning_valley'},{k:'The Crownless Marches',x:84,y:12,loc:'crownless_marches'},{k:'The Abandoned Archive-Shrine',x:16,y:70,loc:'archive_shrine'}]},
 ];
-WORLD_MAPS.push({id:'sunken', n:'The Sunken Crown', img:'assets/maps/sunken_crown.webp', open:() => G.ch >= 167, schem:true,   // Arc VII map: picture not generated yet; schematic positions are placeholders
+WORLD_MAPS.push({id:'impossible', n:'The Impossible Entry', img:'assets/maps/impossible_entry.webp', open:() => G.ch >= 186, schem:false,   // Arc VIII cross-kingdom investigation map: the neutral port is not a place you can travel to, so only the three kingdoms are marked
+   locs:[],
+   nodes:[{k:'Tribute',x:84,y:19,loc:'capital',ref:true},{k:'Dragonvale',x:42,y:15,loc:'dragon_vale',ref:true},{k:'The Sunken Kingdom',x:48,y:64,loc:'sunken_kingdom',ref:true},{k:'Valen Territory',x:13,y:28,loc:'valen_borderlands',ref:true}]});
+WORLD_MAPS.push({id:'sunken', n:'The Sunken Crown', img:'assets/maps/sunken_crown.webp', open:() => G.ch >= 167, schem:true,   // Arc VII picture: its sub-places (Hollow Palace, Sleeping Leviathan...) are not in the game, so Nodes mode stays a schematic
    locs:['black_tide_waters','sunken_kingdom'],
    nodes:[{k:'Dragonvale',x:50,y:14,loc:'dragon_vale',ref:true},{k:'The Forbidden Waters',x:50,y:46,loc:'black_tide_waters'},{k:'The Sunken Kingdom',x:50,y:82,loc:'sunken_kingdom'}]});
 const mapFor = locId => (WORLD_MAPS.find(m => m.locs.includes(locId)) || WORLD_MAPS[0]).id;
@@ -83,7 +86,7 @@ function rMaps(){
     const dots = m.nodes.map(n => { const e = ents.find(x => x.loc===n.loc && x.spot===n.spot), i = mapEntryInfo(e);
       return `<button class="mnode ${i.here?'here':''} ${e.key===mapSel?'sel':''} ${i.lock?'lock':''} ${n.ref?'ref':''}" style="left:${n.x}%;top:${n.y}%" onclick="mapSel='${e.key}';render()" aria-label="${n.k}">${i.open?i.icon:'🔒'}</button>${e.key===mapSel?`<span class="mlabel" style="left:${n.x}%;top:${n.y}%">${n.k}</span>`:''}`; }).join('');
     const lines = bad || m.schem ? `<svg class="mlines" viewBox="0 0 100 100" preserveAspectRatio="none">${ROUTES.map(r => { const a = m.nodes.find(n => n.loc===r.a), b = m.nodes.find(n => n.loc===r.b); return a&&b ? `<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}"/>` : ''; }).join('')}</svg>` : '';
-    body = `<div class="mapbox ${bad||m.schem?'schem':''}">${bad||m.schem?'':picture}${lines}${dots}</div>${bad||m.schem?'<div class="sm">The picture for this map is not available yet: showing a schematic of the places and roads.</div>':''}`;
+    body = `<div class="mapbox ${bad||m.schem?'schem':''}">${bad||m.schem?'':picture}${lines}${dots}</div>${bad ? '<div class="sm">The picture for this map is not available yet: showing a schematic of the places and roads.</div>' : m.schem ? '<div class="sm">A schematic of the places you can visit. The map picture (Image view) also shows places the story has not reached.</div>' : ''}`;
   } else {
     body = `<div class="maplist">${ents.map(e => { const i = mapEntryInfo(e);
       return `<div class="card ${i.lock?'lock':''} ${e.key===mapSel?'cur':''}" onclick="mapSel='${e.key}';render()"><span class="big">${i.open?i.icon:'🔒'}</span><div class="fl"><b>${e.label}</b><div class="sm">${e.spot?i.L.n+' · ':''}${i.here?'📍 You are here':i.visited?'Visited':i.open?'Reachable':'Locked'}</div></div></div>`; }).join('')}</div>`;
