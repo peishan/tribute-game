@@ -183,7 +183,7 @@ function rAlliance(){
   const cs = allianceCounts(), have = cs.reduce((a, x) => a + x.have, 0), total = cs.reduce((a, x) => a + x.total, 0);
   const status = G.flags.cooperation_begun ? 'Tribute and Dragonvale have begun restoring historical cooperation.' : G.flags.alliance_history_pieced ? 'The alliance\'s history is partly reconstructed.' : 'Gathering evidence.';
   return `<div class="panel"><b>ANCIENT ALLIANCE INVESTIGATION BOARD</b><div class="sm">${have} / ${total} pieces gathered. ${status}${G.flags.impossible_entry_open ? ' One Register entry stays impossible: its systems may still be active.' : ''}${G.flags.wider_network_hinted ? ' New records point beyond Tribute and Dragonvale.' : ''}</div></div>`
-   + cs.map(x => `<h4>${x.c.icon} ${x.c.n} <span class="sm">(${x.have}/${x.total})</span></h4>` + (x.rows.length ? x.rows.map(r => `<div class="li">${r[1] ? '✅' : '❔'} ${r[1] ? r[0] : '???'}</div>`).join('') : `<div class="sm">${x.have} of ${x.total} found. See Old Routes.</div>`)).join('');
+   + (typeof rAltanClues==='function' ? rAltanClues() : '') + cs.map(x => `<h4>${x.c.icon} ${x.c.n} <span class="sm">(${x.have}/${x.total})</span></h4>` + (x.rows.length ? x.rows.map(r => `<div class="li">${r[1] ? '✅' : '❔'} ${r[1] ? r[0] : '???'}</div>`).join('') : `<div class="sm">${x.have} of ${x.total} found. See Old Routes.</div>`)).join('');
 }
 /* =====================================================================
    ADRIAN, ROYAL SCHOLAR (Imperial Network tab "Adrian", from ch221 once he is home at the palace). Adrian keeps the research; Evelyne (tab "Evelyne") keeps the courts. After the wedding both
