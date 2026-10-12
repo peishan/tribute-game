@@ -643,3 +643,12 @@ Author: the wedding portraits should last the 14-day celebration and then everyo
 
 - Ch186 page replaced: the three record cards now read "Year 712, 3rd Month, 14th Day". Adrian stays in navy-and-gold on this page. Author: navy/black/blue is his secondary outfit, worn on missions and when he has no court to attend; green-and-gold scholar robes are his court look. Not a mismatch.
 - Still pending: Arc IX cover replacement (the author is regenerating it; swap assets/arcs/arc9.webp), the Arc VI and Arc VII map images, and a new Greyson-style check of any page that shows him in the old fur robes. No Arc IX cast sheet: the arc introduces only Eve.
+
+## Arc IX cover replaced; Arc X gameplay framework (v99)
+
+- Arc IX cover replaced with the regenerated art (assets/arcs/arc9.webp). No Arc IX cast sheet (the arc introduces only Eve).
+- **Arc X framework (scripts/altan.js), built before the chapters exist.** Nothing is reachable until chapter 239 is completed.
+  - **Altan Route (ch239):** new region "Altan Kingdom" and map "The Altan Route". From ch239 only the route and border region: Border Garrison (town), Old Military Road and Mountain Pass (field, with hunts). From ch262 the Altan Capital opens permanently: Falcon Palace, Royal Archive, Altan Training Grounds, Altan Market, Royal Gardens, Princess Quarters. The Falcon Palace and Princess Quarters are empty "place" spots until story events are written.
+  - **The Missing Prince (ch241):** "Find the Missing Altan Prince", ten objectives as chained investigation spots across the Border Garrison (3), Old Military Road (3) and Mountain Pass (4). Clue wording and the quest brief are first-pass placeholders: they describe the process only and invent no story. Replace them when the chapters arrive.
+  - **Party investigation roles:** each spot lists role characters (Jade: reconstructs events and contradictions; Sera: Altan geography, customs and protocol; Levi: tracks and patrol routes; Sky: injuries, corruption, spiritual residue; Devon: military decisions and royal security; Rin: scouting). Each role character in the party adds a little XP on a finished clue. Never required, nobody is locked out.
+- Needs: assets/maps/altan.webp (the Altan Route map picture; a schematic fallback is used until then). Route lengths, fares and the capital's road are placeholders.

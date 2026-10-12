@@ -3251,6 +3251,7 @@ function doInvestigate(spotId){
   const found = () => {
     const n = G.clues[spotId] = (G.clues[spotId]||0)+1, msgs = ['🔎 Clue '+n+'/'+sp.need+': '+sp.clues[n-1]];
     if(ins) msgs.push('⚔️ Jade\'s Insight finds a hidden path: no time lost.');
+    const rb = typeof investRoleBonus==='function' && investRoleBonus(spotId); if(rb){ gainXp(rb.xp, G.party).forEach(m => msgs.push(m)); rb.lines.forEach(l => msgs.push('🔍 '+l)); }
     const gb = typeof investigationGuestBonus==='function' && investigationGuestBonus(); if(gb){ gainXp(gb.xp, G.party).forEach(m => msgs.push(m)); msgs.push('🔍 '+gb.who.join(' and ')+' notice what others miss (bonus XP).'); }
     if(sen){ gainXp(300+avgPartyLv()*10, G.party).forEach(m => msgs.push(m)); msgs.push('🔮 Devon reads the magic residue (bonus XP).'); if(typeof corrAdd==='function' && isCorrupted(G.loc)){ corrAdd(G.loc, -5); msgs.push('Corruption −5%.'); } }
     if(n >= sp.need){ G.flags['inv_'+spotId] = true; if(typeof leadAdd==='function') leadAdd(spotId); msgs.push.apply(msgs, grantReward(sp.rw, '🕯️ Investigation complete: '+sp.n));
