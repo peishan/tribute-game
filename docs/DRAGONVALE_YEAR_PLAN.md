@@ -629,3 +629,5 @@ Author: the wedding portraits should last the 14-day celebration and then everyo
 - The Dima–Xima crisis is left undated; no timing is invented. Add it when the author states one.
 - Adrian's official portrait stays his permanent look after the wedding window, from ch235.
 - Royal tribute tonics, tonic numbers and the tribute cadence (~18 days, 2 tonics) stay as first-pass values.
+
+- Portraits (v95): King Greyson (assets/npc/greyson.webp, cropped from the allies sheet) shows on his letters and the Kingdom Status tab. Sally's noble portrait and Jenika's portrait the author re-sent were already in the game (sally_noble.webp, jenika_512.webp); unchanged. Carly has no portrait by design. Seraphina, Ripley and Delilah appear on the same allies sheet and already have their own images or are unused.
