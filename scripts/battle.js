@@ -8,7 +8,7 @@ let B = null;
 function mkAlly(id, persist){
   if(typeof GUEST_RULES!=='undefined' && GUEST_RULES[id] && (GUEST_RULES[id].fromCh!==undefined || GUEST_RULES[id].sync)){ const act = G.active.filter(x => !CHARACTERS[x].placeholder && !isCompanion(x)); U(id).lv = Math.max(1, Math.round(act.reduce((a,x) => a+U(x).lv, 0)/Math.max(1,act.length))); }   // arc guests level with the party
   const s = statsOf(id), c = CHARACTERS[id], hp = persist ? curHp(id) : s.hp, mp = persist ? curMp(id) : s.mp;
-  return { uid:id, id, ally:true, name:c.n, icon:c.icon, img:(c.battleLook && G.flags.sera_shift_known ? portrait(id).replace('.webp','_battle.webp') : portrait(id)), traits:[],
+  return { uid:id, id, ally:true, name:c.n, icon:c.icon, img:(c.battleLook && G.flags.sera_shift_known && !G.flags.sera_awakened ? portrait(id).replace('.webp','_battle.webp') : portrait(id)), traits:[],
     hp:Math.max(hp,1), mhp:s.hp, mp:mp, mmp:s.mp, atk:s.atk, mag:s.mag, def:s.def, spd:s.spd,
     st:{}, bf:[], state:null, used:{}, dead:false, guard:false, critB:passivesOf(id).critB + (typeof trackCritB==='function' ? trackCritB(id) : 0), evaB:passivesOf(id).evaB };
 }
@@ -58,9 +58,11 @@ function startBattle(spec){
   const allyIds = (spec.allies || G.active.concat(G.party.filter(isCompanion), presentGuests().filter(id => !G.active.includes(id)))).filter(id => !isDisabled(id));
   B = { allies:allyIds.map(id => mkAlly(id, !!spec.rewards)), foes:spec.foes.map((f,i)=>mkFoeUnit(f.key,f.lv,i)), queue:[], cur:null, log:[], over:null,
         round:0, ui:{mode:'menu'}, spec, rewards:null };
+  if(spec.rescue){ B.rescue = {rounds:spec.rescue.rounds||6}; }
   scaleForParty();
   if(spec.rewards && typeof corrAt==='function' && corrAt(G.loc) > 0){ B.corr = corrAt(G.loc); const m = corrFoeMult(G.loc); B.foes.forEach(f => { f.hp = f.mhp = Math.round(f.mhp*m); f.atk = Math.round(f.atk*m); f.mag = Math.round(f.mag*m); }); blog('☠️ The air is thick with corruption ('+B.corr+'%): foes are stronger and healing is weaker.','sys'); }
   blog('Battle begins!','sys');
+  if(B.rescue) blog('🛡️ Reach the prince before the barrier collapses: destroy the seal anchors, and keep Sera on her feet.','sys');
   if(spec.seal) sealInit();
   if(spec.opening) spec.opening();
   if(spec.rewards && !spec.skirmish && !B.foes.some(f => f.boss) && typeof banterLines==='function' && Math.random() < .3){ const q = pickBanter('battle'); if(q) q.forEach(l => blog(l.replace('💬 ',''),'sys')); else if(Math.random()<.5) blog(AR(BATTLE_QUIPS),'sys'); }
@@ -74,6 +76,7 @@ function buildQueue(){
 }
 function checkEnd(){
   if(!alive(B.foes).length){ B.over='win'; finishWin(); return true; }
+  if(B.rescue){ const sr = B.allies.find(a => a.id==='seraphina'); if(sr && sr.dead){ B.over='lose'; blog('Sera has fallen: the party falls back from the barrier.','bad'); persistBattle(); save(); return true; } }
   if(!alive(B.allies).length){ B.over='lose'; blog('The party has fallen...','bad'); persistBattle(); save(); return true; }
   return false;
 }
@@ -81,7 +84,7 @@ function advance(){
   let guard = 400;
   while(guard-- > 0){
     if(checkEnd()) return;
-    if(!B.queue.length){ B.round++; buildQueue(); blog('— Round '+B.round+' —','sys'); if(B.seal) sealRound(); }
+    if(!B.queue.length){ B.round++; buildQueue(); blog('— Round '+B.round+' —','sys'); if(B.seal) sealRound(); if(B.rescue) rescueRound(); if(B.over==='lose') return; }
     const u = B.queue.shift(); if(u.dead) continue;
     B.cur = u;
     // start of turn
@@ -96,7 +99,7 @@ function advance(){
 }
 function endTurn(u){
   ['burn','slow','bind','charm','silence','crit'].forEach(k => { if(u.st[k] && --u.st[k].d <= 0) delete u.st[k]; });
-  ['shield','regen','oath'].forEach(k => { if(u.st[k] && --u.st[k].d <= 0) delete u.st[k]; });
+  ['shield','regen','oath','cover'].forEach(k => { if(u.st[k] && --u.st[k].d <= 0) delete u.st[k]; });
   u.bf = u.bf.filter(b => --b.d > 0);
   if(u.state && --u.state.d <= 0){ blog(u.name+'\'s '+(u.state.id==='awakened'?'Awakening':'Manifestation')+' fades.'); u.state = null; }
   u.guard = false;
@@ -119,6 +122,14 @@ function sealRound(){
   else if(S.hp>=30 && S.collapsed){ S.collapsed = false; blog('The seal holds again.','good'); }
   if(S.collapsed) alive(B.allies).forEach(a => { const d = Math.max(1, Math.round(a.mhp*.1)); hurt(a, d, true); blog('  '+a.name+' is scorched by the collapse: '+d+'.','bad'); });
   else blog('🔰 Seal '+S.hp+'%','sys');
+}
+/* ---------- Rescue encounter (Arc X, the Hidden Mountain Passage): reach the prince before the barrier collapses ----------
+   spec.rescue = {rounds}. The barrier gives the party that many rounds, plus 2 for every seal anchor destroyed. Seraphina must stay on her feet. */
+function rescueRound(){
+  const R = B.rescue; if(!R) return;
+  const down = B.foes.filter(f => f.key==='seal_anchor' && f.dead).length, left = R.rounds + 2*down - (B.round - 1);
+  if(left < 0){ B.over = 'lose'; blog('💥 The barrier collapses before the prince can be reached. The party falls back.','bad'); persistBattle(); save(); return; }
+  blog('🛡️ The barrier holds for '+left+' more round'+(left===1?'':'s')+(down?' ('+down+' anchor'+(down===1?'':'s')+' destroyed)':'')+'.','sys');
 }
 function sealHit(n){ if(B && B.seal){ B.seal.hp = Math.max(0, B.seal.hp - n); } }
 function checkPhase(t){
@@ -171,6 +182,8 @@ function applyFx(src, tgt, fx){
     case 'buff': tgt.bf.push({stat:fx.stat,m:fx.m,d:(fx.d||3)+1}); blog('  '+tgt.name+' '+fx.stat.toUpperCase()+(fx.m>=1?' up':' down')+'.'); break;
     case 'shield': tgt.st.shield = {v:Math.round(tgt.mhp*fx.v), d:(fx.d||3)+1}; blog('  '+tgt.name+' gains a barrier.'); break;
     case 'mp': { const m = Math.min(tgt.mmp - tgt.mp, Math.round(tgt.mmp*(fx.v||.15))); tgt.mp += m; if(m>0) blog('  '+tgt.name+' regains '+m+' MP.','good'); break; }
+    case 'cover': tgt.st.cover = {d:(fx.d||2)+1}; blog('  '+tgt.name+' will take the next blow meant for an ally.','good'); break;
+    case 'awaken': tgt.img = (tgt.img||'').replace('_battle.webp','.webp').replace('.webp','_battle.webp'); tgt.st.awake = {d:99}; blog('  '+tgt.name+'\'s hair turns white: the Falcon Banner is raised.','good'); break;
     case 'oath': tgt.st.oath = {d:(fx.d||3)+1}; blog('  '+tgt.name+' swears to stand between the party and harm: foes will target '+tgt.name+' and are struck back.','good'); break;
     case 'regen': tgt.st.regen = {v:fx.v, d:(fx.d||3)+1}; break;
     case 'crit': tgt.st.crit = {d:(fx.d||2)+1}; blog('  '+tgt.name+' sees the openings (crits).'); break;
@@ -289,6 +302,8 @@ function foeAct(f){
   let t = (oathBearer && !bossIgnores) ? oathBearer : AR(targets);   // Protective Oath draws attacks
   // Protective Bonds (small, passive): Jade steps in for a wounded Adrian
   if(t.id==='adrian' && t.hp/t.mhp < .4 && !oathBearer){ const j = targets.find(x => x.id==='jade' && !x.dead); if(j && Math.random() < .35){ blog('  Jade steps in front of Adrian!','good'); t = j; } }
+  const cov = !oathBearer && targets.find(a => a.st.cover && !a.dead && a !== t);
+  if(cov){ blog('  '+cov.name+' steps in front of '+t.name+'!','good'); delete cov.st.cover; t = cov; }
   const dealt = strike(f, t, s);
   if(dealt>0){
     if(mv.steal && f.stolen!==true){ const g = Math.min(G.gold, 8); if(B.spec.rewards){ G.gold -= g; } f.stolen = true; blog('  '+f.name+' lifts '+g+' gold!','bad'); }

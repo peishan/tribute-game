@@ -3257,6 +3257,7 @@ function doInvestigate(spotId){
     if(n >= sp.need){ G.flags['inv_'+spotId] = true; if(typeof leadAdd==='function') leadAdd(spotId); msgs.push.apply(msgs, grantReward(sp.rw, '🕯️ Investigation complete: '+sp.n));
       if(typeof regardAdd==='function'){ const rm = regardAdd(G.loc, 10); if(rm) msgs.push(rm); chronicle('Investigation complete: '+sp.n+'.', '🕯️'); }
       MISSIONS.forEach(m => { if(mState(m.id)==='active' && m.obj.type==='investigate' && m.obj.spot===spotId) msgs.push.apply(msgs, completeMission(m.id)); });
+      if(typeof altanSync==='function') msgs.push.apply(msgs, altanSync());
       msgs.push.apply(msgs, checkSteps()); }
     msgs.push.apply(msgs, advanceDay(ins ? 0 : 1)); save(); return msgs;
   };

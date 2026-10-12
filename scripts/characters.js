@@ -199,7 +199,9 @@ const CHARACTERS = {
    {id:'sabre_rush',n:'Sabre Rush',icon:'🦅',mp:4,kind:'phys',tgt:'foe',pow:1.6,req:{lvl:1},desc:'A fast opening cut.'},
    {id:'steppe_sweep',n:'Steppe Sweep',icon:'🌪️',mp:7,kind:'phys',tgt:'foes',pow:1.15,req:{lvl:4},desc:'A wide sweep across the field.'},
    {id:'falcon_dive',n:'Falcon Dive',icon:'🪽',mp:6,kind:'phys',tgt:'foe',pow:2.2,req:{lvl:8},desc:'A diving strike with great momentum.'},
-   {id:'falcon_banner',n:'Falcon Banner',icon:'🚩',mp:10,kind:'support',tgt:'allies',fx:[{k:'buff',stat:'atk',m:1.25,d:3},{k:'buff',stat:'spd',m:1.1,d:3}],req:{lvl:12},sig:true,desc:'SIGNATURE. ATK +25% and SPD +10% for the whole party for 3 turns.'},
+   {id:'falcon_banner',n:'Falcon Banner',icon:'🚩',mp:10,kind:'support',tgt:'allies',fx:[{k:'buff',stat:'atk',m:1.25,d:3},{k:'buff',stat:'spd',m:1.1,d:3}],req:{lvl:12},sig:true,hideFlag:'sera_awakened',desc:'SIGNATURE. ATK +25% and SPD +10% for the whole party for 3 turns.'},
+   {id:'falcon_banner_awakened',n:'Falcon Banner: Awakened',icon:'🚩',mp:10,kind:'support',tgt:'allies',fx:[{k:'buff',stat:'atk',m:1.25,d:5},{k:'buff',stat:'spd',m:1.1,d:5},{k:'awaken',self:true}],req:{lvl:12,flag:'sera_awakened'},sig:true,desc:'SIGNATURE (awakened). ATK +25% and SPD +10% for the whole party for 5 turns, and Sera\'s hair turns white for the rest of the battle. Her attack is also 10% higher once awakened.'},
+   {id:'falcon_descent',n:'Falcon Descent',icon:'🪽',mp:16,kind:'phys',tgt:'foe',pow:3.4,fx:[{k:'awaken',self:true}],req:{lvl:12,flag:'sera_awakened'},desc:'FINISHER (awakened). A crushing dive from above: her hair turns white for the rest of the battle.'},
    {id:'disciplined_stance',n:'Disciplined Stance',icon:'🧘',mp:5,kind:'support',tgt:'self',fx:[{k:'buff',stat:'def',m:1.4,d:3},{k:'buff',stat:'atk',m:1.2,d:3}],req:{lvl:6},desc:'Steadies her footing: DEF and ATK up.'},
   ],
   evo:{ tiers:[
