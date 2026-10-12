@@ -34,7 +34,7 @@ function rLetters(){
       return `<button onclick="openLetter=null;render()">◀ Letters</button><div class="panel letter"><div class="sm">✉️ Messenger from Dragonvale · Day ${L.day}</div><h3>${L.subj}</h3><div style="margin:8px 0;font-style:italic">From ${L.from}</div><div>${L.body}</div>${L.gift?(L.claimed?'<div class="sm" style="margin-top:8px">🎁 Gift claimed</div>':`<button class="pri" style="margin-top:8px" onclick="act(claimFamGift,'${L.id}')">🎁 Open the enclosed gift (${rwText2(L.gift)})</button>`):''}</div>`; }
     const m = missionById(L.mid), st = mState(m.id);
     L.read = true;
-    return `<button onclick="openLetter=null;render()">◀ Letters</button><div class="panel letter"><div class="sm">${hasBracelet()?'📿 Bracelet message':'🕊️ Pigeon letter'} · Day ${L.day}</div><h3>${L.subj}</h3><div style="margin:8px 0;font-style:italic">From King Greyson</div><div>${L.body}</div>
+    return `<button onclick="openLetter=null;render()">◀ Letters</button><div class="panel letter"><div class="sm">${hasBracelet()?'📿 Bracelet message':'🕊️ Pigeon letter'} · Day ${L.day}</div><h3>${L.subj}</h3><div class="row" style="align-items:center;gap:8px;flex-wrap:nowrap;margin:8px 0"><img src="assets/npc/greyson.webp" alt="King Greyson" style="width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)"><i>From King Greyson</i></div><div>${L.body}</div>
       <h4>Mission: ${m.title}</h4><div class="sm">${objText(m)} · Reward: ${rwText(m.rw)}</div>
       ${st==='offered'?`<button class="pri" onclick="act(acceptMission,'${m.id}')">Accept mission</button>`:`<div class="sm">${st==='active'?'In progress':'✔ Done'}</div>`}</div>`;
   }
