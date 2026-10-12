@@ -631,3 +631,10 @@ Author: the wedding portraits should last the 14-day celebration and then everyo
 - Royal tribute tonics, tonic numbers and the tribute cadence (~18 days, 2 tonics) stay as first-pass values.
 
 - Portraits (v95): King Greyson (assets/npc/greyson.webp, cropped from the allies sheet) shows on his letters and the Kingdom Status tab. Sally's noble portrait and Jenika's portrait the author re-sent were already in the game (sally_noble.webp, jenika_512.webp); unchanged. Carly has no portrait by design. Seraphina, Ripley and Delilah appear on the same allies sheet and already have their own images or are unused.
+
+## Regenerated 234 and 235, new Greyson portrait (v97)
+
+- Ch234 and ch235 are replaced by the regenerated pages (the first quicker versions are gone). The dialogue changed, so the design text, spot clues, lore and report for both were rewritten from the new pages. Notable differences: Adrian and Evelyne's vows are now "I choose you. Not for duty, but because I want you." / "I choose you too, Adrian..."; Greyson gives the blessing in the ceremony; ch235 shows the couple sharing a home with separate duties, and Jade reporting to Greyson ("We will need to investigate further").
+- New King Greyson portrait (assets/npc/greyson.webp): black-and-gold dragon robes, crown, no blue-and-fur.
+- Mismatches to confirm: ch235 shows an unnamed cat with the couple (not built); Jade's findings come "from her visions and research" (visions are not otherwise built into the alliance research); in ch234 Jade's gown in the group panel looks cream; "beyond this island" in ch235 (Tribute is the island in this text).
+- Ch186 still needs a regenerated page: only the three record cards change, from "Year 412, 7th Moon" to "Year 712, 3rd Month, 14th Day". Everything else on the page stays.
