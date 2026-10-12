@@ -5,6 +5,18 @@
    Opens automatically the first time a chapter is opened; always available via "Read story".
    ===================================================================== */
 let S = null;   // {n, i, mode:'read'|'result', msgs}
+/* Zoom: on a phone a whole comic page fitted to the screen is tiny. The page can be zoomed (the body then scrolls both ways); the level is remembered. */
+const STORY_ZOOMS = [1, 2, 2.6, 3.4], STORY_ZOOM_KEY = 'tribute_story_zoom';
+let storyZoom = (() => { try{ const v = parseFloat(localStorage.getItem(STORY_ZOOM_KEY)); if(STORY_ZOOMS.includes(v)) return v; }catch(e){} return (typeof window!=='undefined' && window.innerWidth < 600) ? 2 : 1; })();
+function storySetZoom(z){
+  storyZoom = z; try{ localStorage.setItem(STORY_ZOOM_KEY, String(z)); }catch(e){}
+  const b = document.querySelector('#story .story-body'), pg = document.querySelector('#story .story-page');
+  const cx = b ? (b.scrollLeft + b.clientWidth/2) / Math.max(1, b.scrollWidth) : .5, cy = b ? (b.scrollTop + b.clientHeight/2) / Math.max(1, b.scrollHeight) : 0;
+  if(pg){ pg.style.setProperty('--z', z); pg.classList.toggle('z', z > 1); }
+  if(b){ b.scrollLeft = cx*b.scrollWidth - b.clientWidth/2; b.scrollTop = cy*b.scrollHeight - b.clientHeight/2; }
+  document.querySelectorAll('#story .story-zoom button').forEach(x => x.classList.toggle('pri', parseFloat(x.dataset.z) === z));
+}
+const storyZoomBar = () => `<div class="story-zoom"><span class="sm">🔍</span>${STORY_ZOOMS.map(z => `<button data-z="${z}" class="${z===storyZoom?'pri':''}" onclick="storySetZoom(${z})">${z===1?'Fit':z+'×'}</button>`).join('')}</div>`;
 const storyEl = () => document.getElementById('story');
 
 function openStory(n){
@@ -33,8 +45,8 @@ function drawStory(){
     <div class="story-top-r">${S.mode==='read'?`<span class="story-count">${Math.min(S.i+1,total)} / ${total}</span>`:''}<button class="story-x" onclick="closeStory()" aria-label="Close">✕</button></div></div>`;
   let body = '', bar = '';
   if(S.mode==='read' && S.i < total){
-    body = `<div class="story-page"><img src="assets/comics/${c.art[S.i]}.webp" alt="${c.title}, page ${S.i+1}"></div>`;
-    bar = `<button ${S.i?'':'disabled'} onclick="storyGo(-1)">◀ Back</button><button class="pri" onclick="storyGo(1)">${S.i===total-1?'Finish':'Next ▶'}</button>`;
+    body = `<div class="story-page ${storyZoom>1?'z':''}" style="--z:${storyZoom}"><img src="assets/comics/${c.art[S.i]}.webp" alt="${c.title}, page ${S.i+1}"></div>`;
+    bar = storyZoomBar()+`<button ${S.i?'':'disabled'} onclick="storyGo(-1)">◀ Back</button><button class="pri" onclick="storyGo(1)">${S.i===total-1?'Finish':'Next ▶'}</button>`;
     const pre = new Image(); if(c.art[S.i+1]) pre.src = 'assets/comics/'+c.art[S.i+1]+'.webp';
   } else if(S.mode==='read'){
     const done = chapterDone(S.n);
@@ -64,7 +76,7 @@ document.addEventListener('keydown', ev => {
 let _tx = null, _ty = null;
 document.addEventListener('touchstart', ev => { if(S && S.mode==='read'){ _tx = ev.touches[0].clientX; _ty = ev.touches[0].clientY; } }, {passive:true});
 document.addEventListener('touchend', ev => {
-  if(!S || _tx===null) return;
+  if(!S || _tx===null || storyZoom > 1) return;   // zoomed in: swiping scrolls the page, use Back / Next
   const dx = ev.changedTouches[0].clientX - _tx, dy = ev.changedTouches[0].clientY - _ty; _tx = _ty = null;
   if(Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy)*1.6) storyGo(dx < 0 ? 1 : -1);
 }, {passive:true});
