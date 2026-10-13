@@ -144,17 +144,23 @@ function doRescue(){
 }
 /* ---- 6. The Altan prince, Sera's brother: a temporary guest from ch251 (never recruitable) ---- */
 CHARACTERS.rheon = {
-  n:'Rheon Altan', icon:'🦅', cls:'Falcon Crown Prince', role:'Front-line Vanguard (recruited after Arc X)', combat:'Strong front-line attack, reckless',
+  n:'Rheon Altan', icon:'🦅', cls:'Falcon Crown Prince', role:'Front-line Guardian / Vanguard (recruited after Arc X)', combat:'Holding the line, guarding allies, breaking formations',
   identity:'Prince Rheon of Altan, Seraphina\'s older brother (a year or two older, called the crown prince): brilliant, impulsive, fond of adventure, horses and falcons, and exactly the sort of man she expects to find stranded on a mountain. A guest from chapter 251; he joins the party for good after Arc X (chapter 263).',
-  style:['Vanguard','Cover','Rallying'], strength:'Front-line attack',
-  weapon:'Altan Sabre', signature:'Royal Vanguard', sigDesc:'A strong front-line attack.',
-  base:{hp:100,mp:24,atk:15,mag:5,def:10,spd:11}, grow:{hp:9,mp:1.8,atk:2.1,mag:.4,def:1.1,spd:1},
+  style:['Lance and shield','Cover','Command'], strength:'Holding the line',
+  weapon:'Falcon-Crest Lance', signature:'Royal Vanguard', sigDesc:'A heavy front-line charge.',
+  base:{hp:120,mp:26,atk:14,mag:6,def:13,spd:9}, grow:{hp:10.5,mp:1.9,atk:1.9,mag:.4,def:1.5,spd:.8},   // Sera is the fast duelist; Rheon is the slower, sturdier guardian
   skills:[
-   {id:'royal_vanguard',n:'Royal Vanguard',icon:'⚔️',mp:6,kind:'phys',tgt:'foe',pow:2.1,req:{lvl:1},sig:true,desc:'SIGNATURE. A strong front-line attack.'},
+   {id:'royal_vanguard',n:'Royal Vanguard',icon:'⚔️',mp:6,kind:'phys',tgt:'foe',pow:2.1,req:{lvl:1},sig:true,desc:'SIGNATURE. A heavy front-line charge.'},
    {id:'stand_behind_me',n:'Stand Behind Me',icon:'🛡️',mp:7,kind:'support',tgt:'self',fx:[{k:'cover',d:2}],req:{lvl:1},desc:'Takes the next blow meant for an ally.'},
-   {id:'princes_rally',n:'Prince\'s Rally',icon:'🚩',mp:9,kind:'support',tgt:'allies',fx:[{k:'buff',stat:'atk',m:1.1,d:3},{k:'buff',stat:'spd',m:1.05,d:3}],req:{lvl:1},desc:'A small rise in the party\'s morale: attack and speed up a little.'},
-   {id:'reckless_advance',n:'Reckless Advance',icon:'💢',mp:8,kind:'phys',tgt:'foe',pow:2.7,fx:[{k:'buff',stat:'def',m:.75,d:2,self:true}],req:{lvl:1},desc:'A strong attack that leaves his guard open: his defence drops for two turns.'},
-  ], evo:{tiers:[]}, bond:null };
+   {id:'princes_rally',n:'Prince\'s Rally',icon:'🚩',mp:9,kind:'support',tgt:'allies',fx:[{k:'shield',v:.12,d:3}],req:{lvl:4},desc:'A rallying cry: a small barrier over the whole party (Sera raises attack; Rheon raises the party\'s guard).'},
+   {id:'hold_the_line',n:'Hold the Line',icon:'🏰',mp:8,kind:'support',tgt:'self',fx:[{k:'buff',stat:'def',m:1.35,d:3},{k:'regen',v:.06,d:3}],req:{lvl:6},desc:'He plants himself: DEF up and he recovers a little each turn.'},
+   {id:'formation_breaker',n:'Formation Breaker',icon:'💥',mp:11,kind:'phys',tgt:'foes',pow:1.3,fx:[{k:'buff',stat:'def',m:.85,d:2}],req:{lvl:9},desc:'The Falcon\'s old art: a charge through the whole line that loosens every enemy\'s guard.'},
+   {id:'reckless_advance',n:'Reckless Advance',icon:'💢',mp:8,kind:'phys',tgt:'foe',pow:2.7,fx:[{k:'buff',stat:'def',m:.75,d:2,self:true}],req:{lvl:12},desc:'A strong attack that leaves his guard open: his defence drops for two turns (very like him).'},
+  ], evo:{tiers:[
+   {id:'falcon_bulwark',n:'Falcon Bulwark',tier:1,group:'route',req:{lvl:40},mult:{hp:1.25,def:1.2},desc:'The wall of the royal line: more life and guard, and a shield for all.',skills:[{id:'bulwark_of_altan',n:'Bulwark of Altan',icon:'🏯',mp:14,kind:'support',tgt:'allies',fx:[{k:'shield',v:.2,d:3},{k:'buff',stat:'def',m:1.2,d:3}],desc:'A barrier and a firmer guard for the whole party.'}]},
+   {id:'crown_breaker',n:'Crown Breaker',tier:1,group:'route',req:{lvl:40},mult:{atk:1.25,hp:1.1},desc:'Force and pressure: he breaks what stands in the way.',skills:[{id:'crown_breaker_charge',n:'Crown Breaker Charge',icon:'👑',mp:13,kind:'phys',tgt:'foe',pow:3.2,fx:[{k:'buff',stat:'def',m:.8,d:2}],desc:'A crushing blow that also shatters the target\'s guard.'}]},
+  ]},
+  bond:null };
 ROSTER.push('rheon'); XP_CLASS.rheon = 'fighter'; JOIN_CH.rheon = RHEON_JOIN_CH;
 GUEST_RULES.rheon = {flag:['altan_prince_rescued'], regions:['altan'], fromCh:251, untilCh:RHEON_JOIN_CH, sync:true, note:'Rheon fights beside the party in the Altan Kingdom after chapter 251. He joins the party for good after Arc X (chapter 263).'};
 /* ---- 7. Sera's awakening quest: Legacy of the Golden Falcon (ch245-257). The awakening itself is story: ch257 sets sera_falcon_mastery (Falcon Banner: Awakened, white-hair battle state). ---- */
@@ -664,3 +670,26 @@ function preRecruit(id){
   if(typeof syncAway==='function') syncAway();
   if(G.active.includes('rin') && activeCount() >= slotCap()){ G.active = G.active.filter(x => x !== 'rin'); G.benchedRin = true; }
 }
+
+/* ---- Rheon's battle gear (given when he joins, ch263) and shop pieces. Different from Sera's: she gets speed and a rapier; he gets life, guard and a lance. ---- */
+(function(){
+  const own = [
+   {id:'rheon_falcon_plate', ch:263, n:'Falcon Crown Plate', icon:'🦅', slot:'armor', rarity:'epic', bonus:{hp:85,def:15,atk:3}, look:'Black-and-gold falcon plate with a red cape and a white fur collar.'},
+   {id:'rheon_crest_lance', ch:263, n:'Falcon-Crest Lance', icon:'🔱', slot:'weapon', rarity:'epic', bonus:{atk:13,hp:20,def:2}, look:'A tall lance with a falcon-crest banner and a red tassel.'},
+   {id:'rheon_signet', ch:263, n:'Crown Prince\'s Signet', icon:'💍', slot:'accessory', rarity:'epic', bonus:{def:5,hp:30,atk:2}, look:'A gold falcon signet on a chain.'},
+  ];
+  own.forEach(o => {
+    GEAR[o.id] = {n:o.n, icon:o.icon, slot:o.slot, rarity:o.rarity, bonus:o.bonus, for:['rheon']};
+    ITEMS[o.id] = {n:o.n, icon:o.icon, type:'gear', slot:o.slot, rarity:o.rarity};
+    CH_ITEMS[o.ch] = (CH_ITEMS[o.ch] || []).concat([{id:o.id, qty:1}]);
+    if(!CH_EQUIP[o.ch]) CH_EQUIP[o.ch] = {};
+    CH_EQUIP[o.ch].rheon = (CH_EQUIP[o.ch].rheon || []).concat([o.id]);
+    if(typeof OUTFITS!=='undefined') OUTFITS.push({id:o.id, who:'rheon', ch:o.ch, n:o.n, icon:o.icon, slot:o.slot, rarity:o.rarity, bonus:o.bonus, look:o.look});
+  });
+  Object.assign(GEAR, {
+   altan_lance:{n:'Altan Lance',icon:'🔱',slot:'weapon',rarity:'common',price:100,bonus:{atk:4,hp:6},for:['rheon']},
+   falcon_guard:{n:'Falcon Guard Mail',icon:'🛡️',slot:'armor',rarity:'uncommon',price:150,bonus:{def:6,hp:18},for:['rheon']},
+   falcon_pin:{n:'Falcon Pin',icon:'🪶',slot:'accessory',rarity:'uncommon',price:110,bonus:{def:3,hp:12},for:['rheon']},
+  });
+  ['altan_lance','falcon_guard','falcon_pin'].forEach(k => { const g = GEAR[k]; ITEMS[k] = {n:g.n, icon:g.icon, type:'gear', slot:g.slot, rarity:g.rarity}; if(typeof SHOP!=='undefined' && !SHOP.includes(k)) SHOP.push(k); });
+})();
