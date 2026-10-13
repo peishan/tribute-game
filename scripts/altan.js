@@ -656,3 +656,11 @@ function startBondFor(id){
   const o = G.party.filter(x => x!=='jade' && x!==id && !CHARACTERS[x].placeholder && !isCompanion(x));
   if(o.length) U(id).bp = Math.round(o.reduce((a, x) => a + U(x).bp, 0) / o.length);
 }
+
+/* Arc XI roster (author): Rin is optional (two archers are not needed beside Levi) and Sera stays in Altan. When Rheon joins at ch263 the seat he needs is freed first:
+   Sera's away status is applied, and Rin steps back to the bench if the five seats are full. She can be put back in the party screen at any time. */
+function preRecruit(id){
+  if(id !== 'rheon') return;
+  if(typeof syncAway==='function') syncAway();
+  if(G.active.includes('rin') && activeCount() >= slotCap()){ G.active = G.active.filter(x => x !== 'rin'); G.benchedRin = true; }
+}
