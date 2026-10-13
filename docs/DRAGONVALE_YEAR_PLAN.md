@@ -711,3 +711,12 @@ Built: 247 The Banner Before the Crown (Falcon Terrains), 248 The Last Known Rou
 - Arc XI roster (author): Jade always active; Devon active (central to Mirelle's investigation); Sky healer; Levi archer; Rin ranger/scout; Rheon newly joining; Sera optional (in Altan); Eira optional.
 - Rin (author): optional in Arc XI (two archers are not needed beside Levi). Built: when Rheon joins at ch263, Rin steps back to the bench if the five seats are full; she stays in the party and can be put back at any time. Roster note corrected: Rin optional, not active.
 - Rheon's portrait (v109): the first of the two generated candidates (the softer anime-style one: silver-white hair, grey eyes, red cape with a white fur collar over black-and-gold falcon armour). The comic pages show him in a black-and-white robe, so this is his armoured/state look; the fur collar is close to Devon's. Replace if the author prefers the other candidate.
+
+## Rheon's skills and gear (v110)
+
+Rheon is the Front-line Guardian, a counterpart to Sera, the fast Falcon duelist. All numbers first-pass.
+- **Stats:** HP 120, MP 26, ATK 14, MAG 6, DEF 13, SPD 9 (Sera: HP 90, ATK 16, DEF 9, SPD 12); slower, sturdier.
+- **Skills:** Royal Vanguard (signature: heavy charge), Stand Behind Me (cover an ally; lvl 1), Prince's Rally (party barrier; lvl 4), Hold the Line (DEF up and regeneration; lvl 6), Formation Breaker (hits every foe and lowers their guard; lvl 9), Reckless Advance (big hit, his DEF drops; lvl 12). None repeat Sera's skills (hers: sabre/steppe/falcon moves, Falcon Banner, her evolution routes).
+- **Evolution (lvl 40):** Falcon Bulwark (more life and guard; Bulwark of Altan: barrier and guard for all) or Crown Breaker (more attack; Crown Breaker Charge).
+- **Gear (given when he joins, ch263, and worn at once):** Falcon Crown Plate (armour: HP, DEF), Falcon-Crest Lance (weapon: ATK, HP), Crown Prince's Signet (accessory: DEF, HP). Shop: Altan Lance, Falcon Guard Mail, Falcon Pin (usable by Rheon only). Sera's gear gives speed and attack; his gives life and guard.
+- Not built: a skill tree for Rheon (Sera has none either), and a Falcon white-state for Rheon (the story shows him already manifested).
