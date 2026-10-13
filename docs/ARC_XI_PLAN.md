@@ -1,6 +1,6 @@
 # ARC XI — THE VANISHING OF LADY VEYNE (chapters 263–286)
 
-Author's design document (saved as sent; the message was cut off at the "Art assets required" table, so that section is missing).
+Author's design document (saved as sent; the art table and closing note arrived in a second message and are at the end).
 
 **Theme:** Not everyone who disappears wishes to be found. Not everyone who stays behind has been forgotten.
 **Focus:** Jade Gold, Devon Chadstone, Lady Mirelle Veyne. Secondary: Delilah Dee, Roc Chadwick, Crown Prince Rheon Altan.
@@ -51,3 +51,23 @@ Falcon Vanguard, defensive warrior / battlefield commander, affinity Falcon Warf
 
 ## Delilah (long-term)
 Not a combat character. Student (personal quest) → Apprentice (minor investigation help) → Administrator (supply and travel bonuses) → Recognised Official (diplomatic/administrative benefits) → Lady Delilah Dee (regional support) → Roc's Wife (a narrative milestone, not a gameplay reward).
+
+## Art assets required (author)
+| Asset | Type | Priority |
+|---|---|---|
+| Arc XI: The Vanishing of Lady Veyne | Landscape arc splash | Essential |
+| Rheon Altan | Character portrait | Already generated |
+| Lady Mirelle Veyne | Character portrait | Essential |
+| Delilah Dee, Student | Character portrait | Optional |
+| Dragonvale Noble Court | Location art | Essential |
+| Veyne Estate | Location art | Essential |
+| Northern Military Station | Location art | Essential |
+| Northern Station Captain | Boss art | Essential |
+| Veyne Conspirator's Champion | Boss art | Essential |
+| Mirelle Rescue | Story illustration | Optional |
+| Arc XI Completion | World-map / update visual | Optional |
+
+Most chapters use the usual Read Chapter, Modal, Objective structure; only a few major scenes need illustrations.
+
+## Author's note on the arc
+The favourite part is Delilah's development: she apologises to Jade, studies, contributes something useful, and by the end is not a different person, only someone making better choices (more believable than an immediate promotion or marriage). Arc XI ends with Mirelle rescued, Devon growing into his responsibilities, Delilah beginning her independent career, and Rheon discovering he might want a life beyond Altan's throne. It gives a clean foundation for Arc XII without forcing the Valor bloodline, Damien's romance or the remaining Register mysteries into the same storyline.
