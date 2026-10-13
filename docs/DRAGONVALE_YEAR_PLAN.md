@@ -720,3 +720,13 @@ Rheon is the Front-line Guardian, a counterpart to Sera, the fast Falcon duelist
 - **Evolution (lvl 40):** Falcon Bulwark (more life and guard; Bulwark of Altan: barrier and guard for all) or Crown Breaker (more attack; Crown Breaker Charge).
 - **Gear (given when he joins, ch263, and worn at once):** Falcon Crown Plate (armour: HP, DEF), Falcon-Crest Lance (weapon: ATK, HP), Crown Prince's Signet (accessory: DEF, HP). Shop: Altan Lance, Falcon Guard Mail, Falcon Pin (usable by Rheon only). Sera's gear gives speed and attack; his gives life and guard.
 - Not built: a skill tree for Rheon (Sera has none either), and a Falcon white-state for Rheon (the story shows him already manifested).
+
+## Arc XI begins: chapters 263-270 (v111). Full design: docs/ARC_XI_PLAN.md
+
+Built (scripts/veyne.js, plus chapters/world/core): 263 The Prince Who Wouldn't Stay Put, 264 A Falcon Beyond Altan, 265 The Road to Dragonvale, 266 An Empty Chair, 267 The Lady Who Advised Princes, 268 The Woman in the Library, 269 Words Long Overdue, 270 The Petition of Death. Each: design text, four or five chained spots, a mission (m_s263 ...), lore, flags.
+- **Places:** Dragonvale Noble Court (opens after 265; spots for 266, 267, 270 and a Legal Records Office), Dragonvale Academy (opens after 267; 268-269). New sea routes: Tribute to the Altan Capital, and Altan Capital to Dragonvale. 263-264 are played at the Altan Capital, 265 at Dragonvale.
+- **Companion states:** Rin is temporarily unavailable from 264 (the flag `rin_returned` ends it; the story sets it later). Sera stays in Altan (from 262). Eira stays in the party: the 264 card says she "remains recruitable" while also taking leave, so no change was made.
+- **Mirelle case board** (Network, new "Case" tab from 266): Witnesses, Documents, Locations, Contradictions, Conclusions, filled from the spots already investigated; read-only; the conclusions are fixed. Delilah's Administrative Studies panel in the same tab (Student from 268; Reconciliation Stage I from 269). Delilah's later stages are listed but not built.
+- **Not built yet:** Rheon's combat tutorial and Falcon Interception (ch274) and Royal Guard Formation (ch285); Noble Reputation; Mirelle as an advisory NPC; Regional Companion Assignments beyond Rin being away.
+- **Page notes:** the 264 page was sent twice (one lower-quality copy dropped). 263 shows an unnamed bearded Altan figure reading a decree (not built). 268 shows Delilah visibly pregnant; Roc is bearded. 270's petition dates ("10th Day, 3rd Month" and "16th Day, 3rd Month") are in the in-world calendar, not the day counter. 265's Rheon wears a blue-and-white robe, 266-267 mostly black-and-gold.
+- The author asked to wait on further Rheon balancing until testing.
