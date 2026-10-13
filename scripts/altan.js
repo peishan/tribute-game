@@ -693,3 +693,10 @@ function preRecruit(id){
   });
   ['altan_lance','falcon_guard','falcon_pin'].forEach(k => { const g = GEAR[k]; ITEMS[k] = {n:g.n, icon:g.icon, type:'gear', slot:g.slot, rarity:g.rarity}; if(typeof SHOP!=='undefined' && !SHOP.includes(k)) SHOP.push(k); });
 })();
+LORE.push(
+  {ch:263, n:'Rheon the Envoy', t:'Crown Prince Rheon of Altan travels with Jade as Altan\'s representative. He is not the king, and his succession duties remain unresolved.'},
+  {ch:266, n:'The Empty Chair', t:'Lady Mirelle Veyne disappeared several weeks before the Dragonvale gathering. Her household claims she died travelling in the north; no body was found.'},
+  {ch:267, n:'House Veyne', t:'A noble house of Dragonvale, whose crest is a griffin. Lady Mirelle Veyne, its senior lady, once advised Prince Devon.'},
+  {ch:268, n:'Dragonvale Academy', t:'The academy and its archives teach law and administration. Delilah Dee studies there.'},
+  {ch:270, n:'The Petition of Death', t:'Filed six days after the incident, with two of four witnesses unavailable and a distant relative, Lord Cassian Veyne, to gain temporary control of the house.'}
+);
