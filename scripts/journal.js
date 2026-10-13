@@ -54,6 +54,7 @@ function completeChapter(n){
   G.ch = n; if(!G.chDay) G.chDay = {}; G.chDay[n] = G.day; if(typeof reputeChapterDone==='function') reputeChapterDone(n);   // the day each chapter was completed (time-sensitive events can count from it)
   const c = CHAPTERS[n];
   recruitsAtChapter(n).forEach(id => {
+    if(typeof preRecruit==='function') preRecruit(id);
     if(G.guests[id]){ delete G.guests[id]; if(!G.active.includes(id) && activeCount()<slotCap()) G.active.push(id); msgs.push('★ '+CHARACTERS[id].n+(id==='seraphina'?' asks to join you, and the party welcomes her. She joins for good!':' joins the party permanently!')); }
     else if(recruit(id)){ U(id).lv = Math.max(U(id).lv, avgPartyLv()-1); if(typeof startBondFor==='function') startBondFor(id); msgs.push('★ '+CHARACTERS[id].n+' joins the party!'); }
   });

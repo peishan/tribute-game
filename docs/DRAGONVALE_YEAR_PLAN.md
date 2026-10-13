@@ -709,3 +709,4 @@ Built: 247 The Banner Before the Crown (Falcon Terrains), 248 The Last Known Rou
 - **Sera is optional after Arc X:** from ch262 she stays in Altan: she can be fielded only while the party is in the Altan Kingdom. The flag `sera_rejoined` brings her back everywhere (to be set by the Arc XI story).
 - **Eira:** unchanged. She is already a permanent party member from ch147 (the roster note "optional, available when appropriate" is satisfied by the existing bench).
 - Arc XI roster (author): Jade always active; Devon active (central to Mirelle's investigation); Sky healer; Levi archer; Rin ranger/scout; Rheon newly joining; Sera optional (in Altan); Eira optional.
+- Rin (author): optional in Arc XI (two archers are not needed beside Levi). Built: when Rheon joins at ch263, Rin steps back to the bench if the five seats are full; she stays in the party and can be put back at any time. Roster note corrected: Rin optional, not active.
