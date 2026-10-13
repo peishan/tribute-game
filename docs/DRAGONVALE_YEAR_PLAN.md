@@ -700,3 +700,5 @@ Built: 247 The Banner Before the Crown (Falcon Terrains), 248 The Last Known Rou
 - Remaining open items for the cleaning pass: ch255 (Sera's dark brown hair in the command panels), ch250 title typo "Bamer", ch253 title, unnamed cats (236-237), the unnamed Altan elder, and "heir" vs "crown prince" wording (the 243 page now says only "Crown Prince Rheon" and "Princess Seraphina").
 
 - Ch255 (author checked): Sera is golden-haired in the chapter. The dark-brown-haired, red-robed speaker in the command panels is drawn like Jade (an art slip: Sera's lines on a Jade-looking figure). Not a hair-state mismatch for Sera. Closed for the cleaning pass unless the page is regenerated.
+
+- Altan elder (author): stays unnamed, called "the Altan Elder" / "Elder" in the game (already so in the clues and lore). Open cleaning-pass items now: none beyond optional art regenerations.
