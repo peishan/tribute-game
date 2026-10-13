@@ -55,7 +55,7 @@ function completeChapter(n){
   const c = CHAPTERS[n];
   recruitsAtChapter(n).forEach(id => {
     if(G.guests[id]){ delete G.guests[id]; if(!G.active.includes(id) && activeCount()<slotCap()) G.active.push(id); msgs.push('★ '+CHARACTERS[id].n+(id==='seraphina'?' asks to join you, and the party welcomes her. She joins for good!':' joins the party permanently!')); }
-    else if(recruit(id)){ U(id).lv = Math.max(U(id).lv, avgPartyLv()-1); msgs.push('★ '+CHARACTERS[id].n+' joins the party!'); }
+    else if(recruit(id)){ U(id).lv = Math.max(U(id).lv, avgPartyLv()-1); if(typeof startBondFor==='function') startBondFor(id); msgs.push('★ '+CHARACTERS[id].n+' joins the party!'); }
   });
   Object.keys(GUEST_CH).filter(id => GUEST_CH[id]===n).forEach(id => {
     if(recruit(id)){ G.guests[id] = true; U(id).lv = Math.max(U(id).lv, avgPartyLv()-1); msgs.push('☆ '+CHARACTERS[id].n+' joins as a guest (temporary).'); }
