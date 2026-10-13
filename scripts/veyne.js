@@ -665,3 +665,6 @@ LORE.push(
   {ch:283, n:'Lady Mirelle Veyne', t:'Restored to her name, lands and standing. She looks young, and advises those who seek her counsel.'},
   {ch:286, n:'Arc XI: The Vanishing of Lady Veyne', t:'Mirelle rescued, the conspiracy exposed, Delilah studying, Rheon still travelling with Jade\'s party. Next: Arc XII, New Horizons.'}
 );
+
+/* Revised Arc XI briefs (author): the Mirror of Returning Years sits in the Ancient Relics journal (archive records 'mirror' and 'mirelle_change'); Mirelle's transformation is an unresolved supernatural phenomenon, not reversed; the Mirror does not resolve any entry of the Fifteen Register (the Register count is untouched). */
+LORE.push({ch:286, n:'An Unresolved Phenomenon', t:'Mirelle remains physically young. The effects of the Mirror of Returning Years are not understood, its origins and long-term effects are unknown, and Jade wonders whether it is tied to the ancient magical practices she has met before. The Register is unchanged by it.'});
