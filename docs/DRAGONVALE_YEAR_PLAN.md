@@ -687,3 +687,9 @@ Built: 247 The Banner Before the Crown (Falcon Terrains), 248 The Last Known Rou
 ## Notes after v103 (author)
 - No story-reader zoom: the zoom added in v102 was removed (v104). Comic panels are expected to be small on a phone; the author generates on a free plan and does not want to over-polish the art.
 - Prince Rheon's hair: confirmed. A chapter states he had already manifested (white hair); the teenage flashbacks (ch238, ch241) show him before, with brown hair. Not a mismatch.
+
+## Chapters 236-242 regenerated; chapters 260-262 (v105)
+
+- **Regenerated pages 236-242 checked and replaced.** Sera is golden-haired on every page now (the 236-244 hair mismatch is fixed for 236-242; 243-244 were not resent). Text rewritten where the dialogue changed: 240 (a gold falcon crest on the banners: the crest mismatch is closed; Sera: "It feels good to be back"), 241 (the officials call him "the Crown Prince"; he is not named on this page), 242 (a full report in the throne hall: left seven days ago, last seen at the northern checkpoint, ten royal guards and two scouts, provisions for two weeks and messenger tokens; Crown Prince Rheon is named). 236-239 had only art changes. The unnamed cats remain on 236-237.
+- **260 A Private Report** (matchmaking failure #2: sets `private_report_disaster`), **261 A Dinner for Two** (failure #3: `banquet_disaster`; Jade's record reads Attempts 3, Successful 0), **262 Without Jade's Help** (`no_more_matchmaking`, `conversation_without_help`, the hidden Sera/Greyson state, `altan_open`; the Altan Capital opens). All played from the Capital.
+- Open: the old 243-244 pages still show Sera silver-white; Adrian is "possibly" at the 260 report and is drawn in black-and-gold (his secondary look).
