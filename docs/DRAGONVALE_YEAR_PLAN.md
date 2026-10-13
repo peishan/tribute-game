@@ -702,3 +702,10 @@ Built: 247 The Banner Before the Crown (Falcon Terrains), 248 The Last Known Rou
 - Ch255 (author checked): Sera is golden-haired in the chapter. The dark-brown-haired, red-robed speaker in the command panels is drawn like Jade (an art slip: Sera's lines on a Jade-looking figure). Not a hair-state mismatch for Sera. Closed for the cleaning pass unless the page is regenerated.
 
 - Altan elder (author): stays unnamed, called "the Altan Elder" / "Elder" in the game (already so in the clues and lore). Open cleaning-pass items now: none beyond optional art regenerations.
+
+## Rheon joins; Arc XI roster (v108)
+
+- **Rheon Altan, Falcon Crown Prince** is now a recruit (character id `rheon`, no longer a guest-only): a guest in the Altan Kingdom from ch251, and he joins the party for good when chapter 263 (the start of Arc XI) is completed. Skills as before (Royal Vanguard, Stand Behind Me, Prince's Rally, Reckless Advance). He starts at the party's average bond so he does not lower Jade's party-bond level. Portrait: cropped from the ch255 page (assets/party/rheon.webp); replace when a proper one exists.
+- **Sera is optional after Arc X:** from ch262 she stays in Altan: she can be fielded only while the party is in the Altan Kingdom. The flag `sera_rejoined` brings her back everywhere (to be set by the Arc XI story).
+- **Eira:** unchanged. She is already a permanent party member from ch147 (the roster note "optional, available when appropriate" is satisfied by the existing bench).
+- Arc XI roster (author): Jade always active; Devon active (central to Mirelle's investigation); Sky healer; Levi archer; Rin ranger/scout; Rheon newly joining; Sera optional (in Altan); Eira optional.

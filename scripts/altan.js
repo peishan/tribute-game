@@ -7,7 +7,7 @@
    First-pass: the route lengths, clue wording and the quest brief are placeholders until the Arc X chapters arrive; the Altan map picture (assets/maps/altan.webp) is not generated yet.
    Nothing here can be reached before chapter 239 is completed.
    ===================================================================== */
-const ALTAN_ROUTE_CH = 239, ALTAN_QUEST_CH = 241, ALTAN_OPEN_CH = 262;
+const ALTAN_ROUTE_CH = 239, ALTAN_QUEST_CH = 241, ALTAN_OPEN_CH = 262, RHEON_JOIN_CH = 263;   // Rheon is recruited when chapter 263 (the start of Arc XI) is completed
 REGIONS.altan = {n:'Altan Kingdom', icon:'🦅'};
 const INVEST_ROLES = {
   jade:['Jade', 'reconstructs the sequence of events and spots the contradictions'],
@@ -143,9 +143,9 @@ function doRescue(){
   origin = 'here'; tab = 'battle'; render();
 }
 /* ---- 6. The Altan prince, Sera's brother: a temporary guest from ch251 (never recruitable) ---- */
-CHARACTERS.altan_prince = {
-  n:'Prince Rheon', icon:'🦅', cls:'Altan Prince', role:'Vanguard (temporary guest)', combat:'Strong front-line attack, reckless', guestOnly:true, companion:true, special:true,
-  identity:'Prince Rheon of Altan, Seraphina\'s older brother (a year or two older, called the crown prince): brilliant, impulsive, fond of adventure, horses and falcons, and exactly the sort of man she expects to find stranded on a mountain. A temporary guest, never a recruit.',
+CHARACTERS.rheon = {
+  n:'Rheon Altan', icon:'🦅', cls:'Falcon Crown Prince', role:'Front-line Vanguard (recruited after Arc X)', combat:'Strong front-line attack, reckless',
+  identity:'Prince Rheon of Altan, Seraphina\'s older brother (a year or two older, called the crown prince): brilliant, impulsive, fond of adventure, horses and falcons, and exactly the sort of man she expects to find stranded on a mountain. A guest from chapter 251; he joins the party for good after Arc X (chapter 263).',
   style:['Vanguard','Cover','Rallying'], strength:'Front-line attack',
   weapon:'Altan Sabre', signature:'Royal Vanguard', sigDesc:'A strong front-line attack.',
   base:{hp:100,mp:24,atk:15,mag:5,def:10,spd:11}, grow:{hp:9,mp:1.8,atk:2.1,mag:.4,def:1.1,spd:1},
@@ -155,8 +155,8 @@ CHARACTERS.altan_prince = {
    {id:'princes_rally',n:'Prince\'s Rally',icon:'🚩',mp:9,kind:'support',tgt:'allies',fx:[{k:'buff',stat:'atk',m:1.1,d:3},{k:'buff',stat:'spd',m:1.05,d:3}],req:{lvl:1},desc:'A small rise in the party\'s morale: attack and speed up a little.'},
    {id:'reckless_advance',n:'Reckless Advance',icon:'💢',mp:8,kind:'phys',tgt:'foe',pow:2.7,fx:[{k:'buff',stat:'def',m:.75,d:2,self:true}],req:{lvl:1},desc:'A strong attack that leaves his guard open: his defence drops for two turns.'},
   ], evo:{tiers:[]}, bond:null };
-ROSTER.push('altan_prince'); XP_CLASS.altan_prince = 'fighter';
-GUEST_RULES.altan_prince = {flag:['altan_prince_rescued'], regions:['altan'], fromCh:251, untilCh:262, sync:true, note:'The Altan prince fights beside the party in the Altan Kingdom after chapter 251, until the Altan story ends. He is a guest, never a recruit.'};
+ROSTER.push('rheon'); XP_CLASS.rheon = 'fighter'; JOIN_CH.rheon = RHEON_JOIN_CH;
+GUEST_RULES.rheon = {flag:['altan_prince_rescued'], regions:['altan'], fromCh:251, untilCh:RHEON_JOIN_CH, sync:true, note:'Rheon fights beside the party in the Altan Kingdom after chapter 251. He joins the party for good after Arc X (chapter 263).'};
 /* ---- 7. Sera's awakening quest: Legacy of the Golden Falcon (ch245-257). The awakening itself is story: ch257 sets sera_falcon_mastery (Falcon Banner: Awakened, white-hair battle state). ---- */
 const SERA_Q_CH = 245;
 const seraSpot = (id, n, icon, desc, clues, roles, prev, xp, gold) => altanSpot(id, n, icon, desc, clues, roles, prev, SERA_Q_CH, xp, gold, ['shade_beast','relic_spirit'], 80);
@@ -649,3 +649,10 @@ LORE.push(
   {ch:261, n:'A Dinner for Two', t:'A quiet dinner became a royal banquet. Matchmaking failure #3.'},
   {ch:262, n:'Without Jade\'s Help', t:'Sera and Greyson shared a short, genuine conversation. The Altan Kingdom is now a permanent destination.'},
 );
+
+/* A newcomer (Rheon) starts at the party's average bond, so joining does not drag down Jade's party-bond level (it is the average of the party). */
+function startBondFor(id){
+  if(id!=='rheon') return;
+  const o = G.party.filter(x => x!=='jade' && x!==id && !CHARACTERS[x].placeholder && !isCompanion(x));
+  if(o.length) U(id).bp = Math.round(o.reduce((a, x) => a + U(x).bp, 0) / o.length);
+}
