@@ -746,3 +746,5 @@ Built (scripts/veyne.js, plus chapters/world/core): 263 The Prince Who Wouldn't 
 - Author confirmations (Arc XI): Delilah is Roc's consort and has now taken up studying (the game already calls her "Roc's consort"; the 284 page not showing her pregnant is not a mismatch to chase). The green-haired portrait is Mirelle (confirmed).
 
 - Revised Arc XI briefs 281-286 saved in docs/ARC_XI_PLAN.md. Built (v116): Ancient Relics records 'The Mirror of Returning Years' and 'Mirelle's Transformation' in the Archive, an 'Unresolved Phenomenon' lore entry (286). The generated pages already match the revised briefs, so the chapter texts are unchanged. The Mirror does not touch the Register.
+
+- Ch271 regenerated (v117): Delilah now says the death was reported on the 10th Day of the 3rd Month, matching ch270. Date mismatch closed. Still waiting on regenerated 277 (Rheon's report should go to Dragonvale's authorities, not Greyson), 278 (replace "4th Breavane", suggested "19th Day, 3rd Month") and 266 (griffin crest vs the blue-and-gold fleur-de-lis banner).
