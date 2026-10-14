@@ -202,7 +202,7 @@ const CASE_ITEMS = [
   {cat:'Witnesses', n:'The frightened servants', t:'Some insist she died; others refuse to speak.', spot:'frightened_servants'},
   {cat:'Locations', n:'Northwatch Station (abandoned)', t:'Supplies were redirected here; abandoned for years.', spot:'northwatch_station'},
   {cat:'Locations', n:'The Veyne Estate', t:'Orderly outside, hollow within. Mirelle\'s private study.', spot:'private_study'},
-  {cat:'Contradictions', n:'Deliveries after the reported death', t:'Authorisations run from the 3rd to the 6th Month; the death was reported earlier (the dates on the pages differ: see notes).', spot:'supply_authorisations'},
+  {cat:'Contradictions', n:'Deliveries after the reported death', t:'Authorisations run from the 3rd to the 6th Month; the death was reported on the 10th Day of the 3rd Month, before the first delivery.', spot:'supply_authorisations'},
   {cat:'Contradictions', n:'Loyal staff dismissed within a month', t:'Steward, head of security, accountant and two senior servants, by order of the current household authority.', spot:'dismissed_officials'},
   {cat:'Documents', n:'Land grant letters', t:'Incomplete correspondence about northern military land grants; the final letter is missing.', spot:'land_grant_letters'},
   {cat:'Documents', n:'The torn ledger page', t:'A page removed from Mirelle\'s personal ledger, recently.', spot:'torn_ledger_page'},
@@ -268,7 +268,7 @@ ROUTES.push(
 LOCATIONS.dragon_academy.spots.push(
   {id:'supply_authorisations', kind:'investigate', n:'The Supply Authorisations', icon:'📑', ch:271, need:2, ambush:[], lo:82,
    desc:'Deliveries after her death.',
-   clues:['Delilah: "These are supply authorisations for House Veyne\'s northern estate... There are deliveries recorded even after Lady Mirelle was supposedly dead."', 'Delilah: "Lady Mirelle\'s death was reported in the 10th Day of the 2nd Month. But these authorisations are from the 3rd, 4th, 5th and 6th Months... That does not match."'], rw:{xp:173000, gold:36700}},
+   clues:['Delilah: "These are supply authorisations for House Veyne\'s northern estate... There are deliveries recorded even after Lady Mirelle was supposedly dead."', 'Delilah: "Lady Mirelle\'s death was reported in the 10th Day of the 3rd Month. But these authorisations are from the 3rd, 4th, 5th and 6th Months... That does not match."'], rw:{xp:173000, gold:36700}},
   {id:'delilahs_find', kind:'investigate', n:'Delilah\'s Find', icon:'🎓', ch:271, need:2, ambush:[], lo:82, needFlag:'inv_supply_authorisations', lockMsg:'🔒 Finish the previous clue first',
    desc:'Good catch.',
    clues:['Delilah: "I may have found something strange in the supply records. House Veyne\'s northern estate continued receiving deliveries even after Lady Mirelle was reported dead."', 'Jade: "You noticed this? Good catch, Delilah. This could be important."'], rw:{xp:173300, gold:36760}},
