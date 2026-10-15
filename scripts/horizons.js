@@ -781,11 +781,292 @@ Object.defineProperty(LOCATIONS.sealed_sanctuary, 'desc', {get(){ return G && G.
 Object.defineProperty(LOCATIONS.sealed_sanctuary.spots.find(s => s.id==='sealed_door'), 'note', {get(){ return G && G.ch >= 316 ? 'The great door with the star seal stands open.' : G && G.ch >= 312 ? 'The door answers Jade\'s presence with light. The wards have been reforged, and the way is not yet open.' : 'The door answers Jade\'s presence with light and stays sealed. It will not open yet.'; }, configurable:true, enumerable:true});
 ROUTES.push({a:'capital', b:'old_trade_sea', mode:'ship', n:'The Western Route, from Tribute\'s harbour', days:6, fare:140, risk:.4, pool:['reef_raider','beacon_wraith','storm_wisp']});
 
+/* ---- Arc XIII, second half (chapters 323-336) ---- */
+LOCATIONS.sealed_sanctuary.spots.push(
+  {id:'hz323a', kind:'investigate', n:'A United Lineage', icon:'🌟', ch:323, need:2, ambush:[], lo:90, roles:['jade', 'sky', 'devon'],
+   desc:'Before Dima and Xima.',
+   clues:['Early ancestors sought to understand and work with the world\'s spiritual forces. The lineage was united under them, long before Dima and Xima.', 'Sky: "So the lineage was never just one path from the beginning."'], rw:{xp:236300, gold:49560}},
+  {id:'hz323b', kind:'investigate', n:'The Path of Guidance', icon:'🕊️', ch:323, need:2, ambush:[], lo:90, roles:['jade', 'sky', 'devon'],
+   desc:'Guide and protect.',
+   clues:['One side believed the power should be used to guide, protect and support the natural flow of people and the world: guide, protect, support, heal, work with the natural flow.', 'Over time differing beliefs emerged about the true purpose of this power.'], rw:{xp:236600, gold:49620}, needFlag:'inv_hz323a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz323c', kind:'investigate', n:'The Path of Compulsion', icon:'🦅', ch:323, need:2, ambush:[], lo:90, roles:['jade', 'sky', 'devon'],
+   desc:'Compel and reshape.',
+   clues:['The other side believed the power should be used to compel, reshape and control: to change people, societies and even the flow of fate in order to create a "better" world.', 'Jade: "Both sides believed they were doing what was right..." The two sides listed: compel, reshape, control, change, force a desired outcome.'], rw:{xp:236900, gold:49680}, needFlag:'inv_hz323b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz323d', kind:'investigate', n:'The Rift', icon:'⚡', ch:323, need:2, ambush:[], lo:90, roles:['jade', 'sky', 'devon'],
+   desc:'The lineage splits.',
+   clues:['The disagreement grew into a deep rift. The lineage split, with each side developing its own teachings, rituals and ways of training those with Valor sensitivity.', 'Jade: "It\'s not just Dima and Xima. The difference came much earlier." Sky: "It also means that our abilities might show different aspects of this same inheritance. Mine isn\'t the same as Jade\'s, but it comes from the same bloodline." The first division shaped the lineage; its echoes still influence the people, the regions and the choices Jade and Sky will face.'], rw:{xp:237200, gold:49740}, needFlag:'inv_hz323c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz324a', kind:'investigate', n:'A Branch of Restraint', icon:'🌿', ch:324, need:2, ambush:[], lo:90, roles:['jade', 'sky', 'devon'],
+   desc:'Not conquest.',
+   clues:['The records spoke of Dima, an ancestral inheritor who carried one branch of the bloodline: a line devoted not to conquest, but to restraint, protection, healing, and preservation.', 'Her path was recorded in murals and star charts across the sanctuary, a legacy that had guided generations.'], rw:{xp:237500, gold:49800}},
+  {id:'hz324b', kind:'investigate', n:'Protect, Heal, Preserve', icon:'🛡️', ch:324, need:2, ambush:[], lo:90, roles:['jade', 'sky', 'devon'],
+   desc:'What she did.',
+   clues:['She protected people, standing between them and harm. She healed the wounded, using the bloodline\'s power to ease suffering.', 'She preserved knowledge, safeguarding sacred sites and the wisdom of the world for the future.'], rw:{xp:237800, gold:49860}, needFlag:'inv_hz324a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz324c', kind:'investigate', n:'Holding Back', icon:'🤲', ch:324, need:2, ambush:[], lo:90, roles:['jade', 'sky', 'devon'],
+   desc:'Restraint as strength.',
+   clues:['Jade: "This changes how we understand Dima. Her strength wasn\'t in ruling over others... but in holding back, in protecting what mattered, and in ensuring the world could endure."', 'Sky: "The healing aspect makes sense. The bloodline\'s power is not only meant to change the world, but to keep it alive. Dima\'s path reminds us that restraint can be a greater strength than conquest."'], rw:{xp:238100, gold:49920}, needFlag:'inv_hz324b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz324d', kind:'investigate', n:'A Beacon', icon:'🕯️', ch:324, need:2, ambush:[], lo:90, roles:['jade', 'sky', 'devon'],
+   desc:'Those who came after.',
+   clues:['Dima\'s path became a beacon for those who came after: a reminder that the bloodline was not only a force for change, but also a promise to protect, heal, and preserve.', 'Through her, the world learned that true power includes the wisdom to hold back, the courage to safeguard others, and the care to pass on a brighter future.'], rw:{xp:238400, gold:49980}, needFlag:'inv_hz324c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz325a', kind:'investigate', n:'Another Philosophy', icon:'🔴', ch:325, need:2, ambush:[], lo:90, roles:['jade', 'devon', 'sky'],
+   desc:'Control, not guidance.',
+   clues:['Xima inherited another philosophy and gradually embraced domination, coercion and forbidden control. Xima saw the same bloodline as a tool to reshape the world: not just to guide, but to control.', 'To Xima, power was not something to preserve: it was something to shape, exact and enforce.'], rw:{xp:238700, gold:50040}},
+  {id:'hz325b', kind:'investigate', n:'Forbidden Practices', icon:'🕸️', ch:325, need:2, ambush:[], lo:90, roles:['jade', 'devon', 'sky'],
+   desc:'Compel, influence, bind.',
+   clues:['She explored forbidden practices, seeking ways to compel, influence and bind over people, spirits and even fate itself.', 'Her path attracted followers who believed it could create a "better" world: one without chaos, where people and nations could be directed toward the future she envisioned.'], rw:{xp:239000, gold:50100}, needFlag:'inv_hz325a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz325c', kind:'investigate', n:'Further from the Purpose', icon:'⚠️', ch:325, need:2, ambush:[], lo:90, roles:['jade', 'devon', 'sky'],
+   desc:'More dangerous.',
+   clues:['But the more she embraced control, the further she moved from the original purpose of the bloodline, and the more dangerous her practices became.', 'Her influence spread across different lands, leaving behind sects and traditions that still echo today: some openly, others in secret.'], rw:{xp:239300, gold:50160}, needFlag:'inv_hz325b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz325d', kind:'investigate', n:'A Choice', icon:'⚖️', ch:325, need:2, ambush:[], lo:90, roles:['jade', 'devon', 'sky'],
+   desc:'Light and shadow.',
+   clues:['Sky: "So both paths came from the same bloodline... But Xima took it much further, into control." Jade: "It wasn\'t just different beliefs. It was a choice, and it led to completely different consequences." Devon: "And the traces of her influence still exist now... Which means we need to understand it, not just the past, but how it still affects Tribute today."', 'Xima\'s path reminds the group that the bloodline has always contained both light and shadow, and that the choices of the past continue to shape the world they live in today.'], rw:{xp:239600, gold:50220}, needFlag:'inv_hz325c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz326a', kind:'investigate', n:'Beliefs, Not Blood', icon:'🧬', ch:326, need:2, ambush:[], lo:90, roles:['jade', 'devon', 'levi'],
+   desc:'Not a difference in blood.',
+   clues:['The division between Dima and Xima was a difference in beliefs, goals and methods, not a difference in blood.', 'Sky: "That means... we can\'t identify someone as good or evil just by their bloodline. It depends on what they choose to do with what they inherit."'], rw:{xp:239900, gold:50280}},
+  {id:'hz326b', kind:'investigate', n:'The Same Potential', icon:'⚖️', ch:326, need:2, ambush:[], lo:90, roles:['jade', 'devon', 'levi'],
+   desc:'Two directions.',
+   clues:['The same inherited potential can be drawn toward healing, protection and guidance... or toward domination, coercion and control.', 'Across generations, descendants of the same bloodline have taken different paths, influenced by their upbringing, experiences, mentors and the choices they made.'], rw:{xp:240200, gold:50340}, needFlag:'inv_hz326a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz326c', kind:'investigate', n:'Many Examples', icon:'📜', ch:326, need:2, ambush:[], lo:90, roles:['jade', 'devon', 'levi'],
+   desc:'Healers and sorcerers.',
+   clues:['The records show many examples: healers, protectors and mediators, but also rulers, enforcers and sorcerers who used the same inherited abilities to dominate and reshape others.', 'Devon: "So there is no pure good branch and no corrupt evil branch. The bloodline simply gives potential. It\'s what people do with that potential that matters."'], rw:{xp:240500, gold:50400}, needFlag:'inv_hz326b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz326d', kind:'investigate', n:'A Responsibility', icon:'🌱', ch:326, need:2, ambush:[], lo:90, roles:['jade', 'devon', 'levi'],
+   desc:'Not a destiny.',
+   clues:['A companion: "So the bloodline is a responsibility, not a destiny. It means we all have to be careful with how we use what we inherit."', 'Jade realises that the bloodline is not a label to divide people, but a legacy that can be shaped differently in every generation and in every individual. Understanding this truth helps Jade see her own inheritance more clearly: not as a fixed role, but as a choice, and a responsibility for the future of those who come after.'], rw:{xp:240800, gold:50460}, needFlag:'inv_hz326c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz327a', kind:'investigate', n:'Not All the Same', icon:'🔮', ch:327, need:2, ambush:[], lo:90, roles:['jade', 'sky', 'devon'],
+   desc:'Four kinds, mixed.',
+   clues:['For a long time, Jade thought all her visions meant the same thing. But in the ancient records, she learns there are four different kinds of vision.', 'Each kind of vision has a different source, purpose and level of reliability. Her visions often overlap, making them difficult to interpret.'], rw:{xp:241100, gold:50520}},
+  {id:'hz327b', kind:'investigate', n:'Prophecy and Memory', icon:'⏳', ch:327, need:2, ambush:[], lo:90, roles:['jade', 'sky', 'devon'],
+   desc:'What might be, what was.',
+   clues:['1. Prophecy: glimpses of possible futures. Not fixed destiny, but potential outcomes based on current choices. "Prophecy shows what might be, not what must be."', '2. Memory: echoes of past events. They can be her own memories, other people\'s memories, or lingering impressions in places and objects. "Memory shows what was."'], rw:{xp:241400, gold:50580}, needFlag:'inv_hz327a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz327c', kind:'investigate', n:'Illusion and Resonance', icon:'🪞', ch:327, need:2, ambush:[], lo:90, roles:['jade', 'sky', 'devon'],
+   desc:'What the mind fears; what they lived.',
+   clues:['3. Illusion: images shaped by emotions, fears, hopes or outside influences. These visions can feel real, but may be deceptive or misleading. "Illusion shows what the mind fears or desires."', '4. Ancestral Resonance: echoes from her lineage. Fragments of experiences, knowledge or emotions from her ancestors can surface, especially in places connected to the Gold lineage. "Ancestral resonance shows what they lived, felt and learned."'], rw:{xp:241700, gold:50640}, needFlag:'inv_hz327b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz327d', kind:'investigate', n:'Pieces, Mixed Together', icon:'🧩', ch:327, need:2, ambush:[], lo:90, roles:['jade', 'sky', 'devon'],
+   desc:'Learning which is which.',
+   clues:['Devon: "That\'s why your visions can feel contradictory. You might be seeing a possible future, a memory, an illusion and an ancestral echo... all at the same time."', 'Jade: "So it\'s not that my visions are wrong... They\'re different pieces, mixed together. I need to learn to see which is which, and what each one is trying to show me." Sky: "It also means none of us can assume a vision is the full truth. We have to look closer, consider the source, and think about what it means for now."'], rw:{xp:242000, gold:50700}, needFlag:'inv_hz327c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz328a', kind:'investigate', n:'The Trial Begins', icon:'🔥', ch:328, need:2, ambush:[], lo:90, roles:['jade', 'seraphina', 'rheon'],
+   desc:'A scene from the distant past.',
+   clues:['Inside the trial, Jade is shown a vivid scene from the distant past: real events that once happened, filled with blood, loss and betrayal.', 'The scene feels real. The emotions are real. The pain is real. But it is a memory, not a future.'], rw:{xp:242300, gold:50760}},
+  {id:'hz328b', kind:'investigate', n:'As If They Were Her Own', icon:'💔', ch:328, need:2, ambush:[], lo:90, roles:['jade', 'seraphina', 'rheon'],
+   desc:'Choices and fears.',
+   clues:['Jade sees the people involved: their choices, motivations and fears. She experiences their emotions as if they were her own.', 'She sees how different choices could have changed the outcome. The same people, the same bloodline, but different paths.'], rw:{xp:242600, gold:50820}, needFlag:'inv_hz328a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz328c', kind:'investigate', n:'Which Is Which?', icon:'🌀', ch:328, need:2, ambush:[], lo:90, roles:['jade', 'seraphina', 'rheon'],
+   desc:'Blurring together.',
+   clues:['The visions blur and mix together: past events, other people\'s memories, emotions, possibilities and illusions, until Jade can no longer tell which is which. For a moment, Jade almost believes it is something that will happen again.', 'But the trial forces her to understand: seeing something does not mean it is a prophecy. A memory shows what has happened. A prophecy shows what might happen. The two are not the same.'], rw:{xp:242900, gold:50880}, needFlag:'inv_hz328b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz328d', kind:'investigate', n:'A Lesson, Not a Chain', icon:'📖', ch:328, need:2, ambush:[], lo:90, roles:['jade', 'seraphina', 'rheon'],
+   desc:'A clearer heart.',
+   clues:['The same bloodline contains many stories. The past is not a chain that must repeat itself, but a lesson.', 'Jade steps out of the trial with a clearer heart. Her visions are warnings, clues and fragments, not fixed fate. What happens next depends on the choices she and others make.'], rw:{xp:243200, gold:50940}, needFlag:'inv_hz328c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz329a', kind:'investigate', n:'Scenes Drawn From Fear', icon:'🪞', ch:329, need:2, ambush:[], lo:90, roles:['jade', 'devon', 'sky'],
+   desc:'So real that emotion comes first.',
+   clues:['The trial surrounds Jade with convincing illusions: scenes drawn from her fears, regrets and deepest insecurities. They feel real, so real that her emotions react before her reason can.', 'The illusion uses what she knows, what she fears, and what she cares about most.'], rw:{xp:243500, gold:51000}},
+  {id:'hz329b', kind:'investigate', n:'Versions of the People She Loves', icon:'💧', ch:329, need:2, ambush:[], lo:90, roles:['jade', 'devon', 'sky'],
+   desc:'Hurt, betrayed, lost.',
+   clues:['She sees versions of the people she cares for: hurt, betrayed, or lost. The scenes are designed to push her into despair and wrong decisions.', 'The illusion shows many possible outcomes, some plausible, some impossible, all emotionally convincing.'], rw:{xp:243800, gold:51060}, needFlag:'inv_hz329a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz329c', kind:'investigate', n:'She Pauses', icon:'🔎', ch:329, need:2, ambush:[], lo:90, roles:['jade', 'devon', 'sky'],
+   desc:'Looking for cracks.',
+   clues:['Her old instinct would be to accept the vision, because it feels supernatural and aligns with her fears. But now, she pauses. She questions the details. She looks for inconsistencies. She asks what the vision wants her to feel.', 'She notices small things that do not fit: timelines, places, behaviour, and emotions that feel exaggerated. The more she looks, the more cracks she sees. "A vision can feel true and still be a lie."'], rw:{xp:244100, gold:51120}, needFlag:'inv_hz329b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz329d', kind:'investigate', n:'A Tool, Not a Truth', icon:'🗝️', ch:329, need:2, ambush:[], lo:90, roles:['jade', 'devon', 'sky'],
+   desc:'Feeling real is not being real.',
+   clues:['Jade realises that an illusion is not a truth, but a tool: something that uses her own mind against her. "The illusion feels true because it is built from real emotions. But it is still a lie."', 'By understanding how the illusion is constructed, Jade is no longer controlled by what she sees. She can acknowledge the fear, but not let it dictate her choices. "Feeling real is not the same as being real."'], rw:{xp:244400, gold:51180}, needFlag:'inv_hz329c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz330a', kind:'investigate', n:'A True Prophecy', icon:'🔮', ch:330, need:2, ambush:[], lo:90, roles:['jade', 'sky', 'levi'],
+   desc:'Possible futures.',
+   clues:['During the trial, Jade enters a true prophetic vision. Unlike illusion or memory, this vision shows possible futures that could unfold.', '"The vision branches into many paths. None of them are guaranteed. They are possibilities based on choices, actions and circumstances."'], rw:{xp:244700, gold:51240}},
+  {id:'hz330b', kind:'investigate', n:'Bright, Dark, In Between', icon:'🌗', ch:330, need:2, ambush:[], lo:90, roles:['jade', 'sky', 'levi'],
+   desc:'The people she cares about.',
+   clues:['She sees glimpses of the people she cares about: some futures are bright, some are dark, and some lie somewhere in between.', 'In one future, a great war consumes Tribute and many lives are lost. In another, alliances are formed and the island begins to heal.'], rw:{xp:245000, gold:51300}, needFlag:'inv_hz330a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz330c', kind:'investigate', n:'A Range of Outcomes', icon:'🛤️', ch:330, need:2, ambush:[], lo:90, roles:['jade', 'sky', 'levi'],
+   desc:'Not a single fixed future.',
+   clues:['Jade realises that what she sees is not a single, fixed future, but a range of outcomes. The vision shows what might happen, not what must happen.', '"A prophecy shows what might be, not what must be."'], rw:{xp:245300, gold:51360}, needFlag:'inv_hz330b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz330d', kind:'investigate', n:'A Guide, Not a Sentence', icon:'🧭', ch:330, need:2, ambush:[], lo:90, roles:['jade', 'sky', 'levi'],
+   desc:'A chance to act differently.',
+   clues:['This means the future is not predetermined. Her choices, and the choices of others, can change what happens. Knowing a possible future gives her a chance to act differently.', 'The trial ends, and Jade steps forward with a clearer understanding. Prophecy is a guide, not a sentence. It shows paths so she can prepare, make better choices, and work toward a future she wants to create.'], rw:{xp:245600, gold:51420}, needFlag:'inv_hz330c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz331a', kind:'investigate', n:'The Final Trial', icon:'🌌', ch:331, need:2, ambush:[], lo:90, roles:['jade', 'sky', 'rheon'],
+   desc:'Four forms of sight.',
+   clues:['Within the sanctuary of open sky, the final trial unfolds. Jade must distinguish all four forms of sight and reach a deeper truth beyond what she has seen before.', 'The sky, the stars, the ancestors: all bear witness as Jade opens her sight once more.'], rw:{xp:245900, gold:51480}},
+  {id:'hz331b', kind:'investigate', n:'Four Forms', icon:'🔮', ch:331, need:2, ambush:[], lo:90, roles:['jade', 'sky', 'rheon'],
+   desc:'Each in its place.',
+   clues:['1. Prophecy: "Prophecy shows me possible futures, branching paths, not a single fate." 2. Memory: "Memory reveals what truly happened, the past as it was. It is stable, clear, and carries the weight of truth."', '3. Illusion: "Illusion is a false vision, shaped by fear, desire, or manipulation. It feels real, but it is meant to deceive." 4. Ancestral Resonance: "Ancestral resonance reveals the echoes of my bloodline: the memories, strength, and wisdom of those who came before me."'], rw:{xp:246200, gold:51540}, needFlag:'inv_hz331a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz331c', kind:'investigate', n:'When They Align', icon:'✨', ch:331, need:2, ambush:[], lo:90, roles:['jade', 'sky', 'rheon'],
+   desc:'Beyond a single sight.',
+   clues:['Jade: "Now I understand. I can distinguish each vision clearly. And when they all align... I can go further. I can control them. I can reach the advanced form of Valor\'s Sight."', 'Her companions: "She did it..." "Jade... You\'ve reached a higher level." Jade: "This is Valor\'s Sight... its true form."'], rw:{xp:246500, gold:51600}, needFlag:'inv_hz331b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz331d', kind:'investigate', n:'Ability Unlocked', icon:'🌠', ch:331, need:2, ambush:[], lo:90, roles:['jade', 'sky', 'rheon'],
+   desc:'Advanced Valor\'s Sight.',
+   clues:['Advanced Valor\'s Sight: greater clarity across all four forms of sight; automatic vision classification; filter and separate prophecy, memory, illusion, and ancestral resonance; voluntary ancestral resonance control; deeper range and more precise outcomes; stronger resistance to deceptive visions.', 'Jade: "The visions no longer overwhelm me. I see them all, and I choose what they mean. This is not just sight. It is a bridge between my past, my present, and the many futures I can help create."'], rw:{xp:246800, gold:51660}, needFlag:'inv_hz331c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz332a', kind:'investigate', n:'A Voice Like Xima', icon:'🎭', ch:332, need:2, ambush:[], lo:90, roles:['jade', 'sky', 'devon'],
+   desc:'Slightly wrong.',
+   clues:['Something begins using the sanctuary\'s ancestral network to imitate Xima. At first, everyone assumes it is Xima herself. The voice sounds like Xima. The mannerisms are the same. The presence feels real. But something is slightly wrong.', '"It speaks with Xima\'s voice, using memories only the bloodline should know. It feels real. Too real."'], rw:{xp:247100, gold:51720}},
+  {id:'hz332b', kind:'investigate', n:'Real Memories, Real Pain', icon:'💢', ch:332, need:2, ambush:[], lo:90, roles:['jade', 'sky', 'devon'],
+   desc:'Guilt and fear.',
+   clues:['The imitation uses real memories, real emotions, and real people from the bloodline\'s past. It tries to manipulate through guilt, fear, and unresolved pain.', 'Jade senses inconsistencies: small details, emotional mismatches, and the way the voice pushes her toward choices Xima would not make. "It sounds like Xima. But it doesn\'t feel like her."'], rw:{xp:247400, gold:51780}, needFlag:'inv_hz332a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz332c', kind:'investigate', n:'Using Us', icon:'🕸️', ch:332, need:2, ambush:[], lo:90, roles:['jade', 'sky', 'devon'],
+   desc:'The sanctuary as a weapon.',
+   clues:['The imitation tries to turn the bloodline\'s own memories and connections into weapons. "It is using the sanctuary. It is using us."', 'At first, everyone believes it is Xima. Only after Jade points out the inconsistencies do they begin to question what is really happening.'], rw:{xp:247700, gold:51840}, needFlag:'inv_hz332b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz332d', kind:'investigate', n:'It Is Not Xima', icon:'🔍', ch:332, need:2, ambush:[], lo:90, roles:['jade', 'sky', 'devon'],
+   desc:'Only the beginning.',
+   clues:['By using Valor\'s Sight and her training, Jade analyses the patterns, separates the real memories from the inserted ones, and identifies the imitation for what it is. "It is not Xima. It is something else using her voice, her name, and the bloodline\'s pain."', 'The discovery raises new questions: who is behind the imitation? What do they want from the bloodline? And why now? Jade knows this is only the beginning. The bloodline is being targeted, and this imitation may be a warning, or the first move in a larger plan.'], rw:{xp:248000, gold:51900}, needFlag:'inv_hz332c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz333a', kind:'investigate', n:'Xima\'s Form', icon:'🎭', ch:333, need:2, ambush:[], lo:90, roles:['jade', 'devon', 'rheon'],
+   desc:'Voice, mannerisms, memories.',
+   clues:['The entity takes the form of Xima: her voice, her mannerisms, and even her memories. At first, everyone believes it is Xima herself.', '"Her voice is the same. Her presence feels real. Even her memories seem to match."'], rw:{xp:248300, gold:51960}},
+  {id:'hz333b', kind:'investigate', n:'Inconsistencies', icon:'🔎', ch:333, need:2, ambush:[], lo:90, roles:['jade', 'devon', 'rheon'],
+   desc:'Details that do not fit.',
+   clues:['But as Jade looks deeper, she begins to notice inconsistencies: small details that do not fit, emotions that feel exaggerated, and knowledge that is slightly wrong.', '"The remnant is made from many people\'s memories: fears, worship, guilt and stories passed down through generations."'], rw:{xp:248600, gold:52020}, needFlag:'inv_hz333a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz333c', kind:'investigate', n:'Layers', icon:'🧅', ch:333, need:2, ambush:[], lo:90, roles:['jade', 'devon', 'rheon'],
+   desc:'Real and distorted.',
+   clues:['It uses the bloodline\'s own memories to create a convincing imitation. It is not Xima\'s true self, but a remnant shaped by what people believed, feared and expected her to be.', 'Jade sees the layers: real memories mixed with distorted ones, other people\'s emotions, and fragments that never belonged to Xima.'], rw:{xp:248900, gold:52080}, needFlag:'inv_hz333b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz333d', kind:'investigate', n:'The False Ancestor', icon:'👁️', ch:333, need:2, ambush:[], lo:90, roles:['jade', 'devon', 'rheon'],
+   desc:'A warning.',
+   clues:['The remnant was created and sustained by generations of fear and worship. It is powerful because so many people wanted Xima to return, and their hopes, regrets and misunderstandings gave it form.', 'Jade finally understands: this is the False Ancestor. A magical remnant, not Xima resurrected. It carries echoes of Xima, but it is not her. It is a warning about what fear, worship and corrupted memory can create. By recognising the truth, Jade can now decide how to deal with the remnant, and what to do with the legacy it left behind.'], rw:{xp:249200, gold:52140}, needFlag:'inv_hz333c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz334a', kind:'investigate', n:'A Regal Voice', icon:'👑', ch:334, need:2, ambush:[], lo:90, roles:['jade', 'seraphina', 'sky'],
+   desc:'You were always meant for more.',
+   clues:['The remnant takes the form of a regal ancestral figure: a voice that feels like Xima, but not quite. It speaks with Jade\'s bloodline\'s memories, using their hopes, fears and pain.', '"You are the Gold bloodline. You were always meant for more. Stop resisting. Acceptance will give you power beyond what you can imagine." Jade: "The voice feels like Xima. The presence feels real. The promise is tempting."'], rw:{xp:249500, gold:52200}},
+  {id:'hz334b', kind:'investigate', n:'Futures With a Price', icon:'⚖️', ch:334, need:2, ambush:[], lo:90, roles:['jade', 'seraphina', 'sky'],
+   desc:'Fewer losses, more pain.',
+   clues:['It shows Jade versions of what could be: future paths if she accepts. Power. Recognition. A stronger position. People protected. Fewer losses.', 'But the visions also come with a price: the same patterns of control, fear and bloodshed repeating across generations. The remnant frames it as a necessary cost. "A greater future, but at the cost of more pain. The same cycle, just with a different face."'], rw:{xp:249800, gold:52260}, needFlag:'inv_hz334a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz334c', kind:'investigate', n:'Twisted Memories', icon:'🕸️', ch:334, need:2, ambush:[], lo:90, roles:['jade', 'seraphina', 'sky'],
+   desc:'Resistance is pointless.',
+   clues:['The remnant uses the memories of her ancestors and the people she cares about, twisting their love, regrets and sacrifices into arguments. It tells her that her bloodline cannot be changed, and that resistance is pointless.', 'It offers her access to greater power (knowledge, sight and influence) if she stops fighting it. It suggests that accepting her inheritance is the only way to protect the people she loves. "All you have to do is accept what you are."'], rw:{xp:250100, gold:52320}, needFlag:'inv_hz334b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz334d', kind:'investigate', n:'Not Your Cage', icon:'🗝️', ch:334, need:2, ambush:[], lo:90, roles:['jade', 'seraphina', 'sky'],
+   desc:'Her choice.',
+   clues:['Jade sees through the lie. Her bloodline gives her certain abilities, but it does not predetermine her fate. What she inherits is a history, and she has the right to choose what comes next.', '"I am the Gold bloodline, but I am not your cage. I choose what my bloodline becomes." The remnant\'s form cracks as Jade rejects its claim over her future. The inheritance is real, but what it becomes is her choice.'], rw:{xp:250400, gold:52380}, needFlag:'inv_hz334c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz335a', kind:'investigate', n:'A False Choice', icon:'⚖️', ch:335, need:2, ambush:[], lo:90, roles:['jade', 'devon', 'rheon'],
+   desc:'Dima or Xima.',
+   clues:['The remnant tries to force a choice: light or darkness, Dima or Xima, obedience or rebellion. "Choose, Jade. Dima, or Xima. Light, or darkness. You cannot have both."', 'Jade refuses the false division. Her path is not defined by choosing one over the other. "I choose myself."'], rw:{xp:250700, gold:52440}},
+  {id:'hz335b', kind:'investigate', n:'Training, Scholarship, Mysticism', icon:'🗡️', ch:335, need:2, ambush:[], lo:90, roles:['jade', 'devon', 'rheon'],
+   desc:'All three together.',
+   clues:['Using her martial training, Jade meets the remnant\'s illusions with discipline and clarity. "I will not be controlled by your fears."', 'She uses her scholarship to question its claims, trace the distortions, and uncover the truth behind the remnant\'s fragmented memories. "You are not the truth. You are a remnant, shaped by fear, worship and what people wanted you to be."'], rw:{xp:251000, gold:52500}, needFlag:'inv_hz335a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz335c', kind:'investigate', n:'Her Own Understanding', icon:'✨', ch:335, need:2, ambush:[], lo:90, roles:['jade', 'devon', 'rheon'],
+   desc:'Not bound by expectations.',
+   clues:['She unites her mysticism with her own understanding, refusing to be bound by others\' expectations, whether from Dima, Xima, or the bloodline. "This power is mine to understand, not to obey."', 'Jade breaks the remnant\'s hold, shattering the illusion built from generations of fear, worship and corrupted memory.'], rw:{xp:251300, gold:52560}, needFlag:'inv_hz335b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz335d', kind:'investigate', n:'Jade Gold', icon:'🌅', ch:335, need:2, ambush:[], lo:90, roles:['jade', 'devon', 'rheon'],
+   desc:'On her own terms.',
+   clues:['"I am not a copy of anyone\'s hopes or fears. I am Jade Gold. My past is part of me, but it will not decide my future."', 'The remnant dissolves, its hold over the sanctuary broken. Jade stands, not as a vessel for someone else\'s will, but as herself, inheriting the past on her own terms. She does not choose Dima over Xima. She chooses herself. And in doing so, she decides what her inheritance becomes.'], rw:{xp:251600, gold:52620}, needFlag:'inv_hz335c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz336a', kind:'investigate', n:'The Sanctuary Heals', icon:'🌟', ch:336, need:2, ambush:[], lo:90, roles:['jade', 'sky', 'seraphina'],
+   desc:'Stable once more.',
+   clues:['The remnant is gone, and the sanctuary begins to heal. The ancestral network is stable once more.', 'Jade finally understands her mother more clearly: her love, her choices, her struggles, and the burden she carried. She also understands her ancestors: their hopes, their fears, and how their memories shaped what came later.'], rw:{xp:251900, gold:52680}},
+  {id:'hz336b', kind:'investigate', n:'Yvette, a Real Person', icon:'🪞', ch:336, need:2, ambush:[], lo:90, roles:['jade', 'sky', 'seraphina'],
+   desc:'A future taken too soon.',
+   clues:['The visions and memories help Jade see Yvette not just as a name or a mystery, but as a real person: with a life, her own dreams, and a future that was taken from her too soon.', 'Jade: "Yvette\'s story may not be over."'], rw:{xp:252200, gold:52740}, needFlag:'inv_hz336a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz336c', kind:'investigate', n:'A Final Clue', icon:'📜', ch:336, need:2, ambush:[], lo:90, roles:['jade', 'sky', 'seraphina'],
+   desc:'A locket and a letter.',
+   clues:['A final clue from Yvette suggests she may still be alive, or at least survived far longer than previously assumed. A locket holds a portrait, beside an old letter.', '"It is not a full answer, but it changes everything. There is still a possibility. Yvette\'s story may not be over."'], rw:{xp:252500, gold:52800}, needFlag:'inv_hz336b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz336d', kind:'investigate', n:'The Stars Are Still There', icon:'🌌', ch:336, need:2, ambush:[], lo:90, roles:['jade', 'sky', 'seraphina'],
+   desc:'The journey continues.',
+   clues:['Jade leaves the sanctuary with a clearer understanding of who she is. Her bloodline is not a chain, but a part of her: something she can understand, learn from, and carry forward on her own terms.', 'The sanctuary\'s danger is over, but the journey continues. There are still questions, and new paths to follow. And somewhere out there, Yvette might still be waiting to be found. The stars are still there. The past is not gone. And the future is still Jade\'s to shape.'], rw:{xp:252800, gold:52860}, needFlag:'inv_hz336c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'remnant_fight', kind:'boss', n:'The False Ancestor', icon:'👁️', desc:'The remnant of fear, worship and corrupted memory that wore Xima\'s face. It can be faced again in the sanctuary.', boss:'boss_xima_remnant', add:[], lo:90, ch:335, needFlag:'inv_hz334d', lockMsg:'🔒 Hear what it offers first'},
+);
+MISSIONS.push(
+  {id:'m_s323', needCh:323, title:'The First Division', obj:{type:'steps', steps:[
+     {label:'A United Lineage', spot:'hz323a'},
+     {label:'The Path of Guidance', spot:'hz323b'},
+     {label:'The Path of Compulsion', spot:'hz323c'},
+     {label:'The Rift', spot:'hz323d'}]}, rw:{xp:755000, gold:161000, rep:1610},
+   subj:'The First Division', body:'The western records are waiting. — Greyson'},
+  {id:'m_s324', needCh:324, title:'Dima\'s Path', obj:{type:'steps', steps:[
+     {label:'A Branch of Restraint', spot:'hz324a'},
+     {label:'Protect, Heal, Preserve', spot:'hz324b'},
+     {label:'Holding Back', spot:'hz324c'},
+     {label:'A Beacon', spot:'hz324d'}]}, rw:{xp:757500, gold:161600, rep:1613},
+   subj:'Dima\'s Path', body:'The western records are waiting. — Greyson'},
+  {id:'m_s325', needCh:325, title:'Xima\'s Path', obj:{type:'steps', steps:[
+     {label:'Another Philosophy', spot:'hz325a'},
+     {label:'Forbidden Practices', spot:'hz325b'},
+     {label:'Further from the Purpose', spot:'hz325c'},
+     {label:'A Choice', spot:'hz325d'}]}, rw:{xp:760000, gold:162200, rep:1616},
+   subj:'Xima\'s Path', body:'The western records are waiting. — Greyson'},
+  {id:'m_s326', needCh:326, title:'Not Good Blood and Evil Blood', obj:{type:'steps', steps:[
+     {label:'Beliefs, Not Blood', spot:'hz326a'},
+     {label:'The Same Potential', spot:'hz326b'},
+     {label:'Many Examples', spot:'hz326c'},
+     {label:'A Responsibility', spot:'hz326d'}]}, rw:{xp:762500, gold:162800, rep:1619},
+   subj:'Not Good Blood and Evil Blood', body:'The western records are waiting. — Greyson'},
+  {id:'m_s327', needCh:327, title:'The Four Kinds of Vision', obj:{type:'steps', steps:[
+     {label:'Not All the Same', spot:'hz327a'},
+     {label:'Prophecy and Memory', spot:'hz327b'},
+     {label:'Illusion and Resonance', spot:'hz327c'},
+     {label:'Pieces, Mixed Together', spot:'hz327d'}]}, rw:{xp:765000, gold:163400, rep:1622},
+   subj:'The Four Kinds of Vision', body:'The western records are waiting. — Greyson'},
+  {id:'m_s328', needCh:328, title:'A Memory Is Not a Prophecy', obj:{type:'steps', steps:[
+     {label:'The Trial Begins', spot:'hz328a'},
+     {label:'As If They Were Her Own', spot:'hz328b'},
+     {label:'Which Is Which?', spot:'hz328c'},
+     {label:'A Lesson, Not a Chain', spot:'hz328d'}]}, rw:{xp:767500, gold:164000, rep:1625},
+   subj:'A Memory Is Not a Prophecy', body:'The western records are waiting. — Greyson'},
+  {id:'m_s329', needCh:329, title:'The Lie That Feels True', obj:{type:'steps', steps:[
+     {label:'Scenes Drawn From Fear', spot:'hz329a'},
+     {label:'Versions of the People She Loves', spot:'hz329b'},
+     {label:'She Pauses', spot:'hz329c'},
+     {label:'A Tool, Not a Truth', spot:'hz329d'}]}, rw:{xp:770000, gold:164600, rep:1628},
+   subj:'The Lie That Feels True', body:'The western records are waiting. — Greyson'},
+  {id:'m_s330', needCh:330, title:'The Future That Can Change', obj:{type:'steps', steps:[
+     {label:'A True Prophecy', spot:'hz330a'},
+     {label:'Bright, Dark, In Between', spot:'hz330b'},
+     {label:'A Range of Outcomes', spot:'hz330c'},
+     {label:'A Guide, Not a Sentence', spot:'hz330d'}]}, rw:{xp:772500, gold:165200, rep:1631},
+   subj:'The Future That Can Change', body:'The western records are waiting. — Greyson'},
+  {id:'m_s331', needCh:331, title:'Ancestral Sight', obj:{type:'steps', steps:[
+     {label:'The Final Trial', spot:'hz331a'},
+     {label:'Four Forms', spot:'hz331b'},
+     {label:'When They Align', spot:'hz331c'},
+     {label:'Ability Unlocked', spot:'hz331d'}]}, rw:{xp:775000, gold:165800, rep:1634},
+   subj:'Ancestral Sight', body:'The western records are waiting. — Greyson'},
+  {id:'m_s332', needCh:332, title:'The Voice in the Bloodline', obj:{type:'steps', steps:[
+     {label:'A Voice Like Xima', spot:'hz332a'},
+     {label:'Real Memories, Real Pain', spot:'hz332b'},
+     {label:'Using Us', spot:'hz332c'},
+     {label:'It Is Not Xima', spot:'hz332d'}]}, rw:{xp:777500, gold:166400, rep:1637},
+   subj:'The Voice in the Bloodline', body:'The western records are waiting. — Greyson'},
+  {id:'m_s333', needCh:333, title:'The False Ancestor', obj:{type:'steps', steps:[
+     {label:'Xima\'s Form', spot:'hz333a'},
+     {label:'Inconsistencies', spot:'hz333b'},
+     {label:'Layers', spot:'hz333c'},
+     {label:'The False Ancestor', spot:'hz333d'}]}, rw:{xp:780000, gold:167000, rep:1640},
+   subj:'The False Ancestor', body:'The western records are waiting. — Greyson'},
+  {id:'m_s334', needCh:334, title:'What Inheritance Becomes', obj:{type:'steps', steps:[
+     {label:'A Regal Voice', spot:'hz334a'},
+     {label:'Futures With a Price', spot:'hz334b'},
+     {label:'Twisted Memories', spot:'hz334c'},
+     {label:'Not Your Cage', spot:'hz334d'}]}, rw:{xp:782500, gold:167600, rep:1643},
+   subj:'What Inheritance Becomes', body:'The western records are waiting. — Greyson'},
+  {id:'m_s335', needCh:335, title:'Jade Gold', obj:{type:'steps', steps:[
+     {label:'A False Choice', spot:'hz335a'},
+     {label:'Training, Scholarship, Mysticism', spot:'hz335b'},
+     {label:'Her Own Understanding', spot:'hz335c'},
+     {label:'Jade Gold', spot:'hz335d'},
+     {label:'Break the False Ancestor\'s hold', boss:'boss_xima_remnant'}]}, rw:{xp:785000, gold:168200, rep:1646},
+   subj:'Jade Gold', body:'The western records are waiting. — Greyson'},
+  {id:'m_s336', needCh:336, title:'The Stars Are Still There', obj:{type:'steps', steps:[
+     {label:'The Sanctuary Heals', spot:'hz336a'},
+     {label:'Yvette, a Real Person', spot:'hz336b'},
+     {label:'A Final Clue', spot:'hz336c'},
+     {label:'The Stars Are Still There', spot:'hz336d'}]}, rw:{xp:787500, gold:168800, rep:1649},
+   subj:'The Stars Are Still There', body:'The western records are waiting. — Greyson'}
+);
+LORE.push(
+  {ch:323, n:'The First Division', t:'An ancient dispute split the Valor lineage over how spiritual power should be used: the Path of Guidance (guide and protect) or the Path of Compulsion (compel and reshape). It set the foundation for many traditions across the western regions and Tribute.'},
+  {ch:324, n:'Dima\'s Path', t:'Dima inherited the branch of the bloodline devoted to restraint, protection, healing and preservation. She protected people, healed the wounded and preserved sacred knowledge. Her legacy is a path of restraint for the people, the world and the generations to come.'},
+  {ch:325, n:'Xima\'s Path', t:'Xima inherited a philosophy of domination, coercion and forbidden control. She saw the bloodline as a tool to reshape the world, bound people and spirits, and drew followers who wanted a "better" world. Her influence spread into sects and traditions that still echo today.'},
+  {ch:326, n:'Capacity, Not Destiny', t:'The split between Dima and Xima was ideological, not biological. There is no pure good branch and no corrupt evil branch: the bloodline simply gives potential, and what people do with it matters.'},
+  {ch:327, n:'The Four Kinds of Vision', t:'Jade\'s visions mix four phenomena: prophecy (what might be), memory (what was), illusion (what the mind fears or desires) and ancestral resonance (what her ancestors lived, felt and learned). They overlap, and none is the full truth by itself.'},
+  {ch:328, n:'A Memory Is Not a Prophecy', t:'A trial showed Jade a real scene of blood and betrayal from the distant past and taught her that a memory shows what happened, and a prophecy shows what might. The past is a lesson, not a chain.'},
+  {ch:329, n:'The Lie That Feels True', t:'An illusion is built from real emotions and uses a person\'s own mind against them. Jade learned to pause, question the details and ask what a vision wants her to feel: feeling real is not the same as being real.'},
+  {ch:330, n:'The Future That Can Change', t:'A true prophecy shows many branching futures, none guaranteed: in one a great war consumes Tribute, in another alliances form and the island heals. Prophecy shows what might be, not what must be.'},
+  {ch:331, n:'Ancestral Sight', t:'Jade distinguished prophecy, memory, illusion and ancestral resonance and unlocked Advanced Valor\'s Sight: automatic vision classification, voluntary resonance control, deeper range and stronger resistance to deceptive visions.'},
+  {ch:332, n:'The Voice in the Bloodline', t:'Something began using the sanctuary\'s ancestral network to imitate Xima, with her voice, mannerisms and real memories of the bloodline. It is not Xima. Who is behind it, and why now, is not known.'},
+  {ch:333, n:'The False Ancestor', t:'A magical remnant made from generations of fear, worship and corrupted memory, shaped by what people believed, feared and expected Xima to be. It is not Xima resurrected. It is powerful because so many wanted her to return.'},
+  {ch:334, n:'What Inheritance Becomes', t:'The False Ancestor tried to convince Jade that her blood predetermines her fate and offered greater power if she stopped resisting. Jade answered that the inheritance is real, but what it becomes is her choice.'},
+  {ch:335, n:'Jade Gold', t:'Jade refused to choose Dima over Xima and broke the False Ancestor\'s hold on the sanctuary with martial training, scholarship and mysticism together: "I am not a copy of anyone\'s hopes or fears. I am Jade Gold."'},
+  {ch:336, n:'The Last Clue from Yvette', t:'A locket with a portrait and an old letter suggest Yvette Sue Valen may still be alive, or survived far longer than assumed. It is not a full answer; her story may not be over.'},
+  {ch:336, n:'Arc XIII: The Sanctuary of Open Sky', t:'Jade returned to the western sanctuary and learned her mother\'s story, that the bloodline is older than Dima and Xima and is capacity, not destiny, and how to read her four kinds of sight. She broke the False Ancestor and left the sanctuary stable, with a clue that Yvette may still live.'}
+);
+Object.assign(ENEMIES, {
+  boss_xima_remnant:{n:'The False Ancestor',icon:'👁️',area:'dragon',boss:true,hp:4300,atk:38,mag:32,def:22,spd:15,xp:1800,gold:1300,traits:['magic','corrupt'],moves:[{n:'Borrowed Voice',pow:1.2,spell:true,fx:[{k:'slow',d:1}]},{n:'Memory Lash',pow:1.5,spell:true},{n:'Chorus of Worship',pow:1.0,all:true},{n:'You Were Always Meant',pow:1.3,fx:[{k:'buff',stat:'def',m:.85,d:2}]}],phases:[{at:.5,msg:'The remnant\'s face cracks and a hundred voices speak at once',atk:1.15},{at:.2,msg:'It offers everything, once more',atk:1.1}],desc:'A magical remnant made of generations of fear, worship and corrupted memory, shaped like Xima. It is not her.'},
+});
+LOOT.boss_xima_remnant = {guaranteed:[{id:'seal_dust',qty:[2,3]},{id:'spirit_thread',qty:[1,2]}],rolls:[{id:'forgotten_glass',chance:.5}],firstClear:[{id:'celestial_shard',qty:[1,2]}]};
+
 /* ---- state and the "Western Routes" tab ---- */
 const westOpen = () => !!G && G.ch >= 287;
 const hzS = () => { if(!G.hz) G.hz = {led:{}, interp:{}}; if(!G.hz.led) G.hz.led = {}; if(!G.hz.interp) G.hz.interp = {}; return G.hz; };
 const hzDone = sid => !!G.flags['inv_'+sid];
-const RES_SPOTS = ['hz312d', 'hz316d', 'hz317d', 'hz318d', 'hz322d', 'hz293d', 'hz297d', 'hz298d', 'hz299d', 'hz300d', 'hz307d', 'hz308d', 'hz309d'];
+const RES_SPOTS = ['hz323d', 'hz324d', 'hz327d', 'hz328d', 'hz329d', 'hz330d', 'hz331d', 'hz332d', 'hz333d', 'hz334d', 'hz335d', 'hz336d', 'hz312d', 'hz316d', 'hz317d', 'hz318d', 'hz322d', 'hz293d', 'hz297d', 'hz298d', 'hz299d', 'hz300d', 'hz307d', 'hz308d', 'hz309d'];
 const valorRes = () => RES_SPOTS.filter(hzDone).length;
 const RES_LEVELS = [[0,'Dormant'],[1,'Faint'],[3,'Stirring'],[5,'Clear'],[7,'Attuned'],[11,'Answered']];
 const resLevel = () => { let l = RES_LEVELS[0][1]; RES_LEVELS.forEach(r => { if(valorRes() >= r[0]) l = r[1]; }); return l; };
@@ -807,6 +1088,7 @@ const SKY_CLUES = [
   ['Married into an allied house','hz315c','Letters and seals: Yvette married into the Valen family, allies of the Valor.'],
   ['Yvette on the road','hz320b','Travel records show her as a mediator, guide and advisor in western settlements.'],
   ['The maternal line','hz321a','Sky\'s gentler branch of the inheritance: healing, intuition, spiritual sensitivity.'],
+  ['Yvette\'s last clue','hz336c','A locket with a portrait and an old letter: she may still be alive.'],
 ];
 const LINEAGE = [
   ['The western seal','hz290d','A star, waves and flowing wings: Elara Valor\'s ornament.'],
@@ -824,6 +1106,13 @@ const LINEAGE = [
   ['The woman before mother','hz318a','Elara as a young mystic, seer and mediator.'],
   ['Elara chose Tribute','hz319b','She stayed with the Gold family by choice, to raise her children.'],
   ['Before the witches','hz322a','The bloodline existed centuries before Dima and Xima.'],
+  ['The first division','hz323d','Guide and protect, or compel and reshape: the rift that split the lineage.'],
+  ['Dima\'s path','hz324c','Restraint, protection, healing and preservation.'],
+  ['Xima\'s path','hz325b','Domination, coercion and forbidden control.'],
+  ['Capacity, not destiny','hz326d','No pure good branch and no corrupt evil branch: the bloodline is a responsibility.'],
+  ['The four kinds of vision','hz327c','Prophecy, memory, illusion and ancestral resonance.'],
+  ['The False Ancestor','hz333d','A remnant of fear, worship and corrupted memory wearing Xima\'s face.'],
+  ['Jade Gold','hz335d','She chose herself, not Dima over Xima.'],
 ];
 const LEDGERS = [
   {id:'valen', spot:'hz296a', t:'Valen, western route (Calvaris, 1183 A.R.)', reg:'Official Register: the name is blurred in later copies and there is no western route.'},
@@ -831,16 +1120,20 @@ const LEDGERS = [
   {id:'westward', spot:'hz296b', t:'The Westward Route and the Stone Markers', reg:'Official Register: the region is listed as uninhabited waters.'},
   {id:'fleet', spot:'hz296d', t:'The Seasonal Fleet and its ports', reg:'Official Register: the ports are absent from modern maps.'},
 ];
-const INTERP_OPTS = ['Memory','Prophecy','Illusion','Ancestral imprint'];
+const INTERP_OPTS = ['Memory','Prophecy','Illusion','Ancestral resonance'];
 const INTERP = [
   {id:'lanterns', spot:'hz293d', t:'The lantern prayers', q:'Jade has never seen these symbols, yet they stir "an echo from a home I have never seen, but have always carried within me".', ans:3,
-   ok:'Jade names it: not a memory of hers, and not a vision. An ancestral imprint, carried in the blood.', hint:'She has no such memory of her own, and nothing here is foretold.'},
+   ok:'Jade names it: not a memory of hers, and not a vision. Ancestral resonance, carried in the blood.', hint:'She has no such memory of her own, and nothing here is foretold.'},
   {id:'prayer', spot:'hz298b', t:'The roadside prayer', q:'The words came at once, in her mother\'s voice, though she never consciously learned them.', ans:0,
    ok:'Jade names it: a memory. It was always hers, only unremembered.', hint:'The words are in her mother\'s voice and belong to her own childhood.'},
   {id:'vision', spot:'hz307b', t:'The vision that looks back', q:'The figure is aware of her and answers. It is not a memory, a warning or a trick.', ans:-1,
    ok:'Jade cannot put it under any of the four. It answered her. She notes it as something new.', hint:''},
   {id:'door', spot:'hz309a', t:'The sealed door', q:'The sanctuary lights at her presence and keeps its door shut.', ans:3,
-   ok:'Jade names it: an ancestral imprint. The place knows her blood and is waiting.', hint:'It is not her past and not a prediction: the place reacts to what she is.'},
+   ok:'Jade names it: ancestral resonance. The place knows her blood and is waiting.', hint:'It is not her past and not a prediction: the place reacts to what she is.'},
+  {id:'trial_memory', spot:'hz328a', t:'The scene from the distant past', q:'A vivid scene of blood and betrayal that once happened. The emotions are real and she feels them as her own.', ans:0, ok:'Jade names it: a memory. It shows what has happened, not what will.', hint:'It is vivid and painful, but it is not a warning of anything to come.'},
+  {id:'trial_illusion', spot:'hz329a', t:'The people she loves, hurt or lost', q:'Scenes built from her fears and regrets, designed to push her into despair.', ans:2, ok:'Jade names it: an illusion. It feels true because it is built from real emotions, and it is still a lie.', hint:'It is shaped by what she fears, not by what happened or what will.'},
+  {id:'trial_prophecy', spot:'hz330a', t:'The branching futures', q:'Many paths that could unfold, none of them guaranteed.', ans:1, ok:'Jade names it: prophecy. It shows what might be, not what must be.', hint:'Nothing here has happened yet, and no single path is fixed.'},
+  {id:'xima_voice', spot:'hz332b', t:'The voice that sounds like Xima', q:'It speaks with real memories of the bloodline, but the details do not fit and it pushes her toward choices Xima would not make.', ans:2, ok:'Jade names it: an illusion built from borrowed memories. It is not Xima.', hint:'The memories are real, but the voice using them is not what it claims to be.'},
 ];
 function hzCompare(id){
   const L = LEDGERS.find(x => x.id===id), S = hzS(); if(!L || S.led[id] || !hzDone(L.spot)) return [];
@@ -848,6 +1141,12 @@ function hzCompare(id){
   if(LEDGERS.every(x => S.led[x.id]) && !G.flags.ledgers_compared){ G.flags.ledgers_compared = true; chronicle('Every merchant ledger was compared against the Register: they disagree on every line.', '📒'); msgs.push('✦ The ledgers disagree with the Register on every line.'); }
   save(); return msgs;
 }
+function hzClassify(id){   // Ancestral Sight (ch331): automatic vision classification
+  const it = INTERP.find(x => x.id===id); if(!it || !G.flags.ancestral_sight || hzS().interp[id] || !hzDone(it.spot)) return [];
+  return hzInterpret(id, it.ans >= 0 ? it.ans : -1);
+}
+const RES_TREE = [['I','Sense ancestral sites', () => valorRes() >= 1], ['II','Identify mystic symbols', () => valorRes() >= 3], ['III','Read spiritual residue', () => valorRes() >= 5],
+  ['IV','Distinguish memory from prophecy', () => !!G.flags.memory_not_prophecy && !!G.flags.future_can_change], ['V','Ancestral Sight', () => !!G.flags.ancestral_sight]];
 function hzInterpret(id, opt){
   const it = INTERP.find(x => x.id===id), S = hzS(); if(!it || S.interp[id] || !hzDone(it.spot)) return [];
   if(it.ans >= 0 && opt !== it.ans) return ['🔮 Jade turns it over, but it does not fit: '+it.hint];
@@ -860,7 +1159,8 @@ const hzRow = (done, n, t) => done ? `<div class="li">✅ <b>${n}</b><div class=
 function rWest(){
   const S = hzS();
   let h = `<div class="panel"><b>⚓ THE WESTERN ROUTES</b><div class="sm">What the old route has shown so far. Read-only, except the two small actions below.</div></div>`;
-  if(G.ch >= 293) h += `<h4>🌌 Valor Resonance</h4><div class="li"><b>${resLevel()}</b><div class="sm">How strongly the old sites answer Jade. It deepens in places tied to her mother\'s lineage.</div></div>`;
+  if(G.ch >= 316) h += `<h4>🌌 Valor Resonance: unlock tree${G.flags.arc13_complete ? ' (advanced)' : ''}</h4>` + RES_TREE.map(r => r[2]() ? `<div class="li">✅ <b>${r[0]}. ${r[1]}</b></div>` : `<div class="li">❔ ${r[0]}. ???</div>`).join('') + (G.flags.arc13_complete ? `<div class="li">✅ <b>Advanced Valor Resonance</b><div class="sm">The sanctuary\'s ancestral network is stable, and Jade reads it without strain.</div></div>` : '');
+  else if(G.ch >= 293) h += `<h4>🌌 Valor Resonance</h4><div class="li"><b>${resLevel()}</b><div class="sm">How strongly the old sites answer Jade. It deepens in places tied to her mother\'s lineage.</div></div>`;
   h += `<h4>🧭 Ancient Navigation Markers (${NAV_NODES.filter(x => hzDone(x[1])).length} / ${NAV_NODES.length})</h4>` + NAV_NODES.map(x => hzRow(hzDone(x[1]), x[0], x[2])).join('');
   if(G.ch >= 294) h += `<h4>🪞 Sky Family Clues (${SKY_CLUES.filter(x => hzDone(x[1])).length} / ${SKY_CLUES.length})</h4>` + SKY_CLUES.map(x => hzRow(hzDone(x[1]), x[0], x[2])).join('');
   if(G.ch >= 290) h += `<h4>🌟 The Valor Lineage (${LINEAGE.filter(x => hzDone(x[1])).length} / ${LINEAGE.length})</h4>` + LINEAGE.map(x => hzRow(hzDone(x[1]), x[0], x[2])).join('');
@@ -869,8 +1169,8 @@ function rWest(){
     h += LEDGERS.map(L => !hzDone(L.spot) ? `<div class="li">❔ ???</div>` : S.led[L.id] ? `<div class="li">✅ <b>${L.t}</b><div class="sm">${L.reg}</div></div>` : `<div class="li"><b>${L.t}</b><div class="row"><button onclick="act(hzCompare,'${L.id}')">Compare with the Register</button></div></div>`).join('');
   }
   if(G.ch >= 293){
-    h += `<h4>🔮 Interpret Resonance</h4><div class="sm">Jade tells apart a memory, a prophecy, an illusion and an ancestral imprint.</div>`;
-    h += INTERP.map(it => !hzDone(it.spot) ? `<div class="li">❔ ???</div>` : S.interp[it.id] ? `<div class="li">✅ <b>${it.t}</b><div class="sm">${it.ok}</div></div>` : `<div class="li"><b>${it.t}</b><div class="sm">${it.q}</div><div class="row" style="flex-wrap:wrap">${INTERP_OPTS.map((o,i) => `<button onclick="act(hzInterpret,'${it.id}',${i})">${o}</button>`).join('')}</div></div>`).join('');
+    h += `<h4>🔮 ${G.ch >= 327 ? 'Interpret Vision' : 'Interpret Resonance'}</h4><div class="sm">Jade tells apart a memory, a prophecy, an illusion and ancestral resonance.${G.flags.ancestral_sight ? ' Ancestral Sight classifies them for her.' : ''}</div>`;
+    h += INTERP.map(it => !hzDone(it.spot) ? `<div class="li">❔ ???</div>` : S.interp[it.id] ? `<div class="li">✅ <b>${it.t}</b><div class="sm">${it.ok}</div></div>` : `<div class="li"><b>${it.t}</b><div class="sm">${it.q}</div>${G.flags.ancestral_sight ? `<div class="row"><button onclick="act(hzClassify,'${it.id}')">Read it with Ancestral Sight</button></div>` : ''}<div class="row" style="flex-wrap:wrap">${INTERP_OPTS.map((o,i) => `<button onclick="act(hzInterpret,'${it.id}',${i})">${o}</button>`).join('')}</div></div>`).join('');
   }
   return h;
 }
@@ -879,15 +1179,23 @@ deed('hz_markers', 'world', 'The sea remembers', '🪨', 'Every ancient navigati
 deed('hz_ledgers', 'story', 'Kept in private', '📒', 'Every merchant ledger was compared against the Register.', () => !!G.flags.ledgers_compared);
 deed('hz_interpret', 'craft', 'A clear reading', '🔮', 'Jade read every impression the old sites left her.', () => INTERP.every(x => hzS().interp[x.id]));
 deed('hz_attuned', 'story', 'Answering the sky', '🌌', 'Valor Resonance reached Attuned.', () => valorRes() >= 7);
+deed('hz_ancestral', 'story', 'All four, clearly', '🌠', 'Jade reached Advanced Valor\'s Sight.', () => !!G.flags.ancestral_sight);
+deed('hz_remnant', 'story', 'Jade Gold', '👁️', 'The False Ancestor lost its hold.', () => !!G.flags.boss_boss_xima_remnant);
+deed('arc13', 'story', 'The Sanctuary of Open Sky', '🌌', 'Arc XIII, The Sanctuary of Open Sky, is complete.', () => !!G.flags.arc13_complete);
 deed('arc12', 'story', 'New Horizons', '🌅', 'Arc XII, New Horizons, is complete.', () => !!G.flags.arc12_complete);
 
 /* ---- maps: provisional pictures cropped from the author's chapter 310 page ---- */
-WORLD_MAPS.push({id:'western', n:'The Western Routes', img:'assets/maps/western_routes.webp', open:() => G.ch >= 289, schem:true,   // cropped from ch310 ("Western Routes (Recovered)"); schematic node positions are placeholders
+WORLD_MAPS.push({id:'western', n:'Western Waters', img:'assets/maps/western_routes.webp', open:() => G.ch >= 289, schem:false,   // the author's Western Waters map (the "uncharted islands", "beyond the known seas" and southern route are not places in the game)
   locs:['old_trade_sea','frontier_port','western_road','western_archive','sealed_sanctuary'],
-  nodes:[{k:'Dragonvale Harbour',x:14,y:80,loc:'dragon_harbour',ref:true},{k:'The Old Trade Sea',x:32,y:60,loc:'old_trade_sea'},{k:'The Frontier Port',x:50,y:44,loc:'frontier_port'},{k:'The Road of Foreign Stars',x:68,y:34,loc:'western_road'},{k:'The Western Archive',x:62,y:68,loc:'western_archive'},{k:'The Sealed Sanctuary',x:86,y:18,loc:'sealed_sanctuary'}]});
-WORLD_MAPS.push({id:'wider', n:'The Wider World', img:'assets/maps/wider_world.webp', open:() => G.ch >= 310, schem:true,   // cropped from ch310 ("The Wider World"); only Tribute and Dragonvale are marked
-  locs:[],
-  nodes:[{k:'Tribute',x:72,y:48,loc:'capital',ref:true},{k:'Dragonvale',x:58,y:30,loc:'dragon_vale',ref:true}]});
+  nodes:[{k:'Old Trade Sea',x:16,y:28,loc:'old_trade_sea'},{k:'Frontier Port',x:42,y:28,loc:'frontier_port'},{k:'Road of Foreign Stars',x:70,y:31,loc:'western_road'},{k:'Western Archive',x:83,y:44,loc:'western_archive'},{k:'Sanctuary of Open Sky',x:71,y:59,loc:'sealed_sanctuary'},{k:'Dragonvale Harbour (sea lane)',x:95,y:31,loc:'dragon_harbour',ref:true}]});
+WORLD_MAPS.push({id:'wider', n:'The Wider World', img:'assets/maps/wider_world.webp', open:() => G.ch >= 310, schem:false,   // the author's Wider World map; Impossible Entry has no place to travel to, so it is not marked
+  locs:['dima_sanctuary','xima_realm'],
+  nodes:[{k:'Altan Kingdom',x:47,y:21,loc:'altan_capital',ref:true},{k:'Dragonvale',x:62,y:25,loc:'dragon_vale',ref:true},{k:'Tribute',x:87,y:27,loc:'capital',ref:true},{k:'Valen Borderlands',x:58,y:39,loc:'valen_borderlands',ref:true},{k:'The Fifteen Evils',x:45,y:67,loc:'northern_frontier',ref:true},{k:'The Broken Seals',x:89,y:48,loc:'forgotten_sanctuary',ref:true},{k:'The Sunken Kingdom',x:58,y:79,loc:'sunken_kingdom',ref:true},
+         {k:'Western Waters',x:11,y:32,loc:'old_trade_sea'},{k:'Sanctuary of Open Sky',x:8,y:48,loc:'sealed_sanctuary'},{k:'Frontier Port',x:23,y:42,loc:'frontier_port'},{k:'Western Archive',x:32,y:51,loc:'western_archive'},{k:'Road of Foreign Stars',x:30,y:59,loc:'western_road'},
+         {k:'Dima\'s Sanctuary',x:91,y:74,loc:'dima_sanctuary'},{k:'Xima\'s Realm',x:92,y:88,loc:'xima_realm'}]});
+WORLD_MAPS.push({id:'harbour', n:'Dragonvale Harbour', img:'assets/maps/dragon_harbour.webp', open:() => locOpen('dragon_harbour'), schem:false,   // the author's harbour picture: its quays, piers and districts are not separate places in the game
+  locs:['dragon_harbour'],
+  nodes:[{k:'Dragonvale Harbour',x:57,y:55,loc:'dragon_harbour'},{k:'Dragonvale (road)',x:84,y:15,loc:'dragon_vale',ref:true},{k:'Old Trade Sea (ship route)',x:68,y:82,loc:'old_trade_sea',ref:true}]});
 
 /* ---- Maris Aurel, recruitable after her arc (author: after the maritime arc, ch311). Tide support and control: shields, regeneration and slowing tides; different from Eira's records-and-light kit. ---- */
 const MARIS_JOIN_CH = 311;

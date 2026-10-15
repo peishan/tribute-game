@@ -1,6 +1,8 @@
-# ARC XIII — BLOOD OF THE WESTERN STARS (chapters 312-336; 312-322 built so far)
+# ARC XIII — THE SANCTUARY OF OPEN SKY (chapters 312-336; all built)
 
-Pages 312-322 are built (first pass); the cover and chapters 323-336 have not been sent.
+*Cover title: "The Sanctuary of Open Sky" (canon). The planning title was "Blood of the Western Stars".*
+
+All 25 pages (312-336) and the cover (`assets/arcs/arc13.webp`, shown after ch311) are built (first pass).
 
 ## What the chapters cover
 312 The Door That Remembered Her (the sanctuary answers Jade) · 313 Return to the Western Road · 314 The Name Valor (a wandering bloodline of seers, mediators, guardians) · 315 Two Sisters, Two Names (Elara kept the Valor name; Yvette took Valen by marriage into allied house) · 316 The Sanctuary of Open Sky (it opens) · 317 Her Mother's Prayer · 318 The Woman Before Mother (Elara before marrying Unique Gold) · 319 The Daughter Who Chose the Court (Elara stayed in Tribute by choice) · 320 The Half-Sister Who Wandered (Yvette's travels) · 321 Sky's Inheritance (a gentler, healing branch) · 322 Before the Witches (the bloodline predates Dima and Xima).
@@ -17,7 +19,7 @@ Pages 312-322 are built (first pass); the cover and chapters 323-336 have not be
 `scripts/horizons.js` holds the spots, missions and lore (spot ids `hz312a`...). Places: 312-313 Tribute (Imperial Capital), 314 Frontier Port, 315 Western Archive, 316-322 the Sanctuary of Open Sky (the Sealed Sanctuary is renamed and opens from ch316, with a platform and a hall to visit). New: a ship route Tribute to the Old Trade Sea (ch313's map starts at "Tribute (Harbour)"). The Archive "Western Routes" tab lists the new lineage and Sky clues; Valor Resonance gains an "Answered" level.
 
 ## Mismatches and open questions
-1. **Cover for Arc XIII** is missing (the title is now known).
+1. **Cover:** labels Sera "Altan Guest" (she is a full party member) and its chart lists Azure Trench, Silvertide Passage and Elysian Reach, which appear in no chapter (not used).
 2. **ch321 page** shows "Chapter 322" on its title card (author: should be 321). It is saved and numbered 321; regenerate the title if wanted.
 3. **ch320 title** says "Half-Sister", but 315 says full sisters; and a speaker in 320 says "our mother" (the silver-haired speaker is not Jade or Sky). Kept as written in the page text; the game does not use "half".
 4. **ch322 vs ch303/305:** 322 says Dima and Xima were later generations, not founders; 303 called Dima one of the foundational mentors of the early Valor ancestors. Both are in the lore; worth a wording pass.
@@ -41,7 +43,20 @@ Pages 312-322 are built (first pass); the cover and chapters 323-336 have not be
 **Rewards:** Western Sanctuary (permanent location); Valor Archive (new journal section); Elara history 317-320; Yvette trail from 320; Sky bloodline clue 321; Dima/Xima ancestral truth 322-326; Interpret Vision 327; Ancestral Sight 331; Xima Remnant boss 332-335; Advanced Valor Resonance 336.
 **After Arc XIII:** Arc XIV returns to Dragonvale (Delilah/Dee or Aster first); Levi/Sally is another option.
 
-## Build status against the brief (as of ch322)
-- Built: chapters 312-322 (pages, clues, missions, lore); Western Sanctuary as a permanent location (renamed Sanctuary of Open Sky from ch316); Elara history 317-319 and Yvette's travels 320 (in the Western Routes tab and lore); Sky bloodline clue 321; the Sky-and-Jade focus (Sky is brought along by the story-companion rule).
-- Partly there: the hidden Valor Resonance track (counts mystic-site clues, five-plus levels, no unlocks yet); *Interpret Resonance* from ch293 (Memory / Prophecy / Illusion / Ancestral imprint) is the Arc XII precursor of *Interpret Vision*.
-- Not built (waiting for chapters 323-336): The First Division to Xima's Path (323-326); *Interpret Vision* (327) and the four trial chapters; Ancestral Sight and the Resonance unlock tree (331); the Xima Remnant encounters and boss (332-335); Advanced Valor Resonance (336); a "Valor Archive" journal section (the Western Routes tab holds the lineage entries for now and can be renamed).
+## Build status against the brief (all chapters in)
+- **Chapters 312-336:** pages, four chained clue spots each (`hz312a`...`hz336d`), 25 missions, lore, flags. Everything lives in `scripts/horizons.js` and the Sanctuary of Open Sky is the Sealed Sanctuary renamed from ch316.
+- **Western Sanctuary** is a permanent location (with a platform and a hall to visit); the Archive tab "Western Routes" becomes the **Valor Archive** from ch316 (new journal section): Elara history 317-319, Yvette trail from 320 and her last clue at 336, Sky's maternal line (321), the Dima/Xima truth 322-326.
+- **Interpret Vision** (from ch327, the renamed Interpret Resonance): four readings Memory / Prophecy / Illusion / Ancestral resonance; seven vision items so far (lanterns, prayer, the vision that looks back, the sealed door, the trial memory, the illusion, the branching futures, the voice that sounds like Xima).
+- **Valor Resonance unlock tree** (from ch316): I sense ancestral sites, II identify mystic symbols, III read spiritual residue, IV distinguish memory from prophecy (chapters 328 and 330), V **Ancestral Sight** (ch331). After ch336 the tab also shows **Advanced Valor Resonance**.
+- **Ancestral Sight (ch331)** = the page's "Advanced Valor's Sight": from then on each vision can be read automatically with "Read it with Ancestral Sight".
+- **Xima Remnant boss** ("The False Ancestor"): a revisit fight in the sanctuary from ch335 (the chapter itself sets the boss flag, as with the Arc XI bosses).
+- **Sky's role** is in the clues (the maternal line, healing and intuition); no separate Sky mechanic was added.
+- **Not built:** Jade's "Vision Flicker superseded / Spirit Sense precision" as stat changes (no stats exist for them); the capstone form stays locked as the brief says.
+
+## More mismatches and open questions (323-336)
+1. **ch328 was sent twice:** the first copy (Devon with black hair) is used; the second draws Devon with dark-blue hair like Sky.
+2. **ch335's last caption** has rendering glitches ("noes", garbled "herself"): regenerate if wanted.
+3. **ch327** says ancestral resonance appears "especially in places connected to the **Gold** lineage"; the arc elsewhere says Valor. Kept as written.
+4. **ch324** says Dima inherited one branch; ch303 called her a foundational mentor of the early Valor, and ch322 says she was a later generation. All three are in the lore.
+5. **Speakers and cast:** who the pale-haired figure in blue-patterned clothes is (read as Sera), the red-haired man in green (Levi) and the dark-haired man (Devon) are inferred; Rheon is not clearly labelled in these pages.
+6. **ch336's final clue** (a locket with a portrait and an old letter) is read as Yvette's; the page does not say who wrote the letter.
