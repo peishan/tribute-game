@@ -16,8 +16,10 @@ const INVEST_ROLES = {
   sky:['Sky', 'senses injuries, corruption and unusual spiritual residue'],
   devon:['Devon', 'weighs the military decisions and what they mean for royal security'],
   rin:['Rin', 'scouts the route ahead'],
+  maris:['Maris', 'reads tides, seals and old charts'],
+  rheon:['Rheon', 'reads ships, formations and the shape of a fight'],
 };
-const roleHere = id => !!G && !!G.party && G.party.includes(id) && (G.active.includes(id) || (typeof isCompanion==='function' && isCompanion(id))) && !(typeof isAway==='function' && isAway(id));
+const roleHere = id => !!G && ((id==='maris' && G.ch >= 287) || (!!G.party && G.party.includes(id) && (G.active.includes(id) || (typeof isCompanion==='function' && isCompanion(id))) && !(typeof isAway==='function' && isAway(id))));   // Maris Aurel (from ch287) is an adviser, not a party member
 function investRoleBonus(spotId){
   const sp = spotById(spotId); if(!sp || !sp.roles) return null;
   const who = sp.roles.filter(roleHere); if(!who.length) return null;

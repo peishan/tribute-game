@@ -1,6 +1,6 @@
 # ARC XII — NEW HORIZONS (chapters 287–311) — working brief
 
-Saved as sent (author, with the GPT planning notes). Nothing is built yet; chapters, cover and details arrive later. Damien's romance is saved for Delilah's later arc: not used here.
+Saved as sent (author, with the GPT planning notes). BUILT (chapters 287-311, cover, scripts/horizons.js). The brief below is as originally sent; the build notes and mismatches are at the end. Damien's romance is saved for Delilah's later arc: not used here.
 
 **Theme:** The world becomes larger when the records stop agreeing.
 **Focus:** Jade. Secondary: Devon, Sky, Levi. **Mystery thread:** surviving fragments of the altered international Register. **Family thread:** first substantial clues about Elara Valor and the Valor bloodline. **Exploration payoff:** new maritime routes and an unknown western destination appear on the world map. **Tone:** exploratory, investigative, adventurous, increasingly mystical.
@@ -57,3 +57,22 @@ The Forgotten Alliance case reaches beyond three kingdoms; the player knows of o
 
 ## Cover direction (author/GPT)
 Jade at the foreground of a harbour holding an old chart / Valor emblem, Devon beside her, Sky and Levi behind, ships toward a brilliant western horizon, faded Register documents and constellations over the sea; no visible Dima/Xima figures (no spoiler).
+
+
+## Build notes (first pass)
+**Chapters 287-311** are all in (pages as `assets/comics/chN.webp`, the cover as `assets/arcs/arc12.webp`, shown after ch286). Each chapter has four chained investigation spots, one mission (`m_s287`...`m_s311`) and lore entries. Everything lives in `scripts/horizons.js` (places, routes, enemies, spots, missions, lore, the tab, deeds, maps).
+- **Places:** Dragonvale Harbour (287) ; Western Sea Route opens at 291 (The Old Trade Sea) ; The Frontier Port (295) ; The Road of Foreign Stars (297) ; The Western Archive (302) ; The Sealed Sanctuary (309, visible but its door stays shut).
+- **Gameplay built:** Western Sea Route (291), Ship Investigation (287-290 spots), Ancient Navigation Markers (Archive > Western Routes), Sky Family Clues (from 294), the Valor Lineage list, Merchant Ledger Compare (from 296, 4 comparisons), Valor Resonance (hidden: shown only as a word Dormant/Faint/Stirring/Clear/Attuned, counting 8 mystic-site clues), Interpret Resonance (4 impressions: lantern prayers = ancestral imprint, roadside prayer = memory, the vision that looks back = fits none of the four, sealed door = ancestral imprint), Western Regions map layer, Sealed Sanctuary. New enemies: Reef Raider, Beacon Wraith, Caravan Raider, Archive Sentinel (no new boss: the arc is investigative).
+- **Maris Aurel** is an adviser from 287 (counts for investigation roles) but not a party member. **Elara Valor** is mention-only: lore entry, one memory panel in ch290, no portrait.
+
+## Mismatches and open questions (flagged, not invented)
+1. **Maris "joins the party" (ch287 card)** but she is not on the Arc XII cover or named again. Built as an adviser, not a recruit.
+2. **Two erased names:** ch288 struck-out "Asterwyn" (item 19) vs ch290 "Valorian Reach" (a name not on charts) alongside a struck-out line. Built as two names; say if they are one place.
+3. **Port names:** ch294's record is for port **Calvaris**; ch295's frontier port is never named; ch310's maps have no names for it. Kept unnamed.
+4. **Speaker attribution** in 287-311 was inferred from hair colour (silver-white = Rheon, dark = Devon, red-brown = Levi, blue = Sky, teal = Maris); most lines are written without naming the speaker.
+5. **Cover place names** ("Western Route", "Azure Trench", "Silvertide Passage", "Elysian Reach") appear nowhere in the chapters; not used in game.
+6. **Interpret Resonance:** "Illusion" and "Prophecy" have no canon example yet; they are options but never the right answer. The ch307 vision is treated as "none of the four".
+7. **Maps:** "Western Routes" and "The Wider World" are provisional crops of the ch310 panels (low resolution); replace with generated maps when ready.
+8. **Elara's earlier lore** called Jade's mother only "Valor"; she is Elara Valor (Valor is the family name). The new lore entry names her.
+9. **ch307 figure** (long dark-blue hair, golden crown) looks like the Elara memory in ch290 but the page never says who she is: left unnamed.
+10. **ch311 hooded stranger** and the Valor-line news: unnamed; nothing implied about who.
