@@ -549,7 +549,7 @@ LORE.push(
 );
 
 /* ---- Arc XIII: the return to the Western Sanctuary (chapters 312-322; the arc title and cover are pending) ---- */
-const RHEON_GUEST_CH = 312;   // Rheon travels as a guest from ch312 (core.js isCompanion); Sera rejoins as a party member (flag sera_rejoined)
+// From ch312: Sky and Rheon come along whatever the party size (STORY_ALONG in core.js); Sera rejoins as a party member (flag sera_rejoined)
 LOCATIONS.capital.spots.push(
   {id:'hz312a', kind:'investigate', n:'The Sanctuary\'s Response', icon:'📜', ch:312, need:2, ambush:[], lo:88, roles:['jade', 'sky', 'devon'],
    desc:'A message from the west.',
