@@ -56,7 +56,7 @@ const CH_LEAVE = { 50:['levi'], 73:['chad'], 87:['ripley'] };   // ch87: Levi is
 // Sally (after the return to Tribute, CH_STAY) can only be partied while the party is in Dragonvale.
 const isAway = id => (id==='sally' && !!G.flags.sally_stays && G.loc!=='dragon_vale') || (id==='seraphina' && !!G.guests.seraphina && LOCATIONS[G.loc].region!=='dragon') || (id==='seraphina' && G.ch>=262 && !G.flags.sera_rejoined && LOCATIONS[G.loc].region!=='altan') || (id==='rin' && typeof rinAway==='function' && rinAway());   // Seraphina is a guest only inside Dragonvale until ch87
 const isDisabled = id => !!(G.disabled && G.disabled[id]) || isAway(id);
-function syncAway(){ G.active = G.active.filter(id => !isAway(id) && !(id==='rheon' && isCompanion('rheon'))); }   // call whenever the location changes
+function syncAway(){ G.active = G.active.filter(id => !isAway(id)); }   // call whenever the location changes
 function applyStoryStates(n){
   (CH_DISABLE[n]||[]).forEach(id => { if(G.party.includes(id)) G.disabled[id] = true; });
   (CH_ENABLE[n]||[]).forEach(id => { delete G.disabled[id]; });
@@ -238,12 +238,18 @@ const GUEST_RULES = {
   eira:{fromCh:129, untilCh:EIRA_JOIN_CH, locs:AREA_BROKEN_SEALS, note:'Eira Solenne, the scholar of the sanctuary, fights beside the party while it is in the Broken Seals area (she joins the party for good after Arc V).'},
   rin:{fromCh:149, untilCh:RIN_JOIN_CH, locs:AREA_NORTH, note:'Rin Kaede, the Spirit Ranger, fights beside the party while it is in the northern forest country.'},
 };
-const presentGuests = () => !G ? [] : Object.keys(GUEST_RULES).filter(id => { const r = GUEST_RULES[id];
+const presentGuestsRules = () => !G ? [] : Object.keys(GUEST_RULES).filter(id => { const r = GUEST_RULES[id];
   const base = (r.flag===undefined || [].concat(r.flag).every(f => G.flags[f])) && (!r.regions || r.regions.includes(LOCATIONS[G.loc].region)) && (!r.locs || r.locs.includes(G.loc) || (r.extraLocs && r.extraLocs[G.loc] !== undefined && G.ch >= r.extraLocs[G.loc])) && (r.fromCh===undefined || G.ch>=r.fromCh) && (r.untilCh===undefined || G.ch<r.untilCh) && (!r.when || r.when());
   const ok = base || !!(r.alt && r.alt());   // alt: a second way to be present (an arc where the story has the guest travel with the party)
   return ok && !isDisabled(id); });
+/* STORY COMPANIONS: characters the story arc needs are brought along whatever the party size. They fight beside the five (controllable extras, like guests); if they are in the active five they simply take their seat. Add a row per arc.
+   Arc XIII (from ch312) focuses on Jade and Sky; Rheon travels as a guest. (Sera rejoins as an ordinary party member.) */
+const STORY_ALONG = [ {from:312, ids:['sky','rheon'], note:'Arc XIII: Sky (the arc\'s focus, with Jade) and Prince Rheon (a guest) come along whatever the party size.'} ];
+const storyAlongIds = () => !G ? [] : STORY_ALONG.filter(a => G.ch >= a.from && (a.until === undefined || G.ch < a.until)).reduce((l, a) => l.concat(a.ids), []).filter(id => G.party.includes(id) && CHARACTERS[id] && !isAway(id) && !isDisabled(id));
+const storyAlongNote = () => !G ? '' : STORY_ALONG.filter(a => G.ch >= a.from && (a.until === undefined || G.ch < a.until)).map(a => a.note).join(' ');
+const presentGuests = () => { const l = presentGuestsRules(); storyAlongIds().forEach(id => { if(!l.includes(id)) l.push(id); }); return l; };
 const isGuestNow = id => presentGuests().includes(id);
-const isCompanion = id => !!(CHARACTERS[id] && CHARACTERS[id].companion) || (!!G && ((id==='rin' && G.ch < RIN_JOIN_CH) || (id==='eira' && G.ch < EIRA_JOIN_CH) || (id==='rheon' && G.ch >= 312)));   // companions travel and fight with the party without using one of the active slots
+const isCompanion = id => !!(CHARACTERS[id] && CHARACTERS[id].companion) || (!!G && ((id==='rin' && G.ch < RIN_JOIN_CH) || (id==='eira' && G.ch < EIRA_JOIN_CH)));   // companions travel and fight with the party without using one of the active slots
 function recruit(id){ if(G.left && G.left[id]) return false; if(!G.party.includes(id)){ G.party.push(id); if(!isCompanion(id) && activeCount()<slotCap()) G.active.push(id); return true; } return false; }
 function toggleActive(id){ if(unbenchable(id) || isCompanion(id) || (isAway(id) && !G.active.includes(id))) return; const i=G.active.indexOf(id); if(i>=0) G.active.splice(i,1); else if(activeCount()<slotCap()) G.active.push(id); save(); }
 function recruitsAtChapter(ch){ return Object.keys(JOIN_CH).filter(id => JOIN_CH[id] === ch); }

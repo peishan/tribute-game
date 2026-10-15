@@ -73,7 +73,7 @@ function completeChapter(n){
   Object.keys(CH_EQUIP[n]||{}).forEach(id => { if(isRecruited(id)) CH_EQUIP[n][id].forEach(k => { if(equipItem(id,k)) msgs.push('🛡️ '+CHARACTERS[id].n.split(' ')[0]+' wears '+ITEMS[k].icon+' '+ITEMS[k].n); }); });
   (CH_FLAGS[n]||[]).forEach(f => { G.flags[f] = true; msgs.push('✦ Story event: '+(FLAG_LABEL[f]||f)+' unlocked'); });
   if(n===312){   // Arc XIII roster (author): Sera rejoins as a party member, Rheon travels as a guest (a companion: fights beside the party without taking a slot)
-    G.active = G.active.filter(id => id !== 'rheon');
+    G.active = G.active.filter(id => id !== 'rheon');   // he is a guest (STORY_ALONG in core.js)
     if(G.party.includes('seraphina') && !G.active.includes('seraphina') && activeCount() < slotCap()) G.active.push('seraphina');
     msgs.push('🦅 Sera rejoins the party.'); if(G.party.includes('rheon')) msgs.push('🦅 Rheon now travels with the party as a guest.');
   }
