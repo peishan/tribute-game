@@ -84,9 +84,10 @@ ROUTES.push(
 );
 AREA_LOOT.altan_road = [{id:'frontier_hide',chance:.30,needCh:ALTAN_ROUTE_CH},{id:'spirit_thread',chance:.15,needCh:ALTAN_ROUTE_CH}];
 AREA_LOOT.altan_pass = [{id:'seal_dust',chance:.20,needCh:ALTAN_ROUTE_CH},{id:'spirit_thread',chance:.20,needCh:ALTAN_ROUTE_CH}];
-WORLD_MAPS.push({id:'altan', n:'The Altan Route', img:'assets/maps/altan.webp', open:() => G.ch >= ALTAN_ROUTE_CH, schem:true,   // picture not generated yet; schematic positions are placeholders
+WORLD_MAPS.push({id:'altan', n:'The Altan Route', img:'assets/maps/altan.webp', open:() => G.ch >= ALTAN_ROUTE_CH, schem:false,   // the author's Altan Kingdom map; the Hidden Mountain Passage is deliberately not drawn (it appears in List mode)
   locs:['altan_border','altan_road','altan_pass','altan_hidden','altan_capital'],
-  nodes:[{k:'Tribute',x:15,y:80,loc:'capital',ref:true},{k:'Border Garrison',x:35,y:62,loc:'altan_border'},{k:'Old Military Road',x:50,y:44,loc:'altan_road'},{k:'Mountain Pass',x:66,y:26,loc:'altan_pass'},{k:'Hidden Mountain Passage',x:78,y:38,loc:'altan_hidden'},{k:'Altan Capital',x:84,y:12,loc:'altan_capital'}]});
+  nodes:[{k:'Dragonvale (road)',x:91,y:82,loc:'dragon_vale',ref:true},{k:'Border Garrison',x:82,y:71,loc:'altan_border'},{k:'Old Military Road',x:78,y:49,loc:'altan_road'},{k:'Mountain Pass',x:78,y:17,loc:'altan_pass'},
+         {k:'Altan Capital',x:49,y:46,loc:'altan_capital'},{k:'Falcon Palace',x:44,y:31,loc:'altan_capital',spot:'falcon_palace'},{k:'Royal Gardens',x:56,y:38,loc:'altan_capital',spot:'altan_gardens'},{k:'Royal Archive',x:30,y:41,loc:'altan_capital',spot:'altan_archive'},{k:'Training Grounds',x:36,y:60,loc:'altan_capital',spot:'altan_training'}]});
 MISSIONS.push({id:'m_missing_prince', needCh:ALTAN_QUEST_CH, title:'Find the Missing Altan Prince', obj:{type:'steps', steps:[
    {label:'Question palace officials', spot:'question_officials'},
    {label:'Review the prince\'s expedition order', spot:'expedition_order'},
