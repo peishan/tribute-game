@@ -660,7 +660,7 @@ LORE.push(
 
 /* A newcomer (Rheon) starts at the party's average bond, so joining does not drag down Jade's party-bond level (it is the average of the party). */
 function startBondFor(id){
-  if(id!=='rheon') return;
+  if(id!=='rheon' && id!=='maris') return;
   const o = G.party.filter(x => x!=='jade' && x!==id && !CHARACTERS[x].placeholder && !isCompanion(x));
   if(o.length) U(id).bp = Math.round(o.reduce((a, x) => a + U(x).bp, 0) / o.length);
 }

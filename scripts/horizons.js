@@ -2,7 +2,7 @@
    ARC XII: NEW HORIZONS (chapters 287-311; docs/ARC_XII_PLAN.md)
    - Places: Dragonvale Harbour (ch287); the Western Sea Route opens at ch291 (Western Waters: the Old Trade Sea); the Frontier Port (ch295); the Road of Foreign Stars (ch297);
      the Western Archive (ch302); the Sealed Sanctuary (ch309: visible, closed to Jade for now).
-   - Maris Aurel (from ch287) is an adviser on tide, chart and seal clues: she counts for investigation roles but is not a party member and has no portrait slot.
+   - Maris Aurel (from ch287) is an adviser on tide, chart and seal clues (counts for investigation roles); she joins the party for good when Arc XII is completed (ch311).
    - Archive tab "Western Routes": Ancient Navigation Markers, Sky Family Clues, the Valor Lineage, Merchant Ledger Compare (from ch296), Interpret Resonance (from ch293) and Valor Resonance
      (hidden; shown only as a word). Read-only except for the two small actions. State: G.hz = {led:{}, interp:{}}; Valor Resonance counts the mystic-site clues done (RES_SPOTS).
    - Maps: "Western Routes" (from ch289) and "The Wider World" (from ch310) use panels cropped from the author's chapter 310 page; they are provisional until proper maps are generated.
@@ -646,3 +646,24 @@ WORLD_MAPS.push({id:'western', n:'The Western Routes', img:'assets/maps/western_
 WORLD_MAPS.push({id:'wider', n:'The Wider World', img:'assets/maps/wider_world.webp', open:() => G.ch >= 310, schem:true,   // cropped from ch310 ("The Wider World"); only Tribute and Dragonvale are marked
   locs:[],
   nodes:[{k:'Tribute',x:72,y:48,loc:'capital',ref:true},{k:'Dragonvale',x:58,y:30,loc:'dragon_vale',ref:true}]});
+
+/* ---- Maris Aurel, recruitable after her arc (author: after the maritime arc, ch311). Tide support and control: shields, regeneration and slowing tides; different from Eira's records-and-light kit. ---- */
+const MARIS_JOIN_CH = 311;
+CHARACTERS.maris = {
+  n:'Maris Aurel', icon:'🧜', cls:'Tide Archivist', role:'Tide Support / Controller (joins after Arc XII)', combat:'Tides, wards and slowing currents',
+  identity:'The Tide Archivist of the Deep Archives. She reads tide charts, seals and star positions as other people read letters, and she guarded the Sunken Kingdom\'s records for generations. She joins the party for good once the western route is walked (chapter 311).',
+  style:['Tide charts','Wards','Currents'], strength:'Reading tides and old records',
+  weapon:'Tide chart and astrolabe', signature:'Rising Tide', sigDesc:'A surge that strikes every enemy and slows them.',
+  base:{hp:64,mp:50,atk:4,mag:15,def:8,spd:10}, grow:{hp:5.8,mp:4,atk:.5,mag:2,def:1,spd:.9},
+  skills:[
+   {id:'tidebreak',n:'Tidebreak',icon:'🌊',mp:6,kind:'magic',tgt:'foe',pow:1.6,req:{lvl:1},desc:'A breaking wave on a single foe.'},
+   {id:'tide_ward',n:'Tide Ward',icon:'🛡️',mp:8,kind:'support',tgt:'allies',fx:[{k:'shield',v:.1,d:3}],req:{lvl:1},desc:'A thin curtain of water over the whole party: a small barrier.'},
+   {id:'ebb_and_flow',n:'Ebb and Flow',icon:'💧',mp:9,kind:'heal',tgt:'ally',pow:1.2,fx:[{k:'regen',v:.05,d:3}],req:{lvl:4},desc:'The tide returns what it took: heals an ally and keeps healing a little each turn.'},
+   {id:'rising_tide',n:'Rising Tide',icon:'🌀',mp:12,kind:'magic',tgt:'foes',pow:1.4,fx:[{k:'slow',d:2}],req:{lvl:7},sig:true,desc:'SIGNATURE. A surge that strikes every enemy and slows them.'},
+   {id:'seal_reading',n:'Seal Reading',icon:'🔏',mp:10,kind:'magic',tgt:'foe',pow:1.0,fx:[{k:'buff',stat:'def',m:.8,d:3}],req:{lvl:11},desc:'She reads the weak point in an enemy\'s ward: a bolt that lowers its defence.'},
+  ], evo:{tiers:[
+   {id:'tidewarden',n:'Tidewarden',tier:1,group:'route',req:{lvl:40},mult:{hp:1.2,def:1.15,mag:1.1},desc:'The tide as a shield: stronger wards and steady healing.',skills:[{id:'deep_ward',n:'Deep Ward',icon:'🌊',mp:15,kind:'support',tgt:'allies',fx:[{k:'shield',v:.22,d:3},{k:'regen',v:.05,d:3}],desc:'A heavy barrier and a little healing each turn for the whole party.'}]},
+   {id:'deep_archivist',n:'Deep Archivist',tier:1,group:'route',req:{lvl:40},mult:{mag:1.25,spd:1.1},desc:'The deep records as a weapon: control and heavier magic.',skills:[{id:'undertow',n:'Undertow',icon:'🌀',mp:14,kind:'magic',tgt:'foes',pow:2.0,fx:[{k:'slow',d:2},{k:'buff',stat:'def',m:.85,d:2}],desc:'A pull from below: hits every enemy, slows them and loosens their guard.'}]},
+  ]},
+  bond:null };
+ROSTER.push('maris'); XP_CLASS.maris = 'scholar'; JOIN_CH.maris = MARIS_JOIN_CH;
