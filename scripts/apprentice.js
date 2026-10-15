@@ -30,12 +30,23 @@ function trainSky(n){
   G.flags['sky_train_'+n] = true;
   const msgs = ['🕯️ Lesson '+n+': '+L.name+'. '+L.text, '✨ '+L.gain];
   const m = addBond('sky', 4); if(m) msgs.push(m);
+  if(n===3){ G.ghostLeaveDay = G.day + GHOST_STAY_DAYS; msgs.push('🕯️ The Ghost Healer says there is nothing more to teach. They will stay '+GHOST_STAY_DAYS+' more days, then go on alone.'); }
   return msgs.concat(advanceDay(1));
+}
+/* The Ghost Healer leaves a fixed number of in-game days after Sky finishes the third lesson (author: time-gated). Gone for good: G.left.ghost_healer. */
+const GHOST_STAY_DAYS = 7;
+function ghostTick(){
+  if(!G.flags.sky_train_3 || !G.party.includes('ghost_healer')) return [];
+  if(G.ghostLeaveDay === undefined) G.ghostLeaveDay = G.day + GHOST_STAY_DAYS;   // a save that finished the lessons before this rule
+  if(G.day < G.ghostLeaveDay) return [];
+  G.party = G.party.filter(x => x !== 'ghost_healer'); G.active = G.active.filter(x => x !== 'ghost_healer'); if(!G.left) G.left = {}; G.left.ghost_healer = true; G.flags.ghost_left = true;
+  if(typeof chronicle==='function') chronicle('The Ghost Healer left before dawn, as they always do.', '🕯️');
+  return ['🕯️ The Ghost Healer is gone before dawn. A folded veil and a satchel of herbs are left for Sky.'];
 }
 function rApprentice(){
   if(!isRecruited('ghost_healer') && !skyStage()) return '';
   const why = {locked:'🔒 Finish the previous lesson', away:'🔒 The Ghost Healer is not with you', lv:'', trust:'🔒 The Ghost Healer must trust you first (the gift quest)', items:'', ready:''};
   const rows = SKY_LESSONS.map(L => { const st = lessonState(L), cost = Object.keys(L.cost).map(k => ITEMS[k].icon+' '+ITEMS[k].n+' ×'+L.cost[k]+' ('+(G.inv[k]||0)+')').join(', ');
     return `<div class="ev ${st==='done'?'taken':st==='ready'?'ready':'locked'}"><div><b>${L.n}. ${L.name}</b> <span class="sm">${L.gain}</span><div class="sm">${st==='done'?'✔ learned':cost+' · party level '+L.lv+(why[st]?' · '+why[st]:st==='lv'?' · 🔒 needs level '+L.lv:'')}</div></div><button ${st==='ready'?'':'disabled'} onclick="act(trainSky,${L.n})">${st==='done'?'Done':'Train'}</button></div>`; }).join('');
-  return `<h4>🕯️ Apprenticeship with the Ghost Healer</h4><div class="sm">Sky learns from the Ghost Healer. Each lesson takes a day. Healing power now ×${skyHealMult().toFixed(2)}.</div>${rows}`;
+  return `<h4>🕯️ Apprenticeship with the Ghost Healer</h4><div class="sm">Sky learns from the Ghost Healer. Each lesson takes a day. Healing power now ×${skyHealMult().toFixed(2)}.</div>${rows}${G.flags.sky_train_3 && G.party.includes('ghost_healer') && G.ghostLeaveDay!==undefined ? `<div class="sm">🕯️ The Ghost Healer leaves in ${Math.max(0, G.ghostLeaveDay - G.day)} days.</div>` : G.flags.ghost_left ? `<div class="sm">🕯️ The Ghost Healer has gone on alone.</div>` : ''}`;
 }
