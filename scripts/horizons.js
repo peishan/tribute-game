@@ -882,12 +882,17 @@ deed('hz_attuned', 'story', 'Answering the sky', '🌌', 'Valor Resonance reache
 deed('arc12', 'story', 'New Horizons', '🌅', 'Arc XII, New Horizons, is complete.', () => !!G.flags.arc12_complete);
 
 /* ---- maps: provisional pictures cropped from the author's chapter 310 page ---- */
-WORLD_MAPS.push({id:'western', n:'The Western Routes', img:'assets/maps/western_routes.webp', open:() => G.ch >= 289, schem:true,   // cropped from ch310 ("Western Routes (Recovered)"); schematic node positions are placeholders
+WORLD_MAPS.push({id:'western', n:'Western Waters', img:'assets/maps/western_routes.webp', open:() => G.ch >= 289, schem:false,   // the author's Western Waters map (the "uncharted islands", "beyond the known seas" and southern route are not places in the game)
   locs:['old_trade_sea','frontier_port','western_road','western_archive','sealed_sanctuary'],
-  nodes:[{k:'Dragonvale Harbour',x:14,y:80,loc:'dragon_harbour',ref:true},{k:'The Old Trade Sea',x:32,y:60,loc:'old_trade_sea'},{k:'The Frontier Port',x:50,y:44,loc:'frontier_port'},{k:'The Road of Foreign Stars',x:68,y:34,loc:'western_road'},{k:'The Western Archive',x:62,y:68,loc:'western_archive'},{k:'The Sealed Sanctuary',x:86,y:18,loc:'sealed_sanctuary'}]});
-WORLD_MAPS.push({id:'wider', n:'The Wider World', img:'assets/maps/wider_world.webp', open:() => G.ch >= 310, schem:true,   // cropped from ch310 ("The Wider World"); only Tribute and Dragonvale are marked
-  locs:[],
-  nodes:[{k:'Tribute',x:72,y:48,loc:'capital',ref:true},{k:'Dragonvale',x:58,y:30,loc:'dragon_vale',ref:true}]});
+  nodes:[{k:'Old Trade Sea',x:16,y:28,loc:'old_trade_sea'},{k:'Frontier Port',x:42,y:28,loc:'frontier_port'},{k:'Road of Foreign Stars',x:70,y:31,loc:'western_road'},{k:'Western Archive',x:83,y:44,loc:'western_archive'},{k:'Sanctuary of Open Sky',x:71,y:59,loc:'sealed_sanctuary'},{k:'Dragonvale Harbour (sea lane)',x:95,y:31,loc:'dragon_harbour',ref:true}]});
+WORLD_MAPS.push({id:'wider', n:'The Wider World', img:'assets/maps/wider_world.webp', open:() => G.ch >= 310, schem:false,   // the author's Wider World map; Impossible Entry has no place to travel to, so it is not marked
+  locs:['dima_sanctuary','xima_realm'],
+  nodes:[{k:'Altan Kingdom',x:47,y:21,loc:'altan_capital',ref:true},{k:'Dragonvale',x:62,y:25,loc:'dragon_vale',ref:true},{k:'Tribute',x:87,y:27,loc:'capital',ref:true},{k:'Valen Borderlands',x:58,y:39,loc:'valen_borderlands',ref:true},{k:'The Fifteen Evils',x:45,y:67,loc:'northern_frontier',ref:true},{k:'The Broken Seals',x:89,y:48,loc:'forgotten_sanctuary',ref:true},{k:'The Sunken Kingdom',x:58,y:79,loc:'sunken_kingdom',ref:true},
+         {k:'Western Waters',x:11,y:32,loc:'old_trade_sea'},{k:'Sanctuary of Open Sky',x:8,y:48,loc:'sealed_sanctuary'},{k:'Frontier Port',x:23,y:42,loc:'frontier_port'},{k:'Western Archive',x:32,y:51,loc:'western_archive'},{k:'Road of Foreign Stars',x:30,y:59,loc:'western_road'},
+         {k:'Dima\'s Sanctuary',x:91,y:74,loc:'dima_sanctuary'},{k:'Xima\'s Realm',x:92,y:88,loc:'xima_realm'}]});
+WORLD_MAPS.push({id:'harbour', n:'Dragonvale Harbour', img:'assets/maps/dragon_harbour.webp', open:() => locOpen('dragon_harbour'), schem:false,   // the author's harbour picture: its quays, piers and districts are not separate places in the game
+  locs:['dragon_harbour'],
+  nodes:[{k:'Dragonvale Harbour',x:57,y:55,loc:'dragon_harbour'},{k:'Dragonvale (road)',x:84,y:15,loc:'dragon_vale',ref:true},{k:'Old Trade Sea (ship route)',x:68,y:82,loc:'old_trade_sea',ref:true}]});
 
 /* ---- Maris Aurel, recruitable after her arc (author: after the maritime arc, ch311). Tide support and control: shields, regeneration and slowing tides; different from Eira's records-and-light kit. ---- */
 const MARIS_JOIN_CH = 311;
