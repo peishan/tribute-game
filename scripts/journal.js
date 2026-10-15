@@ -10,7 +10,7 @@ Object.keys(COMIC_TITLES).forEach(i => TITLES[i] = COMIC_TITLES[i]);
 Object.keys(CHAPTER_DESIGN).forEach(i => TITLES[i] = CHAPTER_DESIGN[i].title);
 const ART = {0:['pr1','pr2','pr3'],1:['c1_intro','c1a','c1b'],2:['c2a','c2b'],3:['c3a','c3b','c3c'],4:['c4a','c4b']};
 for(let i=5;i<=17;i++) ART[i]=['c'+i];
-for(let i=18;i<=311;i++) ART[i]=['ch'+i];
+for(let i=18;i<=322;i++) ART[i]=['ch'+i];
 ART[185]=['ch185','ch185b','ch185c'];   // Arc VII finale: the finale, its second page, and the Register's Impossible Entry   // converted from the uploaded PNGs
 
 // Chapter battles (PLACEHOLDER encounters — replace with the real fights).
@@ -37,7 +37,7 @@ const BATTLES = {
 const DUEL = { 3:true, 138:true };   // story duels: losing still completes the chapter (the story has Chad win)
 const SOLO = { 161:['jade','devon','seraphina','levi','sky'], 151:['jade','devon'], 138:['jade','devon','sky','levi'], 116:['jade','devon'], 3:['jade'], 13:['chad'], 21:['jade'], 35:['jade','chad','sky','levi'], 41:['jade','chad','sky','levi'] };   // who fights (Sky is captive in ch5)
 const CHAPTERS = [];
-for(let i=0;i<=311;i++){
+for(let i=0;i<=322;i++){
   CHAPTERS.push({ n:i, title: TITLES[i] || ('Chapter '+i+' (?)'), art: ART[i]||[],
     sxp: 80 + i*40,                         // story XP (tune)
     lv: Math.max(1, Math.round(i*0.9)+1),    // enemy level for this chapter's battle
@@ -72,6 +72,12 @@ function completeChapter(n){
   Object.keys(CH_BOND[n]||{}).forEach(id => { if(isRecruited(id)){ U(id).bp = Math.max(0, U(id).bp + CH_BOND[n][id]); msgs.push(CH_BOND[n][id]<=-9999 ? '💔 Jade severs her bond with Roc Chadwick ('+CHARACTERS[id].n.split(' ')[0]+').' : '💞 Bond with Jade ('+CHARACTERS[id].n.split(' ')[0]+'): '+(CH_BOND[n][id]>0?'+':'')+CH_BOND[n][id]); } });
   Object.keys(CH_EQUIP[n]||{}).forEach(id => { if(isRecruited(id)) CH_EQUIP[n][id].forEach(k => { if(equipItem(id,k)) msgs.push('🛡️ '+CHARACTERS[id].n.split(' ')[0]+' wears '+ITEMS[k].icon+' '+ITEMS[k].n); }); });
   (CH_FLAGS[n]||[]).forEach(f => { G.flags[f] = true; msgs.push('✦ Story event: '+(FLAG_LABEL[f]||f)+' unlocked'); });
+  if(n===312){   // Arc XIII roster (author): Sera rejoins as a party member, Rheon travels as a guest (a companion: fights beside the party without taking a slot)
+    G.active = G.active.filter(id => id !== 'rheon');
+    if(G.party.includes('seraphina') && !G.active.includes('seraphina') && activeCount() < slotCap()) G.active.push('seraphina');
+    msgs.push('🦅 Sera rejoins the party.'); if(G.party.includes('rheon')) msgs.push('🦅 Rheon now travels with the party as a guest.');
+  }
+  if(typeof syncAway==='function') syncAway();
   if(typeof arcAfterChapter==='function') arcAfterChapter(n);
   msgs.push('Story XP +'+c.sxp);
   gainXp(c.sxp, G.party).forEach(m => msgs.push(m));

@@ -548,13 +548,246 @@ LORE.push(
   {ch:311, n:'Arc XII: New Horizons', t:'Foreign ports sent records that disagreed with Tribute\'s and Dragonvale\'s. Jade followed the old western route, learned that her mother\'s lineage belongs to a much wider world, and that the altered Register erased far more than political alliances.'}
 );
 
+/* ---- Arc XIII: the return to the Western Sanctuary (chapters 312-322; the arc title and cover are pending) ---- */
+const RHEON_GUEST_CH = 312;   // Rheon travels as a guest from ch312 (core.js isCompanion); Sera rejoins as a party member (flag sera_rejoined)
+LOCATIONS.capital.spots.push(
+  {id:'hz312a', kind:'investigate', n:'The Sanctuary\'s Response', icon:'📜', ch:312, need:2, ambush:[], lo:88, roles:['jade', 'sky', 'devon'],
+   desc:'A message from the west.',
+   clues:['Jade: "It\'s from the western sanctuary. These are new wards, more complex than before. They\'ve changed since my first visit. And... it\'s not just a warning anymore."', 'The record is set beside the old: "Western Sanctuary (As Recorded Before)" and "Western Sanctuary (Current Response)". The sanctuary\'s wards have been reforged. New layers have been added, and a unique pattern, one that resonates with Jade\'s bloodline, now lies at the heart.'], rw:{xp:223100, gold:46920}},
+  {id:'hz312b', kind:'investigate', n:'Advanced Wards', icon:'🔏', ch:312, need:2, ambush:[], lo:88, roles:['jade', 'sky', 'devon'],
+   desc:'Awakened, or waiting.',
+   clues:['Sky: "These wards are far more advanced than before. It\'s as if the sanctuary has awakened... or been waiting."', 'Levi: "This isn\'t a random response. It recognises you, Jade. Something inside knows who you are."'], rw:{xp:223400, gold:46980}, needFlag:'inv_hz312a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz312c', kind:'investigate', n:'Elara\'s Symbol', icon:'🧿', ch:312, need:2, ambush:[], lo:88, roles:['jade', 'sky', 'devon'],
+   desc:'Stronger now.',
+   clues:['Jade: "When I hold Elara\'s symbol, the wards respond. They resonate with me. It\'s the same pattern as before, but stronger now. Something inside the sanctuary recognises me."', 'Devon: "The sanctuary remains sealed, but this is different. It is no longer silent. It has chosen to respond. That means there is something important inside."'], rw:{xp:223700, gold:47040}, needFlag:'inv_hz312b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz312d', kind:'investigate', n:'Why Now?', icon:'❓', ch:312, need:2, ambush:[], lo:88, roles:['jade', 'sky', 'devon'],
+   desc:'It remembers.',
+   clues:['Rheon: "It\'s reacting to your bloodline. The sanctuary isn\'t just a place... it\'s alive, in its own way. It remembers you." Another voice: "Then there must be a reason it\'s responding now. Whatever is inside... it could change everything."', 'With the sanctuary\'s response the path to the west opens once more. New mysteries await, and the truth within may rewrite the future: for Jade, for their kingdoms, and for a world long divided. Next objective: travel to the Western Sanctuary, discover the truth within, uncover the next part of Elara\'s legacy, and prepare for what lies beyond.'], rw:{xp:224000, gold:47100}, needFlag:'inv_hz312c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz313a', kind:'investigate', n:'The Route Reopened', icon:'🗺️', ch:313, need:2, ambush:[], lo:88, roles:['devon', 'levi', 'rheon'],
+   desc:'Familiar points and new territories.',
+   clues:['Jade: "We\'re heading west again, the route we recovered in New Horizons. This time, we\'re prepared."', 'The map shows the Western Route (Reopened) running from Tribute\'s harbour. The journey will take them through familiar points and new territories. There are still many unknowns, but the path is clearer than before.'], rw:{xp:224300, gold:47160}},
+  {id:'hz313b', kind:'investigate', n:'Not Going to Be Easy', icon:'⚠️', ch:313, need:2, ambush:[], lo:88, roles:['devon', 'levi', 'rheon'],
+   desc:'Expect new challenges.',
+   clues:['Devon: "The route is open, but it\'s not going to be easy. We should expect new challenges along the way."', 'Another voice: "At least we know the way this time. We can focus on what\'s ahead, not just trying to find the path."'], rw:{xp:224600, gold:47220}, needFlag:'inv_hz313a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz313c', kind:'investigate', n:'Stay Alert', icon:'👁️', ch:313, need:2, ambush:[], lo:88, roles:['devon', 'levi', 'rheon'],
+   desc:'Welcome and not welcome.',
+   clues:['A traveller: "The western lands may welcome us... but there will also be places that don\'t. We stay alert and move carefully."', 'Another: "It feels different this time. As if the western lands are watching us, waiting to see what we will do. We\'re not just travelling anymore. We\'re part of something larger."'], rw:{xp:224900, gold:47280}, needFlag:'inv_hz313b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz313d', kind:'investigate', n:'West Again', icon:'🐎', ch:313, need:2, ambush:[], lo:88, roles:['devon', 'levi', 'rheon'],
+   desc:'Questions and possibilities.',
+   clues:['One of the party: "Returning to the western road... it\'s strange, but it also feels meaningful. There are still many places I want to see, and many things I want to understand."', 'The party leaves the harbour and heads west, following the route opened in New Horizons, with familiar faces and new allies. The journey continues, and with it, more questions and more possibilities.'], rw:{xp:225200, gold:47340}, needFlag:'inv_hz313c', lockMsg:'🔒 Finish the previous clue first'},
+);
+LOCATIONS.frontier_port.spots.push(
+  {id:'hz314a', kind:'investigate', n:'Older Than a Kingdom', icon:'📜', ch:314, need:2, ambush:[], lo:88, roles:['jade', 'seraphina', 'rheon'],
+   desc:'Not a noble title.',
+   clues:['The mystic: "The name Valor is older than any single kingdom. It was not always a noble title, but a bloodline, one that walked between peoples."', 'Jade: "So the Valor were travellers... not just lords or warriors? They listened, observed, and helped keep peace between people who didn\'t always trust each other."'], rw:{xp:225500, gold:47400}},
+  {id:'hz314b', kind:'investigate', n:'Seers and More', icon:'🔮', ch:314, need:2, ambush:[], lo:88, roles:['jade', 'seraphina', 'rheon'],
+   desc:'Not all had the Sight.',
+   clues:['The mystic: "Some among them had the Sight. Some read signs, dreams and the movements of the world. But not all were seers. The Valor also carried knowledge, settled disputes, and protected those who could not protect themselves."', 'The party: they stood between kingdoms and common folk, and between humans and other peoples too, perhaps. No wonder their name still carries weight.'], rw:{xp:225800, gold:47460}, needFlag:'inv_hz314a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz314c', kind:'investigate', n:'Not Tied to One Place', icon:'🧭', ch:314, need:2, ambush:[], lo:88, roles:['jade', 'seraphina', 'rheon'],
+   desc:'Wherever they were needed.',
+   clues:['A traveller: "So the Valor bloodline isn\'t tied to one place. They moved wherever they were needed. That explains why their symbol appears in so many different regions."', 'Fragments of records show Valor symbols in distant lands: at trade ports, sanctuaries and places of old pacts.'], rw:{xp:226100, gold:47520}, needFlag:'inv_hz314b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz314d', kind:'investigate', n:'A Responsibility', icon:'⚖️', ch:314, need:2, ambush:[], lo:88, roles:['jade', 'seraphina', 'rheon'],
+   desc:'Why the sanctuary answered.',
+   clues:['Rheon: "It feels like a responsibility more than a title. They didn\'t just protect their own people, but the balance between many communities. No wonder the sanctuary responded to Jade."', 'The name Valor is more than a family surname. It is the legacy of a wandering bloodline that served as seers, mediators and guardians across many lands. Learning more about their history helps the party understand why the sanctuary recognised Jade, and what role they may be facing in the journey ahead.'], rw:{xp:226400, gold:47580}, needFlag:'inv_hz314c', lockMsg:'🔒 Finish the previous clue first'},
+);
+LOCATIONS.western_archive.spots.push(
+  {id:'hz315a', kind:'investigate', n:'Different Surnames', icon:'🔤', ch:315, need:2, ambush:[], lo:88, roles:['jade', 'sky', 'devon'],
+   desc:'Not unrelated origins.',
+   clues:['Jade: "So Elara and Yvette are really sisters. Their different surnames don\'t mean they are unrelated."', 'Another voice: "Different names, same roots. It makes sense now."'], rw:{xp:226700, gold:47640}},
+  {id:'hz315b', kind:'investigate', n:'Original and Married Branches', icon:'🌳', ch:315, need:2, ambush:[], lo:88, roles:['jade', 'sky', 'devon'],
+   desc:'Valor and Valen.',
+   clues:['The records show two sisters from the same bloodline. Elara retained the Valor name (the original branch), while Yvette took the Valen name through marriage (the married branch), continuing a different branch of the family.', 'A traveller: "The Valor bloodline adapted to different lands and responsibilities. Some stayed under their original name, while others took new names through marriage or alliances."'], rw:{xp:227000, gold:47700}, needFlag:'inv_hz315a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz315c', kind:'investigate', n:'Letters and Seals', icon:'✉️', ch:315, need:2, ambush:[], lo:88, roles:['jade', 'sky', 'devon'],
+   desc:'Allies, not a separate origin.',
+   clues:['Letters and seals confirm that Yvette married into the Valen family, who were allies rather than a separate origin. The name Valen became part of the continuing story of the Valor bloodline.', 'A traveller: "So Yvette\'s marriage wasn\'t a break from the family. It was another way the Valor bloodline continued, through a new branch."'], rw:{xp:227300, gold:47760}, needFlag:'inv_hz315b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz315d', kind:'investigate', n:'Two Paths', icon:'🛤️', ch:315, need:2, ambush:[], lo:88, roles:['jade', 'sky', 'devon'],
+   desc:'Blood, values and purpose.',
+   clues:['Another voice: "Two names, but the same bloodline... It feels like two different paths, but both trying to protect people in their own way." Devon: "Different names often lead to different responsibilities. But it\'s still the same family\'s story. It shows how far their influence reached."', 'Though their lives took different directions, Elara and Yvette remained connected by blood, values and purpose. Their choices helped the Valor line endure across generations.'], rw:{xp:227600, gold:47820}, needFlag:'inv_hz315c', lockMsg:'🔒 Finish the previous clue first'},
+);
+LOCATIONS.sealed_sanctuary.spots.push(
+  {id:'hz316a', kind:'investigate', n:'The Doors Open', icon:'🚪', ch:316, need:2, ambush:[], lo:88, roles:['devon', 'levi', 'maris'],
+   desc:'A place that looks upward.',
+   clues:['Jade: "It\'s... beautiful. It feels different from the other seals we\'ve seen. This place looks upward, not inward."', 'Devon: "This isn\'t a place for worship like a temple. It was built to observe, remember... and to guide."'], rw:{xp:227900, gold:47880}},
+  {id:'hz316b', kind:'investigate', n:'Star Charts and Platforms', icon:'🔭', ch:316, need:2, ambush:[], lo:88, roles:['devon', 'levi', 'maris'],
+   desc:'The sky, close.',
+   clues:['The sanctuary is filled with star charts, observation platforms, ancestral records and trials that test the heart, mind and spirit. Celestial maps record the movement of the stars, past and future cycles, and the journeys of those who came before.', 'Rheon: "The sky... it feels so close here. No wonder this place was important to the old bloodline."'], rw:{xp:228200, gold:47940}, needFlag:'inv_hz316a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz316c', kind:'investigate', n:'Records Beyond Our Kingdom', icon:'📚', ch:316, need:2, ambush:[], lo:88, roles:['devon', 'levi', 'maris'],
+   desc:'People, places and events.',
+   clues:['A traveller: "These records go far beyond our kingdom. They\'re tracking more than just the stars... They\'re tracking people, places and events."', 'Levi: "The trials here may not be about strength alone. We\'ll need to use everything we know: observation, judgement and trust in each other."'], rw:{xp:228500, gold:48000}, needFlag:'inv_hz316b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz316d', kind:'investigate', n:'Stories in the Sky', icon:'✨', ch:316, need:2, ambush:[], lo:88, roles:['devon', 'levi', 'maris'],
+   desc:'Left for the future.',
+   clues:['The sanctuary preserves the memories of the Valor bloodline and others, showing glimpses of their lives, choices and the world they protected. Sera: "It\'s like they left their stories here in the sky. They wanted future generations to see, and learn."', 'Every part of the sanctuary points to the sky, a reminder of the wider world and the longer path ahead. Stepping deeper, the party prepares to face the spiritual trials and uncover the truths waiting within.'], rw:{xp:228800, gold:48060}, needFlag:'inv_hz316c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz317a', kind:'investigate', n:'An Almost Identical Prayer', icon:'📜', ch:317, need:2, ambush:[], lo:88, roles:['jade', 'seraphina', 'rheon'],
+   desc:'Words, symbols, order.',
+   clues:['Jade: "This prayer... It\'s almost identical to one my mother used." The words, the symbols and the order of the verses match a prayer Elara once used when Jade was young.', 'Jade remembers watching her mother whisper the same words, not fully understanding their meaning.'], rw:{xp:229100, gold:48120}},
+  {id:'hz317b', kind:'investigate', n:'Absorbed Without Knowing', icon:'🙏', ch:317, need:2, ambush:[], lo:88, roles:['jade', 'seraphina', 'rheon'],
+   desc:'Part of how she sees.',
+   clues:['Rheon: "You absorbed so much of her tradition... even without realising it." Jade: "I didn\'t understand it then. I thought it was just something my mother always did. But it became part of me, my way of seeing the world."', 'Devon: "Some things stay with us even when we don\'t know their meaning at the time. Your mother\'s prayers shaped who you are, Jade."'], rw:{xp:229400, gold:48180}, needFlag:'inv_hz317a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz317c', kind:'investigate', n:'More Than Words', icon:'🕯️', ch:317, need:2, ambush:[], lo:88, roles:['jade', 'seraphina', 'rheon'],
+   desc:'Memories and hopes.',
+   clues:['The mystic: "Prayers are more than words. They carry memories, teachings and the hopes of those who came before us. Your mother passed that to you, not just as a ritual, but as a part of who you are."', 'Jade realises that her mother\'s tradition is not just the past: it lives on in her, in the choices she makes, and in the way she protects others.'], rw:{xp:229700, gold:48240}, needFlag:'inv_hz317b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz317d', kind:'investigate', n:'For You', icon:'💫', ch:317, need:2, ambush:[], lo:88, roles:['jade', 'seraphina', 'rheon'],
+   desc:'Why it mattered.',
+   clues:['Sera: "Your mother\'s prayer wasn\'t just for herself. It was for you, and for the people she hoped you would one day stand beside. Now you understand why it mattered."', 'The prayer connects Jade to her mother, her ancestors and the wider tradition of the Valor bloodline. What once felt like a simple memory is now a deeper understanding: a reminder that she carries her mother\'s prayers forward, into the challenges ahead.'], rw:{xp:230000, gold:48300}, needFlag:'inv_hz317c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz318a', kind:'investigate', n:'A Side She Never Knew', icon:'🪞', ch:318, need:2, ambush:[], lo:88, roles:['jade', 'sky', 'devon'],
+   desc:'Her mother, young.',
+   clues:['Jade: "This is... my mother? She looks so different here... But I can still see her." The records show Elara as a young mystic, travelling across regions, learning from different traditions, and meeting people beyond Tribute.', 'Jade: "She was once so free... Travelling, learning, meeting so many people. I never imagined my mother\'s life before I was born."'], rw:{xp:230300, gold:48360}},
+  {id:'hz318b', kind:'investigate', n:'Seer and Mediator', icon:'⚖️', ch:318, need:2, ambush:[], lo:88, roles:['jade', 'sky', 'devon'],
+   desc:'People trusted her.',
+   clues:['Rheon: "She must have been very strong to walk so many paths on her own. No wonder Jade inherited so much more than just a name."', 'The records show Elara serving as a seer and mediator, helping communities through disputes, disasters and times of uncertainty. Devon: "She wasn\'t just a mystic. She was someone people trusted, across different communities. She carried responsibility even then."'], rw:{xp:230600, gold:48420}, needFlag:'inv_hz318a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz318c', kind:'investigate', n:'She Listened', icon:'👂', ch:318, need:2, ambush:[], lo:88, roles:['jade', 'sky', 'devon'],
+   desc:'The heart of the matter.',
+   clues:['The mystic: "Your mother listened more than she spoke. That is why people from different places trusted her. She saw beyond differences and looked at the heart of the matter."', 'Memory-impressions show Elara studying the stars, recording visions and preserving knowledge from many lands. Sera: "She looked so alive... So curious, so kind. It feels like I\'m meeting her for the first time."'], rw:{xp:230900, gold:48480}, needFlag:'inv_hz318b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz318d', kind:'investigate', n:'Understanding Her', icon:'💗', ch:318, need:2, ambush:[], lo:88, roles:['jade', 'sky', 'devon'],
+   desc:'Brave and full of light.',
+   clues:['Jade: "You were more than the mother I knew... You were someone brave, compassionate and full of light. I understand you a little better now."', 'The woman before mother was a wanderer, a seer, a bridge between people, and the beginning of the legacy Jade now carries. Through the records and visions Jade gains a deeper understanding of the choices, struggles and hopes that shaped their family.'], rw:{xp:231200, gold:48540}, needFlag:'inv_hz318c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz319a', kind:'investigate', n:'She Had a Choice', icon:'🛤️', ch:319, need:2, ambush:[], lo:88, roles:['jade', 'devon', 'levi'],
+   desc:'The way west stayed open.',
+   clues:['Jade: "So she had a choice. She could have gone back to the Western Regions... But she chose to stay." The records say Elara was welcome to return to the Western Regions, where her own people and traditions remained. But she chose to stay in Tribute, with the Gold family.', 'Rheon: "It wasn\'t because she had nowhere else to go. She stayed because she wanted to. That means we are not just a duty."'], rw:{xp:231500, gold:48600}},
+  {id:'hz319b', kind:'investigate', n:'She Trusted the Gold Family', icon:'🏯', ch:319, need:2, ambush:[], lo:88, roles:['jade', 'devon', 'levi'],
+   desc:'Something worth protecting.',
+   clues:['Devon: "She trusted the Gold family. And she believed she could make a difference here." Levi: "She could have lived a simpler life elsewhere. But she stayed because she saw something here that was worth protecting. That takes courage."', 'Elara chose to raise her children within Tribute so they could grow up with both worlds: her own heritage and the responsibilities of the Gold family and the island.'], rw:{xp:231800, gold:48660}, needFlag:'inv_hz319a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz319c', kind:'investigate', n:'Responsibility, Not Freedom', icon:'⚖️', ch:319, need:2, ambush:[], lo:88, roles:['jade', 'devon', 'levi'],
+   desc:'Her children, the land, the people.',
+   clues:['The mystic: "Staying is also a kind of choice. It is choosing responsibility, not just freedom. She chose her children, this land, and the people who relied on her."', 'Sera: "She didn\'t simply give up her own people. She carried both worlds within her. That is why so many different people remember her with respect."'], rw:{xp:232100, gold:48720}, needFlag:'inv_hz319b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz319d', kind:'investigate', n:'A Bridge Between Worlds', icon:'🌉', ch:319, need:2, ambush:[], lo:88, roles:['jade', 'devon', 'levi'],
+   desc:'Not a rejection of her past.',
+   clues:['By remaining in Tribute, Elara helped bridge her Western heritage with the island\'s future, shaping the next generation of the Gold family and the wider kingdom.', 'Elara\'s decision to remain in Tribute was not a rejection of her past, but a deliberate choice to build a future: for her children, for the Gold family, and for the people of the island. She became more than a mystic from the Western Regions: a mother, a bridge between worlds, and a key part of Tribute\'s history.'], rw:{xp:232400, gold:48780}, needFlag:'inv_hz319c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz320a', kind:'investigate', n:'Yvette Really Did Leave', icon:'🧳', ch:320, need:2, ambush:[], lo:88, roles:['jade', 'sky', 'levi'],
+   desc:'A different life.',
+   clues:['Jade: "Yvette really did leave... She chose a completely different life from my mother." Old travel records mention Yvette travelling through western settlements under the Valen name, meeting different people and communities.', 'Rheon: "Her records show many cities... She wasn\'t stationary. She kept moving. It seems she preferred the open road over a fixed home."'], rw:{xp:232700, gold:48840}},
+  {id:'hz320b', kind:'investigate', n:'Different Regions, Different Allies', icon:'🗺️', ch:320, need:2, ambush:[], lo:88, roles:['jade', 'sky', 'levi'],
+   desc:'Trusted across communities.',
+   clues:['Devon: "She travelled a long way. Different regions, different allies. It looks like she was trusted across many communities."', 'The records show Yvette visiting trading ports and inland settlements, sometimes as a mediator, sometimes as a guide, and sometimes as a quiet advisor.'], rw:{xp:233000, gold:48900}, needFlag:'inv_hz320a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz320c', kind:'investigate', n:'Her Own Purpose', icon:'🧭', ch:320, need:2, ambush:[], lo:88, roles:['jade', 'sky', 'levi'],
+   desc:'The Valen name carried far.',
+   clues:['Levi: "She seemed to move between different roles. Mediator, guide, advisor... It feels like she helped people in her own way." The mystic: "Yvette had her own purpose. She carried the Valen name into many places. Even though she was away from Tribute, she still upheld the family\'s traditions."', 'Sky: "She chose a life of movement and connection. Different from our mother, but still part of the same tradition. Both of them followed their own paths... and both made a difference."'], rw:{xp:233300, gold:48960}, needFlag:'inv_hz320b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz320d', kind:'investigate', n:'Bridges Between Communities', icon:'🌉', ch:320, need:2, ambush:[], lo:88, roles:['jade', 'sky', 'levi'],
+   desc:'No single path.',
+   clues:['Through the records Yvette appears as someone who built bridges between communities, carrying the knowledge and values of the Valor/Valen bloodline beyond the island.', 'Yvette\'s travels show a different way to serve: through movement, understanding and connection across many lands. Her story helps Jade see that there is no single path for the Valor bloodline, only different ways of carrying the same light into the world.'], rw:{xp:233600, gold:49020}, needFlag:'inv_hz320c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz321a', kind:'investigate', n:'The Maternal Line', icon:'📖', ch:321, need:2, ambush:[], lo:88, roles:['sky', 'jade', 'seraphina'],
+   desc:'A gentler expression.',
+   clues:['Sky discovers that he shares some of the Valor sensitivity through his mother\'s line, although it manifests differently from Jade\'s. "The Maternal Line: Some descendants of the Valor bloodline inherited a gentler expression, attuned to healing, spiritual sensitivity and intuition rather than strong visions."', 'The veiled woman: "Yes. Your mother\'s branch carried the Valor sensitivity, but in a different form. Some descendants inherited gifts connected to healing instincts, spiritual sensitivity and intuition."'], rw:{xp:233900, gold:49080}},
+  {id:'hz321b', kind:'investigate', n:'Subtler Ways', icon:'💧', ch:321, need:2, ambush:[], lo:88, roles:['sky', 'jade', 'seraphina'],
+   desc:'Emotion, intuition, healing.',
+   clues:['The veiled woman: "They might not receive strong visions like Jade, but they feel the world in subtler ways: through emotion, intuition, and a natural understanding of where healing is needed. This, too, is a true expression of the Valor inheritance."', 'Jade: "So your healing ability may partly come from your mother\'s side of the family... It makes sense now. Your instincts, your intuition about people\'s pain, and the way you can feel what others need... it all fits."'], rw:{xp:234200, gold:49140}, needFlag:'inv_hz321a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz321c', kind:'investigate', n:'My Mother\'s Legacy', icon:'🪷', ch:321, need:2, ambush:[], lo:88, roles:['sky', 'jade', 'seraphina'],
+   desc:'More family out there.',
+   clues:['Sky: "So this was part of my mother\'s legacy... There are people from her line who felt and healed, even if they didn\'t see visions."', 'Sky: "Somewhere out there... there may be more of my family. People who carry the same gift."'], rw:{xp:234500, gold:49200}, needFlag:'inv_hz321b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz321d', kind:'investigate', n:'A Gentler Branch', icon:'🌸', ch:321, need:2, ambush:[], lo:88, roles:['sky', 'jade', 'seraphina'],
+   desc:'No less meaningful.',
+   clues:['Sky: "I\'m not just the son of a man with no memories. I also carry a living part of my mother\'s heritage."', 'Sky\'s inheritance is not the same as Jade\'s, but it is a real and valuable part of the same bloodline: a different expression of the older lineage that still survives today. His healing instincts, spiritual sensitivity and intuition are another way the Valor blood continues to live in the world. A gentler branch, but no less meaningful.'], rw:{xp:234800, gold:49260}, needFlag:'inv_hz321c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz322a', kind:'investigate', n:'Wanderers, Seers, Mediators', icon:'📜', ch:322, need:2, ambush:[], lo:88, roles:['jade', 'sky', 'rheon'],
+   desc:'Where the bloodline began.',
+   clues:['Ancient records show that the Valor bloodline began as a group of wanderers, seers and mediators who travelled between regions, helping to connect people, share knowledge and maintain balance across lands.', 'These records predate Dima and Xima by many generations. The bloodline already existed, with its own traditions, teachings and purpose, long before the two witches appeared in history.'], rw:{xp:235100, gold:49320}},
+  {id:'hz322b', kind:'investigate', n:'Not Their Founders', icon:'🌿', ch:322, need:2, ambush:[], lo:88, roles:['jade', 'sky', 'rheon'],
+   desc:'Part of it, but not its beginning.',
+   clues:['Sky: "So the Valor bloodline is older than Dima and Xima...? I always thought they started it somehow." Jade: "So Dima and Xima were part of the bloodline... but they didn\'t create it."', 'The early members were not tied to a single kingdom. They moved freely, recorded knowledge, guided communities, and sometimes acted as mediators during times of conflict or disasters.'], rw:{xp:235400, gold:49380}, needFlag:'inv_hz322a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz322c', kind:'investigate', n:'Later Generations', icon:'🌗', ch:322, need:2, ambush:[], lo:88, roles:['jade', 'sky', 'rheon'],
+   desc:'Two very different women.',
+   clues:['Dima and Xima were later generations of the same bloodline: two very different women, with different choices, beliefs and paths. They shaped part of the bloodline\'s history, but they were not its founders.', 'Sky: "That means my mother was part of a much older tradition. It makes things feel different now."'], rw:{xp:235700, gold:49440}, needFlag:'inv_hz322b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz322d', kind:'investigate', n:'A Long Line', icon:'🌌', ch:322, need:2, ambush:[], lo:88, roles:['jade', 'sky', 'rheon'],
+   desc:'Through many lands and names.',
+   clues:['The records show a long line of seers, keepers, healers and guardians: people who carried the same sensitivity, intuition and responsibility across generations, adapting to the needs of each era.', 'The bloodline has always existed, through many lands, many names and many people. Dima and Xima are important parts of its history, but the story began long before them, and it continues beyond them.'], rw:{xp:236000, gold:49500}, needFlag:'inv_hz322c', lockMsg:'🔒 Finish the previous clue first'},
+);
+MISSIONS.push(
+  {id:'m_s312', needCh:312, title:'The Door That Remembered Her', obj:{type:'steps', steps:[
+     {label:'The Sanctuary\'s Response', spot:'hz312a'},
+     {label:'Advanced Wards', spot:'hz312b'},
+     {label:'Elara\'s Symbol', spot:'hz312c'},
+     {label:'Why Now?', spot:'hz312d'}]}, rw:{xp:727500, gold:154400, rep:1577},
+   subj:'The Door That Remembered Her', body:'The western records are waiting. — Greyson'},
+  {id:'m_s313', needCh:313, title:'Return to the Western Road', obj:{type:'steps', steps:[
+     {label:'The Route Reopened', spot:'hz313a'},
+     {label:'Not Going to Be Easy', spot:'hz313b'},
+     {label:'Stay Alert', spot:'hz313c'},
+     {label:'West Again', spot:'hz313d'}]}, rw:{xp:730000, gold:155000, rep:1580},
+   subj:'Return to the Western Road', body:'The western records are waiting. — Greyson'},
+  {id:'m_s314', needCh:314, title:'The Name Valor', obj:{type:'steps', steps:[
+     {label:'Older Than a Kingdom', spot:'hz314a'},
+     {label:'Seers and More', spot:'hz314b'},
+     {label:'Not Tied to One Place', spot:'hz314c'},
+     {label:'A Responsibility', spot:'hz314d'}]}, rw:{xp:732500, gold:155600, rep:1583},
+   subj:'The Name Valor', body:'The western records are waiting. — Greyson'},
+  {id:'m_s315', needCh:315, title:'Two Sisters, Two Names', obj:{type:'steps', steps:[
+     {label:'Different Surnames', spot:'hz315a'},
+     {label:'Original and Married Branches', spot:'hz315b'},
+     {label:'Letters and Seals', spot:'hz315c'},
+     {label:'Two Paths', spot:'hz315d'}]}, rw:{xp:735000, gold:156200, rep:1586},
+   subj:'Two Sisters, Two Names', body:'The western records are waiting. — Greyson'},
+  {id:'m_s316', needCh:316, title:'The Sanctuary of Open Sky', obj:{type:'steps', steps:[
+     {label:'The Doors Open', spot:'hz316a'},
+     {label:'Star Charts and Platforms', spot:'hz316b'},
+     {label:'Records Beyond Our Kingdom', spot:'hz316c'},
+     {label:'Stories in the Sky', spot:'hz316d'}]}, rw:{xp:737500, gold:156800, rep:1589},
+   subj:'The Sanctuary of Open Sky', body:'The western records are waiting. — Greyson'},
+  {id:'m_s317', needCh:317, title:'Her Mother\'s Prayer', obj:{type:'steps', steps:[
+     {label:'An Almost Identical Prayer', spot:'hz317a'},
+     {label:'Absorbed Without Knowing', spot:'hz317b'},
+     {label:'More Than Words', spot:'hz317c'},
+     {label:'For You', spot:'hz317d'}]}, rw:{xp:740000, gold:157400, rep:1592},
+   subj:'Her Mother\'s Prayer', body:'The western records are waiting. — Greyson'},
+  {id:'m_s318', needCh:318, title:'The Woman Before Mother', obj:{type:'steps', steps:[
+     {label:'A Side She Never Knew', spot:'hz318a'},
+     {label:'Seer and Mediator', spot:'hz318b'},
+     {label:'She Listened', spot:'hz318c'},
+     {label:'Understanding Her', spot:'hz318d'}]}, rw:{xp:742500, gold:158000, rep:1595},
+   subj:'The Woman Before Mother', body:'The western records are waiting. — Greyson'},
+  {id:'m_s319', needCh:319, title:'The Daughter Who Chose the Court', obj:{type:'steps', steps:[
+     {label:'She Had a Choice', spot:'hz319a'},
+     {label:'She Trusted the Gold Family', spot:'hz319b'},
+     {label:'Responsibility, Not Freedom', spot:'hz319c'},
+     {label:'A Bridge Between Worlds', spot:'hz319d'}]}, rw:{xp:745000, gold:158600, rep:1598},
+   subj:'The Daughter Who Chose the Court', body:'The western records are waiting. — Greyson'},
+  {id:'m_s320', needCh:320, title:'The Half-Sister Who Wandered', obj:{type:'steps', steps:[
+     {label:'Yvette Really Did Leave', spot:'hz320a'},
+     {label:'Different Regions, Different Allies', spot:'hz320b'},
+     {label:'Her Own Purpose', spot:'hz320c'},
+     {label:'Bridges Between Communities', spot:'hz320d'}]}, rw:{xp:747500, gold:159200, rep:1601},
+   subj:'The Half-Sister Who Wandered', body:'The western records are waiting. — Greyson'},
+  {id:'m_s321', needCh:321, title:'Sky\'s Inheritance', obj:{type:'steps', steps:[
+     {label:'The Maternal Line', spot:'hz321a'},
+     {label:'Subtler Ways', spot:'hz321b'},
+     {label:'My Mother\'s Legacy', spot:'hz321c'},
+     {label:'A Gentler Branch', spot:'hz321d'}]}, rw:{xp:750000, gold:159800, rep:1604},
+   subj:'Sky\'s Inheritance', body:'The western records are waiting. — Greyson'},
+  {id:'m_s322', needCh:322, title:'Before the Witches', obj:{type:'steps', steps:[
+     {label:'Wanderers, Seers, Mediators', spot:'hz322a'},
+     {label:'Not Their Founders', spot:'hz322b'},
+     {label:'Later Generations', spot:'hz322c'},
+     {label:'A Long Line', spot:'hz322d'}]}, rw:{xp:752500, gold:160400, rep:1607},
+   subj:'Before the Witches', body:'The western records are waiting. — Greyson'}
+);
+LORE.push(
+  {ch:312, n:'The Sanctuary\'s Response', t:'The sealed western sanctuary reforged its wards after Jade\'s first visit. A new pattern, one that resonates with Jade\'s bloodline, lies at the heart. It responds to Elara\'s symbol.'},
+  {ch:313, n:'The Western Route (Reopened)', t:'The route recovered in New Horizons, taken again from Tribute\'s harbour. It leads through familiar points and new territories.'},
+  {ch:314, n:'The Wandering Bloodline', t:'Valor is the name of an old wandering bloodline, older than any single kingdom: seers, mediators and guardians who moved between communities, carried knowledge, settled disputes and protected those who could not protect themselves.'},
+  {ch:315, n:'Two Sisters, Two Names', t:'Elara Valor kept the Valor name (the original branch); Yvette Sue Valen took the Valen name by marriage into an allied family (the married branch). They are sisters of one bloodline.'},
+  {ch:316, n:'The Sanctuary of Open Sky', t:'A sanctuary built around celestial observation, ancestral memory and spiritual trials rather than worship. Its star charts track the stars and also people, places and events. It preserves the memories of the Valor bloodline and others.'},
+  {ch:317, n:'Her Mother\'s Prayer', t:'A prayer in the sanctuary almost identical to the one Elara used when Jade was young. Jade carries her mother\'s tradition in the choices she makes and the way she protects others.'},
+  {ch:318, n:'The Woman Before Mother', t:'Before marrying Unique Gold, Elara was a young mystic who travelled across regions, learned from different traditions, and served as a seer and mediator. People of many communities trusted her because she listened more than she spoke.'},
+  {ch:319, n:'The Daughter Who Chose the Court', t:'Elara was welcome to return to the Western Regions but chose to stay with the Gold family and raise her children in Tribute, so they would grow up with both worlds. It was a choice of responsibility, not a rejection of her past.'},
+  {ch:320, n:'The Half-Sister Who Wandered', t:'Old travel records show Yvette Sue Valen travelling through western settlements under the Valen name: trading ports, inland towns, as a mediator, a guide and a quiet advisor. She preferred the open road to a fixed home.'},
+  {ch:321, n:'Sky\'s Inheritance', t:'Sky shares some of the Valor sensitivity through his mother\'s line, in a gentler form: healing instincts, spiritual sensitivity and intuition rather than strong visions. It is a real and valuable expression of the same bloodline.'},
+  {ch:322, n:'Before the Witches', t:'The Valor bloodline existed centuries before Dima and Xima. It began as wanderers, seers and mediators; Dima and Xima were later generations, two women with different choices, and not the founders.'}
+);
+LOCATIONS.sealed_sanctuary.spots.push(
+  {id:'sanctuary_platform', kind:'place', n:'Celestial Observation Platform', icon:'🔭', desc:'Star charts and a brass telescope that points at the open sky.', note:'Celestial maps record the movement of the stars, past and future cycles, and the journeys of those who came before.', needWhile:() => G.ch >= 316, lockMsg:'🔒 The sanctuary has not opened yet'},
+  {id:'sanctuary_hall', kind:'place', n:'Hall of Ancestral Memory', icon:'✨', desc:'Blue memory-figures of the Valor bloodline and others.', note:'The hall keeps the memories of the Valor bloodline and others: glimpses of their lives, choices and the world they protected. The trials of the sanctuary lie deeper within.', needWhile:() => G.ch >= 316, lockMsg:'🔒 The sanctuary has not opened yet'},
+);
+// Before ch316 the sanctuary is closed; from ch316 it is the Sanctuary of Open Sky
+Object.defineProperty(LOCATIONS.sealed_sanctuary, 'n', {get(){ return G && G.ch >= 316 ? 'The Sanctuary of Open Sky' : 'The Sealed Sanctuary'; }, configurable:true, enumerable:true});
+Object.defineProperty(LOCATIONS.sealed_sanctuary, 'desc', {get(){ return G && G.ch >= 316 ? 'A sanctuary of observation platforms, star charts and ancestral memory, built to look upward. It opened to Jade.' : G && G.ch >= 312 ? 'A sanctuary of spires and blue banners above the western cliffs. Its wards have been reforged and it has answered Jade.' : 'A sanctuary of spires and blue banners above the western cliffs. It recognises Jade\'s blood, and its door stays shut.'; }, configurable:true, enumerable:true});
+Object.defineProperty(LOCATIONS.sealed_sanctuary.spots.find(s => s.id==='sealed_door'), 'note', {get(){ return G && G.ch >= 316 ? 'The great door with the star seal stands open.' : G && G.ch >= 312 ? 'The door answers Jade\'s presence with light. The wards have been reforged, and the way is not yet open.' : 'The door answers Jade\'s presence with light and stays sealed. It will not open yet.'; }, configurable:true, enumerable:true});
+ROUTES.push({a:'capital', b:'old_trade_sea', mode:'ship', n:'The Western Route, from Tribute\'s harbour', days:6, fare:140, risk:.4, pool:['reef_raider','beacon_wraith','storm_wisp']});
+
 /* ---- state and the "Western Routes" tab ---- */
 const westOpen = () => !!G && G.ch >= 287;
 const hzS = () => { if(!G.hz) G.hz = {led:{}, interp:{}}; if(!G.hz.led) G.hz.led = {}; if(!G.hz.interp) G.hz.interp = {}; return G.hz; };
 const hzDone = sid => !!G.flags['inv_'+sid];
-const RES_SPOTS = ['hz293d', 'hz297d', 'hz298d', 'hz299d', 'hz300d', 'hz307d', 'hz308d', 'hz309d'];
+const RES_SPOTS = ['hz312d', 'hz316d', 'hz317d', 'hz318d', 'hz322d', 'hz293d', 'hz297d', 'hz298d', 'hz299d', 'hz300d', 'hz307d', 'hz308d', 'hz309d'];
 const valorRes = () => RES_SPOTS.filter(hzDone).length;
-const RES_LEVELS = [[0,'Dormant'],[1,'Faint'],[3,'Stirring'],[5,'Clear'],[7,'Attuned']];
+const RES_LEVELS = [[0,'Dormant'],[1,'Faint'],[3,'Stirring'],[5,'Clear'],[7,'Attuned'],[11,'Answered']];
 const resLevel = () => { let l = RES_LEVELS[0][1]; RES_LEVELS.forEach(r => { if(valorRes() >= r[0]) l = r[1]; }); return l; };
 const NAV_NODES = [
   ['Chain of stone islets','hz292a','The first marker, exactly where the captain\'s chart put it.'],
@@ -571,6 +804,9 @@ const SKY_CLUES = [
   ['A name erased','hz294d','Later copies blur or replace the Valen name. Her disappearance is not explained.'],
   ['The Valen branch','hz301b','The Valen branch is one of the known branches of the Valor lineage.'],
   ['An entry that survived','hz302b','A western archive kept: Valen, Trade Alliance, Western Route, Celestial Goods, Envoys, Shared Rites.'],
+  ['Married into an allied house','hz315c','Letters and seals: Yvette married into the Valen family, allies of the Valor.'],
+  ['Yvette on the road','hz320b','Travel records show her as a mediator, guide and advisor in western settlements.'],
+  ['The maternal line','hz321a','Sky\'s gentler branch of the inheritance: healing, intuition, spiritual sensitivity.'],
 ];
 const LINEAGE = [
   ['The western seal','hz290d','A star, waves and flowing wings: Elara Valor\'s ornament.'],
@@ -582,6 +818,12 @@ const LINEAGE = [
   ['The common ancestry','hz305a','Dima and Xima: one older root, two paths.'],
   ['What was erased','hz306a','Travelling bloodlines, mystic houses and cross-border oaths.'],
   ['Valor\'s Sight','hz308a','Sight and Dima-linked magic: two expressions of one lineage.'],
+  ['What Valor means','hz314a','Older than any kingdom: a wandering bloodline, not only a surname.'],
+  ['Two sisters, two names','hz315b','Elara kept the Valor name; Yvette took the Valen name by marriage.'],
+  ['Her mother\'s prayer','hz317a','A prayer in the sanctuary almost identical to Elara\'s.'],
+  ['The woman before mother','hz318a','Elara as a young mystic, seer and mediator.'],
+  ['Elara chose Tribute','hz319b','She stayed with the Gold family by choice, to raise her children.'],
+  ['Before the witches','hz322a','The bloodline existed centuries before Dima and Xima.'],
 ];
 const LEDGERS = [
   {id:'valen', spot:'hz296a', t:'Valen, western route (Calvaris, 1183 A.R.)', reg:'Official Register: the name is blurred in later copies and there is no western route.'},
