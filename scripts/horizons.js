@@ -1181,7 +1181,7 @@ deed('hz_interpret', 'craft', 'A clear reading', '🔮', 'Jade read every impres
 deed('hz_attuned', 'story', 'Answering the sky', '🌌', 'Valor Resonance reached Attuned.', () => valorRes() >= 7);
 deed('hz_ancestral', 'story', 'All four, clearly', '🌠', 'Jade reached Advanced Valor\'s Sight.', () => !!G.flags.ancestral_sight);
 deed('hz_remnant', 'story', 'Jade Gold', '👁️', 'The False Ancestor lost its hold.', () => !!G.flags.boss_boss_xima_remnant);
-deed('arc13', 'story', 'The Sanctuary of Open Sky', '🌌', 'Arc XIII, The Sanctuary of Open Sky, is complete.', () => !!G.flags.arc13_complete);
+deed('arc13', 'story', 'Blood of the Western Stars', '🌌', 'Arc XIII, Blood of the Western Stars, is complete.', () => !!G.flags.arc13_complete);
 deed('arc12', 'story', 'New Horizons', '🌅', 'Arc XII, New Horizons, is complete.', () => !!G.flags.arc12_complete);
 
 /* ---- maps: provisional pictures cropped from the author's chapter 310 page ---- */

@@ -1,6 +1,6 @@
-# ARC XIII — THE SANCTUARY OF OPEN SKY (chapters 312-336; all built)
+# ARC XIII — BLOOD OF THE WESTERN STARS (chapters 312-336; all built)
 
-*Cover title: "The Sanctuary of Open Sky" (canon). The planning title was "Blood of the Western Stars".*
+*The first cover read "The Sanctuary of Open Sky"; the regenerated cover (now in the game) reads "Blood of the Western Stars", the planning title.*
 
 All 25 pages (312-336) and the cover (`assets/arcs/arc13.webp`, shown after ch311) are built (first pass).
 
@@ -19,7 +19,7 @@ All 25 pages (312-336) and the cover (`assets/arcs/arc13.webp`, shown after ch31
 `scripts/horizons.js` holds the spots, missions and lore (spot ids `hz312a`...). Places: 312-313 Tribute (Imperial Capital), 314 Frontier Port, 315 Western Archive, 316-322 the Sanctuary of Open Sky (the Sealed Sanctuary is renamed and opens from ch316, with a platform and a hall to visit). New: a ship route Tribute to the Old Trade Sea (ch313's map starts at "Tribute (Harbour)"). The Archive "Western Routes" tab lists the new lineage and Sky clues; Valor Resonance gains an "Answered" level.
 
 ## Mismatches and open questions
-1. **Cover:** labels Sera "Altan Guest" (she is a full party member) and its chart lists Azure Trench, Silvertide Passage and Elysian Reach, which appear in no chapter (not used).
+1. **Cover:** the regenerated cover labels Sera "Altan Princess" and its chart lists Azure Trench, Silverdale Passage and Elysian Reach, which appear in no chapter (not used).
 2. **ch321 page** shows "Chapter 322" on its title card (author: should be 321). It is saved and numbered 321; regenerate the title if wanted.
 3. **ch320 title** says "Half-Sister", but 315 says full sisters; and a speaker in 320 says "our mother" (the silver-haired speaker is not Jade or Sky). Kept as written in the page text; the game does not use "half".
 4. **ch322 vs ch303/305:** 322 says Dima and Xima were later generations, not founders; 303 called Dima one of the foundational mentors of the early Valor ancestors. Both are in the lore; worth a wording pass.
