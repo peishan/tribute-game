@@ -668,3 +668,9 @@ LORE.push(
 
 /* Revised Arc XI briefs (author): the Mirror of Returning Years sits in the Ancient Relics journal (archive records 'mirror' and 'mirelle_change'); Mirelle's transformation is an unresolved supernatural phenomenon, not reversed; the Mirror does not resolve any entry of the Fifteen Register (the Register count is untouched). */
 LORE.push({ch:286, n:'An Unresolved Phenomenon', t:'Mirelle remains physically young. The effects of the Mirror of Returning Years are not understood, its origins and long-term effects are unknown, and Jade wonders whether it is tied to the ancient magical practices she has met before. The Register is unchanged by it.'});
+
+/* ---- Map: Dragonvale North (the author's Arc XI picture). Dragonvale Harbour (ch287) sits at its "To Dragonvale Harbour" arrow; Altan and Valen are reference markers only. ---- */
+WORLD_MAPS.push({id:'dragon_north', n:'Dragonvale North', img:'assets/maps/dragon_north.webp', open:() => G.ch >= 265, schem:false,
+  locs:['dragon_court','dragon_academy','veyne_estate','northern_road','northwatch_station','northern_valley','dragon_harbour'],
+  nodes:[{k:'Noble Court',x:10,y:43,loc:'dragon_court'},{k:'Academy',x:44,y:45,loc:'dragon_academy'},{k:'Veyne Estate',x:71,y:55,loc:'veyne_estate'},{k:'Northern Road',x:79,y:39,loc:'northern_road'},{k:'Northwatch Station',x:73,y:26,loc:'northwatch_station'},{k:'Crestfall Hold',x:56,y:19,loc:'northern_valley'},
+         {k:'Dragonvale Harbour',x:80,y:84,loc:'dragon_harbour'},{k:'Dragonvale',x:52,y:86,loc:'dragon_vale',ref:true},{k:'Altan Kingdom (road)',x:7,y:66,loc:'altan_capital',ref:true},{k:'Valen Borderlands (road)',x:96,y:29,loc:'valen_borderlands',ref:true}]});
