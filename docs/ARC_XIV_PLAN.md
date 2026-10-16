@@ -1,6 +1,6 @@
-# ARC XIV — THE HOUSE OF DEE (chapters 337-361; 337-358 built so far)
+# ARC XIV — THE HOUSE OF DEE (chapters 337-361; all built)
 
-Pages 337-358 are built (first pass). The cover (being generated in another session) and chapters 359-361 have not been sent. The title "The House of Dee" is the brief's; the cover may differ. Ch337's last panels set the arc: Dragonvale asks the Imperial Guard to investigate irregular military provisioning on its western frontier, naming the Dee household.
+All 25 pages (337-361) and the cover (`assets/arcs/arc14.webp`, shown after ch336) are built (first pass). The cover reads "Arc XIV — The House of Dee". The title "The House of Dee" is the brief's; the cover may differ. Ch337's last panels set the arc: Dragonvale asks the Imperial Guard to investigate irregular military provisioning on its western frontier, naming the Dee household.
 
 ## Chapters
 337 A Message from Dragonvale · 338 The General's Daughter (Delilah already reviewing the accounts) · 339 Numbers Before Swords (purchased vs delivered) · 340 The Dee Household (Damien introduced) · 341 What Merit Can Buy (Damien's merit for Delilah's legal standing) · 342 The Missing Convoys (Delilah a story guest) · 343 Ink and Grain (forged signatures, impossible numbers) · 344 The Woman Jade Remembered (Delilah acknowledges) · 345 No Excuses (her first real apology; Jade does not yet forgive) · 346 The Contract House (front contracts) · 347 A Scar from the War (Damien and the Qilang Tribes) · 348 The Woman Who Found Him (the tribal woman). Chapters 349-361 have not been sent (349 A Debt Unpaid, 350 That Is Not How Marriage Works, 351 The Trail Beyond the Garrisons, ...).
@@ -68,3 +68,18 @@ Places: **The Dee Household** (ch340), **The Western Frontier** (ch342) and **Th
 4. **The tribal woman** is unnamed in 353-358 (the author has not decided: "we'll see later") and appears in 358 helping with the forest route; no portrait.
 5. **Named conspirators (357):** Han Lirong (Regional Governor), Wei Shun (Contractor), Zhou Ren (Merchant) have portrait cards on the page but no game portraits. "The guilds in the capital" and "the Imperial Advisor" are mentioned but not named.
 6. **Art glitches:** ch357's Devon lines ("we wemove against it nqrd...") and ch358's caption are garbled; the legible text was used.
+
+## Update: finale (359-361) and cover built
+- **359 What Delilah Dee Earned** (flag `delilah_standing`), **360 We Do Not Have to Remain What We Were** (`jade_delilah_reconciled`), **361 His Wife** (`arc14_complete`, `delilah_wife`, `damien_courtship`); all with four chained spots, missions, lore.
+- **Hidden Jade + Delilah progression (built, no meter):** Delilah Owns the Past (clue chain 345 done), Works Beside Jade (343), Protects the Frontier (Northwatch held, 358), Earns Her Standing (ch359), Jade Sees the Change (346). With all five, the second conversation (the ch360 spots) opens; otherwise it shows "Jade has not yet seen enough of the change in Delilah".
+- **Delilah's legal change (built):** after ch361 her name reads **Lady Delilah Dee** and her class **Military Legal & Logistics Adviser**; the Case tab shows "Lady Delilah Dee: Military Legal & Logistics Adviser, Wife of Roc Chadstone". No princess, princess-consort or succession status anywhere. Her guest row ends after ch361.
+- **Damien:** courtship flag at 361; he stays an optional reserve companion (no marriage in Arc XIV).
+- **Cover:** the Arc XIV cover shows Damien (Young Dragonvale General), Jade (Imperial Guard), Devon (Devoted Prince), Delilah (Dragonvale Noblewoman) and the Qilang Tribal Woman (The One Who Saved Him); its map scroll reads Dragonvale, Dee Territory, Imperial Capital, Eastern Frontier, Qilang Mountains (the chapters say "western frontier").
+- **Not in the pages:** the Aster / Crown Princess epilogue hook the brief planned for the end of the arc (Aster and the candidate records, Devon's look); ch361 ends with Damien's courtship and Delilah's wedding. It will have to come from a later page or arc opener (Arc XV).
+- **Still not built:** the ordered/dispatched/route/date Supply Ledger comparison, the convoy missions and Emergency Reallocation, Delilah's other adviser abilities (Read the Contract, Reallocate Supplies, Officer's Network, Deployment Plan), and a gameplay effect for the Frontier Agreement.
+
+## More mismatches (359-361 and cover)
+1. **Cover:** "Eastern Frontier" on its map scroll against the chapters' western frontier; Damien is a "Young Dragonvale General" (not "commander"); Devon's title "Devoted Prince".
+2. **ch359/361 speakers:** many lines are unattributed; family members congratulating Delilah and teasing Damien ("Look, little brother. You are late.") are unnamed (Roc, Jade and Devon are the likeliest, but not stated). Kept unnamed.
+3. **ch361:** a caption prints a laughing emoji; Roc appears with a moustache and a tied-up bun, unlike earlier chapters' look.
+4. **The younger-sister scoreboard** (Delilah married first) is in the brief, not on the pages.
