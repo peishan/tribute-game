@@ -80,6 +80,6 @@ Places: **The Dee Household** (ch340), **The Western Frontier** (ch342) and **Th
 
 ## More mismatches (359-361 and cover)
 1. **Cover:** "Eastern Frontier" on its map scroll against the chapters' western frontier; Damien is a "Young Dragonvale General" (not "commander"); Devon's title "Devoted Prince".
-2. **ch359/361 speakers:** many lines are unattributed; family members congratulating Delilah and teasing Damien ("Look, little brother. You are late.") are unnamed (Roc, Jade and Devon are the likeliest, but not stated). Kept unnamed.
+2. **ch359/361 speakers:** many lines are unattributed; the congratulations in 361 ("I'm glad you're happy. You've earned this.") are **Jade's** (author's correction, page replaced). The teasing ("Look, little brother. You are late.") is still unnamed.
 3. **ch361:** a caption prints a laughing emoji; Roc appears with a moustache and a tied-up bun, unlike earlier chapters' look.
 4. **The younger-sister scoreboard** (Delilah married first) is in the brief, not on the pages.
