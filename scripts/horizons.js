@@ -1764,3 +1764,81 @@ function rLedger(){
 (function(){ const _sb = startBattle; startBattle = function(spec){ _sb(spec); if(typeof B!=='undefined' && B && B.allies && B.allies.some(a => a.id==='delilah')) B.allies.forEach(a => { if(!a.dead){ a.hp = Math.min(a.mhp, a.hp + Math.round(a.mhp*.05)); } }); }; })();
 deed('hz_frontier_agreement', 'story', 'Equals, not subjects', '🤝', 'A frontier agreement respected the tribe\'s autonomy.', () => !!G.flags.frontier_agreement);
 deed('hz_northwatch', 'story', 'More than swords', '🏰', 'Northwatch held because the supplies kept moving.', () => !!G.flags.northwatch_held);
+
+/* ---- Arc XIV finale (chapters 359-361) ---- */
+LOCATIONS.dragon_court.spots.push(
+  {id:'hz359a', kind:'investigate', n:'I Did What Was Necessary', icon:'🏛️', ch:359, need:2, ambush:[], lo:94, roles:['delilah', 'damien', 'jade'],
+   desc:'A joint effort.',
+   clues:['Delilah: "I did what was necessary. It was a joint effort. The frontier would not have held without everyone. I am grateful that our people were heard."', 'After the crisis, Dragonvale formally recognizes Delilah\'s contributions.'], rw:{xp:279500, gold:58200}},
+  {id:'hz359b', kind:'investigate', n:'Her Own Merit', icon:'⚖️', ch:359, need:2, ambush:[], lo:94, roles:['delilah', 'damien', 'jade'],
+   desc:'Not a title borrowed.',
+   clues:['Damien offers part of his own military merits: "You deserve official recognition beyond what I alone can give. You saved my life, and you kept the frontier from falling apart."', 'Delilah: "I appreciate your intention... but I do not want a title that exists only because of your name. I want to be recognized for what I did, with our people, on my own merit."'], rw:{xp:279800, gold:58260}, needFlag:'inv_hz359a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz359c', kind:'investigate', n:'Recorded by the Court', icon:'📜', ch:359, need:2, ambush:[], lo:94, roles:['delilah', 'damien', 'jade'],
+   desc:'Her own service.',
+   clues:['The court acknowledges Delilah Dee\'s contributions in coordinating supplies, stabilizing Northwatch, and negotiating with the tribal communities. Her new standing is recorded as the result of her own service, strategy and leadership.', 'Delilah is granted a new title and formal position, giving her a legitimate role in frontier affairs, trade logistics and liaison with the tribal communities.'], rw:{xp:280100, gold:58320}, needFlag:'inv_hz359b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz359d', kind:'investigate', n:'From Control to Cooperation', icon:'🤝', ch:359, need:2, ambush:[], lo:94, roles:['delilah', 'damien', 'jade'],
+   desc:'A precedent.',
+   clues:['The recognition helps strengthen the relationship between Dragonvale and the frontier people, marking a shift from control to cooperation. It also sets a precedent: the frontier is not just a resource to be exploited, but a region whose people and knowledge are valued.', 'Damien: "I am glad you received recognition in your own name. It suits you better than borrowing mine." Jade: "You earned this. With your skill, patience and stubbornness. The court may finally be seeing what we have always known." For Delilah Dee, this is not the end but the beginning of a different kind of influence: one built on trust, service, and the people she stands with.'], rw:{xp:280400, gold:58380}, needFlag:'inv_hz359c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz361a', kind:'investigate', n:'Will You Become My Wife?', icon:'💍', ch:361, need:2, ambush:[], lo:94, roles:['delilah', 'damien', 'jade'],
+   desc:'Not a consort.',
+   clues:['Roc: "Delilah Dee, will you become my wife?" Delilah: "Yes. I accept, as Delilah Dee, not as a title, but as your wife and partner."', 'Roc formally asks Delilah to become his wife rather than remain his consort. There is no princess title attached.'], rw:{xp:281900, gold:58680}},
+  {id:'hz361b', kind:'investigate', n:'Still Delilah Dee', icon:'📚', ch:361, need:2, ambush:[], lo:94, roles:['delilah', 'damien', 'jade'],
+   desc:'Her name and her work.',
+   clues:['Delilah: "I am still Delilah Dee. I will continue my work as Military Legal & Logistics Adviser. My role and my name do not change because I am married. This is a new chapter, not the end of who I am."', 'Roc: "That is exactly why I ask. I want you beside me, not to leave the work you love, but to walk this path together. As my wife, and as the woman Dragonvale already respects."'], rw:{xp:282200, gold:58740}, needFlag:'inv_hz361a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz361c', kind:'investigate', n:'A Union of Equals', icon:'🎎', ch:361, need:2, ambush:[], lo:94, roles:['delilah', 'damien', 'jade'],
+   desc:'The wedding.',
+   clues:['Delilah: "Then let us do it properly, as partners. For the frontier, for our people, and for the future we both want. As husband and wife." Their marriage is a union of equals, built on respect, trust, and a shared commitment to the people and the frontier.', 'The wedding is a formal ceremony witnessed by the imperial court, the military and the tribal representatives. Delilah is recognized not as a princess, but as Roc Chadstone\'s wife, with her own standing and responsibilities. Final Status: Lady Delilah Dee, Military Legal & Logistics Adviser, Wife of Roc Chadstone.'], rw:{xp:282500, gold:58800}, needFlag:'inv_hz361b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz361d', kind:'investigate', n:'You Are Late', icon:'😄', ch:361, need:2, ambush:[], lo:94, roles:['delilah', 'damien', 'jade'],
+   desc:'Damien and the family.',
+   clues:['Jade: "I\'m glad you\'re happy. You\'ve earned this. You have always been strong, Delilah." Damien watches his younger sister marry before him and receives reassurance from the family.', '"Look, little brother. You are late. No rushing now. Spend more time getting to know your lady properly." Damien: "Very funny. I will remember this." Damien and the Qilang tribal woman begin their courtship: there is no marriage during Arc XIV. For Delilah, this is a new beginning, as a woman who has her own name, her own position, and a partner who stands beside her.'], rw:{xp:282800, gold:58860}, needFlag:'inv_hz361c', lockMsg:'🔒 Finish the previous clue first'},
+);
+LOCATIONS.dee_household.spots.push(
+  {id:'hz360a', kind:'investigate', n:'Honesty', icon:'🌙', ch:360, need:2, ambush:[], lo:94, roles:['jade', 'delilah'],
+   desc:'The past cannot be undone.',
+   clues:['Jade: "I\'ll be honest, Delilah. In the past, I didn\'t know how to trust you. Your choices hurt people I care about, and that cannot be undone."', 'Delilah: "I know that, Jade. I do not expect that trust to return overnight. I understand that my past actions hurt you, and I take responsibility for them."'], rw:{xp:280700, gold:58440}},
+  {id:'hz360b', kind:'investigate', n:'Let My Actions Speak', icon:'🪞', ch:360, need:2, ambush:[], lo:94, roles:['jade', 'delilah'],
+   desc:'Not to be forgiven.',
+   clues:['Delilah: "I have worked hard to change, not because I wished to be forgiven, but because I no longer want to be the person who made those mistakes. I know actions speak louder than words, and I will continue to let my actions speak for me."', 'Jade: "I have seen the change in you, Delilah. Not just an apology, but in how you think, how you make decisions, and how you consider the people around you now."'], rw:{xp:281000, gold:58500}, needFlag:'inv_hz360a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz360c', kind:'investigate', n:'Consistency', icon:'⚖️', ch:360, need:2, ambush:[], lo:94, roles:['jade', 'delilah'],
+   desc:'Even when it was easier not to.',
+   clues:['Jade: "You have shown consistency, even when it would have been easier to fall back into old patterns. People are not bound to remain what they were. We can choose to learn, to grow, and to become something better."', 'Jade: "I accept that you have genuinely matured, Delilah. The past is still part of our history, but it does not have to define all of our tomorrows."'], rw:{xp:281300, gold:58560}, needFlag:'inv_hz360b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz360d', kind:'investigate', n:'A Steadier Understanding', icon:'🌸', ch:360, need:2, ambush:[], lo:94, roles:['jade', 'delilah'],
+   desc:'Not instant friends.',
+   clues:['Delilah: "Thank you, Jade. That means more to me than you know. I will continue to earn your trust through my actions. I am grateful for the chance to be seen as who I am now, not only as who I was before."', 'They do not leave as instant friends, and the past does not simply disappear. But something meaningful has changed: old tension gives way to a steadier understanding, built on honesty, growth, and mutual respect. Not what they were, but what they can be.'], rw:{xp:281600, gold:58620}, needFlag:'inv_hz360c', lockMsg:'🔒 Finish the previous clue first'},
+);
+MISSIONS.push(
+  {id:'m_s359', needCh:359, title:'What Delilah Dee Earned', obj:{type:'steps', steps:[
+     {label:'I Did What Was Necessary', spot:'hz359a'},
+     {label:'Her Own Merit', spot:'hz359b'},
+     {label:'Recorded by the Court', spot:'hz359c'},
+     {label:'From Control to Cooperation', spot:'hz359d'}]}, rw:{xp:845000, gold:182600, rep:1718},
+   subj:'What Delilah Dee Earned', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s360', needCh:360, title:'We Do Not Have to Remain What We Were', obj:{type:'steps', steps:[
+     {label:'Honesty', spot:'hz360a'},
+     {label:'Let My Actions Speak', spot:'hz360b'},
+     {label:'Consistency', spot:'hz360c'},
+     {label:'A Steadier Understanding', spot:'hz360d'}]}, rw:{xp:847500, gold:183200, rep:1721},
+   subj:'We Do Not Have to Remain What We Were', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s361', needCh:361, title:'His Wife', obj:{type:'steps', steps:[
+     {label:'Will You Become My Wife?', spot:'hz361a'},
+     {label:'Still Delilah Dee', spot:'hz361b'},
+     {label:'A Union of Equals', spot:'hz361c'},
+     {label:'You Are Late', spot:'hz361d'}]}, rw:{xp:850000, gold:183800, rep:1724},
+   subj:'His Wife', body:'Dragonvale needs this answered. — Greyson'}
+);
+LORE.push(
+  {ch:359, n:'What Delilah Dee Earned', t:'Dragonvale\'s court recorded Delilah Dee\'s standing as the result of her own service, strategy and leadership: coordinating supplies, stabilising Northwatch and negotiating with the tribal communities. Damien offered part of his merit; she asked to be recognised on her own. She holds a formal role in frontier affairs, trade logistics and liaison with the tribal communities.'},
+  {ch:360, n:'Jade and Delilah', t:'Jade accepted that Delilah has genuinely matured. They did not become instant friends: the past is still part of their history, but old tension gave way to honesty, growth and mutual respect.'},
+  {ch:361, n:'Lady Delilah Dee', t:'Military Legal & Logistics Adviser, Wife of Roc Chadstone. She married Roc as Delilah Dee, not as a princess, keeping her name, her work and her influence, and continues to serve the frontier and the empire in her own right.'},
+  {ch:361, n:'Arc XIV: The House of Dee', t:'Delilah gained independent standing through her own service on the western frontier, reconciled with Jade, and became Roc Chadstone\'s wife. Damien began a courtship with the tribal woman who saved his life; there is no marriage yet.'}
+);
+
+/* Hidden Jade + Delilah progression (no visible meter): Delilah Owns the Past, Works Beside Jade, Protects the Frontier, Earns Her Standing, Jade Sees the Change. With all five, the second conversation (chapter 360) opens. */
+const delilahHidden = () => ({ ownsPast: !!G.flags.inv_hz345d, worksBeside: !!G.flags.inv_hz343d, protects: !!G.flags.northwatch_held, earnsStanding: !!G.flags.delilah_standing, jadeSees: !!G.flags.inv_hz346d });
+const delilahReady = () => { const f = delilahHidden(); return f.ownsPast && f.worksBeside && f.protects && f.earnsStanding && f.jadeSees; };
+(function(){ const sp = LOCATIONS.dee_household.spots.find(s => s.id==='hz360a'); if(sp){ sp.needWhile = delilahReady; sp.lockMsg = '🔒 Jade has not yet seen enough of the change in Delilah'; } })();
+/* After ch361: Lady Delilah Dee, Military Legal & Logistics Adviser, Wife of Roc Chadstone (not a princess). */
+Object.defineProperty(CHARACTERS.delilah, 'n', {get(){ return G && G.flags && G.flags.delilah_wife ? 'Lady Delilah Dee' : 'Delilah Dee'; }, configurable:true, enumerable:true});
+Object.defineProperty(CHARACTERS.delilah, 'cls', {get(){ return G && G.flags && G.flags.delilah_wife ? 'Military Legal & Logistics Adviser' : 'Noblewoman Scholar'; }, configurable:true, enumerable:true});
+deed('hz_delilah_wife', 'story', 'Her own name', '💍', 'Delilah became Roc\'s wife as Lady Delilah Dee, not as a princess.', () => !!G.flags.delilah_wife);
+deed('arc14', 'story', 'The House of Dee', '🏯', 'Arc XIV, The House of Dee, is complete.', () => !!G.flags.arc14_complete);

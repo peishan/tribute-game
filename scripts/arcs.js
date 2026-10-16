@@ -22,8 +22,9 @@ const ARCS = [
   {n:11, title:'The Vanishing of Lady Veyne', img:'assets/arcs/arc11.webp', after:262},
   {n:12, title:'New Horizons', img:'assets/arcs/arc12.webp', after:286},   // ch287-311
   {n:13, title:'Blood of the Western Stars', img:'assets/arcs/arc13.webp', after:311},   // ch312-336 (the regenerated cover carries this title)   // ch263-286 (no Arc X cover yet; the Arc XI cover reads "Arc X" in its subtitle: a generation slip)
+  {n:14, title:'The House of Dee', img:'assets/arcs/arc14.webp', after:336},   // ch337-361
 ];
-const ARC_ROMAN = ['','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII'];
+const ARC_ROMAN = ['','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV'];
 // Arc IX, "The Forgotten Alliance" (the author's canon title): begins with ch211 and ends with ch235 (the royal wedding is ch234); add {n:9, title:'The Forgotten Alliance', img:'assets/arcs/arc9.webp', after:210} once the splash art exists.
 function arcFor(afterCh){ return ARCS.find(a => a.after === afterCh); }
 function showArc(n, manual, cast){

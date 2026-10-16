@@ -240,7 +240,7 @@ function rCase(){
   let h = `<div class="panel"><b>🗂️ THE VANISHING OF LADY VEYNE</b><div class="sm">${have} / ${CASE_ITEMS.length} entries on the board. Witnesses lead to documents, documents to places, and the contradictions between them to conclusions.</div></div>`;
   h += cats.map(c => `<h4>${({Witnesses:'🗣️',Documents:'📜',Locations:'📍',Contradictions:'⚡',Conclusions:'⚖️'})[c]} ${c}</h4>` + CASE_ITEMS.filter(i => i.cat===c).map(i => caseFound(i) ? `<div class="li">✅ <b>${i.n}</b><div class="sm">${i.t}</div></div>` : `<div class="li">❔ ???</div>`).join('')).join('');
   if(G.ch >= 268){
-    const st = G.flags.delilah_apology_given ? 'Reconciliation: Stage II (an apology given, forgiveness not yet)' : G.flags.delilah_studies_2 ? 'Studies: Stage II (Administrative Training), with Mirelle\'s mentorship' : G.flags.delilah_reconciliation_1 ? 'Reconciliation: Stage I' : 'Student';
+    const st = G.flags.delilah_wife ? 'Lady Delilah Dee: Military Legal & Logistics Adviser, Wife of Roc Chadstone' : G.flags.jade_delilah_reconciled ? 'Reconciled: mutual respect' : G.flags.delilah_apology_given ? 'Reconciliation: Stage II (an apology given, forgiveness not yet)' : G.flags.delilah_studies_2 ? 'Studies: Stage II (Administrative Training), with Mirelle\'s mentorship' : G.flags.delilah_reconciliation_1 ? 'Reconciliation: Stage I' : 'Student';
     h += `<h4>📚 Delilah's Administrative Studies</h4><div class="li"><b>${st}</b><div class="sm">${DELILAH_STAGES[0][1]} Her studies continue; she is a student, not yet an adviser.${G.flags.delilah_reconciliation_1?' Jade has accepted her apology; trust will take time.':''}</div></div>`;
   }
   if(mirAdvOpen()){
