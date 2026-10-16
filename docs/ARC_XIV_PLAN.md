@@ -1,9 +1,9 @@
-# ARC XIV (title and cover pending) — the Dee household and the western frontier (chapters 337-348 so far)
+# ARC XIV — THE HOUSE OF DEE (chapters 337-361; 337-348 built so far)
 
-Pages 337-348 are built (first pass). The arc title, cover, brief and chapters from 349 have not been sent. Ch337's last panels set the arc: Dragonvale asks the Imperial Guard to investigate irregular military provisioning on its western frontier, naming the Dee household.
+Pages 337-348 are built (first pass). The cover (being generated) and chapters 349-361 have not been sent. The title "The House of Dee" is the brief's; the cover may differ. Ch337's last panels set the arc: Dragonvale asks the Imperial Guard to investigate irregular military provisioning on its western frontier, naming the Dee household.
 
 ## Chapters
-337 A Message from Dragonvale · 338 The General's Daughter (Delilah already reviewing the accounts) · 339 Numbers Before Swords (purchased vs delivered) · 340 The Dee Household (Damien introduced) · 341 What Merit Can Buy (Damien's merit for Delilah's legal standing) · 342 The Missing Convoys (Delilah a story guest) · 343 Ink and Grain (forged signatures, impossible numbers) · 344 The Woman Jade Remembered (Delilah acknowledges) · 345 No Excuses (her first real apology; Jade does not yet forgive) · 346 The Contract House (front contracts) · 347 A Scar from the War (Damien and the Qilang Tribes) · 348 The Woman Who Found Him (the tribal woman). Chapters 351+ ("The Trail Beyond the Garrisons", where the search for the tribal woman begins) have not been sent; 349-350 are not known.
+337 A Message from Dragonvale · 338 The General's Daughter (Delilah already reviewing the accounts) · 339 Numbers Before Swords (purchased vs delivered) · 340 The Dee Household (Damien introduced) · 341 What Merit Can Buy (Damien's merit for Delilah's legal standing) · 342 The Missing Convoys (Delilah a story guest) · 343 Ink and Grain (forged signatures, impossible numbers) · 344 The Woman Jade Remembered (Delilah acknowledges) · 345 No Excuses (her first real apology; Jade does not yet forgive) · 346 The Contract House (front contracts) · 347 A Scar from the War (Damien and the Qilang Tribes) · 348 The Woman Who Found Him (the tribal woman). Chapters 349-361 have not been sent (349 A Debt Unpaid, 350 That Is Not How Marriage Works, 351 The Trail Beyond the Garrisons, ...).
 
 ## Roster (author decision, built)
 - **Delilah** and **Damien Dee** are **story guests** (`STORY_ALONG` rows in `scripts/core.js`, with a `guests` list for characters who are not in the party list): Damien from ch340, Delilah from ch342. They fight beside the five as controllable extras. The Arc XIII row (Sky and Rheon) now ends at ch337 (`until:337`).
@@ -22,3 +22,34 @@ Places: **The Dee Household** (ch340), **The Western Frontier** (ch342) and **Th
 5. **The tribal woman (348)** is unnamed and has no portrait; nothing is implied about her fate. The Damien and tribal-woman thread is parked and not resolved.
 6. **The Contract House's supplier** (goateed man) and the "lesser noble house" behind the front contracts are unnamed.
 7. **Rheon's guest end point** is still unknown; Sera/Rheon are not in the chapters 338-348.
+
+## Author's working brief (saved as sent)
+**Theme:** Honor is not inherited; it is what you choose to do with what you have. **Focus:** Delilah Dee; secondary Damien Dee; supporting Jade, Devon, Roc. **Tone:** military intrigue, family reconciliation, frontier travel, mature romance, some comedy. Not another Roc redemption arc: Delilah proves she is no longer the jealous, status-conscious young woman Jade knew. Romance: Damien and the tribal woman. Political payoff: Delilah gains independent standing. Relationship payoff: Delilah becomes Roc's **wife, not a princess**. The tribal woman is **non-royal and non-noble** (the author has not generated her chapter yet: "let's see later").
+
+| Act | Chapters | Titles |
+|---|---|---|
+| I A House Under Pressure | 337-341 | A Message from Dragonvale; The General's Daughter; Numbers Before Swords; The Dee Household; What Merit Can Buy |
+| II Delilah's War | 342-346 | The Missing Convoys; Ink and Grain; The Woman Jade Remembered; No Excuses; The Contract House |
+| III Damien's Debt | 347-351 | A Scar from the War; The Woman Who Found Him; **A Debt Unpaid** (he has wanted to find her for years; he intends to marry her to repay her kindness); **That Is Not How Marriage Works** (Delilah is first to object: gratitude, obligation and marriage should not be confused); **The Trail Beyond the Garrisons** (the supply investigation and Damien's memories point to the same frontier region; the party travels there with Damien) |
+| IV The Tribal Frontier | 352-356 | The Moving Village (her people move seasonally); She Remembers Him (amused the half-dead soldier became a celebrated commander); I Did Not Save You for This (she rejects the repayment logic); Then Let Me Know You (gratitude is not love; he asks to stay long enough to know her; she agrees); The Frontier Agreement (Delilah negotiates a temporary supply and protection agreement that respects their autonomy) |
+| V The Cost of a Supply Line | 357-359 | The Names Behind the Ledger (profit and influence, not a supernatural plot); The Defence of Northwatch (Delilah reroutes provisions and coordinates troops); What Delilah Dee Earned (the court records her standing as her own service; Damien opens the door, Delilah earns the right to remain) |
+| VI Not a Consort | 360-361 | We Do Not Have to Remain What We Were (Jade and Delilah's second private conversation: mutual respect, not instant friendship); **His Wife** (Roc asks Delilah to be his wife; no princess title; Damien watches his younger sister marry first) |
+
+**Final status:** Lady Delilah Dee, Military Legal & Logistics Adviser, Wife of Roc Chadstone (not Princess Delilah, no Princess Consort, no succession status unless deliberately changed later). **Damien:** not married in XIV; the arc ends with courtship begun. His lesson: gratitude can begin a relationship but cannot substitute for one. Also: decorated, humble, liked by soldiers, quietly protective of Delilah, believes in repaying kindness (too literally at first).
+**Delilah's progression:** remembered as Roc's jealous consort, to recognised in her own right; studies privately, to uses expertise publicly; dependent on family/consort status, to independent standing; consort to wife.
+**Younger-sister scoreboard (joke; family / younger sister / older brother / married first):** Gold: Jade, Adrian, **Jade**; Greyson: Evelyne, Hugh, **Evelyne**; Dee: Delilah, Damien, **Delilah**; Altan: Sera, Rheon, pending.
+**Ending hook:** at Delilah and Roc's family gathering Aster observes how the royal family has changed; an official brings Crown Princess candidate records; Aster looks at Devon, who knows what is coming. Opens **Arc XV: Aster / Crown Princess Selection + Xuanji Genealogy** (and the Roc/Devon twin records).
+
+**Gameplay (as proposed):**
+- *Supply Ledger* (temporary investigation interface): compare ordered, purchased, dispatched and received quantity, official signatures, route and delivery date. Jade spots contradictory testimony; Delilah spots impossible logistics.
+- *Convoy missions:* Escort Provisions, Recover Missing Shipment, Audit the Garrison, Emergency Reallocation (timed defence), with Delilah as tactical adviser.
+- *Delilah's Guest Adviser abilities:* Provisioning Order (a small supply/healing bonus at encounter start), Read the Contract (reveals hidden quest/investigation information), Reallocate Supplies (cheaper mission resources), Officer's Network (military contacts or alternate quest solutions), Deployment Plan (temporary initiative/speed in defensive encounters). She stays a guest, not a permanent fighter.
+- *Damien guest gameplay* (frontier section): Commander's Guard, Disciplined Strike, Hold the Line, Field Command. Reliable, disciplined, unshowy.
+- *Hidden Jade + Delilah flags* (no visible meter): Delilah Owns the Past, Works Beside Jade, Protects the Frontier, Earns Her Standing, Jade Sees the Change; with all of them the second conversation (ch360) unlocks the reconciliation.
+- *Legal change at ch361:* Roc relationship Consort to Wife; no princess title.
+
+## Build status against the brief (chapters 337-348)
+- **Built:** chapters 337-348 (pages, clues, missions, lore, flags); Delilah and Damien as controllable story guests with first-pass skill sets; the Dee Household, Western Frontier and Contract House; the Case tab's Delilah stage reads "Stage II (an apology given)" after ch345.
+- **Built but different from the proposal:** Delilah's guest abilities are the first-pass fighter-support skills (Contract Analysis, Noble Poise, Fan Flourish); the proposed Guest Adviser set (Provisioning Order, Read the Contract, Reallocate Supplies, Officer's Network, Deployment Plan) is **not** built.
+- **Not built:** the Supply Ledger interface; convoy missions; the hidden five-flag Jade/Delilah progression and the ch360 unlock; the Delilah legal change and the "Lady Delilah Dee, Military Legal & Logistics Adviser" status; Damien's joinable state from ch351 and the after-arc reserve rule; the tribal woman (no chapter yet; unnamed); the Aster hook.
+- Note for 349-361 when they arrive: the chapter after 348 is **349 A Debt Unpaid**, not 351; the guest end points are still to be decided (suggest Damien becomes joinable at ch351 and both guests end with the arc).
