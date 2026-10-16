@@ -18,8 +18,10 @@ const INVEST_ROLES = {
   rin:['Rin', 'scouts the route ahead'],
   maris:['Maris', 'reads tides, seals and old charts'],
   rheon:['Rheon', 'reads ships, formations and the shape of a fight'],
+  delilah:['Delilah', 'reads contracts, ledgers and what is wrong in the numbers'],
+  damien:['Damien', 'reads garrisons, routes and the cost of a campaign'],
 };
-const roleHere = id => !!G && ((id==='maris' && G.ch >= 287) || (!!G.party && G.party.includes(id) && (G.active.includes(id) || (typeof isCompanion==='function' && isCompanion(id))) && !(typeof isAway==='function' && isAway(id))));   // Maris Aurel (from ch287) is an adviser, not a party member
+const roleHere = id => !!G && ((id==='maris' && G.ch >= 287) || (typeof presentGuests==='function' && presentGuests().includes(id) && !!INVEST_ROLES[id]) || (!!G.party && G.party.includes(id) && (G.active.includes(id) || (typeof isCompanion==='function' && isCompanion(id))) && !(typeof isAway==='function' && isAway(id))));   // Maris Aurel (from ch287) is an adviser, not a party member
 function investRoleBonus(spotId){
   const sp = spotById(spotId); if(!sp || !sp.roles) return null;
   const who = sp.roles.filter(roleHere); if(!who.length) return null;
