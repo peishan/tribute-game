@@ -1516,3 +1516,251 @@ CHARACTERS.damien = {
    {id:'frontier_formation',n:'Frontier Formation',icon:'🏯',mp:12,kind:'support',tgt:'allies',fx:[{k:'shield',v:.14,d:3},{k:'buff',stat:'def',m:1.1,d:3}],req:{lvl:8},desc:'A defensive formation for ambushes and held positions: a barrier and firmer guard.'},
   ], evo:{tiers:[]}, bond:null };
 ROSTER.push('delilah','damien'); XP_CLASS.delilah = 'scholar'; XP_CLASS.damien = 'fighter';
+
+/* ---- Arc XIV, chapters 349-358: Damien's debt, the tribal frontier and the supply line ---- */
+Object.assign(LOCATIONS, {
+  moving_village:{ n:'The Moving Village', region:'dragon', kind:'town', icon:'⛺', unlock:{ch:352},
+    desc:'A tribal village of felt tents and herds in the snowy frontier. Its people move with the seasons: high pastures in summer, lower lands in winter.',
+    spots:[ {id:'village_tea', kind:'tavern', n:'The Guest Tent', icon:'🍵', desc:'Tea and stories with the villagers. Rest here as their guest.'},
+            {id:'village_hunt', kind:'hunt', n:'The Snow Trails', icon:'🗡️', desc:'Raiders and beasts along the seasonal routes.', pool:['frontier_diverter','forest_wolf','road_bandit'], lo:93} ]},
+});
+if(!LOC_ORDER.includes('moving_village')) LOC_ORDER.push('moving_village');
+ROUTES.push({a:'frontier_depot', b:'moving_village', mode:'carriage', n:'The Western Pass', days:3, fare:30, risk:.4, pool:['frontier_diverter','forest_wolf']});
+AREA_LOOT.moving_village = [{id:'frontier_hide',chance:.30,needCh:352},{id:'spirit_thread',chance:.15,needCh:352}];
+(function(){ const m = WORLD_MAPS.find(x => x.id==='dragon_north'); if(m && !m.locs.includes('moving_village')) m.locs.push('moving_village'); })();
+LOCATIONS.dee_household.spots.push(
+  {id:'hz349a', kind:'investigate', n:'Years of Searching', icon:'🔎', ch:349, need:2, ambush:[], lo:93, roles:['jade', 'delilah', 'devon'],
+   desc:'Never forgotten.',
+   clues:['Damien: "I have wanted to find her for years. No matter how many campaigns I fought, I never forgot what she did for me."', 'Delilah: "What do you intend to do if you find her?" Devon: "Yes. What are you planning?"'], rw:{xp:267500, gold:55800}},
+  {id:'hz349b', kind:'investigate', n:'I Intend to Marry Her', icon:'💍', ch:349, need:2, ambush:[], lo:93, roles:['jade', 'delilah', 'devon'],
+   desc:'If she is willing.',
+   clues:['Damien: "If I am able to find her... and if she is willing, I intend to marry her. She saved my life when I had nothing to offer in return. Marriage would be my way of repaying her kindness, if she would accept it."', 'Jade, Delilah and Devon fall silent.'], rw:{xp:267800, gold:55860}, needFlag:'inv_hz349a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz349c', kind:'investigate', n:'Not a Whim', icon:'⚖️', ch:349, need:2, ambush:[], lo:93, roles:['jade', 'delilah', 'devon'],
+   desc:'A debt.',
+   clues:['Damien: "I know it may sound sudden, but I mean it seriously. It is not a whim, nor a passing feeling. It is a debt I have carried for years."', 'Damien: "She showed me compassion when I was a stranger, a wounded enemy, with no rank and no worth. If she is willing, I want to give her a life of safety, respect, and a place beside me as my wife."'], rw:{xp:268100, gold:55920}, needFlag:'inv_hz349b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz349d', kind:'investigate', n:'The Shape of the Man', icon:'🕯️', ch:349, need:2, ambush:[], lo:93, roles:['jade', 'delilah', 'devon'],
+   desc:'Gratitude, not rank.',
+   clues:['The room remains quiet for a long moment as everyone absorbs the weight of his words. Delilah: "He has carried this debt for so long..."', 'Devon: "This explains so much about him. It was never just a battlefield memory. It has shaped the man he is today." His sense of honor goes beyond rank and power. It is rooted in a genuine gratitude, and a desire to give back in the only way he believes is enough.'], rw:{xp:268400, gold:55980}, needFlag:'inv_hz349c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz350a', kind:'investigate', n:'No', icon:'🛑', ch:350, need:2, ambush:[], lo:93, roles:['delilah', 'jade', 'devon'],
+   desc:'Not how marriage works.',
+   clues:['Delilah, of all people, is the first to object. "No. That is not how marriage works."', '"Your kindness towards me is real, and I am grateful for everything you did. But gratitude and obligation are not the same as love or marriage."'], rw:{xp:268700, gold:56040}},
+  {id:'hz350b', kind:'investigate', n:'A Chain', icon:'⛓️', ch:350, need:2, ambush:[], lo:93, roles:['delilah', 'jade', 'devon'],
+   desc:'Unfair to both.',
+   clues:['"You saved my life. That was bravery and compassion. But marriage is not something that should be offered as repayment. To marry out of debt would be unfair to both of us."', '"It would turn your kindness into a chain, and me into someone who is obligated to repay you for the rest of my life. That is not a partnership. That is not freedom."'], rw:{xp:269000, gold:56100}, needFlag:'inv_hz350a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz350c', kind:'investigate', n:'Respect Her Choice', icon:'🤝', ch:350, need:2, ambush:[], lo:93, roles:['delilah', 'jade', 'devon'],
+   desc:'Jade and Devon agree.',
+   clues:['Jade: "Delilah is right. Marriage should not be a reward, a payment, or a solution to guilt."', 'Devon: "You have every right to be grateful, Damien. But you also have to respect her choice, and what she wants for her own life."'], rw:{xp:269300, gold:56160}, needFlag:'inv_hz350b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz350d', kind:'investigate', n:'Another Way', icon:'🌱', ch:350, need:2, ambush:[], lo:93, roles:['delilah', 'jade', 'devon'],
+   desc:'Honesty and respect.',
+   clues:['Damien: "...I did not mean to pressure you. I only wished to repay what you did for me... I thought marriage was the only way to show how serious I am about it." "...I understand. You are right. I do not want to take away your freedom, or make you feel obligated. I will find another way to repay you."', 'Her firm and thoughtful response surprises everyone. It shows how much Delilah has changed: from the woman who once followed court custom and appearances, to someone who clearly knows her own value and will not let others define her future. Delilah\'s refusal does not erase Damien\'s kindness: it opens a new understanding between them, based on honesty, choice, and respect rather than obligation.'], rw:{xp:269600, gold:56220}, needFlag:'inv_hz350c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz357a', kind:'investigate', n:'Altered Numbers', icon:'📄', ch:357, need:2, ambush:[], lo:93, roles:['delilah', 'jade', 'devon'],
+   desc:'Not mistakes.',
+   clues:['Jade: "The supply records do not match the delivery reports. These numbers have been altered. Grain, tools and medical supplies were redirected before they ever reached the frontier."', 'Delilah: "These are not mistakes. The same names appear across different regions. It is a network: contractors, regional officials, and intermediaries."'], rw:{xp:277100, gold:57720}},
+  {id:'hz357b', kind:'investigate', n:'Profit and Influence', icon:'💰', ch:357, need:2, ambush:[], lo:93, roles:['delilah', 'jade', 'devon'],
+   desc:'Not a cult. Not demons.',
+   clues:['Devon: "So this is about profit and influence. They used a war-zone as an excuse to move supplies into their private channels. Not a cult. Not demons. Just people taking advantage."', 'They identify the key people involved: influential officials, well-connected contractors, and merchants who benefit from diverted supplies.'], rw:{xp:277400, gold:57780}, needFlag:'inv_hz357a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz357c', kind:'investigate', n:'Three Names', icon:'🪪', ch:357, need:2, ambush:[], lo:93, roles:['delilah', 'jade', 'devon'],
+   desc:'Governor, contractor, merchant.',
+   clues:['The same names appear in multiple ledgers, using proxy companies and intermediaries to hide the flow of goods: Han Lirong, Regional Governor (Political Protection); Wei Shun, Contractor (Supply Diversion); Zhou Ren, Merchant (Profit and Distribution).', 'Their goal is simple: profit, heavier influence, and stronger political positions, not a supernatural plot.'], rw:{xp:277700, gold:57840}, needFlag:'inv_hz357b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz357d', kind:'investigate', n:'Proof First', icon:'⚖️', ch:357, need:2, ambush:[], lo:93, roles:['delilah', 'jade', 'devon'],
+   desc:'To the Imperial Advisor.',
+   clues:['Jade: "They exploited the frontier\'s isolation. Our people suffered because of their greed. This must be stopped, not just for us, but for other villages as well." Devon: "We will need solid evidence, not just suspicion. If we move against them, we must be ready for pushback from the guilds in the capital."', 'Delilah: "Then we gather every record. We confirm the routes, the forged reports and the false deliveries. Once we have enough proof, we can bring this to the Imperial Advisor." The same network has been profiting for years, using the war as cover. They prepare their next steps: reporting to the Imperial Advisor, and planning how to dismantle the network without endangering the tribal community.'], rw:{xp:278000, gold:57900}, needFlag:'inv_hz357c', lockMsg:'🔒 Finish the previous clue first'},
+);
+LOCATIONS.frontier_depot.spots.push(
+  {id:'hz351a', kind:'investigate', n:'Two Trails, One Direction', icon:'🧭', ch:351, need:2, ambush:[], lo:93, roles:['damien', 'devon', 'jade'],
+   desc:'Not a coincidence.',
+   clues:['Damien: "The routes from the missing supply records match this direction. It is also the way to the region I mentioned before." Jade: "So both the investigation and your past lead here. It is unlikely to be a coincidence."', 'Delilah: "If the same people are involved... then the supply diversion may not be the only thing happening in this region."'], rw:{xp:269900, gold:56280}},
+  {id:'hz351b', kind:'investigate', n:'Planning the Route', icon:'🗺️', ch:351, need:2, ambush:[], lo:93, roles:['damien', 'devon', 'jade'],
+   desc:'The western pass.',
+   clues:['They review the map and plan their route, considering mountain passes, weather, supply stops and potential hostile activity.', 'Devon: "We will take the western pass here. It is longer, but safer than the direct route." Damien: "We should also prepare for changes. If the route is blocked, we may need to take one of the secondary trails."'], rw:{xp:270200, gold:56340}, needFlag:'inv_hz351a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz351c', kind:'investigate', n:'Colder and Remoter', icon:'❄️', ch:351, need:2, ambush:[], lo:93, roles:['damien', 'devon', 'jade'],
+   desc:'Old outposts.',
+   clues:['The party leaves the garrisons and heads toward the frontier region. The further they travel, the colder and more remote the land becomes.', 'Along the way, they pass abandoned outposts, old watchtowers and signs of past conflicts, reminders that this region has always been difficult and dangerous.'], rw:{xp:270500, gold:56400}, needFlag:'inv_hz351b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz351d', kind:'investigate', n:'Where I Was Found', icon:'⛰️', ch:351, need:2, ambush:[], lo:93, roles:['damien', 'devon', 'jade'],
+   desc:'Landmarks that look the same.',
+   clues:['Damien: "We are getting closer. This is the region where I was found. Some of the landmarks still look the same."', 'Jade: "Then we must be careful. If the people behind the missing supplies are also here... we may be walking into something larger than just diverted grain and equipment." Devon: "We stay alert. And we keep moving together."'], rw:{xp:270800, gold:56460}, needFlag:'inv_hz351c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz358a', kind:'investigate', n:'Cut Off', icon:'🔥', ch:358, need:2, ambush:[], lo:93, roles:['delilah', 'jade', 'damien'],
+   desc:'The main route is gone.',
+   clues:['A voice: "They are moving faster than expected. The main route is already cut off." Delilah: "We reroute through the eastern pass and divide the supplies."', 'Delilah: "Send word to Northwatch to hold for three days. Divert the winter supplies to the secondary route. The people here must not be left without food or medicine."'], rw:{xp:278300, gold:57960}},
+  {id:'hz358b', kind:'investigate', n:'Everyone\'s Part', icon:'🛡️', ch:358, need:2, ambush:[], lo:93, roles:['delilah', 'jade', 'damien'],
+   desc:'Convoy, walls, forest route.',
+   clues:['Jade: "I will take a team to secure the convoy route. We cannot let them cut off the supplies again." Devon: "I will coordinate with the garrison to reinforce the outer walls. We need scouts to report on their movements."', 'The tribal woman: "We move the grain, medicine and tools in smaller groups through the forest route. It is slower, but safer, and keeps the supplies moving."'], rw:{xp:278600, gold:58020}, needFlag:'inv_hz358a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz358c', kind:'investigate', n:'Plan Ahead', icon:'📋', ch:358, need:2, ambush:[], lo:93, roles:['delilah', 'jade', 'damien'],
+   desc:'More than swords.',
+   clues:['Damien: "Your preparations are why we can still respond. Without these supplies, this defence would have collapsed within days." Delilah: "That is why we plan ahead. A frontier survives on more than swords. It survives on food, medicine, routes and people."', 'The enemy\'s attack targets the supply routes and frontier garrisons, hoping to weaken the region before winter.'], rw:{xp:278900, gold:58080}, needFlag:'inv_hz358b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz358d', kind:'investigate', n:'Northwatch Holds', icon:'🏰', ch:358, need:2, ambush:[], lo:93, roles:['delilah', 'jade', 'damien'],
+   desc:'A defence to be proud of.',
+   clues:['Thanks to Delilah\'s planning, the supplies are rerouted, the troops are coordinated, and the key locations are reinforced in time. What could have been a disaster becomes a difficult but successful defence. Northwatch holds, the supplies reach the people, and the frontier remains stable, for now.', 'Jade: "It was close. But we kept the supplies moving, and the people are safe. That is what matters." Damien: "You turned a near-disaster into a defence we can be proud of." Delilah: "Thank you. There will be other crises. We plan, we adapt, and we continue. That is how we protect the people here."'], rw:{xp:279200, gold:58140}, needFlag:'inv_hz358c', lockMsg:'🔒 Finish the previous clue first'},
+);
+LOCATIONS.moving_village.spots.push(
+  {id:'hz352a', kind:'investigate', n:'They Move With the Seasons', icon:'🏔️', ch:352, need:2, ambush:[], lo:93, roles:['damien', 'delilah', 'devon'],
+   desc:'Not in the records.',
+   clues:['Damien: "They move with the seasons? ...That would explain why I could never find her in the official records."', 'Delilah: "A moving village would not appear in the imperial household lists, tax records or garrison reports. They leave few permanent traces by design."'], rw:{xp:271100, gold:56520}},
+  {id:'hz352b', kind:'investigate', n:'A Way of Life', icon:'🐃', ch:352, need:2, ambush:[], lo:93, roles:['damien', 'delilah', 'devon'],
+   desc:'Herds, water, weather.',
+   clues:['Devon: "They follow the herds, water and weather. It is a way of life, not a fixed settlement." Jade: "So even if you searched every outpost and registry... you would still not have found her."', 'The party speaks with the tribe\'s elders. The village moves between high pastures in summer and lower lands in winter, following ancient routes known only to their people.'], rw:{xp:271400, gold:56580}, needFlag:'inv_hz352a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz352c', kind:'investigate', n:'The Wrong Places', icon:'🔎', ch:352, need:2, ambush:[], lo:93, roles:['damien', 'delilah', 'devon'],
+   desc:'Years of searching.',
+   clues:['A tribal elder: "We follow the mountains and the herds. When the snow melts, we go higher. When the rivers freeze, we go lower. This is our home. It has always moved."', 'Damien listens carefully, realising how many years he spent looking in the wrong places, using the wrong methods. Delilah: "It is no wonder you could not find her. She was never meant to be found through the empire\'s channels."'], rw:{xp:271700, gold:56640}, needFlag:'inv_hz352b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz352d', kind:'investigate', n:'A Hiding Place', icon:'🕸️', ch:352, need:2, ambush:[], lo:93, roles:['damien', 'delilah', 'devon'],
+   desc:'Hard to monitor.',
+   clues:['The moving village explains not only Damien\'s years of fruitless searching, but also why the supply routes in this region are difficult to monitor. The terrain, seasons and shifting paths make it easy for some people to hide their activities among legitimate travellers and seasonal movements.', 'Devon: "We will need local guides, and we must move with the seasons if we want to follow this trail." Jade: "This region is more than missing supplies. It is a network of people, routes and old conflicts." Damien: "It was never a lack of effort... but that I was looking in the wrong way."'], rw:{xp:272000, gold:56700}, needFlag:'inv_hz352c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz353a', kind:'investigate', n:'Well, Well', icon:'😄', ch:353, need:2, ambush:[], lo:93, roles:['damien', 'jade', 'delilah'],
+   desc:'The half-dead soldier.',
+   clues:['The woman: "Well, well... So the half-dead soldier I dragged out of the snow is now a celebrated commander." Damien: "You... You remember me?"', '"Of course I do. You were hard to forget. You were bleeding, complaining, and stubborn even when you could barely speak. And now look at you. Still stubborn... but with more scars and better clothes."'], rw:{xp:272300, gold:56760}},
+  {id:'hz353b', kind:'investigate', n:'I Knew You Would Survive', icon:'🌨️', ch:353, need:2, ambush:[], lo:93, roles:['damien', 'jade', 'delilah'],
+   desc:'A will that refused to break.',
+   clues:['Damien: "You saved my life. I have spent years trying to find you." The woman: "I knew you would survive. You had a will that refused to break. But I did not expect you to become so important."', '"We move with the seasons. We do not stay in one place. There are no official records of our villages."'], rw:{xp:272600, gold:56820}, needFlag:'inv_hz353a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz353c', kind:'investigate', n:'Tea and Stories', icon:'🍵', ch:353, need:2, ambush:[], lo:93, roles:['damien', 'jade', 'delilah'],
+   desc:'Not bitter.',
+   clues:['The woman shares tea and stories from the past. She remembers the night she found him, how badly he was injured, and how she hid him until he was strong enough to leave.', '"You were a mess. Half-dead, feverish, and still trying to tell me what to do. If you had been anyone else, I might have left you there. Luckily for you, I\'m stubborn too." She is amused, not bitter: to her it was simply what people do, help someone in need.'], rw:{xp:272900, gold:56880}, needFlag:'inv_hz353b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz353d', kind:'investigate', n:'Live Well', icon:'🌿', ch:353, need:2, ambush:[], lo:93, roles:['damien', 'jade', 'delilah'],
+   desc:'Not something heavy.',
+   clues:['Damien: "I owe you my life. If not for you, I would not be here today." The woman: "No. You do not owe me your life. You lived it yourself. I only gave you a chance. What you did with that chance was always your choice."', '"Just... do not let this gratitude turn into something heavy between us. Live well, Damien. That is enough for me."'], rw:{xp:273200, gold:56940}, needFlag:'inv_hz353c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz354a', kind:'investigate', n:'A New One', icon:'😅', ch:354, need:2, ambush:[], lo:93, roles:['damien', 'jade', 'delilah'],
+   desc:'Marry me? To repay me?',
+   clues:['Damien: "I want to marry you. To repay your kindness after all these years." The woman: "Marry me? To repay me? Well, that is a new one."', 'Damien: "I am serious. You saved my life. I want to make it right." "You think marriage is a form of payment? I did not save you so that you would owe me your future."'], rw:{xp:273500, gold:57000}},
+  {id:'hz354b', kind:'investigate', n:'Because You Needed Saving', icon:'❄️', ch:354, need:2, ambush:[], lo:93, roles:['damien', 'jade', 'delilah'],
+   desc:'Not to belong to me.',
+   clues:['Damien: "I know it sounds strange, but I have wanted to find you for years. You gave me a second life."', 'The woman: "I saved you because you were half-dead in the snow. Because you needed saving. That is all. I did not do it so that you would belong to me."'], rw:{xp:273800, gold:57060}, needFlag:'inv_hz354a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz354c', kind:'investigate', n:'Not a Bargain', icon:'⚖️', ch:354, need:2, ambush:[], lo:93, roles:['damien', 'jade', 'delilah'],
+   desc:'Something heavy.',
+   clues:['She speaks calmly but firmly. Her kindness does not come with conditions, and her help was never a bargain. Damien listens, realising that what he offered, while sincere, is still built on the wrong understanding.', '"Your gratitude means something. I am glad you lived. But you do not need to repay me by marrying me. That would turn something kind into something heavy, and I do not want that."'], rw:{xp:274100, gold:57120}, needFlag:'inv_hz354b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz354d', kind:'investigate', n:'The Real Repayment', icon:'🌱', ch:354, need:2, ambush:[], lo:93, roles:['damien', 'jade', 'delilah'],
+   desc:'Live well.',
+   clues:['Damien: "...You are right. I let my gratitude become something it should not be. I am sorry." The woman: "Do not be sorry for wanting to thank me. Just do not try to own it. Live well. That is more than enough. Be the man I risked myself to save. That is the real repayment."', 'It is not a rejection of Damien as a person, but a clear boundary. Her help came from compassion, not a desire for reward, title or ownership. And that is why it mattered. Damien finally understands: what she gave him was a chance to live, not a debt to be paid with marriage. She has always lived on her own terms, moving with the seasons, helping when she can, and leaving no chains behind.'], rw:{xp:274400, gold:57180}, needFlag:'inv_hz354c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz355a', kind:'investigate', n:'Gratitude Is Not Love', icon:'💭', ch:355, need:2, ambush:[], lo:93, roles:['damien', 'jade', 'delilah'],
+   desc:'He understands.',
+   clues:['Damien: "I understand now. My gratitude is not love. I do not want to make the same mistake. If you are willing... may I stay, not as a repayment, but to get to know you? Truly, this time."', 'The woman: "...So you finally understand? You are slow, General. But I am glad you see it now."'], rw:{xp:274700, gold:57240}},
+  {id:'hz355b', kind:'investigate', n:'Not Claiming Me', icon:'🤝', ch:355, need:2, ambush:[], lo:93, roles:['damien', 'jade', 'delilah'],
+   desc:'You may stay.',
+   clues:['Damien: "I do not wish to owe you my future. I simply... wish to know the woman who saved my life."', '"You can stay. But understand this: knowing me is not the same as claiming me. You will live as our guest, and you will follow our ways while you are here."'], rw:{xp:275000, gold:57300}, needFlag:'inv_hz355a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz355c', kind:'investigate', n:'Her Conditions', icon:'📜', ch:355, need:2, ambush:[], lo:93, roles:['damien', 'jade', 'delilah'],
+   desc:'Time and honesty.',
+   clues:['She sets her conditions clearly: he must respect her people, their traditions and their way of life. There will be no marriage, no promises, and no expectations, only time, honesty and mutual understanding.', 'Damien: "That is fair. I will respect your people, your home, and your choices. I ask for nothing more than time... and the chance to truly know you."'], rw:{xp:275300, gold:57360}, needFlag:'inv_hz355b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz355d', kind:'investigate', n:'An Agreement, General', icon:'🌇', ch:355, need:2, ambush:[], lo:93, roles:['damien', 'jade', 'delilah'],
+   desc:'We will see.',
+   clues:['"Then we have an agreement, General. Stay. Learn. See for yourself. ...After that, you will know whether you still wish to be here." Damien: "That is all I can ask for. Thank you... for giving me this chance." "Do not thank me yet. You are still the same stubborn man I saved. But perhaps... this time, you will cause less trouble. We will see."', 'As the sun sets over the snowy mountains, Damien remains in the moving village: no longer as a man seeking to repay a debt, but as someone who genuinely wants to understand the woman who saved him, and the life she has built.'], rw:{xp:275600, gold:57420}, needFlag:'inv_hz355c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz356a', kind:'investigate', n:'Also Affected', icon:'📦', ch:356, need:2, ambush:[], lo:93, roles:['delilah', 'jade', 'damien'],
+   desc:'The losses along the routes.',
+   clues:['The woman: "Our people have also been affected. The missing provisions were meant for the garrisons, but the losses along the routes affect us too."', 'Delilah: "We are here to address that. This agreement is not to make your people our subjects. It is a temporary arrangement based on mutual respect."'], rw:{xp:275900, gold:57480}},
+  {id:'hz356b', kind:'investigate', n:'The Terms', icon:'📜', ch:356, need:2, ambush:[], lo:93, roles:['delilah', 'jade', 'damien'],
+   desc:'Supplies for passage.',
+   clues:['Delilah: "We can provide supplies and winter provisions. In return, we ask for safe passage through your routes and information on suspicious movements." Jade: "The routes and supplies are important to both of us. We want a stable frontier, not control over your people."', 'The temporary agreement includes: supplies, tools and winter provisions for the tribal community; safe passage for the party and designated routes; sharing of information on missing supplies and suspicious activity; respect for the tribe\'s autonomy, moving settlements, traditions and leadership; regular review after one season.'], rw:{xp:276200, gold:57540}, needFlag:'inv_hz356a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz356c', kind:'investigate', n:'In Writing', icon:'✍️', ch:356, need:2, ambush:[], lo:93, roles:['delilah', 'jade', 'damien'],
+   desc:'Reviewed after one season.',
+   clues:['The woman: "That is a fair approach. Our people move with the seasons. We will share what we can, as long as our autonomy is respected." Delilah: "We will put this in writing. It will be a temporary agreement, to be reviewed after one season. Your people\'s ways and decisions will be respected."', 'The woman: "That is acceptable. We will work together for this season. After that, we will speak again as equals."'], rw:{xp:276500, gold:57600}, needFlag:'inv_hz356b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz356d', kind:'investigate', n:'A New Kind of Relationship', icon:'🤝', ch:356, need:2, ambush:[], lo:93, roles:['delilah', 'jade', 'damien'],
+   desc:'Not to be abused.',
+   clues:['Delilah: "Thank you for trusting us. We will not abuse that trust." Supplies are prepared and shared with the tribal community: grain, tools, medical supplies and winter provisions.', 'The agreement strengthens cooperation along the frontier and helps reduce the risk of further supply diversions. More importantly, it marks a new kind of relationship, one built on understanding, practical support, and respect for who they are.'], rw:{xp:276800, gold:57660}, needFlag:'inv_hz356c', lockMsg:'🔒 Finish the previous clue first'},
+);
+MISSIONS.push(
+  {id:'m_s349', needCh:349, title:'A Debt Unpaid', obj:{type:'steps', steps:[
+     {label:'Years of Searching', spot:'hz349a'},
+     {label:'I Intend to Marry Her', spot:'hz349b'},
+     {label:'Not a Whim', spot:'hz349c'},
+     {label:'The Shape of the Man', spot:'hz349d'}]}, rw:{xp:820000, gold:176600, rep:1688},
+   subj:'A Debt Unpaid', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s350', needCh:350, title:'That Is Not How Marriage Works', obj:{type:'steps', steps:[
+     {label:'No', spot:'hz350a'},
+     {label:'A Chain', spot:'hz350b'},
+     {label:'Respect Her Choice', spot:'hz350c'},
+     {label:'Another Way', spot:'hz350d'}]}, rw:{xp:822500, gold:177200, rep:1691},
+   subj:'That Is Not How Marriage Works', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s351', needCh:351, title:'The Trail Beyond the Garrisons', obj:{type:'steps', steps:[
+     {label:'Two Trails, One Direction', spot:'hz351a'},
+     {label:'Planning the Route', spot:'hz351b'},
+     {label:'Colder and Remoter', spot:'hz351c'},
+     {label:'Where I Was Found', spot:'hz351d'}]}, rw:{xp:825000, gold:177800, rep:1694},
+   subj:'The Trail Beyond the Garrisons', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s352', needCh:352, title:'The Moving Village', obj:{type:'steps', steps:[
+     {label:'They Move With the Seasons', spot:'hz352a'},
+     {label:'A Way of Life', spot:'hz352b'},
+     {label:'The Wrong Places', spot:'hz352c'},
+     {label:'A Hiding Place', spot:'hz352d'}]}, rw:{xp:827500, gold:178400, rep:1697},
+   subj:'The Moving Village', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s353', needCh:353, title:'She Remembers Him', obj:{type:'steps', steps:[
+     {label:'Well, Well', spot:'hz353a'},
+     {label:'I Knew You Would Survive', spot:'hz353b'},
+     {label:'Tea and Stories', spot:'hz353c'},
+     {label:'Live Well', spot:'hz353d'}]}, rw:{xp:830000, gold:179000, rep:1700},
+   subj:'She Remembers Him', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s354', needCh:354, title:'I Did Not Save You for This', obj:{type:'steps', steps:[
+     {label:'A New One', spot:'hz354a'},
+     {label:'Because You Needed Saving', spot:'hz354b'},
+     {label:'Not a Bargain', spot:'hz354c'},
+     {label:'The Real Repayment', spot:'hz354d'}]}, rw:{xp:832500, gold:179600, rep:1703},
+   subj:'I Did Not Save You for This', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s355', needCh:355, title:'Then Let Me Know You', obj:{type:'steps', steps:[
+     {label:'Gratitude Is Not Love', spot:'hz355a'},
+     {label:'Not Claiming Me', spot:'hz355b'},
+     {label:'Her Conditions', spot:'hz355c'},
+     {label:'An Agreement, General', spot:'hz355d'}]}, rw:{xp:835000, gold:180200, rep:1706},
+   subj:'Then Let Me Know You', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s356', needCh:356, title:'The Frontier Agreement', obj:{type:'steps', steps:[
+     {label:'Also Affected', spot:'hz356a'},
+     {label:'The Terms', spot:'hz356b'},
+     {label:'In Writing', spot:'hz356c'},
+     {label:'A New Kind of Relationship', spot:'hz356d'}]}, rw:{xp:837500, gold:180800, rep:1709},
+   subj:'The Frontier Agreement', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s357', needCh:357, title:'The Names Behind the Ledger', obj:{type:'steps', steps:[
+     {label:'Altered Numbers', spot:'hz357a'},
+     {label:'Profit and Influence', spot:'hz357b'},
+     {label:'Three Names', spot:'hz357c'},
+     {label:'Proof First', spot:'hz357d'}]}, rw:{xp:840000, gold:181400, rep:1712},
+   subj:'The Names Behind the Ledger', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s358', needCh:358, title:'The Defence of Northwatch', obj:{type:'steps', steps:[
+     {label:'Cut Off', spot:'hz358a'},
+     {label:'Everyone\'s Part', spot:'hz358b'},
+     {label:'Plan Ahead', spot:'hz358c'},
+     {label:'Northwatch Holds', spot:'hz358d'}]}, rw:{xp:842500, gold:182000, rep:1715},
+   subj:'The Defence of Northwatch', body:'Dragonvale needs this answered. — Greyson'}
+);
+LORE.push(
+  {ch:349, n:'A Debt Unpaid', t:'Damien has wanted to find the woman who saved him for years. If she is willing, he intends to marry her, as his way of repaying her kindness. He says it is a debt, not a whim.'},
+  {ch:350, n:'That Is Not How Marriage Works', t:'Delilah was the first to object to repaying a debt with marriage: gratitude and obligation are not love, and marriage should be a choice made evenly. Jade and Devon agreed; Damien understood.'},
+  {ch:351, n:'The Trail Beyond the Garrisons', t:'The supply routes and Damien\'s old memories point toward the same frontier region, where he was found. The party travelled there by the western pass through abandoned outposts and old watchtowers.'},
+  {ch:352, n:'The Moving Village', t:'The tribal people of the Qilang frontier move with the seasons: high pastures in summer, lower lands in winter, along routes known only to them. They leave few permanent traces by design, so they appear in no imperial lists or records.'},
+  {ch:353, n:'The Woman of the Moving Village', t:'She found the wounded Damien in the snow and remembers him as stubborn, bleeding and complaining. Amused, not bitter, she never expected thanks. She lives with her people, who move with the seasons. Her name is not given.'},
+  {ch:354, n:'I Did Not Save You for This', t:'Damien offered to marry the woman as repayment, and she refused the logic: she saved him because he needed saving, not to own his future. Her help came with no conditions, and her only request was that he live well.'},
+  {ch:355, n:'Then Let Me Know You', t:'Damien asked to stay and truly know the woman, not as repayment. She agreed, as a guest who follows her people\'s ways, with no marriage, no promises and no expectations: only time, honesty and mutual understanding.'},
+  {ch:356, n:'The Frontier Agreement', t:'Delilah negotiated a temporary agreement with the tribal community: supplies, tools and winter provisions in return for safe passage and information on suspicious movements, with their autonomy, moving settlements and leadership respected, and a review after one season.'},
+  {ch:357, n:'Han Lirong', t:'Regional Governor: the network\'s political protection.'},
+  {ch:357, n:'Wei Shun', t:'Contractor: the network\'s supply diversion.'},
+  {ch:357, n:'Zhou Ren', t:'Merchant: the network\'s profit and distribution.'},
+  {ch:357, n:'The Diversion Network', t:'Contractors, regional officials and intermediaries using proxy companies and shell firms to divert military supplies for profit and influence, using the war as cover. A mundane conspiracy, not a supernatural plot.'},
+  {ch:358, n:'The Defence of Northwatch', t:'The weakened frontier was attacked at exactly the wrong time. Delilah rerouted provisions through the eastern pass, coordinated the troops and told Northwatch to hold, while the tribal woman moved supplies through the forest route. Northwatch held and the supplies reached the people.'}
+);
+
+/* ---- Damien: a guest from ch340; from ch351 a joinable companion (JOIN_CH): optional / reserve, never core. He is not auto-seated over a full five. ---- */
+CHARACTERS.damien.guestOnly = false;
+CHARACTERS.damien.role = 'Defensive Vanguard / Commander (joinable optional companion from Arc XIV)';
+CHARACTERS.damien.identity = 'Delilah\'s older brother: decorated, humble, courteous and firm; a young general with substantial merit from the western campaign. He joined the frontier investigation as a guest and, once his personal quest opened (chapter 351), became a joinable optional companion: a reserve member, not a permanent core one. He is courting, slowly, the tribal woman who saved his life.';
+(function(){ const _recruit = recruit; recruit = function(id){ const had = G.party.includes(id); const r = _recruit(id); if(r && id==='damien' && !had) G.active = G.active.filter(x => x!=='damien'); return r; }; })();   // joins as a reserve: the player seats him
+
+/* ---- Supply Ledger (Arc XIV): the frontier shortfall, the forgeries, the impossible numbers and the three names. Read-only; entries unlock with the clues. ---- */
+const ledgerOpen = () => !!G && G.ch >= 339;
+const LEDGER_ROWS = [['Grain',10000,6200],['Dried meat',5000,2800],['Medical kits',3000,1950],['Winter clothing',4000,800],['Tents',2000,800],['Horses',120,45]];
+const LEDGER_FINDINGS = [
+  ['Contracts approved and paid','hz339b','Paid in full on paper. The goods are recorded as dispatched.'],
+  ['Garrison reports of shortage','hz339c','Supplies insufficient, rations low, medicine depleted, winter clothing short.'],
+  ['Forged signatures (Jade)','hz343a','The strokes and pressure do not match the general\'s hand; the ink and brushwork differ from the originals.'],
+  ['Impossible quantities (Delilah)','hz343b','More grain, medicine and steel than known suppliers could produce or transport.'],
+  ['A supplier under three names','hz346b','Three different names, one identical seal.'],
+  ['The rest station','hz342c','Crates filled with stone and scrap under copied seals.'],
+  ['Han Lirong, Regional Governor','hz357c','Political protection.'],
+  ['Wei Shun, Contractor','hz357c','Supply diversion.'],
+  ['Zhou Ren, Merchant','hz357c','Profit and distribution through proxy companies.'],
+];
+function rLedger(){
+  const known = id => !!G.flags['inv_'+id];
+  let h = `<div class="panel"><b>📒 SUPPLY LEDGER: THE WESTERN FRONTIER</b><div class="sm">What the records say against what arrived. Jade reads the hands and seals; Delilah reads the numbers.</div></div>`;
+  if(known('hz339a') || known('hz339b')) h += `<h4>Purchased and delivered</h4>` + LEDGER_ROWS.map(r => `<div class="li"><b>${r[0]}</b>: ${r[1].toLocaleString()} purchased, ${r[2].toLocaleString()} delivered <span class="sm">(${Math.round(100*(r[1]-r[2])/r[1])}% missing)</span></div>`).join('');
+  else h += `<div class="li">❔ ???</div>`;
+  h += `<h4>Findings</h4>` + LEDGER_FINDINGS.map(f => known(f[1]) ? `<div class="li">✅ <b>${f[0]}</b><div class="sm">${f[2]}</div></div>` : `<div class="li">❔ ???</div>`).join('');
+  return h;
+}
+/* Delilah's Provisioning Order (guest adviser): while she is with the party each fight starts with a small recovery for everyone. */
+(function(){ const _sb = startBattle; startBattle = function(spec){ _sb(spec); if(typeof B!=='undefined' && B && B.allies && B.allies.some(a => a.id==='delilah')) B.allies.forEach(a => { if(!a.dead){ a.hp = Math.min(a.mhp, a.hp + Math.round(a.mhp*.05)); } }); }; })();
+deed('hz_frontier_agreement', 'story', 'Equals, not subjects', '🤝', 'A frontier agreement respected the tribe\'s autonomy.', () => !!G.flags.frontier_agreement);
+deed('hz_northwatch', 'story', 'More than swords', '🏰', 'Northwatch held because the supplies kept moving.', () => !!G.flags.northwatch_held);
