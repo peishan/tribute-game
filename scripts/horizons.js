@@ -2430,3 +2430,222 @@ function asterPanel(){
 deed('hz_twins', 'story', 'Two princes, one birth record', '👬', 'Roc and Devon were shown to be twins.', () => !!G.flags.roc_knows_twin);
 deed('hz_xuanji', 'story', 'House Xuanji', '🐉', 'The structure of House Xuanji was recorded.', () => !!G.flags.house_xuanji_known);
 deed('arc15', 'story', 'The Crown He Must Choose', '👑', 'Arc XV, The Crown He Must Choose, is complete.', () => !!G.flags.arc15_complete);
+
+/* ====================================================================
+   ARC XVI: THE LOST PRINCESS (chapters 387-411; docs/ARC_XVI_PLAN.md). Chapters 387-395 so far.
+   The special mission group travels together, NOT LIMITED TO FIVE (author's cast sheet): King Hugh (the game's King Greyson), Jade, Devon, Levi, Sera, Evelyne, Sky and Adrian.
+   Everyone comes along as a story companion (STORY_ALONG in core.js): Hugh, Adrian and Evelyne are royal guests who act on their own; Devon, Sky, Levi and Sera fight as extras beside the five.
+   Places: the Imperial Capital (387-390, in Tribute), then the Old Route: the Road Town (391, 392, 395) and the Records Station (393, 394).
+   ==================================================================== */
+REGIONS.old_route = {n:'The Old Route', icon:'🛤️'};
+Object.assign(LOCATIONS, {
+  route_town:{ n:'The Road Town', region:'old_route', kind:'town', icon:'🏮', unlock:{ch:391},
+    desc:'A lively lantern town between the northern and western routes, famed for herbs, dyed fabrics and grilled river fish. It has a regional archive Adrian cannot leave alone.',
+    spots:[ {id:'town_inn', kind:'tavern', n:'The Travellers\' Inn', icon:'🍲', desc:'Rest, eat river fish and listen to the party.'},
+            {id:'town_hunt', kind:'hunt', n:'The Mountain Road', icon:'🗡️', desc:'Road raiders and beasts beyond the town.', pool:['road_bandit','forest_wolf','northern_mercenary'], lo:96} ]},
+  records_station:{ n:'The Records Station', region:'old_route', kind:'town', icon:'🗂️', unlock:{ch:393},
+    desc:'A provincial records station on the old route: ledgers copied from older archives, which most travellers never read.',
+    spots:[ {id:'station_rest', kind:'tavern', n:'The Clerks\' Hall', icon:'🍵', desc:'Tea with the station clerks.'} ]},
+});
+['route_town','records_station'].forEach(k => { if(!LOC_ORDER.includes(k)) LOC_ORDER.push(k); });
+ROUTES.push({a:'capital', b:'route_town', mode:'carriage', n:'The Old Route North', days:3, fare:30, risk:.15, pool:['road_bandit','forest_wolf']}, {a:'route_town', b:'records_station', mode:'carriage', n:'To the Records Station', days:2, fare:20, risk:.2, pool:['road_bandit','forest_wolf']});
+AREA_LOOT.route_town = [{id:'frontier_hide',chance:.25,needCh:391},{id:'spirit_thread',chance:.12,needCh:391}];
+LOCATIONS.capital.spots.push(
+  {id:'hz387a', kind:'investigate', n:'An Old Mission', icon:'🗺️', ch:387, need:2, ambush:[], lo:96, roles:['jade', 'adrian', 'sky'],
+   desc:'Never forgotten.',
+   clues:['Hugh: "I want to revisit an old international mission. The one to find the missing princess of the fallen kingdom. It has been many years, but there are still questions we never resolved."', 'Evelyne: "You want to go in person this time? This is not a simple investigation, Your Majesty. It could be dangerous. Are you certain this is a good time to leave court?"'], rw:{xp:314300, gold:65160}},
+  {id:'hz387b', kind:'investigate', n:'Bound by Duty', icon:'👑', ch:387, need:2, ambush:[], lo:96, roles:['jade', 'adrian', 'sky'],
+   desc:'See the world again.',
+   clues:['Hugh: "Precisely because of that, I need to go. I have been bound by royal duties for too long. It would do me good to see the world again, and understand the situation myself."', 'Adrian: "I support this. There is value in Your Majesty seeing the region first-hand. We can handle the arrangements."'], rw:{xp:314600, gold:65220}, needFlag:'inv_hz387a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz387c', kind:'investigate', n:'Who Comes', icon:'🧳', ch:387, need:2, ambush:[], lo:96, roles:['jade', 'adrian', 'sky'],
+   desc:'Levi, Adrian, Sera, Evelyne, Sky.',
+   clues:['Levi: "I volunteered for the original mission. I would like to come again. I can also make use of some upgraded equipment for this trip." Adrian: "There are archives and diplomatic matters at our destination that I wish to review. It will be useful to see the situation directly rather than rely only on reports."', 'Sera: "I have been wanting to travel outside Tribute for a while. If this is a mission, I am in. Consider it a diplomatic and research trip with a royal escort." Evelyne: "I would like to go as well, Imperial Brother." Sky: "You will need a healer on a journey like this. I will come too."'], rw:{xp:314900, gold:65280}, needFlag:'inv_hz387b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz387d', kind:'investigate', n:'Make This Trip Count', icon:'✅', ch:387, need:2, ambush:[], lo:96, roles:['jade', 'adrian', 'sky'],
+   desc:'A break from court.',
+   clues:['Jade: "We will need to plan the route, contact our allies, and review the old records. There may be people who still remember the events, and places we did not have access to before. This is no longer just a court matter, is it? It is also a chance for all of us to get away for a while. Let us prepare properly and make this trip count."', 'Hugh: "Then it is settled. We go together. A royal mission, and a much-needed break from court."'], rw:{xp:315200, gold:65340}, needFlag:'inv_hz387c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz388a', kind:'investigate', n:'Once Mine', icon:'📁', ch:388, need:2, ambush:[], lo:96, roles:['levi', 'jade', 'devon'],
+   desc:'Before it was yours.',
+   clues:['Levi: "Before this became your mission again, it was once mine." Hugh: "Then tell us everything."', 'Years ago, Tribute entrusted Levi with a quiet task: locate the missing princess of a fallen kingdom.'], rw:{xp:315500, gold:65400}},
+  {id:'hz388b', kind:'investigate', n:'A Small Team', icon:'🏹', ch:388, need:2, ambush:[], lo:96, roles:['levi', 'jade', 'devon'],
+   desc:'He volunteered early.',
+   clues:['Levi: "I volunteered early. I believed a small team could move faster."', 'The search ended in disaster. Levi\'s original team did not return intact. "After that, the trail vanished."'], rw:{xp:315800, gold:65460}, needFlag:'inv_hz388a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz388c', kind:'investigate', n:'Unfinished Business', icon:'📜', ch:388, need:2, ambush:[], lo:96, roles:['levi', 'jade', 'devon'],
+   desc:'Or failure.',
+   clues:['Levi: "The court called it unfinished business. I called it failure." Jade: "But you never let it go." Devon: "You kept every report."', 'Levi: "Every witness name. Every false lead. Every rumour that still felt true."'], rw:{xp:316100, gold:65520}, needFlag:'inv_hz388b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz388d', kind:'investigate', n:'An Old Wound', icon:'🩹', ch:388, need:2, ambush:[], lo:96, roles:['levi', 'jade', 'devon'],
+   desc:'A shared vow.',
+   clues:['Sky: "So this mission reopens more than an old route." Sera: "It reopens an old wound."', 'Levi: "This time I go prepared. Better gear, clearer allies, and no illusions." Hugh: "Then we finish what was left unfinished." What began as a royal errand becomes a shared vow. For Levi, the file was never closed, only waiting.'], rw:{xp:316400, gold:65580}, needFlag:'inv_hz388c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz389a', kind:'investigate', n:'The King Joins', icon:'👑', ch:389, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'adrian'],
+   desc:'Personal, not official.',
+   clues:['Hugh: "I have decided to join the expedition myself." Jade: "Your Majesty... this is becoming far more personal than official." Hugh: "Then call it a royal inspection with better scenery."'], rw:{xp:316700, gold:65640}},
+  {id:'hz389b', kind:'investigate', n:'Family and Friends', icon:'👨‍👩‍👧', ch:389, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'adrian'],
+   desc:'Adrian and Evelyne.',
+   clues:['Adrian: "If the road leads beyond court, I will accompany the group." Evelyne: "And I will go too, Imperial Brother."', 'Levi: "If we are reopening the old routes, I should be there from the beginning." Sky: "I will prepare the medicines and field supplies." Sera: "And I can help guide the northern part of the route."'], rw:{xp:317000, gold:65700}, needFlag:'inv_hz389a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz389c', kind:'investigate', n:'A Holiday With Paperwork', icon:'📑', ch:389, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'adrian'],
+   desc:'Devon\'s verdict.',
+   clues:['Jade: "This is starting to feel less like an expedition..." Devon: "...and more like a travelling holiday with paperwork."', 'Route maps, travel permits, letters of introduction, mission records. The expedition may take them far from court, but the paperwork is certainly coming with us.'], rw:{xp:317300, gold:65760}, needFlag:'inv_hz389b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz389d', kind:'investigate', n:'Answers Together', icon:'🌅', ch:389, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'adrian'],
+   desc:'More than a mission.',
+   clues:['With a king, his family, close allies and trusted companions, this journey will be more than just a mission: a chance to see the world beyond court, and perhaps, to find answers together.'], rw:{xp:317600, gold:65820}, needFlag:'inv_hz389c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz390a', kind:'investigate', n:'Surprisingly Quiet', icon:'🚪', ch:390, need:2, ambush:[], lo:96, roles:['levi', 'sky', 'evelyne'],
+   desc:'No procession.',
+   clues:['Hugh: "It is surprisingly quiet... We left the palace directly, without a procession or ceremony. It feels almost unreal."', 'Jade: "This is what ordinary travel feels like, Your Majesty. No lines of officials, no ceremonial speeches, no waiting for hours just to leave a gate. Feels nice, does it not?"'], rw:{xp:317900, gold:65880}},
+  {id:'hz390b', kind:'investigate', n:'Ready for the Road', icon:'🎒', ch:390, need:2, ambush:[], lo:96, roles:['levi', 'sky', 'evelyne'],
+   desc:'Supplies and remedies.',
+   clues:['Adrian: "I have checked the supplies, travel permits and local contacts. Everything we need for the first stage is ready." Evelyne: "Food, camping supplies and extra provisions as well."', 'Levi: "The upgraded equipment works well. The bow, supplies and travel gear are all in order." Sky: "I have prepared a full set of remedies and medical supplies. The road can be unpredictable, so it is better to be ready for anything."'], rw:{xp:318200, gold:65940}, needFlag:'inv_hz390a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz390c', kind:'investigate', n:'Tribute As It Is', icon:'🏘️', ch:390, need:2, ambush:[], lo:96, roles:['levi', 'sky', 'evelyne'],
+   desc:'In person.',
+   clues:['Hugh: "It is interesting to see Tribute like this. I have heard about these markets and craftspeople so many times in reports, but experiencing them in person is completely different."', 'Hugh: "No procession, no rows of officials, no ceremonial delays... We simply gathered our things and left. This is so much more pleasant than I expected."'], rw:{xp:318500, gold:66000}, needFlag:'inv_hz390b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz390d', kind:'investigate', n:'No Court Robes Required', icon:'🌄', ch:390, need:2, ambush:[], lo:96, roles:['levi', 'sky', 'evelyne'],
+   desc:'Lighter hearts.',
+   clues:['Sera: "The sky is so clear today. It feels like the beginning of something wonderful." Devon: "This already feels so different from court. No formalities, no endless meetings, just the road, our own pace and good company. It feels like a real journey at last."', 'With simpler clothes, lighter hearts and a shared sense of adventure, the group leaves Tribute behind. Ahead lie new places, new people and countless possibilities.'], rw:{xp:318800, gold:66060}, needFlag:'inv_hz390c', lockMsg:'🔒 Finish the previous clue first'},
+);
+LOCATIONS.route_town.spots.push(
+  {id:'hz391a', kind:'investigate', n:'The Market Jade Described', icon:'🏮', ch:391, need:2, ambush:[], lo:96, roles:['greyson', 'jade', 'sky'],
+   desc:'In person.',
+   clues:['Hugh: "So this is the market Jade described... I have read about it many times, but seeing it in person feels completely different." Jade: "This town is a key stop between the northern and western routes. These stalls are famous for their herbs and dyed fabrics, and the people here are very friendly."', 'Hugh: "This food is much better than I imagined. Reports only mentioned that it was local fare, but they never captured its taste or the lively atmosphere."'], rw:{xp:319100, gold:66120}},
+  {id:'hz391b', kind:'investigate', n:'Grilled River Fish', icon:'🐟', ch:391, need:2, ambush:[], lo:96, roles:['greyson', 'jade', 'sky'],
+   desc:'A local specialty.',
+   clues:['A stallholder: "Travellers from the capital, please try our grilled river fish! It is a specialty of this region!"', 'Hugh: "Away from court, everything feels more real: simpler, but richer. There is a life here that reports cannot convey."'], rw:{xp:319400, gold:66180}, needFlag:'inv_hz391a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz391c', kind:'investigate', n:'Travel Rhythm', icon:'🛤️', ch:391, need:2, ambush:[], lo:96, roles:['greyson', 'jade', 'sky'],
+   desc:'Scouting and inns.',
+   clues:['Levi: "The road ahead remains clear for the next three days. I will scout the mountain passes tomorrow." Adrian: "There are several small towns along this route. We can rest at the next inn and resupply there."', 'Devon: "The pace suits us well. We travel, observe and gather what we need without drawing attention."'], rw:{xp:319700, gold:66240}, needFlag:'inv_hz391b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz391d', kind:'investigate', n:'Faces and Voices', icon:'🌿', ch:391, need:2, ambush:[], lo:96, roles:['greyson', 'jade', 'sky'],
+   desc:'Why we travel.',
+   clues:['Evelyne: "It feels wonderful to see these places with my own eyes. People are so warm, and each town has its own character." Sky: "The fresh herbs here are excellent. I found several medicinal plants that we do not often see in the capital."', 'Sera: "Every region has something unique: its people, its crafts, its scenery. That is what makes this journey so valuable." Jade: "These kinds of moments remind me why we travel. Good food, good company, and new places to discover." Places that once existed only in reports now have faces, voices and landscapes.'], rw:{xp:320000, gold:66300}, needFlag:'inv_hz391c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz392a', kind:'investigate', n:'Honey Cakes', icon:'🍯', ch:392, need:2, ambush:[], lo:96, roles:['jade', 'seraphina', 'devon'],
+   desc:'A local specialty.',
+   clues:['Sera: "Your Majesty, this shop is famous for its honey cakes. I heard they are a local specialty. Shall we stop for a while?" Hugh: "Thank you for thinking of this. You are always so considerate, Princess Sera." Sera: "Ah... I am glad you like it."', 'Hugh: "Altan\'s princess is very attentive to a visiting king. Your thoughtfulness greatly strengthens the friendship between our kingdoms."'], rw:{xp:320300, gold:66360}},
+  {id:'hz392b', kind:'investigate', n:'She Is Making an Effort', icon:'👀', ch:392, need:2, ambush:[], lo:96, roles:['jade', 'seraphina', 'devon'],
+   desc:'Jade notices.',
+   clues:['Jade: "Sera is making a clear effort to stay by his side, hm?" Devon: "She has been doing that a lot these past few days. Should we say something?"', 'Jade: "No. Let her do as she wishes. It is better this way. I am not playing matchmaker this time."'], rw:{xp:320600, gold:66420}, needFlag:'inv_hz392a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz392c', kind:'investigate', n:'A Welcome Change', icon:'🏮', ch:392, need:2, ambush:[], lo:96, roles:['jade', 'seraphina', 'devon'],
+   desc:'Diplomacy, he thinks.',
+   clues:['Hugh: "These towns along the route have such unique atmospheres. It is a welcome change from the palace." Sera: "Yes, I have enjoyed seeing so many different places with everyone. It feels special to experience them together like this."', 'Hugh: "I am glad you are enjoying the journey. Your presence brings warmth to the group. It is a great comfort to have such a thoughtful ally beside me."'], rw:{xp:320900, gold:66480}, needFlag:'inv_hz392b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz392d', kind:'investigate', n:'Beside the King', icon:'💙', ch:392, need:2, ambush:[], lo:96, roles:['jade', 'seraphina', 'devon'],
+   desc:'Anyway.',
+   clues:['Sera (thinking): "He is still seeing this as simple diplomacy... But... I am happy just to be beside him anyway."', 'Sky: "Sera seems in high spirits these days. It is nice to see her so happy." Levi: "She looks good when she travels. Hugh is lucky to have such a kind companion." With new sights, shared moments and easy conversation, the journey continues, and Sera keeps walking right beside the king.'], rw:{xp:321200, gold:66540}, needFlag:'inv_hz392c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz395a', kind:'investigate', n:'A Records Hall', icon:'🏛️', ch:395, need:2, ambush:[], lo:96, roles:['adrian', 'evelyne', 'jade'],
+   desc:'He is intrigued.',
+   clues:['The Tribute party makes a stop at a lively town along their route, hoping to rest for a short while. Good food, warm beds and a chance to take things easy: at least, that was the plan.', 'Adrian spots the regional archives and is immediately intrigued: "A records hall? This region\'s archives... I would like to take a look."'], rw:{xp:323900, gold:67080}},
+  {id:'hz395b', kind:'investigate', n:'Completely Absorbed', icon:'📚', ch:395, need:2, ambush:[], lo:96, roles:['adrian', 'evelyne', 'jade'],
+   desc:'Hours pass.',
+   clues:['Before long he is deep in the records, completely absorbed. Maps, historical documents, local gazetteers: hours pass in peaceful concentration.', 'Evelyne: "Adrian... I thought we were here to rest. This is not exactly what most people mean by taking a break." Adrian: "This is rest for me. Old records are calming, and they are useful too."'], rw:{xp:324200, gold:67140}, needFlag:'inv_hz395a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz395c', kind:'investigate', n:'A Very Adrian Holiday', icon:'😄', ch:395, need:2, ambush:[], lo:96, roles:['adrian', 'evelyne', 'jade'],
+   desc:'Everyone\'s verdict.',
+   clues:['Hugh: "Of course he would find archives on a holiday. Truly our Adrian." Jade: "At least he looks happy. This is definitely his idea of fun."', 'Devon: "Give him a stack of dusty records and he will forget the time. Some people relax with tea. He relaxes with history." Levi: "As long as he is happy, let him work. It is still a break from court politics."'], rw:{xp:324500, gold:67200}, needFlag:'inv_hz395b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz395d', kind:'investigate', n:'Different Pleasures', icon:'🌙', ch:395, need:2, ambush:[], lo:96, roles:['adrian', 'evelyne', 'jade'],
+   desc:'The same family.',
+   clues:['Sera: "He looks so at peace. This is a very Adrian holiday." Sky: "It is better than him overworking during travel. Here he can indulge in it without guilt."', 'In the end, the party accepts that this is simply Adrian\'s idea of a holiday. Different pleasures. The same family. As long as he is smiling, it is a good rest.'], rw:{xp:324800, gold:67260}, needFlag:'inv_hz395c', lockMsg:'🔒 Finish the previous clue first'},
+);
+LOCATIONS.records_station.spots.push(
+  {id:'hz393a', kind:'investigate', n:'Older Than the Court', icon:'📜', ch:393, need:2, ambush:[], lo:96, roles:['levi', 'adrian', 'jade'],
+   desc:'A provincial archive.',
+   clues:['Levi: "These entries were copied from a provincial archive... older than the court summaries." Hugh: "You found something?"', 'At a records station along the old route, Levi searches through ledgers that most travellers would never notice. What begins as routine review becomes something far more important.'], rw:{xp:321500, gold:66600}},
+  {id:'hz393b', kind:'investigate', n:'The Record', icon:'📖', ch:393, need:2, ambush:[], lo:96, roles:['levi', 'adrian', 'jade'],
+   desc:'Fourth year after the fall.',
+   clues:['The Record of the Surviving Princess: "In the fourth year after the fall, the princess was confirmed alive under northern protection. She travelled under an assumed name, accompanied by a small escort. Further records are incomplete."', 'This damaged record contains the earliest known reference to the missing princess still being alive after the fall of her kingdom.'], rw:{xp:321800, gold:66660}, needFlag:'inv_hz393a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz393c', kind:'investigate', n:'Incomplete, or Shortened', icon:'❓', ch:393, need:2, ambush:[], lo:96, roles:['levi', 'adrian', 'jade'],
+   desc:'Longer than we were told.',
+   clues:['Levi: "She survived longer than we were told." Jade: "Then the story recorded at court was incomplete." Devon: "Or someone chose to shorten it."', 'Sky: "If this record endured, others may still exist."'], rw:{xp:322100, gold:66720}, needFlag:'inv_hz393b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz393d', kind:'investigate', n:'Only With Its Silence', icon:'🕯️', ch:393, need:2, ambush:[], lo:96, roles:['levi', 'adrian', 'jade'],
+   desc:'Then we follow it.',
+   clues:['Sera: "So the missing princess was not lost with the kingdom... only with its silence." Levi: "This is the first surviving record about the missing princess. It changes everything." Hugh: "Then we follow it."', 'For the first time, there is a record that the missing princess is no longer just a rumour. She left a trace, and the road ahead begins to narrow toward the truth.'], rw:{xp:322400, gold:66780}, needFlag:'inv_hz393c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz394a', kind:'investigate', n:'Court Music', icon:'🎶', ch:394, need:2, ambush:[], lo:96, roles:['levi', 'adrian', 'sky'],
+   desc:'Unexpected.',
+   clues:['Levi: "I found something interesting in these provincial records. The princess received formal education in court music." Hugh: "Court music? That is unexpected. I have never seen this mentioned in the earlier summaries."', 'The Record of the Late Northern Kingdom: "Her Highness the Princess received instruction in the court arts, including the guqin, pipa, and vocal music, under the guidance of imperial musicians."'], rw:{xp:322700, gold:66840}},
+  {id:'hz394b', kind:'investigate', n:'Not Basic Lessons', icon:'🎼', ch:394, need:2, ambush:[], lo:96, roles:['levi', 'adrian', 'sky'],
+   desc:'Advanced repertoire.',
+   clues:['Jade: "That is a much higher level of training than we would expect for someone living in hiding." Levi: "These are not just basic lessons. She studied advanced repertoire, music theory, and even composition."', 'Sky: "This level of education requires skilled teachers, instruments, and time. It suggests she was well cared for, even after the kingdom\'s fall."'], rw:{xp:323000, gold:66900}, needFlag:'inv_hz394a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz394c', kind:'investigate', n:'A True Princess', icon:'👑', ch:394, need:2, ambush:[], lo:96, roles:['levi', 'adrian', 'sky'],
+   desc:'Deliberate and refined.',
+   clues:['Sera: "This sounds like the education of a true princess. It is not the kind of training given in exile to a child who must remain hidden." Devon: "For her to receive such training, she must have lived somewhere stable, under careful protection."', 'Evelyne: "This is a deliberate and refined education. It implies that someone valued her not only as a political symbol, but as a person worth nurturing."'], rw:{xp:323300, gold:66960}, needFlag:'inv_hz394b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz394d', kind:'investigate', n:'A Rare Talent', icon:'✨', ch:394, need:2, ambush:[], lo:96, roles:['levi', 'adrian', 'sky'],
+   desc:'For composition.',
+   clues:['In addition to instrument training, the record lists court vocal music and lyrical poetry, seasonal and ceremonial compositions, music theory and notation, and performance before select audiences. The final note mentions a gifted ear and a rare talent for composition.', 'Hugh: "This is the first detail that tells us something more personal about her, something beyond politics or titles." Jade: "It gives us our first real clue about her life as a living person, not just a political figure." The record adds a new note to the mystery, but its true meaning has not yet been heard.'], rw:{xp:323600, gold:67020}, needFlag:'inv_hz394c', lockMsg:'🔒 Finish the previous clue first'},
+);
+MISSIONS.push(
+  {id:'m_s387', needCh:387, title:'A Reason to Leave Court', obj:{type:'steps', steps:[
+     {label:'An Old Mission', spot:'hz387a'},
+     {label:'Bound by Duty', spot:'hz387b'},
+     {label:'Who Comes', spot:'hz387c'},
+     {label:'Make This Trip Count', spot:'hz387d'}]}, rw:{xp:915000, gold:199400, rep:1802},
+   subj:'A Reason to Leave Court', body:'The expedition\'s records are waiting. — Greyson'},
+  {id:'m_s388', needCh:388, title:'The File Levi Never Closed', obj:{type:'steps', steps:[
+     {label:'Once Mine', spot:'hz388a'},
+     {label:'A Small Team', spot:'hz388b'},
+     {label:'Unfinished Business', spot:'hz388c'},
+     {label:'An Old Wound', spot:'hz388d'}]}, rw:{xp:917500, gold:200000, rep:1805},
+   subj:'The File Levi Never Closed', body:'The expedition\'s records are waiting. — Greyson'},
+  {id:'m_s389', needCh:389, title:'A King on Holiday', obj:{type:'steps', steps:[
+     {label:'The King Joins', spot:'hz389a'},
+     {label:'Family and Friends', spot:'hz389b'},
+     {label:'A Holiday With Paperwork', spot:'hz389c'},
+     {label:'Answers Together', spot:'hz389d'}]}, rw:{xp:920000, gold:200600, rep:1808},
+   subj:'A King on Holiday', body:'The expedition\'s records are waiting. — Greyson'},
+  {id:'m_s390', needCh:390, title:'No Court Robes Required', obj:{type:'steps', steps:[
+     {label:'Surprisingly Quiet', spot:'hz390a'},
+     {label:'Ready for the Road', spot:'hz390b'},
+     {label:'Tribute As It Is', spot:'hz390c'},
+     {label:'No Court Robes Required', spot:'hz390d'}]}, rw:{xp:922500, gold:201200, rep:1811},
+   subj:'No Court Robes Required', body:'The expedition\'s records are waiting. — Greyson'},
+  {id:'m_s391', needCh:391, title:'The Road Beyond Reports', obj:{type:'steps', steps:[
+     {label:'The Market Jade Described', spot:'hz391a'},
+     {label:'Grilled River Fish', spot:'hz391b'},
+     {label:'Travel Rhythm', spot:'hz391c'},
+     {label:'Faces and Voices', spot:'hz391d'}]}, rw:{xp:925000, gold:201800, rep:1814},
+   subj:'The Road Beyond Reports', body:'The expedition\'s records are waiting. — Greyson'},
+  {id:'m_s392', needCh:392, title:'A Princess Walking Beside a King', obj:{type:'steps', steps:[
+     {label:'Honey Cakes', spot:'hz392a'},
+     {label:'She Is Making an Effort', spot:'hz392b'},
+     {label:'A Welcome Change', spot:'hz392c'},
+     {label:'Beside the King', spot:'hz392d'}]}, rw:{xp:927500, gold:202400, rep:1817},
+   subj:'A Princess Walking Beside a King', body:'The expedition\'s records are waiting. — Greyson'},
+  {id:'m_s393', needCh:393, title:'The First Surviving Record', obj:{type:'steps', steps:[
+     {label:'Older Than the Court', spot:'hz393a'},
+     {label:'The Record', spot:'hz393b'},
+     {label:'Incomplete, or Shortened', spot:'hz393c'},
+     {label:'Only With Its Silence', spot:'hz393d'}]}, rw:{xp:930000, gold:203000, rep:1820},
+   subj:'The First Surviving Record', body:'The expedition\'s records are waiting. — Greyson'},
+  {id:'m_s394', needCh:394, title:'Music in the Record', obj:{type:'steps', steps:[
+     {label:'Court Music', spot:'hz394a'},
+     {label:'Not Basic Lessons', spot:'hz394b'},
+     {label:'A True Princess', spot:'hz394c'},
+     {label:'A Rare Talent', spot:'hz394d'}]}, rw:{xp:932500, gold:203600, rep:1823},
+   subj:'Music in the Record', body:'The expedition\'s records are waiting. — Greyson'},
+  {id:'m_s395', needCh:395, title:'Adrian\'s Idea of Rest', obj:{type:'steps', steps:[
+     {label:'A Records Hall', spot:'hz395a'},
+     {label:'Completely Absorbed', spot:'hz395b'},
+     {label:'A Very Adrian Holiday', spot:'hz395c'},
+     {label:'Different Pleasures', spot:'hz395d'}]}, rw:{xp:935000, gold:204200, rep:1826},
+   subj:'Adrian\'s Idea of Rest', body:'The expedition\'s records are waiting. — Greyson'}
+);
+LORE.push(
+  {ch:387, n:'The Special Mission Group', t:'For the lost-princess expedition King Hugh Greyson is joined by Jade Gold, Devon Chadstone, Levi Stanson, Sera of Altan, Evelyne Greyson, Sky Yale and Adrian: a group not limited to five. The game has called the king Greyson up to now; his given name on these pages is Hugh.'},
+  {ch:388, n:'The Lost Princess Mission', t:'Years ago Tribute quietly tasked Levi Stanson with finding the missing princess of a fallen kingdom. He volunteered; his original team did not return intact and the trail vanished. He kept every report, witness name and false lead.'},
+  {ch:389, n:'A King on Holiday', t:'Hugh joined the expedition himself and called it a royal inspection with better scenery. With Adrian, Evelyne, Levi, Sky, Sera, Jade and Devon it became, as Devon said, a travelling holiday with paperwork.'},
+  {ch:390, n:'No Court Robes Required', t:'The expedition left Tribute without a procession, officials or court robes: a small group on a clear road. Hugh saw his own kingdom\'s markets in person for the first time.'},
+  {ch:391, n:'The Road Town', t:'A town between the northern and western routes, famed for herbs, dyed fabrics and grilled river fish. Hugh, who knew it only from Jade\'s reports, found the life there is what reports cannot convey.'},
+  {ch:392, n:'A Princess Walking Beside a King', t:'Sera began staying close to Hugh on the road, pointing out local specialties. Hugh took it as diplomatic friendliness; Jade noticed and chose not to play matchmaker this time.'},
+  {ch:393, n:'The Record of the Surviving Princess', t:'A damaged provincial record: in the fourth year after the fall, the missing princess was confirmed alive under northern protection, travelling under an assumed name with a small escort. Further records are incomplete. It is the earliest known evidence that she outlived her kingdom\'s fall.'},
+  {ch:394, n:'A Princess of Music', t:'The Record of the Late Northern Kingdom says the missing princess received formal court music education: guqin, pipa, vocal music, theory and composition under imperial musicians, with a note of rare talent for composition. It suggests she was well cared for after the fall.'},
+  {ch:395, n:'Adrian\'s Idea of Rest', t:'At a lively town the party planned to rest, but Adrian found the regional archives and was soon absorbed in maps and gazetteers. Evelyne protested; Adrian said old records are rest for him. The party accepted it as a very Adrian holiday.'}
+);
+
+/* ---- Levi's expedition gear (author: "upgraded equipment" in 387 and 390): a reinforced bow and travelling gear, given at ch387 ---- */
+(function(){
+  const own = [
+   {id:'levi_expedition_bow', ch:387, n:'Reinforced Expedition Bow', icon:'🏹', slot:'weapon', rarity:'epic', bonus:{atk:13,spd:3,hp:15}, look:'A reinforced bow with gold fittings, worn with a quiver of white-fletched arrows.'},
+   {id:'levi_travel_coat', ch:387, n:'Expedition Travelling Coat', icon:'🧥', slot:'armor', rarity:'rare', bonus:{def:8,hp:45,spd:2}, look:'A dark-green travelling coat with belts and a high collar.'},
+  ];
+  own.forEach(o => {
+    GEAR[o.id] = {n:o.n, icon:o.icon, slot:o.slot, rarity:o.rarity, bonus:o.bonus, for:['levi']};
+    ITEMS[o.id] = {n:o.n, icon:o.icon, type:'gear', slot:o.slot, rarity:o.rarity};
+    CH_ITEMS[o.ch] = (CH_ITEMS[o.ch] || []).concat([{id:o.id, qty:1}]);
+    if(!CH_EQUIP[o.ch]) CH_EQUIP[o.ch] = {};
+    CH_EQUIP[o.ch].levi = (CH_EQUIP[o.ch].levi || []).concat([o.id]);
+    if(typeof OUTFITS!=='undefined') OUTFITS.push({id:o.id, who:'levi', ch:o.ch, n:o.n, icon:o.icon, slot:o.slot, rarity:o.rarity, bonus:o.bonus, look:o.look});
+  });
+})();
+deed('hz_expedition', 'story', 'No court robes required', '🧳', 'The special mission group left Tribute together.', () => !!G.flags.expedition_departed);
+deed('hz_surviving', 'story', 'Only with its silence', '📜', 'The first surviving record of the lost princess was found.', () => !!G.flags.surviving_record_found);
