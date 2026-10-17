@@ -1842,3 +1842,591 @@ Object.defineProperty(CHARACTERS.delilah, 'n', {get(){ return G && G.flags && G.
 Object.defineProperty(CHARACTERS.delilah, 'cls', {get(){ return G && G.flags && G.flags.delilah_wife ? 'Military Legal & Logistics Adviser' : 'Noblewoman Scholar'; }, configurable:true, enumerable:true});
 deed('hz_delilah_wife', 'story', 'Her own name', '💍', 'Delilah became Roc\'s wife as Lady Delilah Dee, not as a princess.', () => !!G.flags.delilah_wife);
 deed('arc14', 'story', 'The House of Dee', '🏯', 'Arc XIV, The House of Dee, is complete.', () => !!G.flags.arc14_complete);
+
+/* ====================================================================
+   ARC XV: THE CROWN HE MUST CHOOSE (chapters 362-375 so far; docs/ARC_XV_PLAN.md)
+   Aster's Crown Princess selection. Jade and Devon help him meet the candidates as people. Everything happens at the Dragonvale Noble Court.
+   The Archive tab "Crown Candidates" collects what the party learns. The final chapter (and the ally unlock for Lady Yulan Fen) is not yet sent:
+   Yulan becomes a Dragonvale Ally when the flag arc15_complete is set by that chapter.
+   ==================================================================== */
+LOCATIONS.dragon_court.spots.push(
+  {id:'hz362a', kind:'investigate', n:'The Dossiers Arrive', icon:'📨', ch:362, need:2, ambush:[], lo:94, roles:['devon', 'jade'],
+   desc:'Names, not people.',
+   clues:['Dossiers arrive from noble houses across Dragonvale: daughters chosen for lineage, alliances, influence and strategy. Each name represents a family\'s ambition, not a person Aster knows.', 'Aster: "Another noble house seeking a stronger position through marriage. How many of these are for the throne... and how many are for themselves?"'], rw:{xp:283100, gold:58920}},
+  {id:'hz362b', kind:'investigate', n:'A Treaty, Not a Person', icon:'📜', ch:362, need:2, ambush:[], lo:94, roles:['devon', 'jade'],
+   desc:'Impressive, and unreal.',
+   clues:['Aster, reading a dossier: "Impressive lineage. Strategic territory. Well-educated. And yet... it still feels like I am choosing a treaty instead of a person."', 'Aster: "The court expects me to be pleased. But none of this feels real. A crown partner should be someone I can respect, not just an answer to a political need."'], rw:{xp:283400, gold:58980}, needFlag:'inv_hz362a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz362c', kind:'investigate', n:'The Council Expects', icon:'🏛️', ch:362, need:2, ambush:[], lo:94, roles:['devon', 'jade'],
+   desc:'Narrow the list soon.',
+   clues:['The minister: "Your Highness, these candidates are all exceptional. The council expects you to begin narrowing the list soon. A decision will reassure the nobles and strengthen Dragonvale\'s position."', 'Aster: "I understand its importance. But I will not make a decision just because others are waiting for an answer."'], rw:{xp:283700, gold:59040}, needFlag:'inv_hz362b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz362d', kind:'investigate', n:'A Life to Be Shared', icon:'🌙', ch:362, need:2, ambush:[], lo:94, roles:['devon', 'jade'],
+   desc:'Not to satisfy expectations.',
+   clues:['Aster: "A crown is not a reward to be given. It is a life to be shared." The court watches for signs of enthusiasm, interpreting his hesitation as indecision.', 'Aster: "I will review every dossier properly. But I will choose with care, not for appearances, and not to satisfy expectations. When I choose, it will be because I believe it is right for Dragonvale."'], rw:{xp:284000, gold:59100}, needFlag:'inv_hz362c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz363a', kind:'investigate', n:'A Different Side', icon:'🌓', ch:363, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'During the war.',
+   clues:['Devon: "During the war, I saw a different side of my brother." Jade: "Different how?" Devon: "He listened. Not just to me, but to the people on the ground: the commanders, scouts, medics, and even common soldiers."', 'Devon: "He questioned easy answers. When others wanted a simple solution (blame a region, blame a race, or sacrifice a few to save the many) he always asked what the real cause was, and who would suffer if we chose the easier path."'], rw:{xp:284300, gold:59160}},
+  {id:'hz363b', kind:'investigate', n:'Not Every Prince', icon:'👑', ch:363, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'The easiest explanation.',
+   clues:['Jade: "That is not something every prince does. Most people in power are happy to accept the easiest explanation if it benefits them."', 'Devon: "Aster refused to treat people as expendable. He believed our soldiers, our border people, and the smaller tribal communities were part of Dragonvale, not numbers to be sacrificed for political gain."'], rw:{xp:284600, gold:59220}, needFlag:'inv_hz363a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz363c', kind:'investigate', n:'Reading the Reports', icon:'📖', ch:363, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'Not just approving them.',
+   clues:['Devon: "He spent nights reading the reports, not just approving them. He wanted to understand the land, the supply routes, the people, and why problems kept happening, instead of simply punishing someone and moving on."', 'Devon: "It is not that he never makes mistakes. But he cares about the cost of those mistakes. He tries to do better."'], rw:{xp:284900, gold:59280}, needFlag:'inv_hz363b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz363d', kind:'investigate', n:'People, Not Tools', icon:'🤝', ch:363, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'A better way to lead.',
+   clues:['Devon: "That is why I supported him. Because he sees people, not just tools, not just territory, and not just a path to power." Jade: "I can understand why you believe in him. It is rare to find someone in this position who still thinks about the people. It makes a difference."', 'Devon: "He is not like the others, Jade. That is why I will continue to stand by him." Supporting Aster is not about ambition but about believing in a better way to lead: one that values people, questions easy answers and looks beyond immediate gain.'], rw:{xp:285200, gold:59340}, needFlag:'inv_hz363c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz364a', kind:'investigate', n:'Both of You', icon:'🙏', ch:364, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'An honest assessment.',
+   clues:['Aster: "I would like both of your help. There are many candidates, and I want your honest assessment. This is not me choosing a wife just to fulfil a duty."', 'Aster: "The person who stands beside me will have a real role in Dragonvale, and that affects our people."'], rw:{xp:285500, gold:59400}},
+  {id:'hz364b', kind:'investigate', n:'Tell Me What You Think', icon:'🔎', ch:364, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'Even if the court will not like it.',
+   clues:['Aster: "I need your perspective on each candidate: not only their background, but their character, abilities, and how they might handle the realities of the frontier and the court. Tell me what you truly think, even if it is not what the court wants to hear."', 'Jade: "You want the truth? Then you will get it. We will look at each candidate as they are, including their strengths, weaknesses, and what they may bring to Dragonvale."'], rw:{xp:285800, gold:59460}, needFlag:'inv_hz364a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz364c', kind:'investigate', n:'Direct', icon:'⚖️', ch:364, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'On paper and in practice.',
+   clues:['Devon: "We will be direct. Some may be suitable on paper but not in practice. Others may seem impressive, but their ambitions or alliances could create more problems than they solve. You can expect an honest evaluation from both of us."', 'Aster trusts Jade\'s insight into people and the realities on the ground, and Devon\'s experience with politics, alliances and military considerations.'], rw:{xp:286100, gold:59520}, needFlag:'inv_hz364b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz364d', kind:'investigate', n:'Not Alone', icon:'🤝', ch:364, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'His own decision.',
+   clues:['Aster: "I do not expect you to choose for me. I want your assessment so that I can make my own decision, with a clearer understanding of what each candidate might mean for Dragonvale." Jade: "We will do our best. But in the end, this is your life and your choice. We are here to help you see the full picture."', '"You are not alone in this, Aster. Whatever choice you make, we will support you, because we know you are thinking beyond yourself." The evaluation begins as a shared effort between siblings and friends who want a stronger, more stable Dragonvale.'], rw:{xp:286400, gold:59580}, needFlag:'inv_hz364c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz365a', kind:'investigate', n:'The Court Presents', icon:'🏛️', ch:365, need:2, ambush:[], lo:94, roles:['devon', 'jade'],
+   desc:'Merits and alliances.',
+   clues:['With the kingdom stabilised after recent turbulence, the court turns to Crown Prince Aster\'s marriage. A minister: "Today, the noble houses present their preferred candidates, and their merits and alliances."', '"Each candidate brings unique advantages: military strength, financial resources, diplomatic ties, or distinguished lineage."'], rw:{xp:286700, gold:59640}},
+  {id:'hz365b', kind:'investigate', n:'A Commander and an Heiress', icon:'🛡️', ch:365, need:2, ambush:[], lo:94, roles:['devon', 'jade'],
+   desc:'Wen Qingyu and Lin Yao.',
+   clues:['First, Lady Wen Qingyu of the Northern Marches, a gifted commander from a proud military house: brave, intelligent and loyal. Her marriage would strengthen the northern defences and bring battle-hardened allies to the crown.', 'Second, Miss Lin Yao of the Golden Meridian, heiress of the realm\'s richest merchant house. Her family controls vital trade networks; her dowry and commercial ties would expand resources and open new trade routes. She is graceful, wise and skilled in managing people.'], rw:{xp:287000, gold:59700}, needFlag:'inv_hz365a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz365c', kind:'investigate', n:'An Envoy and a Scion', icon:'👑', ch:365, need:2, ambush:[], lo:94, roles:['devon', 'jade'],
+   desc:'Elin of Solen and Shen Huizhen.',
+   clues:['Third, Lady Elin of Solen, a royal envoy from a respected foreign house, renowned for diplomacy and cultural influence. Her marriage would deepen alliances with the western kingdoms; her poise and kindness have won admiration from many courts.', 'Finally, Lady Shen Huizhen of the Imperial War House, a scion of one of the oldest lineages in the realm: learned, virtuous and devoted. Her lineage carries unmatched prestige and would reinforce the authority of the crown.'], rw:{xp:287300, gold:59760}, needFlag:'inv_hz365b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz365d', kind:'investigate', n:'I Can Only Ask for Time', icon:'⏳', ch:365, need:2, ambush:[], lo:94, roles:['devon', 'jade'],
+   desc:'A life, not a necessity.',
+   clues:['Aster: "They all have great merit... and each would strengthen Dragonvale in different ways. Yet... I do not know if I am ready. A marriage is a great responsibility, not a simple alliance."', 'Aster: "The court sees this as a necessity. But for me, this is more than politics. It is a life that will affect another person as well. I will study each proposal carefully. For now, I can only ask for time."'], rw:{xp:287600, gold:59820}, needFlag:'inv_hz365c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz366a', kind:'investigate', n:'Not Just Names', icon:'📄', ch:366, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'A person behind each.',
+   clues:['Jade: "These are not just names, Your Highness. Each woman here is a person, with her own life, family, and future."', 'Jade: "The court sees marriage as alliances, territory and influence. But behind these reports, there are real people... and real consequences."'], rw:{xp:287900, gold:59880}},
+  {id:'hz366b', kind:'investigate', n:'Looking at Advantages', icon:'🪞', ch:366, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'And not at people.',
+   clues:['Aster: "You are right. I have been looking at this like a list of advantages... and not enough like people." Behind each dossier is a girl who grew up somewhere: a daughter, a sister, a student, a friend.', 'A marriage could bring her security. Or it could take her home, freedom and future away.'], rw:{xp:288200, gold:59940}, needFlag:'inv_hz366a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz366c', kind:'investigate', n:'Four Women', icon:'🎴', ch:366, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'Their own hopes.',
+   clues:['Lady Seraphine Lin: trained in strategy and riding since childhood; wants to contribute to the realm. Lady Yulan Fen: helps manage her family\'s trade networks; hopes to expand opportunities for her people.', 'Lady Elise Valen: known for her philanthropy; cares for displaced families and wants to reduce regional tensions. Lady Meirun Zhao: a talented musician and scholar; wishes to preserve her family\'s traditions while supporting the kingdom.'], rw:{xp:288500, gold:60000}, needFlag:'inv_hz366b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz366d', kind:'investigate', n:'A Conversation', icon:'🗣️', ch:366, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'The least we can do.',
+   clues:['Jade: "Some may willingly accept this path. Others may have no choice. We should at least give them the respect of treating them as individuals, not just political packages." Aster: "I do not want a marriage decided only by political convenience. If I am to take a wife in the future, I want to understand who she is: her hopes, not just what my court expects of her."', 'Jade: "Then let us do this properly. We will meet the candidates ourselves and speak with them. Not as a formality, but as a conversation. It is the least we can do."'], rw:{xp:288800, gold:60060}, needFlag:'inv_hz366c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz367a', kind:'investigate', n:'The General\'s Niece', icon:'⚔️', ch:367, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'Lin Rui of the military family.',
+   clues:['The first candidate of this round is the daughter of the Northern Stone General\'s eldest brother, the General\'s niece. Known for her martial training, discipline and strategic mind, she is considered a politically useful match for the crown prince.', '"I am Lin Rui, niece of General Lin Beishan. I hope to be of use to the kingdom in whatever way Your Highness deems fit."'], rw:{xp:289100, gold:60120}},
+  {id:'hz367b', kind:'investigate', n:'The Weight of the Name', icon:'⚖️', ch:367, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'Her clan\'s influence.',
+   clues:['Aster: "You trained in the border garrisons? That must have been difficult. Did you enjoy it?" She is capable, intelligent and speaks with honesty, but she is aware that her family\'s expectations and the weight of the General\'s name rest on her shoulders.', 'Behind the formal introduction lies a young woman under heavy pressure to secure her clan\'s influence at court.'], rw:{xp:289400, gold:60180}, needFlag:'inv_hz367a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz367c', kind:'investigate', n:'A Warrior, Not a Tool', icon:'🗡️', ch:367, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'At home on the training grounds.',
+   clues:['From a young age she was raised among soldiers, learning swordsmanship, horse riding and campaign strategy. She is most at home on the training grounds, where she can be herself: not a political tool, but a warrior.', 'A marriage to the crown prince could bring greater security and influence to her clan, but it could also mean giving up the life she has always known. She carries a charm her father gave her before she left home: a reminder to stay strong no matter what path is chosen.'], rw:{xp:289700, gold:60240}, needFlag:'inv_hz367b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz367d', kind:'investigate', n:'Not a Cage After All', icon:'🔓', ch:367, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'Both, perhaps.',
+   clues:['Jade: "Do you truly want this... or is it something you feel you have to do for your family?" "...Both, perhaps. I want to be useful. But I also want to be the one who decides how I am useful."', 'Jade: "If you were not bound by your family\'s expectations... what would you choose?" "I would continue to serve the kingdom, on the battlefield, not just behind a screen. But if a marriage could also give me the freedom to do so... then perhaps it is not a cage after all."'], rw:{xp:290000, gold:60300}, needFlag:'inv_hz367c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz368a', kind:'investigate', n:'A Scholarly House', icon:'📚', ch:368, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'Academics, advisers and historians.',
+   clues:['The second candidate comes from a renowned scholarly family, known for generations of academics, advisers and court historians. She is academically accomplished, well-read and skilled in court etiquette and diplomacy.', '"I am Shen Yulan Fen. I have always loved learning: it allows me to see the world beyond these walls."'], rw:{xp:290300, gold:60360}},
+  {id:'hz368b', kind:'investigate', n:'A Genuine Conversation', icon:'💬', ch:368, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'More than a formal meeting.',
+   clues:['Aster: "This passage is fascinating. What do you think the author meant here?" "I never expected to discuss philosophy at a formal meeting of candidates."', 'She and Aster find that they genuinely enjoy talking. "It is rare to meet someone at court who is more interested in what I think... rather than what my family can provide."'], rw:{xp:290600, gold:60420}, needFlag:'inv_hz368a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz368c', kind:'investigate', n:'Her Own Path', icon:'🧭', ch:368, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'Research, travel, a new history.',
+   clues:['Aster: "If you could choose your own path, what would you do?" "I would like to continue my research, travel to learn from different teachers, and maybe one day compile a new history of our kingdoms. But such dreams are difficult for a woman in my position."', 'She is intelligent, observant and court-savvy; she understands the realities of the palace and speaks with care and insight.'], rw:{xp:290900, gold:60480}, needFlag:'inv_hz368b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz368d', kind:'investigate', n:'Influence and Duty', icon:'⚖️', ch:368, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'Or true to herself.',
+   clues:['Her father: "This is an opportunity that does not come twice. You must consider what is best for our family, and for the realm." "...Yes, Father." Her family is supportive of her talents, but places great pressure on her to fulfil a political role.', 'She likes Aster and respects his kindness and open mind. But she worries that a life as Crown Princess may leave her little time for the scholarship, travel and research she loves: a future of influence and duty, or a future where she can remain true to herself.'], rw:{xp:291200, gold:60540}, needFlag:'inv_hz368c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz369a', kind:'investigate', n:'Frontier Lands', icon:'🏔️', ch:369, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'A governing house.',
+   clues:['The third candidate comes from a regional noble house with a long history of governing frontier lands. She has practical experience managing estates and border communities, and is known for her competence, fairness and pragmatic approach.', '"The frontier is not just a line on a map. It is people, land and livelihoods. If we ignore the people who live there, no wall will hold for long."'], rw:{xp:291500, gold:60600}},
+  {id:'hz369b', kind:'investigate', n:'Supply Routes and Winter Stores', icon:'🛤️', ch:369, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'Practical thinking.',
+   clues:['"These settlements need better supply routes, and winter stores should be prepared earlier. If the roads are kept clear, trade can grow even in harsh seasons." Aster: "You have clearly been through this yourself." "Yes. I have spent several winters in our northern estates."', '"People at the border are straightforward. They respect honesty, results, and leaders who show up. It is different from court, but no less important."'], rw:{xp:291800, gold:60660}, needFlag:'inv_hz369a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz369c', kind:'investigate', n:'Direct and Easy', icon:'😄', ch:369, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'It makes conversation easy.',
+   clues:['Aster: "I admire how direct you are. It is rare for someone at court to speak so openly. It makes it easier to understand what truly matters to you."', '"And it is rare for a prince to actually listen. It makes conversation interestingly easy." They find they share a genuine interest in practical matters, regional development and the well-being of the people.'], rw:{xp:292100, gold:60720}, needFlag:'inv_hz369b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz369d', kind:'investigate', n:'An Open Question', icon:'❓', ch:369, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'Her independence.',
+   clues:['She is aware of what a marriage to the crown prince would mean, not only for herself but for her family and the border region: "If I were to join the royal family, I would want to continue contributing to the frontier communities in a meaningful way."', 'She could be a valuable partner, bringing stability to the border and strengthening regional ties. But she values her independence and her responsibility to the people who rely on her. Whether she would leave her estates and frontier work for a life at court remains an open question.'], rw:{xp:292400, gold:60780}, needFlag:'inv_hz369c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz370a', kind:'investigate', n:'Four Women, Four Hopes', icon:'🎴', ch:370, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'Behind the dossiers.',
+   clues:['Jade speaks with the candidates privately and discovers that not all of them actually want to become Crown Princess. Behind the formal dossiers are four women with their own hopes, worries and choices.', 'Lady Seraphine Lin (military family): "My family expects me to marry into the crown family... But I want to serve the kingdom in my own right, on the training grounds, with the troops." She is willing to consider it, if the role allows her to continue her military work.'], rw:{xp:292700, gold:60840}},
+  {id:'hz370b', kind:'investigate', n:'Scholarship or the Crown', icon:'📚', ch:370, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'Lady Yulan Fen.',
+   clues:['Lady Yulan Fen (scholarly family): "I love learning. Research, history and advising... that is what I truly enjoy. My family hopes this marriage will give us influence at court. But I am not sure I want to be Crown Princess."', '"If there is a way to serve the kingdom through scholarship and counsel instead, that would be my preference." She genuinely enjoys speaking with Aster, but may prefer scholarship to royal duty.'], rw:{xp:293000, gold:60900}, needFlag:'inv_hz370a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz370c', kind:'investigate', n:'Charity and Music', icon:'🎶', ch:370, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'Lady Elise Valen and Lady Meirun Zhao.',
+   clues:['Lady Elise Valen (philanthropic family): "I care about people, especially the common folk and displaced families. I am open to the marriage if it allows me to continue my charitable work... But I worry that as Crown Princess, I may be confined by palace duties and political expectations."', 'Lady Meirun Zhao (musical and cultural family): "Music is my life. I want to perform, compose, and preserve our cultural traditions... If there is a way to do both, I would consider it. If not... I may not be the right person for this path."'], rw:{xp:293300, gold:60960}, needFlag:'inv_hz370b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz370d', kind:'investigate', n:'They Are People', icon:'💭', ch:370, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'Like you said.',
+   clues:['Jade: "They are not just political packages. Each of them has her own dreams, strengths and fears. Some are willing, some are uncertain, and some do not truly want this life. They are people, like you said."', 'Aster: "I did not realise... No one in the dossiers wrote this. A marriage cannot be decided only for political convenience." Jade: "Then let us meet them properly. Not as formalities, but as a real conversation. Only then can we make a choice that is fair, for them and for the kingdom."'], rw:{xp:293600, gold:61020}, needFlag:'inv_hz370c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz371a', kind:'investigate', n:'What Do You Want From Your Life?', icon:'🗨️', ch:371, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'Directly.',
+   clues:['Aster: "I have read your family\'s report... but today I want to hear from you directly. What do you want from your life?"', 'Lady Seraphine Lin: "I want to continue working with the troops, especially in border defence. If I were to become Crown Princess, I hope I could still be involved in military strategy and training, not just remain in the inner palace."'], rw:{xp:293900, gold:61080}},
+  {id:'hz371b', kind:'investigate', n:'A Royal Academy', icon:'🏫', ch:371, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'Lady Yulan Fen.',
+   clues:['Lady Yulan Fen: "I want to keep studying. There is still so much I wish to learn, especially history, governance and the world beyond our borders."', '"If I become Crown Princess, I hope I can continue my research and establish a place for scholarship, perhaps a royal academy." She hopes to contribute through knowledge, education and wise advisers, rather than being confined to ceremonial duties.'], rw:{xp:294200, gold:61140}, needFlag:'inv_hz371a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz371c', kind:'investigate', n:'Homes and Music', icon:'🎼', ch:371, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'Elise Valen and Meirun Zhao.',
+   clues:['Lady Elise Valen: "I want to help people. There are many families in the regions who have lost their homes. I hope to continue my charitable work and improve lives across the kingdom... I would like to focus on building better support for displaced families, widows and children."', 'Lady Meirun Zhao: "I want to continue making music. Music gives me freedom and helps people, not just at court but in the regions too... I hope I can support the arts (musicians, performers and cultural traditions) and bring joy to the people."'], rw:{xp:294500, gold:61200}, needFlag:'inv_hz371b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz371d', kind:'investigate', n:'Not a Name on a Dossier', icon:'🌸', ch:371, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'A life with meaning.',
+   clues:['Aster: "Thank you for sharing this with me. Your dreams and worries are all different, but each of you has something important to offer this kingdom. I want to understand you as a person, not just as a name on a dossier."', 'Aster: "A Crown Princess should not lose herself to the title. Whatever decision we make... I want it to be a path where she can still live a life that has meaning to her." Jade: "This is a good start, Your Highness. When you see them as people, it is easier to make a fair and kind decision."'], rw:{xp:294800, gold:61260}, needFlag:'inv_hz371c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz372a', kind:'investigate', n:'An Investigation', icon:'🔎', ch:372, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'Direct questions.',
+   clues:['Jade approaches the selection like an Imperial Guard investigation. Jade: "I will not only ask about your family and achievements. I want to know what you truly want, what you are afraid of, and what you will do when things do not go as planned."', 'Some of her questions are more direct than what the court usually asks, but she wants the truth, not just polite answers.'], rw:{xp:295100, gold:61320}},
+  {id:'hz372b', kind:'investigate', n:'Soldier and Scholar', icon:'⚔️', ch:372, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'Seraphine Lin and Yulan Fen.',
+   clues:['To Lady Seraphine: "If the crown prince were to fall in battle, what would you do?" "I would continue to fight for the kingdom in whatever role I can." "And if the war drags on for many years, would you still be willing to live in a frontier posting?" "Yes. I chose this path with my eyes open."', 'To Lady Yulan: "If you never become Crown Princess, will you regret it?" "No. My greatest happiness would be to continue my studies and contribute through knowledge." "I can accept it for a time, if I truly believe it helps the kingdom. But I would ask for some freedom to keep learning."'], rw:{xp:295400, gold:61380}, needFlag:'inv_hz372a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz372c', kind:'investigate', n:'Charity and Music', icon:'🎶', ch:372, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'Elise Valen and Meirun Zhao.',
+   clues:['To Lady Elise: "If you become Crown Princess, would you still be able to visit the regions and work with displaced families?" "I would want to. That is important to me. I would try to find a balance. If that is impossible, then I would have to think carefully whether I am the right person for the role."', 'To Lady Meirun: "If the position of Crown Princess required you to give up performing, would you accept that?" "Music is my life. I would not want to abandon it." "Then I would try to find a way to keep music within the palace: not as an escape, but as something that still serves the people."'], rw:{xp:295700, gold:61440}, needFlag:'inv_hz372b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz372d', kind:'investigate', n:'To Understand You', icon:'💭', ch:372, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'Not to eliminate.',
+   clues:['Jade: "Princess or not, you will face difficult choices. Power can protect your ideals, but it can also take them away. I need to know whether you understand that, and whether you are prepared for it."', 'Jade: "I am asking these questions not to eliminate you, but to understand you. This is not just a title. It is a life that will affect you, your family, and the people of this kingdom." Jade\'s questions leave the candidates thoughtful and slightly uneasy, but they see that she is serious about treating them as real people.'], rw:{xp:296000, gold:61500}, needFlag:'inv_hz372c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz373a', kind:'investigate', n:'Battlefield Analysis', icon:'🗺️', ch:373, need:2, ambush:[], lo:94, roles:['devon', 'jade'],
+   desc:'Only the tools are different.',
+   clues:['Devon: "You are asking what they want. That is the right question. But you also need to consider what they can withstand, and what they will do when things go wrong." Aster: "I am listening. Just... try not to turn this into battlefield analysis."', 'Devon: "A Crown Princess is not only a symbol. She will be tested by the court, by other noble houses, by crises we cannot predict yet."'], rw:{xp:296300, gold:61560}},
+  {id:'hz373b', kind:'investigate', n:'Terrain, Allies, Enemies', icon:'♟️', ch:373, need:2, ambush:[], lo:94, roles:['devon', 'jade'],
+   desc:'The court as a campaign.',
+   clues:['Devon: "Call it what you like. In a campaign, we study the terrain, our allies, our enemies, and the possible outcomes. Here, the terrain is the court. The allies are the noble houses. The enemies are ambition, jealousy, and chance."', 'Devon: "And the outcome is whether the Crown Princess can stand through it all and still be herself."'], rw:{xp:296600, gold:61620}, needFlag:'inv_hz373a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz373c', kind:'investigate', n:'Four Assessments', icon:'📋', ch:373, need:2, ambush:[], lo:94, roles:['devon', 'jade'],
+   desc:'Strengths and risks.',
+   clues:['Lady Seraphine Lin: strong under pressure, but must balance her family\'s expectations with her own path. Lady Yulan Fen: brilliant and thoughtful, but may prefer a life of scholarship over royal duty.', 'Lady Elise Valen: kind and sincere, with strong people skills, but uncertain whether she wants a life fully within the palace. Lady Meirun Zhao: talented and graceful, reluctant to lose her freedom; may struggle with strict palace life.'], rw:{xp:296900, gold:61680}, needFlag:'inv_hz373b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz373d', kind:'investigate', n:'Still a Commander', icon:'🛡️', ch:373, need:2, ambush:[], lo:94, roles:['devon', 'jade'],
+   desc:'Subtle, nearly.',
+   clues:['Devon: "You cannot protect them from everything. But you can choose someone who can stand, adapt, and still find meaning in this role. And beyond all of this... you still need to consider what kind of person you want beside you, not just what the kingdom needs."', 'Aster: "I understand what you are saying. I will keep your advice in mind." Aster realises that while Devon is trying to be more subtle, his brother is still thinking like a commander preparing for the battles the Crown Princess might face one day.'], rw:{xp:297200, gold:61740}, needFlag:'inv_hz373c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz374a', kind:'investigate', n:'Both of You Are Terrible', icon:'😅', ch:374, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'In different ways.',
+   clues:['Aster: "Both of you are terrible at this. Just... in completely different ways." Jade: "Terrible? I was just asking important questions! These are real issues. If she cannot answer honestly now, how can she handle greater challenges in the future?"', 'Aster: "Jade. Your questions were so direct that half of them felt like an official interrogation. You are scaring them, not giving them a chance to speak freely."'], rw:{xp:297500, gold:61800}},
+  {id:'hz374b', kind:'investigate', n:'Candidates, Not People', icon:'📑', ch:374, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'Devon\'s report.',
+   clues:['Devon: "And what is wrong with that? We need to know their strengths and weaknesses. We must consider how they will handle political pressure. A marriage to the Crown Prince is not a romantic choice. It is a strategic alliance."', 'Jade: "Devon. You are treating this like a military campaign. You are analysing their political resilience, alliances and long-term stability like a field report. You see candidates, not people."'], rw:{xp:297800, gold:61860}, needFlag:'inv_hz374a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz374c', kind:'investigate', n:'A Conversation', icon:'💬', ch:374, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'About a real future.',
+   clues:['Aster: "But this is not just about what they can give to the kingdom. It is also about who they are, what they want, and whether this life would make them happy. Both of you have valid points. Jade, you need to be less intimidating and more open. Devon, you need to see them as more than political assets."', 'Aster: "This is not an interrogation. It is a conversation about a real future."'], rw:{xp:298100, gold:61920}, needFlag:'inv_hz374b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz374d', kind:'investigate', n:'A Partner in Life', icon:'🤝', ch:374, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'Not a solution to a problem.',
+   clues:['Jade: "I understand. I was too focused on the risks... and I forgot that this is also about their own lives. I will try to ask in a way that lets them speak more openly." Devon: "...You are right. I was looking at this like a strategy document. I should also listen more and understand the person behind the position. I will be more considerate."', 'Aster: "Good. The next meetings should be conversations, not evaluations. We want to understand their hopes, their fears, and whether their path and ours can truly align. A Crown Princess should be chosen as a partner in life, not as a solution to a problem."'], rw:{xp:298400, gold:61980}, needFlag:'inv_hz374c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz375a', kind:'investigate', n:'Without Attendants', icon:'🌸', ch:375, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'Not as a candidate.',
+   clues:['Aster: "Thank you for meeting me here. I asked that no attendants come with us." She: "You wanted to speak without witnesses. So here I am."', 'Aster: "I have heard much about your experience in the frontier regions. But I wanted to hear it from you, not as a candidate, but as yourself."'], rw:{xp:298700, gold:62040}},
+  {id:'hz375b', kind:'investigate', n:'Someone Shows Up', icon:'🏔️', ch:375, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'The frontier.',
+   clues:['She: "The frontier is not easy, Your Highness. People depend on us for safe roads, winter stores, fair trade, and quick decisions when problems arise. It is not glamorous work, but it matters."', '"Those communities are loyal because someone shows up, listens, and stays when times are hard."'], rw:{xp:299000, gold:62100}, needFlag:'inv_hz375a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz375c', kind:'investigate', n:'A Partner, Not a Symbol', icon:'⚖️', ch:375, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'The difficult question.',
+   clues:['She: "Would you be willing to hear uncomfortable truths from your wife? And would you value her as a partner, not as a decorative symbol for the court?" Aster: "Yes. I do not want a wife who only agrees with me. I want someone who will speak honestly, even when it is hard to hear. I believe a true partner makes the realm stronger, not just the court appear better."', 'She: "You speak differently from what I expected. Many princes want someone who looks good beside them. You want to understand the work, the people, and the choices involved."'], rw:{xp:299300, gold:62160}, needFlag:'inv_hz375b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz375d', kind:'investigate', n:'Brighter With Her', icon:'🌅', ch:375, need:2, ambush:[], lo:94, roles:['jade', 'devon'],
+   desc:'No promises.',
+   clues:['She: "If you wish to be a good king, you will need patience, and the humility to keep listening. The border will always bring difficult news, and the people will not speak in flattering words. But if you can face that with an open mind, then I believe we could build something meaningful together."', 'In this conversation they do not make promises, nor speak of engagements. But Aster learns more about what she values and sees more clearly who she is beyond the court. For the first time, Aster feels that the future of the realm, and his own, might truly be brighter with her beside him.'], rw:{xp:299600, gold:62220}, needFlag:'inv_hz375c', lockMsg:'🔒 Finish the previous clue first'},
+);
+MISSIONS.push(
+  {id:'m_s362', needCh:362, title:'A Stack of Names', obj:{type:'steps', steps:[
+     {label:'The Dossiers Arrive', spot:'hz362a'},
+     {label:'A Treaty, Not a Person', spot:'hz362b'},
+     {label:'The Council Expects', spot:'hz362c'},
+     {label:'A Life to Be Shared', spot:'hz362d'}]}, rw:{xp:852500, gold:184400, rep:1727},
+   subj:'A Stack of Names', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s363', needCh:363, title:'Not Like the Others', obj:{type:'steps', steps:[
+     {label:'A Different Side', spot:'hz363a'},
+     {label:'Not Every Prince', spot:'hz363b'},
+     {label:'Reading the Reports', spot:'hz363c'},
+     {label:'People, Not Tools', spot:'hz363d'}]}, rw:{xp:855000, gold:185000, rep:1730},
+   subj:'Not Like the Others', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s364', needCh:364, title:'A Brother\'s Request', obj:{type:'steps', steps:[
+     {label:'Both of You', spot:'hz364a'},
+     {label:'Tell Me What You Think', spot:'hz364b'},
+     {label:'Direct', spot:'hz364c'},
+     {label:'Not Alone', spot:'hz364d'}]}, rw:{xp:857500, gold:185600, rep:1733},
+   subj:'A Brother\'s Request', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s365', needCh:365, title:'What the Court Wants', obj:{type:'steps', steps:[
+     {label:'The Court Presents', spot:'hz365a'},
+     {label:'A Commander and an Heiress', spot:'hz365b'},
+     {label:'An Envoy and a Scion', spot:'hz365c'},
+     {label:'I Can Only Ask for Time', spot:'hz365d'}]}, rw:{xp:860000, gold:186200, rep:1736},
+   subj:'What the Court Wants', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s366', needCh:366, title:'The Woman Behind the Dossier', obj:{type:'steps', steps:[
+     {label:'Not Just Names', spot:'hz366a'},
+     {label:'Looking at Advantages', spot:'hz366b'},
+     {label:'Four Women', spot:'hz366c'},
+     {label:'A Conversation', spot:'hz366d'}]}, rw:{xp:862500, gold:186800, rep:1739},
+   subj:'The Woman Behind the Dossier', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s367', needCh:367, title:'The General\'s Niece', obj:{type:'steps', steps:[
+     {label:'The General\'s Niece', spot:'hz367a'},
+     {label:'The Weight of the Name', spot:'hz367b'},
+     {label:'A Warrior, Not a Tool', spot:'hz367c'},
+     {label:'Not a Cage After All', spot:'hz367d'}]}, rw:{xp:865000, gold:187400, rep:1742},
+   subj:'The General\'s Niece', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s368', needCh:368, title:'The Scholar\'s Daughter', obj:{type:'steps', steps:[
+     {label:'A Scholarly House', spot:'hz368a'},
+     {label:'A Genuine Conversation', spot:'hz368b'},
+     {label:'Her Own Path', spot:'hz368c'},
+     {label:'Influence and Duty', spot:'hz368d'}]}, rw:{xp:867500, gold:188000, rep:1745},
+   subj:'The Scholar\'s Daughter', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s369', needCh:369, title:'The Border Lady', obj:{type:'steps', steps:[
+     {label:'Frontier Lands', spot:'hz369a'},
+     {label:'Supply Routes and Winter Stores', spot:'hz369b'},
+     {label:'Direct and Easy', spot:'hz369c'},
+     {label:'An Open Question', spot:'hz369d'}]}, rw:{xp:870000, gold:188600, rep:1748},
+   subj:'The Border Lady', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s370', needCh:370, title:'What They Want', obj:{type:'steps', steps:[
+     {label:'Four Women, Four Hopes', spot:'hz370a'},
+     {label:'Scholarship or the Crown', spot:'hz370b'},
+     {label:'Charity and Music', spot:'hz370c'},
+     {label:'They Are People', spot:'hz370d'}]}, rw:{xp:872500, gold:189200, rep:1751},
+   subj:'What They Want', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s371', needCh:371, title:'Aster Listens', obj:{type:'steps', steps:[
+     {label:'What Do You Want From Your Life?', spot:'hz371a'},
+     {label:'A Royal Academy', spot:'hz371b'},
+     {label:'Homes and Music', spot:'hz371c'},
+     {label:'Not a Name on a Dossier', spot:'hz371d'}]}, rw:{xp:875000, gold:189800, rep:1754},
+   subj:'Aster Listens', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s372', needCh:372, title:'Jade\'s Questions', obj:{type:'steps', steps:[
+     {label:'An Investigation', spot:'hz372a'},
+     {label:'Soldier and Scholar', spot:'hz372b'},
+     {label:'Charity and Music', spot:'hz372c'},
+     {label:'To Understand You', spot:'hz372d'}]}, rw:{xp:877500, gold:190400, rep:1757},
+   subj:'Jade\'s Questions', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s373', needCh:373, title:'Devon\'s Advice', obj:{type:'steps', steps:[
+     {label:'Battlefield Analysis', spot:'hz373a'},
+     {label:'Terrain, Allies, Enemies', spot:'hz373b'},
+     {label:'Four Assessments', spot:'hz373c'},
+     {label:'Still a Commander', spot:'hz373d'}]}, rw:{xp:880000, gold:191000, rep:1760},
+   subj:'Devon\'s Advice', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s374', needCh:374, title:'This Is Not an Interrogation', obj:{type:'steps', steps:[
+     {label:'Both of You Are Terrible', spot:'hz374a'},
+     {label:'Candidates, Not People', spot:'hz374b'},
+     {label:'A Conversation', spot:'hz374c'},
+     {label:'A Partner in Life', spot:'hz374d'}]}, rw:{xp:882500, gold:191600, rep:1763},
+   subj:'This Is Not an Interrogation', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s375', needCh:375, title:'A Conversation Without Witnesses', obj:{type:'steps', steps:[
+     {label:'Without Attendants', spot:'hz375a'},
+     {label:'Someone Shows Up', spot:'hz375b'},
+     {label:'A Partner, Not a Symbol', spot:'hz375c'},
+     {label:'Brighter With Her', spot:'hz375d'}]}, rw:{xp:885000, gold:192200, rep:1766},
+   subj:'A Conversation Without Witnesses', body:'Dragonvale needs this answered. — Greyson'}
+);
+LORE.push(
+  {ch:362, n:'The Crown Princess Selection', t:'After Arc XIV, formal candidate dossiers arrived for Aster from noble houses across Dragonvale. The council expects him to narrow the list soon. Aster says a crown is not a reward to be given but a life to be shared, and that he will choose with care.'},
+  {ch:363, n:'Why Devon Stands by Aster', t:'During the war Aster listened to commanders, scouts, medics and soldiers, questioned easy answers, and refused to treat people as expendable. Devon supports him because he sees people, not tools, territory or a path to power.'},
+  {ch:364, n:'Candidate Evaluation', t:'Aster asked Jade and Devon for an honest assessment of the Crown Princess candidates: character, abilities and how each might handle the frontier and the court. He will decide for himself.'},
+  {ch:365, n:'The Court\'s Four Candidates', t:'The noble houses presented Lady Wen Qingyu of the Northern Marches, Miss Lin Yao of the Golden Meridian, Lady Elin of Solen and Lady Shen Huizhen of the Imperial War House: military strength, trade, western alliances and ancient lineage. Aster asked for time.'},
+  {ch:366, n:'The Four Women', t:'Lady Seraphine Lin (a military family), Lady Yulan Fen (a scholarly family), Lady Elise Valen (a philanthropic family) and Lady Meirun Zhao (a musical family). Jade and Aster decided to meet each of them and speak as people, not as a formality.'},
+  {ch:367, n:'Lin Rui, the General\'s Niece', t:'The first candidate: Lin Rui, niece of General Lin Beishan of the Northern Stone. Disciplined, honest and a warrior at heart, she wants to keep serving on the battlefield and not only behind a screen. (Elsewhere the pages call the military candidate Lady Seraphine Lin.)'},
+  {ch:368, n:'Yulan Fen, the Scholar\'s Daughter', t:'The second candidate: the accomplished daughter of a renowned scholarly family. She and Aster genuinely enjoyed talking; she dreams of research, travel and a new history of the kingdoms, and fears that being Crown Princess would leave no time for them. (The page calls her Shen Yulan Fen, her father Minister Yulan Fen.)'},
+  {ch:369, n:'The Border Lady', t:'The third candidate: a noblewoman of a regional house that has long governed frontier lands. Practical, fair and direct, she knows supply routes, winter stores and border people, and would want to keep contributing to the frontier. Aster found conversation with her easy. Her name is not given.'},
+  {ch:370, n:'What They Want', t:'In private Jade learned that not every candidate wants the crown: Lady Seraphine Lin would marry if she could keep soldiering, Lady Yulan Fen would rather serve through scholarship, Lady Elise Valen is open if she can keep her charity, and Lady Meirun Zhao lives for music.'},
+  {ch:371, n:'Aster Listens', t:'Aster changed the selection: he asked each candidate what she truly wants from life. Their answers: troops and strategy, a royal academy, support for displaced families, and music and the arts. He wants a Crown Princess who does not lose herself to the title.'},
+  {ch:372, n:'Jade\'s Questions', t:'Jade questioned the candidates like an Imperial Guard investigation: what they want, what they fear, and what they would do when things go wrong. She meant not to eliminate them but to understand them, and the candidates saw she treated them as real people.'},
+  {ch:373, n:'Devon\'s Advice', t:'Devon framed the selection as a campaign: the court is the terrain, the noble houses the allies, ambition, jealousy and chance the enemies. He weighed each candidate\'s resilience. Aster saw that his brother was still thinking like a commander.'},
+  {ch:374, n:'Conversation, Not Interrogation', t:'Aster told Jade and Devon they were both terrible at interviewing the candidates: Jade\'s questions felt like an interrogation and Devon\'s like a field report. The next meetings would be conversations about a real future.'},
+  {ch:375, n:'A Conversation Without Witnesses', t:'Away from the court, Aster met the Border Lady alone. She spoke of the frontier and asked whether he could value a wife as a partner; he said he wants honesty even when it is hard. They made no promises, but for the first time Aster felt the future might be brighter with her beside him.'}
+);
+/* ---- Archive tab: Crown Candidates (read-only; lines unlock with the clues) ---- */
+const crownOpen = () => !!G && G.ch >= 362;
+const CROWN_CANDIDATES = [
+  {n:'Lady Wen Qingyu of the Northern Marches', tag:'The court\'s list', lines:[['hz365b','A gifted commander from a proud military house: brave, intelligent and loyal. Her marriage would strengthen the northern defences.']]},
+  {n:'Miss Lin Yao of the Golden Meridian', tag:'The court\'s list', lines:[['hz365b','Heiress of the realm\'s richest merchant house. Trade networks, dowry and new routes; graceful, wise, skilled with people.']]},
+  {n:'Lady Elin of Solen', tag:'The court\'s list', lines:[['hz365c','A royal envoy of a respected foreign house, renowned for diplomacy and culture. Would deepen the western alliances.']]},
+  {n:'Lady Shen Huizhen of the Imperial War House', tag:'The court\'s list', lines:[['hz365c','A scion of one of the oldest lineages: learned, virtuous and devoted. Unmatched prestige.']]},
+  {n:'Lady Seraphine Lin (Lin Rui)', tag:'Military family', lines:[['hz366c','Trained in strategy and riding since childhood; wants to contribute to the realm.'],['hz367a','Niece of General Lin Beishan of the Northern Stone: disciplined, honest and a warrior at heart.'],['hz367d','Wants to keep serving on the battlefield; a marriage that allowed it might not be a cage.'],['hz370a','Willing to consider the match if she can keep her military work.'],['hz371a','Hopes to stay involved in military strategy and training, not only the inner palace.'],['hz372b','"I chose this path with my eyes open."'],['hz373c','Devon: strong under pressure, but must balance her family\'s expectations with her own path.']]},
+  {n:'Lady Yulan Fen', tag:'Scholarly family', lines:[['hz366c','Helps manage her family\'s trade networks; hopes to expand opportunities for her people.'],['hz368a','Of a renowned scholarly house of academics, advisers and court historians; accomplished in literature, history, strategy and etiquette.'],['hz368b','She and Aster genuinely enjoy talking.'],['hz368c','Dreams of research, travel and a new history of the kingdoms.'],['hz368d','Her family presses her; she fears the crown would leave no time for scholarship.'],['hz370b','Would rather serve the kingdom through scholarship and counsel than be Crown Princess.'],['hz371b','Hopes to continue her research and perhaps found a royal academy.'],['hz372b','Could set research aside for a time, but would ask for freedom to keep learning.'],['hz373c','Devon: brilliant and thoughtful, but may prefer scholarship over royal duty.']]},
+  {n:'The Border Lady (unnamed)', tag:'Frontier noble house', lines:[['hz369a','Of a regional noble house with a long history of governing frontier lands; competent, fair and pragmatic.'],['hz369b','Knows supply routes, winter stores and border people.'],['hz369c','Direct, and finds conversation with Aster easy.'],['hz369d','Values her independence; whether she would leave the frontier for the court is open.'],['hz375b','On the frontier: safe roads, winter stores, fair trade and someone who shows up.'],['hz375d','Aster feels the future might be brighter with her beside him.']]},
+  {n:'Lady Elise Valen', tag:'Philanthropic family', lines:[['hz366c','Known for her philanthropy; cares for displaced families and wants to reduce regional tensions.'],['hz370c','Open to the marriage if she can keep her charity, but fears palace confinement.'],['hz371c','Would build support for displaced families, widows and children.'],['hz372c','Would try to find a balance; if impossible, she would ask whether she is the right person.'],['hz373c','Devon: kind and sincere, strong with people, but uncertain she wants a life fully within the palace.']]},
+  {n:'Lady Meirun Zhao', tag:'Musical and cultural family', lines:[['hz366c','A talented musician and scholar who wishes to preserve her family\'s traditions while supporting the kingdom.'],['hz370c','"Music is my life." Might consider it only if she can do both.'],['hz371c','Would support musicians, performers and cultural traditions.'],['hz372c','Would keep music within the palace, as something that serves the people.'],['hz373c','Devon: talented and graceful, reluctant to lose her freedom; may struggle with strict palace life.']]},
+];
+function rCrown(){
+  let h = `<div class="panel"><b>👑 THE CROWN HE MUST CHOOSE</b><div class="sm">What Jade and Devon learn about each candidate for Aster\'s Crown Princess. Read-only. The court\'s list and the women Jade met are different dossiers on the pages.</div></div>`;
+  h += CROWN_CANDIDATES.map(c => { const got = c.lines.filter(l => !!G.flags['inv_'+l[0]]); return got.length ? `<div class="li"><b>${c.n}</b> <span class="sm">· ${c.tag}</span>${got.map(l => `<div class="sm">· ${l[1]}</div>`).join('')}</div>` : `<div class="li">❔ ???</div>`; }).join('');
+  return h;
+}
+/* ---- Lady Yulan Fen: Dragonvale Ally after Arc XV (author). Not a party member and not a fighter. Aster's dear correspondent; Zhuangyuan and government scholar. ---- */
+const yulanOpen = () => !!G && !!G.flags && !!G.flags.arc15_complete;
+const YULAN_FATE = 'The Scholar\'s Daughter did not become Crown Princess. She later sat for Dragonvale\'s imperial examinations and placed first, earning the title of Zhuangyuan. She entered government service as a scholar, choosing a life of study and public service over the Crown Princess\'s residence.';
+function yulanPanel(){
+  if(!yulanOpen()) return '';
+  const rp = typeof G.scholarN==='number' ? G.scholarN : 0;
+  return `<h4><img src="assets/npc/yulan.webp" alt="Lady Yulan Fen" style="width:40px;height:40px;border-radius:50%;object-fit:cover;vertical-align:middle;border:2px solid var(--gold)"> Lady Yulan Fen: Dragonvale Ally</h4><div class="sm">${YULAN_FATE}</div><div class="sm"><b>Scholar\'s Insight:</b> while she is your ally, research into archives, ancient texts, seals and historical mysteries is 10% faster, and every third project turns up a lead (${rp} begun). She is not a party member and does not fight. She also sets optional scholarly commissions at the Dragonvale Academy.</div>`;
+}
+(function(){ const _rc = rCase; rCase = function(){ return _rc() + yulanPanel(); }; })();
+(function(){ const _rs = resStart; resStart = function(id){
+  const had = !!resState()[id], r = _rs(id), st = resState()[id], p = RESEARCH.find(x => x.id===id);
+  if(!had && st && p && yulanOpen() && p.rec !== 'fifteen'){
+    G.scholarProg = (G.scholarProg || 0) + RES_DAYS*0.1;   // 10% of a project's days, accumulated: a whole day is saved each time it reaches 1
+    if(G.scholarProg >= 1 && st.due > G.day+1){ st.due -= 1; G.scholarProg -= 1; r.push('📚 Scholar\'s Insight: Yulan\'s notes save a day.'); }
+    G.scholarN = (G.scholarN || 0) + 1;
+    if(G.scholarN % 3 === 0){ addItems([{id:'seal_dust', qty:1}]); r.push('📚 Research Lead Found: Yulan points to an extra source (+1 Seal Dust).'); }
+    save();
+  }
+  return r; }; })();
+const yulanSpot = (id, n, icon, desc, clues, i) => ({id, kind:'investigate', n, icon, need:2, ambush:[], lo:94, desc, clues, rw:{xp:300000+i*400, gold:62000+i*70}, needWhile:yulanOpen, lockMsg:'🔒 Yulan Fen is not yet a Dragonvale ally'});
+LOCATIONS.dragon_academy.spots.push(
+  yulanSpot('yulan_q1','Yulan: The Missing Manuscript','📜','A catalogued book that is not on its shelf.',['Yulan: "The catalogue lists the manuscript, but the shelf is empty. The borrowing slip names a retired clerk who left the archive years ago."','The clerk\'s old lodgings hold crates of papers. The manuscript is in the third crate, misfiled under a wrong title.'],0),
+  yulanSpot('yulan_q2','Yulan: Two Records That Disagree','⚖️','Two accounts of the same event.',['Yulan sets two histories of the same border settlement side by side: the dates agree, but the people named in each are different.','One was written by a local scribe within a year of the events, the other copied three generations later. The later copy has tidied the names.'],1),
+  yulanSpot('yulan_q3','Yulan: An Inscription From the Ruins','🗿','Copy the writing before the weather takes it.',['Yulan asks for a rubbing of a worn inscription at a ruined waystation. "The stone is the oldest source we have, and it is wearing away."','The rubbing shows a road dedication and a list of supply stops. Several of the stops are still on the northern road.'],2),
+  yulanSpot('yulan_q4','Yulan: An Old Family Genealogy','🌳','Is the family tree real?',['A family brings Yulan their genealogy to verify. She checks births and marriages against the temple registers and finds two generations that do not match.','A second branch, written out of the tree, appears in the temple register with a different surname. The family decides to restore it.'],3),
+  yulanSpot('yulan_q5','Yulan: The Researchers\' Escort','🧳','Researchers need a safe road.',['Yulan asks the party to see a small team of researchers to a mountain archive. The road passes two old checkpoints.','The researchers reach the archive with their notes dry and their instruments intact, and thank the party in the margins of their first report.'],4),
+  yulanSpot('yulan_q6','Yulan: An Unknown Artifact','🏺','What is this object?',['Yulan is shown a bronze object with no obvious use. "I have checked the standard works. It is not a weight, not a seal, and not a mirror."','Comparing the markings with a trade manual, she identifies it as a surveyor\'s level from an older road-building project.'],5),
+  yulanSpot('yulan_q7','Yulan: A Forged Charter','🖋️','A document too neat to be old.',['A town produces a charter for a market right. Yulan notices the paper is too even and the ink too sharp for its supposed age.','The town\'s own older records show the right was granted verbally and recorded later. The forged charter was an attempt to make it look older.'],6),
+  yulanSpot('yulan_q8','Yulan: Two Accounts of One War','📚','Compare the foreign histories.',['Yulan compares a Dragonvale history of an old border war with one written in a neighbouring kingdom. Each blames the other for the first strike.','Only the supply tables agree: both armies ran short in the same winter. Yulan writes that the war was lost by hunger more than by anyone\'s choice.'],7),
+);
+deed('hz_yulan', 'story', 'A scholar of Dragonvale', '📚', 'Lady Yulan Fen became a Dragonvale ally.', () => yulanOpen());
+deed('arc15_chain', 'story', 'Meeting them as people', '👑', 'The party met every Crown Princess candidate in person.', () => !!G.flags.inv_hz370d);
+
+/* ---- Arc XV, chapters 376-386: the Xuanji genealogy and Aster's choice ---- */
+Object.assign(LOCATIONS, {
+  royal_archives:{ n:'The Imperial Archives', region:'dragon', kind:'town', icon:'🏛️', unlock:{ch:376},
+    desc:'The Dragonvale Imperial Archives: the Imperial Genealogy, the marriage register, household ledgers and the royal birth records.',
+    spots:[ {id:'archive_reading', kind:'place', n:'The Long Reading Hall', icon:'📚', desc:'Lamps, ledgers and long tables.', note:'Under the lamps of the Imperial Archives, ledgers of births, marriages and households fill the long tables.'} ]},
+});
+if(!LOC_ORDER.includes('royal_archives')) LOC_ORDER.push('royal_archives');
+ROUTES.push({a:'dragon_court', b:'royal_archives', mode:'carriage', n:'Court to the Archives', days:1, fare:0, risk:.05, pool:['road_bandit']}, {a:'dragon_vale', b:'royal_archives', mode:'carriage', n:'The Archive Road', days:1, fare:0, risk:.05, pool:['road_bandit']});
+(function(){ const m = WORLD_MAPS.find(x => x.id==='dragon_north'); if(m && !m.locs.includes('royal_archives')) m.locs.push('royal_archives'); })();
+LOCATIONS.royal_archives.spots.push(
+  {id:'hz376a', kind:'investigate', n:'Be Certain', icon:'📜', ch:376, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'Close kin.',
+   clues:['Aster: "We must be certain. No one in this selection should be a close relative of the Crown Prince or the royal family."', 'An official: "We are cross-checking the Imperial Genealogy, the marriage register, and the records from each noble house. This includes legitimate and adopted lines, as well as maternal and paternal relatives, across multiple generations."'], rw:{xp:301100, gold:62520}},
+  {id:'hz376b', kind:'investigate', n:'Every Branch', icon:'🗂️', ch:376, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'The records gathered.',
+   clues:['"We must verify bloodlines to prevent prohibited close-kin marriages. Even distant branches must be checked, including collateral lines and previously unrecorded alliances."', 'The palace gathers records from the Imperial Genealogy, noble house archives, regional estate records, the marriage register, adopted and collateral lines, and the maternal and paternal sides.'], rw:{xp:301400, gold:62580}, needFlag:'inv_hz376a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz376c', kind:'investigate', n:'No Gaps', icon:'🕳️', ch:376, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'Foster arrangements.',
+   clues:['Jade: "So this checks both families: the candidate\'s lineage and the Crown Prince\'s family lines?" "Yes. It also checks for adopted relatives and prior marriages that may create prohibited ties."', 'Aster: "We should not leave any gaps. Some noble houses have complex inheritance lines, and some children were raised outside the main household. Include branch families, foster arrangements, and marriages from previous generations."'], rw:{xp:301700, gold:62640}, needFlag:'inv_hz376b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz376d', kind:'investigate', n:'Verified', icon:'✅', ch:376, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'No prohibited ties.',
+   clues:['Devon: "I will have my own people verify the regional records again as well. Frontier houses often have side branches that are not well recorded in the capital. Better to be thorough now than to face scandal later."', 'Each candidate\'s family is mapped against the Imperial family tree; a close-kin relationship would remove her from the selection. The stamped record reads "Verified: No Prohibited Ties". The verification takes time, but it protects the kingdom, its alliances and the future of the Crown Princess.'], rw:{xp:302000, gold:62700}, needFlag:'inv_hz376c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz377a', kind:'investigate', n:'Separate Records', icon:'🗂️', ch:377, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'Half-brothers on paper.',
+   clues:['Devon: "These are the separate household records. Roc was raised under a northern palace household, and Devon under a different imperial household." Aster: "Yes... it has always been recorded this way. They were treated as half-brothers in the court records for years. But look at this earlier ledger..."', 'The Northern Household Record names Roc Chadstone, raised under the northern palace household from early childhood; the Golden Meridian Household Record names Devon Chadstone, raised under the Golden Meridian household. Both list King Cassian Chadstone as father, no mother, and the same birth date: the 12th day, 5th month, Tianhe 12.'], rw:{xp:302300, gold:62760}},
+  {id:'hz377b', kind:'investigate', n:'The Imperial Birth Ledger', icon:'📖', ch:377, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'Tianhe 12.',
+   clues:['The Imperial Birth Ledger lists the parents as King Cassian Chadstone and Queen Estelle Veyra, Queen of Dragonvale: first son Roc, second son Devon, twin princes, born on the same day, same hour, under the Queen\'s care, both healthy. The initial record was made by the Imperial Physician and the Palace Registrar.', 'Jade: "Same father. Same mother. Same birth date... They are twins. So why do later records put them into different households?"'], rw:{xp:302600, gold:62820}, needFlag:'inv_hz377a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz377c', kind:'investigate', n:'The King and Queen', icon:'👑', ch:377, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'Veyra and Xuanji.',
+   clues:['Queen Estelle Veyra (Wei Xinglan): Queen of Dragonvale, from the Veyra clan, biological mother of Roc and Devon. Her maiden surname remains Veyra; she does not take the king\'s surname.', 'King Cassian Chadstone (Xuanji Jingcheng): King of Dragonvale and head of House Xuanji, father of Roc and Devon and their generation of princes, including Aster.'], rw:{xp:302900, gold:62880}, needFlag:'inv_hz377b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz377d', kind:'investigate', n:'Not a Mistake', icon:'❓', ch:377, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'Tradition, or more?',
+   clues:['Devon: "The imperial birth ledger is an earlier record. It predates their separation into different households. It suggests that the decision to raise them apart was made deliberately later, under the royal child-rearing system."', 'Jade: "So this was not a mistake in the records... But why? Was it only to prevent favouritism, or was there something else behind it?" The Royal Child-Rearing System: royal children may be raised by different approved households, to prevent maternal favouritism and limit the Queen\'s clan; in practice twins or full brothers can be recorded and treated as half-brothers. "We need to look deeper. There may be more to this than just tradition."'], rw:{xp:303200, gold:62940}, needFlag:'inv_hz377c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz378a', kind:'investigate', n:'The Royal Archives', icon:'📚', ch:378, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'An old protocol.',
+   clues:['Older court records explain the foster-rearing system: royal children of the Queen and senior consorts were deliberately raised in different households. This practice had been in place for generations, including for Roc and Devon.', 'According to imperial protocol, children of the Queen and senior consorts were often raised in separate households under trusted noble clans, rather than in a single palace household.'], rw:{xp:303500, gold:63000}},
+  {id:'hz378b', kind:'investigate', n:'Why', icon:'⚖️', ch:378, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'Factions and favouritism.',
+   clues:['The goal was to reduce court factionalism, prevent favouritism, and ensure each child received different upbringing and training.', 'From the Royal Archives: royal children may be raised by different approved households or noble clans; this prevents the concentration of influence under the Queen\'s clan; each household provides a different environment, education and network; siblings may live apart for many years, only meeting during court ceremonies, festivals or official training.'], rw:{xp:303800, gold:63060}, needFlag:'inv_hz378a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz378c', kind:'investigate', n:'Two Households', icon:'🏯', ch:378, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'North and Golden Meridian.',
+   clues:['Prince Roc was raised under the northern palace household from early childhood, where he received a different training focus, tutors and environment from his younger twin.', 'Prince Devon was raised under the Golden Meridian household from early childhood, with different tutors, mentors and circles, shaping a distinct personality from Roc despite their close age and blood relation.'], rw:{xp:304100, gold:63120}, needFlag:'inv_hz378b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz378d', kind:'investigate', n:'A Deliberate System', icon:'🔎', ch:378, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'Not a conflict.',
+   clues:['As a result, Roc and Devon spent their early years apart, meeting only during major court events, royal rites or special occasions. The records show that this separation was a deliberate decision, not a result of conflict between their parents.', 'Jade: "So they weren\'t separated because of a conflict between their parents... It was a deliberate royal system." It explains why Roc and Devon grew up so differently, and why the court treated them as half-brothers in many situations, even though they are twins.'], rw:{xp:304400, gold:63180}, needFlag:'inv_hz378c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz379a', kind:'investigate', n:'Documents Never Placed Together', icon:'🗄️', ch:379, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'The archives hold more.',
+   clues:['After confirming the birth records, Jade searches for additional documents to understand why the twins were raised apart. The imperial archives hold more than just birth ledgers: household correspondence, tutor assignments, medical notes and palace directives.', 'Devon: "These documents were never placed together before..."'], rw:{xp:304700, gold:63240}},
+  {id:'hz379b', kind:'investigate', n:'Queen Estelle\'s Letters', icon:'✉️', ch:379, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'To the two households.',
+   clues:['A letter from Queen Estelle to the Northern Palace (Year Tianhe 13) discusses the health and training arrangements for the older son. She entrusted Roc to the Northern Palace household for specific martial training and political exposure, hoping to strengthen his position in court. Jade: "She truly loved both of them, but the circumstances were already complicated by then."', 'A separate letter to the Golden Meridian household entrusts Devon\'s education to a different circle of tutors: scholarship, statecraft and diplomacy, in a more scholarly and bureaucratic environment.'], rw:{xp:305000, gold:63300}, needFlag:'inv_hz379a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz379c', kind:'investigate', n:'Different Teachers', icon:'🎓', ch:379, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'The tutor assignments.',
+   clues:['The Imperial Tutor Assignments confirm the different training paths: Roc\'s instructors specialised in martial arts, strategy and court security; Devon\'s tutors focused on literature, governance, history and foreign relations.', 'There is also palace correspondence between trusted officials, discussing how separating the twins would reduce factional conflict and prevent any single household from becoming too powerful. Jade: "It wasn\'t a lack of love... It was a political decision."'], rw:{xp:305300, gold:63360}, needFlag:'inv_hz379b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz379d', kind:'investigate', n:'Not Medical', icon:'🩺', ch:379, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'Both were healthy.',
+   clues:['The Imperial Physician Records: medical records from when the twins were infants show that both were healthy and born at the same time. There is no indication that they were separated due to health issues, which supports that the separation was intentional and political, not medical.', 'Devon: "So it was politics... Not because one of us was unfit to be raised by the Queen." Jade: "These new documents complete the picture. You were not separated because of a mistake, but because the court chose to protect you in different ways."'], rw:{xp:305600, gold:63420}, needFlag:'inv_hz379c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz380a', kind:'investigate', n:'A System, Not a Conspiracy', icon:'🏛️', ch:380, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'Good intentions.',
+   clues:['With the truth confirmed, the family looks beyond the records themselves, to the question of why the twins were raised separately. It was not a grand conspiracy, but a system: a long-standing palace practice meant to prevent favouritism, maintain stability and protect the royal line.', 'King Cassian: "The system was created to protect the royal family... But it also came at a cost."'], rw:{xp:305900, gold:63480}},
+  {id:'hz380b', kind:'investigate', n:'What the System Was For', icon:'📜', ch:380, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'Four purposes.',
+   clues:['The separate household system was an established practice, used for generations: to prevent clear favouritism under the Queen\'s clan; to ensure each child received a different environment, education and network; to build complementary skills and perspectives; to reduce political risk by spreading influence across trusted noble households.', 'Queen Estelle: "It was a decision made with good intentions. I wanted both of you to be safe... and to have different strengths."'], rw:{xp:306200, gold:63540}, needFlag:'inv_hz380a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz380c', kind:'investigate', n:'Different Paths', icon:'🛤️', ch:380, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'Different expectations.',
+   clues:['Roc (Northern Household): martial training and field exposure; strategy, border affairs and diplomacy; broader contact with the military and regional nobles; expected to be independent and self-reliant.', 'Devon (Golden Meridian Household): scholarly and administrative education; court protocol, history and governance; connection to scholarly circles and foreign relations; expected to support the court\'s intellectual and diplomatic roles.'], rw:{xp:306500, gold:63600}, needFlag:'inv_hz380b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz380d', kind:'investigate', n:'Still Twins', icon:'👬', ch:380, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'The same blood.',
+   clues:['Roc: "But it also meant we grew up apart." Devon: "Different tutors, different circles... different expectations. Sometimes I felt like I had to live up to a different image... even though we are the same."', '"We were raised differently, but we share the same blood... the same parents... and the same place in the royal line. The palace made us different in many ways... but it did not change the fact that we are twins." Jade: "The system gave you different paths, and sometimes put distance between you... but it was never meant to make one of you more important than the other. Now that the truth is clear, we can choose what comes next."'], rw:{xp:306800, gold:63660}, needFlag:'inv_hz380c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz381a', kind:'investigate', n:'Summoned', icon:'📜', ch:381, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'The full records.',
+   clues:['With the genealogy confirmed, Roc Chadstone is summoned to review the full records with Jade, Devon and Aster. For the first time he sees the complete evidence of what the royal archives have long hidden: that he and Devon are biological twins.', 'Aster: "The records match exactly: same date, same hour, both listed as princes, born in Dragonvale Palace." Roc: "...So it was true. We were twins. After all these years... it was true."'], rw:{xp:307100, gold:63720}},
+  {id:'hz381b', kind:'investigate', n:'The Evidence', icon:'📖', ch:381, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'Birth record and ledgers.',
+   clues:['The Imperial Birth Record: First Prince Roc Chadstone and Second Prince Devon Chadstone: the 12th day, 5th month, Tianhe 12 (same hour); Imperial Palace, Dragonvale; parents King Cassian Chadstone and Queen Estelle Veyra.', 'Supporting records: imperial household ledgers, palace midwife statements, early childhood registries, tutor assignments, separate household records, correspondence between the King and Queen, imperial protocol notes, records of the foster-rearing arrangement.'], rw:{xp:307400, gold:63780}, needFlag:'inv_hz381a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz381c', kind:'investigate', n:'Years of Resentment', icon:'💔', ch:381, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'Alone and compared.',
+   clues:['Jade explains the foster-rearing system; "This was not a grand conspiracy against you. It was a court system designed to create balance... But over time, it also created distance, misunderstandings and rivalry."', 'Roc: "That explains so much... The different households, the different tutors, the way we were always compared... I spent so many years resenting you, Devon, and the court, thinking I had been deliberately disfavoured." Both were loved by their parents, but the court believed separation would create stronger, more capable princes.'], rw:{xp:307700, gold:63840}, needFlag:'inv_hz381b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz381d', kind:'investigate', n:'Not Meant to Be Enemies', icon:'🤝', ch:381, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'A new understanding.',
+   clues:['Roc: "Knowing this does not erase the years. I was still alone. I was still treated differently. I still felt like an outsider, even among my own family." Devon: "No, it does not. And I cannot undo what you endured, Roc. But it changes what we were taught to believe. We were not meant to be enemies."', 'Aster: "Future generations should not be separated in the same way. No more brothers growing up as strangers." For the first time, they can look forward not as rivals, but as brothers: twin princes of Dragonvale, with a future they can shape together.'], rw:{xp:308000, gold:63900}, needFlag:'inv_hz381c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz382a', kind:'investigate', n:'Sitting With It', icon:'📖', ch:382, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'Not alone.',
+   clues:['Devon: "We were born on the same day, to the same parents. We are twins. And yet for so many years, I was taught to see him as only a half-brother. It changes everything, and yet... it does not erase the years. It does not erase what I felt."', 'Jade: "Devon... you do not have to carry all of this alone." Devon: "I know. But I need to sit with it. To understand what it means... not just for the records, but for my heart."'], rw:{xp:308300, gold:63960}},
+  {id:'hz382b', kind:'investigate', n:'Different Worlds', icon:'🌓', ch:382, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'The palace and the north.',
+   clues:['"We were raised in different worlds. I grew up in the palace, shaped by its rules, tutors and expectations. He was kept apart, raised in the northern lands, away from me. We were both denied a shared childhood."', '"I cannot pretend there was no resentment. There were years of loneliness. Years of wondering why I did not have a brother at my side, why he was distant, why our lives were so different."'], rw:{xp:308600, gold:64020}, needFlag:'inv_hz382a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz382c', kind:'investigate', n:'His Loneliness Too', icon:'❄️', ch:382, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'The lesser prince.',
+   clues:['And he, too, carried his own loneliness. He was told he was the lesser prince, kept away from the centre, made to feel unwanted, even as he bore the same blood and the same fate.', 'Devon: "Knowing he is my twin does not erase the distance between us before. But it changes how I see it. It was never because he chose to be apart. It was never because he was less. It was because the system decided it for us."'], rw:{xp:308900, gold:64080}, needFlag:'inv_hz382b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz382d', kind:'investigate', n:'My Twin Brother', icon:'👬', ch:382, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'At last.',
+   clues:['"Two princes. Same birth. Same blood. Different worlds. Both shaped by a system that feared what a united pair might mean. We lost years we can never get back. But the truth gives me something now: not just answers, but a chance to see him clearly at last."', 'Jade: "He is still the man who stood beside you even when it was hard." Devon: "Yes. Roc is not just a prince of the same house. He is my brother. My twin brother." Whatever comes, they are twin sons of Dragonvale.'], rw:{xp:309200, gold:64140}, needFlag:'inv_hz382c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz383a', kind:'investigate', n:'Not a Weapon', icon:'⚖️', ch:383, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'The truth belongs in the records.',
+   clues:['After learning the truth, Aster makes his decision. He refuses to weaponise the revelation, and orders the official family records corrected. Aster: "The truth belongs in the records. But it does not need to become a weapon in the court."', '"Update the imperial family records. Both myself and Devon are to be recorded as the Queen\'s sons: twins, born on the same day."'], rw:{xp:309500, gold:64200}},
+  {id:'hz383b', kind:'investigate', n:'For the Truth, and the Line', icon:'📜', ch:383, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'Not to punish anyone.',
+   clues:['"This correction is for the sake of the truth and the stability of the royal line. It is not to be used to punish anyone, challenge past decisions, or create unrest."', 'A senior official: "Your Highness, should we also announce this to the court? There will be questions if the records are changed but no explanation is given."'], rw:{xp:309800, gold:64260}, needFlag:'inv_hz383a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz383c', kind:'investigate', n:'Discretion', icon:'🤫', ch:383, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'Those who must know.',
+   clues:['Aster: "No public announcement is needed. Only those who must know shall be informed: the Imperial Archives, the relevant officials, and our household."', 'Aster chooses transparency where it matters, and discretion where it protects innocent people. He will not turn his family\'s past into a court spectacle or a political tool.'], rw:{xp:310100, gold:64320}, needFlag:'inv_hz383b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz383d', kind:'investigate', n:'Corrected', icon:'✒️', ch:383, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'Old wounds left closed.',
+   clues:['Devon: "...Thank you. You did not have to do this." Aster: "We have both lived with different expectations. I will not add more weight to that by exposing this unnecessarily."', 'The records are corrected. The truth is preserved, without tearing open old wounds. The past cannot be changed, but Aster chooses a different way forward: one that protects his family, maintains the stability of the kingdom, and refuses to let the truth be used as a weapon.'], rw:{xp:310400, gold:64380}, needFlag:'inv_hz383c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz384a', kind:'investigate', n:'The Corrected Records', icon:'📚', ch:384, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'The truth made official.',
+   clues:['After further review, the imperial archives and household records have been corrected. Jade: "Roc and Devon are confirmed as twin sons, born to King Cassian and Queen Estelle. Aster is their younger half-brother from the same royal house."', 'Devon: "The previous separate household records caused many misunderstandings. But the birth and genealogy records now make the truth official."'], rw:{xp:310700, gold:64440}},
+  {id:'hz384b', kind:'investigate', n:'House Xuanji', icon:'🐉', ch:384, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'The royal house.',
+   clues:['House Xuanji is the ruling royal house. The current king, queen, and their children form the main line of this generation; the princes of this generation all share the generation character "Zong". King Cassian Chadstone (Xuanji Jingcheng) and Queen Estelle Veyra (Wei Xinglan).', 'Roc Chadstone (Xuanji Zongpeng): eldest, twin, former prince, now a noble and maritime officer after returning from exile. Devon Chadstone (Xuanji Zongyan): second, twin, current prince. Aster Chadstone (Xuanji Zongyao): youngest, half-brother, current prince.'], rw:{xp:311000, gold:64500}, needFlag:'inv_hz384a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz384c', kind:'investigate', n:'Birth Records', icon:'📅', ch:384, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'Twins and a half-brother.',
+   clues:['Roc: 12th day, 5th month, Tianhe 12, mother Queen Estelle Veyra, twin son (eldest). Devon: the same date, same mother, twin son (second).', 'Aster: 27th day, 8th month; not Queen Estelle\'s child but another mother of the royal house; younger half-brother, born later, not part of the twin record. Roc: "The key point is that Roc and I are twins, born on the same date, same mother, Queen Estelle. Aster was born later, and is our younger half-brother."'], rw:{xp:311300, gold:64560}, needFlag:'inv_hz384b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz384d', kind:'investigate', n:'What the Confusion Was', icon:'❓', ch:384, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'And what changes.',
+   clues:['The princes were raised in separate household records under different palace households; the foster-rearing system led to incomplete records being viewed in isolation, and people misunderstood their relationships and even thought they were from different houses.', 'The corrected records do not change anyone\'s current status: Roc remains a noble and maritime officer after returning from exile, Devon and Aster are recognised as princes of House Xuanji. The clarification strengthens the historical record and helps future generations understand the true family structure and the reason for the separate household records.'], rw:{xp:311600, gold:64620}, needFlag:'inv_hz384c', lockMsg:'🔒 Finish the previous clue first'},
+);
+LOCATIONS.dragon_court.spots.push(
+  {id:'hz385a', kind:'investigate', n:'A Decision Made', icon:'👑', ch:385, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'Not for advantage.',
+   clues:['Aster has come to a decision. His choice is not made from family advantage, but from compatibility, judgement, mutual respect and a shared willingness to face the responsibilities of the crown.', 'Aster: "Thank you for meeting me here. I asked that no attendants come, so we could speak openly."'], rw:{xp:311900, gold:64680}},
+  {id:'hz385b', kind:'investigate', n:'What the Frontier Taught Her', icon:'🏔️', ch:385, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'Someone shows up.',
+   clues:['She: "The frontier is not easy, Your Highness. People depend on us for safe roads, winter stores, fair trade, and quick decisions when problems arise. It is not glamorous work, but it matters. Those communities are loyal because someone shows up, listens, and stays when times are hard."', 'Aster: "That is why I asked to speak with you. I want to understand what kind of life you want, not just what the court expects of you."'], rw:{xp:312200, gold:64740}, needFlag:'inv_hz385a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz385c', kind:'investigate', n:'A Partner, Not a Symbol', icon:'⚖️', ch:385, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'The difficult question.',
+   clues:['She: "Would you be willing to hear uncomfortable truths from your wife? And would you value her as a partner, not as a decorative symbol for the court?" Aster: "Yes. I do not want a wife who only agrees with me. I want someone who will speak honestly, even when it is hard to hear. I believe a true partner makes the realm stronger, not just the court appear better."', 'She: "If you wish to be a good king, you will need patience, and the humility to keep listening... But if you can face that with an open mind, then I believe we could build something meaningful together."'], rw:{xp:312500, gold:64800}, needFlag:'inv_hz385b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz385d', kind:'investigate', n:'The Border Lady', icon:'🌅', ch:385, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'And the scholar.',
+   clues:['In this moment, Aster makes his choice. He chooses the border lady as Crown Princess, because she understands the responsibilities ahead, shares his sense of duty, and is willing to walk this path beside him.', 'This choice does not diminish his bond with the scholar\'s daughter. She remains the person who knows his heart, shares his love of knowledge, and will continue to be a valued ally and trusted friend in the years to come.'], rw:{xp:312800, gold:64860}, needFlag:'inv_hz385c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz386a', kind:'investigate', n:'I Accept', icon:'👑', ch:386, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'The future queen.',
+   clues:['The Crown Prince has made his choice. Aster chooses the border lady as Crown Princess, not for family advantage, but for her understanding of the responsibilities ahead, her experience with the people and her willingness to walk this path beside him.', '"I accept this position. A kingdom is not only the palace. There are people, roads, borderlands, and ordinary lives that also need a queen."'], rw:{xp:313100, gold:64920}},
+  {id:'hz386b', kind:'investigate', n:'Departing With Dignity', icon:'🌸', ch:386, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'No one humiliated.',
+   clues:['The other candidates depart with dignity. Aster ensures that no one is humiliated. Each woman is thanked for her honesty, her time and her courage to be part of this selection.', 'The scholar\'s daughter returns to her studies, with Aster\'s respect and continued friendship. The military candidate returns to her post, with new opportunities to contribute to the realm. The remaining candidates leave with their heads high, free to pursue their own paths.'], rw:{xp:313400, gold:64980}, needFlag:'inv_hz386a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz386c', kind:'investigate', n:'We Write', icon:'✉️', ch:386, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'Letters, as always.',
+   clues:['Later that evening, away from the ceremony, Aster seeks out the scholar\'s daughter for a quiet conversation. Aster: "I thought choosing someone else would mean I had to let go of what I feel for you."', '"You do not have to stop loving someone simply because you refuse to own their future. We both know the truth now. Our feelings are real. But loving someone does not mean asking them to live a life they do not want." Aster: "Then we write?" "We write." Letters, as always. Books, questions, and whatever we discover along the way.'], rw:{xp:313700, gold:65040}, needFlag:'inv_hz386b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz386d', kind:'investigate', n:'Both Can Be True', icon:'🌌', ch:386, need:2, ambush:[], lo:95, roles:['jade', 'devon'],
+   desc:'The story is not yet over.',
+   clues:['Aster had entered the selection as a prince being prepared to rule. He leaves it having begun to understand what ruling will require, and what kind of king he intends to become.', 'There are choices a ruler must make for the greater good. There are also feelings that do not disappear simply because they cannot be claimed. Both can be true. For now they will continue on their separate paths, the Crown Prince and the scholar, carrying the same feelings in their hearts, through letters that cross the distance, and in the quiet hope that the story is not yet over.'], rw:{xp:314000, gold:65100}, needFlag:'inv_hz386c', lockMsg:'🔒 Finish the previous clue first'},
+);
+MISSIONS.push(
+  {id:'m_s376', needCh:376, title:'The Marriage Register', obj:{type:'steps', steps:[
+     {label:'Be Certain', spot:'hz376a'},
+     {label:'Every Branch', spot:'hz376b'},
+     {label:'No Gaps', spot:'hz376c'},
+     {label:'Verified', spot:'hz376d'}]}, rw:{xp:887500, gold:192800, rep:1769},
+   subj:'The Marriage Register', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s377', needCh:377, title:'Two Princes, One Birth Record', obj:{type:'steps', steps:[
+     {label:'Separate Records', spot:'hz377a'},
+     {label:'The Imperial Birth Ledger', spot:'hz377b'},
+     {label:'The King and Queen', spot:'hz377c'},
+     {label:'Not a Mistake', spot:'hz377d'}]}, rw:{xp:890000, gold:193400, rep:1772},
+   subj:'Two Princes, One Birth Record', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s378', needCh:378, title:'Raised Apart', obj:{type:'steps', steps:[
+     {label:'The Royal Archives', spot:'hz378a'},
+     {label:'Why', spot:'hz378b'},
+     {label:'Two Households', spot:'hz378c'},
+     {label:'A Deliberate System', spot:'hz378d'}]}, rw:{xp:892500, gold:194000, rep:1775},
+   subj:'Raised Apart', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s379', needCh:379, title:'The Half-Brothers Who Were Twins', obj:{type:'steps', steps:[
+     {label:'Documents Never Placed Together', spot:'hz379a'},
+     {label:'Queen Estelle\'s Letters', spot:'hz379b'},
+     {label:'Different Teachers', spot:'hz379c'},
+     {label:'Not Medical', spot:'hz379d'}]}, rw:{xp:895000, gold:194600, rep:1778},
+   subj:'The Half-Brothers Who Were Twins', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s380', needCh:380, title:'What the Palace Made of Them', obj:{type:'steps', steps:[
+     {label:'A System, Not a Conspiracy', spot:'hz380a'},
+     {label:'What the System Was For', spot:'hz380b'},
+     {label:'Different Paths', spot:'hz380c'},
+     {label:'Still Twins', spot:'hz380d'}]}, rw:{xp:897500, gold:195200, rep:1781},
+   subj:'What the Palace Made of Them', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s381', needCh:381, title:'Roc Hears the Truth', obj:{type:'steps', steps:[
+     {label:'Summoned', spot:'hz381a'},
+     {label:'The Evidence', spot:'hz381b'},
+     {label:'Years of Resentment', spot:'hz381c'},
+     {label:'Not Meant to Be Enemies', spot:'hz381d'}]}, rw:{xp:900000, gold:195800, rep:1784},
+   subj:'Roc Hears the Truth', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s382', needCh:382, title:'Devon\'s Brother', obj:{type:'steps', steps:[
+     {label:'Sitting With It', spot:'hz382a'},
+     {label:'Different Worlds', spot:'hz382b'},
+     {label:'His Loneliness Too', spot:'hz382c'},
+     {label:'My Twin Brother', spot:'hz382d'}]}, rw:{xp:902500, gold:196400, rep:1787},
+   subj:'Devon\'s Brother', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s383', needCh:383, title:'Aster\'s Decision', obj:{type:'steps', steps:[
+     {label:'Not a Weapon', spot:'hz383a'},
+     {label:'For the Truth, and the Line', spot:'hz383b'},
+     {label:'Discretion', spot:'hz383c'},
+     {label:'Corrected', spot:'hz383d'}]}, rw:{xp:905000, gold:197000, rep:1790},
+   subj:'Aster\'s Decision', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s384', needCh:384, title:'House Xuanji', obj:{type:'steps', steps:[
+     {label:'The Corrected Records', spot:'hz384a'},
+     {label:'House Xuanji', spot:'hz384b'},
+     {label:'Birth Records', spot:'hz384c'},
+     {label:'What the Confusion Was', spot:'hz384d'}]}, rw:{xp:907500, gold:197600, rep:1793},
+   subj:'House Xuanji', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s385', needCh:385, title:'The Woman Aster Chooses', obj:{type:'steps', steps:[
+     {label:'A Decision Made', spot:'hz385a'},
+     {label:'What the Frontier Taught Her', spot:'hz385b'},
+     {label:'A Partner, Not a Symbol', spot:'hz385c'},
+     {label:'The Border Lady', spot:'hz385d'}]}, rw:{xp:910000, gold:198200, rep:1796},
+   subj:'The Woman Aster Chooses', body:'Dragonvale needs this answered. — Greyson'},
+  {id:'m_s386', needCh:386, title:'The Future Queen', obj:{type:'steps', steps:[
+     {label:'I Accept', spot:'hz386a'},
+     {label:'Departing With Dignity', spot:'hz386b'},
+     {label:'We Write', spot:'hz386c'},
+     {label:'Both Can Be True', spot:'hz386d'}]}, rw:{xp:912500, gold:198800, rep:1799},
+   subj:'The Future Queen', body:'Dragonvale needs this answered. — Greyson'}
+);
+LORE.push(
+  {ch:376, n:'The Marriage Register', t:'Before the selection continued, palace officials cross-checked the Imperial Genealogy, the marriage register and every noble house\'s records, including adopted, collateral, maternal and paternal lines, to rule out prohibited close-kin marriages.'},
+  {ch:377, n:'Two Princes, One Birth Record', t:'An older imperial birth ledger of Tianhe 12 shows that Roc and Devon were born on the 12th day of the 5th month to King Cassian Chadstone and Queen Estelle Veyra: twin princes. Later household records raised them apart and the court treated them as half-brothers.'},
+  {ch:378, n:'The Royal Foster-Rearing System', t:'For generations the royal house raised the children of the Queen and senior consorts in separate noble households, to prevent factionalism and favouritism. Roc was raised in the northern palace household and Devon in the Golden Meridian household, meeting only at court events. The separation was deliberate, not a result of conflict between their parents.'},
+  {ch:379, n:'Why the Twins Were Separated', t:'Queen Estelle\'s letters of Tianhe 13 entrusted Roc to the Northern Palace for martial training and political exposure, and Devon to the Golden Meridian household for scholarship and diplomacy. Officials wrote that separating the twins would reduce factional conflict. Physician records show both were healthy: the separation was political, not medical.'},
+  {ch:380, n:'The Palace System', t:'The separate-household system was never a conspiracy: it was a long-standing practice to prevent favouritism, build complementary skills and spread influence across trusted houses. It protected the royal line but cost the twins their shared childhood. Queen Estelle says it was meant to keep both sons safe, with different strengths.'},
+  {ch:381, n:'Roc Hears the Truth', t:'Roc was summoned and saw the complete records: he and Devon are biological twins, born the same hour. He said the explanation changes what he believed but does not take away the pain he lived through. Devon: they were twins raised apart by a system that valued distance over closeness.'},
+  {ch:382, n:'Devon\'s Brother', t:'Devon accepted that Roc is not a half-brother but his twin. He admitted years of loneliness and resentment, saw that Roc carried his own, and said the system, not Roc, kept them apart. He will no longer see him as anything less than his brother.'},
+  {ch:383, n:'Aster\'s Decision', t:'Aster ordered the imperial family records corrected so the twins are recorded as the Queen\'s sons, born the same day, and told only the Imperial Archives, the relevant officials and the household. He refused to let the truth become a weapon or a spectacle.'},
+  {ch:384, n:'House Xuanji', t:'The ruling royal house, whose princes share the generation character Zong. King Cassian Chadstone and Queen Estelle Veyra\'s twin sons Roc (Zongpeng, eldest, now a noble and maritime officer) and Devon (Zongyan, a prince), and their younger half-brother Aster (Zongyao, born the 27th day of the 8th month to another mother of the royal house).'},
+  {ch:385, n:'The Woman Aster Chooses', t:'Aster chose the border lady as Crown Princess because she understands the responsibilities ahead, shares his sense of duty and is willing to walk the path beside him: not for family advantage. The scholar\'s daughter remains the person who knows his heart, a valued ally and trusted friend.'},
+  {ch:386, n:'The Future Queen', t:'Aster named the border lady Crown Princess; the other candidates left with dignity. He and the scholar\'s daughter agreed to keep writing: both the choice a ruler must make and the feelings that cannot be claimed can be true.'}
+);
+
+/* House Xuanji on the Crown Candidates tab (from ch384) */
+(function(){ const _rc = rCrown; rCrown = function(){ let h = _rc();
+  if(G.flags.inv_hz384b) h += `<h4>🐉 House Xuanji</h4><div class="li"><b>King Cassian Chadstone</b> and <b>Queen Estelle Veyra</b><div class="sm">Roc Chadstone (Zongpeng): eldest son, twin, born the 12th day, 5th month, Tianhe 12. Former prince; now a noble and maritime officer after returning from exile.</div><div class="sm">Devon Chadstone (Zongyan): second son, twin, the same birth. Current prince.</div><div class="sm">Aster Chadstone (Zongyao): youngest, half-brother, born the 27th day, 8th month, to another mother of the royal house. Current prince.</div></div>`;
+  if(G.flags.inv_hz381d) h += `<div class="li">✅ <b>Roc and Devon are twins</b><div class="sm">Raised apart by the royal foster-rearing system: Roc in the northern palace household, Devon in the Golden Meridian household. The court recorded them as half-brothers.</div></div>`;
+  return h; }; })();
+/* ---- Aster, Crown Prince of Dragonvale: a Dragonvale Ally after Arc XV (not a party member, not a fighter). Royal Counsel: once every 4 in-game days, a little court renown, XP and a word of judgement. State G.asterCounsel = {last, n}. ---- */
+const asterOpen = () => !!G && !!G.flags && !!G.flags.arc15_complete;
+const ASTER_COUNSEL = [
+  'Aster: "A decision made in a hurry is usually someone else\'s decision. Take the time to hear the people it falls on."',
+  'Aster: "The truth belongs in the records. It does not need to become a weapon."',
+  'Aster: "When everyone agrees at once, ask what they are not saying."',
+  'Aster: "A crown is not a reward to be given. It is a life to be shared."',
+  'Aster: "I would rather be corrected by an honest friend than flattered by a court."',
+];
+const astC = () => { if(!G.asterCounsel) G.asterCounsel = {last:-99, n:0}; return G.asterCounsel; };
+const asterReady = () => G.day - astC().last >= 4;
+function asterCounsel(){
+  if(!asterOpen() || !asterReady()) return [];
+  const A = astC(); A.last = G.day; const line = ASTER_COUNSEL[A.n % ASTER_COUNSEL.length]; A.n++;
+  const msgs = ['👑 '+line]; gainXp(80 + avgPartyLv()*6, G.party).forEach(m => msgs.push(m));
+  if(typeof repAdd==='function') repAdd('court', 1).forEach(m => msgs.push(m));
+  save(); return msgs.concat(advanceDay(1));
+}
+function asterPanel(){
+  if(!asterOpen()) return '';
+  return `<h4><img src="assets/npc/aster.webp" alt="Aster" style="width:40px;height:40px;border-radius:50%;object-fit:cover;vertical-align:middle;border:2px solid var(--gold)"> Aster: Crown Prince, Dragonvale Ally</h4><div class="sm">A prince who listens. He chose the border lady as Crown Princess, writes to the scholar, and will advise whenever you are in Dragonvale. He is not a party member and does not fight. One piece of counsel every 4 days (${astC().n} given).</div><button ${asterReady()?'':'disabled'} onclick="act(asterCounsel)">Ask for his counsel</button>`;
+}
+(function(){ const _rc = rCase; rCase = function(){ return _rc() + asterPanel(); }; })();
+deed('hz_twins', 'story', 'Two princes, one birth record', '👬', 'Roc and Devon were shown to be twins.', () => !!G.flags.roc_knows_twin);
+deed('hz_xuanji', 'story', 'House Xuanji', '🐉', 'The structure of House Xuanji was recorded.', () => !!G.flags.house_xuanji_known);
+deed('arc15', 'story', 'The Crown He Must Choose', '👑', 'Arc XV, The Crown He Must Choose, is complete.', () => !!G.flags.arc15_complete);
