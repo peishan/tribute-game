@@ -86,3 +86,6 @@ New locations: the Lakeside Town (408, 411) and the Old Quarter (410). Arc XVI c
 ## Update: expedition unlock and Rheon (author)
 - **Expedition:** Arc XVI completion (ch411) unlocks the Special Mission Expedition (Archive > Expedition): the mission cast goes out together whatever the party size, one expedition every 24 real hours, no fight, three small scenes and a reward, five Old Route destinations (first visit to each pays more). Draft numbers and scenes; tune them later.
 - **Rheon:** his guest end point is the end of the arc where he and Sera travel together (Arc XIII), already the row's `until:337`; confirmed, no change.
+
+## Update: cover and chapter 412
+The Arc XVI cover is built (`assets/arcs/arc16.webp`, shown when ch387 opens; Arc XVI now has all of 387-411). Chapter 412, "The Name No One Said", is built as the aftermath in Dragonvale (the mission group's story-companion row ends before it): Levi will not approach Sally on incomplete answers; next leads are in the north archives. The author: Arc XVI is a majorly relationship arc.
