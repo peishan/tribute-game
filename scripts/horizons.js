@@ -2840,7 +2840,7 @@ LOCATIONS.records_station.spots.push(
    clues:['The record includes a childhood nickname, a favourite flower, and a description of a place she often visited, details that were never part of public records.', 'Sera: "This matches what I remember of her from the portraits... The flower... it\'s the same as the one she always wore in her hair."'], rw:{xp:335900, gold:69480}, needFlag:'inv_hz405b', lockMsg:'🔒 Finish the previous clue first'},
   {id:'hz405d', kind:'investigate', n:'A Direction to Start', icon:'🗺️', ch:405, need:2, ambush:[], lo:96, roles:['greyson', 'jade', 'levi', 'seraphina', 'devon'],
    desc:'A caretaker still alive.',
-   clues:['The record also mentions a specific region, a former retreat, and the name of a caretaker who is likely still alive. Levi: "This gives us a direction to start with. If this caretaker is still around, we might finally learn where she went."', 'Jade: "There are notes about her leaving quietly, with only a few attendants. It looks like she wanted to see something for herself, not run away completely." Devon: "There\'s also a route and a location name here, but it\'s faded. We can still make out enough to narrow it down to a few possible places." By the end of the day: "This changes everything. We finally have a place to look... and people who might still remember her."'], rw:{xp:336200, gold:69540}, needFlag:'inv_hz405c', lockMsg:'🔒 Finish the previous clue first'},
+   clues:['The record also mentions a specific region, a former retreat, and the name of a caretaker who is likely still alive. Devon: "This gives us a direction to start with. If this caretaker is still around, we might finally learn where she went."', 'Jade: "There are notes about her leaving quietly, with only a few attendants. It looks like she wanted to see something for herself, not run away completely." Devon: "There\'s also a route and a location name here, but it\'s faded. We can still make out enough to narrow it down to a few possible places." By the end of the day: "This changes everything. We finally have a place to look... and people who might still remember her."'], rw:{xp:336200, gold:69540}, needFlag:'inv_hz405c', lockMsg:'🔒 Finish the previous clue first'},
 );
 MISSIONS.push(
   {id:'m_s402', needCh:402, title:'The King Who Keeps Asking Questions', obj:{type:'steps', steps:[
@@ -2859,4 +2859,164 @@ MISSIONS.push(
 LORE.push(
   {ch:402, n:'The King Who Keeps Asking Questions', t:'In the market district Hugh spoke with ordinary people about prices, ships, pets and hopes. Sera watched and saw a side of him she never saw at court: a king who asks questions to know the people who live in his kingdom.'},
   {ch:405, n:'The Broken Royal Seal', t:'In an old noble house\'s storehouse the party found a broken royal seal for private correspondence and a damaged record of the missing princess: a nickname, a favourite flower, a retreat and a caretaker who may still live. It narrowed the search to a region and a few places.'}
+);
+
+/* ---- Arc XVI, chapters 399 and 406-411: the song, Sally, one more stop, and the name beside the date ---- */
+Object.assign(LOCATIONS, {
+  lakeside_town:{ n:'The Lakeside Town', region:'old_route', kind:'town', icon:'⛵', unlock:{ch:408},
+    desc:'A harbour town of pagodas and sailing boats under the mountains, known for its markets, local food and sunsets.',
+    spots:[ {id:'lakeside_inn', kind:'tavern', n:'The Lakeside Teahouse', icon:'🍵', desc:'Rest, eat and watch the boats.'} ]},
+  old_quarter:{ n:'The Old Quarter', region:'old_route', kind:'town', icon:'🏮', unlock:{ch:410},
+    desc:'An old lantern-lit district whose former houses still keep fragments of their registers.',
+    spots:[ {id:'old_quarter_inn', kind:'tavern', n:'A Quiet Teahouse', icon:'🍵', desc:'Rest and listen.'} ]},
+});
+['lakeside_town','old_quarter'].forEach(k => { if(!LOC_ORDER.includes(k)) LOC_ORDER.push(k); });
+ROUTES.push({a:'riverside_town', b:'lakeside_town', mode:'carriage', n:'The Lake Road', days:2, fare:20, risk:.2, pool:['road_bandit']}, {a:'records_station', b:'old_quarter', mode:'carriage', n:'To the Old Quarter', days:2, fare:20, risk:.2, pool:['road_bandit','forest_wolf']});
+deed('hz_name_date', 'story', 'The name beside the date', '📖', 'A register linked Lily to Sally Sin.', () => !!G.flags.name_beside_date);
+LOCATIONS.route_town.spots.push(
+  {id:'hz399a', kind:'investigate', n:'Not Your Decision', icon:'🏮', ch:399, need:2, ambush:[], lo:96, roles:['jade', 'seraphina'],
+   desc:'Jade speaks first.',
+   clues:['Jade: "Sera. Don\'t reject yourself on Hugh\'s behalf. That is not your decision to make."', 'Sera: "But... He is the king. His path is different from ours. I don\'t want to be a burden, or cause complications for him."'], rw:{xp:337100, gold:69720}},
+  {id:'hz399b', kind:'investigate', n:'Caring So Much', icon:'💞', ch:399, need:2, ambush:[], lo:96, roles:['jade', 'seraphina'],
+   desc:'Not the same as pushing away.',
+   clues:['Jade: "You are thinking about the kingdom, the court, and the consequences. That shows how much you care. But caring so much does not mean you have to push yourself away before he even speaks his mind."', 'Sera: "What if I misunderstand his kindness? What if I make things awkward for everyone?"'], rw:{xp:337400, gold:69780}, needFlag:'inv_hz399a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz399c', kind:'investigate', n:'He Is Not So Fragile', icon:'🌸', ch:399, need:2, ambush:[], lo:96, roles:['jade', 'seraphina'],
+   desc:'Then let Hugh decide.',
+   clues:['Jade: "Then let Hugh decide that. You don\'t have to carry the answer for both of you. He is not as fragile as you think, Sera."', 'Sera has always been cautious around feelings, especially when they involve the crown. She does not want to disturb the balance, or put Hugh in a difficult position. But Jade reminds her that avoiding her own feelings is also a kind of decision, one that might close doors too early.'], rw:{xp:337700, gold:69840}, needFlag:'inv_hz399b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz399d', kind:'investigate', n:'A Decision Shared', icon:'🌙', ch:399, need:2, ambush:[], lo:96, roles:['jade', 'seraphina'],
+   desc:'Not made alone in advance.',
+   clues:['Sera: "I... I will try not to decide for him anymore. I cannot promise my feelings will change overnight, but I will stop pushing myself away."', 'Jade: "That\'s all I\'m asking. Take your time. Be honest with yourself. And let Hugh find his own way." For now, Sera chooses not to run from her feelings. Whatever happens next will be a decision shared, not one she makes alone in advance.'], rw:{xp:338000, gold:69900}, needFlag:'inv_hz399c', lockMsg:'🔒 Finish the previous clue first'},
+);
+LOCATIONS.records_station.spots.push(
+  {id:'hz406a', kind:'investigate', n:'Not Court Music', icon:'🎼', ch:406, need:2, ambush:[], lo:96, roles:['greyson', 'jade', 'levi', 'devon', 'seraphina', 'adrian', 'evelyne'],
+   desc:'An unusual notation.',
+   clues:['The damaged royal seal leads the party to a second clue, a fragment of music preserved with the record. The scholar: "This notation is unusual. It is not common court music from Tribute or Dragonvale."', 'The scholar: "These marks belong to Lysenne\'s royal household. They were used in private instruction, not public performance."'], rw:{xp:338300, gold:69960}},
+  {id:'hz406b', kind:'investigate', n:'Educated Within the Palace', icon:'🏛️', ch:406, need:2, ambush:[], lo:96, roles:['greyson', 'jade', 'levi', 'devon', 'seraphina', 'adrian', 'evelyne'],
+   desc:'A rare teaching style.',
+   clues:['The teaching style was said to be reserved for royal daughters and a small inner circle of tutors. Hugh: "So the manuscript truly came from the lost kingdom." Adrian: "And from someone educated within the palace itself."', 'Evelyne: "A musical education that rare would leave traces in memory, and in witnesses." Sera: "So the princess was not only alive... she was trained carefully."'], rw:{xp:338600, gold:70020}, needFlag:'inv_hz406a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz406c', kind:'investigate', n:'This Phrasing', icon:'🎵', ch:406, need:2, ambush:[], lo:96, roles:['greyson', 'jade', 'levi', 'devon', 'seraphina', 'adrian', 'evelyne'],
+   desc:'It feels familiar.',
+   clues:['Levi studies the notation: "...This phrasing." Jade: "Levi?" Levi: "It feels familiar."', 'Jade: "Do you remember hearing it somewhere?" Levi: "Perhaps. Not enough to say more."'], rw:{xp:338900, gold:70080}, needFlag:'inv_hz406b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz406d', kind:'investigate', n:'The Look in His Eyes', icon:'👁️', ch:406, need:2, ambush:[], lo:96, roles:['greyson', 'jade', 'levi', 'devon', 'seraphina', 'adrian', 'evelyne'],
+   desc:'Jade says nothing.',
+   clues:['The fragment does not reveal her name, but it proves that the lost household carried its music with it even after the kingdom fell.', 'Jade says nothing, but she recognises the look in Levi\'s eyes. A song without a kingdom becomes one of their clearest clues yet, and the first to feel strangely personal.'], rw:{xp:339200, gold:70140}, needFlag:'inv_hz406c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz409a', kind:'investigate', n:'She Survived', icon:'📜', ch:409, need:2, ambush:[], lo:96, roles:['levi', 'jade', 'seraphina'],
+   desc:'Fragments fill the missing years.',
+   clues:['Fragments of old records finally fill in the missing years. Levi: "She survived." Jade: "She didn\'t disappear..."', 'When Lysenne fell, Princess Zhaoning was only eight years old. After the palace betrayal, the princess left the capital under a different name and identity.'], rw:{xp:341900, gold:70680}},
+  {id:'hz409b', kind:'investigate', n:'Too Many Parallels', icon:'🔍', ch:409, need:2, ambush:[], lo:96, roles:['levi', 'jade', 'seraphina'],
+   desc:'The timing and the places.',
+   clues:['The records match known movements, people and events from that period. Levi: "The timing... the locations... the connections... There are too many parallels."', 'She entered commoner life under a new name, growing up away from the court. She learned to keep her identity hidden, built new skills, and adapted to survive.'], rw:{xp:342200, gold:70740}, needFlag:'inv_hz409a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz409c', kind:'investigate', n:'The Name Changed', icon:'🎼', ch:409, need:2, ambush:[], lo:96, roles:['levi', 'jade', 'seraphina'],
+   desc:'The details did not.',
+   clues:['In time, she became known as a courtesan, Sally, using her talents, knowledge and connections to find stability in a difficult world. The name changed, but certain personal details remained the same: writing style, musical notation, and a distinctive seal.', 'Even the melodies in the compositions they found match the style recorded in her later household. Levi: "It\'s her. There\'s no doubt. She lived... and she made a life for herself after everything that happened."'], rw:{xp:342500, gold:70800}, needFlag:'inv_hz409b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz409d', kind:'investigate', n:'On Her Own Terms', icon:'🌙', ch:409, need:2, ambush:[], lo:96, roles:['levi', 'jade', 'seraphina'],
+   desc:'The life she chose afterward.',
+   clues:['Her later records show involvement in charitable work, patronage of the arts, and quiet influence within noble circles. Sera: "She was stronger than I expected. And she chose her own path, not just as someone who was protected, but as someone who lived on her own terms."', 'Jade: "The past cannot be changed, but knowing the truth brings a sense of closure. She is no longer just a missing princess in a tragedy. She is a person who survived, adapted, and built a meaningful life beyond the palace." Her story is no longer defined only by what was lost, but by the life she chose afterward.'], rw:{xp:342800, gold:70860}, needFlag:'inv_hz409c', lockMsg:'🔒 Finish the previous clue first'},
+);
+LOCATIONS.riverside_town.spots.push(
+  {id:'hz407a', kind:'investigate', n:'This One', icon:'📜', ch:407, need:2, ambush:[], lo:96, roles:['levi', 'jade'],
+   desc:'A familiar portrait.',
+   clues:['Levi is reviewing records of commoners in Tribute who later became courtesans. One entry catches his attention because the woman\'s portrait and stage name feel familiar. Levi: "...This one."', 'He does not say her name aloud, but he studies the information carefully. Sally could be a possibility, but there is not enough evidence yet.'], rw:{xp:339500, gold:70200}},
+  {id:'hz407b', kind:'investigate', n:'What She Knew', icon:'🥂', ch:407, need:2, ambush:[], lo:96, roles:['levi', 'jade'],
+   desc:'Guests and envoys.',
+   clues:['Levi considers what she knew, who she met, and whether her past connections could lead to the missing princess. Levi: "There are similarities... But I won\'t assume anything yet."', 'Sally was once a well-known courtesan with connections to nobles and visiting envoys. She had access to conversations, guests and information, making her a potential lead.'], rw:{xp:339800, gold:70260}, needFlag:'inv_hz407a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz407c', kind:'investigate', n:'He Is Reacting to Her Name', icon:'👀', ch:407, need:2, ambush:[], lo:96, roles:['levi', 'jade'],
+   desc:'Jade notices.',
+   clues:['Jade notices the subtle change in Levi\'s expression: "He\'s reacting to her name. So he has heard of Sally before..."', 'Levi reminds himself not to jump to conclusions: "She could just be another name in a long list. I need proof, not suspicion."'], rw:{xp:340100, gold:70320}, needFlag:'inv_hz407b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz407d', kind:'investigate', n:'A Name Worth Looking Into', icon:'🌙', ch:407, need:2, ambush:[], lo:96, roles:['levi', 'jade'],
+   desc:'Nothing more.',
+   clues:['Later, Jade quietly asks: "Do you think she could be connected to the missing princess?" Levi keeps his answer careful and vague: "It\'s a name worth looking into, nothing more. We need more information before we say anything for certain."', 'Jade: "He doesn\'t deny it... but he doesn\'t say much either. So Sally means something to him, though he won\'t say why." Levi: "For now, Sally is a possibility. Not a conclusion. I\'ll find the truth before anyone else does."'], rw:{xp:340400, gold:70380}, needFlag:'inv_hz407c', lockMsg:'🔒 Finish the previous clue first'},
+);
+LOCATIONS.lakeside_town.spots.push(
+  {id:'hz408a', kind:'investigate', n:'Let\'s Make One More Stop', icon:'🗺️', ch:408, need:2, ambush:[], lo:96, roles:['levi', 'jade', 'seraphina', 'devon'],
+   desc:'Before facing court again.',
+   clues:['Instead of returning to court immediately, the party deliberately delays their journey for one final destination. Jade: "We could go straight back to court after this." Sera: "But... we\'ve been on investigations non-stop." Jade: "Let\'s make one more stop."', 'They choose a destination known for its scenery, culture and unique local traditions, a place none of them have had time to properly see. It isn\'t part of a formal investigation; it is simply a chance for everyone to breathe, explore and enjoy the journey.'], rw:{xp:340700, gold:70440}},
+  {id:'hz408b', kind:'investigate', n:'Nothing Like This in the Capital', icon:'🍢', ch:408, need:2, ambush:[], lo:96, roles:['levi', 'jade', 'seraphina', 'devon'],
+   desc:'Markets and local food.',
+   clues:['They wander through markets, try local food, and experience things they would usually only hear about in reports. Sera: "This is so good! I\'ve never had anything like this in the capital."', 'Sera enjoys the new surroundings, seeing a side of the world beyond court walls: "It\'s nice... I feel like I can finally just be myself for a little while."'], rw:{xp:341000, gold:70500}, needFlag:'inv_hz408a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz408c', kind:'investigate', n:'Politics Later', icon:'🌅', ch:408, need:2, ambush:[], lo:96, roles:['levi', 'jade', 'seraphina', 'devon'],
+   desc:'A break for themselves.',
+   clues:['Jade lets herself enjoy the break, knowing everyone needed this trip, not just for information, but for themselves: "We can go back to dealing with politics later."', 'Even Levi seems more at ease, taking the time to observe and experience the place outside of official matters: "It\'s good to see places like this... Not everything in the world is problems to solve."'], rw:{xp:341300, gold:70560}, needFlag:'inv_hz408b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz408d', kind:'investigate', n:'A Clearer Mind', icon:'⛵', ch:408, need:2, ambush:[], lo:96, roles:['levi', 'jade', 'seraphina', 'devon'],
+   desc:'One more stop before the road home.',
+   clues:['The party shares quiet moments, conversations and simple joys that strengthen their bonds. Devon: "A little time like this will help us when we return to court too. We\'ll face it with a clearer mind."', 'One more stop before the road home: a chance to rest, a chance to see more of the world, and a reminder that this journey was not just about investigations, but about the people travelling together.'], rw:{xp:341600, gold:70620}, needFlag:'inv_hz408c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz411a', kind:'investigate', n:'Levi', icon:'🕯️', ch:411, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'greyson', 'seraphina', 'adrian', 'evelyne', 'devon'],
+   desc:'"I know."',
+   clues:['After reviewing the new records, Jade can no longer ignore the possibility. Jade: "...Levi." Levi has already reached the same conclusion. Levi: "I know."', 'The fragments now fit together too well: the name, the date, the music, the training, and the life she was forced to live. But it is still not enough to say the words.'], rw:{xp:344300, gold:71160}},
+  {id:'hz411b', kind:'investigate', n:'She Never Said a Word', icon:'🤫', ch:411, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'greyson', 'seraphina', 'adrian', 'evelyne', 'devon'],
+   desc:'Until they are certain.',
+   clues:['Jade: "If it\'s true... then she\'s been with us all this time. And she never said a word."', 'Levi: "People survive in the ways they can. Until we are certain, we do not confront her. Not yet."'], rw:{xp:344600, gold:71220}, needFlag:'inv_hz411a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz411c', kind:'investigate', n:'A Different World', icon:'🌸', ch:411, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'greyson', 'seraphina', 'adrian', 'evelyne', 'devon'],
+   desc:'Hugh and Sera.',
+   clues:['Hugh and Sera return closer than before, though their feelings remain unresolved. Hugh: "This journey has shown me a different world." Sera: "There is still so much I want to understand."'], rw:{xp:344900, gold:71280}, needFlag:'inv_hz411b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz411d', kind:'investigate', n:'We Face It Together', icon:'🌕', ch:411, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'greyson', 'seraphina', 'adrian', 'evelyne', 'devon'],
+   desc:'The question is left unanswered.',
+   clues:['Adrian, Evelyne, Jade and Devon\'s bond has grown stronger through the journey. Jade: "Whatever the truth is, we face it together."', 'For now, the party leaves the question unanswered. The princess may already be found, but the final truth still waits.'], rw:{xp:345200, gold:71340}, needFlag:'inv_hz411c', lockMsg:'🔒 Finish the previous clue first'},
+);
+LOCATIONS.old_quarter.spots.push(
+  {id:'hz410a', kind:'investigate', n:'Fragments in the Old District', icon:'🏮', ch:410, need:2, ambush:[], lo:96, roles:['levi', 'jade', 'seraphina', 'devon', 'adrian'],
+   desc:'Former courtesan houses.',
+   clues:['The party searches the old district, following leads from surviving records of former courtesan houses. Sera: "This place... so many records survived?" Levi: "Only fragments. But it may be enough."', 'They find an administrative register from a former courtesan house, a list of women who entered, their backgrounds, debts and stage names.'], rw:{xp:343100, gold:70920}},
+  {id:'hz410b', kind:'investigate', n:'The Name Beside the Date', icon:'📖', ch:410, need:2, ambush:[], lo:96, roles:['levi', 'jade', 'seraphina', 'devon', 'adrian'],
+   desc:'One entry.',
+   clues:['Levi studies the records carefully: "Here... this line." One entry catches their attention: Date, the 12th day of the 5th month, Yongan 12. Original name, Lily (Yonghe). Stage name assigned, Sally Sin. Notes: transferred debt, trained in music, quickly gained favour, later redeemed debt by her own earnings.', 'Lily\'s name and Sally\'s stage name appear on the same date. The record also notes her exceptional musical talent, literacy and refined manners, and that she eventually redeemed her debt herself.'], rw:{xp:343400, gold:70980}, needFlag:'inv_hz410a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz410c', kind:'investigate', n:'Not Yet', icon:'🤔', ch:410, need:2, ambush:[], lo:96, roles:['levi', 'jade', 'seraphina', 'devon', 'adrian'],
+   desc:'Levi\'s answer.',
+   clues:['Sera reads the notes: "She truly made a life for herself... Not just a survivor, but someone with remarkable strength." Jade looks at Levi: "You knew Sally. We all did. But... you\'re thinking of more than just that, aren\'t you?"', 'Levi: "This confirms Lily became Sally Sin. But it does not yet prove that Lily was Princess Zhaoning." "Not yet."'], rw:{xp:343700, gold:71040}, needFlag:'inv_hz410b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz410d', kind:'investigate', n:'Not a Coincidence', icon:'🎼', ch:410, need:2, ambush:[], lo:96, roles:['levi', 'jade', 'seraphina', 'devon', 'adrian'],
+   desc:'The same day.',
+   clues:['Adrian checks the chronology against other fragments: "Lily disappears from civilian records after this date. And Sally Sin enters the courtesan register on the same day. That can\'t be a coincidence."', 'The same record mentions her musical training and knowledge of formal composition, matching the style of the song they found earlier. The princess\'s trail had once ended with a girl named Lily. Now Lily\'s trail ends with a name the party already knows. The pieces are coming together, but the final truth still waits.'], rw:{xp:344000, gold:71100}, needFlag:'inv_hz410c', lockMsg:'🔒 Finish the previous clue first'},
+);
+MISSIONS.push(
+  {id:'m_s399', needCh:399, title:'Let Hugh Decide', obj:{type:'steps', steps:[
+     {label:'Not Your Decision', spot:'hz399a'},
+     {label:'Caring So Much', spot:'hz399b'},
+     {label:'He Is Not So Fragile', spot:'hz399c'},
+     {label:'A Decision Shared', spot:'hz399d'}]}, rw:{xp:945000, gold:206600, rep:1838},
+   subj:'Let Hugh Decide', body:'The expedition\'s records are waiting. — Greyson'},
+  {id:'m_s406', needCh:406, title:'A Song Without a Kingdom', obj:{type:'steps', steps:[
+     {label:'Not Court Music', spot:'hz406a'},
+     {label:'Educated Within the Palace', spot:'hz406b'},
+     {label:'This Phrasing', spot:'hz406c'},
+     {label:'The Look in His Eyes', spot:'hz406d'}]}, rw:{xp:962500, gold:210800, rep:1859},
+   subj:'A Song Without a Kingdom', body:'The expedition\'s records are waiting. — Greyson'},
+  {id:'m_s407', needCh:407, title:'Levi Does Not Say Her Name', obj:{type:'steps', steps:[
+     {label:'This One', spot:'hz407a'},
+     {label:'What She Knew', spot:'hz407b'},
+     {label:'He Is Reacting to Her Name', spot:'hz407c'},
+     {label:'A Name Worth Looking Into', spot:'hz407d'}]}, rw:{xp:965000, gold:211400, rep:1862},
+   subj:'Levi Does Not Say Her Name', body:'The expedition\'s records are waiting. — Greyson'},
+  {id:'m_s408', needCh:408, title:'One More Stop Before Home', obj:{type:'steps', steps:[
+     {label:'Let\'s Make One More Stop', spot:'hz408a'},
+     {label:'Nothing Like This in the Capital', spot:'hz408b'},
+     {label:'Politics Later', spot:'hz408c'},
+     {label:'A Clearer Mind', spot:'hz408d'}]}, rw:{xp:967500, gold:212000, rep:1865},
+   subj:'One More Stop Before Home', body:'The expedition\'s records are waiting. — Greyson'},
+  {id:'m_s409', needCh:409, title:'The Life She Chose Afterward', obj:{type:'steps', steps:[
+     {label:'She Survived', spot:'hz409a'},
+     {label:'Too Many Parallels', spot:'hz409b'},
+     {label:'The Name Changed', spot:'hz409c'},
+     {label:'On Her Own Terms', spot:'hz409d'}]}, rw:{xp:970000, gold:212600, rep:1868},
+   subj:'The Life She Chose Afterward', body:'The expedition\'s records are waiting. — Greyson'},
+  {id:'m_s410', needCh:410, title:'The Name Beside the Date', obj:{type:'steps', steps:[
+     {label:'Fragments in the Old District', spot:'hz410a'},
+     {label:'The Name Beside the Date', spot:'hz410b'},
+     {label:'Not Yet', spot:'hz410c'},
+     {label:'Not a Coincidence', spot:'hz410d'}]}, rw:{xp:972500, gold:213200, rep:1871},
+   subj:'The Name Beside the Date', body:'The expedition\'s records are waiting. — Greyson'},
+  {id:'m_s411', needCh:411, title:'The Princess May Already Be Found', obj:{type:'steps', steps:[
+     {label:'Levi', spot:'hz411a'},
+     {label:'She Never Said a Word', spot:'hz411b'},
+     {label:'A Different World', spot:'hz411c'},
+     {label:'We Face It Together', spot:'hz411d'}]}, rw:{xp:975000, gold:213800, rep:1874},
+   subj:'The Princess May Already Be Found', body:'The expedition\'s records are waiting. — Greyson'}
+);
+LORE.push(
+  {ch:399, n:'Let Hugh Decide', t:'Jade told Sera not to reject herself on Hugh\'s behalf. Sera feared being a burden to a king, but Jade reminded her that avoiding her own feelings is also a decision. Sera promised to stop pushing herself away.'},
+  {ch:406, n:'A Song Without a Kingdom', t:'A music manuscript kept with the broken seal was identified as Lysenne\'s royal household notation, used only in private instruction for royal daughters. It did not name the princess, but the phrasing felt familiar to Levi.'},
+  {ch:407, n:'Levi Does Not Say Her Name', t:'Reviewing records of commoners who later became courtesans, Levi found a portrait and stage name that felt familiar: Sally. He refused to jump to conclusions and gave Jade only a careful, vague answer. Jade noticed that the name meant something to him.'},
+  {ch:408, n:'One More Stop Before Home', t:'Before returning to court the party chose one last stop at a lakeside town known for its scenery and traditions. It was not an investigation: they ate in the markets, watched the sunset and rested, and found it was about the people travelling together.'},
+  {ch:409, n:'The Life She Chose Afterward', t:'Old records filled in the missing years: Zhaoning was eight when Lysenne fell, left the capital under another name, grew up among commoners, and later became the courtesan Sally. Her later records show charity, patronage of the arts and quiet influence in noble circles.'},
+  {ch:410, n:'The Name Beside the Date', t:'A courtesan-house register in the old district recorded Lily (Yonghe) assigned the stage name Sally Sin on the same date she left civilian records, with notes on her musical training and a debt she redeemed herself. It confirmed Lily became Sally Sin, though not yet that Lily was Princess Zhaoning.'},
+  {ch:411, n:'The Princess May Already Be Found', t:'Jade and Levi separately reached the same possibility. The fragments fit too well, but not well enough to say the words, and Levi chose not to confront her until they are certain. The party returned closer than they left, and the question was left unanswered.'}
 );
