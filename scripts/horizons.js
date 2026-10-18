@@ -2649,3 +2649,166 @@ LORE.push(
 })();
 deed('hz_expedition', 'story', 'No court robes required', '🧳', 'The special mission group left Tribute together.', () => !!G.flags.expedition_departed);
 deed('hz_surviving', 'story', 'Only with its silence', '📜', 'The first surviving record of the lost princess was found.', () => !!G.flags.surviving_record_found);
+
+/* ---- Arc XVI, chapters 396-404 (399 and 402 not yet sent): the princess's flight, Lysenne, and Hugh and Sera ---- */
+Object.assign(LOCATIONS, {
+  mountain_crossing:{ n:'The Mountain Crossing', region:'old_route', kind:'field', icon:'🌉', unlock:{ch:397},
+    desc:'Winding mountain paths, rushing streams and an old wooden bridge that is more slippery after rain than it looks.',
+    spots:[ {id:'crossing_hunt', kind:'hunt', n:'The Mountain Paths', icon:'🗡️', desc:'Beasts and bandits above the waterfalls.', pool:['forest_wolf','road_bandit','shade_beast'], lo:96} ]},
+  riverside_town:{ n:'The Riverside Town', region:'old_route', kind:'town', icon:'🏮', unlock:{ch:403},
+    desc:'A bustling lantern town on a river, where the party rests before the next outpost.',
+    spots:[ {id:'riverside_inn', kind:'tavern', n:'The Riverside Inn', icon:'🍵', desc:'Rest, eat and listen to the travellers.'} ]},
+});
+['mountain_crossing','riverside_town'].forEach(k => { if(!LOC_ORDER.includes(k)) LOC_ORDER.push(k); });
+ROUTES.push({a:'route_town', b:'mountain_crossing', mode:'carriage', n:'The Mountain Road', days:2, fare:20, risk:.3, pool:['forest_wolf','road_bandit']}, {a:'mountain_crossing', b:'riverside_town', mode:'carriage', n:'Down to the River', days:2, fare:20, risk:.25, pool:['road_bandit']}, {a:'records_station', b:'riverside_town', mode:'carriage', n:'The River Road', days:2, fare:20, risk:.2, pool:['road_bandit','forest_wolf']});
+LOCATIONS.records_station.spots.push(
+  {id:'hz396a', kind:'investigate', n:'Witnesses After the Fall', icon:'📜', ch:396, need:2, ambush:[], lo:96, roles:['levi', 'jade', 'sky'],
+   desc:'Fragmented, but a picture forms.',
+   clues:['"These records are from witnesses who remained after the fall. They are fragmented, but taken together, a clearer picture is beginning to form."', 'Levi: "Here. This testimony mentions a noblewoman who left the capital under a different name. She travelled with a small retinue, using the identity of a distant vassal\'s daughter."'], rw:{xp:325100, gold:67320}},
+  {id:'hz396b', kind:'investigate', n:'A New Name', icon:'🎭', ch:396, need:2, ambush:[], lo:96, roles:['levi', 'jade', 'sky'],
+   desc:'Avoiding the main roads.',
+   clues:['According to one witness, a woman matching the princess\'s description left the city several months after the fall, disguised, with a new name, and purposefully avoiding the main roads.', 'A companion: "It explains why she disappeared so completely. She had to leave not just the capital, but everyone she knew."'], rw:{xp:325400, gold:67380}, needFlag:'inv_hz396a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz396c', kind:'investigate', n:'Someone Close', icon:'🗡️', ch:396, need:2, ambush:[], lo:96, roles:['levi', 'jade', 'sky'],
+   desc:'A betrayal of trust.',
+   clues:['Another account suggests that someone close to her betrayed her trust. It was through this person that news of her whereabouts nearly reached the enemy.', 'Jade: "She trusted someone... and that person chose to betray her."'], rw:{xp:325700, gold:67440}, needFlag:'inv_hz396b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz396d', kind:'investigate', n:'A Choice, Not an Accident', icon:'🛤️', ch:396, need:2, ambush:[], lo:96, roles:['levi', 'jade', 'sky'],
+   desc:'She planned her route.',
+   clues:['Sky: "This means the princess survived longer than we thought. She was moving deliberately, not in panic. She planned her route." Sera: "She must have lived under another identity for some time... How many places did she go to? How many people did she meet?" Evelyne: "It must have been lonely, to live while hiding who you are. And yet... she kept going."', 'Levi: "This changes how we see everything. Her disappearance was not a random event. It was a choice. A necessary one." The woman who vanished was hiding, fleeing, and building a new life beyond the reach of those who sought her.'], rw:{xp:326000, gold:67500}, needFlag:'inv_hz396c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz400a', kind:'investigate', n:'The Kingdom of Lysenne', icon:'🏰', ch:400, need:2, ambush:[], lo:96, roles:['levi', 'adrian', 'jade'],
+   desc:'A former kingdom.',
+   clues:['Levi: "The kingdom was called Lysenne. It bordered Tribute for generations. It was a small but prosperous kingdom, known for its arts, music and refined culture."', 'Lysenne was a neighbouring kingdom with a distinctive culture, influenced by Western and Eastern traditions, renowned for its music, arts and elegant court lifestyle.'], rw:{xp:328700, gold:68040}},
+  {id:'hz400b', kind:'investigate', n:'The Last King', icon:'👑', ch:400, need:2, ambush:[], lo:96, roles:['levi', 'adrian', 'jade'],
+   desc:'No heir.',
+   clues:['Lysenne\'s last king died during a time of turmoil. He had no surviving son, and Lysenne did not permit a woman to inherit the throne. With the king\'s death, the royal succession ended, and Lysenne ceased to exist as a kingdom.', 'Princess Zhaoning of Lysenne was a child at his bedside.'], rw:{xp:329000, gold:68100}, needFlag:'inv_hz400a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz400c', kind:'investigate', n:'Survivors Fled', icon:'🔥', ch:400, need:2, ambush:[], lo:96, roles:['levi', 'adrian', 'jade'],
+   desc:'Nowhere to return.',
+   clues:['After the fall, survivors fled. Among them was the young princess, who left her homeland with no title, no attendants and nowhere to return to.', 'Levi: "In the years following Lysenne\'s fall, we found refugee records at the Tribute border posts. One entry caught our attention."'], rw:{xp:329300, gold:68160}, needFlag:'inv_hz400b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz400d', kind:'investigate', n:'Lily', icon:'🌸', ch:400, need:2, ambush:[], lo:96, roles:['levi', 'adrian', 'jade'],
+   desc:'No surname.',
+   clues:['A young foreign girl, approximately the same age as Princess Zhaoning, entered Tribute under a different name: Lily (Yonghe). No surname recorded. The records note she showed unusual musical talent and a refined education, uncommon for an ordinary refugee child.', 'Jade: "No surname? That could describe half a dozen displaced children." Adrian: "Not with palace-level musical training. This entry is different." Levi: "If this was Zhaoning... then this may be where the princess disappeared. Not because she died, but because she stopped using the name."'], rw:{xp:329600, gold:68220}, needFlag:'inv_hz400c', lockMsg:'🔒 Finish the previous clue first'},
+);
+LOCATIONS.mountain_crossing.spots.push(
+  {id:'hz397a', kind:'investigate', n:'Act Natural', icon:'🍂', ch:397, need:2, ambush:[], lo:96, roles:['seraphina', 'greyson', 'jade'],
+   desc:'A beautiful road.',
+   clues:['Hugh: "The scenery here is beautiful. It is nice to walk like this together." Sera (thinking): "I should just act natural..."', 'The journey continues through mountain roads and small crossings, deeper into the landscape beyond Tribute.'], rw:{xp:326300, gold:67560}},
+  {id:'hz397b', kind:'investigate', n:'A Slippery Bridge', icon:'🌉', ch:397, need:2, ambush:[], lo:96, roles:['seraphina', 'greyson', 'jade'],
+   desc:'More than it looks.',
+   clues:['After a recent rain, the wooden bridge is more slippery than it looks. Sera: "Ah—!"', 'Hugh: "Sera! Are you all right? Did you hurt yourself?"'], rw:{xp:326600, gold:67620}, needFlag:'inv_hz397a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz397c', kind:'investigate', n:'Thank You for Catching Me', icon:'💫', ch:397, need:2, ambush:[], lo:96, roles:['seraphina', 'greyson', 'jade'],
+   desc:'So clumsy.',
+   clues:['Sera: "I... I am fine! I just... slipped... T-thank you for catching me. That was so clumsy of me..."', 'Hugh: "You are not hurt? Are you sure? Be more careful. This bridge is quite slippery."'], rw:{xp:326900, gold:67680}, needFlag:'inv_hz397b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz397d', kind:'investigate', n:'Jade Says Nothing', icon:'🤫', ch:397, need:2, ambush:[], lo:96, roles:['seraphina', 'greyson', 'jade'],
+   desc:'Not interrupting.',
+   clues:['Jade: "..." Sera: "I am really fine now. Let us... keep going." Hugh: "All right. Take your time."', 'Jade says nothing, choosing not to interrupt this moment. With a few more careful steps, the group continues on, through winding paths, rushing streams and beautiful places still to be discovered.'], rw:{xp:327200, gold:67740}, needFlag:'inv_hz397c', lockMsg:'🔒 Finish the previous clue first'},
+);
+LOCATIONS.route_town.spots.push(
+  {id:'hz398a', kind:'investigate', n:'I Still Hesitate', icon:'🌙', ch:398, need:2, ambush:[], lo:96, roles:['jade', 'seraphina'],
+   desc:'Sera speaks.',
+   clues:['Sera: "You have probably noticed that I spend more time with Hugh lately... but I still hesitate." Jade: "You do not have to force yourself. It is your decision. But if you want to talk about it, I am listening."'], rw:{xp:327500, gold:67800}},
+  {id:'hz398b', kind:'investigate', n:'A Woman\'s Honour', icon:'🏛️', ch:398, need:2, ambush:[], lo:96, roles:['jade', 'seraphina'],
+   desc:'Measured differently.',
+   clues:['Sera: "In Altan, a woman\'s honour is measured differently. I was once married. Even though it ended... people will always see that first. No matter what I do, I cannot change that."', '"My previous marriage was a political alliance. There was love, but it did not last. When it ended, I returned to Altan with more questions than answers."'], rw:{xp:327800, gold:67860}, needFlag:'inv_hz398a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz398c', kind:'investigate', n:'Worthy of Happiness', icon:'💔', ch:398, need:2, ambush:[], lo:96, roles:['jade', 'seraphina'],
+   desc:'Even if it was not my choice.',
+   clues:['"In Altan, a woman is expected to be chaste, loyal, and marry only once. Even if the marriage was not my choice, it still follows me. Sometimes I wonder... am I still seen as someone worthy of happiness?"', 'Jade: "Hugh knows your past. He treats you with respect and kindness. That matters. You are more than what happened before."'], rw:{xp:328100, gold:67920}, needFlag:'inv_hz398b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz398d', kind:'investigate', n:'Afraid', icon:'🌌', ch:398, need:2, ambush:[], lo:96, roles:['jade', 'seraphina'],
+   desc:'Not holding him back.',
+   clues:['Sera: "I do not want to hold Hugh back. He could have a partner who meets all their expectations, someone who fits smoothly into the role of queen. I... may complicate things for him. It is not that I do not care for him. I just... I am afraid."', 'Jade: "You cannot control how others think. But you can choose what you want. Whether you seek happiness or not, it should be your choice, not just what Altan expects of you." For the first time, Jade sees a side of Sera she rarely shows: not the graceful princess, but a woman who still carries old wounds.'], rw:{xp:328400, gold:67980}, needFlag:'inv_hz398c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz401a', kind:'investigate', n:'Letters', icon:'✉️', ch:401, need:2, ambush:[], lo:96, roles:['jade', 'adrian', 'evelyne'],
+   desc:'From the people they care about.',
+   clues:['After days of digging through old records, the party finally takes a quieter day. News, worries and warm words arrive from the people they care about.', 'Jade receives a letter from the Imperial Guard: updates, administrative matters, and a few lines of personal concern. Jade: "They always manage to sound serious even when they are being caring..."'], rw:{xp:329900, gold:68280}},
+  {id:'hz401b', kind:'investigate', n:'Levi\'s Network', icon:'🕯️', ch:401, need:2, ambush:[], lo:96, roles:['jade', 'adrian', 'evelyne'],
+   desc:'A short, simple message.',
+   clues:['Levi receives news from his own network: reports from different regions, a few new leads, and a short, simple message from an old friend that makes him pause longer than he expected.', 'Adrian spends the day writing replies to family, old teachers and trusted allies; one is much longer than he planned.'], rw:{xp:330200, gold:68340}, needFlag:'inv_hz401a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz401c', kind:'investigate', n:'Home', icon:'🏠', ch:401, need:2, ambush:[], lo:96, roles:['jade', 'adrian', 'evelyne'],
+   desc:'Gossip, duty, pride.',
+   clues:['Sky receives a lively letter from home: mostly gossip, minor trouble and requests for favours, very familiar and very Sky. Sky: "Hah! This is classic."', 'Devon receives a short, respectful message from the royal family reminding him of duties waiting when they return. Devon: "...I will make them proud."'], rw:{xp:330500, gold:68400}, needFlag:'inv_hz401b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz401d', kind:'investigate', n:'Altan and Dragonvale', icon:'🌸', ch:401, need:2, ambush:[], lo:96, roles:['jade', 'adrian', 'evelyne'],
+   desc:'Aster\'s note.',
+   clues:['Sera writes a long letter back to the Altan Kingdom: she is safe, learning, misses home, and writes about what she has gained and the friends she has made. Sera: "I hope they can feel how much I have grown..."', 'Aster is mentioned in a brief note from Dragonvale. He is away on his own investigations and promises to share more once his current investigation is complete. Dragonvale remains busy, but stable. For tonight, the party sets aside investigations and enjoys a rare quiet evening together.'], rw:{xp:330800, gold:68460}, needFlag:'inv_hz401c', lockMsg:'🔒 Finish the previous clue first'},
+);
+LOCATIONS.riverside_town.spots.push(
+  {id:'hz403a', kind:'investigate', n:'She Keeps a Distance', icon:'🏮', ch:403, need:2, ambush:[], lo:96, roles:['greyson', 'evelyne', 'jade'],
+   desc:'More cautious.',
+   clues:['Recently, Sera, who had been spending more time with Hugh, has suddenly become more cautious, always keeping others nearby, or finding an excuse to leave. Sera: "Ah, I will go check on the supplies over there. Evelyne, could you come with me?"', 'Hugh: "She used to talk with me freely... Now she seems to avoid being alone with me. Have I done something wrong?"'], rw:{xp:331100, gold:68520}},
+  {id:'hz403b', kind:'investigate', n:'Have I Offended Her?', icon:'❓', ch:403, need:2, ambush:[], lo:96, roles:['greyson', 'evelyne', 'jade'],
+   desc:'He asks Jade.',
+   clues:['Hugh: "Jade, could I ask you something? Have I offended Princess Sera somehow?" Jade: "...Offended her? I do not think so. She has not said anything to me about it."', 'Hugh: "Ever since the bridge incident, she had been spending more time with me, talking openly. But lately, she keeps disappearing whenever it is just the two of us. I am worried I might have made her uncomfortable."'], rw:{xp:331400, gold:68580}, needFlag:'inv_hz403a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz403c', kind:'investigate', n:'Perhaps Embarrassed', icon:'😳', ch:403, need:2, ambush:[], lo:96, roles:['greyson', 'evelyne', 'jade'],
+   desc:'Evelyne\'s guess.',
+   clues:['Jade: "...I see. But I am not the right person to analyse that. That is between you and her, Your Majesty." Evelyne: "I doubt you offended her. Sera is a kind person. If she were angry, she would tell you directly. Perhaps... she is just a little embarrassed?"', 'Hugh: "Embarrassed...? But why? We are just allies and fellow travellers... Unless I said something inappropriate without realising it."'], rw:{xp:331700, gold:68640}, needFlag:'inv_hz403b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz403d', kind:'investigate', n:'Sera, as Herself', icon:'💭', ch:403, need:2, ambush:[], lo:96, roles:['greyson', 'evelyne', 'jade'],
+   desc:'A question he cannot set aside.',
+   clues:['Sera: "It is not that I am angry with him... I just... cannot act too comfortable around him now. My heart is too easily affected, and I cannot afford to be careless." Jade: "So that is what it is. Princess Sera is avoiding him because she is the one who feels differently now. How amusing... But I will not meddle."', 'Hugh: "She looks so graceful, yet there is a certain tension in her expression. For the first time, I find myself wondering not just about our mission, but about her: Princess Sera, as herself. Why is Sera avoiding me?"'], rw:{xp:332000, gold:68700}, needFlag:'inv_hz403c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz404a', kind:'investigate', n:'Have I Offended Her?', icon:'🤔', ch:404, need:2, ambush:[], lo:96, roles:['evelyne', 'jade', 'sky'],
+   desc:'Again.',
+   clues:['Hugh: "Have I offended Princess Sera in any way? She seems more distant lately..." Jade: "Offended her? No. Why would you think that?"', 'Evelyne: "Hugh, you really do overthink things. Princess Sera is just busy."'], rw:{xp:332300, gold:68760}},
+  {id:'hz404b', kind:'investigate', n:'She Needs Space', icon:'🌿', ch:404, need:2, ambush:[], lo:96, roles:['evelyne', 'jade', 'sky'],
+   desc:'Or more time.',
+   clues:['Hugh: "But she avoids my questions, changes the subject, and leaves quickly whenever I approach... Is there something wrong with how I spoke to her?" Jade: "Maybe she just finds you intimidating? Or... maybe she needs more time."', 'Sky: "Hugh, not everything needs a reason. Sometimes people just... need space."'], rw:{xp:332600, gold:68820}, needFlag:'inv_hz404a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz404c', kind:'investigate', n:'We Are Not Getting Involved', icon:'😄', ch:404, need:2, ambush:[], lo:96, roles:['evelyne', 'jade', 'sky'],
+   desc:'No clear answer.',
+   clues:['Hugh: "Space... I suppose. But it feels as if I have done something wrong." Evelyne and Jade refuse to give a clear answer, no matter how he asks.', 'Jade: "We are not getting involved in this. Figure it out yourself, Your Majesty." Evelyne: "Yes. Try talking to her. Like a normal person, not as a king."'], rw:{xp:332900, gold:68880}, needFlag:'inv_hz404b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz404d', kind:'investigate', n:'Talk to Her', icon:'🌸', ch:404, need:2, ambush:[], lo:96, roles:['evelyne', 'jade', 'sky'],
+   desc:'Directly.',
+   clues:['Hugh: "..." "Talk to her... directly?" Despite the teasing, Hugh takes their words seriously. Later, Hugh starts seeking Sera out himself, observing and speaking to her directly instead of relying on formal reports.', 'Hugh: "Princess Sera... Do you have a moment? I wanted to ask your opinion on something." Sera: "!" "Of course... What is it?" This is the first step: Hugh is no longer waiting for reports. He is choosing to understand Sera for himself.'], rw:{xp:333200, gold:68940}, needFlag:'inv_hz404c', lockMsg:'🔒 Finish the previous clue first'},
+);
+MISSIONS.push(
+  {id:'m_s396', needCh:396, title:'The Woman Who Vanished', obj:{type:'steps', steps:[
+     {label:'Witnesses After the Fall', spot:'hz396a'},
+     {label:'A New Name', spot:'hz396b'},
+     {label:'Someone Close', spot:'hz396c'},
+     {label:'A Choice, Not an Accident', spot:'hz396d'}]}, rw:{xp:937500, gold:204800, rep:1829},
+   subj:'The Woman Who Vanished', body:'The expedition\'s records are waiting. — Greyson'},
+  {id:'m_s397', needCh:397, title:'A Bridge Too Slippery', obj:{type:'steps', steps:[
+     {label:'Act Natural', spot:'hz397a'},
+     {label:'A Slippery Bridge', spot:'hz397b'},
+     {label:'Thank You for Catching Me', spot:'hz397c'},
+     {label:'Jade Says Nothing', spot:'hz397d'}]}, rw:{xp:940000, gold:205400, rep:1832},
+   subj:'A Bridge Too Slippery', body:'The expedition\'s records are waiting. — Greyson'},
+  {id:'m_s398', needCh:398, title:'What Altan Would Say', obj:{type:'steps', steps:[
+     {label:'I Still Hesitate', spot:'hz398a'},
+     {label:'A Woman\'s Honour', spot:'hz398b'},
+     {label:'Worthy of Happiness', spot:'hz398c'},
+     {label:'Afraid', spot:'hz398d'}]}, rw:{xp:942500, gold:206000, rep:1835},
+   subj:'What Altan Would Say', body:'The expedition\'s records are waiting. — Greyson'},
+  {id:'m_s400', needCh:400, title:'The Name She Chose', obj:{type:'steps', steps:[
+     {label:'The Kingdom of Lysenne', spot:'hz400a'},
+     {label:'The Last King', spot:'hz400b'},
+     {label:'Survivors Fled', spot:'hz400c'},
+     {label:'Lily', spot:'hz400d'}]}, rw:{xp:947500, gold:207200, rep:1841},
+   subj:'The Name She Chose', body:'The expedition\'s records are waiting. — Greyson'},
+  {id:'m_s401', needCh:401, title:'Letters from Home', obj:{type:'steps', steps:[
+     {label:'Letters', spot:'hz401a'},
+     {label:'Levi\'s Network', spot:'hz401b'},
+     {label:'Home', spot:'hz401c'},
+     {label:'Altan and Dragonvale', spot:'hz401d'}]}, rw:{xp:950000, gold:207800, rep:1844},
+   subj:'Letters from Home', body:'The expedition\'s records are waiting. — Greyson'},
+  {id:'m_s403', needCh:403, title:'Why Is Sera Avoiding Me?', obj:{type:'steps', steps:[
+     {label:'She Keeps a Distance', spot:'hz403a'},
+     {label:'Have I Offended Her?', spot:'hz403b'},
+     {label:'Perhaps Embarrassed', spot:'hz403c'},
+     {label:'Sera, as Herself', spot:'hz403d'}]}, rw:{xp:955000, gold:209000, rep:1850},
+   subj:'Why Is Sera Avoiding Me?', body:'The expedition\'s records are waiting. — Greyson'},
+  {id:'m_s404', needCh:404, title:'Apparently Nothing Is Wrong', obj:{type:'steps', steps:[
+     {label:'Have I Offended Her?', spot:'hz404a'},
+     {label:'She Needs Space', spot:'hz404b'},
+     {label:'We Are Not Getting Involved', spot:'hz404c'},
+     {label:'Talk to Her', spot:'hz404d'}]}, rw:{xp:957500, gold:209600, rep:1853},
+   subj:'Apparently Nothing Is Wrong', body:'The expedition\'s records are waiting. — Greyson'}
+);
+LORE.push(
+  {ch:396, n:'The Woman Who Vanished', t:'Witnesses recorded that a noblewoman matching the princess left the capital months after the fall under a new name, as a distant vassal\'s daughter, avoiding the main roads. Someone close to her betrayed her trust and nearly gave her away. She was fleeing on purpose and building a new life.'},
+  {ch:397, n:'A Bridge Too Slippery', t:'After rain, Sera slipped on a wooden bridge and Hugh caught her. She was mortified; he was simply concerned about her injury. Jade saw everything and said nothing.'},
+  {ch:398, n:'What Altan Would Say', t:'Sera confided in Jade: her first marriage was a political alliance; there was love, but it ended. Altan expects a woman to be chaste, loyal and marry once, and she fears she would complicate Hugh\'s role as king. Jade told her the choice should be hers.'},
+  {ch:400, n:'Lysenne', t:'A former small neighbouring kingdom of Tribute, famed for music and arts, with Western and Eastern influences. Its last king died with no surviving son and no woman could inherit, so the kingdom ended.'},
+  {ch:400, n:'Princess Zhaoning of Lysenne', t:'the young princess who fled with no title or attendants. A refugee girl named Lily (Yonghe) with no surname and unusual musical talent entered Tribute around that time; Levi suspects she stopped using her name.'},
+  {ch:401, n:'Letters from Home', t:'On a quiet evening the group read and wrote letters: Jade\'s Imperial Guard, Levi\'s network, Adrian\'s replies, Sky\'s gossip, Devon\'s royal family and Sera\'s Altan. A brief note said Aster is away on his own investigations and Dragonvale is busy but stable.'},
+  {ch:403, n:'Why Is Sera Avoiding Me?', t:'Sera grew more cautious around Hugh, leaving whenever they were alone. Hugh asked Jade and Evelyne whether he had offended her; both refused to analyse it. For the first time he wondered about Sera as herself.'},
+  {ch:404, n:'Apparently Nothing Is Wrong', t:'Jade and Evelyne refused to explain Sera\'s feelings and told Hugh to talk to her like a normal person, not as a king. Hugh started seeking Sera out himself instead of relying on reports.'}
+);
+
+/* Hugh and Sera: hidden progression (no meter; the author: no confession in Arc XVI). Steps: Sera seeks him out (392), the catch (397), her fear (398), he notices (403), he seeks her out (404). */
+const hughSeraSteps = () => ['sera_seeks_hugh','sera_caught','sera_confides','hugh_notices_sera','hugh_seeks_sera'].filter(f => !!G.flags[f]).length;
+deed('hz_hugh_sera', 'story', 'A king who asks', '🌸', 'Hugh began seeking Sera out himself.', () => !!G.flags.hugh_seeks_sera);
+deed('hz_lysenne', 'story', 'A kingdom that no longer exists', '🏰', 'The lost princess was named: Zhaoning of Lysenne.', () => !!G.flags.lysenne_known);

@@ -1,4 +1,4 @@
-# ARC XVI — THE LOST PRINCESS (chapters 387-411; 387-395 built so far)
+# ARC XVI — THE LOST PRINCESS (chapters 387-411; 387-398 and 400-401, 403-404 built so far)
 
 Pages 387-395 are built (first pass). The cover and chapters 396-411 have not been sent. Saved from the author's brief:
 
@@ -49,3 +49,17 @@ Chapters 387-395 with four chained spots each (`hz387a`...`hz395d`), 9 missions,
 5. **ch392 vs the earlier Sera storyline:** Sera "harbours a quiet crush on Hugh" per the cast sheet; ch261-262's matchmaking is the earlier setup.
 6. **ch388's "fallen kingdom"** is the "Late Northern Kingdom" of ch394; neither is named. The princess has no name yet.
 7. **Maps:** the Old Route has no map (it falls back to the Tribute map).
+
+## Update: chapters 396-404 and the docx check
+The author's uploaded docx ("Copy of TRIBUTE: CURSE OF THE HIDDEN ISLE") was read: its Arc XVI section (chapters 387-411, the layout table, the relationship progression and the final state) is the same brief as above. It also adds the earlier planning notes: Hugh's private reason is a holiday (Evelyne will say so, Adrian will say paperwork still counts as work), the group is "Jade, Devon, Sky, Levi, Sera, Hugh, Adrian, Evelyne" and does not all need combat slots (inns, ships, markets, camps, local food, bookshops), and the ending is "Levi: I know" with a final screen that may read "Evidence Match: 87%, Identity: Unconfirmed" or "The princess may already have been found".
+
+**Built:** 396 The Woman Who Vanished, 397 A Bridge Too Slippery, 398 What Altan Would Say, **400 The Name She Chose**, 401 Letters from Home, 403 Why Is Sera Avoiding Me?, 404 Apparently Nothing Is Wrong; ch393's page replaced by the author's later regenerated version (same text). New places: **The Mountain Crossing** (397) and **The Riverside Town** (403). Hidden Hugh-and-Sera steps (no meter): she seeks him out (392), the catch (397), her fear (398), he notices (403), he seeks her out (404).
+**Not yet sent:** 399 Let Hugh Decide, 402 The King Who Keeps Asking Questions, 405-411 (and the Arc XVI cover). Chapters 399 and 402 will show as "(?)" in the journal until their pages arrive.
+
+## Mismatches against the brief
+1. **ch400:** the page is headed "The Name She Chose"; the brief's ch400 is **"The Adopted Daughter"** (the princess later in a wealthy household under an adopted noble identity). This page instead names the fallen kingdom **Lysenne**, **Princess Zhaoning of Lysenne**, and a refugee girl **Lily (Yonghe, 咏荷)** with no surname and palace-level musical talent who entered Tribute under a different name. The adoption detail is not on the page, so either the adoption chapter is still to come (and this page's number or title is off) or this replaces it. Built as ch400 with the page's own title; tell me if it should move.
+2. **The princess is named earlier than the brief planned** (the brief keeps all identity clues soft until 410). She is Zhaoning (Lysenne); the Sally link is still only implied (a girl named Lily, her musical talent).
+3. **ch401:** the caption says the party takes "a quieter day in Tribute", but they are on the road; kept as written. Two versions were sent; the complete one (Levi in green) is used.
+4. **ch403** is narrated in Hugh's first person ("Princess Sera has been keeping a little more distance from me"); kept.
+5. **Sera's hair** reads silver-white in 401, 403 and 404 (golden in 397-398). Left as drawn.
+6. **ch396:** a veiled noblewoman and a dark-haired man in silhouette illustrate "someone close to her betrayed her trust"; nobody is named.
