@@ -68,3 +68,6 @@ The author's uploaded docx ("Copy of TRIBUTE: CURSE OF THE HIDDEN ISLE") was rea
 **"The Name She Chose" replaces "The Adopted Daughter" as ch400, because of the timeline of events:**
 1. the fall of the kingdom (Lysenne); 2. refugee (Lily, no surname); 3. betrayal by her beloved; 4. courtesan life and buying her own way to freedom; 5. taken in by Jade as a mercenary; 6. a relationship with Roc; 7. return to a noble house by adoption, with Roc's help.
 So the later chapters should follow this order: 396 (flight under another name, a betrayal by someone close), 400 (the refugee and the chosen name), then the adoption and later life in 409-410 (the noble household and the name beside the date). The "adopted noble identity" beat now belongs to 409-410. The game keeps Sally's identity **unconfirmed** until Arc XVII, so none of items 4-7 appears in game text; Zhaoning, Lysenne and Lily are the only names in the game so far.
+
+## Author's note: Hugh travels in disguise (art continuity, dev notes only)
+During the expedition King Hugh is **under disguise**: no royal headpiece or crown-pin. The ch404 page was regenerated for this reason. Pages whose art notes still mention his crown-pin, and so may need regenerating: **387, 389, 392, 403**. The author decides which to redo. Later chapters (399, 402, 405+) should draw him without the headpiece.
