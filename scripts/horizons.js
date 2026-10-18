@@ -2812,3 +2812,51 @@ LORE.push(
 const hughSeraSteps = () => ['sera_seeks_hugh','sera_caught','sera_confides','hugh_notices_sera','hugh_seeks_sera'].filter(f => !!G.flags[f]).length;
 deed('hz_hugh_sera', 'story', 'A king who asks', '🌸', 'Hugh began seeking Sera out himself.', () => !!G.flags.hugh_seeks_sera);
 deed('hz_lysenne', 'story', 'A kingdom that no longer exists', '🏰', 'The lost princess was named: Zhaoning of Lysenne.', () => !!G.flags.lysenne_known);
+
+/* ---- Arc XVI, chapters 402 and 405 (corrected 402; the broken royal seal) ---- */
+LOCATIONS.route_town.spots.push(
+  {id:'hz402a', kind:'investigate', n:'How Have Sales Been?', icon:'🍅', ch:402, need:2, ambush:[], lo:96, roles:['greyson', 'seraphina'],
+   desc:'The market district.',
+   clues:['In the market district, Hugh stops more often to speak with ordinary people. Hugh: "How have sales been lately? Are the prices very different from last year?"', 'An elderly stallholder: "Oh, it\'s not so bad, Sir. The harvest this year is better, so the prices are more reasonable."'], rw:{xp:334100, gold:69120}},
+  {id:'hz402b', kind:'investigate', n:'A Boatman\'s Son', icon:'⛵', ch:402, need:2, ambush:[], lo:96, roles:['greyson', 'seraphina'],
+   desc:'A ship like this.',
+   clues:['He asks questions that formal reports rarely cover. A boy: "My father is a boatman! We carry goods to the next port! One day I want a ship like this!"', 'Hugh: "Then you must learn the winds well. What do you like most about the sea?"'], rw:{xp:334400, gold:69180}, needFlag:'inv_hz402a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz402c', kind:'investigate', n:'Snow Follows Me', icon:'🐱', ch:402, need:2, ambush:[], lo:96, roles:['greyson', 'seraphina'],
+   desc:'A child and her cat.',
+   clues:['He is curious about daily life: food, work, family, and what people hope for in the future. Hugh: "Do you have any pets at home? What\'s its name?" A little girl: "This is Snow! She follows me everywhere!"', 'A craftsman: "The new road is helping trade, but the bandits are still a problem..." Some people are surprised to see the king speak with them so casually: "I didn\'t expect him to be so kind..." "He really listens."'], rw:{xp:334700, gold:69240}, needFlag:'inv_hz402b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz402d', kind:'investigate', n:'Five Years From Now', icon:'🌙', ch:402, need:2, ambush:[], lo:96, roles:['greyson', 'seraphina'],
+   desc:'What Sera saw.',
+   clues:['Sera, watching from nearby: "This is a side of Hugh I never saw at court. He is still the king, but here, he seems more at ease, more human." Hugh asks what people hope for: "What do you hope will be different five years from now?"', 'Later, Sera: "You seemed... happier today. Is this how you always wanted to be king?" Hugh: "Perhaps. A king who only reads reports sees a kingdom on paper. But a king who asks questions gets to know the people who live in it."'], rw:{xp:335000, gold:69300}, needFlag:'inv_hz402c', lockMsg:'🔒 Finish the previous clue first'},
+);
+LOCATIONS.records_station.spots.push(
+  {id:'hz405a', kind:'investigate', n:'A Chest Behind the Panel', icon:'📦', ch:405, need:2, ambush:[], lo:96, roles:['greyson', 'jade', 'levi', 'seraphina', 'devon'],
+   desc:'A royal seal box.',
+   clues:['While investigating an abandoned storehouse linked to an old noble house, the party discovers a sealed chest hidden behind a false panel. Jade: "It\'s a royal seal box... but the crest is broken." Hugh: "This doesn\'t look like a common document."', 'Inside is a damaged royal seal and a set of partially preserved records. The seal is cracked, but the royal crest and unique markings are still identifiable.'], rw:{xp:335300, gold:69360}},
+  {id:'hz405b', kind:'investigate', n:'Private Correspondence', icon:'🔏', ch:405, need:2, ambush:[], lo:96, roles:['greyson', 'jade', 'levi', 'seraphina', 'devon'],
+   desc:'Not public decrees.',
+   clues:['Hugh immediately recognises it as a seal used for private royal correspondence, not public decrees. Hugh: "This was used to seal personal letters or records within the inner royal circle."', 'Along with the seal, they find a damaged record containing personal details about the missing princess.'], rw:{xp:335600, gold:69420}, needFlag:'inv_hz405a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz405c', kind:'investigate', n:'The Flower in Her Hair', icon:'🌸', ch:405, need:2, ambush:[], lo:96, roles:['greyson', 'jade', 'levi', 'seraphina', 'devon'],
+   desc:'Never in public records.',
+   clues:['The record includes a childhood nickname, a favourite flower, and a description of a place she often visited, details that were never part of public records.', 'Sera: "This matches what I remember of her from the portraits... The flower... it\'s the same as the one she always wore in her hair."'], rw:{xp:335900, gold:69480}, needFlag:'inv_hz405b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz405d', kind:'investigate', n:'A Direction to Start', icon:'🗺️', ch:405, need:2, ambush:[], lo:96, roles:['greyson', 'jade', 'levi', 'seraphina', 'devon'],
+   desc:'A caretaker still alive.',
+   clues:['The record also mentions a specific region, a former retreat, and the name of a caretaker who is likely still alive. Levi: "This gives us a direction to start with. If this caretaker is still around, we might finally learn where she went."', 'Jade: "There are notes about her leaving quietly, with only a few attendants. It looks like she wanted to see something for herself, not run away completely." Devon: "There\'s also a route and a location name here, but it\'s faded. We can still make out enough to narrow it down to a few possible places." By the end of the day: "This changes everything. We finally have a place to look... and people who might still remember her."'], rw:{xp:336200, gold:69540}, needFlag:'inv_hz405c', lockMsg:'🔒 Finish the previous clue first'},
+);
+MISSIONS.push(
+  {id:'m_s402', needCh:402, title:'The King Who Keeps Asking Questions', obj:{type:'steps', steps:[
+     {label:'How Have Sales Been?', spot:'hz402a'},
+     {label:'A Boatman\'s Son', spot:'hz402b'},
+     {label:'Snow Follows Me', spot:'hz402c'},
+     {label:'Five Years From Now', spot:'hz402d'}]}, rw:{xp:952500, gold:208400, rep:1847},
+   subj:'The King Who Keeps Asking Questions', body:'The expedition\'s records are waiting. — Greyson'},
+  {id:'m_s405', needCh:405, title:'The Broken Royal Seal', obj:{type:'steps', steps:[
+     {label:'A Chest Behind the Panel', spot:'hz405a'},
+     {label:'Private Correspondence', spot:'hz405b'},
+     {label:'The Flower in Her Hair', spot:'hz405c'},
+     {label:'A Direction to Start', spot:'hz405d'}]}, rw:{xp:960000, gold:210200, rep:1856},
+   subj:'The Broken Royal Seal', body:'The expedition\'s records are waiting. — Greyson'}
+);
+LORE.push(
+  {ch:402, n:'The King Who Keeps Asking Questions', t:'In the market district Hugh spoke with ordinary people about prices, ships, pets and hopes. Sera watched and saw a side of him she never saw at court: a king who asks questions to know the people who live in his kingdom.'},
+  {ch:405, n:'The Broken Royal Seal', t:'In an old noble house\'s storehouse the party found a broken royal seal for private correspondence and a damaged record of the missing princess: a nickname, a favourite flower, a retreat and a caretaker who may still live. It narrowed the search to a region and a few places.'}
+);
