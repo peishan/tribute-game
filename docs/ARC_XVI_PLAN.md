@@ -73,3 +73,12 @@ So the later chapters should follow this order: 396 (flight under another name, 
 During the expedition King Hugh is **under disguise**: no royal headpiece or crown-pin. The ch404 page was regenerated for this reason. Pages whose art notes still mention his crown-pin, and so may need regenerating: **387, 389, 392, 403**. The author decides which to redo. Later chapters (399, 402, 405+) should draw him without the headpiece.
 
 **Update:** 402 (corrected page) and 405 are built. Author: 392's ornament is a hair headpiece, not a king's ornament, so it stays; 387 and 389 are fine (the journey had not started yet). Only 403's art note may still need a check against the disguise.
+
+## Update: 399 and 406-411 built (Arc XVI pages complete except the cover)
+Cast colours (author): Levi is the green archer (green ribbon, topknot); Devon is the blue-haired one. Chapter 405's art note and clue speakers were corrected to match.
+**Mismatches against the brief/canon (kept as drawn):**
+- 409 states outright "It's her. There's no doubt." and names Zhaoning = Sally, while the brief ends Arc XVI with the identity unconfirmed (411's final-state card says "Unconfirmed", 410 says "not yet"). The game follows the pages; 409 reads as Levi's private conviction.
+- 410: the panel labelled "Adrian" is drawn with Levi's green ribbon and topknot. Date on the register: "12th day, 5th month, Yongan 12" (a canon date on the page; in-game days are not real dates). Original name there is "Lily / Yonghe", Sally's stage name "Sally Sin" (辛莎莎).
+- 408 has no Hugh, Adrian or Evelyne in frame; 411's "Final State" card is a development summary drawn on the page.
+- 399 has a one-letter typo ("especiallyy"); left as is.
+New locations: the Lakeside Town (408, 411) and the Old Quarter (410). Arc XVI cover is still pending.
