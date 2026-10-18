@@ -3077,3 +3077,30 @@ function rExpedition(){
   if(e.log && e.log.length) h += `<h4>Last expedition</h4><div class="panel">${e.log.map(x => `<div class="sm">${x}</div>`).join('')}</div>`;
   return h + `<div class="sm">${st.runs} expedition${st.runs===1?'':'s'} so far.</div>`;
 }
+
+/* ---- Chapter 412: the return to Dragonvale ---- */
+LOCATIONS.dragon_court.spots.push(
+  {id:'hz412a', kind:'investigate', n:'What Will You Do About Sally?', icon:'🏯', ch:412, need:2, ambush:[], lo:96, roles:['levi', 'jade', 'seraphina', 'devon'],
+   desc:'Back in Dragonvale.',
+   clues:['The party returns to Dragonvale after a long journey, bringing back new records, new connections and a question that now feels far too real. Everyone senses the change in Levi, even when he says nothing.', 'Jade, that evening: "We\'re back now. What will you do about Sally?" Levi: "The records... they point to her."'], rw:{xp:343100, gold:70920}},
+  {id:'hz412b', kind:'investigate', n:'A Suggestion Is Not the Truth', icon:'📜', ch:412, need:2, ambush:[], lo:96, roles:['levi', 'jade', 'seraphina', 'devon'],
+   desc:'Not yet.',
+   clues:['Jade: "You already believe it\'s her. Don\'t you?" Levi: "Not yet. We still don\'t know enough."', 'Levi: "I know what the records suggest. But a suggestion is not the truth. Sally has built her own life. I will not approach her based on incomplete answers."'], rw:{xp:343400, gold:70980}, needFlag:'inv_hz412a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz412c', kind:'investigate', n:'Afraid of What You\'ll Confirm', icon:'💭', ch:412, need:2, ambush:[], lo:96, roles:['levi', 'jade', 'seraphina', 'devon'],
+   desc:'Sera understands.',
+   clues:['Sera watches the two of them, quietly understanding more than either says: "You\'re not avoiding her because you don\'t care. You\'re afraid of what you\'ll confirm."', 'Levi: "We should continue checking the remaining leads in the north archives. There may be more information about the years between the fall of Lysenne and her arrival here."'], rw:{xp:343700, gold:71040}, needFlag:'inv_hz412b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz412d', kind:'investigate', n:'Before I Face Her Again', icon:'🌕', ch:412, need:2, ambush:[], lo:96, roles:['levi', 'jade', 'seraphina', 'devon'],
+   desc:'Levi alone.',
+   clues:['Devon: "Rushing this could hurt her, no matter which way it turns out. Let\'s be certain before we involve Sally in this."', 'Later, Levi stands alone, looking out over Dragonvale: "A name can survive in a record. But the person behind it... she has lived, changed, and built a life of her own. I need more. Before I face her again." The next pieces of the past are waiting in the north.'], rw:{xp:344000, gold:71100}, needFlag:'inv_hz412c', lockMsg:'🔒 Finish the previous clue first'},
+);
+MISSIONS.push(
+  {id:'m_s412', needCh:412, title:'The Name No One Said', obj:{type:'steps', steps:[
+     {label:'What Will You Do About Sally?', spot:'hz412a'},
+     {label:'A Suggestion Is Not the Truth', spot:'hz412b'},
+     {label:'Afraid of What You\'ll Confirm', spot:'hz412c'},
+     {label:'Before I Face Her Again', spot:'hz412d'}]}, rw:{xp:977500, gold:214400, rep:1877},
+   subj:'The Name No One Said', body:'Dragonvale is quiet, but the question is not. — Greyson'}
+);
+LORE.push(
+  {ch:412, n:'The Name No One Said', t:'Back in Dragonvale, Levi would not approach Sally on incomplete answers: a suggestion is not the truth. With Jade, Sera and Devon he chose to check the remaining leads in the north archives first.'}
+);
