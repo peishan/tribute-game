@@ -3020,3 +3020,60 @@ LORE.push(
   {ch:410, n:'The Name Beside the Date', t:'A courtesan-house register in the old district recorded Lily (Yonghe) assigned the stage name Sally Sin on the same date she left civilian records, with notes on her musical training and a debt she redeemed herself. It confirmed Lily became Sally Sin, though not yet that Lily was Princess Zhaoning.'},
   {ch:411, n:'The Princess May Already Be Found', t:'Jade and Levi separately reached the same possibility. The fragments fit too well, but not well enough to say the words, and Levi chose not to confront her until they are certain. The party returned closer than they left, and the question was left unanswered.'}
 );
+
+/* ---- The Special Mission Expedition (author: Arc XVI unlocks an expedition, one every 24 hours, with the mission cast) ----
+   Opens once Arc XVI is complete (ch411). The mission cast goes out together whatever the party size; no fight, three small scenes and a reward.
+   State: G.exped = {last: ms timestamp of the last departure, runs: n, seen: {destination: true}, log: [lines]} */
+const EXP_COOLDOWN = 864e5;
+const EXP_CAST = ['jade','greyson','devon','levi','seraphina','sky','adrian','evelyne'];
+const expeditionOpen = () => !!G && G.ch >= 411;
+const expCast = () => EXP_CAST.filter(id => CHARACTERS[id] && !isAway(id) && !isDisabled(id));
+function expState(now){
+  now = now === undefined ? Date.now() : now;
+  const e = G.exped || {}, last = e.last || 0;
+  const left = Math.min(EXP_COOLDOWN, Math.max(0, last + EXP_COOLDOWN - now));   // a clock set back never locks it for more than a day
+  return {ready:left === 0, left, runs:e.runs || 0};
+}
+const expLeftText = ms => { const m = Math.ceil(ms/6e4), h = Math.floor(m/60); return h ? h+'h '+String(m%60).padStart(2,'0')+'m' : m+'m'; };
+const EXP_DEST = [
+  {id:'records', n:'The Records Station', icon:'📜', desc:'Unsorted shelves and old registers.', rw:{xp:420000, gold:60000, items:[{id:'moon_tonic', qty:1}]}, end:'The registers were copied and carried home.'},
+  {id:'crossing', n:'The Mountain Crossing', icon:'🌉', desc:'Mountain paths, waterfalls and wild herbs.', rw:{xp:420000, gold:50000, items:[{id:'forest_herb', qty:6}, {id:'herbal_tonic', qty:2}]}, end:'They came down from the mountain with their packs full.'},
+  {id:'riverside', n:'The Riverside Town', icon:'🏮', desc:'Lanterns, traders and a good deal of gossip.', rw:{xp:380000, gold:110000}, end:'The traders were generous to a group that listened.'},
+  {id:'lakeside', n:'The Lakeside Town', icon:'⛵', desc:'A harbour of sailing boats and local traditions.', rw:{xp:380000, gold:70000, rep:60, items:[{id:'spirit_potion', qty:2}]}, end:'It was less an errand than a holiday, and everyone said so.'},
+  {id:'quarter', n:'The Old Quarter', icon:'🌙', desc:'Quiet streets that remember more than they say.', rw:{xp:450000, gold:50000, items:[{id:'purify_elixir', qty:2}]}, end:'The old streets gave up a few more fragments.'},
+];
+const EXP_BEATS = {
+  jade:['Jade keeps the column in order, and the road quiet.','Jade reads the seals on a stack of papers before anyone else has found them.'],
+  greyson:['Hugh stops to ask a stranger how the harvest went, and stays for the answer.','Hugh, in plain travelling clothes, is mistaken for a clerk and does not correct anyone.'],
+  devon:['Devon scouts the road ahead and comes back with the shorter way.','Devon pays for everyone\'s tea and insists it is paperwork.'],
+  levi:['Levi reads the tracks on the road and finds where the others turned off.','Levi spots a loose roof tile before it can fall on a street vendor.'],
+  seraphina:['Sera tells a market crowd the right word for a local custom, and is thanked for it.','Sera sits by the water for a while and says she feels like herself.'],
+  sky:['Sky treats a carter\'s cut hand at the roadside and asks for nothing.','Sky finds the herbs a village healer has been out of.'],
+  adrian:['Adrian finds an unsorted shelf of ledgers and does not leave it for an hour.','Adrian copies a register entry by lamplight and gets it right the first time.'],
+  evelyne:['Evelyne talks to the people who live there, and they talk back.','Evelyne reminds Adrian that a break counts as part of the work.'],
+};
+function startExpedition(destId, now){
+  if(!expeditionOpen()) return ['The expedition is not open yet.'];
+  now = now === undefined ? Date.now() : now;
+  const st = expState(now); if(!st.ready) return ['The group is still resting. Ready again in '+expLeftText(st.left)+'.'];
+  const d = EXP_DEST.find(x => x.id === destId); if(!d) return [];
+  const cast = expCast(), pool = cast.filter(id => EXP_BEATS[id]);
+  const picks = pool.slice().sort(() => Math.random() - .5).slice(0, 3);
+  const e = G.exped = G.exped || {last:0, runs:0, seen:{}, log:[]};
+  e.last = now; e.runs = (e.runs || 0) + 1; e.seen = e.seen || {};
+  const first = !e.seen[d.id]; e.seen[d.id] = true;
+  const rw = Object.assign({}, d.rw); if(first){ rw.gold = (rw.gold || 0) + 40000; rw.rep = (rw.rep || 0) + 20; }   // the first visit to each place pays a little more
+  const scenes = picks.map(id => EXP_BEATS[id][Math.floor(Math.random()*EXP_BEATS[id].length)]);
+  e.log = scenes.concat([d.end]);
+  return ['🧭 '+d.icon+' '+d.n].concat(scenes, [d.end], grantReward(rw, '🧭 Expedition #'+e.runs));
+}
+function rExpedition(){
+  const st = expState(), cast = expCast(), e = G.exped || {};
+  let h = `<div class="panel"><b>🧭 THE SPECIAL MISSION EXPEDITION</b><div class="sm">The mission group goes out together, whatever the party size: one expedition every 24 hours. No fights, a few small scenes on the road, and a reward on return.</div></div>${flashHtml()}`;
+  h += `<h4>The group</h4><div class="rcs" style="margin:6px 0">${cast.map(id => `<div class="rc"><img src="${portrait(id)}"><b>${CHARACTERS[id].n.split(' ')[0]}</b></div>`).join('')}</div>`;
+  h += st.ready
+    ? `<h4>Choose a destination</h4>${EXP_DEST.map(d => `<div class="panel"><b>${d.icon} ${d.n}</b>${e.seen && e.seen[d.id] ? '' : ' <span class="sm">✨ first visit pays more</span>'}<div class="sm">${d.desc}</div><div class="sm">${rwText(d.rw)}</div><button class="pri" onclick="act(startExpedition,'${d.id}')">Depart</button></div>`).join('')}`
+    : `<div class="panel"><b>The group is resting.</b><div class="sm">Ready again in ${expLeftText(st.left)}.</div></div>`;
+  if(e.log && e.log.length) h += `<h4>Last expedition</h4><div class="panel">${e.log.map(x => `<div class="sm">${x}</div>`).join('')}</div>`;
+  return h + `<div class="sm">${st.runs} expedition${st.runs===1?'':'s'} so far.</div>`;
+}

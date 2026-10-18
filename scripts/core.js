@@ -244,7 +244,7 @@ const presentGuestsRules = () => !G ? [] : Object.keys(GUEST_RULES).filter(id =>
   return ok && !isDisabled(id); });
 /* STORY COMPANIONS: characters the story arc needs are brought along whatever the party size. They fight beside the five (controllable extras, like guests); if they are in the active five they simply take their seat. Add a row per arc.
    Arc XIII (from ch312) focuses on Jade and Sky; Rheon travels as a guest. (Sera rejoins as an ordinary party member.) */
-const STORY_ALONG = [ {from:312, until:337, ids:['sky','rheon'], note:'Arc XIII: Sky (the arc\'s focus, with Jade) and Prince Rheon (a guest) come along whatever the party size.'},
+const STORY_ALONG = [ /* Rheon's guest end point (author): the end of the arc where he and Sera travel together, Arc XIII (until 337) */ {from:312, until:337, ids:['sky','rheon'], note:'Arc XIII: Sky (the arc\'s focus, with Jade) and Prince Rheon (a guest) come along whatever the party size.'},
   {from:340, until:351, ids:['damien'], guests:['damien'], note:'Damien Dee, Delilah\'s brother, is a guest on the western frontier investigation (joinable later in the arc).'},
   {from:387, until:412, ids:['devon','sky','levi','seraphina','greyson','adrian','evelyne'], guests:['greyson','adrian','evelyne'], note:'Arc XVI: the special mission group (King Hugh, Adrian, Evelyne, Sera, Levi, Sky, Devon and Jade) travels together, not limited to five.'},
   {from:342, until:362, ids:['delilah'], guests:['delilah'], note:'Delilah is a story guest: she understands the contracts better than anyone.'} ];   // Damien is a guest until ch351, when he becomes a recruit (JOIN_CH); Delilah stays a guest to the end of Arc XIV (until 362: adjust if the author sets another end)

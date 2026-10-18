@@ -82,3 +82,7 @@ Cast colours (author): Levi is the green archer (green ribbon, topknot); Devon i
 - 408 has no Hugh, Adrian or Evelyne in frame; 411's "Final State" card is a development summary drawn on the page.
 - 399 has a one-letter typo ("especiallyy"); left as is.
 New locations: the Lakeside Town (408, 411) and the Old Quarter (410). Arc XVI cover is still pending.
+
+## Update: expedition unlock and Rheon (author)
+- **Expedition:** Arc XVI completion (ch411) unlocks the Special Mission Expedition (Archive > Expedition): the mission cast goes out together whatever the party size, one expedition every 24 real hours, no fight, three small scenes and a reward, five Old Route destinations (first visit to each pays more). Draft numbers and scenes; tune them later.
+- **Rheon:** his guest end point is the end of the arc where he and Sera travel together (Arc XIII), already the row's `until:337`; confirmed, no change.
