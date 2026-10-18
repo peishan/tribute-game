@@ -19,7 +19,7 @@ Pages 387-395 are built (first pass). The cover and chapters 396-411 have not be
 | 397 | A Bridge Too Slippery | Sera slips; Hugh catches her; Jade says nothing |
 | 398 | What Altan Would Say | Sera confides in Jade: her previous marriage and Altan's chastity expectations |
 | 399 | Let Hugh Decide | Jade: do not reject yourself on Hugh's behalf; no matchmaking |
-| 400 | The Adopted Daughter | A trail: the princess may have entered a wealthy household under an adopted noble identity |
+| 400 | **The Name She Chose** (author's amendment; was "The Adopted Daughter") | Names Lysenne and Princess Zhaoning; a refugee girl Lily (Yonghe) with no surname and palace-level music: the princess stopped using her name |
 | 401 | Letters from Home | Rest chapter; letters; Aster/Dragonvale mentioned in the background |
 | 402 | The King Who Keeps Asking Questions | Hugh relaxes and asks ordinary people about their lives; Sera sees a new side of him |
 | 403 | Why Is Sera Avoiding Me? | Hugh asks Evelyne or Jade whether he offended her: the first sign of personal attention |
@@ -57,9 +57,14 @@ The author's uploaded docx ("Copy of TRIBUTE: CURSE OF THE HIDDEN ISLE") was rea
 **Not yet sent:** 399 Let Hugh Decide, 402 The King Who Keeps Asking Questions, 405-411 (and the Arc XVI cover). Chapters 399 and 402 will show as "(?)" in the journal until their pages arrive.
 
 ## Mismatches against the brief
-1. **ch400:** the page is headed "The Name She Chose"; the brief's ch400 is **"The Adopted Daughter"** (the princess later in a wealthy household under an adopted noble identity). This page instead names the fallen kingdom **Lysenne**, **Princess Zhaoning of Lysenne**, and a refugee girl **Lily (Yonghe, 咏荷)** with no surname and palace-level musical talent who entered Tribute under a different name. The adoption detail is not on the page, so either the adoption chapter is still to come (and this page's number or title is off) or this replaces it. Built as ch400 with the page's own title; tell me if it should move.
+1. **ch400 (resolved: the author's amendment, see below):** the page is headed "The Name She Chose"; the original brief's ch400 was **"The Adopted Daughter"** (the princess later in a wealthy household under an adopted noble identity). This page instead names the fallen kingdom **Lysenne**, **Princess Zhaoning of Lysenne**, and a refugee girl **Lily (Yonghe, 咏荷)** with no surname and palace-level musical talent who entered Tribute under a different name. The adoption detail is not on the page, so either the adoption chapter is still to come (and this page's number or title is off) or this replaces it. Built as ch400 with the page's own title; tell me if it should move.
 2. **The princess is named earlier than the brief planned** (the brief keeps all identity clues soft until 410). She is Zhaoning (Lysenne); the Sally link is still only implied (a girl named Lily, her musical talent).
 3. **ch401:** the caption says the party takes "a quieter day in Tribute", but they are on the road; kept as written. Two versions were sent; the complete one (Levi in green) is used.
 4. **ch403** is narrated in Hugh's first person ("Princess Sera has been keeping a little more distance from me"); kept.
 5. **Sera's hair** reads silver-white in 401, 403 and 404 (golden in 397-398). Left as drawn.
 6. **ch396:** a veiled noblewoman and a dark-haired man in silhouette illustrate "someone close to her betrayed her trust"; nobody is named.
+
+## Author's amendment (ch400 and the lost princess's timeline: development notes, NOT for in-game text)
+**"The Name She Chose" replaces "The Adopted Daughter" as ch400, because of the timeline of events:**
+1. the fall of the kingdom (Lysenne); 2. refugee (Lily, no surname); 3. betrayal by her beloved; 4. courtesan life and buying her own way to freedom; 5. taken in by Jade as a mercenary; 6. a relationship with Roc; 7. return to a noble house by adoption, with Roc's help.
+So the later chapters should follow this order: 396 (flight under another name, a betrayal by someone close), 400 (the refugee and the chosen name), then the adoption and later life in 409-410 (the noble household and the name beside the date). The "adopted noble identity" beat now belongs to 409-410. The game keeps Sally's identity **unconfirmed** until Arc XVII, so none of items 4-7 appears in game text; Zhaoning, Lysenne and Lily are the only names in the game so far.
