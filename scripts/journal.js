@@ -83,6 +83,7 @@ function completeChapter(n){
     G.active = canon.concat(G.active.filter(id => !canon.includes(id))).slice(0, slotCap());
     msgs.push('🌹 Sally rejoins the party for good: the party is Jade, Devon, Levi, Sky and Sally.');
   }
+  if(typeof relRouteChapter==='function') relRouteChapter().forEach(m => msgs.push(m));   // relationship routes: a beginning and new stages (relroute.js)
   if(typeof syncAway==='function') syncAway();
   if(typeof arcAfterChapter==='function') arcAfterChapter(n);
   msgs.push('Story XP +'+c.sxp);
