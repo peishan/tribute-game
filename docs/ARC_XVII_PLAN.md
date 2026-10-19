@@ -1,4 +1,4 @@
-# ARC XVII — THE PRINCESS BEHIND THE NAME (chapters 412-436; pages are canon; all numbers 412-436 now have a page)
+# ARC XVII — THE PRINCESS BEHIND THE NAME (chapters 412-436; pages are canon; only 429 has no page)
 
 **Brief (author):** Theme: knowing someone's name is not the same as knowing who they are. Primary focus: Sally + Levi; secondary: confirming the lost princess. Romance: attraction and attachment become undeniable, but no commitment. Ending: Sally confirmed as the lost princess; Levi still needs time to reconcile Sally with the woman he searched for. Official status: none; actual status: extremely complicated. Only the first night is shown; later meetings are implied through dialogue. The Stanson family / Levi restored-alive / marriage-pressure arc is the next major obstacle, not part of this one.
 
@@ -39,3 +39,5 @@
 **Update:** 428 The Royal Seal received and built (the intact seal inscribed 凌仙, the household record of Zhaohua and Zhaoning, Orchid; Levi appears and reads the later note). 423 was replaced by the author's third version, in which the nurse cannot recall which side the birthmark was on or the tap pattern, so nothing is confirmed there and the overlap with 432 is gone. 429 was re-sent unchanged and not rebuilt. No Arc XVIII cover has been received.
 
 **Update:** a page numbered 431 with the title "No Strings, Apparently" arrived (a pavilion, a lighter conversation, no Lucien/Roc flashbacks). The earlier page with the same title, headed 430, is built as 430. They may be one chapter regenerated (then the numbering of the first was the generation mistake and a real 430 is missing) or two chapters; both are kept. The author can tell which to drop or whether a 430 is still to come.
+
+**Author's correction:** 430 is "What Marriage Taught Her" (its page says 429; the author numbers it 430). The earlier tavern "No Strings, Apparently" page (headed 430) was a generation mistake superseded by the pavilion page, 431, and has been removed from the game. 429 now has no page (the brief's "The Woman Who Survived" may not exist). Built: 412-428, 430-436.
