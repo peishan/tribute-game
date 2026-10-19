@@ -88,7 +88,7 @@ const CHARACTERS = {
   bond:{id:'spirit_link',n:'Spirit Link',icon:'💞',mp:12,kind:'heal',tgt:'allies',pow:1.0,fx:[{k:'buff',stat:'def',m:1.25,d:3}],pair:true,req:{bond:3},desc:'BOND. Sky channels spirit energy through Jade\'s Destiny Link.'} },
  sally:{
   n:'Sally', icon:'🌹', cls:'Noble Assassin', role:'Intelligence Specialist / Rogue', combat:'Support, debuffs and information; assassin burst as a secondary',
-  identity:'A noblewoman\'s training turned into a rogue\'s craft: poise, charm and information, with a hidden blade behind every smile. A lost princess of Lysenne who chose her own name; she controls the room, then ends the fight quietly. From chapter 436 (permanent member) Carly\'s Intervention, Underworld Contacts, the Rumour Network and Musician\'s Ear are hers.',
+  identity:'A noblewoman\'s training turned into a rogue\'s craft: poise, charm and information, with a hidden blade behind every smile. A lost princess of Lysenne who chose her own name; she controls the room, then ends the fight quietly. From chapter 436 (permanent member) Carly (her loyal attendant)\'s Intervention, Underworld Contacts, the Rumour Network and Musician\'s Ear are hers.',
   style:['Information','Charm','Blades'], strength:'Intelligence, support and control, with a blade in reserve',
   weapon:'Hairpin Stilettos & Silk Fan', signature:'Mirage Veil',
   sigDesc:'Illusions, evasion and distraction, then a precise blade where the guard is down.',
