@@ -27,6 +27,8 @@ const ARCS = [
   {n:16, title:'The Lost Princess', img:'assets/arcs/arc16.webp', after:386},   // ch387-411 (412 is the aftermath)
   {n:17, title:'The Princess Behind the Name', img:'assets/arcs/arc17.webp', after:411},   // ch412-436: Sally, Levi and the lost princess
 ];
+/* End-of-arc splash (author): after ch436 the Levi and Sally relationship arc starts and Sally rejoins for good. The caption is drawn over the art. */
+const ARC_END_SPLASH = [ {key:'17end', after:436, img:'assets/arcs/arc17_end.webp', title:'Levi and Sally: a relationship arc has begun', text:'Levi–Sally relationship arc started!', sub:'Welcome Sally back as a permanent party member.'} ];
 const ARC_ROMAN = ['','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII'];
 // Arc IX, "The Forgotten Alliance" (the author's canon title): begins with ch211 and ends with ch235 (the royal wedding is ch234); add {n:9, title:'The Forgotten Alliance', img:'assets/arcs/arc9.webp', after:210} once the splash art exists.
 function arcFor(afterCh){ return ARCS.find(a => a.after === afterCh); }
@@ -39,9 +41,17 @@ function showArc(n, manual, cast){
   el.classList.add('on');
 }
 function closeArc(){ const el = $('arcpop'); if(el){ el.classList.remove('on'); el.innerHTML = ''; } }
-function arcAfterChapter(n){ const a = arcFor(n); if(a && G.arcSeen && !G.arcSeen[a.n]) setTimeout(() => showArc(a.n), 400); else if(a && !G.arcSeen) setTimeout(() => showArc(a.n), 400); }
+function showArcEnd(key, manual){
+  const a = ARC_END_SPLASH.find(x => x.key===key), el = $('arcpop'); if(!a || !el) return;
+  if(!G.arcSeen) G.arcSeen = {};
+  G.arcSeen[key] = true; if(!manual) save();
+  el.innerHTML = `<div class="arcbox"><div style="position:relative;display:inline-block"><img src="${a.img}" alt="${a.title}"><div style="position:absolute;left:0;right:0;bottom:0;padding:34px 14px 14px;text-align:center;background:linear-gradient(transparent,rgba(10,6,18,.86));color:#fff;text-shadow:0 1px 4px #000"><b style="font-size:1.15em;color:var(--gold)">💞 ${a.text}</b><div>${a.sub}</div></div></div><button class="pri" onclick="closeArc()">${manual?'Close':'Continue'}</button></div>`;
+  el.classList.add('on');
+}
+function arcAfterChapter(n){
+  const e = ARC_END_SPLASH.find(x => x.after===n); if(e && !(G.arcSeen && G.arcSeen[e.key])) setTimeout(() => showArcEnd(e.key), 400); const a = arcFor(n); if(a && G.arcSeen && !G.arcSeen[a.n]) setTimeout(() => showArc(a.n), 400); else if(a && !G.arcSeen) setTimeout(() => showArc(a.n), 400); }
 function arcOnNewGame(){ setTimeout(() => showArc(1), 300); }
 function rArcGallery(){
   const seen = G.arcSeen || {};
-  return `<h4>Arc covers</h4><div class="row" style="flex-wrap:wrap">${ARCS.map(a => seen[a.n] ? `<button onclick="showArc(${a.n},true)">Arc ${ARC_ROMAN[a.n]} · ${a.title}</button>` : `<button disabled>Arc ${ARC_ROMAN[a.n]} · ???</button>`).join('')}${ARCS.filter(a => a.cast).map(a => seen[a.n] && G.ch >= a.castCh ? `<button onclick="showArc(${a.n},true,true)">Arc ${ARC_ROMAN[a.n]} cast</button>` : `<button disabled>Arc ${ARC_ROMAN[a.n]} cast · ???</button>`).join('')}</div>${typeof G!=='undefined' && G.weddingDay!==undefined ? `<div class="row" style="margin-top:6px"><button onclick="showWedding()">🧧 The Royal Wedding</button></div>` : ''}`;
+  return `<h4>Arc covers</h4><div class="row" style="flex-wrap:wrap">${ARCS.map(a => seen[a.n] ? `<button onclick="showArc(${a.n},true)">Arc ${ARC_ROMAN[a.n]} · ${a.title}</button>` : `<button disabled>Arc ${ARC_ROMAN[a.n]} · ???</button>`).join('')}${ARC_END_SPLASH.map(a => seen[a.key] ? `<button onclick="showArcEnd('${a.key}',true)">${a.text}</button>` : '').join('')}${ARCS.filter(a => a.cast).map(a => seen[a.n] && G.ch >= a.castCh ? `<button onclick="showArc(${a.n},true,true)">Arc ${ARC_ROMAN[a.n]} cast</button>` : `<button disabled>Arc ${ARC_ROMAN[a.n]} cast · ???</button>`).join('')}</div>${typeof G!=='undefined' && G.weddingDay!==undefined ? `<div class="row" style="margin-top:6px"><button onclick="showWedding()">🧧 The Royal Wedding</button></div>` : ''}`;
 }

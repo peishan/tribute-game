@@ -77,6 +77,12 @@ function completeChapter(n){
     if(G.party.includes('seraphina') && !G.active.includes('seraphina') && activeCount() < slotCap()) G.active.push('seraphina');
     msgs.push('🦅 Sera rejoins the party.'); if(G.party.includes('rheon')) msgs.push('🦅 Rheon now travels with the party as a guest.');
   }
+  if(n===436){   // Sally returns (author): a permanent party member, the Dragonvale restriction is lifted; the canon party is Jade, Devon, Levi, Sky and Sally
+    if(!G.party.includes('sally')) G.party.push('sally');
+    const canon = ['jade','devon','levi','sky','sally'].filter(id => G.party.includes(id) && !isDisabled(id));
+    G.active = canon.concat(G.active.filter(id => !canon.includes(id))).slice(0, slotCap());
+    msgs.push('🌹 Sally rejoins the party for good: the party is Jade, Devon, Levi, Sky and Sally.');
+  }
   if(typeof syncAway==='function') syncAway();
   if(typeof arcAfterChapter==='function') arcAfterChapter(n);
   msgs.push('Story XP +'+c.sxp);

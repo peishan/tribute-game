@@ -39,6 +39,7 @@ const GEAR = {
   iron_sword:{n:'Iron Sword',icon:'🗡️',slot:'weapon',rarity:'common',price:100,bonus:{atk:4},for:['chad']},
   oak_staff:{n:'Oak Spirit Staff',icon:'🪄',slot:'weapon',rarity:'common',price:90,bonus:{mag:4},for:['sky']},
   silk_fans:{n:'Silk Fans',icon:'🪭',slot:'weapon',rarity:'common',price:90,bonus:{atk:2,spd:3},for:['sally']},
+  hairpin_stilettos:{n:'Hairpin Stilettos',icon:'📍',slot:'weapon',rarity:'uncommon',price:260,bonus:{atk:5,spd:3},for:['sally']},
   light_crossbow:{n:'Light Crossbow',icon:'🎯',slot:'weapon',rarity:'common',price:100,bonus:{atk:4},for:['levi']},
   scholar_steel:{n:'Scholar\'s Steel',icon:'📖',slot:'weapon',rarity:'common',price:100,bonus:{atk:2,mag:2},for:['devon']},
   padded_vest:{n:'Padded Vest',icon:'🦺',slot:'armor',rarity:'common',price:60,bonus:{def:3,hp:10}},

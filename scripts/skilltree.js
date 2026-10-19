@@ -85,6 +85,11 @@ const SKILLTREE = {
     nd('y_c2','Honeyed Words','🍯',sk('honeyed_words','Honeyed Words','🍯',8,'support','foe',0,{fx:[{k:'charm',d:3}]},'A long enchantment: the target loses its turns.')),
     ps('y_c3','Captivating','✨',{evaB:.05,mult:{mag:1.05}}),
     nd('y_c4','Heartstrike','💘',sk('heartstrike','Heartstrike','💘',12,'magic','foe',1.4,{fx:[{k:'charm',d:2},{k:'silence',d:2}]},'A beautiful, devastating blow. Charms and silences.'))]},
+  {id:'blade',n:'Blade',icon:'🗡️',desc:'Noble training turned lethal.',nodes:[
+    ps('y_b1','Court Poise','🌹',{mult:{atk:1.08,spd:1.04}}),
+    nd('y_b2','Needle Fan','🪭',sk('needle_fan','Needle Fan','🪭',8,'phys','foe',1.8,{fx:[{k:'slow',d:2}]},'A fan edged with needles: damages and slows.')),
+    ps('y_b3','Practised Calm','🌙',{critB:.06,mult:{atk:1.05}}),
+    nd('y_b4','Rose Thorn','🥀',sk('rose_thorn','Rose Thorn','🥀',14,'phys','foe',2.5,{fx:[{k:'crit',d:1}]},'A flawless, unseen strike: a sure critical.'))]},
  ],
  levi:[
   {id:'elemental',n:'Trick Arrows',icon:'🧪',desc:'Poison, nets and pins.',nodes:[
