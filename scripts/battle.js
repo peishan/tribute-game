@@ -64,6 +64,8 @@ function startBattle(spec){
   blog('Battle begins!','sys');
   if(B.rescue) blog('🛡️ Reach the prince before the barrier collapses: destroy the seal anchors, and keep Sera on her feet.','sys');
   if(spec.seal) sealInit();
+  { const sl = B.allies.find(x => x.id==='sally' && !x.dead);   // Underworld Contacts (Sally, from ch436): a quiet word on the foes before the fight
+    if(sl && G.flags.sally_rejoins && Math.random() < .35){ const f = alive(B.foes).find(x => !x.known) || alive(B.foes)[0]; if(f){ f.known = true; f.bf.push({stat:'def', m:.85, d:4}); blog('🌹 Sally\'s contacts had a word on '+f.name+': its weak point is known (DEF down).','good'); } } }
   if(spec.opening) spec.opening();
   if(spec.rewards && !spec.skirmish && !B.foes.some(f => f.boss) && typeof banterLines==='function' && Math.random() < .3){ const q = pickBanter('battle'); if(q) q.forEach(l => blog(l.replace('💬 ',''),'sys')); else if(Math.random()<.5) blog(AR(BATTLE_QUIPS),'sys'); }
   advance();
@@ -166,8 +168,12 @@ function strike(src, tgt, s, opts){
   let crit = false;
   if(s.crit || src.st.crit || Math.random() < .08 + (src.critB||0)){ crit = true; d = Math.round(d*1.6); }
   if(!s.pair && !opts.noEvade && Math.random() < evaOf(tgt)){ blog(tgt.name+' evades '+src.name+'\'s '+s.n+'!'); return 0; }
+  let carly = false;
+  if(tgt.ally && tgt.id==='sally' && !src.ally && G.flags.sally_rejoins && !tgt.carlyUsed && d >= tgt.mhp*.15){   // Carly's Intervention: once per encounter, a strong hit on Sally is cut and answered
+    tgt.carlyUsed = true; carly = true; d = Math.max(1, Math.round(d*.5)); blog('  🌹 Carly steps in and takes the worst of it.','good'); }
   s.landed = true;
   const dealt = hurt(tgt, d);
+  if(carly && !src.dead){ const cd = Math.max(1, Math.round(eff(tgt,'atk')*1.1 - eff(src,'def')*.3)); const got = hurt(src, cd, true); blog('  🗡️ Carly\'s hidden blade answers '+src.name+': '+got+'.','good'); }
   if(s.purify && tgt.dead && tgt.traits.includes('corrupt')){ tgt.xp = Math.round(tgt.xp*1.3); blog('  ✨ '+tgt.name+' is purified (+30% XP).','good'); }
   blog(src.name+' uses '+s.n+' on '+tgt.name+': '+dealt+(crit?' CRIT!':''), src.ally?'':'foe');
   return dealt;
