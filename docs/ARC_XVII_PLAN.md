@@ -41,3 +41,5 @@
 **Update:** a page numbered 431 with the title "No Strings, Apparently" arrived (a pavilion, a lighter conversation, no Lucien/Roc flashbacks). The earlier page with the same title, headed 430, is built as 430. They may be one chapter regenerated (then the numbering of the first was the generation mistake and a real 430 is missing) or two chapters; both are kept. The author can tell which to drop or whether a 430 is still to come.
 
 **Author's correction:** 430 is "What Marriage Taught Her" (its page says 429; the author numbers it 430). The earlier tavern "No Strings, Apparently" page (headed 430) was a generation mistake superseded by the pavilion page, 431, and has been removed from the game. 429 now has no page (the brief's "The Woman Who Survived" may not exist). Built: 412-428, 430-436.
+
+**Author's correction (431):** 431 "No Strings, Apparently" should be the tavern page with the Lucien and Roc flashbacks. It is restored as 431 (from the page the author sent earlier, headed 430), and the pavilion page (the one headed 431, with no Lucien or Roc) is removed. 430 stays "What Marriage Taught Her"; 429 has no page.
