@@ -22,6 +22,7 @@ const INVEST_ROLES = {
   damien:['Damien', 'reads garrisons, routes and the cost of a campaign'],
   adrian:['Adrian', 'reads archives, gazetteers and old records'],
   evelyne:['Evelyne', 'reads people, courts and what is left unsaid'],
+  sally:['Sally', 'hears the false note in testimony and knows the music, the nobility and the whisper networks'],
   greyson:['Hugh', 'sees the realm in person and asks plain questions'],
 };
 const roleHere = id => !!G && ((id==='maris' && G.ch >= 287) || (typeof presentGuests==='function' && presentGuests().includes(id) && !!INVEST_ROLES[id]) || (!!G.party && G.party.includes(id) && (G.active.includes(id) || (typeof isCompanion==='function' && isCompanion(id))) && !(typeof isAway==='function' && isAway(id))));   // Maris Aurel (from ch287) is an adviser, not a party member

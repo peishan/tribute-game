@@ -170,7 +170,7 @@ function strike(src, tgt, s, opts){
   if(!s.pair && !opts.noEvade && Math.random() < evaOf(tgt)){ blog(tgt.name+' evades '+src.name+'\'s '+s.n+'!'); return 0; }
   let carly = false;
   if(tgt.ally && tgt.id==='sally' && !src.ally && G.flags.sally_rejoins && !tgt.carlyUsed && d >= tgt.mhp*.15){   // Carly's Intervention: once per encounter, a strong hit on Sally is cut and answered
-    tgt.carlyUsed = true; carly = true; d = Math.max(1, Math.round(d*.5)); blog('  🌹 Carly steps in and takes the worst of it.','good'); }
+    tgt.carlyUsed = true; carly = true; d = Math.max(1, Math.round(d*.5)); blog('  🌹 Carly, her loyal attendant, steps in and takes the worst of it.','good'); }
   s.landed = true;
   const dealt = hurt(tgt, d);
   if(carly && !src.dead){ const cd = Math.max(1, Math.round(eff(tgt,'atk')*1.1 - eff(src,'def')*.3)); const got = hurt(src, cd, true); blog('  🗡️ Carly\'s hidden blade answers '+src.name+': '+got+'.','good'); }
