@@ -22,7 +22,7 @@
 - 414: the brief says Carly is present; the page has Sera at the table instead.
 - 415: Sally already thinks of herself as "the girl who resembles someone from the past", though she is not told until 418.
 - 423, 430, 431: the pages carried the wrong numbers (432, 429, 430); the brief's numbering is used.
-- A second page headed "Chapter 432 · The Last Witness" (Lady Isolde, Lord Renwald, a stolen succession document, "Princess Jade") is not part of this story and is not used. The author may regenerate or drop it.
+- A second page headed "Chapter 432 · The Last Witness" (Lady Isolde, Lord Renwald, a stolen succession document) was a generation mistake, superseded by the author's regenerated 432 (the one built). It is not used and needs no action.
 - 424 and 432 do not draw Levi; 429/430 pages have caption typos ("esttle").
 - Sally's name: pages and earlier chapters give "Sally Sin" and "Lady Sally Sun"; both are used as drawn.
 - 432 ends on a hook: Princess Zhaohua, "Orchid", survived (not yet in the game elsewhere).
