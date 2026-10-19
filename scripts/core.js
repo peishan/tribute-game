@@ -53,7 +53,7 @@ const fixedParty = () => !!G && G.ch >= FIXED_PARTY_CH;
 const fixedFive = () => (G && G.ch >= 436) ? ['jade','devon','levi','sky','sally'] : FIXED_FIVE;   // ch436 (author): the canon party is Jade, Devon, Levi, Sky and Sally; Sera stays on the roster, benched
 const CH_STAY = { 87:['sally'] };   // leaves the party but stays reachable as a Dragonvale rumour source
 const CH_ENABLE = { 61:['sky'] };   // Sky is healed after chapter 61 and returns to active duty
-const CH_LEAVE = { 50:['levi'], 73:['chad'], 87:['ripley'] };   // ch87: Levi is back, so Ripley returns to being Jade's attendant (the travelling party is fixed at five: Jade, Devon, Seraphina, Levi, Sky)    // Levi leaves the party in ch50 (mutual end of the engagement)
+const CH_LEAVE = { 50:['levi'], 73:['chad'], 87:['ripley'] };   // ch87: Levi is back, and Jade releases Ripley from her service for her own safety (author) (the travelling party is fixed at five: Jade, Devon, Seraphina, Levi, Sky)    // Levi leaves the party in ch50 (mutual end of the engagement)
 // Sally (after the return to Tribute, CH_STAY) can only be partied while the party is in Dragonvale.
 const isAway = id => (id==='sally' && !!G.flags.sally_stays && G.loc!=='dragon_vale' && G.ch < 436) || (id==='seraphina' && !!G.guests.seraphina && LOCATIONS[G.loc].region!=='dragon') || (id==='seraphina' && G.ch>=262 && !G.flags.sera_rejoined && LOCATIONS[G.loc].region!=='altan') || (id==='rin' && typeof rinAway==='function' && rinAway());   // Seraphina is a guest only inside Dragonvale until ch87
 const isDisabled = id => !!(G.disabled && G.disabled[id]) || isAway(id);
