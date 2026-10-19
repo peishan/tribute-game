@@ -1,4 +1,4 @@
-# ARC XVII — THE PRINCESS BEHIND THE NAME (chapters 412-436; pages are canon; 428 and 431 not received)
+# ARC XVII — THE PRINCESS BEHIND THE NAME (chapters 412-436; pages are canon; only 431 not received)
 
 **Brief (author):** Theme: knowing someone's name is not the same as knowing who they are. Primary focus: Sally + Levi; secondary: confirming the lost princess. Romance: attraction and attachment become undeniable, but no commitment. Ending: Sally confirmed as the lost princess; Levi still needs time to reconcile Sally with the woman he searched for. Official status: none; actual status: extremely complicated. Only the first night is shown; later meetings are implied through dialogue. The Stanson family / Levi restored-alive / marriage-pressure arc is the next major obstacle, not part of this one.
 
@@ -8,7 +8,7 @@
 | 413-422 | Two Women in His Head, Nothing Has Changed, The Friend Who Knows Too Much, The Royal Melody, Do Not Look at Me Like That, The Truth They Suspect, Sally Sin, The Tavern Beyond the Gates, Morning Without Promises, One Night Is One Night | built |
 | 423 | A Princess's Nurse | built from the author's regenerated 423 page (it replaced the earlier nurse-residence page) |
 | 424-427 | The Girl Before Sally, Levi Steps Back, Not Regret, More Than I Intended | built |
-| 428 | (brief: The Royal Seal) | **not received** |
+| 428 | The Royal Seal | built (names Zhaohua and the name Orchid) |
 | 429 | What Marriage Taught Her | built (the page's own number) |
 | 430 | No Strings, Apparently | built (the page's own number) |
 | 431 | (brief: not matched) | **not received** |
@@ -35,3 +35,5 @@
 - Still missing: 428 The Royal Seal and 429 The Woman Who Survived.
 
 **Author's rule (latest):** the generated chapters are canon, not the brief; the brief is a first draft and the story changes as pages are generated. Numbers and titles now follow the pages: "What Marriage Taught Her" is 429 and "No Strings, Apparently" is 430 (renumbered from the brief's 430/431). The brief's 428 (The Royal Seal), 429 (The Woman Who Survived) and 431 may simply not exist in the final story; only 428 and 431 are gaps in the page numbering. Earlier arcs where a brief title was used over a page's own title or number may deserve the same check.
+
+**Update:** 428 The Royal Seal received and built (the intact seal inscribed 凌仙, the household record of Zhaohua and Zhaoning, Orchid; Levi appears and reads the later note). 423 was replaced by the author's third version, in which the nurse cannot recall which side the birthmark was on or the tap pattern, so nothing is confirmed there and the overlap with 432 is gone. 429 was re-sent unchanged and not rebuilt. No Arc XVIII cover has been received.

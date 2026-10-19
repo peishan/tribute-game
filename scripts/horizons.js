@@ -3211,18 +3211,18 @@ LOCATIONS.dragon_vale.spots.push(
   {id:'hz422d', kind:'investigate', n:'The Morning That Changed It', icon:'💐', ch:422, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'seraphina'],
    desc:'A different story.',
    clues:['It was not the night that changed everything. It was the morning that made her realize how much she had wanted it to continue.', 'Leaving had been easy. What was difficult was silencing the part of her that still wanted to remain by his side. One night is one night. But wanting more... that is a different story.'], rw:{xp:360800, gold:74460}, needFlag:'inv_hz422c', lockMsg:'🔒 Finish the previous clue first'},
-  {id:'hz423a', kind:'investigate', n:'Thank You for Seeing Me', icon:'🕯️', ch:423, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'seraphina'],
-   desc:'A survivor of Lysenne.',
-   clues:['The investigation in Dragonvale has uncovered one more surviving witness from the lost kingdom of Lysenne, an elderly woman who once served the royal household. Witness: "Princess Jade. Thank you for seeing me. I once served the royal household of Lysenne." Jade: "You served Princess Zhaoning personally?" "Yes, Princess Jade. Not every day, but often enough that I remember her clearly."', '"She was about eight when Lysenne fell. She often chose lavender and pale purple whenever she could. She was unusually gifted at music, and liked to change formal melodies, playing them more freely."'], rw:{xp:385100, gold:79320}},
-  {id:'hz423b', kind:'investigate', n:'Tap, Tap, Tap', icon:'🎵', ch:423, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'seraphina'],
-   desc:'A three-note rhythm.',
-   clues:['"She would sometimes follow her older sister, Princess Zhaohua, wherever she went. She was lively, stubborn, and had a curious mind."', '"Whenever she was frightened or anxious, she would tap the same three-note rhythm with her fingers. Like this... tap, tap, tap..." She had a small birthmark on her back, near the shoulder blade. It was usually hidden by her clothing.'], rw:{xp:385400, gold:79380}, needFlag:'inv_hz423a', lockMsg:'🔒 Finish the previous clue first'},
-  {id:'hz423c', kind:'investigate', n:'My Memory Is Not Clear', icon:'🩹', ch:423, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'seraphina'],
-   desc:'Which side?',
-   clues:['Jade: "Do you remember if the birthmark was on her left side or right side?" "Ah... that is where my memory is not clear. It has been so many years, and my health is not what it used to be."', '"I remember there was a small mark high on her back, near the shoulder blade. But I cannot say for certain whether it was the left or right side. Please forgive me... my memory is not as sharp as it once was. It was not visible in ordinary dress, and we only saw it when she bathed or changed clothing."'], rw:{xp:385700, gold:79440}, needFlag:'inv_hz423b', lockMsg:'🔒 Finish the previous clue first'},
-  {id:'hz423d', kind:'investigate', n:'The Same Child', icon:'🌸', ch:423, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'seraphina'],
-   desc:'Orchid.',
-   clues:['When Sally entered, the elderly attendant froze. The eyes... the expression... and that little finger rhythm when she is thinking or anxious. "They were the same." Jade: "Are you certain?" "I am, Jade. Children change as they grow, but some mannerisms do not. The way she looks... the way she holds the fingers... it is her. Even if I cannot remember the exact side, I am certain this is the same child."', 'Sally: "So... Zhaoning really was me." "Yes. But that does not make Sally disappear." "There is one more thing... Your sister survived too." "Zhaohua?" "She lived for some time under another name." "Orchid."'], rw:{xp:386000, gold:79500}, needFlag:'inv_hz423c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz423a', kind:'investigate', n:'Someone Who Served Lysenne', icon:'🕯️', ch:423, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'seraphina'],
+   desc:'A nurse who cared for the princess.',
+   clues:['In Dragonvale, the investigation continues. Jade has located an elderly woman who once served the royal household of Lysenne and cared for the missing princess. Jade: "I have found someone who once served the royal household of Lysenne. She was a nurse who cared for the missing princess when she was young."', 'Sally: "Then I want to meet her. I need to hear it for myself." Levi accompanies them, remaining quiet but watchful.'], rw:{xp:385100, gold:79320}},
+  {id:'hz423b', kind:'investigate', n:'My Memory Is Not as Clear', icon:'🧓', ch:423, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'seraphina'],
+   desc:'In fragments.',
+   clues:['The nurse: "I served the royal household of Lysenne for many years. I cared for the little princess when she was young. It has been so long... My memory is not as clear as it once was."', 'The witness remembers the princess in fragments, a bright and lively child with a curious mind.'], rw:{xp:385400, gold:79380}, needFlag:'inv_hz423a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz423c', kind:'investigate', n:'Which Side?', icon:'🩹', ch:423, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'seraphina'],
+   desc:'A hidden birthmark.',
+   clues:['The nurse: "There was a small birthmark high on her back, near the shoulder blade. But... I am truly sorry. I cannot remember whether it was on the left side or the right side. It was usually hidden by her clothing, so I did not see it often."', '"When she was anxious or deep in thought, she sometimes tapped her fingers like this. It was just a small habit she did from time to time. I cannot recall any specific pattern anymore."'], rw:{xp:385700, gold:79440}, needFlag:'inv_hz423b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz423d', kind:'investigate', n:'Only Clues', icon:'🔎', ch:423, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'seraphina'],
+   desc:'A familiar habit.',
+   clues:['Jade: "You say she tapped her fingers when she was anxious or thinking... Sally sometimes does something similar. It is not exactly the same, but the habit feels familiar. I am not certain it means anything, though."', 'Sally: "A birthmark... and a small habit. They are only pieces of a memory, but even so... It stirs something in me. I want to know more. I cannot ignore this." Jade: "For now, these are only clues. They do not give us a definite answer. We will continue to look for more records and any other witnesses."'], rw:{xp:386000, gold:79500}, needFlag:'inv_hz423c', lockMsg:'🔒 Finish the previous clue first'},
   {id:'hz424a', kind:'investigate', n:'I Want to Meet Her', icon:'🏮', ch:424, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'seraphina'],
    desc:'A neutral place.',
    clues:['Jade: "This is the person we located. She served in the royal household of Lysenne and was present around the time the princess disappeared. If you are willing, we can meet her in a neutral place today."', 'Sally: "...I want to meet her. I need to know. Not just for the investigation. For myself." Jade: "We will keep a low profile. Only the necessary people will be present."'], rw:{xp:362300, gold:74760}},
@@ -3396,10 +3396,10 @@ MISSIONS.push(
      {label:'The Morning That Changed It', spot:'hz422d'}]}, rw:{xp:1002500, gold:220400, rep:1907},
    subj:'One Night Is One Night', body:'The story is not finished. — Jade'},
   {id:'m_s423', needCh:423, title:'A Princess\'s Nurse', obj:{type:'steps', steps:[
-     {label:'Thank You for Seeing Me', spot:'hz423a'},
-     {label:'Tap, Tap, Tap', spot:'hz423b'},
-     {label:'My Memory Is Not Clear', spot:'hz423c'},
-     {label:'The Same Child', spot:'hz423d'}]}, rw:{xp:1005000, gold:221000, rep:1910},
+     {label:'Someone Who Served Lysenne', spot:'hz423a'},
+     {label:'My Memory Is Not as Clear', spot:'hz423b'},
+     {label:'Which Side?', spot:'hz423c'},
+     {label:'Only Clues', spot:'hz423d'}]}, rw:{xp:1005000, gold:221000, rep:1910},
    subj:'A Princess\'s Nurse', body:'The story is not finished. — Jade'},
   {id:'m_s424', needCh:424, title:'The Girl Before Sally', obj:{type:'steps', steps:[
      {label:'I Want to Meet Her', spot:'hz424a'},
@@ -3455,7 +3455,7 @@ LORE.push(
   {ch:420, n:'The Tavern Beyond the Gates', t:'For one night Sally and Levi left the investigation behind at a quiet tavern outside Dragonvale\'s gates. They spoke more honestly than usual, admitted that things had changed and that they could not go back to pretending they were only allies, and agreed not to define anything that night.'},
   {ch:421, n:'Morning Without Promises', t:'The morning after, neither regretted the night. When Levi spoke of responsibility Sally stopped him: she would not be an obligation, a wife or a political arrangement. They agreed to keep it between them, with no titles and no promises, for now.'},
   {ch:422, n:'One Night Is One Night', t:'Back in her manor, Sally told Carly that nothing had changed: one night is one night. Carly saw through it. Sally realised that leaving had been easy; what was dangerous was how much she had wanted to stay.'},
-  {ch:423, n:'A Princess\'s Nurse', t:'An elderly servant of Princess Zhaoning\'s household remembered a lively child who followed her older sister Zhaohua, tapped a three-note rhythm when anxious, and had a small hidden birthmark near the shoulder blade (she could not recall which side). She recognised Sally as the same child, and said Zhaohua had survived for a time under the name Orchid.'},
+  {ch:423, n:'A Princess\'s Nurse', t:'An elderly nurse who had cared for the missing princess remembered a bright, curious child with a hidden birthmark near the shoulder blade and a habit of tapping her fingers when anxious, but could not say which side the mark was on or what the pattern was. Jade said these were only clues, though Sally found the habit familiar.'},
   {ch:424, n:'The Girl Before Sally', t:'A former servant of Lysenne\'s royal household told Sally of a lively child who followed the older princess everywhere, and of how she was hidden and moved between safe houses under a different name. She gave Sally a keepsake that had belonged to the princess.'},
   {ch:425, n:'Levi Steps Back', t:'After the meeting with the nurse and the servant, Levi grew quiet and distant. Sally feared he regretted their night; he did not, he simply could not process everything at once. She chose not to chase him for answers.'},
   {ch:426, n:'Not Regret', t:'Levi told Sally plainly that he did not regret their night. He had once devoted himself to finding the princess, and Sally had become someone real to him independently; he needed time to understand what that meant. Sally promised him time and asked that he not disappear without a word.'},
@@ -3551,4 +3551,31 @@ LORE.push(
   {ch:434, n:'The Princess Levi Sought', t:'Levi faced what had troubled him: the princess he searched for and the woman beside him were always the same person, known through different chapters of her life: a wandering mercenary, a wife, and the woman he came to know. Jade told him he had known her in different seasons.'},
   {ch:435, n:'Sally by Choice', t:'Sally accepted that she was born to Lysenne, and that she is still Sally Sin, Sally Sun. She refused to be restored like an heirloom, traded into marriage or told who to become, promising to take time to understand her birth and her people, and to choose her own future.'},
   {ch:436, n:'Time', t:'At a quiet tavern on Dragonvale\'s outskirts Levi and Sally each said they needed time. Neither ended it and neither made a promise: what they have is real, more than friendship, and does not yet have a name. Sally rejoined the party, free to travel beyond Dragonvale.'}
+);
+
+/* ---- Arc XVII: chapter 428 ---- */
+LOCATIONS.dragon_vale.spots.push(
+  {id:'hz428a', kind:'investigate', n:'An Intact Royal Seal', icon:'🔏', ch:428, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'seraphina'],
+   desc:'The name of the old kingdom.',
+   clues:['Back in Dragonvale, Jade asks Sally to meet privately to share a new discovery in the investigation. Jade: "We recovered something from a family that was once connected to the fallen royal household of Lysenne. I wanted you to see it yourself."', 'Jade: "This is an intact royal seal from Lysenne. The inscription is 凌仙, the name of the old kingdom." Sally: "凌仙... Lysenne."'], rw:{xp:391100, gold:80520}},
+  {id:'hz428b', kind:'investigate', n:'Two Royal Daughters', icon:'📖', ch:428, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'seraphina'],
+   desc:'Zhaohua and Zhaoning.',
+   clues:['Jade: "The accompanying inner-household record lists two royal daughters of Lysenne. The elder daughter, Princess Zhaohua. And the younger daughter, Princess Zhaoning. This is the strongest physical evidence we have found so far."', 'Sally: "...Zhaoning. It has been so long..."'], rw:{xp:391400, gold:80580}, needFlag:'inv_hz428a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz428c', kind:'investigate', n:'I Will Not Decide for You', icon:'🤝', ch:428, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'seraphina'],
+   desc:'It concerns your life.',
+   clues:['Jade: "This is the strongest evidence we\'ve found. But I\'m showing it to you because it concerns your life. I will not decide your identity for you."', 'Levi: "There is also a later note in the records. It suggests that Princess Zhaohua may have survived the fall of the inner palace. She was reportedly removed to safety, and there is a later trace of a woman living under the commoner name Orchid."'], rw:{xp:391700, gold:80640}, needFlag:'inv_hz428b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz428d', kind:'investigate', n:'Find Orchid', icon:'🌸', ch:428, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'seraphina'],
+   desc:'Another survivor.',
+   clues:['Levi: "The records are damaged, but they suggest she lived under the name Orchid after leaving the inner palace." Sally: "You think my sister survived?" Jade: "We think Princess Zhaohua may have survived, but we are not treating it as confirmed yet. It is a strong lead, and that is why we will follow it."', 'Sally: "Then please... find Orchid. If my sister truly survived, I want to know. No matter what her life is now, I want to find her." The royal seal brings them closer than ever to the truth of the missing princess. But the next answer may lie with another survivor.'], rw:{xp:392000, gold:80700}, needFlag:'inv_hz428c', lockMsg:'🔒 Finish the previous clue first'},
+);
+MISSIONS.push(
+  {id:'m_s428', needCh:428, title:'The Royal Seal', obj:{type:'steps', steps:[
+     {label:'An Intact Royal Seal', spot:'hz428a'},
+     {label:'Two Royal Daughters', spot:'hz428b'},
+     {label:'I Will Not Decide for You', spot:'hz428c'},
+     {label:'Find Orchid', spot:'hz428d'}]}, rw:{xp:1017500, gold:224000, rep:1925},
+   subj:'The Royal Seal', body:'The story is not finished. — Jade'}
+);
+LORE.push(
+  {ch:428, n:'The Royal Seal', t:'Jade privately showed Sally an intact royal seal of Lysenne, inscribed 凌仙, with a household record naming two daughters, Princess Zhaohua and Princess Zhaoning. A damaged later note suggested Zhaohua survived under the commoner name Orchid. Sally asked them to find her.'}
 );
