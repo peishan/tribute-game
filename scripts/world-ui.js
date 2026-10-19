@@ -21,7 +21,7 @@ function rMissions(){
   const comm = hasBracelet()
     ? '<div class="sm">📿 <b>Communication bracelet</b> — King Greyson reaches you instantly, anywhere.</div>'
     : `<div class="sm">🕊️ <b>Pigeon post</b> — letters from King Greyson reach you only in towns, and take about ${Math.max(1,hopsFromCapital(G.loc))} day(s) from here. (Upgrades to a communication bracelet later.)${G.pending.length?` <b>${G.pending.length} in flight.</b>`:''}</div>`;
-  const sallyBtn = (G.flags.sally_stays && G.flags.sally_gossip) ? `<div class="panel"><b>🌹 Sally (Dragonvale)</b><div class="sm">She stayed behind and keeps her ear to the court. Ask once a day.</div><button onclick="act(courtGossip)">Ask Sally for rumours</button></div>` : '';
+  const sallyBtn = (G.flags.sally_stays && G.flags.sally_gossip && G.ch < 436) ? `<div class="panel"><b>🌹 Sally (Dragonvale)</b><div class="sm">She stayed behind and keeps her ear to the court. Ask once a day.</div><button onclick="act(courtGossip)">Ask Sally for rumours</button></div>` : '';
   let body = '';
   if(mTab==='letters') body = rLetters(); else if(mTab==='missions') body = rMissionList();
   else if(mTab==='quests') body = rQuestsActive(); else if(mTab==='ways') body = rWays(); else body = rBountyList();
