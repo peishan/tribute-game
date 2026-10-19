@@ -3588,3 +3588,30 @@ MISSIONS.push(
 LORE.push(
   {ch:431, n:'No Strings, Apparently', t:'Sally and Levi met again for a drink with no formal purpose. Each insisted nothing formal existed: no labels, no promises, no expectations. Sally admitted to herself that what she felt for Levi already exceeded what she had felt for Lucien, and that it was getting harder to pretend it was simple.'}
 );
+
+/* ---- Arc XVII: chapter 429 ---- */
+LOCATIONS.dragon_vale.spots.push(
+  {id:'hz429a', kind:'investigate', n:'What Happened to That Girl', icon:'📜', ch:429, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'seraphina'],
+   desc:'Not proving she was a princess.',
+   clues:['In a lantern-lit archive, the group pores over records and maps. Sally: "I don\'t care about proving I was a princess anymore. I want to know what happened to that girl."', '"After the kingdom fell? Who took her away? Who betrayed her? How did she survive?"'], rw:{xp:409100, gold:84120}},
+  {id:'hz429b', kind:'investigate', n:'Someone Wanted the Trail Confused', icon:'🗺️', ch:429, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'seraphina'],
+   desc:'The records disagree.',
+   clues:['Levi: "The records don\'t agree on where she went first."', '"Which usually means someone wanted the trail confused." "Or hidden."'], rw:{xp:409400, gold:84180}, needFlag:'inv_hz429a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz429c', kind:'investigate', n:'Survival Did Not Mean Safety', icon:'🔥', ch:429, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'seraphina'],
+   desc:'Her name disappeared first.',
+   clues:['The story of the girl is pieced together: her name disappeared first. Then her clothing. Then every visible sign that she had belonged to a royal house.', 'Survival did not mean safety. Sally: "So she survived the fall... only to be betrayed later." "But she survived that too."'], rw:{xp:409700, gold:84240}, needFlag:'inv_hz429b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz429d', kind:'investigate', n:'Whether She Kept Surviving', icon:'🌙', ch:429, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'seraphina'],
+   desc:'Then we fill the gaps.',
+   clues:['Jade: "Then maybe that\'s what matters. Not whether she was royal. Whether she kept surviving." Sally: "That sounds familiar." Jade: "Don\'t get sentimental."', '"There are still gaps." "Then we fill them." For the first time, Sally was no longer chasing the life of a princess. She was following the trail of a woman who had survived. Whatever name the girl had carried then, Sally would find out how she lived.'], rw:{xp:410000, gold:84300}, needFlag:'inv_hz429c', lockMsg:'🔒 Finish the previous clue first'},
+);
+MISSIONS.push(
+  {id:'m_s429', needCh:429, title:'The Woman Who Survived', obj:{type:'steps', steps:[
+     {label:'What Happened to That Girl', spot:'hz429a'},
+     {label:'Someone Wanted the Trail Confused', spot:'hz429b'},
+     {label:'Survival Did Not Mean Safety', spot:'hz429c'},
+     {label:'Whether She Kept Surviving', spot:'hz429d'}]}, rw:{xp:1020000, gold:224600, rep:1928},
+   subj:'The Woman Who Survived', body:'The story is not finished. — Jade'}
+);
+LORE.push(
+  {ch:429, n:'The Woman Who Survived', t:'In the archive Sally stopped asking whether she was a princess and began asking what happened to the girl after Lysenne fell. The records disagreed on where she went first: her name vanished, then her clothing, then every sign of a royal house. She had been betrayed, and survived that too.'}
+);
