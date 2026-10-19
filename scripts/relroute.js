@@ -11,6 +11,7 @@ const REL_ROUTES = {
   levi_sally:{ label:'Levi & Sally', icon:'💞', members:['levi','sally'],
     open:() => !!G.flags.sally_rejoins, begun:'Levi and Sally: a relationship route has begun.',
     note:'No titles and no promises: how far this goes is the story\'s to say.',
+    synergy:'Fighting together: Levi and Sally each gain +5% crit chance while both are in the party.',
     stages:[
       {n:'Old friends and colleagues'},
       {n:'Careful with each other', flag:'sally_confronts_levi'},
@@ -39,6 +40,9 @@ const REL_ROUTES = {
       ['Married, and still arguing about the route.','Devon passes Jade the tea before she asks; she pretends not to notice.'],
     ] },
 };
+/* Levi and Sally fight as a pair (fixed, no tiers): while both are fielded each gets +5% crit chance. */
+const LEVI_SALLY_CRIT = .05;
+const levisallySynergy = id => (id==='levi' || id==='sally') && !!G && !!G.flags.sally_rejoins && ['levi','sally'].every(x => G.party.includes(x) && G.active.includes(x) && !isDisabled(x)) ? LEVI_SALLY_CRIT : 0;
 function relRouteStage(k){ const R = REL_ROUTES[k]; let s = 0; R.stages.forEach((st,i) => { if(!st.flag || G.flags[st.flag]) s = i; }); return s; }
 const relRouteOpen = k => { const R = REL_ROUTES[k]; try{ return !!R.open() && R.members.every(id => isRecruited(id) || id==='jade'); }catch(e){ return false; } };
 function relRouteState(k){ if(!G.relroute) G.relroute = {}; if(!G.relroute[k]) G.relroute[k] = {last:-1, shown:-1, started:false}; return G.relroute[k]; }
@@ -68,6 +72,6 @@ function rRelRoutes(){
     const next = R.stages[s+1];
     return `<div class="panel"><b>${R.icon} ${R.label}</b> <span class="sm">· ${R.stages[s].n}</span>
       <div class="sm">${R.stages.map((st,i) => i<=s ? '●' : '○').join(' ')} &nbsp; ${next ? 'Next: '+(G.flags[next.flag] ? next.n : '???') : 'The story has taken this as far as it has gone, for now.'}</div>
-      <div class="sm" style="margin:4px 0">${R.note}</div>
+      <div class="sm" style="margin:4px 0">${R.note}</div>${R.synergy?`<div class="sm">${levisallySynergy('levi')?'✅':'⚪'} ${R.synergy}</div>`:''}
       <div class="row" style="margin-top:6px"><button ${lock?'disabled':''} title="${lock}" onclick="act(relRouteSpend,'${k}')">🕯️ Spend time together</button></div>${n?`<div class="sm" style="margin-top:4px">Shared moments: ${n}</div>`:''}</div>`; }).join('');
 }

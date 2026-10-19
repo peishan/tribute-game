@@ -192,7 +192,7 @@ function trackTier(k){ const p = trackState(k).pts; let t = 0; TRACK_AT.forEach(
 const trackOpen = k => BOND_TRACKS[k].open();
 function trackSynergy(k){   // are the bonded members fielded right now?
   const T = BOND_TRACKS[k], act = id => G.active.includes(id) && !isDisabled(id);
-  if(T.headcount) return FIXED_FIVE.filter(act).length >= T.headcount;
+  if(T.headcount) return fixedFive().filter(act).length >= T.headcount;
   if(T.bonus===null) return false;
   if(k==='levi_rin') return act('levi') && (isGuestNow('rin') || act('rin'));
   if(k==='sky_ghost') return act('sky') && isRecruited('ghost_healer');
@@ -205,7 +205,7 @@ function trackPerk(key){   // xp/gold bonuses from the active tracks
 }
 function trackCritB(id){   // extra crit chance for a fielded member of a crit track
   return Object.keys(BOND_TRACKS).reduce((s,k) => { const T = BOND_TRACKS[k];
-    return s + (T.bonus==='crit' && T.members.includes(id) && trackOpen(k) && trackSynergy(k) ? T.amounts[trackTier(k)] : 0); }, 0);
+    return s + (T.bonus==='crit' && T.members.includes(id) && trackOpen(k) && trackSynergy(k) ? T.amounts[trackTier(k)] : 0); }, 0) + (typeof levisallySynergy==='function' ? levisallySynergy(id) : 0);
 }
 function trackActLock(k, a){
   const st = trackState(k);
