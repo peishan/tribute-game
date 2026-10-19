@@ -25,8 +25,9 @@ const ARCS = [
   {n:14, title:'The House of Dee', img:'assets/arcs/arc14.webp', after:336},   // ch337-361
   {n:15, title:'The Crown He Must Choose', img:'assets/arcs/arc15.webp', after:361},   // ch362-386: Aster's Crown Princess selection and the Xuanji genealogy
   {n:16, title:'The Lost Princess', img:'assets/arcs/arc16.webp', after:386},   // ch387-411 (412 is the aftermath)
+  {n:17, title:'The Princess Behind the Name', img:'assets/arcs/arc17.webp', after:411},   // ch412-436: Sally, Levi and the lost princess
 ];
-const ARC_ROMAN = ['','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI'];
+const ARC_ROMAN = ['','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII'];
 // Arc IX, "The Forgotten Alliance" (the author's canon title): begins with ch211 and ends with ch235 (the royal wedding is ch234); add {n:9, title:'The Forgotten Alliance', img:'assets/arcs/arc9.webp', after:210} once the splash art exists.
 function arcFor(afterCh){ return ARCS.find(a => a.after === afterCh); }
 function showArc(n, manual, cast){
