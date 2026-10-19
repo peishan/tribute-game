@@ -1,4 +1,4 @@
-# ARC XVII — THE PRINCESS BEHIND THE NAME (chapters 412-436; pages are canon; only 431 not received)
+# ARC XVII — THE PRINCESS BEHIND THE NAME (chapters 412-436; pages are canon; all numbers 412-436 now have a page)
 
 **Brief (author):** Theme: knowing someone's name is not the same as knowing who they are. Primary focus: Sally + Levi; secondary: confirming the lost princess. Romance: attraction and attachment become undeniable, but no commitment. Ending: Sally confirmed as the lost princess; Levi still needs time to reconcile Sally with the woman he searched for. Official status: none; actual status: extremely complicated. Only the first night is shown; later meetings are implied through dialogue. The Stanson family / Levi restored-alive / marriage-pressure arc is the next major obstacle, not part of this one.
 
@@ -11,7 +11,7 @@
 | 428 | The Royal Seal | built (names Zhaohua and the name Orchid) |
 | 429 | What Marriage Taught Her | built (the page's own number) |
 | 430 | No Strings, Apparently | built (the page's own number) |
-| 431 | (brief: not matched) | **not received** |
+| 431 | No Strings, Apparently | built (a second page with this title; see below) |
 | 432 | The Last Witness | built (Zhaoning, the three-note rhythm, the birthmark, Zhaohua as "Orchid") |
 | 433 | Princess by Birth | built |
 | 434 | The Princess Levi Sought | built |
@@ -37,3 +37,5 @@
 **Author's rule (latest):** the generated chapters are canon, not the brief; the brief is a first draft and the story changes as pages are generated. Numbers and titles now follow the pages: "What Marriage Taught Her" is 429 and "No Strings, Apparently" is 430 (renumbered from the brief's 430/431). The brief's 428 (The Royal Seal), 429 (The Woman Who Survived) and 431 may simply not exist in the final story; only 428 and 431 are gaps in the page numbering. Earlier arcs where a brief title was used over a page's own title or number may deserve the same check.
 
 **Update:** 428 The Royal Seal received and built (the intact seal inscribed 凌仙, the household record of Zhaohua and Zhaoning, Orchid; Levi appears and reads the later note). 423 was replaced by the author's third version, in which the nurse cannot recall which side the birthmark was on or the tap pattern, so nothing is confirmed there and the overlap with 432 is gone. 429 was re-sent unchanged and not rebuilt. No Arc XVIII cover has been received.
+
+**Update:** a page numbered 431 with the title "No Strings, Apparently" arrived (a pavilion, a lighter conversation, no Lucien/Roc flashbacks). The earlier page with the same title, headed 430, is built as 430. They may be one chapter regenerated (then the numbering of the first was the generation mistake and a real 430 is missing) or two chapters; both are kept. The author can tell which to drop or whether a 430 is still to come.

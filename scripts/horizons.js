@@ -3579,3 +3579,30 @@ MISSIONS.push(
 LORE.push(
   {ch:428, n:'The Royal Seal', t:'Jade privately showed Sally an intact royal seal of Lysenne, inscribed 凌仙, with a household record naming two daughters, Princess Zhaohua and Princess Zhaoning. A damaged later note suggested Zhaohua survived under the commoner name Orchid. Sally asked them to find her.'}
 );
+
+/* ---- Arc XVII: chapter 431 ---- */
+LOCATIONS.dragon_vale.spots.push(
+  {id:'hz431a', kind:'investigate', n:'Not Avoiding You', icon:'🏮', ch:431, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'seraphina'],
+   desc:'A quiet pavilion.',
+   clues:['After the heavier events of recent days, the evening takes an unexpectedly lighter turn: a private meeting, a quiet pavilion, and a chance to breathe again. Sally arrives with her usual confidence, her amusement evident from the start. Sally: "I hope I\'m not interrupting anything important. Or have you already decided to avoid me this time?"', 'Levi: "I wouldn\'t avoid you. You\'re here, so it must mean you wanted to see me too."'], rw:{xp:397100, gold:81720}},
+  {id:'hz431b', kind:'investigate', n:'One Mistake', icon:'🍵', ch:431, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'seraphina'],
+   desc:'Does not have to stay a single mistake.',
+   clues:['Sally: "Of course I wanted to see you. One mistake doesn\'t have to remain a single mistake, does it?"', 'Levi: "There are no promises between us, Sally. Nothing formal. No engagement, no strings attached."'], rw:{xp:397400, gold:81780}, needFlag:'inv_hz431a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz431c', kind:'investigate', n:'No Promises Either', icon:'🌸', ch:431, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'seraphina'],
+   desc:'Enjoy what they have.',
+   clues:['Sally: "I agree. I don\'t want promises either. I simply want to enjoy what we have... and see where it leads, without turning it into something it\'s not."', 'Levi: "You\'re quite bold, aren\'t you? Still, we both know this doesn\'t change anything beyond the present. We meet because we want to. Not because we owe each other more than that."'], rw:{xp:397700, gold:81840}, needFlag:'inv_hz431b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz431d', kind:'investigate', n:'As Long as We Both Want It', icon:'🌙', ch:431, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'seraphina'],
+   desc:'No obligations.',
+   clues:['Sally: "That\'s perfectly fine with me. I know what this is, Levi. I have my own life, my own responsibilities, and you have yours. We can be honest about that and still enjoy each other\'s company. No obligations. No expectations. Just... more moments like this, when we can. Is that acceptable to you?"', 'Levi: "And if we find ourselves wanting more time together? Then we take it. As long as we both still want it." Sometimes, the absence of obligations can be its own kind of promise. And for tonight, that is enough.'], rw:{xp:398000, gold:81900}, needFlag:'inv_hz431c', lockMsg:'🔒 Finish the previous clue first'},
+);
+MISSIONS.push(
+  {id:'m_s431', needCh:431, title:'No Strings, Apparently', obj:{type:'steps', steps:[
+     {label:'Not Avoiding You', spot:'hz431a'},
+     {label:'One Mistake', spot:'hz431b'},
+     {label:'No Promises Either', spot:'hz431c'},
+     {label:'As Long as We Both Want It', spot:'hz431d'}]}, rw:{xp:1025000, gold:225800, rep:1934},
+   subj:'No Strings, Apparently', body:'The story is not finished. — Jade'}
+);
+LORE.push(
+  {ch:431, n:'No Strings, Apparently', t:'In a quiet pavilion after heavier days, Sally and Levi agreed again that nothing formal bound them: no promises, no engagement, no obligations. They would take more time together, as long as both still wanted it.'}
+);
