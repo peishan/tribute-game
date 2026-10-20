@@ -19,8 +19,8 @@ Built: 437 Declared Alive, 438 The Name Stanson, 439 A Son Returned, 440 Sally C
 ## Chapters 453-461 (received and built; 461 closes Arc XVIII)
 453 An Orchid and Lavender, 454 The Son Who Stayed, 455 One More Announcement, 456 Not the Heir They Thought, 457 A Very Bad Time for a Baby, 458 What We Actually Want, 459 The Noble Archer, 460 A Stanson Wedding, 461 Home, Rewritten. All numbers 437-461 now have a page. Arc XIX starts at 462, "A Season to Breathe" (cover and chapters not yet received); Roc and Delilah's wedding is in Arc XIX. When the Arc XIX cover arrives add `{n:19, ..., after:461}` to ARCS.
 **Mismatches (kept as drawn):**
-- Levi's younger brother is "Leon" on 454 and 456 and "Lenny" on 455, 456, 460 and 461 (an affectionate form); the game text keeps what each page prints.
+- Levi's younger brother: his official name is Leon; Lenny is the family's nickname for him at home (the author). The game text keeps what each page prints.
 - Page "456 Not the Heir They Thought" arrived last and numbered as drawn; it settles the heirship after 455's announcement. 454 sits before it with Leon already choosing to stay.
 - 457-458 are told non-explicitly; 458 has Sally say they are "not officially together", consistent with the route.
-- 459: Jade names Prince Devon, Princess Sera and Princess Zhaoning (Sally) as the party, though Sera is benched and Sky is unmentioned.
-- 461's "Sally: Gameplay Upgrade" box is a dev note (the investigator role is already built); an unnamed fair-haired young man sits with Jade at the table; Sky is drawn with dark-blue hair.
+- 459 (author): not a party roll call: all her friends were invited to the wedding, so Jade is naming friends and guests (Devon, Sera, Sally) who play important roles.
+- 461's "Sally: Gameplay Upgrade" box is a dev note (the investigator role is already built); the fair-haired young man at the table with Jade is Prince Rheon (the author); Sky is drawn with dark-blue hair.
