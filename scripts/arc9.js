@@ -48,7 +48,16 @@ Object.assign(USE, {
   double_happiness_sweets:{hp:80, mp:20},
 });
 const WEDDING_DROPS = [['firecracker',34],['party_popper',28],['red_packet',20],['double_happiness_sweets',12],['door_gift',6]];
-function weddingThemeActive(){ return !!G && !!G.flags && !!G.flags.evelyne_wed && G.weddingDay !== undefined && G.day - G.weddingDay <= WEDDING_THEME_DAYS; }
+const ROC_WEDDING_DAYS = 3;   // Roc and Delilah are not royals like Adrian and Evelyne: a shorter, smaller celebration (author, ch463)
+const rocWeddingActive = () => !!G && !!G.flags && !!G.flags.roc_delilah_wed && G.rocWeddingDay !== undefined && G.day - G.rocWeddingDay <= ROC_WEDDING_DAYS;
+function weddingThemeActive(){ return (!!G && !!G.flags && !!G.flags.evelyne_wed && G.weddingDay !== undefined && G.day - G.weddingDay <= WEDDING_THEME_DAYS) || rocWeddingActive(); }
+/* called when chapter 463 completes: starts the three-day celebration and shows the splash */
+function rocWeddingStart(){
+  if(!G || G.rocWeddingDay !== undefined) return;
+  G.rocWeddingDay = G.day; chronicle('The wedding of Roc and Delilah: three days of red lanterns, with their daughter Liora beside them.', '🧧'); toast('🧧 Roc and Delilah\'s wedding celebration has begun: three days of firecrackers, party poppers and red packets.'); save();
+  setTimeout(() => showRocWedding(), 500);
+}
+function showRocWedding(){ const el = $('arcpop'); if(!el) return; el.innerHTML = `<div class="arcbox"><img src="assets/events/roc_wedding.webp" alt="The wedding of Roc and Delilah"><div class="sm" style="text-align:center;margin:6px 0">🧧 The wedding of Roc and Delilah: three days of lanterns, firecrackers, red packets and door gifts.</div><button class="pri" onclick="closeArc()">Continue</button></div>`; el.classList.add('on'); }
 function weddingSync(){
   if(G && G.ch >= 211 && !(G.arcSeen && G.arcSeen[9]) && typeof showArc==='function') setTimeout(() => showArc(9), 500);   // the Arc IX cover, also for saves already past ch210
   if(G && G.flags && G.flags.arc9_complete && !G.arc9Logged){ G.arc9Logged = true; chronicle('Arc IX ends: Adrian and Evelyne are married, Tribute and Dragonvale begin restoring cooperation, and the alliance reaches further than anyone knew.', '🏯'); save(); }
@@ -82,8 +91,9 @@ BANTER.push(
 function showWedding(){ const el = $('arcpop'); if(!el) return; el.innerHTML = `<div class="arcbox"><img src="assets/events/royal_wedding.webp" alt="The royal wedding of Adrian Gold and Princess Evelyne"><div class="sm" style="text-align:center;margin:6px 0">🧧 The royal wedding celebrations: 14 days of lanterns, firecrackers, red packets and door gifts.</div><button class="pri" onclick="closeArc()">Continue</button></div>`; el.classList.add('on'); }
 function weddingBanner(){
   if(!weddingThemeActive()) return '';
-  const left = Math.max(0, WEDDING_THEME_DAYS - (G.day - G.weddingDay));
-  return `<div class="panel" style="border-color:#c0392b"><b>🧧 The Royal Wedding Celebrations</b><div class="sm">The whole kingdom celebrates: ${left} day${left===1?'':'s'} left. Enemies drop firecrackers, party poppers, red packets and wedding door gifts.</div><button onclick="showWedding()">View the wedding</button></div>`;
+  const roc = rocWeddingActive() && !(G.weddingDay !== undefined && G.day - G.weddingDay <= WEDDING_THEME_DAYS && G.rocWeddingDay < G.weddingDay);
+  const left = roc ? Math.max(0, ROC_WEDDING_DAYS - (G.day - G.rocWeddingDay)) : Math.max(0, WEDDING_THEME_DAYS - (G.day - G.weddingDay));
+  return `<div class="panel" style="border-color:#c0392b"><b>🧧 ${roc?'The Wedding of Roc and Delilah':'The Royal Wedding Celebrations'}</b><div class="sm">${roc?'Friends and family celebrate:':'The whole kingdom celebrates:'} ${left} day${left===1?'':'s'} left. Enemies drop firecrackers, party poppers, red packets and wedding door gifts.</div><button onclick="${roc?'showRocWedding()':'showWedding()'}">View the wedding</button></div>`;
 }
 
 /* =====================================================================
