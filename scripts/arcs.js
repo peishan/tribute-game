@@ -26,10 +26,11 @@ const ARCS = [
   {n:15, title:'The Crown He Must Choose', img:'assets/arcs/arc15.webp', after:361},   // ch362-386: Aster's Crown Princess selection and the Xuanji genealogy
   {n:16, title:'The Lost Princess', img:'assets/arcs/arc16.webp', after:386},   // ch387-411 (412 is the aftermath)
   {n:17, title:'The Princess Behind the Name', img:'assets/arcs/arc17.webp', after:411},   // ch412-436: Sally, Levi and the lost princess
+  {n:18, title:'The Man Who Returned', img:'assets/arcs/arc18.webp', after:436},   // ch437 onward: Levi declared alive, the Stanson house, the search for Zhaohua
 ];
 /* End-of-arc splash (author): after ch436 the Levi and Sally relationship route starts and Sally rejoins for good. The caption is drawn over the art. */
 const ARC_END_SPLASH = [ {key:'17end', after:436, img:'assets/arcs/arc17_end.webp', title:'Levi and Sally: a relationship route has begun', text:'Levi and Sally: a relationship route has begun.', sub:'Their story now moves between the two of them. Welcome Sally back as a permanent member of the party.'} ];
-const ARC_ROMAN = ['','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII'];
+const ARC_ROMAN = ['','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII'];
 // Arc IX, "The Forgotten Alliance" (the author's canon title): begins with ch211 and ends with ch235 (the royal wedding is ch234); add {n:9, title:'The Forgotten Alliance', img:'assets/arcs/arc9.webp', after:210} once the splash art exists.
 function arcFor(afterCh){ return ARCS.find(a => a.after === afterCh); }
 function showArc(n, manual, cast){
@@ -40,7 +41,7 @@ function showArc(n, manual, cast){
   el.innerHTML = `<div class="arcbox"><img src="${cast?a.cast:a.img}" alt="Arc ${ARC_ROMAN[n]}: ${a.title}${cast?' cast':''}"><button class="pri" onclick="closeArc()">${manual?'Close':'Continue'}</button></div>`;
   el.classList.add('on');
 }
-function closeArc(){ const el = $('arcpop'); if(el){ el.classList.remove('on'); el.innerHTML = ''; } }
+function closeArc(){ const el = $('arcpop'); if(el){ el.classList.remove('on'); el.innerHTML = ''; } if(ARC_QUEUE){ const q = ARC_QUEUE; ARC_QUEUE = null; setTimeout(() => showArc(q), 250); } }
 function showArcEnd(key, manual){
   const a = ARC_END_SPLASH.find(x => x.key===key), el = $('arcpop'); if(!a || !el) return;
   if(!G.arcSeen) G.arcSeen = {};
@@ -48,8 +49,12 @@ function showArcEnd(key, manual){
   el.innerHTML = `<div class="arcbox"><div style="position:relative;display:inline-block"><img src="${a.img}" alt="${a.title}"><div style="position:absolute;left:0;right:0;bottom:0;padding:34px 14px 14px;text-align:center;background:linear-gradient(transparent,rgba(10,6,18,.86));color:#fff;text-shadow:0 1px 4px #000"><b style="font-size:1.15em;color:var(--gold)">💞 ${a.text}</b><div>${a.sub}</div></div></div><button class="pri" onclick="closeArc()">${manual?'Close':'Continue'}</button></div>`;
   el.classList.add('on');
 }
+let ARC_QUEUE = null;   // an arc cover waiting for the end-of-arc splash to be closed
 function arcAfterChapter(n){
-  const e = ARC_END_SPLASH.find(x => x.after===n); if(e && !(G.arcSeen && G.arcSeen[e.key])) setTimeout(() => showArcEnd(e.key), 400); const a = arcFor(n); if(a && G.arcSeen && !G.arcSeen[a.n]) setTimeout(() => showArc(a.n), 400); else if(a && !G.arcSeen) setTimeout(() => showArc(a.n), 400); }
+  const e = ARC_END_SPLASH.find(x => x.after===n), a = arcFor(n), cover = a && !(G.arcSeen && G.arcSeen[a.n]);
+  if(e && !(G.arcSeen && G.arcSeen[e.key])){ if(cover) ARC_QUEUE = a.n; setTimeout(() => showArcEnd(e.key), 400); }   // the end of an arc first, then the next arc's cover
+  else if(cover) setTimeout(() => showArc(a.n), 400);
+}
 function arcOnNewGame(){ setTimeout(() => showArc(1), 300); }
 function rArcGallery(){
   const seen = G.arcSeen || {};
