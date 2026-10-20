@@ -5,5 +5,13 @@ Built: 437 Declared Alive, 438 The Name Stanson, 439 A Son Returned, 440 Sally C
 - 438 has Jade call the childhood engagement a formal alliance between the houses; 443 says the agreement was a handwritten wish, never signed or binding.
 - 444 and 445 were sent swapped in the files; numbered as drawn.
 - 440 says the party is whole once more but Sky is not drawn; 442's younger man at the table is unnamed.
-- 437's note says the party spent months in Dragonvale preparing Roc and Delilah's wedding: the wedding itself is not built.
+- 437's note says the party spent months in Dragonvale preparing Roc and Delilah's wedding. The author: the wedding itself is in Arc XIX (not built; nothing to do in Arc XVIII).
 - The end-of-arc splash ("relationship route has begun", Sally's return) plays after ch436, the end of Arc XVII; Sally joins the canon five at 436 and Sera is benched there. Arc XVIII needs a cover (assets/arcs/arc18.webp, an ARCS entry with after:436).
+
+## Chapters 447-452 (received and built)
+447 A Familiar Name in an Old Ledger (the alias Linse / "Madame Linse"), 448 The Woman Called Orchid, 449 Zhaohua, 450 My Little Sister Survived, 451 I Don't Remember You, 452 Then Let Me Meet Sally. Still missing: nothing in 447-452. Not yet sent: 453 onward and the Arc XVIII cover.
+**Mismatches (kept as drawn):**
+- 448-450 re-tell what 428 (the seal record naming Zhaohua and Orchid) and 432 (the last witness: the rhythm, the birthmark, "your sister survived too: Orchid") already established; here the party finds Orchid as if for the first time.
+- 450 repeats 449's opening panels word for word before continuing.
+- 447 uses "Lysenne" as a woman's alias (Linse), where the game so far uses it only for the kingdom.
+- 449 does not draw Jade; 448 does not identify Orchid as Sally's sister until 449.
