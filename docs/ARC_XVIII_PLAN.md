@@ -5,5 +5,5 @@ Built: 437 Declared Alive, 438 The Name Stanson, 439 A Son Returned, 440 Sally C
 - 438 has Jade call the childhood engagement a formal alliance between the houses; 443 says the agreement was a handwritten wish, never signed or binding.
 - 444 and 445 were sent swapped in the files; numbered as drawn.
 - 440 says the party is whole once more but Sky is not drawn; 442's younger man at the table is unnamed.
-- 437's note says the party spent months in Dragonvale preparing Roc and Delilah's wedding: the wedding itself is not built.
+- 437's note says the party spent months in Dragonvale preparing Roc and Delilah's wedding. The author: the wedding itself is in Arc XIX (not built; nothing to do in Arc XVIII).
 - The end-of-arc splash ("relationship route has begun", Sally's return) plays after ch436, the end of Arc XVII; Sally joins the canon five at 436 and Sera is benched there. Arc XVIII needs a cover (assets/arcs/arc18.webp, an ARCS entry with after:436).
