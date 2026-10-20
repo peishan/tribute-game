@@ -5,3 +5,9 @@ Built: 462 The Morning Before (three pages: Levi's residence, Jade's residence, 
 **Notes:** 462 hints at Sky and Jenika (a thread to follow); 464 has a few garbled printed lines (kept as drawn); 463's page text calls them "Roc and Delilah, not a prince and princess".
 **Bug found and fixed:** chapters 447-461 were missing from the journal's chapter list (the loop bound had not moved past 446); fixed together with this batch (bound now 464).
 When the Arc XIX cover arrives, add `{n:19, title:'A Season to Breathe', img:'assets/arcs/arc19.webp', after:461}` to ARCS (and 'XIX' to ARC_ROMAN).
+
+## Author's relationship notes for Arc XIX (canon; development notes, not in-game text)
+- **Ch462 page 3 (Sky and Sera):** both have unresolved love. **Sky** has confessed to Jenika; she has not accepted him as a couple, but they stay close as healers who spent time together in Dragonvale. He worries about Jenika's curse. **Sera** is the one with the issue: Hugh does not know her feelings, and Jade's matchmaking failed.
+- **Sally and Levi:** no strings, but the relationship grows quickly; they already love each other and do not want to rush. They will eventually marry, when they realise they cannot do without each other.
+- **Jade and Devon:** the actual couple, with no romantic chapters of their own so far; this arc is intended to give them the couple moments they need.
+- Next: the Arc XIX cover and the following chapters (after the author's break).
