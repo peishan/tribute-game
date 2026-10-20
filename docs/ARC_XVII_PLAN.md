@@ -56,12 +56,4 @@
 
 **Sally as a recurring travelling ally (author):** she may join selected missions, tavern and social quests, and investigations involving music, nobility, information networks or fallen kingdoms, and can get personal quests independent of Levi. Built: a Sally investigation role ("hears the false note... knows the music, the nobility and the whisper networks") added to the music/Lysenne/Sally spots (ch394, 396, 400, 406, 409, 410 and 412-436). Not built: independent personal quests and tavern quest hooks (need authored content). Carly is her loyal attendant: Carly's Intervention (once per encounter, intercepts a heavy hit and counters) is the one signature support mechanic. Ripley stays at Gold Manor.
 
-## Arc XVII extension: chapters 437-446 (the author: "Arc XVII, additional chapters"; Levi, the Stanson house and Sally in Tribute)
-Built: 437 Declared Alive, 438 The Name Stanson, 439 A Son Returned, 440 Sally Comes to Tribute, 441 The House That Mourned Him (the page reads "Morred"), 442 Years Missing, 443 The Childhood Contract, 444 Everywhere, a Matchmaker, 445 Not the Vacancy, 446 The Duties They Never Heard About. All ten numbers 437-446 have a page. New place: the Stanson Estate (Tribute, from ch439).
-**Mismatches (kept as drawn):**
-- 437 has Sally already in Tribute at court; 440 has her "come to Tribute at last" after "a brief return to Dragonvale".
-- 438 has Jade call the childhood engagement a formal alliance between the houses; 443 says the agreement was a handwritten wish, never signed or binding.
-- 444 and 445 were sent swapped in the files; numbered as drawn.
-- 440 says the party is whole once more but Sky is not drawn; 442's younger man at the table is unnamed.
-- 437's note says the party spent months in Dragonvale preparing Roc and Delilah's wedding: the wedding itself is not built.
-- The end-of-arc splash ("relationship route has begun", Sally's return) still plays after ch436; since the arc now runs to 446, move it if you want it after the arc's real end. Sally joins the canon five at 436 and Sera is benched there.
+**Author's correction:** chapters 437 onward are a new arc (Arc XVIII), not an extension of Arc XVII. Arc XVII ends at 436 (the relationship-route splash and Sally's return belong to its end). The 437-446 notes moved to docs/ARC_XVIII_PLAN.md.
