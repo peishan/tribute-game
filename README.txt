@@ -223,3 +223,5 @@ The Shadow at Dragonvale's Gate: Levi rejoins (reborn), Seraphina permanent, Div
 
 --- v8.1: CHAPTER 88 ---
 The Ghost Healer: slotless companion, quest A Gift for the Ghost Healer, Moon-Blossom Tea Stall (capital).
+
+Checks: `node tools/check-chapters.js` verifies every designed chapter is inside the journal's chapter range and has its page image(s); run it after adding chapters.
