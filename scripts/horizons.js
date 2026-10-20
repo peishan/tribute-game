@@ -4131,3 +4131,70 @@ LORE.push(
   {ch:460, n:'A Stanson Wedding', t:'Lenny\'s wedding brought the whole party to the Stanson estate for a rare day of peace: toasts, red envelopes, food and wine, with no investigations and no emergencies.'},
   {ch:461, n:'Home, Rewritten', t:'At Lenny\'s wedding the party relaxed. Levi\'s mother quietly noticed Levi and Sally and chose not to interfere. The Stanson succession was secure, Levi\'s parents accepted that he would keep travelling with Jade, and Roc and Delilah\'s wedding was next.'}
 );
+
+/* ---- Arc XIX, chapters 462-464: A Season to Breathe (the wedding of Roc and Delilah) ---- */
+LOCATIONS.stanson_estate.spots.push(
+  {id:'hz462a', kind:'investigate', n:'Quieter, Lighter', icon:'🌅', ch:462, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'sally'],
+   desc:'Levi\'s residence.',
+   clues:['Levi\'s residence. Sally: "You\'re staring." Levi: "I was thinking." Sally: "Dangerous habit. Mmm... I feel refreshed. Sleeping beside you always feels different." Levi: "Different how?" Sally: "Quieter. Lighter. Like I can breathe."', 'Levi: "Lenny\'s wedding went well. Your family surprised me." Sally: "Yes. Despite everything, the Stanson family was remarkably civilized. And no one forced us into anything. Your mother definitely knows." Levi: "She didn\'t say anything." Sally: "That\'s worse."'], rw:{xp:463100, gold:94920}},
+  {id:'hz462b', kind:'investigate', n:'Another Red Packet', icon:'🧧', ch:462, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'sally'],
+   desc:'Another wedding today.',
+   clues:['Sally: "Oh no... We have another wedding today!" Levi: "What? ...Another red packet. Groan..."', 'Sally: "One wedding after another. At this rate, we\'ll be broke before the year is over." Levi: "Wonderful. We survived demons only to be defeated financially." Sally: "Still... It\'s a happy kind of exhaustion." Levi: "As long as it\'s with you... I can survive even a hundred more weddings."'], rw:{xp:463400, gold:94980}, needFlag:'inv_hz462a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz462c', kind:'investigate', n:'Roc Can Wait', icon:'🌸', ch:462, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'sally'],
+   desc:'Jade\'s residence.',
+   clues:['Jade\'s residence. Jade: "Do we really have to move yet? Roc can wait." Devon: "Roc is getting married today." Jade: "...He has waited this long." Devon: "Hah. For his own wedding?"', 'Jade: "I\'m perfectly content right here." Devon: "I know. But we do have somewhere to be." Jade: "...Fine. Let\'s get up then." Devon: "Good. Roc will appreciate it."'], rw:{xp:463700, gold:95040}, needFlag:'inv_hz462b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz462d', kind:'investigate', n:'Why Does Helping Her Matter', icon:'🌊', ch:462, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'sally'],
+   desc:'A sunlit terrace.',
+   clues:['On a sunlit terrace by the sea Sky thinks: "How can I help Jenika? Why does helping her matter this much to me?" Sera: "Do you ever wish people simply said what they meant?" Sky: "Constantly." Sera: "And are you going to?" Sky: "...No." Sera: "Neither am I. I knew you would understand each other."', 'At the breakfast table: "Another wedding already. My purse is still recovering from the last one." Devon: "Roc is my twin. This wedding cannot exactly be cheap." A servant: "My lord, my ladies. It is time to prepare for Lord Roc and Lady Delilah\'s wedding." "Already?" "Let\'s get ready then." "One more wedding."'], rw:{xp:464000, gold:95100}, needFlag:'inv_hz462c', lockMsg:'🔒 Finish the previous clue first'},
+);
+LOCATIONS.dragon_vale.spots.push(
+  {id:'hz463a', kind:'investigate', n:'Choosing Each Other Again', icon:'💍', ch:463, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'sally'],
+   desc:'Not a prince and a princess.',
+   clues:['After years of mistakes, heartbreak, lost status, and long roads to forgiveness, Roc and Delilah are choosing each other again. Not as a prince and a princess, not for titles or kingdoms, but as Roc and Delilah.', 'Roc: "Today, I marry you not because I have to, but because I choose you. Again." Delilah: "I choose you too, Roc. Not for what you once were, but for who you are now."'], rw:{xp:464300, gold:95160}},
+  {id:'hz463b', kind:'investigate', n:'Their Greatest Gift', icon:'🎀', ch:463, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'sally'],
+   desc:'Liora.',
+   clues:['Liora stands with them today. Liora: "I\'m so happy you\'re getting married, Mama and Papa! I love you both!"', 'Roc: "We have both made mistakes. We have both been hurt. But we chose to face it all, to forgive, to grow, and to build this life together."'], rw:{xp:464600, gold:95220}, needFlag:'inv_hz463a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz463c', kind:'investigate', n:'I Take Your Hand', icon:'🤝', ch:463, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'sally'],
+   desc:'Not a fairytale.',
+   clues:['Roc: "I take your hand, not as a perfect man, but as a man who will always choose you." Delilah: "And I take your hand, not as a girl dreaming of a fairytale, but as a woman who knows the real work of love... And still chooses you."', 'Jade and Devon, once painfully tangled with Roc and Delilah\'s lives, stand here with full hearts. Devon: "I\'m so glad you found your way back to each other."'], rw:{xp:464900, gold:95280}, needFlag:'inv_hz463b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz463d', kind:'investigate', n:'A Family Built on Love', icon:'🥂', ch:463, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'sally'],
+   desc:'A new beginning.',
+   clues:['The party: "You did it, Roc. This is wonderful." "A family built on love is the greatest treasure." "Here\'s to a happy life, the three of you."', 'This is not the end of a long and painful story. It is a new beginning, one built on truth, forgiveness, and the choice to keep showing up for each other. It is a real love, hard-earned, and truly their own.'], rw:{xp:465200, gold:95340}, needFlag:'inv_hz463c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz464a', kind:'investigate', n:'Far Too Many Red Envelopes', icon:'🧧', ch:464, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'sally'],
+   desc:'The reception.',
+   clues:['After the ceremony, the celebration continued into the evening. Good food, old friends, new families, and far too many red envelopes. Two weddings in succession had left everyone significantly poorer.', 'Roc: "I still can\'t believe we actually did it... after everything." Liora: "I have two weddings now! Does that mean I get double red envelopes?" Roc and Delilah: "Only if you help us pay for the next one."'], rw:{xp:465500, gold:95400}},
+  {id:'hz464b', kind:'investigate', n:'Economic Disasters', icon:'💸', ch:464, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'sally'],
+   desc:'The party\'s purses.',
+   clues:['Sera: "Two weddings back to back... my purse is disappointed." Jade: "At this rate we\'ll need to rent three high-ranking demons just to recover." Sally: "And people say weddings are about love. They\'re more like economic disasters."', 'Sky: "Two weddings, one month... I\'m starting to understand why the treasury always complains about royal families." Devon: "You\'re only understanding now?"'], rw:{xp:465800, gold:95460}, needFlag:'inv_hz464a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz464c', kind:'investigate', n:'Defeated by Wedding Expenses', icon:'🍶', ch:464, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'sally'],
+   desc:'Levi\'s lament.',
+   clues:['Levi: "We survived dangerous demons, cursed isles, and mad cults... only to be defeated by wedding expenses." Roc: "We\'ve paid for worse mistakes." Delilah: "Worth it."', 'Levi: "Next time, can we just send a group red envelope and call it a day?" Devon: "You say that now. Wait until your own wedding, Levi." Sky: "I\'ll be eloping. Much cheaper."'], rw:{xp:466100, gold:95520}, needFlag:'inv_hz464b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz464d', kind:'investigate', n:'That\'s a Good Ending', icon:'🌙', ch:464, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'sally'],
+   desc:'They have earned this.',
+   clues:['A servant: "More gifts from the southern provinces, My Lord. And these are from the merchant guilds. Please put them here with the rest." Delilah: "I\'m amazed so many people came. It really feels like a new beginning for you both."', 'Jade: "I\'m genuinely happy for them. After everything, seeing them here together feels... right." Sera: "Yes. They\'ve earned this." Sally: "And we get to celebrate it as friends. That\'s a good ending."'], rw:{xp:466400, gold:95580}, needFlag:'inv_hz464c', lockMsg:'🔒 Finish the previous clue first'},
+);
+MISSIONS.push(
+  {id:'m_s462', needCh:462, title:'The Morning Before', obj:{type:'steps', steps:[
+     {label:'Quieter, Lighter', spot:'hz462a'},
+     {label:'Another Red Packet', spot:'hz462b'},
+     {label:'Roc Can Wait', spot:'hz462c'},
+     {label:'Why Does Helping Her Matter', spot:'hz462d'}]}, rw:{xp:1102500, gold:244400, rep:2027},
+   subj:'The Morning Before', body:'The story is not finished. — Jade'},
+  {id:'m_s463', needCh:463, title:'The Wedding of Roc and Delilah', obj:{type:'steps', steps:[
+     {label:'Choosing Each Other Again', spot:'hz463a'},
+     {label:'Their Greatest Gift', spot:'hz463b'},
+     {label:'I Take Your Hand', spot:'hz463c'},
+     {label:'A Family Built on Love', spot:'hz463d'}]}, rw:{xp:1105000, gold:245000, rep:2030},
+   subj:'The Wedding of Roc and Delilah', body:'The story is not finished. — Jade'},
+  {id:'m_s464', needCh:464, title:'Another Red Envelope', obj:{type:'steps', steps:[
+     {label:'Far Too Many Red Envelopes', spot:'hz464a'},
+     {label:'Economic Disasters', spot:'hz464b'},
+     {label:'Defeated by Wedding Expenses', spot:'hz464c'},
+     {label:'That\'s a Good Ending', spot:'hz464d'}]}, rw:{xp:1107500, gold:245600, rep:2033},
+   subj:'Another Red Envelope', body:'The story is not finished. — Jade'}
+);
+LORE.push(
+  {ch:462, n:'The Morning Before', t:'On the morning of Roc and Delilah\'s wedding the party woke in three households and joked about the weddings and their purses. On a sunlit terrace Sky wondered why helping Jenika mattered so much to him, and Sera said neither of them would say what they meant. A servant announced that it was time to prepare.'},
+  {ch:463, n:'The Wedding of Roc and Delilah', t:'Roc and Delilah married, not as a prince and princess but as two people who had survived their past and chose each other again, with their daughter Liora beside them. Jade, Devon and the party stood with full hearts.'},
+  {ch:464, n:'Another Red Envelope', t:'At the reception the party laughed about two weddings in a month: red envelopes, emptied purses and the treasury. Levi said they were defeated by wedding expenses, and Jade, Sera and Sally agreed that Roc and Delilah had earned this.'}
+);
