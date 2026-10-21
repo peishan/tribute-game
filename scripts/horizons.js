@@ -4738,3 +4738,30 @@ LORE.push(
   {ch:490, n:'When the Road Calls Again', t:'The holiday ended. Jade opened the letter she had left unopened, Sky arranged to carry the Valen research, Roc and Delilah saw them off, and Sera rejoined the party while Sally stayed available as a recurring travelling ally. This time they had actually had a holiday; now the road called again, and they went with Jade.'},
   {ch:492, n:'I\'m Coming With You', t:'Aster insisted on joining the next journey through the Empire\'s border territories (Westreach, the Riverlands and the northern trade routes), wanting to see the land and its people instead of knowing them only from reports. Jade agreed on condition that he follow her lead and the same rules as everyone else: a working journey, not a leisure trip.'}
 );
+
+/* ---- Arc XX, chapter 493 ---- */
+LOCATIONS.capital.spots.push(
+  {id:'hz493a', kind:'investigate', n:'A Temporary Guest Unit', icon:'🗺️', ch:493, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sally', 'sky'],
+   desc:'Aster asks.',
+   clues:['With the border investigation ahead, the group prepares to depart for new territories. Aster requests to join them as a temporary guest unit. Jade: "Are you certain about this, Aster? This journey is not a leisure trip. It will be long, harsh, and dangerous."', 'Aster: "I am certain. I want to see the world with my own eyes. I don\'t want to inherit a throne knowing only what I read in reports."'], rw:{xp:529100, gold:108120}},
+  {id:'hz493b', kind:'investigate', n:'My Responsibility', icon:'📜', ch:493, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sally', 'sky'],
+   desc:'Jade accepts.',
+   clues:['Devon: "I support Aster\'s decision. A future ruler should experience the realities of the people and the land for himself." Jade: "...Very well. You may join us as a temporary guest unit. But understand this: I will be responsible for your field training from now on."', 'Aster: "Yes. I\'m ready to learn. Please, teach me."'], rw:{xp:529400, gold:108180}, needFlag:'inv_hz493a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz493c', kind:'investigate', n:'Not a Royal Tour', icon:'⚠️', ch:493, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sally', 'sky'],
+   desc:'No special treatment.',
+   clues:['Jade: "Listen carefully, Aster. This is not a royal tour. You will follow orders, observe, ask questions, and do the work when asked. You will travel, train, and experience real field conditions. No special treatment."', 'Sky: "We\'ll make sure you learn proper survival skills too." Levi: "Field work isn\'t easy. But it will teach you more than any book in the palace." Sally: "I\'m glad you\'re joining us, Aster. It will be interesting to see the world through your eyes."'], rw:{xp:529700, gold:108240}, needFlag:'inv_hz493b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz493d', kind:'investigate', n:'We\'re a Team, as Always', icon:'🌅', ch:493, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sally', 'sky'],
+   desc:'Six people set out.',
+   clues:['Jade: "You\'re joining as my responsibility, Aster. I expect you to take this seriously. Prove that you\'re here to learn, not to cause trouble." Aster: "I will." Levi: "Aster, you\'ll train with us, join in scouting, and learn how we plan and move."', 'Sally: "And just to be clear, I\'m still very much part of the group. Aster is joining us as a temporary guest. We\'re a team, as always." With new preparations, a new companion, and new lessons ahead, the party sets out once more. Six people, new roads, and a different kind of journey, one that will shape them all.'], rw:{xp:530000, gold:108300}, needFlag:'inv_hz493c', lockMsg:'🔒 Finish the previous clue first'},
+);
+MISSIONS.push(
+  {id:'m_s493', needCh:493, title:'Crown Prince, Temporary Party Member', obj:{type:'steps', steps:[
+     {label:'A Temporary Guest Unit', spot:'hz493a'},
+     {label:'My Responsibility', spot:'hz493b'},
+     {label:'Not a Royal Tour', spot:'hz493c'},
+     {label:'We\'re a Team, as Always', spot:'hz493d'}]}, rw:{xp:1180000, gold:263000, rep:2120},
+   subj:'Crown Prince, Temporary Party Member', body:'The story is not finished. — Jade'}
+);
+LORE.push(
+  {ch:493, n:'Crown Prince, Temporary Party Member', t:'Aster joined the border investigation as a temporary guest unit. Jade took responsibility for his field training and told him he would follow orders with no special treatment, while Sky, Levi and Sally welcomed him. Six people set out on a different kind of journey.'}
+);
