@@ -25,7 +25,7 @@ CHARACTERS.aster = {
    {id:'prince_decides',n:'The Prince Decides',icon:'⚜️',mp:16,kind:'support',tgt:'ally',fx:[{k:'extraTurn'}],once:true,req:{ch:510},desc:'Once per battle: one chosen ally acts again at half MP cost. He knows who should act, and when.'},
   ], evo:{tiers:[]}, bond:null };
 ROSTER.push('aster'); XP_CLASS.aster = 'fighter';
-GUEST_RULES.aster = {flag:'aster_temporary_guest', fromCh:493, sync:true, when:() => !G.flags.aster_guest_ends, note:'Prince Aster travels with the Crimson Guard as a temporary guest: he fights beside the five and does not take a seat.'};
+GUEST_RULES.aster = {flag:'aster_temporary_guest', fromCh:493, untilCh:516, sync:true, when:() => !G.flags.aster_guest_ends, note:'Prince Aster travels with the Crimson Guard as a temporary guest: he fights beside the five and does not take a seat.'};
 const asterHere = () => !!G && typeof presentGuests==='function' && presentGuests().includes('aster') && !isDisabled('aster');
 /* ---- battle hooks ---- */
 function asterInBattle(){ return !!(typeof B!=='undefined' && B && B.allies && B.allies.some(a => a.id==='aster' && !a.dead)); }
