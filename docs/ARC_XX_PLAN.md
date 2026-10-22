@@ -21,3 +21,14 @@ Tarin: Trail Strike, Quickstep, Mark the Path, Flanking Cut (x1.4 vs weakened/ma
 **Border Accord** (Aster, ch510, once; needs all four guests): enemy fully revealed and its ATK, DEF, SPD down; party DEF and SPD up; Tarin follows up for free.
 New battle effects: dispel, revealAll, counter, noFall, accord; skills may have `hits`, `vsDebuffed`, `lowHp`, `needAllies`.
 **Portraits:** Fen uses Yulan Fen's NPC portrait; **Elise and Tarin have placeholder portraits (a letter on a dark panel) until real ones arrive.**
+
+## Revised Arc XX brief — "THE CROWN AND THE BORDER" (chapters 491-515)
+491 The Message We Finally Opened; 492 I'm Coming With You; 493 Crown Prince, Temporary Party Member; 494 Court Training Is Not This; 495 Sister-in-Law's Rules (page title "Sister in Law's Rules"); 496 Lady Elise Valen; 497 The Frontier Is People; 498 Lady Yulan Fen's Records; 499 Scholar and Frontier Lady; 500 The Prince Who Likes the Scholar; 501 The Man Elise Never Forgot; 502 The Valen Question; 503 The Road of Regret; 504 One of the Fifteen; 505 What Aster Would Choose; 506 The Woman at the Border; 507 Rumours Travel Farther Than Armies; 508 Tarin Ash; 509 The Evil That Offers Yesterday; 510 No Second Life (boss); 511 What the Border Needs; 512 Aster's Report; 513 The Marriage Question; 514 Before We Agree; 515 The Crown and the Border.
+Relationships: Aster x Elise is a political marriage (friendship and partnership; no consummation, no children, separate rooms); Aster x Fen is his true love; Elise x Tarin Ash is her true love; Elise <-> Sky is a possible distant Valen link, unresolved. At 515 Aster asks Jade to bring him on another mission.
+
+**Tally against the built game**
+- Elise, Fen and Tarin are **not combat companions** in the new brief. Their combat kits are switched off (`ARC20_COMBAT_GUESTS = false` in arc20guests.js; `enableArc20CombatGuests()` turns them back on, including Border Accord). Aster stays a temporary guest with his own kit.
+- Non-combat roles still to build once their chapters arrive: Elise as Dragonvale Border Ally and quest giver (Border Accord, Frontier Network, Logistics Command); Fen as research ally (Research Lead, Legal Precedent, Cross-Reference); Tarin as regional scout (Border Trail, after 508); journal category "Valen Lineage — Elise Branch" at 502; Sally showcase at 507.
+- Numbering: the brief says Elise is introduced in "368"; in the game the Border Lady is ch369 and ch368 is the Scholar's Daughter (page title cards run one off).
+- Built 496 calls Elise the finalist Aster chose (as ch385-386 show); the brief only says candidate.
+- Missing: 491, 504-515, 481 and the Arc XX cover. Elise and Tarin portraits are placeholders.
