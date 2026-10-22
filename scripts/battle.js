@@ -34,7 +34,7 @@ function evaOf(u){
   if(u.state && u.state.id==='manifest') m *= 1.3;
   return clamp((0.04 + eff(u,'spd')*0.003 + (u.evaB||0)) * m, 0, .6);
 }
-const mpCost = (u,s) => Math.round(s.mp * ((u.state && u.state.id==='awakened') ? .5 : 1));
+const mpCost = (u,s) => Math.round(s.mp * ((u.state && u.state.id==='awakened') ? .5 : 1) * (u.discount ? .5 : 1));
 
 /* ---------- log ---------- */
 function blog(t, cls){ B.log.push({t, cls:cls||''}); if(B.log.length>60) B.log.shift(); }
@@ -93,6 +93,7 @@ function advance(){
     if(u.st.burn){ const d = Math.max(1, Math.round(u.mhp*.06)); hurt(u,d,true); blog(u.name+' burns for '+d+'.','bad'); if(u.dead){ continue; } }
     if(u.st.regen){ const h = Math.round(u.mhp*u.st.regen.v); u.hp = Math.min(u.mhp, u.hp+h); blog(u.name+' regenerates '+h+'.','good'); }
     if(u.ally && typeof growthCheck==='function') growthCheck(u);
+    if(u.ally && u.id==='aster' && typeof asterResponsibility==='function') asterResponsibility(u);
     if(u.st.bind || u.st.charm){ blog(u.name+(u.st.bind?' is bound and cannot move.':' is charmed and loses the turn.')); endTurn(u); continue; }
     if(u.ally && isCompanion(u.id)){ companionAct(u); endTurn(u); continue; }   // companions act by themselves
     if(u.ally){ B.ui = {mode:'menu'}; return; }   // wait for the player
@@ -101,7 +102,7 @@ function advance(){
 }
 function endTurn(u){
   ['burn','slow','bind','charm','silence','crit'].forEach(k => { if(u.st[k] && --u.st[k].d <= 0) delete u.st[k]; });
-  ['shield','regen','oath','cover'].forEach(k => { if(u.st[k] && --u.st[k].d <= 0) delete u.st[k]; });
+  ['shield','regen','oath','cover','ward','mark','resolve'].forEach(k => { if(u.st[k] && --u.st[k].d <= 0) delete u.st[k]; });
   u.bf = u.bf.filter(b => --b.d > 0);
   if(u.state && --u.state.d <= 0){ blog(u.name+'\'s '+(u.state.id==='awakened'?'Awakening':'Manifestation')+' fades.'); u.state = null; }
   u.guard = false;
@@ -148,6 +149,7 @@ function checkPhase(t){
 function hurt(t, d, ignoreShield){
   if(!ignoreShield && t.st.shield){ const a = Math.min(t.st.shield.v, d); t.st.shield.v -= a; d -= a; if(a>0) blog('  (barrier absorbs '+a+')'); if(t.st.shield.v<=0) delete t.st.shield; }
   if(t.guard) d = Math.round(d*.5);
+  if(t.st.ward) d = Math.max(1, Math.round(d*(1-t.st.ward.v)));   // Hold Formation
   t.hp = Math.max(0, t.hp - d);
   if(t.hp>0) checkPhase(t);
   if(t.hp<=0){ t.dead = true; if(t.traits && t.traits.includes('corrupt')) blog(t.name+' is freed from the corruption and collapses, alive.','good'); else blog(t.name+' falls!','bad'); }
@@ -163,6 +165,7 @@ function strike(src, tgt, s, opts){
   let d = Math.max(1, Math.round(raw));
   if(B.seal && src.ally){ const md = B.seal.mode; if(src.id==='jade') d = Math.round(d*(md==='jade'?1.25:.8)); if(src.id==='devon') d = Math.round(d*(md==='devon'?1.3:.85)); }
   if(s.antiMagic && tgt.traits.includes('magic')) d = Math.round(d*s.antiMagic);
+  if(tgt.st.mark) d = Math.round(d*(1+tgt.st.mark.v));   // Field Judgment
   if(s.vsCorrupt && tgt.traits.includes('corrupt')) d = Math.round(d*s.vsCorrupt);
   if(tgt.onlyBy && src.id!==tgt.onlyBy) d = Math.max(1, Math.round(d*(tgt.offMult||.2)));   // e.g. the Shadow Crown only truly yields to Roc's own blade
   let crit = false;
@@ -183,6 +186,7 @@ function strike(src, tgt, s, opts){
 function applyFx(src, tgt, fx){
   switch(fx.k){
     case 'burn': case 'slow': case 'bind': case 'charm': case 'silence':
+      if(tgt.ally && ['bind','charm','silence'].includes(fx.k) && (tgt.st.resolve || (typeof asterInBattle==='function' && asterInBattle() && Math.random() < .25))){ blog('  '+tgt.name+' shrugs it off.','good'); return; }   // Crown's Resolve / Crown Prince's Presence
       if(tgt.boss && (fx.k==='bind'||fx.k==='charm') && Math.random()<.5){ blog('  '+tgt.name+' resists!'); return; }
       tgt.st[fx.k] = {d:fx.d||2}; blog('  '+tgt.name+' is '+({burn:'burning',slow:'slowed',bind:'bound',charm:'charmed',silence:'silenced'})[fx.k]+'.'); break;
     case 'buff': tgt.bf.push({stat:fx.stat,m:fx.m,d:(fx.d||3)+1}); blog('  '+tgt.name+' '+fx.stat.toUpperCase()+(fx.m>=1?' up':' down')+'.'); break;
@@ -193,6 +197,12 @@ function applyFx(src, tgt, fx){
     case 'oath': tgt.st.oath = {d:(fx.d||3)+1}; blog('  '+tgt.name+' swears to stand between the party and harm: foes will target '+tgt.name+' and are struck back.','good'); break;
     case 'regen': tgt.st.regen = {v:fx.v, d:(fx.d||3)+1}; break;
     case 'crit': tgt.st.crit = {d:(fx.d||2)+1}; blog('  '+tgt.name+' sees the openings (crits).'); break;
+    case 'ward': tgt.st.ward = {v:fx.v||.3, d:(fx.d||1)+1}; blog('  '+tgt.name+' is shielded by the formation.','good'); break;
+    case 'mark': tgt.st.mark = {v:fx.v||.25, d:(fx.d||2)+1}; blog('  '+tgt.name+' is marked: the party strikes it harder.','good'); break;
+    case 'resolve': tgt.st.resolve = {d:(fx.d||3)+1}; blog('  '+tgt.name+' steels itself against illusion, fear and charm.','good'); break;
+    case 'advance': { const i = B.queue.indexOf(tgt); if(i>0){ B.queue.splice(i,1); B.queue.unshift(tgt); blog('  '+tgt.name+' will act next.','good'); } break; }
+    case 'extraTurn': { if(!tgt.dead){ B.queue.unshift(tgt); tgt.discount = true; blog('  '+tgt.name+' acts again at half cost!','good'); } break; }
+    case 'foeAtkDown': { const f = alive(B.foes).find(x => x.st.mark) || alive(B.foes)[0]; if(f){ f.bf.push({stat:'atk', m:fx.m||.8, d:(fx.d||3)+1}); blog('  '+f.name+' ATK down.','good'); } break; }
     case 'cleanse': ['burn','slow','bind','charm','silence'].forEach(k => delete tgt.st[k]); blog('  '+tgt.name+' is cleansed.'); break;
     case 'analyze': { const f = tgt.ally ? alive(B.foes)[0] : tgt; if(f){ f.known = true; blog('  Analysed '+f.name+': HP '+f.hp+'/'+f.mhp+', DEF '+f.def+(f.traits.includes('magic')?', magical':'')+'.'); } break; }
     case 'disengage': {   // Tactical Retreat: try to break off the fight (never in a story battle or against a boss)
@@ -238,6 +248,7 @@ function playerAct(kind, sid, tuid){
   u.mp -= (s.cost!==undefined ? s.cost : s.mp);
   if(s.once) u.used[s.id] = true;
   resolve(u, s, t);
+  u.discount = false;
   endTurn(u);
   advance();
 }

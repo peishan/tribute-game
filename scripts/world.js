@@ -3319,10 +3319,11 @@ function doGather(spotId){
 }
 function doInvestigate(spotId){
   const sp = spotById(spotId); if((G.clues[spotId]||0) >= sp.need) return;
-  const ins = typeof takeInsight==='function' && takeInsight(), sen = typeof takeSense==='function' && takeSense(); const rum = typeof takeRumour==='function' && takeRumour();
+  const ins = typeof takeInsight==='function' && takeInsight(), sen = typeof takeSense==='function' && takeSense(); const rum = typeof takeRumour==='function' && takeRumour(); const aut = typeof takeAuthority==='function' && takeAuthority();
   const found = () => {
-    const prevN = G.clues[spotId]||0, n = G.clues[spotId] = Math.min(sp.need, prevN+1+(rum && prevN+1 < sp.need ? 1 : 0)), msgs = ['🔎 Clue '+n+'/'+sp.need+': '+(sp.clues[n-1]||sp.clues[sp.clues.length-1])];
+    const prevN = G.clues[spotId]||0, n = G.clues[spotId] = Math.min(sp.need, prevN+1+(rum && prevN+1 < sp.need ? 1 : 0)+(aut && prevN+1+(rum?1:0) < sp.need ? 1 : 0)), msgs = ['🔎 Clue '+n+'/'+sp.need+': '+(sp.clues[n-1]||sp.clues[sp.clues.length-1])];
     if(rum && n >= 2 && n - prevN === 2) msgs.unshift('🔎 Clue '+(n-1)+'/'+sp.need+': '+(sp.clues[n-2]||sp.clues[sp.clues.length-1]));
+    if(aut) authorityResult().forEach(m => msgs.push(m));
     if(rum) msgs.push('🌹 Sally\'s Rumour Network turns up one clue more than the search alone would.');
     { const me = typeof musiciansEar==='function' && musiciansEar(); if(me){ gainXp(me, G.party).forEach(m => msgs.push(m)); msgs.push('🎼 Sally\'s ear catches the false note in what was said (bonus XP).'); } }
     if(ins) msgs.push('⚔️ Jade\'s Insight finds a hidden path: no time lost.');
