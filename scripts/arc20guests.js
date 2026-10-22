@@ -88,8 +88,8 @@ const arc20Notes = (src, fx) => (src && src.id==='fen' && fx && fx.d && ['buff',
   };
 })();
 /* ---- exploration passives: Tarin's Pathfinder (fewer ambushes) and Old Trails (a minor encounter in a border zone may be skipped) ---- */
-const tarinEdge = () => arc20Here('tarin');
-const tarinSkips = () => arc20Here('tarin') && (G.loc==='border_frontier' || (LOCATIONS[G.loc] && LOCATIONS[G.loc].region==='tribute' && outdoorHere())) && Math.random() < .3;
+let tarinEdge = () => arc20Here('tarin');
+let tarinSkips = () => arc20Here('tarin') && (G.loc==='border_frontier' || (LOCATIONS[G.loc] && LOCATIONS[G.loc].region==='tribute' && outdoorHere())) && Math.random() < .3;
 /* ---- Border Accord: Aster's boss combo, needs all four guests ---- */
 function enableArc20CombatGuests(){
   ARC20_COMBAT_GUESTS = true;

@@ -5189,3 +5189,11 @@ LORE.push(
   {ch:513, n:'The Marriage Question', t:'After the border crisis the court proposed a marriage between Crown Prince Aster and Lady Elise to bind the court and the border. Both understood the political logic, and both admitted their hearts were elsewhere: Aster with Fen, Elise with Tarin Ash. A useful match is not the same as a willing heart.'},
   {ch:514, n:'Before We Agree', t:'Aster and Elise met privately and were honest: she loves Tarin, he loves Fen. With Fen, Tarin and Devon\'s support, they agreed to accept the marriage for the sake of the border as allies, friends and partners, not a claim over each other\'s hearts, each free to love who they truly love.'}
 );
+
+/* ---- Valen Lineage, Elise Branch (journal category, from ch502) ---- */
+LORE.push(
+  {ch:502, cat:'Valen Lineage — Elise Branch', n:'The Western Frontier Line', t:'Elise Valen belongs to the Valen branch that has served on the western frontier for generations. Many of its members rarely return to the central court.'},
+  {ch:502, cat:'Valen Lineage — Elise Branch', n:'A Distant Shared Ancestor', t:'Old records suggest Elise\'s branch and Sky\'s mother\'s southern branch may share an ancestor many generations back. The records are too old and incomplete to be certain, and it does not make them close cousins.'},
+  {ch:502, cat:'Valen Lineage — Elise Branch', n:'Why the Branches Split', t:'The Valen family divided into several branches over generations through political marriages, frontier postings and regional duties, and the branches have long been separate.'},
+  {ch:502, cat:'Valen Lineage — Elise Branch', n:'Looking Deeper', t:'Elise offered to search the frontier archives with Sky. A starting point, not an answer: the connection is unresolved.'}
+);

@@ -117,7 +117,9 @@ function rSpot(L, sp){
         <button class="pri" onclick="act(doPractice)">Sword practice (1 day)</button><button onclick="showTab('training')">Sparring ring (sandbox battles)</button></div>`; break; }
     case 'vows': body = rVows(); break;
     case 'archive': {
-      const rows = LORE.filter(e => G.ch >= e.ch && (!e.party || isRecruited(e.party))).map(e=>`<div class="li"><b>${e.n}</b><div class="sm">${e.t}</div></div>`).join('');
+      const open = LORE.filter(e => G.ch >= e.ch && (!e.party || isRecruited(e.party))), li = e => `<div class="li"><b>${e.n}</b><div class="sm">${e.t}</div></div>`;
+      const cats = [...new Set(open.filter(e => e.cat).map(e => e.cat))];
+      const rows = open.filter(e => !e.cat).map(li).join('') + cats.map(c => `<h4>${c}</h4>` + open.filter(e => e.cat === c).map(li).join('')).join('');
       body = `<div class="panel">${rows}</div><div class="sm">Draft entries — more unlock with the story. The Bestiary is a separate tab.</div>`; break; }
     case 'pavilion': {
       const rec = RECIPES.map(r => { const have = Object.keys(r.need).every(k => (G.inv[k]||0) >= r.need[k]), cost = Object.keys(r.need).map(k => ITEMS[k].icon+' '+ITEMS[k].n+' ×'+r.need[k]).join(', ');
