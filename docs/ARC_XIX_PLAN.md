@@ -32,3 +32,5 @@ Mismatches (kept as drawn): 483 has the typo "choose not to to"; 488's Evelyne i
 ## Chapter 493 (Arc XX) and party slots
 493 Crown Prince, Temporary Party Member is built (Aster joins as a temporary guest unit; Jade is responsible for his field training). **Art error flagged by the author: Sally's hair is drawn purple on this page** (it is dark brown elsewhere); the page is left as drawn. Not built: Aster as a fighting guest (he only has the court-ally panel, no combat kit): awaiting the author's design.
 **Party slots:** five active seats (`slotCap`) from ch102; Jade and Devon are fixed, the other three may be benched. Sera is optional (benched from ch436 but can take any free seat; tested). Companions and story guests fight in addition to the five.
+
+**Aster (author):** travels without fighting for now (no combat kit); a fighting-guest design can come later.
