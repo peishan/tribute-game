@@ -3339,7 +3339,7 @@ function doInvestigate(spotId){
     msgs.push.apply(msgs, advanceDay(ins ? 0 : 1)); save(); return msgs;
   };
   const magicOnly = sen && sp.ambush && sp.ambush.length && sp.ambush.every(k => (ENEMIES[k].traits||[]).includes('magic'));
-  if(sp.ambush && sp.ambush.length && !magicOnly && Math.random() < (ins ? .1 : (typeof eveEdge==='function' && eveEdge() ? .25 : .4))){
+  if(sp.ambush && sp.ambush.length && !magicOnly && Math.random() < (ins ? .1 : (typeof eveEdge==='function' && eveEdge() ? .25 : (typeof tarinEdge==='function' && tarinEdge() ? .22 : .4))) && !(typeof tarinSkips==='function' && tarinSkips())){
     startBattle({foes:foeGroup(sp.ambush, lvFor(sp), 2), rewards:true, onWin:found});
     return 'battle';
   }

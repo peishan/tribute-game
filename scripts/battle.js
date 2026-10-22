@@ -102,7 +102,7 @@ function advance(){
 }
 function endTurn(u){
   ['burn','slow','bind','charm','silence','crit'].forEach(k => { if(u.st[k] && --u.st[k].d <= 0) delete u.st[k]; });
-  ['shield','regen','oath','cover','ward','mark','resolve'].forEach(k => { if(u.st[k] && --u.st[k].d <= 0) delete u.st[k]; });
+  ['shield','regen','oath','cover','ward','mark','resolve','counter','noFall'].forEach(k => { if(u.st[k] && --u.st[k].d <= 0) delete u.st[k]; });
   u.bf = u.bf.filter(b => --b.d > 0);
   if(u.state && --u.state.d <= 0){ blog(u.name+'\'s '+(u.state.id==='awakened'?'Awakening':'Manifestation')+' fades.'); u.state = null; }
   u.guard = false;
@@ -150,6 +150,8 @@ function hurt(t, d, ignoreShield){
   if(!ignoreShield && t.st.shield){ const a = Math.min(t.st.shield.v, d); t.st.shield.v -= a; d -= a; if(a>0) blog('  (barrier absorbs '+a+')'); if(t.st.shield.v<=0) delete t.st.shield; }
   if(t.guard) d = Math.round(d*.5);
   if(t.st.ward) d = Math.max(1, Math.round(d*(1-t.st.ward.v)));   // Hold Formation
+  if(typeof arc20Reduce==='function') d = Math.max(1, Math.round(d*arc20Reduce(t)));   // Regional Experience
+  if(t.st.noFall && t.hp - d < 1){ d = Math.max(0, t.hp - 1); delete t.st.noFall; blog('  '+t.name+' holds on: no one is left behind.','good'); }
   t.hp = Math.max(0, t.hp - d);
   if(t.hp>0) checkPhase(t);
   if(t.hp<=0){ t.dead = true; if(t.traits && t.traits.includes('corrupt')) blog(t.name+' is freed from the corruption and collapses, alive.','good'); else blog(t.name+' falls!','bad'); }
@@ -166,6 +168,7 @@ function strike(src, tgt, s, opts){
   if(B.seal && src.ally){ const md = B.seal.mode; if(src.id==='jade') d = Math.round(d*(md==='jade'?1.25:.8)); if(src.id==='devon') d = Math.round(d*(md==='devon'?1.3:.85)); }
   if(s.antiMagic && tgt.traits.includes('magic')) d = Math.round(d*s.antiMagic);
   if(tgt.st.mark) d = Math.round(d*(1+tgt.st.mark.v));   // Field Judgment
+  if(s.vsDebuffed && (tgt.st.slow || tgt.st.bind || tgt.st.charm || tgt.st.silence || tgt.st.mark || tgt.bf.some(x => x.m < 1))) d = Math.round(d*s.vsDebuffed);   // Case Closed / Flanking Cut
   if(s.vsCorrupt && tgt.traits.includes('corrupt')) d = Math.round(d*s.vsCorrupt);
   if(tgt.onlyBy && src.id!==tgt.onlyBy) d = Math.max(1, Math.round(d*(tgt.offMult||.2)));   // e.g. the Shadow Crown only truly yields to Roc's own blade
   let crit = false;
@@ -179,11 +182,13 @@ function strike(src, tgt, s, opts){
   if(carly && !src.dead){ const cd = Math.max(1, Math.round(eff(tgt,'atk')*1.1 - eff(src,'def')*.3)); const got = hurt(src, cd, true); blog('  🗡️ Carly\'s hidden blade answers '+src.name+': '+got+'.','good'); }
   if(s.purify && tgt.dead && tgt.traits.includes('corrupt')){ tgt.xp = Math.round(tgt.xp*1.3); blog('  ✨ '+tgt.name+' is purified (+30% XP).','good'); }
   blog(src.name+' uses '+s.n+' on '+tgt.name+': '+dealt+(crit?' CRIT!':''), src.ally?'':'foe');
+  if(tgt.ally && tgt.st.counter && !src.ally && !src.dead && !tgt.dead && Math.random() < .35){ const cd = Math.max(1, Math.round(eff(tgt,'atk')*.9 - eff(src,'def')*.3)); const got = hurt(src, cd, true); blog('  '+tgt.name+' counterattacks '+src.name+': '+got+'.','good'); }
   return dealt;
 }
 
 /* ---------- effects ---------- */
 function applyFx(src, tgt, fx){
+  if(typeof arc20Notes==='function') fx = arc20Notes(src, fx);
   switch(fx.k){
     case 'burn': case 'slow': case 'bind': case 'charm': case 'silence':
       if(tgt.ally && ['bind','charm','silence'].includes(fx.k) && (tgt.st.resolve || (typeof asterInBattle==='function' && asterInBattle() && Math.random() < .25))){ blog('  '+tgt.name+' shrugs it off.','good'); return; }   // Crown's Resolve / Crown Prince's Presence
@@ -197,6 +202,17 @@ function applyFx(src, tgt, fx){
     case 'oath': tgt.st.oath = {d:(fx.d||3)+1}; blog('  '+tgt.name+' swears to stand between the party and harm: foes will target '+tgt.name+' and are struck back.','good'); break;
     case 'regen': tgt.st.regen = {v:fx.v, d:(fx.d||3)+1}; break;
     case 'crit': tgt.st.crit = {d:(fx.d||2)+1}; blog('  '+tgt.name+' sees the openings (crits).'); break;
+    case 'dispel': { const n0 = tgt.bf.length; tgt.bf = tgt.bf.filter(x => x.m < 1); if(tgt.bf.length < n0) blog('  '+tgt.name+' loses its beneficial effects.','good'); else blog('  '+tgt.name+' has nothing to strip.'); break; }
+    case 'revealAll': alive(B.foes).forEach(f => { f.known = true; }); blog('  Every enemy is laid bare: statuses and hidden traits revealed.','good'); break;
+    case 'counter': tgt.st.counter = {d:(fx.d||3)+1}; blog('  '+tgt.name+' is ready to counterattack.','good'); break;
+    case 'noFall': tgt.st.noFall = {d:(fx.d||3)+1}; blog('  '+tgt.name+' will not fall: no one is left behind.','good'); break;
+    case 'accord': {
+      alive(B.foes).forEach(f => { f.known = true; [['atk',.8],['def',.8],['spd',.8]].forEach(([s,m]) => f.bf.push({stat:s, m, d:4})); });
+      alive(B.allies).forEach(a => { a.bf.push({stat:'def', m:1.25, d:4}); a.bf.push({stat:'spd', m:1.2, d:4}); });
+      blog('  🪢 Border Accord: the enemy is laid bare and weakened; the party stands firm and fast.','good');
+      const tr = B.allies.find(x => x.id==='tarin' && !x.dead), tg = alive(B.foes).slice().sort((p,q) => p.hp-q.hp)[0];
+      if(tr && tg) strike(tr, tg, {n:'Border Ghost (Accord follow-up)', kind:'phys', pow:1.8}, {noEvade:true});
+      break; }
     case 'ward': tgt.st.ward = {v:fx.v||.3, d:(fx.d||1)+1}; blog('  '+tgt.name+' is shielded by the formation.','good'); break;
     case 'mark': tgt.st.mark = {v:fx.v||.25, d:(fx.d||2)+1}; blog('  '+tgt.name+' is marked: the party strikes it harder.','good'); break;
     case 'resolve': tgt.st.resolve = {d:(fx.d||3)+1}; blog('  '+tgt.name+' steels itself against illusion, fear and charm.','good'); break;
@@ -224,8 +240,9 @@ function skillList(u){
   skillsOf(u.id).forEach(s => { if(s.ok){
     const noJade = s.pair && !B.allies.some(a => a.id==='jade' && !a.dead && a.id!==u.id);
     const cost = mpCost(u,s);
-    list.push(Object.assign({}, s, { cost, usable: u.mp>=cost && !(s.once && u.used[s.id]) && !noJade,
-      note: noJade ? 'needs Jade' : (s.once && u.used[s.id]) ? 'used' : u.mp<cost ? 'low MP' : '' }));
+    const gated = (s.lowHp && u.hp >= u.mhp*.4) || (s.needAllies && !s.needAllies.every(id => B.allies.some(x => x.id===id && !x.dead)));
+    list.push(Object.assign({}, s, { cost, usable: u.mp>=cost && !(s.once && u.used[s.id]) && !noJade && !gated,
+      note: noJade ? 'needs Jade' : (s.lowHp && u.hp >= u.mhp*.4) ? 'below 40% HP only' : (s.needAllies && !s.needAllies.every(id => B.allies.some(x => x.id===id && !x.dead))) ? 'needs the four guests' : (s.once && u.used[s.id]) ? 'used' : u.mp<cost ? 'low MP' : '' }));
   }});
   return list;
 }
@@ -286,7 +303,7 @@ function resolve(u, s, t){
   else if(s.tgt==='allies') alliesHit = alive(B.allies);
   else if(s.tgt==='self') alliesHit = [u];
   if(hit){
-    foesHit.forEach((f,i) => { strike(u, f, s, {decay:Math.pow(.8,i)}); });
+    foesHit.forEach((f,i) => { for(let n = 0; n < (s.hits||1); n++){ if(!f.dead) strike(u, f, s, {decay:Math.pow(.8,i)}); } });
   } else if(s.kind==='heal'){
     alliesHit.forEach(a => { if(a.dead && !(s.fx||[]).some(f=>f.k==='revive')) return;
       const h = Math.round((eff(u,'mag')*(s.pow||1)*1.2 + a.mhp*.05) * (0.95+Math.random()*.1) * (B.corr ? corrHealMult(G.loc) : 1) * (u.id==='sky' && typeof skyHealMult==='function' ? skyHealMult() : 1));
@@ -298,7 +315,7 @@ function resolve(u, s, t){
     if(FOE_FX.includes(fx.k)){
       (fx.all ? alive(B.foes) : foesHit.filter(f=>!f.dead)).forEach(f => applyFx(u, f, fx));
     } else if(fx.k==='analyze'){ applyFx(u, foesHit[0]||u, fx); }
-    else (fx.self ? [u] : foesHit.length ? foesHit.filter(f=>!f.dead) : alliesHit).forEach(x => applyFx(u, x, fx));
+    else (fx.allies ? alive(B.allies) : fx.self ? [u] : foesHit.length ? foesHit.filter(f=>!f.dead) : alliesHit).forEach(x => applyFx(u, x, fx));
   });
 }
 
