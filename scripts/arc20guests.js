@@ -4,6 +4,8 @@
    Presence: Elise from ch496 (flag elise_valen_rejoins), Fen from ch498 (fen_finds_altered_records), Tarin only once the story sets the flag tarin_joins (he has not
    joined yet). Each leaves when the story sets <id>_guest_ends. Portraits: Fen uses Yulan Fen's NPC portrait; Elise and Tarin are placeholders until portraits arrive.
    Border Accord (Aster's boss combo, ch510): needs Aster, Elise, Fen and Tarin together. All numbers first-pass.
+   SWITCHED OFF (author's later brief): Elise, Fen and Tarin are NOT combat companions: Elise becomes a Dragonvale border ally and quest giver, Fen a research ally and Tarin a
+   regional scout/contact (non-combat). The kits below stay as data; call enableArc20CombatGuests() to bring them back.
    ===================================================================== */
 CHARACTERS.elise = {
   n:'Elise Valen', icon:'🦌', cls:'Frontier Commander', role:'Defensive support / battlefield control / logistics (Arc XX guest)', combat:'Frontier control and logistics', guestOnly:true,
@@ -54,9 +56,10 @@ CHARACTERS.tarin = {
    {id:'border_ghost',n:'Border Ghost',icon:'👻',mp:13,kind:'phys',tgt:'foe',pow:.8,hits:3,fx:[{k:'buff',stat:'eva',m:1.3,d:1,allies:true}],req:{lvl:8},sig:true,desc:'SIGNATURE. Three rapid strikes, then the party is harder to hit for a turn.'},
   ], evo:{tiers:[]}, bond:null };
 ROSTER.push('elise','fen','tarin'); XP_CLASS.elise = 'fighter'; XP_CLASS.fen = 'scholar'; XP_CLASS.tarin = 'ranger';
-GUEST_RULES.elise = {flag:'elise_valen_rejoins', fromCh:496, sync:true, when:() => !G.flags.elise_guest_ends, note:'Lady Elise Valen, the frontier commander, fights beside the party while she travels with the Crimson Guard.'};
-GUEST_RULES.fen = {flag:'fen_finds_altered_records', fromCh:498, sync:true, when:() => !G.flags.fen_guest_ends, note:'Lady Yulan Fen fights beside the party as its scholar strategist while the frontier investigation lasts.'};
-GUEST_RULES.tarin = {flag:'tarin_joins', sync:true, when:() => !G.flags.tarin_guest_ends, note:'Tarin Ash, the frontier scout, fights beside the party once he joins.'};
+let ARC20_COMBAT_GUESTS = false;
+GUEST_RULES.elise = {flag:'elise_valen_rejoins', fromCh:496, sync:true, when:() => ARC20_COMBAT_GUESTS && !G.flags.elise_guest_ends, note:'Lady Elise Valen, the frontier commander, fights beside the party while she travels with the Crimson Guard.'};
+GUEST_RULES.fen = {flag:'fen_finds_altered_records', fromCh:498, sync:true, when:() => ARC20_COMBAT_GUESTS && !G.flags.fen_guest_ends, note:'Lady Yulan Fen fights beside the party as its scholar strategist while the frontier investigation lasts.'};
+GUEST_RULES.tarin = {flag:'tarin_joins', sync:true, when:() => ARC20_COMBAT_GUESTS && !G.flags.tarin_guest_ends, note:'Tarin Ash, the frontier scout, fights beside the party once he joins.'};
 const guestIn = id => !!(typeof B!=='undefined' && B && B.allies && B.allies.some(a => a.id===id && !a.dead));
 const arc20Here = id => !!G && typeof presentGuests==='function' && presentGuests().includes(id) && !isDisabled(id);
 const outdoorHere = () => { const l = LOCATIONS[G.loc]; return !!l && (l.kind==='field' || l.kind==='wild' || G.loc==='border_frontier' || G.loc==='tribute_wilderness'); };
@@ -88,4 +91,7 @@ const arc20Notes = (src, fx) => (src && src.id==='fen' && fx && fx.d && ['buff',
 const tarinEdge = () => arc20Here('tarin');
 const tarinSkips = () => arc20Here('tarin') && (G.loc==='border_frontier' || (LOCATIONS[G.loc] && LOCATIONS[G.loc].region==='tribute' && outdoorHere())) && Math.random() < .3;
 /* ---- Border Accord: Aster's boss combo, needs all four guests ---- */
-CHARACTERS.aster.skills.push({id:'border_accord',n:'Border Accord',icon:'🪢',mp:20,kind:'support',tgt:'self',fx:[{k:'accord'}],once:true,needAllies:['aster','elise','fen','tarin'],req:{ch:510},desc:'The four guests act as one: the enemy is fully revealed and its ATK, DEF and SPD fall, the party\'s DEF and SPD rise, and Tarin strikes for free. Needs Aster, Elise, Fen and Tarin together.'});
+function enableArc20CombatGuests(){
+  ARC20_COMBAT_GUESTS = true;
+  if(!CHARACTERS.aster.skills.some(s => s.id==='border_accord')) CHARACTERS.aster.skills.push({id:'border_accord',n:'Border Accord',icon:'🪢',mp:20,kind:'support',tgt:'self',fx:[{k:'accord'}],once:true,needAllies:['aster','elise','fen','tarin'],req:{ch:510},desc:'The four guests act as one: the enemy is fully revealed and its ATK, DEF and SPD fall, the party\'s DEF and SPD rise, and Tarin strikes for free. Needs Aster, Elise, Fen and Tarin together.'});
+}
