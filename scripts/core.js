@@ -146,6 +146,7 @@ function passivesOf(id){
 function reqText(r){
   if(!r) return '';
   if(r.lvl) return 'Level '+r.lvl;
+  if(r.ch) return 'Story: chapter '+r.ch;
   if(r.bond) return 'Bond '+r.bond+' with Jade';   // (Jade: average companion bond)
   if(r.flag) return r.flag==='jade_awakened' ? 'Story: Jade\'s partial awakening (chapter 42)' : (r.flag==='sky_train_2'||r.flag==='sky_train_3') ? 'Training: Sky\'s apprenticeship with the Ghost Healer' : r.flag==='roc_reborn' ? 'Story: purify Roc (the Fallen Prince\'s Trial)' : r.flag==='dv_purify' ? 'Story: the border unrest (chapter 75)' : r.flag==='partner_actions' ? 'Story: the border unrest (chapter 75)' : r.flag==='jade_dragon_harmony' ? 'Story: Jade and Devon become husband and wife in truth (chapter 103)' : r.flag==='levi_reborn' ? 'Story: Levi returns reborn (chapter 87)' : r.flag==='chad_dark_arts' ? 'Story: Roc begins to learn the dark arts (chapter 63)' : r.flag==='chad_dark_deep' ? 'Story: Roc\'s dark arts deepen (chapter 67)' : r.flag==='sally_noble' ? 'Story: Sally\'s noble title (chapter 51)' : r.flag==='cleansing_touch' ? 'Story: Jade\'s restoring power (chapter 38)' : r.flag==='greyson_arms' ? 'Not usable until the major battle (chapter TBD)' : 'Story: '+r.flag;
   return '';
@@ -153,6 +154,7 @@ function reqText(r){
 function reqMet(id, r){
   if(!r) return true;
   if(r.lvl && U(id).lv < r.lvl) return false;
+  if(r.ch && G.ch < r.ch) return false;
   if(r.bond && bondLevel(id) < r.bond) return false;
   if(r.flag && !G.flags[r.flag]) return false;
   return true;
