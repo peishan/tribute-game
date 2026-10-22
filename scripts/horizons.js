@@ -5197,3 +5197,51 @@ LORE.push(
   {ch:502, cat:'Valen Lineage — Elise Branch', n:'Why the Branches Split', t:'The Valen family divided into several branches over generations through political marriages, frontier postings and regional duties, and the branches have long been separate.'},
   {ch:502, cat:'Valen Lineage — Elise Branch', n:'Looking Deeper', t:'Elise offered to search the frontier archives with Sky. A starting point, not an answer: the connection is unresolved.'}
 );
+
+/* ---- Arc XX ends (515) and Arc XXI begins (516): Mirelle Veyne ---- */
+LOCATIONS.border_frontier.spots.push(
+  {id:'hz515a', kind:'investigate', n:'The Vows', icon:'💍', ch:515, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sally', 'sky', 'aster'],
+   desc:'A formal ceremony.',
+   clues:['Aster and Elise marry in a formal ceremony to strengthen the border. It is a political union: a promise between the Crown, the border towns and the tribes for a more stable future.', 'Aster: "I, Aster, take you, Elise, as my wife in name, as an ally in truth. I will stand with you for the border, its people and its future." Elise: "I, Elise, take you, Aster, as my husband in name, as a partner in purpose. I will work with you for the safety, strength and prosperity of the border."'], rw:{xp:579500, gold:118200}},
+  {id:'hz515b', kind:'investigate', n:'Terms They Agree On', icon:'📜', ch:515, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sally', 'sky', 'aster'],
+   desc:'A private agreement.',
+   clues:['Elise: "I want to be honest with you, Aster. My heart belongs to Tarin. I can do this marriage for the border, but I do not expect you to claim my heart." Aster: "I understand. My heart belongs to Fen. I will not ask for what you cannot give."', 'They agree to an alliance, not a romantic marriage. They will not consummate the marriage, not expect children from one another, and will maintain separate rooms afterward. The terms: a political alliance for the border; no consummation; no expectation of children; separate rooms after the ceremony; mutual respect and support; honest communication; freedom to love who they truly love.'], rw:{xp:579800, gold:118260}, needFlag:'inv_hz515a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz515c', kind:'investigate', n:'A Celebration for the Border', icon:'🏮', ch:515, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sally', 'sky', 'aster'],
+   desc:'The feast.',
+   clues:['The friends witness the ceremony, not just as a wedding but as a step towards a safer, stronger border for everyone.', 'The wedding is celebrated by the Crown, the border towns and the tribes. It marks the beginning of a new phase, with trade, safer routes and a shared future built by many hands.'], rw:{xp:580100, gold:118320}, needFlag:'inv_hz515b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz515d', kind:'investigate', n:'Someday, Bring Me on Another Mission', icon:'🗺️', ch:515, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sally', 'sky', 'aster'],
+   desc:'A quiet conversation.',
+   clues:['Jade: "You\'re always so serious lately. Planning, meetings, paperwork... Let yourself rest for a while, Aster."', 'Aster: "Someday, bring me on another mission, Jade. There are still so many places I want to see. And there are still things I want to do beyond the Council. I don\'t want to be only a husband and a title forever." The marriage may be political, but it is real, and their hearts remain their own.'], rw:{xp:580400, gold:118380}, needFlag:'inv_hz515c', lockMsg:'🔒 Finish the previous clue first'},
+);
+LOCATIONS.capital.spots.push(
+  {id:'hz516a', kind:'investigate', n:'Merchant Notation', icon:'📄', ch:516, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sally', 'sky', 'rheon'],
+   desc:'Nothing unusual.',
+   clues:['A coded message reaches Devon through a route he has not used in years. To everyone else, it looks like meaningless commercial notation. At first glance it appears to be ordinary commercial records: shipping tallies, trade marks and merchant notations.', 'Jade: "It looks like trade shorthand." Sky: "Numbers, marks, and merchant routing symbols... nothing more." Sally: "If this is secret writing, it is not one of my prettier kinds." Rheon: "It seems to be shipping records or a trade ledger. I see nothing unusual."'], rw:{xp:580700, gold:118440}},
+  {id:'hz516b', kind:'investigate', n:'I Know This Code', icon:'🔑', ch:516, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sally', 'sky', 'rheon'],
+   desc:'Devon reads it.',
+   clues:['Levi: "You know what it says, don\'t you?" Devon: "Yes. I know this code. And I know who sent it."', 'Only one woman would still use this system: Mirelle Veyne.'], rw:{xp:581000, gold:118500}, needFlag:'inv_hz516a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz516c', kind:'investigate', n:'Not Beyond Meaning', icon:'🧩', ch:516, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sally', 'sky', 'rheon'],
+   desc:'An old route.',
+   clues:['Devon: "This route belonged to people I worked with long before any of you knew me." Rheon: "What does it mean?"', 'Devon: "The message is damaged... fragmented. But not beyond meaning."'], rw:{xp:581300, gold:118560}, needFlag:'inv_hz516b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz516d', kind:'investigate', n:'A Warning', icon:'⚠️', ch:516, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sally', 'sky', 'rheon'],
+   desc:'Mirelle is in danger.',
+   clues:['People from his old network are disappearing, and Mirelle is in danger. Devon: "This is not a request for help with a minor matter. It is a warning. Someone is targeting my old network. And Mirelle is in danger."', 'What arrived as merchant notation becomes a warning from a forgotten past.'], rw:{xp:581600, gold:118620}, needFlag:'inv_hz516c', lockMsg:'🔒 Finish the previous clue first'},
+);
+MISSIONS.push(
+  {id:'m_s515', needCh:515, title:'The Crown and the Border', obj:{type:'steps', steps:[
+     {label:'The Vows', spot:'hz515a'},
+     {label:'Terms They Agree On', spot:'hz515b'},
+     {label:'A Celebration for the Border', spot:'hz515c'},
+     {label:'Someday, Bring Me on Another Mission', spot:'hz515d'}]}, rw:{xp:1235000, gold:276200, rep:2186},
+   subj:'The Crown and the Border', body:'The story is not finished. — Jade'},
+  {id:'m_s516', needCh:516, title:'A Message Devon Recognizes', obj:{type:'steps', steps:[
+     {label:'Merchant Notation', spot:'hz516a'},
+     {label:'I Know This Code', spot:'hz516b'},
+     {label:'Not Beyond Meaning', spot:'hz516c'},
+     {label:'A Warning', spot:'hz516d'}]}, rw:{xp:1237500, gold:276800, rep:2189},
+   subj:'A Message Devon Recognizes', body:'The story is not finished. — Jade'}
+);
+LORE.push(
+  {ch:515, n:'The Crown and the Border', t:'Aster and Elise married in a formal political ceremony: wife in name and ally in truth, husband in name and partner in purpose. Privately they agreed to separate rooms, no consummation and no children, each free to love who they love: Elise Tarin, Aster Fen. Aster asked Jade to bring him on another mission someday.'},
+  {ch:516, n:'A Message Devon Recognizes', t:'A coded message of shipping tallies and merchant marks reached Devon by a route he had not used in years. Only Mirelle Veyne would still use that system. The message was damaged but readable: people from his old network were disappearing, and Mirelle was in danger.'}
+);
