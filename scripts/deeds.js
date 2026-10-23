@@ -28,7 +28,7 @@ deed('ev1', 'hunt', 'The first of the Fifteen', '🕯️', 'One Evil resolved.',
 deed('ev3', 'hunt', 'Three Evils, three truths', '🕯️', 'Three Evils resolved.', () => evilsResolved() >= 3);
 deed('ev8', 'hunt', 'More than half', '🕯️', 'Eight Evils resolved.', () => evilsResolved() >= 8);
 deed('ev15', 'hunt', 'Fifteen names, fifteen answers', '🏆', 'Every Evil resolved.', () => evilsResolved() >= 15);
-EVILS.filter(e => !e.hidden).forEach(e => deed('evil_'+e.id, 'hunt', e.n, '🕯️', e.n+' was resolved.', () => EVIL_RESOLVED.includes(evilState(e))));
+EVILS.filter(e => !e.hidden && !e.veiled).forEach(e => deed('evil_'+e.id, 'hunt', e.n, '🕯️', e.n+' was resolved.', () => EVIL_RESOLVED.includes(evilState(e))));
 deed('learn1', 'hunt', 'Asked before deciding', '👂', 'Heard the party out before deciding an Evil\'s fate.', () => Object.keys(G.flags).some(k => k.indexOf('learned_')===0 && G.flags[k]));
 deed('rev1', 'hunt', 'A name is not the truth', '📜', 'The register had to be corrected.', () => EVILS.some(evilRevised));
 // world

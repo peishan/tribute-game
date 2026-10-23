@@ -4967,9 +4967,9 @@ LORE.push(
 );
 
 /* ---- Arc XX, chapters 504-514: the Evil of regret, Tarin Ash, and the marriage question ---- */
-ENEMIES.boss_regret_evil = {n:'The Evil of Regret',icon:'🦇',area:'dragon',boss:true,hp:6400,atk:46,mag:44,def:28,spd:18,xp:2600,gold:1900,traits:['magic','corrupt'],moves:[{n:'The Life You Could Have Had',pow:1.3,spell:true,fx:[{k:'slow',d:1}]},{n:'Yesterday\'s Offer',pow:1.0,all:true,spell:true},{n:'A Kinder World',pow:1.5,spell:true},{n:'No Second Life',pow:1.2,fx:[{k:'buff',stat:'def',m:.85,d:2}]}],phases:[{at:.5,msg:'Its shifting form splits into a hundred lives',atk:1.15},{at:.2,msg:'The alternate lives crack, one by one',atk:1.1}],desc:'One of the Fifteen. It cannot create love or regret, only magnify what is already there, and offers the lives you could have had.'};
+ENEMIES.boss_regret_evil = {n:'The Unchosen Road',icon:'🦇',area:'dragon',boss:true,hp:6400,atk:46,mag:44,def:28,spd:18,xp:2600,gold:1900,traits:['magic','corrupt'],moves:[{n:'The Life You Could Have Had',pow:1.3,spell:true,fx:[{k:'slow',d:1}]},{n:'Yesterday\'s Offer',pow:1.0,all:true,spell:true},{n:'A Kinder World',pow:1.5,spell:true},{n:'No Second Life',pow:1.2,fx:[{k:'buff',stat:'def',m:.85,d:2}]}],phases:[{at:.5,msg:'Its shifting form splits into a hundred lives',atk:1.15},{at:.2,msg:'The alternate lives crack, one by one',atk:1.1}],desc:'One of the Fifteen. It cannot create love or regret, only magnify what is already there, and offers the lives you could have had.'};
 LOOT.boss_regret_evil = {guaranteed:[{id:'seal_dust',qty:[2,3]},{id:'spirit_thread',qty:[1,2]}],rolls:[{id:'forgotten_glass',chance:.5}],firstClear:[{id:'celestial_shard',qty:[1,2]}]};
-deed('hz_regret', 'story', 'No second life', '🦇', 'The Evil of regret was broken: this life is the only real one.', () => !!G.flags.boss_boss_regret_evil);
+deed('hz_regret', 'story', 'No second life', '🦇', 'The Unchosen Road was broken: this life is the only real one.', () => !!G.flags.boss_boss_regret_evil);
 LOCATIONS.border_frontier.spots.push(
   {id:'hz504a', kind:'investigate', n:'A Remaining Evil', icon:'👁️', ch:504, need:2, ambush:[], lo:96, roles:['jade', 'sky', 'aster'],
    desc:'Sky names it.',
@@ -5105,7 +5105,7 @@ LOCATIONS.border_frontier.spots.push(
    clues:['Elise and Aster: "So if we accept this marriage, it will be an alliance. A partnership for the border. Not a claim over each other\'s hearts. We will respect each other\'s choices and the people we love."', 'They agree to accept the marriage for the sake of the border, as allies, friends and partners. They will be honest, respectful, and give each other the freedom to love who they truly love. The border\'s future will not be built on forced feelings, but on trust, cooperation and people who stand together with clear eyes and open hearts.'], rw:{xp:579200, gold:118140}, needFlag:'inv_hz514c', lockMsg:'🔒 Finish the previous clue first'},
 );
 LOCATIONS.border_frontier.spots.push(
-  {id:'regret_fight', kind:'boss', n:'The Evil of Regret', icon:'🦇', desc:'One of the Fifteen, shown in its true form. It can be faced again at the frontier.', boss:'boss_regret_evil', add:[], lo:96, ch:510, needFlag:'inv_hz510d', lockMsg:'🔒 Hear what it offers first'}
+  {id:'regret_fight', kind:'boss', n:'The Unchosen Road', icon:'🦇', desc:'One of the Fifteen, shown in its true form. It can be faced again at the frontier.', boss:'boss_regret_evil', add:[], lo:96, ch:510, needFlag:'inv_hz510d', lockMsg:'🔒 Hear what it offers first'}
 );
 MISSIONS.push(
   {id:'m_s504', needCh:504, title:'One of the Fifteen', obj:{type:'steps', steps:[
@@ -5149,7 +5149,7 @@ MISSIONS.push(
      {label:'I Choose This Life', spot:'hz510b'},
      {label:'You Make the Call', spot:'hz510c'},
      {label:'Only Real Life', spot:'hz510d'},
-     {label:'Break the Evil of Regret', boss:'boss_regret_evil'}]}, rw:{xp:1222500, gold:273200, rep:2171},
+     {label:'Break the Unchosen Road', boss:'boss_regret_evil'}]}, rw:{xp:1222500, gold:273200, rep:2171},
    subj:'No Second Life', body:'The story is not finished. — Jade'},
   {id:'m_s511', needCh:511, title:'What the Border Needs', obj:{type:'steps', steps:[
      {label:'What Was Damaged', spot:'hz511a'},
@@ -5177,13 +5177,13 @@ MISSIONS.push(
    subj:'Before We Agree', body:'The story is not finished. — Jade'}
 );
 LORE.push(
-  {ch:504, n:'One of the Fifteen', t:'Sky confirmed a remaining Evil whose domain is regret and the desire to choose again. It cannot create love or regret; it magnifies what already exists, twisting real people and real possibilities until they feel touchable. The visions show what might have been, never what must be.'},
+  {ch:504, n:'One of the Fifteen', t:'Sky confirmed a remaining Evil, the Unchosen Road, whose domain is regret and the desire to choose again. It cannot create love or regret; it magnifies what already exists, twisting real people and real possibilities until they feel touchable. The visions show what might have been, never what must be.'},
   {ch:505, n:'What Aster Would Choose', t:'Shown a life without the crown and with Fen, Aster said he loved her but would not accept a future made for him by someone else. He chose the real path with all its burdens, because only then is it a choice.'},
   {ch:506, n:'The Woman at the Border', t:'Elise followed a vision of Tarin, was separated, and was rescued. A crest, belongings and a hidden camp matched what she saw, with markings from the eastern frontier network. The vision was not entirely an illusion: Tarin may be alive, and someone is helping him.'},
   {ch:507, n:'Rumours Travel Farther Than Armies', t:'Sally\'s Rumour Network gathered fragments from taverns, musicians, caravan workers and servants. Together they described a man matching Tarin\'s history who survived the attack and lives under another name, working with a small trading group along the frontier routes.'},
   {ch:508, n:'Tarin Ash', t:'The party found Tarin alive, living as Ash. The reunion with Elise was emotional but restrained: they were children then and the world is different now. Tarin still had people looking for him and things to settle, and became a trusted contact along the frontier routes.'},
   {ch:509, n:'The Evil That Offers Yesterday', t:'The Evil of regret attacked the whole party with alternate lives. Jade, Elise, Tarin, Sky, Aster, Fen, Levi and Sally each saw a different yesterday, and each rejected it: not to erase the past, but to choose the life they are living, together.'},
-  {ch:510, n:'No Second Life', t:'The Evil of regret took its true form and attacked with every life the party could have had. Each of them chose the present, and Aster, trusted by Devon to make the call, commanded the opening that broke it. Their pasts cannot be rewritten, but their present is still theirs.'},
+  {ch:510, n:'No Second Life', t:'The Unchosen Road, the Evil of regret, took its true form and attacked with every life the party could have had. Each of them chose the present, and Aster, trusted by Devon to make the call, commanded the opening that broke it. Their pasts cannot be rewritten, but their present is still theirs.'},
   {ch:511, n:'What the Border Needs', t:'With the supernatural influence lifted, the political disputes remained. Elise and Fen led the revision of the damaged agreements with Aster at the table: repairs to key outposts, caravan routes reopened in stages, and local leaders on an oversight committee. The border needs people, resources and trust, not just soldiers.'},
   {ch:512, n:'Aster\'s Report', t:'Aster wrote his first genuinely practical field report: caravan protection, water rights, tribal representation, local reporting channels, recognition of customary agreements, and six immediate next steps. It marks a new phase for the frontier, from survival to rebuilding.'},
   {ch:513, n:'The Marriage Question', t:'After the border crisis the court proposed a marriage between Crown Prince Aster and Lady Elise to bind the court and the border. Both understood the political logic, and both admitted their hearts were elsewhere: Aster with Fen, Elise with Tarin Ash. A useful match is not the same as a willing heart.'},
