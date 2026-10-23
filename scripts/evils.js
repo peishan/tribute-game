@@ -50,7 +50,11 @@ const EVILS = [
      {label:'Method', value:'It magnifies what already exists: it cannot create love or regret', spot:'hz504b'},
      {label:'Visions', value:'Real people and possibilities, twisted until they feel touchable', spot:'hz504c'},
      {label:'Weakness', value:'It breaks when the false lives it offers are refused and a real life is chosen', spot:'hz509d'}]},
-  {id:'whispering_mask', n:'The Whispering Mask', epithet:'The Evil of Secrets and Shame', veiled:true, activeCh:531, resolveCh:542, how:'purified', intel:[]},   // Arc XXI (design: secrets, shame, concealment, fear of exposure, weaponized truth); purified and dissolved at ch542 No More Leverage; its ch531 attack on Jade uses only her known memories; chapters not built yet
+  {id:'whispering_mask', n:'The Whispering Mask', epithet:'The Evil of Secrets and Shame', veiled:true, activeCh:530, resolveCh:542, how:'purified', home:'Mirelle Veyne\'s network', original:'Unknown: a remaining Evil feeding on secrets', intel:[
+     {label:'Domain', value:'Secrets, concealment, shame and the fear of being exposed', spot:'hz530a'},
+     {label:'Feeds on', value:'The memories and feelings attached to secrets: shame, fear, regret, desire', spot:'hz529b'},
+     {label:'Method', value:'It weaponizes truth: it needs people to be afraid, not for the secret to be true', spot:'hz530c'},
+     {label:'Weakness', value:'It gains nothing from a truth with no shame left to feed on', spot:'hz532d'}]},   // Arc XXI (design: secrets, shame, concealment, fear of exposure, weaponized truth); purified and dissolved at ch542 No More Leverage; its ch531 attack on Jade uses only her known memories; chapters not built yet
 ];
 /* ---- Classification (Arc VII): what the investigation has found an entry to be. These are findings, not counters: the case counter above only counts Resolved.
    Restoration is not always possible (the Thorned Widow's corruption could not be undone): the outcome depends on the evidence gathered.
@@ -69,6 +73,7 @@ const EVIL_CLS_RULES = {
   black_tide:[['tide_evidence','hostile'],['tide_layered','corrupted'],['stabilize_network','restorable']],
   drowned_crown:[['crown_warnings','hostile'],['crown_origin','construct']],
   unchosen_road:[['hz504a','hostile']],
+  whispering_mask:[['hz530a','hostile']],
 };
 function evilClass(e){
   const st = evilState(e); if(st==='unknown') return null;
