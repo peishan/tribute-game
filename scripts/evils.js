@@ -44,7 +44,13 @@ const EVILS = [
      {label:'Origin', value:'A collective construct of the royal council', spot:'crown_origin'},
      {label:'Purpose', value:'To keep the deepest chamber from those who do not understand', spot:'council_command'}]}, {id:'ashen_serpent', n:'The Ashen Serpent', intel:[]}, {id:'mirror_queen', n:'The Mirror Queen', intel:[]},
   {id:'endless_winter', n:'The Endless Winter', intel:[]},
-  {id:'evil_14', n:'???', hidden:true, intel:[]}, {id:'evil_15', n:'???', hidden:true, intel:[]},
+  {id:'unchosen_road', n:'The Unchosen Road', epithet:'The Evil of Regret', veiled:true, loc:'border_frontier', activeCh:504, resolveCh:510, how:'destroyed', home:'The Northern Frontier',
+   original:'One of the Fifteen: visions and illusions at the northern border', intel:[
+     {label:'Domain', value:'Regret, roads not taken, the desire to choose again', spot:'hz504a'},
+     {label:'Method', value:'It magnifies what already exists: it cannot create love or regret', spot:'hz504b'},
+     {label:'Visions', value:'Real people and possibilities, twisted until they feel touchable', spot:'hz504c'},
+     {label:'Weakness', value:'It breaks when the false lives it offers are refused and a real life is chosen', spot:'hz509d'}]},
+  {id:'whispering_mask', n:'The Whispering Mask', epithet:'The Evil of Secrets and Shame', veiled:true, activeCh:531, resolveCh:542, how:'purified', intel:[]},   // Arc XXI (design: secrets, shame, concealment, fear of exposure, weaponized truth); purified and dissolved at ch542 No More Leverage; its ch531 attack on Jade uses only her known memories; chapters not built yet
 ];
 /* ---- Classification (Arc VII): what the investigation has found an entry to be. These are findings, not counters: the case counter above only counts Resolved.
    Restoration is not always possible (the Thorned Widow's corruption could not be undone): the outcome depends on the evidence gathered.
@@ -62,6 +68,7 @@ const EVIL_CLS_RULES = {
   hollow_king:[['present_crimes','hostile']],
   black_tide:[['tide_evidence','hostile'],['tide_layered','corrupted'],['stabilize_network','restorable']],
   drowned_crown:[['crown_warnings','hostile'],['crown_origin','construct']],
+  unchosen_road:[['hz504a','hostile']],
 };
 function evilClass(e){
   const st = evilState(e); if(st==='unknown') return null;
@@ -127,7 +134,7 @@ function evilClassLine(e, st){
 function rRegisterMain(){
   const rows = EVILS.map((e,i) => { const st = evilState(e), intel = evilIntel(e);
     const cls = e.original && st!=='unknown' ? (evilRevised(e) ? `<div class="sm" style="opacity:.6;text-decoration:line-through">Original classification: ${e.original}</div><div class="sm"><b>Revised classification:</b> ${e.revised.t}</div>` : `<div class="sm">Classification: ${e.original}</div>`) : '';
-    return `<div class="ev"><div><b>${i+1}. ${e.hidden?'???':e.n}</b>${e.epithet&&G.ch>=162&&st!=='unknown'?` <span class="sm" style="color:var(--gold)">· ${e.epithet}</span>`:''} <span class="sm">· ${EVIL_STATUS[st]}${e.home&&st!=='unknown'?' · '+e.home:''}</span>${cls}${evilClassLine(e, st)}${typeof evilMarksLine==='function' ? evilMarksLine(e) : ''}${rCounsel(e)}${intel.length?`<div class="sm">Classification: ${intel.map(x => x.label+': '+x.value).join(' · ')}${intel.length<e.intel.length?' · '+(e.intel.length-intel.length)+' more to learn':''}</div>`:''}</div></div>`; }).join('');
+    return `<div class="ev"><div><b>${i+1}. ${e.veiled&&st==='unknown'?'???':e.n}</b>${e.epithet&&G.ch>=162&&st!=='unknown'?` <span class="sm" style="color:var(--gold)">· ${e.epithet}</span>`:''} <span class="sm">· ${EVIL_STATUS[st]}${e.home&&st!=='unknown'?' · '+e.home:''}</span>${cls}${evilClassLine(e, st)}${typeof evilMarksLine==='function' ? evilMarksLine(e) : ''}${rCounsel(e)}${intel.length?`<div class="sm">Classification: ${intel.map(x => x.label+': '+x.value).join(' · ')}${intel.length<e.intel.length?' · '+(e.intel.length-intel.length)+' more to learn':''}</div>`:''}</div></div>`; }).join('');
   const done = evilsResolved(), revised = EVILS.filter(evilRevised).length;
   return `<div class="panel"><b>THE FIFTEEN EVILS</b><div><b>Resolved: ${done} / 15</b> · Remaining: ${15-done} · Unknown classifications: ${G.ch>=EVIL_ARC_END?'?':15-revised}</div>${G.ch>=172?`<div class="sm">Findings: ${Object.keys(EVIL_CLASSES).map(k => EVIL_CLASSES[k].icon+' '+EVIL_CLASSES[k].n).join(' · ')}. A finding is what the investigation has learned; only Resolved cases are counted, and a restoration is only possible where the evidence allows it.</div>`:''}${typeof regMarksLegend==='function' ? regMarksLegend() : ''}<div class="sm">Kept by ${evilKeeper()}. Not "killed": each Evil is destroyed, purified, contained, reconciled or otherwise resolved once Jade has learned what it is. Find them. Understand them. Then decide what must be done.</div>${G.ch>=EVIL_ARC_END?'<div class="sm" style="margin-top:4px"><i>Not every monster was born a monster. Not every victim remained innocent. And not every name history gave them was true.</i></div>':''}</div>${rows}`;
 }
