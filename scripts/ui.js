@@ -160,7 +160,7 @@ function rTraining(){
 function trainFight(){ origin='training'; startBattle({foes:PRESETS[trSel][1].map(f=>({key:f.key,lv:trLv})), rewards:false}); tab='battle'; render(); }
 
 /* ---------------- BATTLE ---------------- */
-const CHIP = {burn:'🔥',slow:'🐌',bind:'⛓️',charm:'💫',silence:'🤐',shield:'🛡️',regen:'💚',crit:'👁️',oath:'🤝'};
+const CHIP = {shame:'🌑',doubt:'❔',distrust:'🚫',hush:'🔇',burn:'🔥',slow:'🐌',bind:'⛓️',charm:'💫',silence:'🤐',shield:'🛡️',regen:'💚',crit:'👁️',oath:'🤝'};
 function chips(u){
   let h = Object.keys(u.st).map(k=>`<i title="${k}">${CHIP[k]||k}</i>`).join('');
   u.bf.forEach(b=>{ h += `<i class="${b.m>=1?'up':'dn'}">${b.stat.toUpperCase()}${b.m>=1?'↑':'↓'}</i>`; });
@@ -184,7 +184,7 @@ function rBattle(){
     act = `<div class="panel bad"><b>Defeat…</b></div><button class="pri" onclick="battleDone()">Retreat</button>`;
   } else if(B.cur && B.cur.ally){
     const u=B.cur, m=B.ui.mode;
-    if(m==='menu') act = `<div class="sm">${u.name}'s turn</div><div class="row"><button class="pri" onclick="doAttack()">Attack</button><button onclick="B.ui={mode:'skills'};render()">Skills</button><button onclick="B.ui={mode:'items'};render()">Items</button><button onclick="playerAct('guard')">Guard</button>${autoButton()}</div>`;
+    if(m==='menu') act = `<div class="sm">${u.name}'s turn</div><div class="row"><button class="pri" onclick="doAttack()">Attack</button><button onclick="B.ui={mode:'skills'};render()">Skills</button><button onclick="B.ui={mode:'items'};render()">Items</button><button onclick="playerAct('guard')">Guard</button>${typeof maskAckButton==='function'?maskAckButton(u):''}${autoButton()}</div>`;
     else if(m==='items') act = (battleItems().map(i=>`<button class="skb" onclick="pickItem('${i.id}')">${i.icon} ${i.n} <small>×${i.qty||'∞'} ${i.text}</small></button>`).join('') || '<div class="sm">No consumables.</div>') + `<button onclick="B.ui={mode:'menu'};render()">◀ Back</button>`;
     else if(m==='skills') act = skillList(u).map(s=>`<button class="skb" ${s.usable?'':'disabled'} onclick="pickSkill('${s.id}')">${s.icon} ${s.n} <small>${s.cost?s.cost+'MP':''} ${s.note}</small></button>`).join('') + `<button onclick="B.ui={mode:'menu'};render()">◀ Back</button>`;
     else act = `<div class="sm">Choose a target</div><button onclick="B.ui={mode:'menu'};render()">◀ Cancel</button>`;
