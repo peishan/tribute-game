@@ -3147,7 +3147,7 @@ function startTravel(r, to){
   if(voyageRoute(r)) return startVoyage(ROUTES.indexOf(r), to);
   const ev = Math.random() < (r.mode==='ship' ? .5 : .35) ? AR(EVENTS[r.mode]) : null;
   PEND = {r, to, ev, from:G.loc};
-  if(Math.random() < Math.max(0, ((G.flags.valen_restored && r.restoredRisk!==undefined) ? r.restoredRisk : r.risk) - (typeof whisperBonus==='function' ? whisperBonus('road') : 0))){
+  if(!(typeof takeOfficers==='function' && takeOfficers()) && Math.random() < Math.max(0, ((G.flags.valen_restored && r.restoredRisk!==undefined) ? r.restoredRisk : r.risk) - (typeof whisperBonus==='function' ? whisperBonus('road') : 0))){
     const lv = Math.max(1, avgPartyLv() + (r.mode==='ship'?1:0));
     const group = foeGroup(r.pool, lv, 2 + (Math.random()<.35?1:0));
     flash(['⚠️ '+(r.mode==='ship'?'Raiders and weather':'Trouble on the road')+' on the '+r.n+'!']);
@@ -3319,10 +3319,11 @@ function doGather(spotId){
 }
 function doInvestigate(spotId){
   const sp = spotById(spotId); if((G.clues[spotId]||0) >= sp.need) return;
-  const ins = typeof takeInsight==='function' && takeInsight(), sen = typeof takeSense==='function' && takeSense(); const rum = typeof takeRumour==='function' && takeRumour(); const aut = typeof takeAuthority==='function' && takeAuthority(); const vey = typeof takeVeyne==='function' && takeVeyne();
+  const ins = typeof takeInsight==='function' && takeInsight(), sen = typeof takeSense==='function' && takeSense(); const rum = typeof takeRumour==='function' && takeRumour(); const aut = typeof takeAuthority==='function' && takeAuthority(); const vey = typeof takeVeyne==='function' && takeVeyne(); const con = typeof takeContract==='function' && takeContract(); const off = typeof takeOfficers==='function' && takeOfficers();
   const found = () => {
     let prevN = G.clues[spotId]||0, n = G.clues[spotId] = Math.min(sp.need, prevN+1+(rum && prevN+1 < sp.need ? 1 : 0)+(aut && prevN+1+(rum?1:0) < sp.need ? 1 : 0)), msgs = ['🔎 Clue '+n+'/'+sp.need+': '+(sp.clues[n-1]||sp.clues[sp.clues.length-1])];
     { const al = n < sp.need && typeof allyClue==='function' && allyClue(); if(al){ n = G.clues[spotId] = n+1; msgs.push('🔎 Clue '+n+'/'+sp.need+': '+(sp.clues[n-1]||sp.clues[sp.clues.length-1])); al.forEach(m => msgs.push(m)); } }
+    if(con){ contractLines(sp, n).forEach(m => msgs.push(m)); gainXp(120 + avgPartyLv()*6, G.party).forEach(m => msgs.push(m)); }
     if(vey){ msgs.push(VEYNE_MODES[vey].msg); if(vey==='lead' && n < sp.need){ n = G.clues[spotId] = n+1; msgs.push('🔎 Clue '+n+'/'+sp.need+': '+(sp.clues[n-1]||sp.clues[sp.clues.length-1])); } }
     if(rum && n >= 2 && n - prevN === 2) msgs.unshift('🔎 Clue '+(n-1)+'/'+sp.need+': '+(sp.clues[n-2]||sp.clues[sp.clues.length-1]));
     if(aut) authorityResult().forEach(m => msgs.push(m));
@@ -3333,7 +3334,7 @@ function doInvestigate(spotId){
     const db = typeof delilahBonus==='function' && delilahBonus(spotId); if(db){ gainXp(db, G.party).forEach(m => msgs.push(m)); msgs.push('📚 Delilah study notes point to a detail (small bonus XP).'); }
     const gb = typeof investigationGuestBonus==='function' && investigationGuestBonus(); if(gb){ gainXp(gb.xp, G.party).forEach(m => msgs.push(m)); msgs.push('🔍 '+gb.who.join(' and ')+' notice what others miss (bonus XP).'); }
     if(sen){ gainXp(300+avgPartyLv()*10, G.party).forEach(m => msgs.push(m)); msgs.push('🔮 Devon reads the magic residue (bonus XP).'); if(typeof corrAdd==='function' && isCorrupted(G.loc)){ corrAdd(G.loc, -5); msgs.push('Corruption −5%.'); } }
-    if(n >= sp.need){ G.flags['inv_'+spotId] = true; { const cr = typeof crossReference==='function' && crossReference(); if(cr){ gainXp(cr, G.party).forEach(m => msgs.push(m)); msgs.push('📖 Fen cross-references the two finds (bonus XP).'); } } if(typeof leadAdd==='function') leadAdd(spotId); msgs.push.apply(msgs, grantReward(sp.rw, '🕯️ Investigation complete: '+sp.n));
+    if(n >= sp.need){ G.flags['inv_'+spotId] = true; { const cr = typeof crossReference==='function' && crossReference(); if(cr){ gainXp(cr, G.party).forEach(m => msgs.push(m)); msgs.push('📖 Fen cross-references the two finds (bonus XP).'); } } if(typeof leadAdd==='function') leadAdd(spotId); msgs.push.apply(msgs, grantReward(con ? contractTerms(sp.rw) : sp.rw, '🕯️ Investigation complete: '+sp.n));
       if(typeof regardAdd==='function'){ const rm = regardAdd(G.loc, 10); if(rm) msgs.push(rm); chronicle('Investigation complete: '+sp.n+'.', '🕯️'); }
       MISSIONS.forEach(m => { if(mState(m.id)==='active' && m.obj.type==='investigate' && m.obj.spot===spotId) msgs.push.apply(msgs, completeMission(m.id)); });
       if(typeof altanSync==='function') msgs.push.apply(msgs, altanSync());
@@ -3341,7 +3342,7 @@ function doInvestigate(spotId){
     msgs.push.apply(msgs, advanceDay(ins || vey==='route' ? 0 : 1)); save(); return msgs;
   };
   const magicOnly = sen && sp.ambush && sp.ambush.length && sp.ambush.every(k => (ENEMIES[k].traits||[]).includes('magic'));
-  if(sp.ambush && sp.ambush.length && !magicOnly && vey!=='false' && Math.random() < (ins ? .1 : (typeof eveEdge==='function' && eveEdge() ? .25 : (typeof tarinEdge==='function' && tarinEdge() ? .22 : .4))) && !(typeof tarinSkips==='function' && tarinSkips())){
+  if(sp.ambush && sp.ambush.length && !magicOnly && vey!=='false' && !off && Math.random() < (ins ? .1 : (typeof eveEdge==='function' && eveEdge() ? .25 : (typeof tarinEdge==='function' && tarinEdge() ? .22 : .4))) && !(typeof tarinSkips==='function' && tarinSkips())){
     startBattle({foes:foeGroup(sp.ambush, lvFor(sp), 2), rewards:true, onWin:found});
     return 'battle';
   }
