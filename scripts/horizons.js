@@ -5936,3 +5936,49 @@ MISSIONS.push(
 LORE.push(
   {ch:518, n:'The Network Before Jade', t:'Jade learned that before Devon travelled with her he had already built quiet connections across Dragonvale and nearby territories: merchants, informants, travellers and people in unexpected places, with Mirelle among those he trusted most. He shared what he needed to, never everything. "It\'s like discovering another part of the man I married."'}
 );
+
+/* ---- Arc XXI, chapter 518: The Network Before Jade ---- */
+LOCATIONS.coastal_village.spots.push(
+  {id:'hz481a', kind:'investigate', n:'A Farewell, Not a Battle', icon:'🏮', ch:481, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'sally', 'sky', 'devon'],
+   desc:'The cause understood.',
+   clues:['With the cause understood, the party works together to help the wandering memories finally reach the shore. This is not a battle, but a farewell.', 'Sally: "These lights are memories of sailors who never made it home. They\'ve been wandering here for generations, unable to find the shore." Levi: "I\'ve traced the safe coastal route along the current and reefs."'], rw:{xp:604700, gold:123240}},
+  {id:'hz481b', kind:'investigate', n:'Not a Hostile Phenomenon', icon:'🔮', ch:481, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'sally', 'sky', 'devon'],
+   desc:'Sky explains.',
+   clues:['Sky: "The spiritual residue is made of accumulated memories: their longing to return, their unfinished desires, their attachment to this sea. It\'s not a hostile phenomenon. They\'re not attacking anyone."', 'A woman in the party: "The pattern is fragile because it\'s been repeating without resolution for so long. If we stabilize the spiritual energy and give it a consistent direction, they can move on."'], rw:{xp:605000, gold:123300}, needFlag:'inv_hz481a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz481c', kind:'investigate', n:'A Proper Farewell', icon:'🎻', ch:481, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'sally', 'sky', 'devon'],
+   desc:'Everyone\'s strengths.',
+   clues:['Jade: "Then we guide them home. These are people who once lived, who had families and dreams. They deserve a proper farewell, not destruction." Devon: "We\'ll combine everyone\'s strengths: music, the marked route, and stabilized resonance."', 'Sally plays a melody to give the memories a consistent path. Levi marks the route. Sky aligns the scattered threads. The woman helps keep the pattern steady and guide the memories toward the shore.'], rw:{xp:605300, gold:123360}, needFlag:'inv_hz481b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz481d', kind:'investigate', n:'They Are Not Lost Anymore', icon:'🌊', ch:481, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'sally', 'sky', 'devon'],
+   desc:'They reach the shore.',
+   clues:['With the music, the marked path, and the stabilized spiritual energy, the wandering memories finally follow the light to shore. One by one, they reach the coast and settle. The sea grows quiet. They are not lost anymore.', 'Sky: "This gives me another clue. Even when a spiritual pattern is damaged and scattered, resonance can give it a new reference: a stable rhythm to hold onto. It doesn\'t erase the past, but it helps the pattern return to stability."'], rw:{xp:605600, gold:123420}, needFlag:'inv_hz481c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz491a', kind:'investigate', n:'What They Wanted Me to See', icon:'✉️', ch:491, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sky', 'sally', 'seraphina'],
+   desc:'The unopened message.',
+   clues:['After their holiday, Jade finally opens the message that arrived during their time in Dragonvale. She had deliberately left it unopened, choosing to rest and not think about the world beyond the coast for a while. But now, the time has come to look at it.', 'The message brings troubling news. Caravans have been disappearing along the trade routes. Border disputes are stirring again in regions that had been quiet.'], rw:{xp:605900, gold:123480}},
+  {id:'hz491b', kind:'investigate', n:'A Signature Should Have Stayed Hidden', icon:'🌑', ch:491, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sky', 'sally', 'seraphina'],
+   desc:'Familiar signs.',
+   clues:['And there have been strange sightings, signs that feel all too familiar. One signature that should have remained hidden may be active once more.', 'Jade: "So this is what they wanted me to see. It\'s more serious than I expected." Levi: "We should start preparing." Sky: "We\'ll need to organize supplies and adjust our route once we have more details."'], rw:{xp:606200, gold:123540}, needFlag:'inv_hz491a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz491c', kind:'investigate', n:'I Said I Wouldn\'t Stop', icon:'📚', ch:491, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sky', 'sally', 'seraphina'],
+   desc:'Sky and the Valen research.',
+   clues:['Before departure, Sky makes arrangements to carry the necessary Valen research with him. A companion: "Still looking?" Sky: "I said I wouldn\'t stop."', 'Roc and Delilah come to see Jade and the others off for now. Roc: "Try not to disappear into trouble again." Delilah: "Come back safely." Jade: "We will. Thank you both."'], rw:{xp:606500, gold:123600}, needFlag:'inv_hz491b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz491d', kind:'investigate', n:'The Road Again', icon:'🌅', ch:491, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sky', 'sally', 'seraphina'],
+   desc:'The holiday ends.',
+   clues:['Sera rejoins the party, refreshed and genuinely happy to be back. Sera: "It feels good to be travelling together again." Sally remains available as a recurring travelling ally. Sally: "Same as always. I\'ll be with you."', 'Nobody is particularly upset that the holiday is ending. Because this time, they actually had one. They rested, they healed, they reconnected, and made choices about the lives waiting beyond the battlefield. And so, Jade takes the road again. As always, they go with her.'], rw:{xp:606800, gold:123660}, needFlag:'inv_hz491c', lockMsg:'🔒 Finish the previous clue first'},
+);
+MISSIONS.push(
+  {id:'m_s481', needCh:481, title:'Guide Them Home', obj:{type:'steps', steps:[
+     {label:'A Farewell, Not a Battle', spot:'hz481a'},
+     {label:'Not a Hostile Phenomenon', spot:'hz481b'},
+     {label:'A Proper Farewell', spot:'hz481c'},
+     {label:'They Are Not Lost Anymore', spot:'hz481d'}]}, rw:{xp:1150000, gold:255800, rep:2084},
+   subj:'Guide Them Home', body:'The story is not finished. — Jade'},
+  {id:'m_s491', needCh:491, title:'The Message We Finally Opened', obj:{type:'steps', steps:[
+     {label:'What They Wanted Me to See', spot:'hz491a'},
+     {label:'A Signature Should Have Stayed Hidden', spot:'hz491b'},
+     {label:'I Said I Wouldn\'t Stop', spot:'hz491c'},
+     {label:'The Road Again', spot:'hz491d'}]}, rw:{xp:1175000, gold:261800, rep:2114},
+   subj:'The Message We Finally Opened', body:'The story is not finished. — Jade'}
+);
+LORE.push(
+  {ch:481, n:'Guide Them Home', t:'The lights beneath the water were the memories of sailors who never made it home. The party did not fight them: Sally played a melody, Levi marked the safe route, Sky aligned the scattered threads and the memories were guided to the shore. The sea grew quiet. Sky learned that resonance can give a damaged pattern a stable rhythm to hold onto.'},
+  {ch:491, n:'The Message We Finally Opened', t:'After the holiday Jade opened the message she had left unopened: caravans disappearing, border disputes stirring, and a signature that should have stayed hidden possibly active again. Sky packed the Valen research, Roc and Delilah saw them off, Sera rejoined the party and Sally stayed on as a recurring travelling ally. Jade took the road again, and as always, they went with her.'}
+);
