@@ -5418,7 +5418,7 @@ LOCATIONS.mirelle_trail.spots.push(
    clues:['Roc: she sees the night at Vigil, when he manipulated her and she slept with him once. Xima\'s manipulation: the years of influence, the lies, and the way Xima tried to shape her.', 'The confusion around Sky: the uncertainty, the questions, and the time when she did not know who he truly was. Her family heritage, Dima: the bloodline, the expectations, and the weight of what she is.'], rw:{xp:598100, gold:121920}, needFlag:'inv_hz531b', lockMsg:'🔒 Finish the previous clue first'},
   {id:'hz531d', kind:'investigate', n:'You Are Very Late', icon:'🌙', ch:531, need:2, ambush:[], lo:96, roles:['jade'],
    desc:'Nothing to hide.',
-   clues:['But none of these visions can control her. Jade: "You are very late." By this stage, Xima can no longer disrupt her thoughts, and Dima no longer intrudes on her mind. Jade: "I have already lived through these memories. They do not control me."', 'The Evil\'s power falters. The visions break apart, unable to find the hold it expected. Jade: "I have nothing to hide. My past does not make me weak. It made me who I am." The Evil retreats, unable to use her past against her. Some truths are no longer chains. They are the foundation of her strength.'], rw:{xp:598400, gold:121980}, needFlag:'inv_hz531c', lockMsg:'🔒 Finish the previous clue first'},
+   clues:['Jade recognises the attack immediately. But none of these visions can control her. Jade: "You are very late." By this stage, Xima can no longer disrupt her thoughts, and Dima no longer intrudes on her mind. Jade: "I have already lived through these memories. They do not control me."', 'The Evil\'s power falters. The visions break apart, unable to find the hold it expected. Jade: "I have nothing to hide. My past does not make me weak. It made me who I am." The Evil retreats, unable to use her past against her. Some truths are no longer chains. They are the foundation of her strength.'], rw:{xp:598400, gold:121980}, needFlag:'inv_hz531c', lockMsg:'🔒 Finish the previous clue first'},
   {id:'hz532a', kind:'investigate', n:'A Prince Shaped by Expectations', icon:'👑', ch:532, need:2, ambush:[], lo:96, roles:['jade', 'devon'],
    desc:'The younger Devon.',
    clues:['The Evil turns toward Devon. Instead of exposing some betrayal, it reveals something quieter. The visions show a younger Devon, long before Jade: a prince shaped by expectations, a future already decided for him.', 'He saw the throne as a cage. Not an honour.'], rw:{xp:598700, gold:122040}},
@@ -5433,18 +5433,18 @@ LOCATIONS.mirelle_trail.spots.push(
    clues:['The Evil tries to use these truths, but they hold no power over him now. Devon is no longer ashamed of what he once felt. Jade does not feel threatened. Jade: "So you have been thinking of running away for a long time. That explains a lot. I understand you better now."', 'Devon: "...I did. There were many times I wanted to leave. Not because of you. But because I didn\'t know if I would ever be allowed to be myself." The Evil gains nothing from the truth because there is no shame left to feed on. The past reminds him of how far he has come, and why he chooses to stay now.'], rw:{xp:599600, gold:122220}, needFlag:'inv_hz532c', lockMsg:'🔒 Finish the previous clue first'},
 );
 LOCATIONS.dragon_vale.spots.push(
-  {id:'hz526a', kind:'investigate', n:'Unusually Quiet', icon:'🐎', ch:526, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'sky', 'rheon'],
-   desc:'On the road.',
-   clues:['The party continues their journey through Dragonvale, travelling to the next destination. But amid the familiar roads and changing skies, Rheon is quieter than usual.', 'A companion: "You\'ve been unusually quiet today, Your Highness. Is something on your mind?" Rheon: "The roads are familiar, yet my thoughts keep straying elsewhere. No matter how much I try to focus, her face returns to mind."'], rw:{xp:591500, gold:120600}},
-  {id:'hz526b', kind:'investigate', n:'An Old Memory', icon:'🌸', ch:526, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'sky', 'rheon'],
-   desc:'A conversation in Dragonvale.',
-   clues:['Rheon: "I am well. It is merely... an old memory that has returned to me. I still remember our conversation in Dragonvale."', 'Mirelle: "There is so much more to this world than what we have been told. I find that fascinating." Rheon: "Her insights, her curiosity, her calm wisdom... I found myself enjoying her company more than I expected."'], rw:{xp:591800, gold:120660}, needFlag:'inv_hz526a', lockMsg:'🔒 Finish the previous clue first'},
-  {id:'hz526c', kind:'investigate', n:'I Have Not Forgotten Her', icon:'🌙', ch:526, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'sky', 'rheon'],
+  {id:'hz526a', kind:'investigate', n:'Not Forgotten', icon:'🌅', ch:526, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'sky', 'rheon'],
+   desc:'Rheon remembers.',
+   clues:['Rheon admits that he has not forgotten Mirelle since their earlier meeting. He had noticed her interest in him in Dragonvale but had not understood what he felt in return. Rheon: "I have not forgotten her."', 'Rheon: "When we first met, I noticed her interest in me. At the time, I did not understand what I felt in return. But her presence stayed with me."'], rw:{xp:591500, gold:120600}},
+  {id:'hz526b', kind:'investigate', n:'Is She Safe?', icon:'📜', ch:526, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'sky', 'rheon'],
    desc:'Where is she?',
-   clues:['Rheon: "I have not forgotten her. No matter how much time has passed, Lady Mirelle Veyne still remains in my thoughts. I find myself wondering where she is now. Whether she is safe. Whether she has been hurt. And I do not understand why that question troubles me so much."', 'Jade: "...So you still think of her? Then it must have meant more to you than you realized at the time."'], rw:{xp:592100, gold:120720}, needFlag:'inv_hz526b', lockMsg:'🔒 Finish the previous clue first'},
-  {id:'hz526d', kind:'investigate', n:'A Question That Refuses to Fade', icon:'🕊️', ch:526, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'sky', 'rheon'],
-   desc:'Not yet love.',
-   clues:['Rheon: "Yes. I noticed her interest in me before. But at the time, I did not understand what I felt in return. I dismissed it, convinced it was nothing more than curiosity or a passing connection. Now, her absence feels different."', 'Rheon: "I do not call it love. Not yet. But the question of where she is, and whether she is well, remains with me. And perhaps... that is enough to know that she matters."'], rw:{xp:592400, gold:120780}, needFlag:'inv_hz526c', lockMsg:'🔒 Finish the previous clue first'},
+   clues:['Rheon: "Even now, I find myself wondering where she is. Is she safe? Is she hurt? And why does that question bother me so much?"', 'He reads an old note by candlelight, and wonders.'], rw:{xp:591800, gold:120660}, needFlag:'inv_hz526a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz526c', kind:'investigate', n:'A Friend. An Ally.', icon:'🦅', ch:526, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'sky', 'rheon'],
+   desc:'What he tells himself.',
+   clues:['Rheon: "I tell myself it is concern. A friend. An ally."', 'Rheon rides out with his falcon, and the answer does not satisfy him.'], rw:{xp:592100, gold:120720}, needFlag:'inv_hz526b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz526d', kind:'investigate', n:'Not Yet', icon:'🌙', ch:526, need:2, ambush:[], lo:96, roles:['jade', 'levi', 'sky', 'rheon'],
+   desc:'For now, that is enough.',
+   clues:['Rheon: "But the truth is... her absence feels different from that. I think of her more often than I should. I only know that I do not want her to be hurt... and that I want to see her again."', 'Rheon: "I do not call it love. Not yet." They sit together for a moment. For now, that is enough.'], rw:{xp:592400, gold:120780}, needFlag:'inv_hz526c', lockMsg:'🔒 Finish the previous clue first'},
 );
 LOCATIONS.mirelle_refuge.spots.push(
   {id:'hz533a', kind:'investigate', n:'At Last', icon:'🏯', ch:533, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sally', 'sky', 'rheon'],
@@ -5495,18 +5495,18 @@ LOCATIONS.mirelle_refuge.spots.push(
   {id:'hz536d', kind:'investigate', n:'A Responsibility', icon:'🤝', ch:536, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sally', 'sky', 'rheon'],
    desc:'Two networks, one purpose.',
    clues:['Mirelle: "...You are right. It is not just a list of names. It is a responsibility. I cannot be careless, but I also cannot walk away from it." Devon: "We can strengthen its security instead. Separate copies, false entries, new ciphers, and limited access."', 'Sky: "Then we build better protections." Levi: "If they are already hunting this, we assume they are close to finding it. We should move certain people immediately." Mirelle: "Starting today, we work together. Two networks. One purpose."'], rw:{xp:604400, gold:123180}, needFlag:'inv_hz536c', lockMsg:'🔒 Finish the previous clue first'},
-  {id:'hz537a', kind:'investigate', n:'Everything, or Nothing', icon:'🔥', ch:537, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sally', 'sky', 'rheon'],
-   desc:'The debate.',
-   clues:['The party debates what to do. Destroying the ledger would protect people immediately but erase years of trusted connections. Keeping it intact is too dangerous. Jade proposes another answer: decentralise the network. No single master ledger. No single broker. No one person should possess every name.', '"If we burn the ledger, we protect everyone immediately. But we also erase years of trusted connections. Many of these people have risked their lives for others." "Keeping it intact is even more dangerous. If the enemy captures it, they could dismantle the entire network in a single strike."'], rw:{xp:604700, gold:123240}},
-  {id:'hz537b', kind:'investigate', n:'Trust, Not Just a Book', icon:'📚', ch:537, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sally', 'sky', 'rheon'],
-   desc:'The case for splitting it.',
-   clues:['Sky: "A decentralized network is complicated. It will take time. It introduces more risk during the transition. But it also makes the network stronger in the long term." Rheon: "We can divide the information into smaller parts. Different people hold different sections. Even if one section is captured, the entire network will not fall. It relies on trust, not just a book."', 'Mirelle: "...Yes. I agree. This ledger was never meant to be a weapon. It was meant to keep people alive."'], rw:{xp:605000, gold:123300}, needFlag:'inv_hz537a', lockMsg:'🔒 Finish the previous clue first'},
-  {id:'hz537c', kind:'investigate', n:'Divide, Distribute, Protect, Adapt', icon:'🗺️', ch:537, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sally', 'sky', 'rheon'],
-   desc:'The plan.',
-   clues:['Jade: "We keep the essential information, but we split it. Routes with different people. Names separated by region. No single master ledger. Use codes where possible. Change couriers regularly. Small layers so no one sees the full picture."', 'The plan: Divide (split information by region and type), Distribute (different people, different sections), Protect (use codes, aliases and layered routes), Adapt (update, rotate and limit access).'], rw:{xp:605300, gold:123360}, needFlag:'inv_hz537b', lockMsg:'🔒 Finish the previous clue first'},
-  {id:'hz537d', kind:'investigate', n:'Different Hands, Same Purpose', icon:'🤝', ch:537, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sally', 'sky', 'rheon'],
-   desc:'Who does what.',
-   clues:['Sally: "My people can help with the human side. Taverns, performers, servants, and local contacts can carry pieces of information that don\'t look like information. Rumors, songs, invitations, people talk, and people move." Jade: "We will also need new safe houses and backup routes." Devon: "I can coordinate the restructuring. We start with the most vulnerable regions and move from there. We do not have much time."', 'Jade: "Then it\'s decided. We decentralise the network. We protect the people, not the ledger." Mirelle: "Different hands. Different paths. The same purpose. No one person should ever carry every name."'], rw:{xp:605600, gold:123420}, needFlag:'inv_hz537c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz537a', kind:'investigate', n:'Burn It, or Keep It?', icon:'🔥', ch:537, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sally', 'sky', 'rheon'],
+   desc:'The ledger\'s fate.',
+   clues:['The party gathers to decide the fate of Mirelle\'s master ledger. Destroying it would protect people immediately, but erase years of trusted connections. Keeping it intact is too dangerous. They search for another way.', 'Mirelle: "If this ledger survives, everyone named in it remains vulnerable. My contacts, couriers, and their families could all be targeted." Devon: "But if we burn it, we also erase trusted routes, safe houses, and years of relationships. We cannot afford to lose everything either."'], rw:{xp:604700, gold:123240}},
+  {id:'hz537b', kind:'investigate', n:'Cells With Limited Knowledge', icon:'🧵', ch:537, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sally', 'sky', 'rheon'],
+   desc:'The case for dividing it.',
+   clues:['Sally: "People-based rumor channels can survive without a single master record. Information moves through people, through conversation, music, festivals, and trade. A network is more than a ledger. It can live in people\'s memories."', 'Sky: "If we divide it into smaller cells, with limited knowledge, the damage will be contained if one branch is compromised." Levi: "Separate routes, separate contacts, separate regions. They may catch one thread, but they won\'t get the whole network."'], rw:{xp:605000, gold:123300}, needFlag:'inv_hz537a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz537c', kind:'investigate', n:'A Weakness Into Stronger Pieces', icon:'🛡️', ch:537, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sally', 'sky', 'rheon'],
+   desc:'Strategy.',
+   clues:['Rheon: "From a strategic perspective, this is the only responsible choice. No enemy should be able to seize the entire network in one blow. A single master ledger is a weakness. We turn that weakness into many smaller, stronger pieces."', 'Jade: "Then we do this. No single master ledger. No single broker. No one person should possess every name. We divide the network by region, by type, and by trust level. Different people manage different parts. Information is shared only as needed."'], rw:{xp:605300, gold:123360}, needFlag:'inv_hz537b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz537d', kind:'investigate', n:'It Will No Longer Exist as One Whole', icon:'🤝', ch:537, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sally', 'sky', 'rheon'],
+   desc:'Mirelle agrees.',
+   clues:['Mirelle: "...Yes. We decentralize it. I will split the ledger into smaller records and distribute them carefully to trusted people. It will no longer exist as one complete whole."', 'Mirelle: "Some connections will move to oral records only. Others will be reassigned to different people and regions. It will be more work, but it is the right choice. Our people\'s safety matters more than my convenience." The network will not be destroyed. It will survive by being divided, shared, and made safer than before.'], rw:{xp:605600, gold:123420}, needFlag:'inv_hz537c', lockMsg:'🔒 Finish the previous clue first'},
 );
 MISSIONS.push(
   {id:'m_s517', needCh:517, title:'Mirelle Veyne', obj:{type:'steps', steps:[
@@ -5558,10 +5558,10 @@ MISSIONS.push(
      {label:'Why She Became Vulnerable', spot:'hz525d'}]}, rw:{xp:1260000, gold:282200, rep:2216},
    subj:'A Woman Still Moving', body:'The story is not finished. — Jade'},
   {id:'m_s526', needCh:526, title:'Rheon Remembers Her', obj:{type:'steps', steps:[
-     {label:'Unusually Quiet', spot:'hz526a'},
-     {label:'An Old Memory', spot:'hz526b'},
-     {label:'I Have Not Forgotten Her', spot:'hz526c'},
-     {label:'A Question That Refuses to Fade', spot:'hz526d'}]}, rw:{xp:1262500, gold:282800, rep:2219},
+     {label:'Not Forgotten', spot:'hz526a'},
+     {label:'Is She Safe?', spot:'hz526b'},
+     {label:'A Friend. An Ally.', spot:'hz526c'},
+     {label:'Not Yet', spot:'hz526d'}]}, rw:{xp:1262500, gold:282800, rep:2219},
    subj:'Rheon Remembers Her', body:'The story is not finished. — Jade'},
   {id:'m_s527', needCh:527, title:'Devon Before Jade', obj:{type:'steps', steps:[
      {label:'Colder, More Guarded', spot:'hz527a'},
@@ -5624,10 +5624,10 @@ MISSIONS.push(
      {label:'A Responsibility', spot:'hz536d'}]}, rw:{xp:1287500, gold:288800, rep:2249},
    subj:'The Ledger of Names', body:'The story is not finished. — Jade'},
   {id:'m_s537', needCh:537, title:'Burn the Network?', obj:{type:'steps', steps:[
-     {label:'Everything, or Nothing', spot:'hz537a'},
-     {label:'Trust, Not Just a Book', spot:'hz537b'},
-     {label:'Divide, Distribute, Protect, Adapt', spot:'hz537c'},
-     {label:'Different Hands, Same Purpose', spot:'hz537d'}]}, rw:{xp:1290000, gold:289400, rep:2252},
+     {label:'Burn It, or Keep It?', spot:'hz537a'},
+     {label:'Cells With Limited Knowledge', spot:'hz537b'},
+     {label:'A Weakness Into Stronger Pieces', spot:'hz537c'},
+     {label:'It Will No Longer Exist as One Whole', spot:'hz537d'}]}, rw:{xp:1290000, gold:289400, rep:2252},
    subj:'Burn the Network?', body:'The story is not finished. — Jade'}
 );
 LORE.push(
@@ -5639,7 +5639,7 @@ LORE.push(
   {ch:523, n:'People Who Should Not Know', t:'A caravan on an unlisted route was attacked, a noble was blackmailed with a secret known to very few, and a retired courier vanished after receiving a code only Mirelle\'s network should know. The party concluded the enemy had acquired part of the network itself, with people on the inside.'},
   {ch:524, n:'The First False Trail', t:'A trail that seemed to lead to Mirelle was too perfect: tracks the weather did not match, a copied marker cloth, planted leaves and a staged, empty ambush site. The enemy was using part of Mirelle\'s network and had studied how the party investigates.'},
   {ch:525, n:'A Woman Still Moving', t:'The party found proof that Mirelle was alive and moving between safehouses at Moonrest Hills, Riverside Post, Blackpine Pass, Lumen Valley and Southreach, warning her contacts as she went. At Southreach something went wrong. She stayed long enough to protect others, and that is why she became vulnerable.'},
-  {ch:526, n:'Rheon Remembers Her', t:'Riding through Dragonvale, a quiet Rheon admitted to Jade that he had not forgotten Mirelle. He had once dismissed her interest in him as curiosity or a passing connection; now her absence troubled him in a way he had not felt for anyone else. He did not call it love, not yet.'},
+  {ch:526, n:'Rheon Remembers Her', t:'Rheon admitted to himself that he had not forgotten Mirelle. He had noticed her interest in Dragonvale without understanding what he felt in return. Now he wondered where she was and whether she was hurt, and the question troubled him more than concern for a friend would. He did not call it love, not yet.'},
   {ch:527, n:'Devon Before Jade', t:'Mirelle\'s old notes described a colder, more guarded Devon who kept even those who cared at arm\'s length and carried heavy burdens alone. Jade read them without shock: she understood the reasons, wished she had known him then too, and said understanding the past only deepened their bond.'},
   {ch:528, n:'The Contact Who Stayed', t:'One surviving member of Mirelle\'s network told the party that she could have disappeared safely many times but refused while others had not escaped: "Someone has to stay and keep the threads alive a little longer." The survivor handed over partial codes and a list of people still in danger. Rheon began to understand the loyalty beneath her cleverness.'},
   {ch:529, n:'Secrets Have Weight', t:'Sky found unusual spiritual residue on the stolen letters: the memories attached to secrets, with their shame, fear, regret and desire, were being consumed. Its signature resembled the records of the Fifteen Evils. This was not ordinary espionage but the work of one of the remaining Evils.'},
@@ -5650,7 +5650,7 @@ LORE.push(
   {ch:534, n:'Another Prince', t:'With Mirelle safe for now, she teased Rheon about collecting royal troublemakers and he answered that he had joined of his own choice, because few people see the world the way she does. "Then keep asking your questions. I intend to be here for the next ones."'},
   {ch:535, n:'Mirelle and Sally', t:'Mirelle and Sally compared their networks: roads, ledgers and couriers against taverns, performers and whispers. Each named the other\'s weakness, agreed to combine their reach for a wider net and fewer blind spots, and kept their own networks while sharing what matters. "Information is simply another kind of freedom."'},
   {ch:536, n:'The Ledger of Names', t:'Mirelle\'s master ledger recorded the identities, routes and safe contacts of the ordinary people who move information between regions. If it fell into the wrong hands, entire networks could collapse. She considered destroying it; Devon and Rheon argued it should be protected, because the ledger is trust and a responsibility, not just a list.'},
-  {ch:537, n:'Burn the Network?', t:'The party weighed burning Mirelle\'s ledger against keeping it intact, and Jade proposed a third way: decentralise the network, with no single master ledger, no single broker and no one person carrying every name. The plan was Divide, Distribute, Protect, Adapt, and everyone agreed: "We protect the people, not the ledger."'}
+  {ch:537, n:'Burn the Network?', t:'The party weighed burning Mirelle\'s ledger against keeping it intact, and Jade proposed a third way: no single master ledger, no single broker, no one person should possess every name. Mirelle agreed to split the ledger into smaller records among trusted people and move some connections to oral records only. The network survived by being divided, shared, and made safer than before.'}
 );
 
 /* ---- Arc XXI ends (549): Another Marker Goes Dark ---- */
