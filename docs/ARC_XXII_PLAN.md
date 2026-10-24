@@ -25,3 +25,16 @@ Edits made by the author after the first brief: 557 now says the region no longe
 - Needed from the author: the pages, the Arc XXII cover and any title changes.
 
 - The pasted edits repeated 557-572 twice and the last line of 580 is cut off ("...bring the party back to the road" ends mid-sentence in one copy and a stray duplicate "House Xuanji has not sur"); the plan above follows the complete text.
+
+## Built so far: 550-558 and 560-570 (559 not received yet)
+**Missing: 559 Not Prince Consort, 571-580, and the Arc XXII cover.** Title: Arc XXII, The House That Remains (chapters are labelled "cover to come"). Places: 550 the capital; 551-552 Dragonvale; 553-556, 558 and 562-564 the Noble Court; 557, 560-561 the Northern Frontier; 565-570 Dee Manor (the Dee household). **The pages name no place except the market and the palace city, so the places are assumptions.**
+**Gameplay:** Delilah is a guest adviser from 558 until 562 (Read the Contract, Officer's Network, Reallocate Supplies, Deployment Plan, Provisioning Order). Rheon leaves after 549.
+**Page notes (kept as drawn; minor typos ignored per the author):**
+- 550: the caption says "the Crimson Tide" (the party is called the Crimson Guard elsewhere). 554: "Dēvon". 556: a garbled top-right caption. 561: stray characters in a bubble. 570: "Lo keep her". 
+- 553: Roc appears alone and adult with a short beard. Elise is drawn with long golden hair and blue eyes throughout this arc (earlier chapters: darker hair).
+- **Delilah is drawn visibly pregnant in 560 and 561** (not in 558). The game's timeline has her twins confirmed at 484-485; the pages do not say whether this is a new pregnancy. Left unsaid in the text.
+- 562 and 565-570 carry captions only (562 has no dialogue).
+- **565-567 reveal that the blurred mercenary of ch531 was Roc.** 565: the Border Market, the last live chicken (Roc's young look, no beard), her mercenary badge. 566: Jade volunteers as bait; Roc sleeps through the briefing; the plan fails, Jade is captured and drugged; Roc knew another remedy existed and did not tell her; he leaves before dawn ("To be continued..."). 567: Jade wakes alone and finds a man's tunic; hears Chad (Roc's alias) skipped the briefing; Roc defeats the criminal in two strikes; her fury; he gives her half the reward. The in-game text is kept discreet; the art shows the intimate moment in soft close-up.
+- 568 is uploaded last but belongs between 567 and 569 (the story order is 567, 568, 569, 570).
+- Roc's reckoning (568-570) names forced kisses, manipulation and using Sally to provoke Jade as power and possession, and ends with "loving someone does not mean you are good for them". 569 repeats that Devon and Jade slept in separate rooms after their marriage and that Devon would have let her go freely.
+- 557: Elise sees the marriage may eventually end ("a completion of its purpose"); Aster says she is not bound there against her will. Nothing is decided.
