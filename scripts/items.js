@@ -33,7 +33,7 @@ function persistBattle(){
   if(!B || !B.spec.rewards) return;
   B.allies.forEach(a => { const u = U(a.id); if(!u) return; u.hp = a.dead ? Math.max(1, Math.round(a.mhp*.2)) : a.hp; u.mp = a.mp; });
 }
-const REST_COST = () => { const c = 10 + avgPartyLv()*2; return typeof discounted==='function' ? discounted(G.loc, c) : c; };
+const REST_COST = () => { let c = 10 + avgPartyLv()*2; if(typeof delilahSupplies==='function') c = Math.round(c*delilahSupplies('rest')); return typeof discounted==='function' ? discounted(G.loc, c) : c; };
 function restAtInn(){
   const c = REST_COST(); if(G.gold < c) return ['A bed costs '+c+' gold.'];
   G.gold -= c; restoreParty();
