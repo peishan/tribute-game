@@ -5909,3 +5909,30 @@ LORE.push(
   {ch:547, n:'Someone Worth Knowing', t:'Later, when the others had withdrawn, Rheon told Mirelle that she was worth understanding, and that none of the things others saw in her, remarkable, capable, extraordinary, were why he wanted to know her. No confession followed and no title was given, but the direction was clear.'},
   {ch:548, n:'Home With Someone', t:'Jade told Devon she had enjoyed meeting someone who knew the person he used to be. Asked whether Mirelle had revealed anything embarrassing, she answered "Several things", then "Nothing I didn\'t like." Their marriage remained steady, comfortable and secure: "I\'m glad we get to come home to each other."'}
 );
+
+/* ---- Arc XXI, chapter 518: The Network Before Jade ---- */
+LOCATIONS.capital.spots.push(
+  {id:'hz518a', kind:'investigate', n:'You Had All This', icon:'🗺️', ch:518, need:2, ambush:[], lo:96, roles:['jade', 'devon'],
+   desc:'Jade is surprised.',
+   clues:['Jade learns more about Devon\'s old information system. Before he travelled with her, he had already built quiet connections across Dragonvale and nearby territories. Jade: "You had all this... before we even started travelling together?" Devon: "I didn\'t do it alone. I had people I trusted."', 'Before he met Jade, Devon moved quietly, building connections in Dragonvale and neighbouring territories.'], rw:{xp:601100, gold:122520}},
+  {id:'hz518b', kind:'investigate', n:'A Small Circle of Trusted Contacts', icon:'🕯️', ch:518, need:2, ambush:[], lo:96, roles:['jade', 'devon'],
+   desc:'His network.',
+   clues:['He avoided attention, kept to the shadows, and relied on a small circle of trusted contacts. His network included merchants, informants, travellers, and people in unexpected places.', 'The map shows the links across Dragonvale, Northreach, Caelis, Redmere, Stormmere and the Western Isles.'], rw:{xp:601400, gold:122580}, needFlag:'inv_hz518a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz518c', kind:'investigate', n:'One of the People He Trusted Most', icon:'🌸', ch:518, need:2, ambush:[], lo:96, roles:['jade', 'devon'],
+   desc:'Mirelle.',
+   clues:['Mirelle was one of the people he trusted most. She helped him with information, contacts and routes across multiple regions.', 'He shared what he needed to, but never everything. Even with his closest allies, he kept his own secrets.'], rw:{xp:601700, gold:122640}, needFlag:'inv_hz518b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz518d', kind:'investigate', n:'Another Part of the Man I Married', icon:'💞', ch:518, need:2, ambush:[], lo:96, roles:['jade', 'devon'],
+   desc:'A glimpse.',
+   clues:['He was more cautious. Less trusting. More politically detached. But already highly capable.', 'This gives Jade a glimpse of Devon before their marriage: who he was, what he valued, and how much he had already built on his own. Jade: "I\'m not jealous. I\'m fascinated. It\'s like discovering another part of the man I married."'], rw:{xp:602000, gold:122700}, needFlag:'inv_hz518c', lockMsg:'🔒 Finish the previous clue first'},
+);
+MISSIONS.push(
+  {id:'m_s518', needCh:518, title:'The Network Before Jade', obj:{type:'steps', steps:[
+     {label:'You Had All This', spot:'hz518a'},
+     {label:'A Small Circle of Trusted Contacts', spot:'hz518b'},
+     {label:'One of the People He Trusted Most', spot:'hz518c'},
+     {label:'Another Part of the Man I Married', spot:'hz518d'}]}, rw:{xp:1242500, gold:278000, rep:2195},
+   subj:'The Network Before Jade', body:'The story is not finished. — Jade'}
+);
+LORE.push(
+  {ch:518, n:'The Network Before Jade', t:'Jade learned that before Devon travelled with her he had already built quiet connections across Dragonvale and nearby territories: merchants, informants, travellers and people in unexpected places, with Mirelle among those he trusted most. He shared what he needed to, never everything. "It\'s like discovering another part of the man I married."'}
+);
