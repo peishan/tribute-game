@@ -29,10 +29,11 @@ const ARCS = [
   {n:18, title:'The Man Who Returned', img:'assets/arcs/arc18.webp', after:436},   // ch437 onward: Levi declared alive, the Stanson house, the search for Zhaohua
   {n:19, title:'A Season to Breathe', img:'assets/arcs/arc19.webp', after:461},   // ch462-490: the weddings, the couples and the lights beneath the water
   {n:20, title:'The Crown and the Border', img:'assets/arcs/arc20.webp', after:490},   // ch491-515: Aster, Elise, Fen and Tarin on the northern frontier (ch515 ends it; ch516 begins Arc XXI, Mirelle Veyne, cover to come)
+  {n:21, title:'The Woman Who Knew the Roads', img:'assets/arcs/arc21.webp', after:515},   // ch516-549: Mirelle Veyne, the Whispering Mask and the ledger of names
 ];
 /* End-of-arc splash (author): after ch436 the Levi and Sally relationship route starts and Sally rejoins for good. The caption is drawn over the art. */
 const ARC_END_SPLASH = [ {key:'17end', after:436, img:'assets/arcs/arc17_end.webp', title:'Levi and Sally: a relationship route has begun', text:'Levi and Sally: a relationship route has begun.', sub:'Their story now moves between the two of them. Welcome Sally back as a permanent member of the party.'} ];
-const ARC_ROMAN = ['','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX'];
+const ARC_ROMAN = ['','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX','XXI'];
 
 // Arc IX, "The Forgotten Alliance" (the author's canon title): begins with ch211 and ends with ch235 (the royal wedding is ch234); add {n:9, title:'The Forgotten Alliance', img:'assets/arcs/arc9.webp', after:210} once the splash art exists.
 function arcFor(afterCh){ return ARCS.find(a => a.after === afterCh); }
