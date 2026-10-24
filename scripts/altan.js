@@ -154,6 +154,7 @@ function doRescue(){
 }
 /* ---- 6. The Altan prince, Sera's brother: a temporary guest from ch251 (never recruitable) ---- */
 CHARACTERS.rheon = {
+  battleLook:true, battleAlways:true,   // assets/party/rheon.webp is his out-of-battle look; rheon_battle.webp (silver-white hair) is used in every fight
   n:'Rheon Altan', icon:'🦅', cls:'Falcon Crown Prince', role:'Front-line Guardian / Vanguard (recruited after Arc X)', combat:'Holding the line, guarding allies, breaking formations',
   identity:'Prince Rheon of Altan, Seraphina\'s older brother (a year or two older, called the crown prince): brilliant, impulsive, fond of adventure, horses and falcons, and exactly the sort of man she expects to find stranded on a mountain. A guest from chapter 251; he joins the party for good after Arc X (chapter 263).',
   style:['Lance and shield','Cover','Command'], strength:'Holding the line',
