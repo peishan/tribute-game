@@ -26,7 +26,7 @@ Edits made by the author after the first brief: 557 now says the region no longe
 
 - The pasted edits repeated 557-572 twice and the last line of 580 is cut off ("...bring the party back to the road" ends mid-sentence in one copy and a stray duplicate "House Xuanji has not sur"); the plan above follows the complete text.
 
-## Built so far: 550-558 and 560-570 (559 not received yet)
+## Built so far: 550-558 and 560-578 (559 not received yet)
 **Missing: 559 Not Prince Consort, 571-580, and the Arc XXII cover.** Title: Arc XXII, The House That Remains (chapters are labelled "cover to come"). Places: 550 the capital; 551-552 Dragonvale; 553-556, 558 and 562-564 the Noble Court; 557, 560-561 the Northern Frontier; 565-570 Dee Manor (the Dee household). **The pages name no place except the market and the palace city, so the places are assumptions.**
 **Gameplay:** Delilah is a guest adviser from 558 until 562 (Read the Contract, Officer's Network, Reallocate Supplies, Deployment Plan, Provisioning Order). Rheon leaves after 549.
 **Page notes (kept as drawn; minor typos ignored per the author):**
@@ -44,3 +44,8 @@ Edits made by the author after the first brief: 557 now says the region no longe
 - **Supply Ledger, Arc XXII** (Archive, from ch558, `scripts/delilah.js`): the 300-ordered, 180-arrived grain row and nine findings that unlock with the 558, 560 and 561 clues.
 - **Two networks:** with Sally's Rumour Network and Mirelle's Veyne Network both armed on one search, the two cross-check: no ambush and bonus XP.
 - **Case-tab panels** for Mirelle (Information Ally), Elise (Border Ally) and Tarin (Border Contact).
+
+## 571-578 built (the coronation is in this arc)
+571 Delilah, 572 The Woman Who Stayed (Roc and Delilah; "It took you long enough"; Liora with a white rabbit toy), 573 The King's Last Days, 574 Devon's Choice, 575 Roc's Choice, **576 The Crown Passes (flag `aster_crowned_king`: Aster is King of Dragonvale)**, 577 The King Stands, 578 Elise's Question. **Missing: 559, 579 What Fen Thinks (with Tarin's secluded region), 580 The House That Remains and the Arc XXII cover.** The author will send 580 first and then 559.
+**Coronation changes (built):** from 576 Aster's class reads King of Dragonvale (character sheet) and his Case panel says "Aster: King of Dragonvale"; Elise's panel reads "Queen Elise of Dragonvale (for now)" and says her marriage has done what it was made for and she has begun to ask whether she chooses it. The older chapter texts keep the titles of their day (Crown Prince). New relationship stages: Aster & Fen "Behind her king" (576), Elise & Tarin "The question of the public life" (578), Roc & Delilah "Seen for who stayed" (571) and "It took you long enough" (572). **Not yet changed:** a Dragonvale NPC/court text says "King Greyson" in many places (that is Greyson, the other kingdom's king, not Aster); Aster's guest skills are unchanged (he left the party after 515).
+**Page notes:** 571 and 575 draw Delilah heavily pregnant (the twins: the pregnancy confirmed at 484-485, so 560-561 are the same pregnancy; the text says "their twins"). 573-577 draw Aster in a crown of red bead strings; 574 already says "Aster inherited the throne" before the coronation page (576). 578's dialogue repeats 557's lines (Elise, Fen) since the chapter turns on the same conversation. 577 shows Elise and Fen with the court; Elise is not drawn crowned. 572 and 575 show Roc with a beard throughout.
