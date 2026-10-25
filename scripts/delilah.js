@@ -51,3 +51,29 @@ const delilahSupplies = kind => delilahOn() ? (kind==='rest' ? .75 : kind==='far
     blog('🎖️ Delilah\'s Deployment Plan: the party takes its positions early (+speed for a few turns).','good');
   };
 })();
+
+/* ---- Supply Ledger, Arc XXII (ch558-561): the sabotage of the frontier's supplies. Findings unlock with the clues. ---- */
+const LEDGER22_ROWS = [['Grain carts, western outpost', 300, 180]];
+const LEDGER22_FINDINGS = [
+  ['Quantities do not match','hz558a','Three hundred carts of grain ordered; a hundred and eighty arrived. The same goods are also recorded as delivered to a garrison that never received them.'],
+  ['Organised, not random','hz558b','The goods are redirected to private warehouses and unregistered depots along certain routes (Fen).'],
+  ['New contracts, unfamiliar merchants','hz558c','Some are tied to people with political connections in the capital. The shortages would make Aster look incapable of supporting the frontier.'],
+  ['The pattern repeats','hz558d','Across several regions the goods leave the official route and are redirected to storage tied to the same merchants.'],
+  ['Escorts were never there','hz560a','Routes are marked complete, but the escort units were not there on those dates; the grain was redirected at the third relay station.'],
+  ['Front companies and bribed officials','hz560d','The same merchants appear in many regions under different front companies; officials are bribed to reroute supplies, which are sold to private buyers instead of the army.'],
+  ['No magic anywhere','hz561a','Sky found no trace of a curse, illusion or demonic influence: orders look correct on paper but deliveries are split, redirected or delayed.'],
+  ['Money to the capital and closer','hz561c','The goods are sold at inflated prices; some profits flow to political factions in the capital and some to people near the frontier.'],
+  ['Hidden warehouses','hz561d','Diverted grain, weapons and medical supplies are stored in hidden warehouses; the profits buy influence and weaken Aster. The frontier already feels it.'],
+];
+(function(){
+  const _rl = rLedger;
+  rLedger = function(){
+    let h = _rl();
+    if(G.ch < 558) return h;
+    const known = id => !!G.flags['inv_'+id];
+    h += `<h4>Arc XXII: the western outposts</h4>`;
+    h += known('hz558a') ? LEDGER22_ROWS.map(r => `<div class="li"><b>${r[0]}</b>: ${r[1]} ordered, ${r[2]} arrived <span class="sm">(${Math.round(100*(r[1]-r[2])/r[1])}% missing)</span></div>`).join('') : `<div class="li">❔ ???</div>`;
+    h += LEDGER22_FINDINGS.map(f => known(f[1]) ? `<div class="li">✅ <b>${f[0]}</b><div class="sm">${f[2]}</div></div>` : `<div class="li">❔ ???</div>`).join('');
+    return h;
+  };
+})();

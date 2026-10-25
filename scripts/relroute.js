@@ -5,7 +5,7 @@
    no points and no bonus (the routes are story-only). Add a row to REL_ROUTES to track another pair: members, an open() test, and stages
    [{n: stage name, flag: the story flag that reaches it}] in order (the first stage needs no flag).
    State: G.relroute = { key: {last: day, shown: stage already announced, started: true} }.  Moments are stored in G.moments with t:'rel_'+key.
-   Hidden: a route does not appear until its open() is true. Adrian, Hugh and the other royals are deliberately not tracked here.
+   Story-only routes (story:true, added in allypanels.js) are for people who are not in the party: no spending time, only the ladder. Hidden: a route does not appear until its open() is true. Adrian, Hugh and the other royals are deliberately not tracked here.
    ===================================================================== */
 const REL_ROUTES = {
   levi_sally:{ label:'Levi & Sally', icon:'💞', members:['levi','sally'],
@@ -44,7 +44,7 @@ const REL_ROUTES = {
 const LEVI_SALLY_CRIT = .05;
 const levisallySynergy = id => (id==='levi' || id==='sally') && !!G && !!G.flags.sally_rejoins && ['levi','sally'].every(x => G.party.includes(x) && G.active.includes(x) && !isDisabled(x)) ? LEVI_SALLY_CRIT : 0;
 function relRouteStage(k){ const R = REL_ROUTES[k]; let s = 0; R.stages.forEach((st,i) => { if(!st.flag || G.flags[st.flag]) s = i; }); return s; }
-const relRouteOpen = k => { const R = REL_ROUTES[k]; try{ return !!R.open() && R.members.every(id => isRecruited(id) || id==='jade'); }catch(e){ return false; } };
+const relRouteOpen = k => { const R = REL_ROUTES[k]; try{ return !!R.open() && (R.story || R.members.every(id => isRecruited(id) || id==='jade')); }catch(e){ return false; } };
 function relRouteState(k){ if(!G.relroute) G.relroute = {}; if(!G.relroute[k]) G.relroute[k] = {last:-1, shown:-1, started:false}; return G.relroute[k]; }
 /* called from completeChapter after the chapter's flags are set: announces a route beginning and any new stage */
 function relRouteChapter(){
@@ -56,6 +56,7 @@ function relRouteChapter(){
 }
 function relRouteLock(k){
   const R = REL_ROUTES[k], st = relRouteState(k);
+  if(R.story) return 'Story only';
   if(st.last === G.day) return 'Already today';
   if(!R.members.every(id => id==='jade' || (G.party.includes(id) && !isDisabled(id)))) return 'Not both of them are with you';
   return '';
