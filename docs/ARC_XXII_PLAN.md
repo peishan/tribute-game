@@ -21,7 +21,7 @@ Edits made by the author after the first brief: 557 now says the region no longe
 - 573 shows the brothers standing together, 574 (Devon) and 575 (Roc) are their own statements, 577 is Aster's first address as king, alone.
 - 578-579 (Elise's question, Fen, Tarin's secluded region): possibility only, **nothing is decided**; her departure is for later chapters.
 - Elise and Aster stay "allies, friends and partners" (515); Elise meeting Tarin is not infidelity in the story: Aster and Fen know (562).
-- Gameplay ideas for later (not built): a "False Rumour" investigation type (the same rumour told differently to each faction), an Aster/Fen/Elise policy desk at 556, and convoy missions with Emergency Reallocation. (Delilah's adviser abilities and the Arc XXII Supply Ledger are built.)
+- Gameplay ideas for later (not built): a "False Rumour" investigation type (the same rumour told differently to each faction), an Aster/Fen/Elise policy desk at 556, (Delilah's adviser abilities, the Arc XXII Supply Ledger and the convoy desk with Emergency Reallocation are built.)
 - Needed from the author: the pages, the Arc XXII cover and any title changes.
 
 - The pasted edits repeated 557-572 twice and the last line of 580 is cut off ("...bring the party back to the road" ends mid-sentence in one copy and a stray duplicate "House Xuanji has not sur"); the plan above follows the complete text.
