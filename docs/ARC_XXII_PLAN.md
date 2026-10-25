@@ -58,3 +58,7 @@ Not built from this arc's list: the "False Rumour" investigation type and the As
 **Purple note (author):** three characters wear purple: **Sally, Delilah and Fen** (Sally lilac with purple flowers, Delilah a purple floral robe, Fen a deep purple robe with purple flowers). Identify them by hair and context, not colour alone. In the regenerated 580 the woman leaning on Aster's arm is **Fen** (Aster's true love). The author wanted Aster to rule independently in that panel; the generator added Fen back, and the page is kept as drawn unless the author regenerates it. Delilah is Roc's wife.
 
 **Decision (author):** the regenerated 580 stays as drawn, with Fen beside Aster, because **Fen is going to be Aster's wife in later arcs**. Plan accordingly: Elise's departure (Tarin, the quiet settlement, ch577-579) is the trigger that clears the way; nothing is built or decided yet, and Elise remains queen for now.
+
+## Direction for the arcs after XXII (author)
+- **Focus of the story from here: the remaining Evils (8 of 15) and true love for everyone, with less on politics.** Aster and Fen as true love is the way to go.
+- **Elise's departure is narration only** (a line or caption, not a chapter-length arc). The next arc brief, which the author is still reviewing, will say when. Nothing is built.
