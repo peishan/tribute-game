@@ -18,5 +18,5 @@ function takeVeyne(){ const e = expl(); const v = e.armed.veyne || false; e.arme
 function veyneButtons(){
   if(!veyneOn()) return '';
   const a = expl().armed, left = veyneLeft();
-  return Object.keys(VEYNE_MODES).map(k => `<button class="${a.veyne===k?'pri':''}" ${(!left&&a.veyne!==k)?'disabled':''} onclick="act(armVeyne,'${k}')">${a.veyne===k?'✔ ':''}${VEYNE_MODES[k].icon} Veyne: ${VEYNE_MODES[k].n}</button>`).join('');
+  return '<div class="sm">With Sally\'s Rumour Network armed too, the two networks cross-check: no ambush and bonus XP.</div>' + Object.keys(VEYNE_MODES).map(k => `<button class="${a.veyne===k?'pri':''}" ${(!left&&a.veyne!==k)?'disabled':''} onclick="act(armVeyne,'${k}')">${a.veyne===k?'✔ ':''}${VEYNE_MODES[k].icon} Veyne: ${VEYNE_MODES[k].n}</button>`).join('');
 }

@@ -3324,6 +3324,7 @@ function doInvestigate(spotId){
     let prevN = G.clues[spotId]||0, n = G.clues[spotId] = Math.min(sp.need, prevN+1+(rum && prevN+1 < sp.need ? 1 : 0)+(aut && prevN+1+(rum?1:0) < sp.need ? 1 : 0)), msgs = ['🔎 Clue '+n+'/'+sp.need+': '+(sp.clues[n-1]||sp.clues[sp.clues.length-1])];
     { const al = n < sp.need && typeof allyClue==='function' && allyClue(); if(al){ n = G.clues[spotId] = n+1; msgs.push('🔎 Clue '+n+'/'+sp.need+': '+(sp.clues[n-1]||sp.clues[sp.clues.length-1])); al.forEach(m => msgs.push(m)); } }
     if(con){ contractLines(sp, n).forEach(m => msgs.push(m)); gainXp(120 + avgPartyLv()*6, G.party).forEach(m => msgs.push(m)); }
+    if(rum && vey){ gainXp(150 + avgPartyLv()*8, G.party).forEach(m => msgs.push(m)); msgs.push('🌹🧭 Two networks, one answer: Sally\'s rumours and Mirelle\'s records cross-check each other (bonus XP).'); }
     if(vey){ msgs.push(VEYNE_MODES[vey].msg); if(vey==='lead' && n < sp.need){ n = G.clues[spotId] = n+1; msgs.push('🔎 Clue '+n+'/'+sp.need+': '+(sp.clues[n-1]||sp.clues[sp.clues.length-1])); } }
     if(rum && n >= 2 && n - prevN === 2) msgs.unshift('🔎 Clue '+(n-1)+'/'+sp.need+': '+(sp.clues[n-2]||sp.clues[sp.clues.length-1]));
     if(aut) authorityResult().forEach(m => msgs.push(m));
@@ -3342,7 +3343,7 @@ function doInvestigate(spotId){
     msgs.push.apply(msgs, advanceDay(ins || vey==='route' ? 0 : 1)); save(); return msgs;
   };
   const magicOnly = sen && sp.ambush && sp.ambush.length && sp.ambush.every(k => (ENEMIES[k].traits||[]).includes('magic'));
-  if(sp.ambush && sp.ambush.length && !magicOnly && vey!=='false' && !off && Math.random() < (ins ? .1 : (typeof eveEdge==='function' && eveEdge() ? .25 : (typeof tarinEdge==='function' && tarinEdge() ? .22 : .4))) && !(typeof tarinSkips==='function' && tarinSkips())){
+  if(sp.ambush && sp.ambush.length && !magicOnly && vey!=='false' && !(rum && vey) && !off && Math.random() < (ins ? .1 : (typeof eveEdge==='function' && eveEdge() ? .25 : (typeof tarinEdge==='function' && tarinEdge() ? .22 : .4))) && !(typeof tarinSkips==='function' && tarinSkips())){
     startBattle({foes:foeGroup(sp.ambush, lvFor(sp), 2), rewards:true, onWin:found});
     return 'battle';
   }

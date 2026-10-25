@@ -21,7 +21,7 @@ Edits made by the author after the first brief: 557 now says the region no longe
 - 573 shows the brothers standing together, 574 (Devon) and 575 (Roc) are their own statements, 577 is Aster's first address as king, alone.
 - 578-579 (Elise's question, Fen, Tarin's secluded region): possibility only, **nothing is decided**; her departure is for later chapters.
 - Elise and Aster stay "allies, friends and partners" (515); Elise meeting Tarin is not infidelity in the story: Aster and Fen know (562).
-- Gameplay ideas for later (not built): Delilah as a non-combat Logistics Lead for 558-561 (like Fen and Elise), a "False Rumour" investigation type (the same rumour told differently to each faction), and an Aster/Fen/Elise policy desk at 556.
+- Gameplay ideas for later (not built): a "False Rumour" investigation type (the same rumour told differently to each faction), an Aster/Fen/Elise policy desk at 556, and convoy missions with Emergency Reallocation. (Delilah's adviser abilities and the Arc XXII Supply Ledger are built.)
 - Needed from the author: the pages, the Arc XXII cover and any title changes.
 
 - The pasted edits repeated 557-572 twice and the last line of 580 is cut off ("...bring the party back to the road" ends mid-sentence in one copy and a stray duplicate "House Xuanji has not sur"); the plan above follows the complete text.
@@ -38,3 +38,9 @@ Edits made by the author after the first brief: 557 now says the region no longe
 - 568 is uploaded last but belongs between 567 and 569 (the story order is 567, 568, 569, 570).
 - Roc's reckoning (568-570) names forced kisses, manipulation and using Sally to provoke Jade as power and possession, and ends with "loving someone does not mean you are good for them". 569 repeats that Devon and Jade slept in separate rooms after their marriage and that Devon would have let her go freely.
 - 557: Elise sees the marriage may eventually end ("a completion of its purpose"); Aster says she is not bound there against her will. Nothing is decided.
+
+## Built after chapters 550-570 (story relationships, ledger, panels)
+- **Story-only relationship routes** (Bonds, `scripts/allypanels.js`; no "spend time", stages from story flags): Rheon & Mirelle (seven stages from 286 to 547), Aster & Fen, Elise & Tarin, Roc & Delilah (the last waits for 571-572).
+- **Supply Ledger, Arc XXII** (Archive, from ch558, `scripts/delilah.js`): the 300-ordered, 180-arrived grain row and nine findings that unlock with the 558, 560 and 561 clues.
+- **Two networks:** with Sally's Rumour Network and Mirelle's Veyne Network both armed on one search, the two cross-check: no ambush and bonus XP.
+- **Case-tab panels** for Mirelle (Information Ally), Elise (Border Ally) and Tarin (Border Contact).
