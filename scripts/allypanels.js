@@ -28,6 +28,7 @@ Object.assign(REL_ROUTES, {
       {n:'Honest with Elise', flag:'honest_before_agreeing'},
       {n:'A political marriage, a free heart', flag:'crown_and_border_wed'},
       {n:'Beside him in practice', flag:'aster_rules_in_practice'},
+      {n:'Behind her king', flag:'aster_crowned_king'},
     ] },
   elise_tarin:{ label:'Elise & Tarin', icon:'❄️', members:['elise','tarin'], story:true,
     open:() => !!G.flags.elise_tarin_ash, begun:'',
@@ -40,6 +41,7 @@ Object.assign(REL_ROUTES, {
       {n:'The marriage may eventually end', flag:'frontier_already_holding'},
       {n:'Meetings at night', flag:'elise_night_meeting_seen'},
       {n:'Letters and a disguise', flag:'aster_helps_elise_out'},
+      {n:'The question of the public life', flag:'elise_asks_if_she_chooses_this'},
     ] },
   roc_delilah:{ label:'Roc & Delilah', icon:'🏯', members:['roc','delilah'], story:true,
     open:() => !!G.flags.delilah_wife, begun:'',
@@ -49,6 +51,8 @@ Object.assign(REL_ROUTES, {
       {n:'Married', flag:'roc_delilah_wed'},
       {n:'Expecting twins', flag:'delilah_twins_confirmed'},
       {n:'Roc admits what love is not', flag:'roc_admits_love_is_not_enough'},
+      {n:'Seen for who stayed', flag:'roc_sees_delilah'},
+      {n:'It took you long enough', flag:'delilah_it_took_you_long_enough'},
     ] },
 });
 // story-only routes (relroute.js skips the member check and the lock): the renderer's "spend time" button becomes a plain line
@@ -75,10 +79,19 @@ function mirellePanel(){
 function elisePanel(){
   if(!eliseOpen()) return '';
   const on = !!G.flags.border_rebuilding_begins;
-  return `<h4>${portraitChip('assets/party/elise.webp','Lady Elise Valen')} Lady Elise Valen: Border Ally</h4><div class="sm">${G.flags.crown_and_border_wed ? 'Aster\'s wife by treaty and ally of the frontier.' : 'Lady of the northern frontier and a trusted ally.'} She does not fight.</div><div class="sm">${on ? '<b>Active:</b>' : '<b>From the rebuilding of the border:</b>'} <b>Border Accord</b> (+15% gold at the frontier), <b>Frontier Network</b> (one extra clue a day), <b>Logistics Command</b> (fares 15% lower).</div>`;
+  const queen = !!G.flags.aster_crowned_king;
+  return `<h4>${portraitChip('assets/party/elise.webp','Lady Elise Valen')} ${queen ? 'Queen Elise of Dragonvale (for now)' : 'Lady Elise Valen: Border Ally'}</h4><div class="sm">${queen ? 'Queen by Aster\'s crown, wife by treaty and ally of the frontier. Her marriage has done what it was made for, and she has begun to ask whether she chooses it.' : G.flags.crown_and_border_wed ? 'Aster\'s wife by treaty and ally of the frontier.' : 'Lady of the northern frontier and a trusted ally.'} She does not fight.</div><div class="sm">${on ? '<b>Active:</b>' : '<b>From the rebuilding of the border:</b>'} <b>Border Accord</b> (+15% gold at the frontier), <b>Frontier Network</b> (one extra clue a day), <b>Logistics Command</b> (fares 15% lower).</div>`;
 }
 function tarinPanel(){
   if(!tarinOpen()) return '';
   return `<h4>${portraitChip('assets/party/tarin.webp','Tarin Ash')} Tarin Ash: Border Contact</h4><div class="sm">Elise's childhood companion, found alive and living as Ash. He does not fight.</div><div class="sm"><b>Border Trail:</b> in the frontier, ambushes are rarer (22% instead of 40%) and minor encounters can be bypassed.</div>`;
 }
 (function(){ const _rc = rCase; rCase = function(){ return _rc() + mirellePanel() + elisePanel() + tarinPanel(); }; })();
+
+// from the coronation (ch576) Aster is King of Dragonvale: his title changes wherever the game shows it live (the chapter texts keep the title of their day)
+const asterKing = () => !!(G && G.flags && G.flags.aster_crowned_king);
+(function(){
+  const c = CHARACTERS.aster; if(!c) return;
+  c.cls = 'Crown Prince'; Object.defineProperty(c, 'cls', {get(){ return asterKing() ? 'King of Dragonvale' : 'Crown Prince'; }, configurable:true});
+  if(typeof asterPanel==='function'){ const _ap = asterPanel; asterPanel = function(){ let h = _ap(); return asterKing() ? h.replace('Aster: Crown Prince, Dragonvale Ally','Aster: King of Dragonvale').replace(/Aster: Crown Prince[^<]*Ally/,'Aster: King of Dragonvale') : h; }; }
+})();
