@@ -62,3 +62,5 @@ Not built from this arc's list: the "False Rumour" investigation type and the As
 ## Direction for the arcs after XXII (author)
 - **Focus of the story from here: the remaining Evils (8 of 15) and true love for everyone, with less on politics.** Aster and Fen as true love is the way to go.
 - **Elise's departure is narration only** (a line or caption, not a chapter-length arc). The next arc brief, which the author is still reviewing, will say when. Nothing is built.
+
+**Cover (author):** Aster crowned on the throne above, Roc (beard) and Devon (blue hair) beside him, and below Delilah (heavily pregnant, purple), Fen (purple, holding a scroll) and Elise (golden hair, green and white fur). Tagline "A New Generation. A Different Tomorrow." and "The frontier is stable. The world has changed again." **Jade does not appear on the cover.** The woman at lower left has red-tinged hair in the art; she is read as Delilah (heavily pregnant, in purple).
