@@ -43,7 +43,13 @@ const EVILS = [
      {label:'Guardians', value:'Spectral royal guard', spot:'approach_palace'},
      {label:'Origin', value:'A collective construct of the royal council', spot:'crown_origin'},
      {label:'Purpose', value:'To keep the deepest chamber from those who do not understand', spot:'council_command'}]}, {id:'ashen_serpent', n:'The Ashen Serpent', intel:[]}, {id:'mirror_queen', n:'The Mirror Queen', intel:[]},
-  {id:'endless_winter', n:'The Endless Winter', intel:[]},
+  {id:'endless_winter', n:'The Endless Winter', epithet:'The Winter That Would Not End', loc:'frostveil_range', activeCh:582, resolveCh:608, how:'restored', home:'The Frostveil Range',   // Arc XXIII (design): restored to its place in the seasonal cycle at ch608; chapters not built yet
+   original:'Unseasonal snow near the Frostveil Range', revised:{spot:'hz601a', t:'A part of the natural seasonal cycle that lost its way: not a monster, but a body unable to release what it absorbed'}, intel:[
+     {label:'Signs', value:'Fires that give no heat; snow falling indoors; metal that freezes at a touch', spot:'hz588a'},
+     {label:'Nature', value:'It drains heat from the land around the mountain and its territory is still expanding', spot:'hz589a'},
+     {label:'Origin', value:'The winter began when the last seasonal ritual site fell into disuse', spot:'hz590a'},
+     {label:'The old rite', value:'No sacrifice was ever required: the old word for life also means living warmth, vital breath or circulating energy', spot:'hz591a'},
+     {label:'The cause', value:'It once absorbed excess cold and released it gradually; something broke the cycle and it kept taking more', spot:'hz601a'}]},
   {id:'unchosen_road', n:'The Unchosen Road', epithet:'The Evil of Regret', veiled:true, loc:'border_frontier', activeCh:504, resolveCh:510, how:'destroyed', home:'The Northern Frontier',
    original:'One of the Fifteen: visions and illusions at the northern border', intel:[
      {label:'Domain', value:'Regret, roads not taken, the desire to choose again', spot:'hz504a'},
@@ -73,6 +79,7 @@ const EVIL_CLS_RULES = {
   black_tide:[['tide_evidence','hostile'],['tide_layered','corrupted'],['stabilize_network','restorable']],
   drowned_crown:[['crown_warnings','hostile'],['crown_origin','construct']],
   unchosen_road:[['hz504a','hostile']],
+  endless_winter:[['hz589a','hostile'],['hz591a','corrupted'],['hz601a','restorable']],
   whispering_mask:[['hz530a','hostile']],
 };
 function evilClass(e){
