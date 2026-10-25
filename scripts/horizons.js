@@ -6542,3 +6542,72 @@ LORE.push(
   {ch:577, n:'The King Stands', t:'Aster addressed the court for the first time as king and spoke for himself: the frontier agreements would be upheld, trade and military protection would continue, and the dispute over Roc and Devon would not destabilise his reign. Jade, Roc, Devon, Elise and Fen stood behind him. House Xuanji had a king, and the succession crisis ended.'},
   {ch:578, n:'Elise\'s Question', t:'Aster\'s ascension changed Elise\'s situation at once: the frontier no longer depended on keeping a Crown Prince tied to her house, and as king he could guarantee it directly. The marriage had accomplished what it was created for. Elise loved Tarin and was already living two lives, and now had to ask whether she wanted to continue the public one.'}
 );
+
+/* ---- Arc XXII, chapters 571-578: Roc and Delilah, the king's death, Aster's coronation, Elise's question ---- */
+LOCATIONS.dee_household.spots.push(
+  {id:'hz559a', kind:'investigate', n:'Merely Roc\'s Wife', icon:'🏛️', ch:559, need:2, ambush:[], lo:96, roles:['jade', 'delilah'],
+   desc:'The officials.',
+   clues:['At first, many officials treat Delilah merely as Roc\'s wife. Delilah: "I am not here as a palace consort. I am Delilah of House Dee. I have my own responsibilities, my own training, and my own people."', 'An official: "Lady Delilah, as Prince Roc\'s wife, matters of the frontier will be handled by the court. You can leave the military details to the generals."'], rw:{xp:625100, gold:127320}},
+  {id:'hz559b', kind:'investigate', n:'I Know Exactly What I Am Looking At', icon:'🗺️', ch:559, need:2, ambush:[], lo:96, roles:['jade', 'delilah'],
+   desc:'In deeds.',
+   clues:['Delilah: "With respect, I have already reviewed the reports. I know exactly what I am looking at."', 'Delilah reminds them, in deeds rather than speeches, that she is a noblewoman of House Dee with military and logistical training of her own. "These routes are longer than they need to be. If we adjust the depot locations and stagger the supplies, we can reduce travel time and prevent shortages during winter."'], rw:{xp:625400, gold:127380}, needFlag:'inv_hz559a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz559c', kind:'investigate', n:'Her Instructions', icon:'📜', ch:559, need:2, ambush:[], lo:96, roles:['jade', 'delilah'],
+   desc:'The commanders.',
+   clues:['She oversees the logistics, checks the supplies, and speaks directly with the military commanders: "Double the grain allocation for the northern outposts." "Repair the eastern bridge before the next storm season." "Send an advance team to survey the mountain pass. I want a report within ten days."', 'The commanders: "Lady Delilah, your assessment is accurate. We will make the adjustments as you instructed."'], rw:{xp:625700, gold:127440}, needFlag:'inv_hz559b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz559d', kind:'investigate', n:'She Stands on Her Own', icon:'🏯', ch:559, need:2, ambush:[], lo:96, roles:['jade', 'delilah'],
+   desc:'Dee Manor.',
+   clues:['Delilah lives at Dee Manor, not as some palace consort. This is her home, her base of operations, and the place where she continues her work.', 'Delilah knows exactly what she is looking at. She is not just Roc\'s wife. She is Delilah of House Dee. And she stands on her own.'], rw:{xp:626000, gold:127500}, needFlag:'inv_hz559c', lockMsg:'🔒 Finish the previous clue first'},
+);
+LOCATIONS.border_frontier.spots.push(
+  {id:'hz579a', kind:'investigate', n:'I Need Your Advice', icon:'🌙', ch:579, need:2, ambush:[], lo:96, roles:['jade'],
+   desc:'Elise asks Fen.',
+   clues:['Elise goes to Fen. Fen has been her friend through the entire arrangement and has already helped her maintain contact with Tarin. Elise: "Fen... I need your advice. The marriage has already achieved what it was meant to achieve. There may no longer be a political reason for me to remain Aster\'s wife."', '"What do you think I should do?"'], rw:{xp:626300, gold:127560}},
+  {id:'hz579b', kind:'investigate', n:'Still Choose It', icon:'🕯️', ch:579, need:2, ambush:[], lo:96, roles:['jade'],
+   desc:'Fen\'s answer.',
+   clues:['Fen: "If duty no longer requires this life... are you remaining because you still choose it?" Elise: "..."', 'Fen: "I will not tell you to remain queen. And I will not tell you to run away. Only you can decide what you truly want." Elise has no immediate answer.'], rw:{xp:626600, gold:127620}, needFlag:'inv_hz579a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz579c', kind:'investigate', n:'A Quiet Settlement', icon:'🏔️', ch:579, need:2, ambush:[], lo:96, roles:['jade'],
+   desc:'Tarin\'s place.',
+   clues:['Later, Tarin shows Elise a secluded region where they might someday disappear. Tarin: "It\'s a quiet settlement. Few outsiders come here. With new identities, we could live here and be safe."', '"It\'s far enough away to keep you safe. But close enough that you could still see the frontier you have spent your life protecting."'], rw:{xp:626900, gold:127680}, needFlag:'inv_hz579b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz579d', kind:'investigate', n:'A Path Within Reach', icon:'🌄', ch:579, need:2, ambush:[], lo:96, roles:['jade'],
+   desc:'Possible.',
+   clues:['Elise: "This place... It feels real. Not just a dream. For the first time, it feels possible." A quiet life. New identities. A future that might be theirs.', 'It does not mean a decision yet. But it means there is a path. And for the first time, that path feels within reach. A life beyond politics. A life that could still keep her close to the frontier. A future that she may yet choose.'], rw:{xp:627200, gold:127740}, needFlag:'inv_hz579c', lockMsg:'🔒 Finish the previous clue first'},
+);
+LOCATIONS.dragon_court.spots.push(
+  {id:'hz580a', kind:'investigate', n:'The Conspiracy Is Finished', icon:'👑', ch:580, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sally', 'sky'],
+   desc:'Aster is king.',
+   clues:['The conspiracy is finished. Aster is king. The frontier is stable.', 'Delilah has proven that her military and logistical ability belongs to her, not to Roc, her father, or any royal title.'], rw:{xp:627500, gold:127800}},
+  {id:'hz580b', kind:'investigate', n:'Where They Belong', icon:'🏯', ch:580, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sally', 'sky'],
+   desc:'The house.',
+   clues:['Roc has finally confronted what Jade meant to him, what he once mistook for love, and why Delilah is the woman who truly stands beside him. Devon has publicly chosen his own life rather than the throne. Roc has done the same.', 'House Xuanji has not survived because every member remained under one roof. It survives because each of them finally knows where they belong.'], rw:{xp:627800, gold:127860}, needFlag:'inv_hz580a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz580c', kind:'investigate', n:'Queen for Now', icon:'❄️', ch:580, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sally', 'sky'],
+   desc:'Elise and Tarin.',
+   clues:['Elise remains queen for now, but everyone within the small trusted circle understands that the political marriage may be approaching its end.', 'Somewhere beyond the palace, Tarin waits.'], rw:{xp:628100, gold:127920}, needFlag:'inv_hz580b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz580d', kind:'investigate', n:'The Road Again', icon:'🌅', ch:580, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'levi', 'sally', 'sky'],
+   desc:'The canon five.',
+   clues:['The canon five prepare to leave Dragonvale again: Jade, Devon, Sky, Levi, Sally. The Fifteen Evils Tracker: 7 / 15 resolved, 8 remaining.', 'But when the party returns to the road, Dragonvale is no longer ruled by an aging generation. Aster is king. And the world they are trying to save has changed again.'], rw:{xp:628400, gold:127980}, needFlag:'inv_hz580c', lockMsg:'🔒 Finish the previous clue first'},
+);
+MISSIONS.push(
+  {id:'m_s559', needCh:559, title:'Not Prince Consort', obj:{type:'steps', steps:[
+     {label:'Merely Roc\'s Wife', spot:'hz559a'},
+     {label:'I Know Exactly What I Am Looking At', spot:'hz559b'},
+     {label:'Her Instructions', spot:'hz559c'},
+     {label:'She Stands on Her Own', spot:'hz559d'}]}, rw:{xp:1345000, gold:302600, rep:2318},
+   subj:'Not Prince Consort', body:'The story is not finished. — Jade'},
+  {id:'m_s579', needCh:579, title:'What Fen Thinks', obj:{type:'steps', steps:[
+     {label:'I Need Your Advice', spot:'hz579a'},
+     {label:'Still Choose It', spot:'hz579b'},
+     {label:'A Quiet Settlement', spot:'hz579c'},
+     {label:'A Path Within Reach', spot:'hz579d'}]}, rw:{xp:1395000, gold:314600, rep:2378},
+   subj:'What Fen Thinks', body:'The story is not finished. — Jade'},
+  {id:'m_s580', needCh:580, title:'The House That Remains', obj:{type:'steps', steps:[
+     {label:'The Conspiracy Is Finished', spot:'hz580a'},
+     {label:'Where They Belong', spot:'hz580b'},
+     {label:'Queen for Now', spot:'hz580c'},
+     {label:'The Road Again', spot:'hz580d'}]}, rw:{xp:1397500, gold:315200, rep:2381},
+   subj:'The House That Remains', body:'The story is not finished. — Jade'}
+);
+LORE.push(
+  {ch:559, n:'Not Prince Consort', t:'Officials at first treated Delilah merely as Roc\'s wife. She answered in deeds rather than speeches: adjusted depots, staggered supplies, double grain for the northern outposts, a repaired bridge and a surveyed pass. A noblewoman of House Dee with her own military and logistical training, living at Dee Manor, she stood on her own.'},
+  {ch:579, n:'What Fen Thinks', t:'Elise asked Fen for advice. Fen would not tell her to remain queen or to run away, only asked whether she still chose this life if duty no longer required it. Later Tarin showed her a quiet, secluded settlement where they might one day disappear with new identities: not a decision yet, but a path that, for the first time, felt within reach.'},
+  {ch:580, n:'The House That Remains', t:'The conspiracy was finished, Aster was king and the frontier stable. Delilah had proved her ability was her own, Roc had faced what Jade meant to him, and he and Devon had chosen their own lives. Elise stayed queen for now, with Tarin waiting beyond the palace. House Xuanji survived because each of them finally knew where they belonged.'}
+);

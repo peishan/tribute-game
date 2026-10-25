@@ -42,6 +42,7 @@ Object.assign(REL_ROUTES, {
       {n:'Meetings at night', flag:'elise_night_meeting_seen'},
       {n:'Letters and a disguise', flag:'aster_helps_elise_out'},
       {n:'The question of the public life', flag:'elise_asks_if_she_chooses_this'},
+      {n:'A quiet settlement within reach', flag:'elise_shown_the_settlement'},
     ] },
   roc_delilah:{ label:'Roc & Delilah', icon:'🏯', members:['roc','delilah'], story:true,
     open:() => !!G.flags.delilah_wife, begun:'',
