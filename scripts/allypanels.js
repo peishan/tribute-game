@@ -32,6 +32,7 @@ Object.assign(REL_ROUTES, {
       {n:'Standing in for the queen', flag:'fen_agrees_to_stand_in'},
       {n:'Wed in secret', flag:'aster_fen_secretly_wed'},
       {n:'Scholar by day, wife in secret', flag:'fen_returns_as_scholar'},
+      {n:'Queen of Dragonvale', flag:'fen_announced_queen'},
     ] },
   elise_tarin:{ label:'Elise & Tarin', icon:'❄️', members:['elise','tarin'], story:true,
     open:() => !!G.flags.elise_tarin_ash, begun:'',
@@ -115,4 +116,15 @@ const asterKing = () => !!(G && G.flags && G.flags.aster_crowned_king);
   const c = CHARACTERS.aster; if(!c) return;
   c.cls = 'Crown Prince'; Object.defineProperty(c, 'cls', {get(){ return asterKing() ? 'King of Dragonvale' : 'Crown Prince'; }, configurable:true});
   if(typeof asterPanel==='function'){ const _ap = asterPanel; asterPanel = function(){ let h = _ap(); return asterKing() ? h.replace('Aster: Crown Prince, Dragonvale Ally','Aster: King of Dragonvale').replace(/Aster: Crown Prince[^<]*Ally/,'Aster: King of Dragonvale') : h; }; }
+})();
+
+// from the announcement (ch635) Fen is Queen of Dragonvale: her panel says so (the chapters before keep her as the royal scholar)
+(function(){
+  if(typeof yulanPanel!=='function') return;
+  const _yp = yulanPanel;
+  yulanPanel = function(){
+    let h = _yp();
+    if(!(G && G.flags && G.flags.fen_announced_queen)) return h;
+    return h.replace('Lady Yulan Fen: Dragonvale Ally','Queen Yulan Fen of Dragonvale').replace('<div class="sm">'+YULAN_FATE+'</div>','<div class="sm">Royal scholar, secret accomplice, Aster\'s wife, and now his queen. She still keeps the archives.</div>');
+  };
 })();

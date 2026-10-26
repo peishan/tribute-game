@@ -6347,6 +6347,16 @@ const CHAPTER_DESIGN = {
   purpose:['Hear Jenika tell Delilah'],
   unlocks:['Delilah knows'],
   reward:'A secret for two'},
+ 635:{ title:'One Hundred Days', type:'Story Chapter — Arc for(let i=18;i<=610;i++)IV, The Lives We Choose (cover to come)', loc:'🐉 Dragonvale: the Noble Court',
+  chars:[], charsNote:'Aster, Fen and the court',
+  introduced:[],
+  sum:'One hundred days have passed since Elise\'s public death. Dragonvale\'s mourning period has ended. Aster summons the court. By Dragonvale law, the young king may remarry after the required mourning period. The kingdom expects a recognized queen and a stable royal household. Aster: "Yulan Fen will become Queen of Dragonvale." To the court, it appears to be a new marriage. Only their inner circle knows the truth: Aster and Fen are already husband and wife. Fen has gone from scholar, to secret accomplice, to Aster\'s wife, and now queen. Aster has chosen the woman he truly loves. Elsewhere, Elise is alive and free with Tarin. Sky and Jenika have chosen each other without marriage. Jenika carries Sky\'s child, though he does not yet know. Lives have quietly changed direction. Dragonvale is beginning to change. Fifteen Evils: 8 / 15.',
+  art:'One page, "635 — One Hundred Days" (the first of two versions sent; the second was not used): the palace city under dragon banners and blossom; the throne hall with Aster enthroned before rows of black-hatted ministers; two ministers whispering; Aster (high crown with hanging beads, black and red dragon robes) speaking "Yulan Fen will become Queen of Dragonvale."; Fen (black scholar\'s hat with a purple flower, purple robes) in close-up; Aster and Fen standing before the court; the two close together; the palace city at sunset; and the two enthroned side by side before the bowing court, with a card "Fifteen Evils: 8 / 15".',
+  quote:'Aster has chosen the woman he truly loves.',
+  events:['One hundred days have passed since Elise\'s public death and the mourning period has ended', 'Aster summons the court: by Dragonvale law the young king may remarry after the required mourning period, and the kingdom expects a recognized queen and a stable royal household', 'Aster announces that Yulan Fen will become Queen of Dragonvale', 'To the court it appears to be a new marriage; only their inner circle knows Aster and Fen are already husband and wife', 'Elsewhere Elise is alive and free with Tarin, and Sky and Jenika have chosen each other without marriage; Jenika carries Sky\'s child, though he does not yet know', 'Fifteen Evils: 8 / 15'],
+  purpose:['Hear Aster announce his queen'],
+  unlocks:['Yulan Fen, Queen of Dragonvale'],
+  reward:'A queen the king chose'},
 };
 // Chapter titles read from the title cards of the comic pages (the comic is canon). 0-3 titles also come from CHAPTER_DESIGN.
 const COMIC_TITLES = { 4:'A Secret Mission', 5:'Unanswered Ties', 6:'Moonlit Confessions', 7:'Restless Desire', 8:'Unwanted Truths', 9:'Whispers and Jealousy', 10:'The Prophecy',
