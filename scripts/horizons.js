@@ -7605,3 +7605,89 @@ LORE.push(
   {ch:629, n:'Somewhere Else', t:'Far from Dragonvale, Elise lives with Tarin under her new look and identity, her hair dark and cut shorter, no one bowing and nothing expected of her, with her pregnancy continuing. Her old life is officially dead.'},
   {ch:630, n:'The Wedding Nobody Announces', t:'Aster and Fen travelled quietly to the frontier, dressed as ordinary travellers, and married privately under a flower canopy in a quiet village, with no banners, speeches or announcements. Jade\'s group, Roc and Delilah, and Elise and Tarin were there. It mirrored Aster\'s political frontier marriage to Elise, but this time he chose his wife, and she chose him.'}
 );
+
+/* ---- Arc for(let i=18;i<=610;i++)III, chapters 611-630: Arc for(let i=18;i<=610;i++)IV, The Lives We Choose ---- */
+LOCATIONS.dragon_court.spots.push(
+  {id:'hz631a', kind:'investigate', n:'As Though Nothing Has Changed', icon:'📜', ch:631, need:2, ambush:[], lo:96, roles:['jade'],
+   desc:'Fen returns.',
+   clues:['Fen returns to court as though nothing has changed. She continues functioning as a royal scholar.', 'Nobody knows she is already Aster\'s wife.'], rw:{xp:688100, gold:139920}},
+  {id:'hz631b', kind:'investigate', n:'Meetings and Memorials', icon:'🗂️', ch:631, need:2, ambush:[], lo:96, roles:['jade'],
+   desc:'Her work.',
+   clues:['Fen attends meetings, reviews memorials, and continues her work as a scholar.', 'Her presence at the king\'s side raises little suspicion. Fen has always moved freely between the court and other duties.'], rw:{xp:688400, gold:139980}, needFlag:'inv_hz631a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz631c', kind:'investigate', n:'Simply Yulan Fen', icon:'🎓', ch:631, need:2, ambush:[], lo:96, roles:['jade'],
+   desc:'To everyone else.',
+   clues:['To everyone else, she is simply Yulan Fen, the royal scholar, intelligent, diligent and reliable.', 'In court, they maintain the same distance as always. Aster remains the king. Fen remains his scholar.'], rw:{xp:688700, gold:140040}, needFlag:'inv_hz631b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz631d', kind:'investigate', n:'Held in Silence', icon:'🤫', ch:631, need:2, ambush:[], lo:96, roles:['jade'],
+   desc:'Two lives.',
+   clues:['Only they know the truth. And for now, that is enough.', 'She continues her duties, living the same life as before, but with a new truth hidden beneath it. A royal scholar. A wife. Two lives, held in silence.'], rw:{xp:689000, gold:140100}, needFlag:'inv_hz631c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz632a', kind:'investigate', n:'The Mourning Ends', icon:'🕯️', ch:632, need:2, ambush:[], lo:96, roles:['jade'],
+   desc:'The capital returns to its rhythm.',
+   clues:['The period of mourning finally ends. The capital slowly returns to its usual rhythm.', 'The court resumes its duties, and state affairs continue without interruption. Aster remains publicly widowed.'], rw:{xp:689300, gold:140160}},
+  {id:'hz632b', kind:'investigate', n:'The Court Speaks Openly', icon:'🗣️', ch:632, need:2, ambush:[], lo:96, roles:['jade'],
+   desc:'The obvious question.',
+   clues:['In time, the court begins to speak openly about the matter. "A young king cannot remain without a queen indefinitely." "The kingdom needs a stable royal household." "An alliance will strengthen our position."'], rw:{xp:689600, gold:140220}, needFlag:'inv_hz632a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz632c', kind:'investigate', n:'Whispers in the Palace', icon:'🤫', ch:632, need:2, ambush:[], lo:96, roles:['jade'],
+   desc:'The noble houses.',
+   clues:['Whispers spread throughout the palace and among the noble houses. "When will His Majesty take a new queen?" "Surely it cannot be much longer."', '"The kingdom needs an heir. A queen. Stability."'], rw:{xp:689900, gold:140280}, needFlag:'inv_hz632b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz632d', kind:'investigate', n:'No Immediate Answer', icon:'👑', ch:632, need:2, ambush:[], lo:96, roles:['jade'],
+   desc:'Aster waits.',
+   clues:['Aster listens to their discussions. He understands their concerns. A young king requires a queen. The kingdom requires stability.', 'And yet, he gives them no immediate answer. The court waits. The kingdom waits. But Aster remains silent.'], rw:{xp:690200, gold:140340}, needFlag:'inv_hz632c', lockMsg:'🔒 Finish the previous clue first'},
+);
+LOCATIONS.dragon_vale.spots.push(
+  {id:'hz633a', kind:'investigate', n:'Strangely Different', icon:'🌸', ch:633, need:2, ambush:[], lo:96, roles:['jade'],
+   desc:'The changes.',
+   clues:['Several months have passed since the curse was broken. Lately, Jenika has felt strangely different.', 'Her body is not weak. In fact, she feels more vital than before. Her monthly cycle has not returned.'], rw:{xp:690500, gold:140400}},
+  {id:'hz633b', kind:'investigate', n:'The Body Does Not Lie', icon:'🤰', ch:633, need:2, ambush:[], lo:96, roles:['jade'],
+   desc:'The signs.',
+   clues:['A subtle, persistent nausea lingers. Her senses feel sharper. Her body feels different in quiet, unmistakable ways.', 'At first, she hesitates to believe it. But the signs are clear. Jade, Delilah, and Elise have all told her before: the body does not lie.'], rw:{xp:690800, gold:140460}, needFlag:'inv_hz633a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz633c', kind:'investigate', n:'A Private Examination', icon:'🩺', ch:633, need:2, ambush:[], lo:96, roles:['jade'],
+   desc:'Outside the court records.',
+   clues:['To be certain, she quietly requests a private examination from a trusted physician outside the court records.', 'The physician confirms it. Jenika is pregnant. Everything is normal.'], rw:{xp:691100, gold:140520}, needFlag:'inv_hz633b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz633d', kind:'investigate', n:'A Long Pregnancy, a Quiet Secret', icon:'🤫', ch:633, need:2, ambush:[], lo:96, roles:['jade'],
+   desc:'Not yet.',
+   clues:['Dragonvale pregnancy is long (roughly 10 to 12 months), so there is no immediate urgency to make an announcement. For now, she keeps this knowledge to herself.', 'There is no need to tell anyone yet. The time is not right. A new life has already begun, hidden in the quiet rhythm of her days.'], rw:{xp:691400, gold:140580}, needFlag:'inv_hz633c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz634a', kind:'investigate', n:'Three Months', icon:'🕰️', ch:634, need:2, ambush:[], lo:96, roles:['jade'],
+   desc:'Her secret.',
+   clues:['Sky is away travelling. Jenika has kept her secret for three months.', 'Eventually, Jenika chooses to tell Delilah.'], rw:{xp:691700, gold:140640}},
+  {id:'hz634b', kind:'investigate', n:'Someone She Trusts', icon:'🤝', ch:634, need:2, ambush:[], lo:96, roles:['jade'],
+   desc:'Delilah.',
+   clues:['Delilah is one of the few people Jenika trusts without hesitation.', 'As Roc\'s wife and Jenika\'s cousin\'s wife, Delilah has known Jenika for years.'], rw:{xp:692000, gold:140700}, needFlag:'inv_hz634a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz634c', kind:'investigate', n:'I\'m Pregnant', icon:'💬', ch:634, need:2, ambush:[], lo:96, roles:['jade'],
+   desc:'She says it.',
+   clues:['Jenika: "I\'m pregnant."', 'Delilah already knows about Sky, the curse, and how it was broken.'], rw:{xp:692300, gold:140760}, needFlag:'inv_hz634b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz634d', kind:'investigate', n:'Not Yet', icon:'🤫', ch:634, need:2, ambush:[], lo:96, roles:['jade'],
+   desc:'Sky does not know.',
+   clues:['Delilah: "Does Sky know?" Jenika: "Not yet."', '"I want to get through the first trimester before I tell him." Delilah understands. For now, the secret belongs to the two of them.'], rw:{xp:692600, gold:140820}, needFlag:'inv_hz634c', lockMsg:'🔒 Finish the previous clue first'},
+);
+MISSIONS.push(
+  {id:'m_s631', needCh:631, title:'Scholar Fen', obj:{type:'steps', steps:[
+     {label:'As Though Nothing Has Changed', spot:'hz631a'},
+     {label:'Meetings and Memorials', spot:'hz631b'},
+     {label:'Simply Yulan Fen', spot:'hz631c'},
+     {label:'Held in Silence', spot:'hz631d'}]}, rw:{xp:1525000, gold:345800, rep:2534},
+   subj:'Scholar Fen', body:'The story is not finished. — Jade'},
+  {id:'m_s632', needCh:632, title:'Time Passes', obj:{type:'steps', steps:[
+     {label:'The Mourning Ends', spot:'hz632a'},
+     {label:'The Court Speaks Openly', spot:'hz632b'},
+     {label:'Whispers in the Palace', spot:'hz632c'},
+     {label:'No Immediate Answer', spot:'hz632d'}]}, rw:{xp:1527500, gold:346400, rep:2537},
+   subj:'Time Passes', body:'The story is not finished. — Jade'},
+  {id:'m_s633', needCh:633, title:'Jenika Notices', obj:{type:'steps', steps:[
+     {label:'Strangely Different', spot:'hz633a'},
+     {label:'The Body Does Not Lie', spot:'hz633b'},
+     {label:'A Private Examination', spot:'hz633c'},
+     {label:'A Long Pregnancy, a Quiet Secret', spot:'hz633d'}]}, rw:{xp:1530000, gold:347000, rep:2540},
+   subj:'Jenika Notices', body:'The story is not finished. — Jade'},
+  {id:'m_s634', needCh:634, title:'Delilah Knows', obj:{type:'steps', steps:[
+     {label:'Three Months', spot:'hz634a'},
+     {label:'Someone She Trusts', spot:'hz634b'},
+     {label:'I\'m Pregnant', spot:'hz634c'},
+     {label:'Not Yet', spot:'hz634d'}]}, rw:{xp:1532500, gold:347600, rep:2543},
+   subj:'Delilah Knows', body:'The story is not finished. — Jade'}
+);
+LORE.push(
+  {ch:631, n:'Scholar Fen', t:'Fen returned to court as though nothing had changed and went on working as a royal scholar, reviewing memorials and attending meetings. Because she had always moved freely between the court and other duties, her place near Aster raised little suspicion. Only the two of them knew she was already his wife.'},
+  {ch:632, n:'Time Passes', t:'Dragonvale\'s mourning ended and the capital returned to its rhythm, with Aster publicly widowed. The court began to say openly that a young king needed a queen and the kingdom a stable royal household. Aster understood their concerns and gave them no immediate answer.'},
+  {ch:633, n:'Dragonvale Pregnancy', t:'Dragonvale pregnancies normally last somewhat longer than ordinary human pregnancies, roughly 10 to 12 months, so there is no urgency to announce one. Jenika confirmed hers quietly with a trusted physician outside the court records and told nobody.'},
+  {ch:634, n:'Delilah Knows', t:'Three months into her pregnancy, with Sky away travelling, Jenika told Delilah, one of the few people she trusts without hesitation and who already knew about Sky, the curse and how it was broken. Sky does not know yet: she wants to get through the first trimester before she tells him.'}
+);
