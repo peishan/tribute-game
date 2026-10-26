@@ -1,4 +1,6 @@
-# ENDGAME PLAN: LOCKED BY THE AUTHOR (chapters not built yet)
+# ENDGAME PLAN: DECISIONS LOCKED, SUBJECT TO CHANGE UNTIL CHAPTERS ARE FINAL (not built yet)
+
+> **Status of this plan:** everything here is planned and subject to change until the chapters themselves are finalised. The chapters, once drawn, are canon; where they differ, the chapters win and this file is updated.
 Why this exists: the Black Pearl threads (docs/BLACK_PEARL_AND_PROPHECY.md) change the shape of the finale. The old plan was **15/15 Evils, then the Dima/Xima purification, then postgame**. The proposal below adds one layer: the restoration network and the Pearl come back before the sisters do, and the last revelation comes after the sisters, not with them.
 Legend: **LOCKED** = already canon in the built chapters (chapter given). **PROPOSED** = from the author's roadmap discussion or this draft. **TO LOCK** = needs the author's yes before any checklist or chapter is built. Where the author's earlier designs (the BG2/IWD-style purification battle, the holy-water campaign, Xima's mind-risk, the arc list XXIV-XXXV) are not in my notes, I say so rather than invent them.
 
