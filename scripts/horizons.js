@@ -7020,3 +7020,68 @@ LORE.push(
   {ch:602, n:'Destroy or Restore', t:'Jade faced the central decision: destroying the entity would stop the immediate threat but might permanently damage Frostveil\'s climate and spiritual balance, while restoring the circulation was harder and more dangerous. She chose restoration.'},
   {ch:603, n:'Into the Heart of Winter', t:'The party descended beneath the shrine into the frozen mountain core, a dungeon of ice, ancient channels and broken spiritual conduits. Each had a clear role: Jade lead and seal work, Devon protection and frontline control, Sky circulation and healing, Levi beacon targeting and ranged support, Sally disruption, information and evasion.'}
 );
+
+/* ---- Arc XXIII, chapters 593-595: the first three beacons ---- */
+LOCATIONS.frostveil_peaks.spots.push(
+  {id:'hz593a', kind:'investigate', n:'Frozen Corrupted Creatures', icon:'🧊', ch:593, need:2, ambush:[], lo:96, roles:['jade', 'devon'],
+   desc:'The guards.',
+   clues:['Jade and Devon take the first route. Frozen corrupted creatures guard the site.', 'Despite the harsh conditions, Jade and Devon press on.'], rw:{xp:661100, gold:134520}},
+  {id:'hz593b', kind:'investigate', n:'Damaged but Repairable', icon:'🔧', ch:593, need:2, ambush:[], lo:96, roles:['jade', 'devon'],
+   desc:'The mechanism.',
+   clues:['The beacon mechanism is damaged but repairable. Jade begins to repair the mechanism.', 'Devon helps repair the damaged parts and reinforces the structure.'], rw:{xp:661400, gold:134580}, needFlag:'inv_hz593a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz593c', kind:'investigate', n:'The Fire Rises', icon:'🔥', ch:593, need:2, ambush:[], lo:96, roles:['jade', 'devon'],
+   desc:'Jade lights it.',
+   clues:['When the mechanism is complete, Jade lights the first beacon.', 'The fire rises, steady and bright.'], rw:{xp:661700, gold:134640}, needFlag:'inv_hz593b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz593d', kind:'investigate', n:'The Mountain Is Responding', icon:'🌱', ch:593, need:2, ambush:[], lo:96, roles:['jade', 'devon'],
+   desc:'A patch of snow melts.',
+   clues:['For the first time in weeks, a small patch of snow begins to melt. Jade: "It\'s working. The mountain is responding."', 'Devon: "This is only the first beacon. Four more to go."'], rw:{xp:662000, gold:134700}, needFlag:'inv_hz593c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz594a', kind:'investigate', n:'I Hate Snow', icon:'🥶', ch:594, need:2, ambush:[], lo:96, roles:['levi', 'sally'],
+   desc:'Sally\'s complaints.',
+   clues:['Levi and Sally take the second route. The climb is steep and visibility poor. Sally: "I hate snow! I really hate snow! Why does everything have to be so cold?! And it\'s so windy! And slippery! And my hands are freezing!"', 'Levi: "You chose to come." Sally: "That has nothing to do with anything."'], rw:{xp:662300, gold:134760}},
+  {id:'hz594b', kind:'investigate', n:'Extremely Useful', icon:'🎻', ch:594, need:2, ambush:[], lo:96, roles:['levi', 'sally'],
+   desc:'She helps anyway.',
+   clues:['Despite her complaints, Sally proves extremely useful.', 'They climb on through the poor visibility toward the second beacon site.'], rw:{xp:662600, gold:134820}, needFlag:'inv_hz594a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz594c', kind:'investigate', n:'Frozen and Partially Damaged', icon:'🔧', ch:594, need:2, ambush:[], lo:96, roles:['levi', 'sally'],
+   desc:'The mechanism.',
+   clues:['They reach the second beacon site. The beacon mechanism is frozen and partially damaged.', 'Working together, they repair the mechanism.'], rw:{xp:662900, gold:134880}, needFlag:'inv_hz594b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz594d', kind:'investigate', n:'Three More to Go', icon:'🔥', ch:594, need:2, ambush:[], lo:96, roles:['levi', 'sally'],
+   desc:'Restored.',
+   clues:['The second beacon is restored. Sally: "...Fine. I\'ll admit it. It does look impressive."', 'Levi: "Told you. Three more to go."'], rw:{xp:663200, gold:134940}, needFlag:'inv_hz594c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz595a', kind:'investigate', n:'Principles of Circulation', icon:'💙', ch:595, need:2, ambush:[], lo:96, roles:['sky', 'levi', 'sally'],
+   desc:'The healing shrine.',
+   clues:['Sky takes the lead at an old healing shrine connected to the third beacon. The structure uses principles similar to spiritual circulation.', 'His years of healing study become essential.'], rw:{xp:663500, gold:135000}},
+  {id:'hz595b', kind:'investigate', n:'The Damaged Channels', icon:'🔍', ch:595, need:2, ambush:[], lo:96, roles:['sky', 'levi', 'sally'],
+   desc:'Sky examines.',
+   clues:['Sky examines the damaged circulation channels.', 'The third beacon ignites only after Sky repairs the flow...'], rw:{xp:663800, gold:135060}, needFlag:'inv_hz595a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz595c', kind:'investigate', n:'Rather Than Forcing It', icon:'🌊', ch:595, need:2, ambush:[], lo:96, roles:['sky', 'levi', 'sally'],
+   desc:'The method.',
+   clues:['...rather than forcing energy through it.', 'Once the flow is restored, the beacon responds.'], rw:{xp:664100, gold:135120}, needFlag:'inv_hz595b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz595d', kind:'investigate', n:'The Flow Is Stable', icon:'🔥', ch:595, need:2, ambush:[], lo:96, roles:['sky', 'levi', 'sally'],
+   desc:'The third fire.',
+   clues:['The fire of the third beacon rises, joining the network once more.', 'Sky: "The flow is stable now. It\'s working. I didn\'t have to force it."'], rw:{xp:664400, gold:135180}, needFlag:'inv_hz595c', lockMsg:'🔒 Finish the previous clue first'},
+);
+MISSIONS.push(
+  {id:'m_s593', needCh:593, title:'First Beacon', obj:{type:'steps', steps:[
+     {label:'Frozen Corrupted Creatures', spot:'hz593a'},
+     {label:'Damaged but Repairable', spot:'hz593b'},
+     {label:'The Fire Rises', spot:'hz593c'},
+     {label:'The Mountain Is Responding', spot:'hz593d'}]}, rw:{xp:1430000, gold:323000, rep:2420},
+   subj:'First Beacon', body:'The story is not finished. — Jade'},
+  {id:'m_s594', needCh:594, title:'Second Beacon', obj:{type:'steps', steps:[
+     {label:'I Hate Snow', spot:'hz594a'},
+     {label:'Extremely Useful', spot:'hz594b'},
+     {label:'Frozen and Partially Damaged', spot:'hz594c'},
+     {label:'Three More to Go', spot:'hz594d'}]}, rw:{xp:1432500, gold:323600, rep:2423},
+   subj:'Second Beacon', body:'The story is not finished. — Jade'},
+  {id:'m_s595', needCh:595, title:'Third Beacon', obj:{type:'steps', steps:[
+     {label:'Principles of Circulation', spot:'hz595a'},
+     {label:'The Damaged Channels', spot:'hz595b'},
+     {label:'Rather Than Forcing It', spot:'hz595c'},
+     {label:'The Flow Is Stable', spot:'hz595d'}]}, rw:{xp:1435000, gold:324200, rep:2426},
+   subj:'Third Beacon', body:'The story is not finished. — Jade'}
+);
+LORE.push(
+  {ch:593, n:'First Beacon', t:'Jade and Devon took the first route, fought through frozen corrupted creatures, repaired the damaged beacon mechanism together and lit the first fire. For the first time in weeks a small patch of snow began to melt. "It\'s working. The mountain is responding."'},
+  {ch:594, n:'Second Beacon', t:'Levi and Sally climbed the steep second route in poor visibility, Sally complaining about the snow the whole way and still proving extremely useful. Together they repaired the frozen mechanism and restored the second beacon. "Told you. Three more to go."'},
+  {ch:595, n:'Third Beacon', t:'Sky took the lead at an old healing shrine tied to the third beacon, whose structure follows the principles of spiritual circulation. The beacon ignited only after he repaired the flow rather than forcing energy through it. "I didn\'t have to force it."'}
+);
