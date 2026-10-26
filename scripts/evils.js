@@ -43,7 +43,7 @@ const EVILS = [
      {label:'Guardians', value:'Spectral royal guard', spot:'approach_palace'},
      {label:'Origin', value:'A collective construct of the royal council', spot:'crown_origin'},
      {label:'Purpose', value:'To keep the deepest chamber from those who do not understand', spot:'council_command'}]}, {id:'ashen_serpent', n:'The Ashen Serpent', intel:[]}, {id:'mirror_queen', n:'The Mirror Queen', intel:[]},
-  {id:'endless_winter', n:'The Endless Winter', epithet:'The Winter That Would Not End', loc:'frostveil_range', activeCh:582, resolveCh:608, how:'restored', home:'The Frostveil Range',   // Arc XXIII (design): restored to its place in the seasonal cycle at ch608; chapters not built yet
+  {id:'endless_winter', n:'The Endless Winter', epithet:'The Winter That Would Not End', loc:'frostveil_village', activeCh:582, resolveCh:608, how:'restored', home:'The Frostveil Range',   // Arc XXIII (design): restored to its place in the seasonal cycle at ch608; chapters not built yet
    original:'Unseasonal snow near the Frostveil Range', revised:{spot:'hz601a', t:'A part of the natural seasonal cycle that lost its way: not a monster, but a body unable to release what it absorbed'}, intel:[
      {label:'Signs', value:'Fires that give no heat; snow falling indoors; metal that freezes at a touch', spot:'hz588a'},
      {label:'Nature', value:'It drains heat from the land around the mountain and its territory is still expanding', spot:'hz589a'},
