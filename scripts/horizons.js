@@ -7691,3 +7691,30 @@ LORE.push(
   {ch:633, n:'Dragonvale Pregnancy', t:'Dragonvale pregnancies normally last somewhat longer than ordinary human pregnancies, roughly 10 to 12 months, so there is no urgency to announce one. Jenika confirmed hers quietly with a trusted physician outside the court records and told nobody.'},
   {ch:634, n:'Delilah Knows', t:'Three months into her pregnancy, with Sky away travelling, Jenika told Delilah, one of the few people she trusts without hesitation and who already knew about Sky, the curse and how it was broken. Sky does not know yet: she wants to get through the first trimester before she tells him.'}
 );
+
+/* ---- Arc for(let i=18;i<=610;i++)III, chapters 611-630: Arc for(let i=18;i<=610;i++)IV, The Lives We Choose ---- */
+LOCATIONS.dragon_court.spots.push(
+  {id:'hz635a', kind:'investigate', n:'One Hundred Days', icon:'🕯️', ch:635, need:2, ambush:[], lo:96, roles:['jade'],
+   desc:'The mourning ends.',
+   clues:['One hundred days have passed since Elise\'s public death. Dragonvale\'s mourning period has ended.', 'Aster summons the court.'], rw:{xp:697100, gold:141720}},
+  {id:'hz635b', kind:'investigate', n:'By Dragonvale Law', icon:'⚖️', ch:635, need:2, ambush:[], lo:96, roles:['jade'],
+   desc:'The young king may remarry.',
+   clues:['By Dragonvale law, the young king may remarry after the required mourning period.', 'The kingdom expects a recognized queen and a stable royal household.'], rw:{xp:697400, gold:141780}, needFlag:'inv_hz635a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz635c', kind:'investigate', n:'Yulan Fen Will Become Queen', icon:'👑', ch:635, need:2, ambush:[], lo:96, roles:['jade'],
+   desc:'The announcement.',
+   clues:['Aster: "Yulan Fen will become Queen of Dragonvale."', 'To the court, it appears to be a new marriage. Only their inner circle knows the truth: Aster and Fen are already husband and wife.'], rw:{xp:697700, gold:141840}, needFlag:'inv_hz635b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz635d', kind:'investigate', n:'Lives Quietly Changed', icon:'🌅', ch:635, need:2, ambush:[], lo:96, roles:['jade'],
+   desc:'Where everyone stands.',
+   clues:['Fen has gone from scholar, to secret accomplice, to Aster\'s wife, and now queen. Aster has chosen the woman he truly loves.', 'Elsewhere, Elise is alive and free with Tarin. Sky and Jenika have chosen each other without marriage. Jenika carries Sky\'s child, though he does not yet know. Lives have quietly changed direction. Dragonvale is beginning to change.'], rw:{xp:698000, gold:141900}, needFlag:'inv_hz635c', lockMsg:'🔒 Finish the previous clue first'},
+);
+MISSIONS.push(
+  {id:'m_s635', needCh:635, title:'One Hundred Days', obj:{type:'steps', steps:[
+     {label:'One Hundred Days', spot:'hz635a'},
+     {label:'By Dragonvale Law', spot:'hz635b'},
+     {label:'Yulan Fen Will Become Queen', spot:'hz635c'},
+     {label:'Lives Quietly Changed', spot:'hz635d'}]}, rw:{xp:1535000, gold:348200, rep:2546},
+   subj:'One Hundred Days', body:'The story is not finished. — Jade'}
+);
+LORE.push(
+  {ch:635, n:'One Hundred Days', t:'A hundred days after Elise\'s public death, with the mourning ended, Aster summoned the court and, as Dragonvale law allows the young king to remarry after the required mourning, announced Yulan Fen as Queen of Dragonvale. The court saw a new marriage; only the inner circle knew they were already wed.'}
+);
