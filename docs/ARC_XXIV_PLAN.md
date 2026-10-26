@@ -62,7 +62,7 @@ Theme: duty may shape a life, but eventually people must choose how they want to
 **Sky learns of the pregnancy later:** not at 635, but on a later return to Dragonvale, after at least one full Evil arc has passed (the author\'s adjustment; roadmap: around XXV-XXVI).
 
 ### Checks against built canon, to settle before building (not decided)
-- **Who is the father of Elise\'s child** is not stated in the brief. Do not assume; the built chapters (Elise/Tarin route, ch580 as drawn) should decide.
+- **Settled by the author:** the father of Elise's child is **Tarin**, to be explained further in the arc (Elise has been secretly meeting him at night; this follows the night meeting already seen in ch562, flag `elise_night_meeting_seen`). Aster is not the father, consistent with the political marriage.
 - Elise\'s Case panel and the Aster/Fen and Elise/Tarin routes need stages that match 615-635; her "Queen Elise of Dragonvale (for now)" title must read as dead only from 628.
 - Yulan Fen already has a Case panel (yulanPanel); her title changes at 635 (queen), not before, and the secret wedding (630) must not show in any public title.
 - Sky\'s father stays unresolved (614); no flag implies a parent.
