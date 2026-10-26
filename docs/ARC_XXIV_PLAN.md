@@ -30,3 +30,40 @@ XXIV is about unlocking, not new combat: disguise and covert-identity quests, El
 5. **Pavilion support access.** Jenika\'s role can unlock expanded healing/support services or medical side quests at the Royal Healing Pavilion (unlocked ch46), without turning her into a shopkeeper NPC.
 6. **Dragonvale Reform Prelude.** Once Fen is queen, start tracking House Xuanji reforms as a future side-quest category (see the roadmap\'s late-game reforms).
 Build notes: reuse the existing story-only relationship routes, Case-tab panels and Convoy/desk patterns; add flags such as a hidden-identity flag when the chapters set them. Everything here is subject to change until the chapters are final.
+
+## CHAPTER OUTLINE (the author's brief; supersedes the strand summary above where they differ)
+Theme: duty may shape a life, but eventually people must choose how they want to live. Primary focus Aster, Fen, Elise, Tarin; secondary Sky and Jenika; supporting Jade, Devon, Roc, Delilah, Sally, Levi. **Chapters 611-635 (25).** No new Evil: 8 / 15. Two parallel Dragonvale storylines: (A) Sky and Jenika, curse-breaking, conception without a reveal; (B) Elise\'s escape, Fen\'s disguise, the fake death, mourning, the secret wedding, Fen\'s public elevation.
+- **611 Back to Dragonvale.** The party returns. Aster settles into kingship; Elise increasingly absent; Fen moves freely between archives, scholarly offices and court; Jenika works heavily at the Pavilion; Sky notices she is not well.
+- **612 The Pavilion Never Sleeps.** The Pavilion is a functioning medical institution under Jenika (Royal Cousin and senior Imperial Physician: administration, logistics, difficult cases, royal patients); other healers and apprentices exist but need not be drawn. Sky realises her curse has progressed.
+- **613 The Healer Who Cannot Heal Herself.** She can diagnose it, not cure it. Sky anxious, Jenika calm.
+- **614 Half-Valen.** Old records suggest Sky\'s resonance may interact with her curse. Sky\'s parentage is NOT resolved: his healing and Valen link are clues, not proof of his father.
+- **615 Elise Is Sick.** Servants see vomiting, tiredness, irregular eating, withdrawal. The court assumes illness; a small inner circle knows **Elise is pregnant**. The symptoms become the foundation of the illness cover story.
+- **616 The Life Elise Wants.** She tells Aster she will not stay in the political marriage; he already understands; Tarin is ready to disappear with her; the frontier no longer needs the marriage.
+- **617 Aster\'s Solution.** Not divorce: Elise will die, publicly, after a documented illness, so no faction can search for her, use her against Aster or challenge Fen\'s legitimacy later.
+- **618 Two Women, One Height.** Aster sees Elise and Fen are almost exactly the same height. Fen is horrified. He can make her pass as Elise in controlled appearances; she only needs to preserve the illusion that Elise remains in the palace.
+- **619 Aster the Disguise Master.** Elise: hair dyed black and/or cut short, cosmetics removed, clothing changed, posture and mannerisms altered, royal jewellery removed. Fen: Elise-style wig, makeup, royal clothing, posture coaching, restricted speaking.
+- **620 The Last Appearance.** Fen\'s first controlled appearance as Elise: a visibly weakened queen who walks briefly, acknowledges a few officials, speaks minimally and retires early.
+- **621 The Road Out.** Elise leaves secretly with Tarin; Aster supervises the final disguise; Jade and Devon help secure the route.
+- **622 Her Majesty Requires Rest.** The palace announces her worsening condition; visitors restricted; the Pavilion staff have seen real symptoms; Jenika oversees the medical bureaucracy without examining every case.
+- **623 What the Cure Requires.** Breaking the curse needs extremely close physical and spiritual synchronisation. Sky embarrassed, Jenika clinical; Jade: Sky is under no obligation; Sky: he wants Jenika alive.
+- **624 The Curse Breaks.** Sky\'s Valen resonance stabilises her; the curse breaks. The intimacy is part of the healing and of their existing feelings, not spectacle (**one-time event**, off-page). **Their child is conceived here, unknown to both.**
+- **625 Morning.** Sky keeps checking her pulse, breathing and temperature. "Stop checking whether I\'m alive." He checks once more.
+- **626 No Wedding Required.** Sky assumes marriage; Jenika does not. They are together; neither thinks marriage makes it real; their future stays unconventional.
+- **627 The Queen Declines.** Weeks pass; Fen makes one or two shorter disguised appearances; then they stop.
+- **628 Elise Valen Dies.** Dragonvale announces the death of Queen Elise after a prolonged illness; **45 days of mourning**. Believable because servants saw the pregnancy symptoms. Elise is alive with Tarin.
+- **629 Somewhere Else.** Short Elise/Tarin chapter: new appearance and identity, pregnancy continuing, nobody expects her to represent a kingdom.
+- **630 The Wedding Nobody Announces.** During or just after mourning, Aster and Fen marry privately at the frontier. Mirrors his political frontier marriage to Elise, but he chooses his wife and she chooses him.
+- **631 Scholar Fen.** Fen returns to court as a royal scholar; nobody knows she is already his wife.
+- **632 Time Passes.** Mourning ends; Aster is publicly widowed; the court asks the obvious question (a young king needs a queen); he gives no answer yet.
+- **633 Jenika Notices.** Months after the cure she realises she may be pregnant. Dragonvale pregnancies run roughly **10 to 12 months**, so there is no urgency. She confirms it quietly and tells no one.
+- **634 Delilah Knows.** Jenika tells Delilah (Roc\'s wife, and Jenika\'s 表嫂), who already knows of the relationship, the curse and how it broke. About three months along; Sky is travelling. "Does he know?" "Not yet." She wants to pass the first trimester before telling him.
+- **635 One Hundred Days.** About 90 to 100 days after Elise\'s public death Aster summons the court; Dragonvale law lets the young king remarry after the mourning period, as the kingdom expects a queen. He announces **Yulan Fen** as Queen of Dragonvale. The court thinks it is a new marriage; only the inner circle knows they are already wed. Closing state: Elise alive and free with Tarin; Fen scholar, accomplice, wife, queen; Aster has chosen the woman he loves; Sky and Jenika chose each other without marriage; Jenika carries Sky\'s child and Sky does not know; Dragonvale begins to change. 8 / 15.
+
+**Sky learns of the pregnancy later:** not at 635, but on a later return to Dragonvale, after at least one full Evil arc has passed (the author\'s adjustment; roadmap: around XXV-XXVI).
+
+### Checks against built canon, to settle before building (not decided)
+- **Who is the father of Elise\'s child** is not stated in the brief. Do not assume; the built chapters (Elise/Tarin route, ch580 as drawn) should decide.
+- Elise\'s Case panel and the Aster/Fen and Elise/Tarin routes need stages that match 615-635; her "Queen Elise of Dragonvale (for now)" title must read as dead only from 628.
+- Yulan Fen already has a Case panel (yulanPanel); her title changes at 635 (queen), not before, and the secret wedding (630) must not show in any public title.
+- Sky\'s father stays unresolved (614); no flag implies a parent.
+- The built 576-580 chapters have Aster crowned king and Elise crowned beside him; XXIV starts after that. Chapter counts: this arc is 611-635, so the roadmap\'s "Evils: 8 / 15" holds through it, and XXV starts at 636.
