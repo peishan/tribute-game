@@ -27,3 +27,22 @@ Compiled from the chapter texts, lore and flags for endgame planning. Chapter nu
 - **Sky:** the Bearer of the Returning Light (143), and Jade's 610 line ("One day, that habit may save someone very important to you"); the Sky and Jenika cure and pregnancy storyline is deliberately untouched until its own arc.
 - **The pearl "cannot bring back someone truly dead" (176):** a limit worth keeping consistent.
 - **Naming:** the object is called the Dragonvale Pearl (43-44), the Black Pearl (47-143) and the Black Dragon Pearl (169 onward): the same object.
+
+## Endgame checklist (status as of the chapters built, ch603)
+Also in the game: **Archive > Questions** (from ch123), read from story flags (`scripts/threads.js`, add a row to THREADS when a chapter raises a question). Legend: ☑ answered, ◐ partly answered, ☐ open.
+- ☑ Who changed the Keeper's oath, and why? (a Keeper, on the adviser's proof; 140-146)
+- ☐ Who is the unnamed adviser with the compass-star symbol? (◐ hints only: the alliance's mechanisms reach beyond Tribute and Dragonvale)
+- ☐ What is the ancient force that retreated and waits?
+- ◐ "The two sisters shall rise again": Dima has regained her power (103); the False Ancestor was broken but "is not her" (335); Xima herself is unresolved
+- ◐ "Through love, the worlds may be united or destroyed": a forgotten world beyond the seals was seen (138); which worlds is not said
+- ◐ What is the Gold Child meant to do? ("to choose what comes after", 146; prophecy shows what might be, 330)
+- ◐ Who stands beside the Gold Child? (chosen by choice, 119; Jade and Devon married in truth, 103)
+- ☐ Who removed the key pages from the late empress's and Dima's records?
+- ◐ What was Entry IV of the Register, and who removed it? (removed, not destroyed; 165)
+- ☐ Who is the Nameless Witness?
+- ◐ Who designated the Fifteen, and why these? (mandate changed to Resolve, 166)
+- ◐ How can one Register name appear in three kingdoms at once? ("the name is a pattern", 188)
+- ◐ How many of the Fifteen are resolved? (7 / 15 now, 8 / 15 at ch608; all fifteen closes it)
+- ◐ When will the restoration network be needed again? (the pearl is a restoration anchor, 176; 184)
+- ◐ What is Sky, Bearer of the Returning Light, meant to carry forward? (143, 321)
+Not tracked in the game (design items): the sealed Pearl Chamber dungeon and Devon's Dragon Manifestation (ch999, parked); the Sky and Jenika cure and pregnancy storyline (its own arc).
