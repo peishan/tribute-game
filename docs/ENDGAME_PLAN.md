@@ -1,4 +1,4 @@
-# ENDGAME PLAN: DRAFT FOR THE AUTHOR TO LOCK (nothing here is built)
+# ENDGAME PLAN: LOCKED BY THE AUTHOR (chapters not built yet)
 Why this exists: the Black Pearl threads (docs/BLACK_PEARL_AND_PROPHECY.md) change the shape of the finale. The old plan was **15/15 Evils, then the Dima/Xima purification, then postgame**. The proposal below adds one layer: the restoration network and the Pearl come back before the sisters do, and the last revelation comes after the sisters, not with them.
 Legend: **LOCKED** = already canon in the built chapters (chapter given). **PROPOSED** = from the author's roadmap discussion or this draft. **TO LOCK** = needs the author's yes before any checklist or chapter is built. Where the author's earlier designs (the BG2/IWD-style purification battle, the holy-water campaign, Xima's mind-risk, the arc list XXIV-XXXV) are not in my notes, I say so rather than invent them.
 
@@ -46,5 +46,40 @@ Proposed arc map (the author's roadmap; titles and order are as given, details n
 - **XXXIV Purification.** The preparation campaign (D9): strengthen Dima, weaken Xima, ally preparations.
 - **XXXV What Comes After.** The sisters' climax and purification; the truth about the compass-star adviser and the ancient force (D5); Jade's Gold Child choice (D6); MAIN QUEST COMPLETE (D10).
 
-## 5. What the checklist will contain once the decisions are locked
-(Not built yet; the author asked for the draft first.) Proposed contents: (1) **Questions tab rows** for each locked decision, with `done` set by the chapter that answers it (the "true owner", "what do the sisters become", "the adviser", "what the Gold Child chooses"); (2) **Pearl and network awakening steps** as story flags seeded from XXVI (e.g. a network-site response per arc, so the player can see the system waking); (3) **Passages rules** for Dima's Sanctuary and Xima Realm and the final per-region statuses chosen at the end; (4) **the endgame flags** (Pearl returned, sisters risen, adviser revealed, choice made, main quest complete) so the postgame can read the world state; (5) a **dev checklist in this folder** with the same items and their implementation status.
+## 3a. LOCKED decisions (supersede the recommendations above where they differ)
+- **D1 LOCKED.** The Pearl's true owner is the restoration network itself. Devon is its rightful custodian; his ancestors fulfilled the role (carry it, protect it, return it when the network wakes). When he returns it willingly, the network **permanently recognises him as its living custodian**: Black Pearl possession (temporary artifact authority) becomes Black Pearl returned (permanent inherited resonance). He keeps his skills and Dragon Manifestation; he does not lose anything mechanically by returning the stone.
+- **D2 LOCKED.** Dima and Xima both rise; "rise" means full embodiment: access to their true, complete states. Before XXXII: Dima has restored consciousness and power (ch103) but an incomplete manifestation; Xima is fragmented, remote influence only (the False Ancestor was explicitly not Xima). After the Pearl and network activation both can manifest as themselves. This does not contradict ch103.
+- **D3 LOCKED as written.** Xima remains responsible; Dima also made consequential choices; their conflict was exploited. Never "Xima was innocent".
+- **D4 LOCKED as our interpretation (mark it so).** "The worlds" = the sealed regions and the world's divided structure. The personal love prophecy has paid off (Jade chose Devon freely). The early romantic reading was not wrong; the endgame adds the larger meaning: connection cannot be forced because a prophecy says so.
+- **D5 LOCKED placement only.** Revealed in XXXV after the sisters' climax, not replacing it. The ancient force and the adviser are **outside the Fifteen** (no "15/16"). Locked: the adviser is connected to the ancient force and deliberately manipulated the Dima/Xima conflict. **Deliberately undecided** until XXXV: avatar / servant / identity repeated across generations / an office or symbol carried by several people.
+- **D6 LOCKED.** Staged, region-by-region restoration, not a binary. Jade decides which passages can safely open, which need conditions, which stay sealed, which become shared routes. Maps onto the Passages statuses (Open, Conditional, Shared, Restricted, Sealed, Unclassified); the final states are set by her main-story decisions, with a canonical default allowed.
+- **D7 LOCKED.** Jade = chooser; Devon = Pearl and restoration anchor; Sky = Returning Light and healing conduit. Ch610's line stays about Jenika; Sky's network role is an additional payoff, not a retroactive replacement.
+- **D8 LOCKED for XXXII.** Rebuild the sealed Pearl Chamber and Dragon Sanctuary placeholders (ch999, boss_pearl_guardian lvl 18 / 860 HP) as real endgame content, and bring back Dragon Manifestation.
+- **D9 DEFINED (enough to draft XXXIII-XXXV later).**
+  - XXXIII The Sisters Rise: Jade must talk to Dima safely; Xima may follow or intrude through Jade's mind; so Jade goes to Dima's shrine, whose wards block Xima. Dima: fighting Xima at full strength fails; purification is required.
+  - XXXIV Purification (old-school CRPG): Holy Water, weaken Xima, strengthen Dima, prepare allies, final confrontation. Holy water and components come from regions healed during the Fifteen Evils campaign (so the finale depends on what Jade restored), blessed through Dima's network. Uses: cleanse Xima-corrupted sites; strip protective layers around Xima; weaken Xima-tied manifestations; restore Dima's ability to confront her; protect Jade from mental intrusion; prepare safe routes. Allies defend shrines, routes, civilians, network sites and purification points; not everyone enters the final room.
+  - XXXV What Comes After: Dima confronts the weakened Xima; Jade stays active, not a vessel. The sisters' confrontation reveals the conflict was real but someone deliberately kept escalating it. Xima is purified or dealt with; Dima restored enough to tell the rest; then the adviser / ancient force revelation; then the Gold Child choice. Climax and decision are separate.
+- **D10 LOCKED.** One flag, `main_quest_complete`, nothing bigger. Each storyline keeps its own state. After XXXV: Main Quest complete; Fifteen Evils 15/15; Xima resolved; passages in their final states; vigilante quests, bounties, exploration, Expedition and optional relationship/story quests stay active. Later chapters check `main_quest_complete` for postgame dialogue.
+
+Three victories, kept distinct: **XXXI** Mission completed (15/15, Greyson's mission). **XXXIV-XXXV climax** Curse confronted (Dima/Xima). **XXXV end** Future chosen (Gold Child choice). **XXXII** is the early prophecy payoff (the Pearl returns).
+
+## 5. The implementation checklist
+Spoiler rule: the in-game Questions tab shows a row only once the story has raised it, and shows only what has been learned. Rows that already exist and will be answered by this plan: `network` (when is the network needed), `sisters` (what became of Dima and Xima), `worlds` (which worlds), `goldchild`, `beside`, `adviser`, `force`, `count`. Nothing below is built until its chapters arrive.
+
+**Flags to register (names provisional; set by the chapter that shows it):**
+- Seeding from XXIV on: `network_site_responds` (per-arc network reaction, from XXVI Bone River), `pearl_resonance_felt`, `custodian_trust_understood`.
+- XXXI: `fifteen_resolved` (the existing `@evil15`) and Greyson's mission closed.
+- XXXII: `pearl_chamber_opened`, `pearl_guardian_beaten`, `dragon_manifestation_awake`, `pearl_returned_willingly` (also sets `devon_custodian_resonance`), `network_fully_awake`, `sisters_can_manifest`.
+- XXXIII: `dima_shrine_reached`, `xima_intrusion_warded`, `purification_required`.
+- XXXIV: `holy_water_<region>` per restored region, `dima_strengthened`, `xima_weakened`, `ally_post_<site>` for defended sites.
+- XXXV: `sisters_confront`, `conflict_was_exploited`, `adviser_revealed` (identity left open), `passage_<region>_final` (Open / Conditional / Shared / Restricted / Sealed), `main_quest_complete`.
+
+**Questions-tab edits when each lands:** set `done` on `network` (XXXII), `sisters` (XXXII/XXXV), `worlds` and `goldchild` (XXXV), `beside` (XXXV), and for `adviser` / `force` only `part` lines until the XXXV reveal; `count` completes at `@evil15` (already wired).
+
+**Systems to build:**
+1. XXXII: Pearl Chamber and Dragon Sanctuary places (replace the ch999 placeholders); rebuilt guardian boss; Dragon Manifestation as a kept ability after the Pearl is returned.
+2. XXXIII: Passages rules for Dima's Sanctuary and Xima Realm (currently listed with no rules); a mind-intrusion status for Xima (reuse the Whispering Mask status framework) and Dima's ward as its counter.
+3. XXXIV: holy-water gathering across healed regions; ally post assignments (reuse the Convoy Desk pattern); purification of Xima-corrupted sites.
+4. XXXV: final passage-decision screen writing Passages statuses; `main_quest_complete` banner; postgame dialogue hook.
+
+**Arc map (unchanged):** XXIII Winter (building) / XXIV The Lives We Choose (relationship only) / XXV-XXX the remaining Evils (Silent Flame, Weeping Stone, Sky Eater, Bone River at XXVI, Sunless Child at XXX; Ashen Serpent unplaced) / XXXI Mirror Queen 15/15 / XXXII The Returning Pearl / XXXIII The Sisters Rise / XXXIV Purification / XXXV What Comes After.
