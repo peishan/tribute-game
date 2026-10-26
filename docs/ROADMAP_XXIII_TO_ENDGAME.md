@@ -47,5 +47,5 @@ Liora early teens; Roc/Delilah's twins about Liora's age when Jade and Devon fir
 ## Points to check against built canon before XXIV-XXV
 - Elise's departure was earlier planned as "a line of narration"; XXIV now makes it a private release with her choosing Tarin. Confirm which scale the author wants.
 - Fen is Aster's true love (ch580 stays as drawn); marriage to Fen is a later arc, consistent with this roadmap.
-- Damien's marriage to the Tribal Girl and Rheon's coronation are new canon here; the earlier "tribal woman's chapter" thread is still unresolved.
+- Rheon's coronation is new canon here. Damien's marriage and the tribal woman (ch348, unnamed, no portrait) are settled: her "chapter" will be an **update from Delilah in a later conversation**, not an arc; she stays unnamed unless the author names her.
 - Sera is not yet in the game's party roster for guest duty (no gear or ally panel yet).
