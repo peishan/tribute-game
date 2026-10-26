@@ -56,6 +56,7 @@ Object.assign(REL_ROUTES, {
     note:'A one-time cure, and a bond they chose without a wedding.',
     stages:[
       {n:'The Pavilion never sleeps', flag:'pavilion_never_sleeps'},
+      {n:'The healer who cannot heal herself', flag:'healer_cannot_heal_herself'},
       {n:'The Valen records', flag:'half_valen_records_read'},
       {n:'Sky chooses', flag:'sky_chooses_to_cure_jenika'},
       {n:'The curse breaks', flag:'jenika_curse_broken'},
