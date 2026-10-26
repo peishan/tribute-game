@@ -1,4 +1,6 @@
 # ROADMAP: ARC XXIII TO THE ENDGAME (author's roadmap, recorded as the plan of record)
+
+> **Status of this plan:** everything here is planned and subject to change until the chapters themselves are finalised. The chapters, once drawn, are canon; where they differ, the chapters win and this file is updated.
 Four stages: (1) the Fifteen Evils are the campaign objective; (2) the Black Pearl and restoration network bridge into the true endgame; (3) the Dima/Xima purification is the main-story climax; (4) the Gold Child's choice decides what comes after. The game stays open afterward. Decisions D1-D10 are in docs/ENDGAME_PLAN.md; this file is the arc-by-arc schedule. Nothing past XXIII is built.
 
 | Arc | Purpose | Evils |
