@@ -7637,9 +7637,9 @@ LOCATIONS.dragon_vale.spots.push(
   {id:'hz633a', kind:'investigate', n:'Strangely Different', icon:'🌸', ch:633, need:2, ambush:[], lo:96, roles:['jade'],
    desc:'The changes.',
    clues:['Several months have passed since the curse was broken. Lately, Jenika has felt strangely different.', 'Her body is not weak. In fact, she feels more vital than before. Her monthly cycle has not returned.'], rw:{xp:690500, gold:140400}},
-  {id:'hz633b', kind:'investigate', n:'The Body Does Not Lie', icon:'🤰', ch:633, need:2, ambush:[], lo:96, roles:['jade'],
+  {id:'hz633b', kind:'investigate', n:'The Familiar Signs', icon:'🤰', ch:633, need:2, ambush:[], lo:96, roles:['jade'],
    desc:'The signs.',
-   clues:['A subtle, persistent nausea lingers. Her senses feel sharper. Her body feels different in quiet, unmistakable ways.', 'At first, she hesitates to believe it. But the signs are clear. Jade, Delilah, and Elise have all told her before: the body does not lie.'], rw:{xp:690800, gold:140460}, needFlag:'inv_hz633a', lockMsg:'🔒 Finish the previous clue first'},
+   clues:['A subtle, persistent nausea lingers. Her senses feel sharper. Her body feels different in quiet, unmistakable ways.', 'At first, she hesitates to believe it. Delilah and Elise have taught her what to expect from pregnancy. Now, she recognizes the familiar signs in herself.'], rw:{xp:690800, gold:140460}, needFlag:'inv_hz633a', lockMsg:'🔒 Finish the previous clue first'},
   {id:'hz633c', kind:'investigate', n:'A Private Examination', icon:'🩺', ch:633, need:2, ambush:[], lo:96, roles:['jade'],
    desc:'Outside the court records.',
    clues:['To be certain, she quietly requests a private examination from a trusted physician outside the court records.', 'The physician confirms it. Jenika is pregnant. Everything is normal.'], rw:{xp:691100, gold:140520}, needFlag:'inv_hz633b', lockMsg:'🔒 Finish the previous clue first'},
@@ -7674,7 +7674,7 @@ MISSIONS.push(
    subj:'Time Passes', body:'The story is not finished. — Jade'},
   {id:'m_s633', needCh:633, title:'Jenika Notices', obj:{type:'steps', steps:[
      {label:'Strangely Different', spot:'hz633a'},
-     {label:'The Body Does Not Lie', spot:'hz633b'},
+     {label:'The Familiar Signs', spot:'hz633b'},
      {label:'A Private Examination', spot:'hz633c'},
      {label:'A Long Pregnancy, a Quiet Secret', spot:'hz633d'}]}, rw:{xp:1530000, gold:347000, rep:2540},
    subj:'Jenika Notices', body:'The story is not finished. — Jade'},
@@ -7717,4 +7717,31 @@ MISSIONS.push(
 );
 LORE.push(
   {ch:635, n:'One Hundred Days', t:'A hundred days after Elise\'s public death, with the mourning ended, Aster summoned the court and, as Dragonvale law allows the young king to remarry after the required mourning, announced Yulan Fen as Queen of Dragonvale. The court saw a new marriage; only the inner circle knew they were already wed.'}
+);
+
+/* ---- Arc for(let i=18;i<=610;i++)III, chapters 611-630: Arc for(let i=18;i<=610;i++)IV, The Lives We Choose ---- */
+LOCATIONS.dragon_vale.spots.push(
+  {id:'hz613a', kind:'investigate', n:'Understood for Some Time', icon:'📖', ch:613, need:2, ambush:[], lo:96, roles:['sky'],
+   desc:'Her diagnosis.',
+   clues:['Jenika has understood her condition for some time. She can identify the symptoms, trace their progression, and explain what they mean.', 'But knowing what is wrong is not the same as knowing how to cure it.'], rw:{xp:703100, gold:142920}},
+  {id:'hz613b', kind:'investigate', n:'The Same Dead End', icon:'🚧', ch:613, need:2, ambush:[], lo:96, roles:['sky'],
+   desc:'No cure she can find.',
+   clues:['Every treatment she considers leads to the same dead end. The symptoms linger, no matter what she tries.', 'She knows what she would tell another patient. She cannot make herself follow an answer that does not exist.'], rw:{xp:703400, gold:142980}, needFlag:'inv_hz613a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz613c', kind:'investigate', n:'I Am Resting', icon:'🕯️', ch:613, need:2, ambush:[], lo:96, roles:['sky'],
+   desc:'Sky and Jenika.',
+   clues:['Sky: "You should rest." Jenika: "I am resting."', 'She says it with such composure that it only makes him more anxious.'], rw:{xp:703700, gold:143040}, needFlag:'inv_hz613b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz613d', kind:'investigate', n:'Calm, and Not', icon:'💙', ch:613, need:2, ambush:[], lo:96, roles:['sky'],
+   desc:'The limit of her knowledge.',
+   clues:['Even so, Jenika returns to her work, determined to keep going.', 'The healer who could treat almost anyone had reached the limit of her own knowledge. Jenika remained calm. Sky did not.'], rw:{xp:704000, gold:143100}, needFlag:'inv_hz613c', lockMsg:'🔒 Finish the previous clue first'},
+);
+MISSIONS.push(
+  {id:'m_s613', needCh:613, title:'The Healer Who Cannot Heal Herself', obj:{type:'steps', steps:[
+     {label:'Understood for Some Time', spot:'hz613a'},
+     {label:'The Same Dead End', spot:'hz613b'},
+     {label:'I Am Resting', spot:'hz613c'},
+     {label:'Calm, and Not', spot:'hz613d'}]}, rw:{xp:1480000, gold:335000, rep:2480},
+   subj:'The Healer Who Cannot Heal Herself', body:'The story is not finished. — Jade'}
+);
+LORE.push(
+  {ch:613, n:'The Healer Who Cannot Heal Herself', t:'Jenika understood her own condition: she could identify the symptoms, trace their progression and explain them, but every treatment she considered led to the same dead end. She stayed calm and kept working; Sky, anxious, did not.'}
 );
