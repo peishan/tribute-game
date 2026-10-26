@@ -5,10 +5,10 @@ Relationship-and-home arc. No Evil resolved (tracker stays 8 / 15), no major Bla
 1. **Sky and Jenika.** Sky's Valen resonance is the key to breaking Jenika's curse; the cure is an intimacy cure and a **one-time event** (not repeatable, no route or spend-time option; handled tastefully, off-page). Jenika survives; later she learns she is pregnant. The Sky/Jenika material stays untouched in Arc XXIII.
 2. **Elise's departure and pretended death** (the author's design, replaces the earlier "line of narration" idea):
    - Aster privately releases Elise from the political marriage (the frontier is stable); Elise chooses Tarin. If a pregnancy is used it speeds her departure but does not cause the choice.
-   - Elise leaves with Tarin for the secluded life. Her **death from illness is faked**, and the kingdom **mourns her for 45 days**.
+   - Elise leaves with Tarin for the secluded life. Her **death from illness is faked**, and the kingdom **mourns her for 49 days**.
    - **Fen stands in for her:** Fen wears a wig and poses as Elise (the two are the same height, so it is feasible). Fen is already in and out of court as a royal scholar, so nobody notices anything; Elise\'s illness explains a reduced, veiled public presence before the "death".
 3. **Aster and Fen\'s unannounced wedding.** Held privately, like his first wedding to Elise, which was not official but held at the frontier. Fen becomes his wife in secret.
-4. **The announcement.** After about **90 to 100 days** Aster announces Fen as his queen. This is in line with Dragonvale law: he is young and the kingdom needs a queen. Aster\'s reform ending the royal polygamous marriage structure (see the roadmap) follows his marriage to Fen.
+4. **The announcement.** On the **100th day after Elise\'s fake death** Aster announces Fen as his queen. This is in line with Dragonvale law: he is young and the kingdom needs a queen. Aster\'s reform ending the royal polygamous marriage structure (see the roadmap) follows his marriage to Fen.
 
 ## Ends of the arc
 Sky/Jenika: family begins. Aster/Fen: wed, then announced. Elise/Tarin: free and hidden. Evils 8 / 15.
@@ -16,9 +16,9 @@ Sky/Jenika: family begins. Aster/Fen: wed, then announced. Elise/Tarin: free and
 ## To settle when the chapters are drawn (flagged, not decided)
 - Who knows the truth: Aster, Fen, Elise, Tarin certainly; whether Jade\'s party, Roc/Delilah and the physicians are told, and how the ruse is kept from them in play.
 - How Fen is shown in the ruse in the art (wig, hair colour, veil), and whether the scholar and the "queen" are ever on screen together (they cannot be).
-- The mourning: what Aster shows publicly for 45 days, and how he reconciles it with his honesty (ch386 "both can be true"; ch580 stays as drawn).
+- The mourning: what Aster shows publicly for 49 days, and how he reconciles it with his honesty (ch386 "both can be true"; ch580 stays as drawn).
 - Ordering: the release of Elise comes before the wedding, so Aster is never married to two women at once; the polygamy reform is then his announced policy rather than a loophole.
-- The in-game calendar: the 45 days and the 90-100 days are in-story spans; in-game days are not real dates.
+- The in-game calendar: the 49 days and the 100 days are in-story spans; in-game days are not real dates.
 - Elise is queen in the built chapters (576-580: crowned with Aster, "Queen Elise of Dragonvale (for now)" in the Case panel). When the arc lands, her panel and the Aster/Fen and Elise/Tarin routes need their last stages, and the Case-tab title for her must follow the "death" cover story only where the story says so.
 
 ## Proposed light mechanics (from the author; to build when the chapters arrive, not a heavy systems arc)
@@ -50,14 +50,14 @@ Theme: duty may shape a life, but eventually people must choose how they want to
 - **625 Morning.** Sky keeps checking her pulse, breathing and temperature. "Stop checking whether I\'m alive." He checks once more.
 - **626 No Wedding Required.** Sky assumes marriage; Jenika does not. They are together; neither thinks marriage makes it real; their future stays unconventional.
 - **627 The Queen Declines.** Weeks pass; Fen makes one or two shorter disguised appearances; then they stop.
-- **628 Elise Valen Dies.** Dragonvale announces the death of Queen Elise after a prolonged illness; **45 days of mourning**. Believable because servants saw the pregnancy symptoms. Elise is alive with Tarin.
+- **628 Elise Valen Dies.** Dragonvale announces the death of Queen Elise after a prolonged illness; **49 days of mourning**. Believable because servants saw the pregnancy symptoms. Elise is alive with Tarin.
 - **629 Somewhere Else.** Short Elise/Tarin chapter: new appearance and identity, pregnancy continuing, nobody expects her to represent a kingdom.
 - **630 The Wedding Nobody Announces.** During or just after mourning, Aster and Fen marry privately at the frontier. Mirrors his political frontier marriage to Elise, but he chooses his wife and she chooses him.
 - **631 Scholar Fen.** Fen returns to court as a royal scholar; nobody knows she is already his wife.
 - **632 Time Passes.** Mourning ends; Aster is publicly widowed; the court asks the obvious question (a young king needs a queen); he gives no answer yet.
 - **633 Jenika Notices.** Months after the cure she realises she may be pregnant. Dragonvale pregnancies run roughly **10 to 12 months**, so there is no urgency. She confirms it quietly and tells no one.
 - **634 Delilah Knows.** Jenika tells Delilah (Roc\'s wife, and Jenika\'s 表嫂), who already knows of the relationship, the curse and how it broke. About three months along; Sky is travelling. "Does he know?" "Not yet." She wants to pass the first trimester before telling him.
-- **635 One Hundred Days.** About 90 to 100 days after Elise\'s public death Aster summons the court; Dragonvale law lets the young king remarry after the mourning period, as the kingdom expects a queen. He announces **Yulan Fen** as Queen of Dragonvale. The court thinks it is a new marriage; only the inner circle knows they are already wed. Closing state: Elise alive and free with Tarin; Fen scholar, accomplice, wife, queen; Aster has chosen the woman he loves; Sky and Jenika chose each other without marriage; Jenika carries Sky\'s child and Sky does not know; Dragonvale begins to change. 8 / 15.
+- **635 One Hundred Days.** Exactly 100 days after Elise\'s public death Aster summons the court; Dragonvale law lets the young king remarry after the mourning period, as the kingdom expects a queen. He announces **Yulan Fen** as Queen of Dragonvale. The court thinks it is a new marriage; only the inner circle knows they are already wed. Closing state: Elise alive and free with Tarin; Fen scholar, accomplice, wife, queen; Aster has chosen the woman he loves; Sky and Jenika chose each other without marriage; Jenika carries Sky\'s child and Sky does not know; Dragonvale begins to change. 8 / 15.
 
 **Sky learns of the pregnancy later:** not at 635, but on a later return to Dragonvale, after at least one full Evil arc has passed (the author\'s adjustment; roadmap: around XXV-XXVI).
 
