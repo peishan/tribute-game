@@ -29,10 +29,12 @@ Object.assign(REL_ROUTES, {
       {n:'A political marriage, a free heart', flag:'crown_and_border_wed'},
       {n:'Beside him in practice', flag:'aster_rules_in_practice'},
       {n:'Behind her king', flag:'aster_crowned_king'},
+      {n:'Standing in for the queen', flag:'fen_agrees_to_stand_in'},
+      {n:'Wed in secret', flag:'aster_fen_secretly_wed'},
     ] },
   elise_tarin:{ label:'Elise & Tarin', icon:'❄️', members:['elise','tarin'], story:true,
     open:() => !!G.flags.elise_tarin_ash, begun:'',
-    note:'Nothing is decided: how this ends belongs to later chapters.',
+    get note(){ return G && G.flags && G.flags.elise_lives_elsewhere ? 'She has left the palace with him and is officially dead; the rest belongs to the chapters ahead.' : 'Nothing is decided: how this ends belongs to later chapters.'; },
     stages:[
       {n:'A name she never forgot'},
       {n:'He may be alive', flag:'tarin_may_be_alive'},
@@ -43,6 +45,20 @@ Object.assign(REL_ROUTES, {
       {n:'Letters and a disguise', flag:'aster_helps_elise_out'},
       {n:'The question of the public life', flag:'elise_asks_if_she_chooses_this'},
       {n:'A quiet settlement within reach', flag:'elise_shown_the_settlement'},
+      {n:'The life she wants', flag:'elise_wants_her_own_life'},
+      {n:'Gone from the palace', flag:'elise_leaves_dragonvale'},
+      {n:'Somewhere else', flag:'elise_lives_elsewhere'},
+    ] },
+  sky_jenika:{ label:'Sky & Jenika', icon:'🌙', members:['sky','jenika'], story:true,
+    open:() => !!G.flags.pavilion_never_sleeps, begun:'',
+    note:'A one-time cure, and a bond they chose without a wedding.',
+    stages:[
+      {n:'The Pavilion never sleeps', flag:'pavilion_never_sleeps'},
+      {n:'The Valen records', flag:'half_valen_records_read'},
+      {n:'Sky chooses', flag:'sky_chooses_to_cure_jenika'},
+      {n:'The curse breaks', flag:'jenika_curse_broken'},
+      {n:'Stop checking whether I am alive', flag:'morning_after_the_cure'},
+      {n:'No wedding required', flag:'no_wedding_required'},
     ] },
   roc_delilah:{ label:'Roc & Delilah', icon:'🏯', members:['roc','delilah'], story:true,
     open:() => !!G.flags.delilah_wife, begun:'',
@@ -80,8 +96,10 @@ function mirellePanel(){
 function elisePanel(){
   if(!eliseOpen()) return '';
   const on = !!G.flags.border_rebuilding_begins;
-  const queen = !!G.flags.aster_crowned_king;
-  return `<h4>${portraitChip('assets/party/elise.webp','Lady Elise Valen')} ${queen ? 'Queen Elise of Dragonvale (for now)' : 'Lady Elise Valen: Border Ally'}</h4><div class="sm">${queen ? 'Queen by Aster\'s crown, wife by treaty and ally of the frontier. Her marriage has done what it was made for, and she has begun to ask whether she chooses it.' : G.flags.crown_and_border_wed ? 'Aster\'s wife by treaty and ally of the frontier.' : 'Lady of the northern frontier and a trusted ally.'} She does not fight.</div><div class="sm">${on ? '<b>Active:</b>' : '<b>From the rebuilding of the border:</b>'} <b>Border Accord</b> (+15% gold at the frontier), <b>Frontier Network</b> (one extra clue a day), <b>Logistics Command</b> (fares 15% lower).</div>`;
+  const queen = !!G.flags.aster_crowned_king, gone = !!G.flags.elise_leaves_dragonvale, dead = !!G.flags.elise_valen_dies;   // Arc XXIV: she leaves with Tarin (621); the kingdom is told she has died (628)
+  const title = dead ? 'Elise: Alive, and Officially Dead' : gone ? 'Elise: Away from the Palace' : queen ? 'Queen Elise of Dragonvale (for now)' : 'Lady Elise Valen: Border Ally';
+  const lead = dead ? 'Dragonvale mourns Queen Elise. She is alive, far away with Tarin, and her pregnancy continues. Only a small circle knows.' : gone ? 'She has left Dragonvale with Tarin. The court believes the queen is ill and resting.' : null;
+  return `<h4>${portraitChip('assets/party/elise.webp','Lady Elise Valen')} ${title}</h4><div class="sm">${lead ? lead : queen ? 'Queen by Aster\'s crown, wife by treaty and ally of the frontier. Her marriage has done what it was made for, and she has begun to ask whether she chooses it.' : G.flags.crown_and_border_wed ? 'Aster\'s wife by treaty and ally of the frontier.' : 'Lady of the northern frontier and a trusted ally.'} She does not fight.</div><div class="sm">${on ? '<b>Active:</b>' : '<b>From the rebuilding of the border:</b>'} <b>Border Accord</b> (+15% gold at the frontier), <b>Frontier Network</b> (one extra clue a day), <b>Logistics Command</b> (fares 15% lower).</div>`;
 }
 function tarinPanel(){
   if(!tarinOpen()) return '';

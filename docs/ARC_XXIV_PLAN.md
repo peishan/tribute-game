@@ -67,3 +67,14 @@ Theme: duty may shape a life, but eventually people must choose how they want to
 - Yulan Fen already has a Case panel (yulanPanel); her title changes at 635 (queen), not before, and the secret wedding (630) must not show in any public title.
 - Sky\'s father stays unresolved (614); no flag implies a parent.
 - The built 576-580 chapters have Aster crowned king and Elise crowned beside him; XXIV starts after that. Chapter counts: this arc is 611-635, so the roadmap\'s "Evils: 8 / 15" holds through it, and XXV starts at 636.
+
+## BUILT SO FAR (chapters 611, 612, 614-630)
+Missing: **613** (The Healer Who Cannot Heal Herself), **631-635**, and the Arc XXIV cover. Places: Dragonvale hub (611, the Pavilion and Archives 612/614/623-626), the Noble Court (615-622, 627, 628), the Northern Frontier (629 unnamed lakeside village, 630 quiet village). Story-only: no new mechanics yet (the planned disguise missions, suspicion meter and Hidden Frontier Network wait for the rest of the arc).
+**How the pages differ from, or settle, the plan:**
+- **Who knows (settled by 630):** Jade\'s group, Roc and Delilah, and Elise and Tarin all attend the secret wedding. Fen already stays with Elise in the palace (616) and is in on the plan (617-618). Jade and Devon help Elise leave (621).
+- **Two versions of 618 and two of 620 were sent.** 618: the later version (Fen undisguised beside Elise, "Fen keeps her own eye colour") was built; the first (Fen already disguised in the reference panel) was not used. 620: the first (Fen\'s first controlled appearance, Aster coaching her) is built as 620; the second (a final appearance with fake opera-troupe blood, "Eventually, even these appearances stop") carries a title card "620" but matches 627, "The Queen Declines", so it is built as **627**. If it was meant as a replacement for 620, say so and I will swap them.
+- **Fen\'s eyes:** violet in the pages, kept in the disguise (the wig and makeup make her plausible at a distance only).
+- **Elise after the plan:** short dark hair, blue eyes (629, 630).
+- **49 days** of mourning appears on the 628 page, matching the corrected plan; the wedding is "during the mourning period, or shortly after its formal conclusion" (630).
+- **Elise\'s panel** now follows the story: queen until 621, "Away from the Palace" from 621, "Alive, and Officially Dead" from 628. The Sky and Jenika route (story-only, no spend-time) and the extra Aster/Fen and Elise/Tarin stages are in the Bonds tab.
+- 614: Sky\'s father remains unresolved, as planned; 624 is the one-time cure, shown tenderly and not explicitly.
