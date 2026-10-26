@@ -1,0 +1,48 @@
+# The Black Pearl and the prophecies: what the game says so far (through ch610 plans; built to ch603)
+Compiled from the chapter texts, lore and flags for endgame planning. Chapter numbers are the game's.
+
+## The Black Pearl (also "Black Dragon Pearl", "Dragonvale Pearl")
+- **43** Sky is cursed with 49 days left; only the Dragonvale Pearl, "the pure essence of ancient dragons", can purify it. **44** Greyson sends the party to Dragonvale. **47** A blue glow in Prince Devon's room is the pearl; Devon helps on a condition. **48** Dima to Jade: "Your destiny lies with the owner of the Black Pearl. Only through him can your cousin have a chance of living. This is the Trial of Love." The pearl is held by Devon. **49** It is delivered to the Royal Healing Pavilion (Jenika) for Sky.
+- **53 The mural** (the late empress's sealed archive): Dima, Sister of Light, and Xima, Sister of Darkness, reaching for the Black Pearl. Inscription: *"The Gold Child's Trial of Love is bound to the Black Pearl. When the pearl returns to its true owner, the two sisters shall rise again. Through love, the worlds may be united or destroyed."* **54-55** The empress studied the Gold Child prophecy and the pearl; pages were deliberately removed.
+- **59** Dima: "Your destiny lies with the owner of the Pearl... the saviour of Tribute"; Jade severs the bond with Roc and pledges herself to Devon.
+- **78** Moonveil Temple tablet: *"When the Gold Child awakens, the pearl shall return."* Jade's vision: a radiant woman, a black pearl, a child. **79** Three records: *the Pearl chooses; the Gold Child carries the balance between light and darkness; the guardian walks beside the chosen (unnamed)*; then the name Dima. **80** Dima was a guardian tied to the pearl and to a child of light, "a bridge between light and darkness"; the Pearl Chamber holds a fragment of the pearl; message: *"The child of gold shall return when darkness rises."* Greyson: "The truth has started searching for you."
+- **103** Jade tells Devon that Dima has regained her power and that the Tribute prophecy "speaks of a great change that will affect us all". (I could not find a chapter that shows the restoration itself, only this statement.)
+- **143** Devon's pearl and Yvette's jade pendant together restored Sky; a Dima-era device recognises Sky: **Bearer of the Returning Light** (healers who carried restoration beyond the Keeper order "to prepare for a time when the world could be whole again").
+- **169-176** The pearl reacts to the old sea charts and is older than Dragonvale's dynasty; it repels the Black Tide (172); Maris: it is "a restoration key" for the Sunken Kingdom's preservation network (175); **176: it is a restoration anchor** that preserves damaged life force long enough for recovery; it cannot bring back someone who is truly dead.
+- **184** The Drowned Crown (the royal council's final command) returns the pearl's authority to Devon: it was **a trust, never a possession**, handed to his ancestors to carry "until the restoration network was needed again"; the network has begun awakening.
+- **In play:** Devon is "Keeper of the Black Pearl": Black Pearl Resonance (signature), Pearl Sage class, the Jade and Devon bond skill Dragon Destiny. **Parked:** the Pearl Chamber special dungeon (boss: Pearl Guardian, sealed, ch999) and Devon's later evolution, **Dragon Manifestation**, are not built.
+
+## The prophecies (in the order the game reveals them)
+1. **The Tribute prophecy (ch0, ch10).** The Sage of Tribute, nineteen years ago on the fifteenth lunar day of the ghost month (Jade's birthday): two men from a different world and a woman of extraordinary abilities will save Tribute; their fates are bound with hers. It started the mission to eliminate Xima's underlings in fifteen territories. The "two men" fit Chad (Roc) and Sky, who arrived through the tunnel of light (1, 25).
+2. **The Gold Child prophecy (Dima, Xima, the pearl).** Xima: "the Gold Child has finally returned / awakened" (38-42). The lines above (48, 53, 78, 80). Dima to Jade in **146: "the Gold bloodline was never meant to defeat darkness. It was meant to choose what comes after."**
+3. **What the Gold Child is (115, 119).** Mira: the prophecy belongs to the world, not one kingdom: the Gold Child is not a ruler but one "who can bridge kingdoms, restore what was lost, and heal the rift between worlds". Yvette's letter (119): *"The one beside the Gold Child will not be chosen by fate, but by choice."*
+4. **The truth behind the curse (140-146).** Dima and Xima began as sisters in purpose (Dima: balance; Xima: control); their conflict was real but also **used by a third party, an unnamed adviser with a compass-star symbol**, who showed the Keepers proof that reuniting the sealed regions would let an ancient force return. The Keepers changed the oath and sealed the world. **The ancient threat "retreated. It waits."** Arc V ends on: "Can Jade create a world that no longer needs heroes?"
+5. **What prophecy is (327-331).** A true prophecy shows branching futures, none fixed: in one a great war consumes Tribute, in another alliances form and the island heals. "A prophecy shows what might be, not what must be."
+
+## Threads still open (candidates for the endgame)
+- **The ancient force and the compass-star adviser (145-146):** never named or faced. Related: Register Entry IV removed (164-165), the Nameless Witness (165), anomalies beyond the Fifteen (210), one name in three kingdoms (the "name is a pattern"), the Dragonvale Accord's safeguards (227).
+- **"The two sisters shall rise again":** Dima is restored (103). Xima's state is unresolved: ch335 breaks the False Ancestor, a remnant that "is not her". 
+- **"Through love, the worlds may be united or destroyed":** the Trial of Love was paid off personally (Jade chose Devon, 59/103) but the worlds-united line has not been: the sealed regions (the Passages tab) and the ancient force's return are the likeliest meaning. This is an inference, not stated.
+- **The restoration network "needed again" (184)** and the pearl as a restoration anchor (176): the Frostveil arc (the five fires as a circulation system, the Endless Winter restored, not destroyed) repeats the pattern. Evils are restored or reclassified, not killed: 8 / 15 after Arc XXIII.
+- **Sky:** the Bearer of the Returning Light (143), and Jade's 610 line ("One day, that habit may save someone very important to you"); the Sky and Jenika cure and pregnancy storyline is deliberately untouched until its own arc.
+- **The pearl "cannot bring back someone truly dead" (176):** a limit worth keeping consistent.
+- **Naming:** the object is called the Dragonvale Pearl (43-44), the Black Pearl (47-143) and the Black Dragon Pearl (169 onward): the same object.
+
+## Endgame checklist (status as of the chapters built, ch603)
+Also in the game: **Archive > Questions** (from ch123), read from story flags (`scripts/threads.js`, add a row to THREADS when a chapter raises a question). Legend: ☑ answered, ◐ partly answered, ☐ open.
+- ☑ Who changed the Keeper's oath, and why? (a Keeper, on the adviser's proof; 140-146)
+- ☐ Who is the unnamed adviser with the compass-star symbol? (◐ hints only: the alliance's mechanisms reach beyond Tribute and Dragonvale)
+- ☐ What is the ancient force that retreated and waits?
+- ◐ "The two sisters shall rise again": Dima has regained her power (103); the False Ancestor was broken but "is not her" (335); Xima herself is unresolved
+- ◐ "Through love, the worlds may be united or destroyed": a forgotten world beyond the seals was seen (138); which worlds is not said
+- ◐ What is the Gold Child meant to do? ("to choose what comes after", 146; prophecy shows what might be, 330)
+- ◐ Who stands beside the Gold Child? (chosen by choice, 119; Jade and Devon married in truth, 103)
+- ☐ Who removed the key pages from the late empress's and Dima's records?
+- ◐ What was Entry IV of the Register, and who removed it? (removed, not destroyed; 165)
+- ☐ Who is the Nameless Witness?
+- ◐ Who designated the Fifteen, and why these? (mandate changed to Resolve, 166)
+- ◐ How can one Register name appear in three kingdoms at once? ("the name is a pattern", 188)
+- ◐ How many of the Fifteen are resolved? (7 / 15 now, 8 / 15 at ch608; all fifteen closes it)
+- ◐ When will the restoration network be needed again? (the pearl is a restoration anchor, 176; 184)
+- ◐ What is Sky, Bearer of the Returning Light, meant to carry forward? (143, 321)
+Not tracked in the game (design items): the sealed Pearl Chamber dungeon and Devon's Dragon Manifestation (ch999, parked); the Sky and Jenika cure and pregnancy storyline (its own arc).
