@@ -176,6 +176,9 @@ function rSpot(L, sp){
     case 'board': body = rBoard(); break;
     case 'convoy': body = typeof rConvoyDesk==='function' ? rConvoyDesk() : ''; break;
     case 'frontnet': body = typeof rFrontDesk==='function' ? rFrontDesk() : ''; break;
+    case 'frontlegacy': body = typeof rFrontLegacy==='function' ? rFrontLegacy() : ''; break;
+    case 'frontchoice': body = typeof rFrontChoice==='function' ? rFrontChoice() : ''; break;
+    case 'frontcache': body = typeof rFrontCache==='function' ? rFrontCache() : ''; break;
     case 'hunt':
       body = `<div class="panel"><div class="sm">Enemies: ${sp.pool.map(k=>ENEMIES[k].icon+' '+ENEMIES[k].n).join(', ')}${sp.elite?' · elite: '+ENEMIES[sp.elite].icon+' '+ENEMIES[sp.elite].n:''}. Scaled to party level (min Lv${sp.lo||1}).</div>
         <button class="pri" onclick="origin='here';doHunt('${sp.id}');tab='battle';render()">Hunt</button>${sp.elite?`<button onclick="origin='here';doHunt('${sp.id}',true);tab='battle';render()">Seek the ${ENEMIES[sp.elite].n}</button>`:''}</div>`; break;

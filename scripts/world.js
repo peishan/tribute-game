@@ -3346,7 +3346,7 @@ function doInvestigate(spotId){
     msgs.push.apply(msgs, advanceDay(ins || vey==='route' || (tsn && tsn.hidden) ? 0 : 1)); save(); return msgs;
   };
   const magicOnly = sen && sp.ambush && sp.ambush.length && sp.ambush.every(k => (ENEMIES[k].traits||[]).includes('magic'));
-  if(sp.ambush && sp.ambush.length && !magicOnly && vey!=='false' && !(rum && vey) && !off && Math.random() < (ins ? .1 : (typeof eveEdge==='function' && eveEdge() ? .25 : (typeof leviEdge==='function' && leviEdge() ? .2 : (typeof tarinEdge==='function' && tarinEdge() ? .22 : .4)))) && !(typeof tarinSkips==='function' && tarinSkips())){
+  if(sp.ambush && sp.ambush.length && !magicOnly && vey!=='false' && !(rum && vey) && !off && Math.random() < (ins ? .1 : (typeof frontEdge==='function' && frontEdge() ? .12 : typeof eveEdge==='function' && eveEdge() ? .25 : (typeof leviEdge==='function' && leviEdge() ? .2 : (typeof tarinEdge==='function' && tarinEdge() ? .22 : .4)))) && !(typeof tarinSkips==='function' && tarinSkips())){
     startBattle({foes:foeGroup(sp.ambush, lvFor(sp), 2), rewards:true, onWin:found});
     return 'battle';
   }
