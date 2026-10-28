@@ -4741,12 +4741,12 @@ LORE.push(
 
 /* ---- Arc XX, chapters 493-503: Aster joins the Crimson Guard, the frontier, Elise, Fen and the road of regret ---- */
 Object.assign(LOCATIONS, {
-  border_frontier:{ n:'The Northern Frontier', region:'tribute', kind:'town', icon:'🏔️', unlock:{ch:494},
+  border_frontier:{ n:'The Northern Frontier', region:'dragon', kind:'town', icon:'🏔️', unlock:{ch:494},
     desc:'A snow-capped border town of timber halls and caravans under green deer banners, where the frontier clans and the court meet.',
     spots:[ {id:'frontier_inn', kind:'tavern', n:'The Frontier Lodge', icon:'🍲', desc:'Rest, eat and listen to the traders.'} ]},
 });
 ['border_frontier'].forEach(k => { if(!LOC_ORDER.includes(k)) LOC_ORDER.push(k); });
-ROUTES.push({a:'capital', b:'border_frontier', mode:'carriage', n:'To the Northern Frontier', days:3, fare:30, risk:.2, pool:['road_bandit','forest_wolf']});
+ROUTES.push({a:'dragon_vale', b:'border_frontier', mode:'carriage', n:'North to the Frontier', days:3, fare:30, risk:.2, pool:['road_bandit','forest_wolf']});   // Dragonvale's own northern frontier (it was wired to the Tribute capital before)
 deed('hz_frontier_people', 'story', 'The frontier is people', '🏔️', 'Elise showed Aster that a border is people, work, grain and trade.', () => !!G.flags.frontier_is_people);
 LOCATIONS.capital.spots.push(
   {id:'hz493a', kind:'investigate', n:'I Want to Come With You', icon:'🗺️', ch:493, need:2, ambush:[], lo:96, roles:['aster', 'jade', 'devon', 'levi', 'sally', 'sky'],
