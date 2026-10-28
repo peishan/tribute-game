@@ -1,7 +1,43 @@
 # ARC XXVI: WHERE THE DEAD RIVER RUNS (planned; subject to change until the chapters are final)
 Source: the author's roadmap: the Bone River, the first real sign the restoration network is waking; resolved at 10 / 15. The cover has not been sent yet ("(cover to come)" in the chapter labels).
 
-## Built so far: 661-666
+## THE BRIEF (the author's, recorded; subject to change until the chapters are final)
+**Chapters 661-685.** Theme: some things should be buried; others must be restored. Primary focus Jade, Devon, Sky; secondary Sally and Levi. Named Evil: the Bone River; Evils 9 / 15 to 10 / 15. Purpose: the first undeniable activation of the ancient restoration network connected to the Black Pearl.
+- 661-666 (built): the party resumes travelling; the river that moved; what the water carries; no one buried them here (the Pearl responds faintly); the first corpse walks; following the dead (restorative energy used incorrectly).
+- 667 The Village That Remembers: an elderly village keeper recognises the old name, the Bone River: a river that once carried the dead toward a place where damaged life could be preserved; the meaning is forgotten.
+- 668 Preservation Is Not Resurrection: the energy tries to reconstruct bodies, but the people are truly dead; it cannot restore souls that no longer exist. **Rule: the restoration network cannot resurrect the truly dead.**
+- 669 Devon's Pearl: it reacts strongly for the first time in years and pulls toward the river's source; Jade realises this is no ordinary Evil hunt.
+- 670 The Old Channel: Levi finds the river once ran a completely different route; ancient stone channels were deliberately sealed; someone diverted the water centuries ago.
+- 671 Beneath the Riverbed: exposed ruins match the Sunken Kingdom's preservation architecture; the river was part of a much larger system.
+- 672 The River Was a Vein: an inscription says it carried restorative energy between distant sites, a living conduit.
+- 673 Something Woke It: the network is activating without anyone commanding it; the Pearl is responding to it, not causing it, which worries Jade.
+- 674 The Dead Are Not the Enemy: more remains are pulled toward restoration points; destroying them achieves nothing; Sky develops a way to release the residual energy.
+- 675 Release (unlock: Release the Dead): fight hostile remains, stabilise them, release trapped restorative energy; more restoration resources than destroying them.
+- 676 The Village Beneath the Water: a drowned settlement under the old channel; its people died when the network was sealed; their unresolved presence twisted the conduit.
+- 677 Why the River Became Evil: originally neutral; centuries of death, sealed restorative energy, corrupted flow and failed reconstruction made it one of the Fifteen; it keeps trying to restore what cannot be restored.
+- 678 The River Calls Devon: the Pearl pulls him toward the deepest chamber; a fragment of inherited resonance (not memory, not possession: recognition).
+- 679 The Custodian's Door: a chamber opens only to Devon with the Pearl: "The bearer carries the Pearl until the network calls it home." First explicit confirmation that he is a custodian, not the final owner.
+- 680 Jade Does Not Like Prophecies: she objects to anything implying Devon must surrender because destiny says so; Devon agrees; nothing is surrendered yet.
+- 681 Heart of the Bone River: the corrupted restoration core: a serpentine formation of water, bone and preservation energy, not malicious, unable to stop repairing the dead.
+- 682 Boss: the Bone River, four phases: Drowned Remains; Broken Current (the arena shifts as channels change); Reconstruction (it rebuilds destroyed enemies); Sever the Failed Loop (Sky identifies the loop, Jade breaks it, Devon stabilises the Pearl resonance).
+- 683 Let the Dead Stay Dead: Jade destroys the reconstruction mechanism, Sky releases the trapped energy, the remains are still, the river is ordinary water. **The Bone River is resolved (restored): 10 / 15.**
+- 684 The River Flows Forward: the energy travels outward; dormant structures react across distant regions.
+- 685 Something Is Connecting: the Pearl pulses; a shrine responds, a seal flickers, waterways move; Sky sees the Bone River was one piece of something enormous; the network is waking.
+**Gameplay unlocks:** Restoration Currents (heal, reveal hidden ruins, activate mechanisms, open routes); Release vs Destroy (a recurring choice for corrupted-restoration encounters); a new Pearl exploration interaction for Devon (not yet Dragon Manifestation); Sky's Restoration Diagnosis (healing, preservation, corruption, failed restoration); Levi's Ancient Route Tracking (abandoned roads, channels and old infrastructure).
+**Outcome:** Bone River restored by ending its failed resurrection loop; 10 / 15; the Pearl is tied to a dormant restoration network across regions; Devon is the custodian, not the final owner; Sky's restoration role grows; Jade stays opposed to prophecy or ancient systems dictating personal choices; Jenika is still in Dragonvale and Sky does not know. Next: XXVII The Hunger Above.
+
+### Check against the built game and notes (done)
+- 661-666 match the brief. Evil count and the 10 / 15 target match the roadmap; the Bone River is now registered to resolve at **683 as restored** (`resolveCh:683, how:'restored'`; the tracker will read 10 / 15 once 683 is built).
+- **The rule at 668 is already canon:** the Black Pearl "cannot resurrect someone whose life force has completely disappeared" (the Sunken Kingdom chapters, around ch176-177), and Sky survived because his life force was damaged, not gone. 668 states it for the whole network.
+- **Fits the endgame decisions (D1, D7, D8):** 679's "until the network calls it home" matches ch184 (the Pearl carried "until the restoration network was needed again") and the locked D1 (the network is the true owner; Devon the custodian). Nothing is surrendered in XXVI (680), the Pearl is not Dragon Manifestation yet, and 673's "not causing it, responding to it" matches the roadmap's network waking.
+- **Name collision to avoid:** Devon already has a skill called *Black Pearl Resonance* (signature, level 14) and *Pearl Resonance* (a party heal). The new exploration interaction needs its own name (suggested: **Pearl Sense**).
+- **Overlap to avoid:** Levi's *Ancient Route Tracking* sits beside the Trail Sense passive (ch647). Suggested: build it as an upgrade of Trail Sense that applies in ancient regions (abandoned roads, sealed channels, hidden infrastructure) rather than a second system.
+- **Sky's Restoration Diagnosis** is new (distinguishing healing, preservation, corruption and failed restoration energy); it can build on his Scholar's Read-style reveal and the Evil classification (hostile, corrupted, restorable, construct).
+- **Release vs Destroy** needs the River Dead hunt already built (a plain fight) to become a choice: stabilise first (a defensive round), then release for restoration materials and sometimes lore. The Silent Flame's phases and Silent Command are not reused.
+- 683 resolves the Bone River at the same chapter the brief gives; ch654 resolved the Silent Flame, so the arc spacing is consistent.
+- Nothing in the brief contradicts ch66-87 (Sera), Jenika's pregnancy secret, or Elise and Tarin.
+
+## Built so far: 661-666 (667-685 not received yet)
 - 661 Married People Are Annoying (the party resumes travelling; Sky has Jenika's message that Dragonvale is stable; Jade has reports of a river that changed course, not a natural shift).
 - 662 The River Moved, 663 What the Water Carries (bones of people, animals and ancient creatures; something beneath the earth has opened), 664 No One Buried Them Here (the burial records do not match; the remains span different periods; **Devon feels the Black Pearl respond faintly**, as the roadmap planned for XXVI), 665 The First Corpse Walks (they do not attack: they keep trying to go upstream), 666 Following the Dead (not necromancy: restorative, life-mending energy used the wrong way, an incomplete restoration; something waits upstream).
 - Place: **The Bone River** (the pages name none), reached from Dragonvale (5 days). Enemy: the River Dead (hunt at the riverbed). The Bone River is registered as an active Evil from 662 (intel: signs, the remains, the dead, the source); it is not resolved yet, so the tracker stays 9 / 15.
