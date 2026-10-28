@@ -1,17 +1,17 @@
 # ARC XXV: THE FLAME WITHOUT A VOICE (planned title; subject to change until the chapters are final)
 Source: the author's roadmap (docs/ROADMAP_XXIII_TO_ENDGAME.md): the Silent Flame, Sally and Levi's relationship resolution and marriage, 9 / 15 on resolution. Arc XXIV ends at 635; 636 begins Arc XXV (its closing card says "Arc XXV").
 
-## Built so far: 636, 638-653 and 655-660
-**Missing:** **637** and **654** (not received; 654 is presumably the end of the fight) and the Arc XXV cover. The Silent Flame is registered as an active Evil from 638 (the Ninth Shadow, as ch646 says) and counts as destroyed from **655**, the first page that shows sound returned (so the tracker reads 9 / 15 from 655, as the card on 660 says); if 654 turns out to be the resolving chapter, `resolveCh` moves to 654.
+## Built: 636-660, the whole arc (cover and end splash in)
+**Nothing is missing.** 637 The Village That Does Not Answer and 654 The First Sound arrived last. The Silent Flame is an active Evil from 637 (the Ninth Shadow, as ch646 says) and is destroyed at **654** (the card reads "Silent Flame resolved. FIFTEEN EVILS: 9 / 15"), so the tracker reads 9 / 15 from 654. The Arc XXV cover is registered as Arc 25 after ch635.
 - 636 Back on the Road: the five leave Dragonvale; Fen is publicly queen; Sky resumes travelling, unaware of Jenika's pregnancy.
-- 638 No Cry for Help, 639 Sally Without Music: a mountain village where no sound can be made (a worker falls unheard, a child wanders toward danger, a fire spreads silently); Sky finds the villagers' throats unharmed and something suppressing vibration; Jade suspects one of the Fifteen.
+- 637 The Village That Does Not Answer (the party arrives; no one answers; Jade treats it as a possible Fifteen Evils incident), 638 No Cry for Help, 639 Sally Without Music: a mountain village where no sound can be made (a worker falls unheard, a child wanders toward danger, a fire spreads silently); Sky finds the villagers' throats unharmed and something suppressing vibration; Jade suspects one of the Fifteen.
 - 640 The Old Beacon Road, 641 Things That Move Quietly, 642 Hand Signals (Levi teaches Silent Command), 643 Rhythm Without Sound (Sally feels vibration through her instrument: the foundation of her counter-technique).
 - 644 The Bell That Never Rings, 645 Someone Fed the Fire, 646 The Ninth Shadow, 649 The First Voice Taken, 650 What Restoration Would Cost (Jade decides the Flame must end: even its original function required living offerings, so there is no harmless state to restore it to).
 - 647 Levi's Trail, 648 You Understood Me: Levi and Sally; silence does not stop them communicating (the start of the relationship resolution; the marriage is not on these pages).
 - 651 Enter the Silent Furnace, 652 The Flame That Makes No Sound (both without dialogue), 653 Boss: The Silent Flame (the four-phase design page).
 
 ## Places (assumed: the pages name only the Silent Furnace)
-The Silent Village (638-639), the Old Beacon Road (640-650) and the Silent Furnace (651-653), with routes from Dragonvale (5 days north) and onward (2 and 1 days). The pages do not say where in the world the village lies; Dragonvale is only a placeholder for the route.
+The Silent Village (637-639), the Old Beacon Road (640-650) and the Silent Furnace (651-653), with routes from Dragonvale (5 days north) and onward (2 and 1 days). The pages do not say where in the world the village lies; Dragonvale is only a placeholder for the route.
 
 ## Mechanics built (scripts/silentflame.js, first-pass numbers)
 - **Silent Command** (page 642): in a silence zone (the Old Beacon Road, the Silent Furnace, and the Flame fight) spoken support skills that target allies are silenced. After ch642 the SIGNAL action offers Hold (the party braces), Spread Out (less area heat) and Take Position (agreed commands work again for 4 turns). Companions and guests are unaffected ("companion instincts").
@@ -40,3 +40,7 @@ Levi and Sally in red wedding robes under a double-happiness window, `assets/arc
 - **The 9 / 15 card on 660 supports 8 resolved at 635:** the redrawn 635 card ("7 / 15") is probably a slip; the game keeps 8.
 - 655: the dark-haired man who says "You say that now." is read as Devon; 658: the last two lines ("She's not wrong." / "No, she's not.") are not clearly attributed (Levi and one other); 659: a silver-white-haired young man sits among the friends and is not named on the page (not identified here).
 - **Still no gear for Sally in her wedding robes** (a red wedding veil and robe; Levi in red with green ribbons): a possible outfit pass later.
+
+## Chapters 637 and 654, the cover and the character sheet (received last)
+- 637 The Village That Does Not Answer and 654 The First Sound are in; 654 is the resolving chapter (the earlier reading of 655 is replaced). The cover (a red eclipse over a dark pagoda city, the canon five, "Named Evil: The Silent Flame", "Knowing what matters is not the same as saying it, or choosing it while there is time.") is `assets/arcs/arc25.webp`. Its corner reads "Same faces. Same identities. A consistent world."
+- **The Canon Five sheet** (kept at `docs/reference/canon_five_sheet.webp`) lists the five combat classes, weapons, signature skills, key skills with unlock levels and evolution paths. Checked against the game's data: it matches (including Sky's Spirit Flow, Levi's two DRAFT skills and Devon's Dragon Manifestation at 80). It names her **Sally Sun** (her noble name; the game keeps "Sally Sin, now Sally Sun" in the chapter texts and calls her Sally in combat), and gives her the line "You worry too much, husband."
