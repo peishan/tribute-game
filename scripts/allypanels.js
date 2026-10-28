@@ -36,7 +36,7 @@ Object.assign(REL_ROUTES, {
     ] },
   elise_tarin:{ label:'Elise & Tarin', icon:'❄️', members:['elise','tarin'], story:true,
     open:() => !!G.flags.elise_tarin_ash, begun:'',
-    get note(){ return G && G.flags && G.flags.elise_lives_elsewhere ? 'She has left the palace with him and is officially dead; the rest belongs to the chapters ahead.' : 'Nothing is decided: how this ends belongs to later chapters.'; },
+    note:'Nothing is decided: how this ends belongs to later chapters.',
     stages:[
       {n:'A name she never forgot'},
       {n:'He may be alive', flag:'tarin_may_be_alive'},
@@ -129,3 +129,6 @@ const asterKing = () => !!(G && G.flags && G.flags.aster_crowned_king);
     return h.replace('Lady Yulan Fen: Dragonvale Ally','Queen Yulan Fen of Dragonvale').replace('<div class="sm">'+YULAN_FATE+'</div>','<div class="sm">Royal scholar, secret accomplice, Aster\'s wife, and now his queen. She still keeps the archives.</div>');
   };
 })();
+
+// Object.assign copies a getter's value, so the Elise and Tarin note is made live here
+Object.defineProperty(REL_ROUTES.elise_tarin, 'note', {get(){ return G && G.flags && G.flags.elise_lives_elsewhere ? 'She has left the palace with him and is officially dead; the rest belongs to the chapters ahead.' : 'Nothing is decided: how this ends belongs to later chapters.'; }, configurable:true, enumerable:true});

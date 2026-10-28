@@ -10,7 +10,7 @@
 const REL_ROUTES = {
   levi_sally:{ label:'Levi & Sally', icon:'💞', members:['levi','sally'],
     open:() => !!G.flags.sally_rejoins, begun:'Levi and Sally: a relationship route has begun.',
-    note:'No titles and no promises: how far this goes is the story\'s to say.',
+    get note(){ return G && G.flags && G.flags.levi_and_sally_wed ? 'Husband and wife, and still the same two people on the road.' : 'No titles and no promises: how far this goes is the story\'s to say.'; },
     synergy:'Fighting together: Levi and Sally each gain +5% crit chance while both are in the party.',
     stages:[
       {n:'Old friends and colleagues'},
@@ -19,6 +19,9 @@ const REL_ROUTES = {
       {n:'No titles, no promises', flag:'morning_without_promises'},
       {n:'Something real', flag:'levi_not_regret'},
       {n:'More than friendship, no name yet', flag:'sally_rejoins'},
+      {n:'Understood without words', flag:'you_understood_me'},
+      {n:'Engaged, with no ceremony', flag:'levi_proposes_without_ceremony'},
+      {n:'Husband and wife', flag:'levi_and_sally_wed'},
     ],
     lines:[
       ['Two old friends share a table and an easy silence.','Levi talks shop; Sally pretends not to be listening for the pauses.'],
@@ -27,6 +30,9 @@ const REL_ROUTES = {
       ['No titles, no promises: they keep it exactly as light as they agreed.','Sally says "you said that last time"; Levi says "that was different".'],
       ['What they shared was real, and they both say so without saying it.','Levi stays a little longer than he meant to.'],
       ['Time, patiently given. Neither asks the other to hurry.','More than friendship, less than a name: they let it be what it is.'],
+      ['In the silence they read each other by the eyes, the pace and the way she holds her instrument.','Sally calls it unfair; Levi calls it listening.'],
+      ['No grand proposal, no ring and no court: "Then marry me", and that is all either of them needed.','Jade\'s verdict was one word.'],
+      ['Married between roads, and no quieter for it.','Sally says "my husband" whenever it embarrasses him; Levi says "don\'t start".'],
     ] },
   jade_devon:{ label:'Jade & Devon', icon:'🐉', members:['jade','devon'],
     open:() => isRecruited('devon') && G.ch >= 54, begun:'',
