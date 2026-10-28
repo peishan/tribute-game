@@ -32,6 +32,27 @@ Evil arithmetic: 8 now, then Silent Flame, Bone River, Sky Eater, Ashen Serpent,
 - **XXXI.** The Mirror Queen shows alternate lives (Jade, Devon's throne, Roc's "his woman" life, Sally never escaping, Levi's duty without Sally, Sky never travelling and never finding Jenika). Her question: would another life have been better? Jade: "Maybe. But this is mine." 15/15; Greyson's mission done; the restoration network fully wakes.
 - **XXXII-XXXV:** as locked in docs/ENDGAME_PLAN.md (3a): Devon returns the Pearl willingly and keeps permanent resonance (Dragon Manifestation); roles Jade chooser/bridge, Devon anchor/custodian, Sky Returning Light/conduit; both sisters can embody; Dima shrine wards block Xima's intrusion; holy-water purification with allies on posts (earlier quests and restored regions matter); sisters confront, someone deliberately escalated the conflict, adviser and ancient force revealed (outside the Fifteen, identity open), then Jade's region-by-region passage decision (Open / Conditional / Shared / Restricted / Sealed / Unclassified); `main_quest_complete`.
 
+## Working chapter map (the author's, current; a soft ceiling of about 920)
+| Arc | Chapters | Count | Evils |
+|---|---|---|---|
+| XXIII Winter | 581-610 | 30 | 8 / 15 (built) |
+| XXIV The Lives We Choose | 611-635 | 25 | 8 / 15 (built) |
+| XXV The Flame Without a Voice | 636-660 | 25 | 9 / 15 (built) |
+| XXVI Where the Dead River Runs | 661-685 | 25 | 10 / 15 (661-666 built) |
+| XXVII The Hunger Above | 686-710 | 25 | 11 / 15 |
+| XXVIII The Serpent in the Ashes | 711-735 | about 25 | 12 / 15 |
+| XXIX The Stone That Remembers / Lingering Vale | 736-760 | about 25 | 13 / 15 |
+| XXX The Child Without Sunlight | 761-785 | about 25 | 14 / 15 |
+| XXXI The Queen in the Mirror | 786-810 | about 25 | 15 / 15 |
+| XXXII The Returning Pearl | 811-830 | about 20 | Pearl and network payoff |
+| XXXIII The Sisters Rise | 831-850 | about 20 | Dima and Xima |
+| XXXIV Purification | 851-875 | about 25 | final preparation |
+| XXXV What Comes After | 876-900 | about 25 | MAIN QUEST COMPLETE |
+**Target:** the main campaign ends at about chapter 900, plus or minus 20; do not expand arcs pre-emptively. The arcs most likely to need extra room: XXVIII (Rheon and Mirelle, the coronation, the reforms and the Ashen Serpent), XXIX (the Lingering Vale and Sky with Master Yale) and XXXII-XXXV (the prophecy and lore payoffs).
+**Arithmetic from the built game (the game is built through ch666):** about 234 chapters remain to ch900; the Fifteen Evils need about 144 more (667-810); the endgame after 15 / 15 is about 90 (811-900). Arcs XXIV and XXV are built (611-660) and XXVI is under way, so the "604-605 production reference" in the plan is out of date.
+**After ch900:** the game stays open: quests, bounties, missions, vigilante work, exploration and Expeditions continue (`main_quest_complete`); further chapters can be added later.
+**Notes for the planner:** "Lingering Vale" and "Sky with Master Yale" are new names (no notes exist yet, and the built game has no Master Yale; Sky's surname is Yale, so this is probably a relative or teacher to be defined). Sky's parentage (ch614) is still unresolved and a Yale link may touch it; do not assume.
+
 ## Late-game political reforms (planned; subject to change like the rest)
 Two clean reforms, distinct in tone, giving both men a legacy beyond who they marry.
 - **Aster: the House Xuanji / Dragonvale reform.** After he marries Fen, he abolishes the royal polygamous marriage structure. Aim: end the household system that encouraged competing consort factions, succession rivalry and instability inside the royal family. Top down: he changes the structure that shaped his own family. (Fits the foster-rearing and separate-households history of ch376-384.)
