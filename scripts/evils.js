@@ -40,7 +40,8 @@ const EVILS = [
      {label:'The turn', value:'In wartime rulers forced it to take voices, then whole communities, and it learned to take rather than receive', spot:'hz645c'},
      {label:'The cost', value:'Even its original function needs living offerings: there is no harmless state to restore it to', spot:'hz650d'}]},   // the fight is at ch653 and ch654 (The First Sound) resolves it: 9 / 15
   {id:'weeping_stone', n:'The Weeping Stone', intel:[]},
-  {id:'sky_eater', n:'The Sky Eater', intel:[]}, {id:'bone_river', n:'The Bone River', epithet:'Where the Dead River Runs', loc:'bone_river', activeCh:662, home:'The Changed River', original:'A river that abruptly changed course', intel:[
+  {id:'sky_eater', n:'The Sky Eater', intel:[]}, {id:'bone_river', n:'The Bone River', epithet:'Where the Dead River Runs', loc:'bone_river', activeCh:662, resolveCh:683, how:'restored', home:'The Changed River',   // the brief: restored at ch683 by ending its failed resurrection loop (10 / 15); chapters 667-685 not built yet
+    original:'A river that abruptly changed course', intel:[
      {label:'Signs', value:'The river carved a new path through old settlements, burial grounds and ruins, and bones began appearing downstream', spot:'hz662d'},
      {label:'The remains', value:'Human, animal and ancient creatures, far more than any record accounts for, from different periods mixed together', spot:'hz664b'},
      {label:'The dead', value:'They rise and keep trying to go upstream, animated by restorative energy used the wrong way', spot:'hz666b'},
