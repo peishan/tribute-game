@@ -34,7 +34,12 @@ const EVILS = [
      {label:'Behaviour', value:'Turns the sea black after sunset', spot:'sea_calm'},
      {label:'Residue', value:'Claw marks and residue older than the first sightings', spot:'tide_evidence'},
      {label:'Nature', value:'A natural spiritual force, corrupted: not born evil', spot:'tide_layered'}]},
-  {id:'silent_flame', n:'The Silent Flame', intel:[]}, {id:'weeping_stone', n:'The Weeping Stone', intel:[]},
+  {id:'silent_flame', n:'The Silent Flame', epithet:'The Ninth Shadow', loc:'silent_furnace', activeCh:638, how:'destroyed', home:'The Old Beacon Road', original:'A village where no sound can be made', revised:{spot:'hz645c', t:'A beacon of willing voices that learned to take: it consumes living voices and cannot be made harmless'}, intel:[
+     {label:'Signs', value:'No voice, no music and no cry can be made; fires spread unheard and a fall goes unnoticed', spot:'hz638d'},
+     {label:'Origin', value:'An old beacon that carried warnings far and wide on voices given willingly', spot:'hz644b'},
+     {label:'The turn', value:'In wartime rulers forced it to take voices, then whole communities, and it learned to take rather than receive', spot:'hz645c'},
+     {label:'The cost', value:'Even its original function needs living offerings: there is no harmless state to restore it to', spot:'hz650d'}]},   // resolveCh is set by the chapter that ends it (the fight is at ch653; the resolution chapters have not been received)
+  {id:'weeping_stone', n:'The Weeping Stone', intel:[]},
   {id:'sky_eater', n:'The Sky Eater', intel:[]}, {id:'bone_river', n:'The Bone River', intel:[]}, {id:'sunless_child', n:'The Sunless Child', intel:[]},
   {id:'drowned_crown', n:'The Drowned Crown', loc:'sunken_kingdom', activeCh:177, resolveCh:182, how:'reclassified', home:'The Sunken Kingdom',
    original:'Cursed monarch and destroyer (Dragonvale\'s histories)', revised:{spot:'crown_recognition', t:'An ancient royal preservation construct: the council\'s final command, not an Evil'}, intel:[
@@ -81,6 +86,7 @@ const EVIL_CLS_RULES = {
   unchosen_road:[['hz504a','hostile']],
   endless_winter:[['hz589a','hostile'],['hz591a','corrupted'],['hz601a','restorable']],
   whispering_mask:[['hz530a','hostile']],
+  silent_flame:[['hz638d','hostile'],['hz645c','corrupted'],['hz650d','construct']],
 };
 function evilClass(e){
   const st = evilState(e); if(st==='unknown') return null;
