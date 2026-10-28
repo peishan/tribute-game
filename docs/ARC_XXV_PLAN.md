@@ -28,3 +28,6 @@ The Silent Village (638-639), the Old Beacon Road (640-650) and the Silent Furna
 - **649-653:** Sally wears an off-shoulder purple gown with a choker and Devon a dark hooded coat; the rest of the arc keeps their earlier looks. No new gear is added for them yet.
 - **636:** the two teasing lines are read as Levi to Sally ("You lasted surprisingly long in court.") and Sally's reply ("Do not ruin my reputation.").
 - The roadmap's XXV also covers Sally and Levi's marriage and the Silent Flame's resolution: those chapters are not here yet.
+
+## End-of-arc splash (received)
+The author sent the Arc XXV end splash: Levi and Sally in red wedding robes under a double-happiness window (Sally veiled and laughing, Levi in green ribbons), saved as `assets/arcs/arc25_end.webp`. It is **not registered yet**: `ARC_END_SPLASH` in scripts/arcs.js needs the chapter that ends the arc (the wedding chapter, not yet received), then an entry like the Arc XVII one (`{key:'25end', after:N, img:'assets/arcs/arc25_end.webp', title:..., text:...}`). The Arc XXV cover comes next and will be registered as Arc 25 with `after:635`.
