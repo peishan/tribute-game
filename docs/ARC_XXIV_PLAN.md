@@ -65,7 +65,7 @@ Theme: duty may shape a life, but eventually people must choose how they want to
 - **Settled by the author:** the father of Elise's child is **Tarin**, to be explained further in the arc (Elise has been secretly meeting him at night; this follows the night meeting already seen in ch562, flag `elise_night_meeting_seen`). Aster is not the father, consistent with the political marriage.
 - Elise's Case panel and the Aster/Fen and Elise/Tarin routes need stages that match 615-635; her "Queen Elise of Dragonvale (for now)" title must read as dead only from 628.
 - Yulan Fen already has a Case panel (yulanPanel); her title changes at 635 (queen), not before, and the secret wedding (630) must not show in any public title.
-- Sky's father stays unresolved (614); no flag implies a parent.
+- Sky's father stays unresolved (614); no flag implies a parent. (Author, later: his father is his teacher, Master Yale, who does not know Sky is his son: revealed around Arc XXIX, the Lingering Vale; docs/ROADMAP_XXIII_TO_ENDGAME.md.)
 - The built 576-580 chapters have Aster crowned king and Elise crowned beside him; XXIV starts after that. Chapter counts: this arc is 611-635, so the roadmap's "Evils: 8 / 15" holds through it, and XXV starts at 636.
 
 ## BUILT SO FAR (chapters 611-635, all of the arc)
