@@ -35,7 +35,8 @@ const ARCS = [
   {n:24, title:'The Lives We Choose', img:'assets/arcs/arc24.webp', after:610},   // ch611-635: the Pavilion, Elise's departure, the secret wedding and the hundred days
 ];
 /* End-of-arc splash (author): after ch436 the Levi and Sally relationship route starts and Sally rejoins for good. The caption is drawn over the art. */
-const ARC_END_SPLASH = [ {key:'17end', after:436, img:'assets/arcs/arc17_end.webp', title:'Levi and Sally: a relationship route has begun', text:'Levi and Sally: a relationship route has begun.', sub:'Their story now moves between the two of them. Welcome Sally back as a permanent member of the party.'} ];
+const ARC_END_SPLASH = [ {key:'17end', after:436, img:'assets/arcs/arc17_end.webp', title:'Levi and Sally: a relationship route has begun', text:'Levi and Sally: a relationship route has begun.', sub:'Their story now moves between the two of them. Welcome Sally back as a permanent member of the party.'},
+  {key:'25end', after:660, img:'assets/arcs/arc25_end.webp', title:'Levi and Sally are married', text:'Levi and Sally are married.', sub:'A small wedding between roads, and no quieter for it. They stay in the party, husband and wife.'} ];
 const ARC_ROMAN = ['','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX','XXI','XXII','XXIII','XXIV'];
 
 // Arc IX, "The Forgotten Alliance" (the author's canon title): begins with ch211 and ends with ch235 (the royal wedding is ch234); add {n:9, title:'The Forgotten Alliance', img:'assets/arcs/arc9.webp', after:210} once the splash art exists.

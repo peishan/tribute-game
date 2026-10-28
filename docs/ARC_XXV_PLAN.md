@@ -1,8 +1,8 @@
 # ARC XXV: THE FLAME WITHOUT A VOICE (planned title; subject to change until the chapters are final)
 Source: the author's roadmap (docs/ROADMAP_XXIII_TO_ENDGAME.md): the Silent Flame, Sally and Levi's relationship resolution and marriage, 9 / 15 on resolution. Arc XXIV ends at 635; 636 begins Arc XXV (its closing card says "Arc XXV").
 
-## Built so far: 636, 638-653
-**Missing:** **637** (not received), the chapters after 653 (the Flame's resolution and the aftermath: the pages end on the boss), and the Arc XXV cover. The Silent Flame is registered as an active Evil from 638 (the Ninth Shadow, as ch646 says); its `resolveCh` is not set because the resolving chapter has not been received, so the tracker still reads 8 / 15.
+## Built so far: 636, 638-653 and 655-660
+**Missing:** **637** and **654** (not received; 654 is presumably the end of the fight) and the Arc XXV cover. The Silent Flame is registered as an active Evil from 638 (the Ninth Shadow, as ch646 says) and counts as destroyed from **655**, the first page that shows sound returned (so the tracker reads 9 / 15 from 655, as the card on 660 says); if 654 turns out to be the resolving chapter, `resolveCh` moves to 654.
 - 636 Back on the Road: the five leave Dragonvale; Fen is publicly queen; Sky resumes travelling, unaware of Jenika's pregnancy.
 - 638 No Cry for Help, 639 Sally Without Music: a mountain village where no sound can be made (a worker falls unheard, a child wanders toward danger, a fire spreads silently); Sky finds the villagers' throats unharmed and something suppressing vibration; Jade suspects one of the Fifteen.
 - 640 The Old Beacon Road, 641 Things That Move Quietly, 642 Hand Signals (Levi teaches Silent Command), 643 Rhythm Without Sound (Sally feels vibration through her instrument: the foundation of her counter-technique).
@@ -29,5 +29,14 @@ The Silent Village (638-639), the Old Beacon Road (640-650) and the Silent Furna
 - **636:** the two teasing lines are read as Levi to Sally ("You lasted surprisingly long in court.") and Sally's reply ("Do not ruin my reputation.").
 - The roadmap's XXV also covers Sally and Levi's marriage and the Silent Flame's resolution: those chapters are not here yet.
 
-## End-of-arc splash (received)
-The author sent the Arc XXV end splash: Levi and Sally in red wedding robes under a double-happiness window (Sally veiled and laughing, Levi in green ribbons), saved as `assets/arcs/arc25_end.webp`. It is **not registered yet**: `ARC_END_SPLASH` in scripts/arcs.js needs the chapter that ends the arc (the wedding chapter, not yet received), then an entry like the Arc XVII one (`{key:'25end', after:N, img:'assets/arcs/arc25_end.webp', title:..., text:...}`). The Arc XXV cover comes next and will be registered as Arc 25 with `after:635`.
+## End-of-arc splash
+Levi and Sally in red wedding robes under a double-happiness window, `assets/arcs/arc25_end.webp`, registered after ch660. The Arc XXV cover comes next and will be registered as Arc 25 with `after:635`.
+
+## Chapters 655-660 (received)
+- 655 Sally Sings Too Loudly (sound returns), 656 Things We Keep Delaying, 657 Not Because We Might Die, 658 Then Marry Me, 659 The Wedding Between Roads, 660 Husband and Wife, Unfortunately. Places: the ruined beacon steps (655-658, the Old Beacon Road) and a mountain village for the wedding (659-660, placed at the Silent Village; the pages do not name it, and say only that the party and a few local people know where it is).
+- **Levi and Sally** are married at 659 (no proposal ceremony, no ring, no court; Jade and Devon receive the tea as the elders and Sky serves as the junior). The Levi and Sally route has three new stages (understood without words, engaged with no ceremony, husband and wife) and its note changes after the wedding. They stay permanent party members; the roadmap's child for them still waits until after the Fifteen.
+- **The end-of-arc splash is registered** (`25end`, after ch660, the wedding image); it assumes Arc XXV ends at 660 (the page closes on "Fifteen Evils: 9 / 15" and "The party heads toward the next disturbance"). If the arc runs longer, move `after`.
+- **660 plants Jenika's message to Sky** ("When you next return, there is something I need to tell you. Nothing alarming. Just... something."): consistent with the plan that Sky learns of the pregnancy on a later return after at least one full Evil arc.
+- **The 9 / 15 card on 660 supports 8 resolved at 635:** the redrawn 635 card ("7 / 15") is probably a slip; the game keeps 8.
+- 655: the dark-haired man who says "You say that now." is read as Devon; 658: the last two lines ("She's not wrong." / "No, she's not.") are not clearly attributed (Levi and one other); 659: a silver-white-haired young man sits among the friends and is not named on the page (not identified here).
+- **Still no gear for Sally in her wedding robes** (a red wedding veil and robe; Levi in red with green ribbons): a possible outfit pass later.
