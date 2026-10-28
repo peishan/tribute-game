@@ -7748,7 +7748,7 @@ LORE.push(
 
 /* ---- Arc XXV, chapters 636-653: the Silent Village, the Old Beacon Road and the Silent Furnace (the pages name the Furnace only; the village and the road are named for what the pages show) ---- */
 Object.assign(LOCATIONS, {
-  silent_village:{ n:'The Silent Village', region:'tribute', kind:'town', icon:'🔇', unlock:{ch:638},
+  silent_village:{ n:'The Silent Village', region:'tribute', kind:'town', icon:'🔇', unlock:{ch:637},
     desc:'A snowy mountain village where no sound can be made: no cries, no music, and fires that spread unheard.',
     spots:[ {id:'silent_hall', kind:'tavern', n:'The Quiet Hall', icon:'🍲', desc:'Rest and hot drinks. Nobody says a word, and nobody needs to.'} ]},
   old_beacon_road:{ n:'The Old Beacon Road', region:'tribute', kind:'field', icon:'🗼', unlock:{ch:640},
@@ -8226,4 +8226,52 @@ LORE.push(
   {ch:658, n:'Then Marry Me', t:'There was no elaborate proposal, no court, no political negotiation and no engagement season. Levi said "Then marry me," Sally asked if he was sure, and that was settled. Jade found out shortly afterward, and her response was essentially: "Finally."'},
   {ch:659, n:'The Wedding Between Roads', t:'Sally and Levi married before the party resumed the campaign, in a relatively small ceremony with their friends and some villagers present, more something done between adventures than the end of either story. Jade and Devon received the tea as the elders and Sky served it as the junior. Sally remained Sally and Levi remained Levi.'},
   {ch:660, n:'Husband and Wife, Unfortunately', t:'Sally discovered she enjoyed calling Levi her husband because it embarrassed him, and Levi discovered marriage had changed nothing about her ability to annoy him. Before the party left, Sky received a message from Jenika: when he next returned there was something she needed to tell him, nothing alarming. With the Silent Flame gone, nine of the Fifteen were resolved.'}
+);
+
+/* ---- Arc for(let i=18;i<=610;i++)III, chapters 611-630: Arc for(let i=18;i<=610;i++)IV, The Lives We Choose ---- */
+LOCATIONS.silent_village.spots.push(
+  {id:'hz637a', kind:'investigate', n:'Nothing Answers', icon:'🔇', ch:637, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'The village is silent.',
+   clues:['The party arrives at a remote settlement. Snow still lingers in the mountains. At first glance, it appears ordinary. But there is no sound.', 'No one answers when they call out. The villagers look at the party, but say nothing. Their lips move, but no sound comes.'], rw:{xp:733100, gold:148920}},
+  {id:'hz637b', kind:'investigate', n:'Not a Sound', icon:'🚪', ch:637, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'Doors and animals.',
+   clues:['Doors close without a sound. People continue their daily work, but everything is unnaturally quiet.', 'Animals move through the village with no audible footsteps. Even the livestock make no sound.'], rw:{xp:733400, gold:148980}, needFlag:'inv_hz637a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz637c', kind:'investigate', n:'Alive, Alert, and Silent', icon:'🧺', ch:637, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'Normal routines.',
+   clues:['The villagers are alive, alert, and going about their normal routines. But no sound comes from anyone or anything.', 'The party immediately senses that something is terribly wrong.'], rw:{xp:733700, gold:149040}, needFlag:'inv_hz637b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz637d', kind:'investigate', n:'Find the Source', icon:'📕', ch:637, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'Jade decides.',
+   clues:['Jade immediately treats this as a possible Fifteen Evils incident. This is not a natural phenomenon. Something is suppressing sound across the entire village.', 'They need to find the source and determine the cause. The silence is unnatural. And someone, or something, is behind it.'], rw:{xp:734000, gold:149100}, needFlag:'inv_hz637c', lockMsg:'🔒 Finish the previous clue first'},
+);
+LOCATIONS.silent_furnace.spots.push(
+  {id:'hz654a', kind:'investigate', n:'Several Seconds', icon:'⏳', ch:654, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'Nothing.',
+   clues:['For several seconds after the Flame dies, nothing happens.'], rw:{xp:734300, gold:149160}},
+  {id:'hz654b', kind:'investigate', n:'A Stone Fall', icon:'🪨', ch:654, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'The first sound.',
+   clues:['Then someone hears: a stone fall.', 'Then wind.'], rw:{xp:734600, gold:149220}, needFlag:'inv_hz654a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz654c', kind:'investigate', n:'Breathing, and Sally\'s Instrument', icon:'🪕', ch:654, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'Life returns.',
+   clues:['Then breathing.', 'Then Sally\'s instrument.'], rw:{xp:734900, gold:149280}, needFlag:'inv_hz654b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz654d', kind:'investigate', n:'Resolved', icon:'🔥', ch:654, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'Nine of fifteen.',
+   clues:['Sound returns gradually across the region. Silent Flame resolved.', 'Fifteen Evils: 9 / 15.'], rw:{xp:735200, gold:149340}, needFlag:'inv_hz654c', lockMsg:'🔒 Finish the previous clue first'},
+);
+MISSIONS.push(
+  {id:'m_s637', needCh:637, title:'The Village That Does Not Answer', obj:{type:'steps', steps:[
+     {label:'Nothing Answers', spot:'hz637a'},
+     {label:'Not a Sound', spot:'hz637b'},
+     {label:'Alive, Alert, and Silent', spot:'hz637c'},
+     {label:'Find the Source', spot:'hz637d'}]}, rw:{xp:1540000, gold:349400, rep:2552},
+   subj:'The Village That Does Not Answer', body:'The story is not finished. — Jade'},
+  {id:'m_s654', needCh:654, title:'The First Sound', obj:{type:'steps', steps:[
+     {label:'Several Seconds', spot:'hz654a'},
+     {label:'A Stone Fall', spot:'hz654b'},
+     {label:'Breathing, and Sally\'s Instrument', spot:'hz654c'},
+     {label:'Resolved', spot:'hz654d'}]}, rw:{xp:1582500, gold:359600, rep:2603},
+   subj:'The First Sound', body:'The story is not finished. — Jade'}
+);
+LORE.push(
+  {ch:637, n:'The Village That Does Not Answer', t:'The party reached a remote mountain settlement where snow still lingered and there was no sound at all: calls went unanswered, villagers\' lips moved without a sound, doors closed silently and even the livestock made no noise. Jade treated it as a possible Fifteen Evils incident: something was suppressing sound across the entire village.'},
+  {ch:654, n:'The First Sound', t:'For several seconds after the Silent Flame died nothing happened. Then someone heard a stone fall, then wind, then breathing, then Sally\'s instrument, and sound returned gradually across the region. The Silent Flame was resolved, and nine of the Fifteen stood resolved.'}
 );
