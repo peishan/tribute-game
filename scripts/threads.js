@@ -34,6 +34,8 @@ const THREADS = [
    part:[['mandate_resolve','The mandate changed from Destroy to Resolve the Fifteen.']], done:null},
   {id:'impossible', icon:'🗂️', q:'How can one Register name appear in three kingdoms at once?', cat:'The Fifteen', opens:() => !!G.flags.impossible_entry,
    part:[['name_is_framework','The name is a pattern, not a single being.'],['register_beyond_fifteen','The Register records anomalies beyond the Fifteen.']], done:null},
+  {id:'jenika_news', icon:'🕊️', q:'What does Jenika need to tell Sky?', cat:'Home', opens:() => !!G.flags.jenika_message_received,
+   part:[['jenika_notices_pregnancy','Jenika has quietly confirmed that she is pregnant.'],['delilah_knows_jenika_pregnant','Only Delilah knows; Jenika wants to get through the first trimester before she tells him.']], done:null},
   {id:'count', icon:'🔢', q:'How many of the Fifteen have been resolved?', cat:'The Fifteen', opens:() => !!G.flags.fifteen_named,
    part:[['@evil1','At least one of the Fifteen is resolved.']], done:['@evil15','All fifteen are resolved.'], live:() => evilsResolved()+' / 15'},
   {id:'network', icon:'🔮', q:'When will the restoration network be needed again?', cat:'The pearl', opens:() => !!G.flags.pearl_authority_restored,

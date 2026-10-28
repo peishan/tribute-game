@@ -31,7 +31,7 @@ deed('hz_silent_flame', 'story', 'No more voices taken', '🔵', 'The Silent Fla
 const flameFoes = () => (typeof B!=='undefined' && B && B.foes) ? B.foes.filter(f => !f.dead && f.key===FLAME_KEY) : [];
 const flamePhase = () => { const f = flameFoes()[0]; return f ? (f.phaseIdx||0) : -1; };
 const signalsKnown = () => !!(G && G.flags && G.flags.hand_signals_learned);
-const spokenSkill = s => s && s.kind==='support' && (s.tgt==='allies' || s.tgt==='ally');
+const spokenSkill = s => s && s.kind==='support' && !s.vibration && (s.tgt==='allies' || s.tgt==='ally');
 const cmdOpen = () => !!(B && ((B.cmd||0) > 0 || (B.rhythm||0) > 0));
 
 (function(){
@@ -43,7 +43,7 @@ const cmdOpen = () => !!(B && ((B.cmd||0) > 0 || (B.rhythm||0) > 0));
     B.silent = boss || (SILENT_PLACES.includes(G.loc) && G.ch >= 641);
     if(!B.silent) return;
     B.cmd = 0; B.rhythm = 0; B.safe = 0; B.spread = 0; B.coreBroken = false;
-    blog('🔇 A silence zone: no one can call an order. '+(signalsKnown() ? 'Use hand signals (Signal) and Take Position to be understood.' : 'Spoken commands cannot be heard.'),'sys');
+    blog('🔇 A silence zone: no one can call an order. '+(signalsKnown() ? 'Use hand signals (Signal) and Take Position to be understood.' : 'Spoken commands cannot be heard, and spoken magic is weaker.'),'sys');
     if(boss) blog('🔵 The Silent Flame: Phase one, Stolen Voices. Silent Command is the only way to move as one.','foe');
   };
   // spoken support skills that target allies are silenced until the party is understood
@@ -59,6 +59,7 @@ const cmdOpen = () => !!(B && ((B.cmd||0) > 0 || (B.rhythm||0) > 0));
     let v = _eff(u, stat);
     if(!(typeof B!=='undefined' && B && B.silent && u)) return v;
     if(u.ally && (B.rhythm||0) > 0 && (stat==='atk' || stat==='mag')) v *= 1.2;
+    if(u.ally && stat==='mag' && u.id!=='sky' && !(B.rhythm > 0) && !(u.st && u.st.rhythm)) v *= .85;   // spoken invocations are weaker without a voice (Sky\'s healing is touch)
     if(!u.ally && u.key===FLAME_KEY && stat==='def' && flamePhase()===2 && !(B.rhythm > 0)) v *= 1.25;
     return v;
   };
@@ -77,14 +78,18 @@ const cmdOpen = () => !!(B && ((B.cmd||0) > 0 || (B.rhythm||0) > 0));
     const ph = flamePhase();
     if(B.rhythm>0) B.rhythm--;
     if(B.spread>0) B.spread--;
-    if(ph===1){   // heat without warning
-      if(B.safe>0){ B.safe--; blog('🧭 Levi\'s marked path turns the heat aside.','good'); }
-      else {
-        const levi = B.allies.some(a => a.id==='levi' && !a.dead);
-        const mult = (levi ? .5 : 1) * (B.spread>0 ? .6 : 1);
-        const hit = alive(B.allies).slice().sort(() => Math.random()-.5).slice(0, 2);
-        hit.forEach(a => { const d = Math.max(1, Math.round(u.atk*.6*mult)); hurt(a, d, true); blog('  🔥 Invisible heat scorches '+a.name+' (−'+d+')'+(levi?' (Levi read most of it)':'')+'.','bad'); });
+    if(ph===1){   // heat without warning: a visual tell one round ahead, then the heat falls
+      const tell = (B.heatTell||[]).map(id => B.allies.find(a => a.uid===id)).filter(a => a && !a.dead);
+      if(tell.length){
+        if(B.safe>0){ B.safe--; blog('🧭 Levi\'s marked path turns the heat aside.','good'); }
+        else {
+          const levi = B.allies.some(a => a.id==='levi' && !a.dead);
+          const mult = (levi ? .5 : 1) * (B.spread>0 ? .6 : 1);
+          tell.forEach(a => { const d = Math.max(1, Math.round(u.atk*.6*mult)); hurt(a, d, true); blog('  🔥 Invisible heat scorches '+a.name+' (−'+d+')'+(levi?' (Levi read most of it)':'')+'.','bad'); });
+        }
       }
+      const next = alive(B.allies).slice().sort(() => Math.random()-.5).slice(0, 2); B.heatTell = next.map(a => a.uid);
+      if(next.length) blog('👁️ The air shimmers over '+next.map(a => a.name).join(' and ')+': heat will fall there next round (Hold, Spread Out or Mark Safe Path).','foe');
     }
     if(ph>=3 && !B.coreBroken){ const h = Math.round(u.mhp*.02); u.hp = Math.min(u.mhp, u.hp+h); blog('  🔵 The Flame feeds on the core (+'+h+').','foe'); }
   };
@@ -95,7 +100,7 @@ function signalDo(u, kind){
   if(!B || !B.silent) return;
   if(kind==='hold'){ alive(B.allies).forEach(a => { a.st.ward = {v:.25, d:2}; }); blog('✋ '+u.name+' signals: Hold. The party braces (−25% damage for 2 turns).','good'); }
   else if(kind==='spread'){ B.spread = 2; alive(B.allies).forEach(a => { a.st.ward = {v:.12, d:2}; }); blog('↔️ '+u.name+' signals: Spread Out. The party fans out (area heat −40% for 2 rounds).','good'); }
-  else { B.cmd = 4; blog('📍 '+u.name+' signals: Take Position. The agreed commands work again for 4 turns.','good'); }
+  else { const long = typeof unspokenOn==='function' && unspokenOn() && (u.id==='levi' || u.id==='sally'); B.cmd = long ? 6 : 4; blog('📍 '+u.name+' signals: Take Position. The agreed commands work again for '+B.cmd+' turns'+(long?' (Unspoken Understanding)':'')+'.','good'); }
 }
 function flameLevi(u){ B.safe = 1; blog('🧭 '+u.name+' reads the air and marks the safe path: the next heat current is turned aside.','good'); }
 function flameRhythm(u){ B.rhythm = 3; blog('💜 '+u.name+' keeps the rhythm with her hand on the strings: the party strikes in time (ATK and MAG +20% for 3 rounds, orders heard).','good'); }
