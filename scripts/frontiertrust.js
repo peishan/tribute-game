@@ -5,9 +5,9 @@
    court closes the matter), and the party\'s name does not override that distrust: it has to be earned, and Jade can never expose Elise and Tarin.
    SEVEN OPTIONAL QUESTS from ch629, at the Northern Frontier (Dragonvale\'s):
      The Dead Queen of the Frontier (rumours: memorials, the old soldiers\' stories, a woman who looks like Elise travelling under another name, officials who call it grief; the rumours are
-       accidentally close to the truth), Frontier Supplies, The Patrol Road (a hunt), The Loyalist (the question "Did Queen Elise really die?": Jade cannot give the truth), A Fair Hearing
+       accidentally close to the truth), Frontier Supplies, The Patrol Road (a hunt), The Loyalist (the question "Did Queen Elise really die?": Jade may confide, but nobody will believe the old man, so Elise is never found out), A Fair Hearing
        (a local dispute settled without royal authority), The Walls Beside the Locals (defence), and Trust Earned (the council opens its books).
-   TRUSTED (flag frontier_trusted): safe travel on the frontier roads, scouts (fewer ambushes), +15% convoy pay there, a Frontier Cache every 7 days (materials), the deep patrol hunt, and the
+   TRUSTED (flag frontier_trusted): safe travel on the frontier roads, scouts (fewer ambushes), +15% convoy pay there, a Frontier Cache every 7 days (materials; 25% smaller if Jade once told the old soldier the truth and was thought to be lying), the deep patrol hunt, and the
    frontier\'s support pledged for the endgame (flag frontier_endgame_support, for XXXIV Purification). LEGACY: a memorial, stories that contradict one another, an inn renamed The Queen\'s Rest,
    and word that reaches Elise far away. All numbers first-pass. State: G.fTrust = {cacheDay, answered}.
    ===================================================================== */
@@ -72,7 +72,7 @@ function ftAnswer(k){
   const msgs = [];
   if(k==='silence') msgs.push('❔ Jade: "I am sorry for your loss. I cannot say more than that." The old man looks at her a long moment, and nods once. It is not an answer. It is respect.');
   else if(k==='kind') msgs.push('❔ Jade: "She was loved here. Keep that: it is the part that is true." He turns away, and wipes his face with the back of his hand.');
-  else { msgs.push('❔ Jade tells him. His face does not change. "Then I will carry it," he says. "May it be a light weight." The secret is no longer only yours.'); G.flags.elise_secret_slipped = true; if(typeof hfnAddSusp==='function') hfnAddSusp(60).forEach(m => msgs.push(m)); }
+  else { msgs.push('❔ Jade tells him. His face does not change. "Then I will carry it," he says. "May it be a light weight."'); msgs.push('🕯️ He goes to the commander. The commander hears him out, glances at Jade, and calls it what the whole frontier would: grief. The city has been in mourning for a hundred days, and a king\'s envoy who says the dead queen lives is lying, or kind, or tired. Nobody believes him. Nobody asks Jade again. Elise is safe, and the old man is not.'); G.flags.elise_secret_slipped = true; G.flags.ft_jade_doubted = true; }
   ftState().answered = k; G.flags.inv_ftD2 = true; G.flags.ft_loyalist_answered = true;
   msgs.push.apply(msgs, grantReward({xp:193100+300*1912, gold:40920+60*1912}, '🕯️ Answered the loyalist'));
   msgs.push.apply(msgs, checkSteps()); msgs.push.apply(msgs, advanceDay(0)); ftSync(); save(); return msgs;
@@ -81,8 +81,8 @@ function frontCache(){
   if(!frontTrusted()) return [];
   const s = ftState(); if(G.day - s.cacheDay < 7) return ['The council has already shared this week\'s stores.'];
   s.cacheDay = G.day;
-  const items = [{id:'seal_dust', qty:1+Math.floor(Math.random()*2)}, {id:'spirit_thread', qty:1}, {id:'herbal_tonic', qty:2}];
-  addItems(items); const gold = 20000 + avgPartyLv()*800; G.gold += gold;
+  const doubt = !!G.flags.ft_jade_doubted, items = [{id:'seal_dust', qty:doubt ? 1 : 1+Math.floor(Math.random()*2)}, {id:'spirit_thread', qty:1}, {id:'herbal_tonic', qty:doubt ? 1 : 2}];
+  addItems(items); const gold = Math.round((20000 + avgPartyLv()*800)*(doubt ? .75 : 1)); G.gold += gold;
   save(); return ['📦 The council shares its stores: '+items.map(i => ITEMS[i.id].icon+' '+ITEMS[i.id].n+' ×'+i.qty).join(', ')+' and '+gold.toLocaleString()+'g.'].concat(advanceDay(0));
 }
 const FT_STORIES = [
@@ -102,7 +102,7 @@ function rFrontLegacy(){
   return h + '</div>';
 }
 function rFrontChoice(){
-  if(G.flags.inv_ftD2) return `<div class="panel"><div class="sm">You answered the old soldier ${ftState().answered==='confide' ? 'with the truth. The secret is no longer only yours.' : 'without giving the truth away.'}</div></div>`;
+  if(G.flags.inv_ftD2) return `<div class="panel"><div class="sm">You answered the old soldier ${ftState().answered==='confide' ? 'with the truth. He told the commander; the commander called it grief.' : 'without giving the truth away.'}</div></div>`;
   return `<div class="panel"><div class="sm">The old soldier waits. "Did Queen Elise really die?" Jade cannot give him the truth, and she cannot lie to him easily either.</div>
     <button class="pri" onclick="act(ftAnswer,'silence')">Say only that you are sorry</button>
     <button class="pri" onclick="act(ftAnswer,'kind')">Tell him she was loved here</button>
