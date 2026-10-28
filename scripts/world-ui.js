@@ -125,7 +125,7 @@ function rSpot(L, sp){
       const rec = RECIPES.map(r => { const have = Object.keys(r.need).every(k => (G.inv[k]||0) >= r.need[k]), cost = Object.keys(r.need).map(k => ITEMS[k].icon+' '+ITEMS[k].n+' ×'+r.need[k]).join(', ');
         return `<div class="ev ${have?'':'locked'}"><div><b>${ITEMS[r.out].icon} ${ITEMS[r.out].n}</b> <span class="sm">${USE[r.out]?useText(USE[r.out]):'gear · '+bonusText(GEAR[r.out].bonus)}</span><div class="sm">${cost} · ${craftCost(r)}g</div></div><button ${have&&G.gold>=craftCost(r)?'':'disabled'} onclick="act(craftAt,'${r.out}')">Craft</button></div>`; }).join('');
       body = `<div class="panel"><div class="row" style="align-items:center;gap:10px;flex-wrap:nowrap"><img src="assets/areas/jenika_512.webp" alt="Jenika Moon" style="width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)"><div><b>🌙 Jenika Moon</b><div class="sm">"Rest here, and let me look at you all."</div></div></div>
-        <button class="pri" onclick="act(pavilionRest)">Restore the party (once per day, free)</button></div><h4>Tonics & remedies</h4>${rec}`; break; }
+        <button class="pri" onclick="act(pavilionRest)">Restore the party (once per day, free)</button></div>${typeof pavilionExtra==='function'?pavilionExtra():''}<h4>Tonics & remedies</h4>${rec}`; break; }
     case 'village':
       body = `<div class="panel"><div class="sm">Each activity can be done once per day. Day ${G.day}.</div>${Object.keys(VILLAGE_ACTS).map(k => { const a = VILLAGE_ACTS[k], done = G.bondDay['vl_'+k]===G.day, miss = a.need && !isRecruited(a.need);
         return `<div class="ev ${done||miss?'locked':''}"><div><b>${a.icon} ${a.n}</b><div class="sm">${[a.bond&&'bond',a.xp&&a.xp+' XP',a.gold&&a.gold+'g',a.items&&'herbs',a.hint&&'rumour'].filter(Boolean).join(' · ')}${miss?' · 🔒 '+CHARACTERS[a.need].n.split(' ')[0]+' not in party':''}</div></div><button ${done||miss?'disabled':''} onclick="act(doVillage,'${k}')">${done?'Done':'Do'}</button></div>`; }).join('')}<button onclick="act(()=>advanceDay(1))">🌙 Rest until tomorrow</button></div>`; break;
@@ -175,6 +175,7 @@ function rSpot(L, sp){
     case 'place': body = `<div class="panel"><div class="sm">${sp.note||''}</div></div>`; break;
     case 'board': body = rBoard(); break;
     case 'convoy': body = typeof rConvoyDesk==='function' ? rConvoyDesk() : ''; break;
+    case 'frontnet': body = typeof rFrontDesk==='function' ? rFrontDesk() : ''; break;
     case 'hunt':
       body = `<div class="panel"><div class="sm">Enemies: ${sp.pool.map(k=>ENEMIES[k].icon+' '+ENEMIES[k].n).join(', ')}${sp.elite?' · elite: '+ENEMIES[sp.elite].icon+' '+ENEMIES[sp.elite].n:''}. Scaled to party level (min Lv${sp.lo||1}).</div>
         <button class="pri" onclick="origin='here';doHunt('${sp.id}');tab='battle';render()">Hunt</button>${sp.elite?`<button onclick="origin='here';doHunt('${sp.id}',true);tab='battle';render()">Seek the ${ENEMIES[sp.elite].n}</button>`:''}</div>`; break;

@@ -8275,3 +8275,139 @@ LORE.push(
   {ch:637, n:'The Village That Does Not Answer', t:'The party reached a remote mountain settlement where snow still lingered and there was no sound at all: calls went unanswered, villagers\' lips moved without a sound, doors closed silently and even the livestock made no noise. Jade treated it as a possible Fifteen Evils incident: something was suppressing sound across the entire village.'},
   {ch:654, n:'The First Sound', t:'For several seconds after the Silent Flame died nothing happened. Then someone heard a stone fall, then wind, then breathing, then Sally\'s instrument, and sound returned gradually across the region. The Silent Flame was resolved, and nine of the Fifteen stood resolved.'}
 );
+
+/* ---- Arc XXVI, chapters 661-666: the Bone River (the river that changed course; the pages name no place, so the region is named for what the pages show) ---- */
+Object.assign(LOCATIONS, {
+  bone_river:{ n:'The Bone River', region:'tribute', kind:'field', icon:'🌊', unlock:{ch:661},
+    desc:'A river that abruptly changed course through an old settlement, burial grounds and forgotten ruins, and is carrying out bones of every age.',
+    spots:[ {id:'bone_river_hunt', kind:'hunt', n:'The Riverbed', icon:'🦴', desc:'The dead that rise from the shallows and keep trying to go upstream.', pool:['river_dead'], lo:96} ]},
+});
+if(!LOC_ORDER.includes('bone_river')) LOC_ORDER.push('bone_river');
+ROUTES.push({a:'dragon_vale', b:'bone_river', mode:'carriage', n:'East to the Changed River', days:5, fare:38, risk:.3, pool:['road_bandit','forest_wolf']});
+Object.assign(ENEMIES, {
+  river_dead:{n:'River Dead',icon:'💀',area:'swamp',hp:104,atk:18,mag:0,def:8,spd:9,xp:48,gold:20,traits:['corrupt'],
+    moves:[{n:'Dragging Grasp',pow:1},{n:'Waterlogged Blow',pow:1.3}],drops:[{id:'spirit_thread',chance:.12}],desc:'A skeleton raised from the river by restorative energy used the wrong way. It does not hunt: it keeps trying to go upstream.'},
+});
+LOOT.river_dead = {guaranteed:[],rolls:[{id:'spirit_thread',chance:.12}]};
+
+/* ---- Arc for(let i=18;i<=610;i++)III, chapters 611-630: Arc for(let i=18;i<=610;i++)IV, The Lives We Choose ---- */
+LOCATIONS.bone_river.spots.push(
+  {id:'hz661a', kind:'investigate', n:'Husband and Wife on the Road', icon:'💞', ch:661, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'Still bickering.',
+   clues:['The party resumes travelling after Sally and Levi\'s wedding. Sally: "You\'re still walking too slowly, husband." Levi: "Husband? I\'m giving you time to enjoy the view, wife."', '"We get used to it."'], rw:{xp:742100, gold:150720}},
+  {id:'hz661b', kind:'investigate', n:'Married People Are Annoying', icon:'🙄', ch:661, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'The others.',
+   clues:['Devon: "We left ten minutes ago and they\'re already like this."', 'Sky: "Married people are annoying."'], rw:{xp:742400, gold:150780}, needFlag:'inv_hz661a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz661c', kind:'investigate', n:'Jenika Writes', icon:'🕊️', ch:661, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'Dragonvale is stable.',
+   clues:['Sky: "I received a message from Jenika earlier. Dragonvale is stable for now. There\'s no need for me to return yet."'], rw:{xp:742700, gold:150840}, needFlag:'inv_hz661b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz661d', kind:'investigate', n:'A River That Changed Course', icon:'🌊', ch:661, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'The new reports.',
+   clues:['Jade: "I\'ve received new reports. A river has changed course through an old settlement. It isn\'t a natural shift. We should investigate."', 'Devon: "It could be linked to the same network." Sky: "A changed river can expose what was meant to stay hidden." Sally: "Married people aside, this is more interesting."'], rw:{xp:743000, gold:150900}, needFlag:'inv_hz661c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz662a', kind:'investigate', n:'The Settlement We Were Told About', icon:'🏚️', ch:662, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'The old channel.',
+   clues:['The party reaches the region where the river has changed course. Jade: "This is the settlement we were told about. The river used to flow on the other side of those hills."'], rw:{xp:743300, gold:150960}},
+  {id:'hz662b', kind:'investigate', n:'Not a Natural Shift', icon:'🌊', ch:662, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'A new path.',
+   clues:['A river that has followed the same channel for generations has abruptly shifted. Devon: "It cut straight through the old settlement."', 'Sky: "The damage isn\'t natural. The water isn\'t just higher. It has carved a new path."'], rw:{xp:743600, gold:151020}, needFlag:'inv_hz662a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz662c', kind:'investigate', n:'Graves, Villages, Ruins', icon:'🪦', ch:662, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'What it cut through.',
+   clues:['Its new path cuts through old burial grounds, abandoned villages, and forgotten ruins.', 'Levi: "And abandoned villages..." Sally: "The river took whole sections with it."'], rw:{xp:743900, gold:151080}, needFlag:'inv_hz662b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz662d', kind:'investigate', n:'Bones Downstream', icon:'💀', ch:662, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'The first sign.',
+   clues:['Bones have begun appearing downstream.'], rw:{xp:744200, gold:151140}, needFlag:'inv_hz662c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz663a', kind:'investigate', n:'Not Only Human Remains', icon:'🦴', ch:663, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'Sky\'s finding.',
+   clues:['The party examines the banks of the river that has changed course. Sky: "These are not only human remains."', 'There are ordinary people... animals... and ancient creatures.'], rw:{xp:744500, gold:151200}},
+  {id:'hz663b', kind:'investigate', n:'Far Older, Too Near the Surface', icon:'⏳', ch:663, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'Older than the settlements.',
+   clues:['"Some of these remains are far older than the surrounding settlements. This shouldn\'t exist so close to the surface."', 'Sally: "Some of these look like they\'ve been buried for centuries..." "Maybe longer."'], rw:{xp:744800, gold:151260}, needFlag:'inv_hz663a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz663c', kind:'investigate', n:'A Creature That Should Not Be Here', icon:'🐉', ch:663, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'Devon\'s bone.',
+   clues:['Devon: "Human, animal... this one isn\'t like anything we know."', '"The structure of this bone is completely different. It\'s from a creature that shouldn\'t be here." Jade: "The variety is too wide."'], rw:{xp:745100, gold:151320}, needFlag:'inv_hz663b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz663d', kind:'investigate', n:'Something Has Opened', icon:'🕳️', ch:663, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'Levi.',
+   clues:['Levi: "It\'s as if the river has pulled everything up together."', '"Something beneath the earth has opened. And the river is carrying out what was never meant to be seen."'], rw:{xp:745400, gold:151380}, needFlag:'inv_hz663c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz664a', kind:'investigate', n:'The Numbers Do Not Match', icon:'📖', ch:664, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'The burial records.',
+   clues:['The local burial records do not match the number of remains. Jade: "These are the local burial records. The numbers do not match what we are seeing in the river."', 'Far more remains have appeared than the records account for.'], rw:{xp:745700, gold:151440}},
+  {id:'hz664b', kind:'investigate', n:'Not Buried Here', icon:'🪦', ch:664, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'Older than the present civilization.',
+   clues:['Jade: "These people were not buried here. The river is exposing something older than the present civilization."', 'Devon: "The settlement is old, but not old enough to explain this. These remains are from different periods. Some predate this region."'], rw:{xp:746000, gold:151500}, needFlag:'inv_hz664a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz664c', kind:'investigate', n:'The Black Pearl Responds', icon:'🔮', ch:664, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'Devon feels it.',
+   clues:['Devon feels the Black Pearl respond faintly.', '"...It\'s faint, but it\'s there. The Black Pearl is responding. As if something beneath the earth has been disturbed."'], rw:{xp:746300, gold:151560}, needFlag:'inv_hz664b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz664d', kind:'investigate', n:'Different Times Mixed Together', icon:'🕰️', ch:664, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'Creatures unknown.',
+   clues:['Levi: "Some of these belong to animals... and some are from creatures we\'ve never seen in this region." Sally: "It looks like different times have been mixed together."', 'Human, animal, and creatures unknown to the current settlements. The river is carrying out what was never meant to be seen.'], rw:{xp:746600, gold:151620}, needFlag:'inv_hz664c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz665a', kind:'investigate', n:'Something Moves Beneath the Water', icon:'💧', ch:665, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'The riverbed.',
+   clues:['As the party examines the riverbed, something moves beneath the water.', 'Splash. Creak.'], rw:{xp:746900, gold:151680}},
+  {id:'hz665b', kind:'investigate', n:'Then Another', icon:'💀', ch:665, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'Skeletons rise.',
+   clues:['Sky: "It\'s moving!"', 'Then another. And another.'], rw:{xp:747200, gold:151740}, needFlag:'inv_hz665a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz665c', kind:'investigate', n:'Not Ordinary Undead', icon:'🧟', ch:665, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'They do not attack.',
+   clues:['They do not behave like ordinary undead.', 'Jade: "They\'re not attacking us..."'], rw:{xp:747500, gold:151800}, needFlag:'inv_hz665b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz665d', kind:'investigate', n:'Upstream', icon:'⬆️', ch:665, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'They keep trying.',
+   clues:['Levi: "...they\'re trying to go upstream."', 'They repeatedly attempt to return upstream.'], rw:{xp:747800, gold:151860}, needFlag:'inv_hz665c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz666a', kind:'investigate', n:'Do Not Attack Yet', icon:'✋', ch:666, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'Jade holds them back.',
+   clues:['Rather than immediately destroy them, Jade follows. Jade: "Do not attack yet. Follow them. They are all moving toward the same place."', 'The dead are all moving toward the same place.'], rw:{xp:748100, gold:151920}},
+  {id:'hz666b', kind:'investigate', n:'Not Necromancy', icon:'💙', ch:666, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'Sky reads the energy.',
+   clues:['Sky: "This isn\'t necromancy. The energy animating them is different."', 'It resembles restorative energy used incorrectly. "This is similar to restorative energy. Life-mending energy. But it\'s being used in the wrong way."'], rw:{xp:748400, gold:151980}, needFlag:'inv_hz666a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz666c', kind:'investigate', n:'An Incomplete Process', icon:'🧩', ch:666, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'Devon\'s reading.',
+   clues:['Devon: "So someone or something is trying to restore them? But the process is incomplete."', 'Levi: "They keep moving upstream." Sally: "Then whatever is there... it\'s the source?"'], rw:{xp:748700, gold:152040}, needFlag:'inv_hz666b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz666d', kind:'investigate', n:'Something Waits Ahead', icon:'⬆️', ch:666, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally'],
+   desc:'Upstream.',
+   clues:['The party follows the dead upstream. They are all moving toward the same place.', 'And something waits ahead.'], rw:{xp:749000, gold:152100}, needFlag:'inv_hz666c', lockMsg:'🔒 Finish the previous clue first'},
+);
+MISSIONS.push(
+  {id:'m_s661', needCh:661, title:'Married People Are Annoying', obj:{type:'steps', steps:[
+     {label:'Husband and Wife on the Road', spot:'hz661a'},
+     {label:'Married People Are Annoying', spot:'hz661b'},
+     {label:'Jenika Writes', spot:'hz661c'},
+     {label:'A River That Changed Course', spot:'hz661d'}]}, rw:{xp:1600000, gold:363800, rep:2624},
+   subj:'Married People Are Annoying', body:'The story is not finished. — Jade'},
+  {id:'m_s662', needCh:662, title:'The River Moved', obj:{type:'steps', steps:[
+     {label:'The Settlement We Were Told About', spot:'hz662a'},
+     {label:'Not a Natural Shift', spot:'hz662b'},
+     {label:'Graves, Villages, Ruins', spot:'hz662c'},
+     {label:'Bones Downstream', spot:'hz662d'}]}, rw:{xp:1602500, gold:364400, rep:2627},
+   subj:'The River Moved', body:'The story is not finished. — Jade'},
+  {id:'m_s663', needCh:663, title:'What the Water Carries', obj:{type:'steps', steps:[
+     {label:'Not Only Human Remains', spot:'hz663a'},
+     {label:'Far Older, Too Near the Surface', spot:'hz663b'},
+     {label:'A Creature That Should Not Be Here', spot:'hz663c'},
+     {label:'Something Has Opened', spot:'hz663d'}]}, rw:{xp:1605000, gold:365000, rep:2630},
+   subj:'What the Water Carries', body:'The story is not finished. — Jade'},
+  {id:'m_s664', needCh:664, title:'No One Buried Them Here', obj:{type:'steps', steps:[
+     {label:'The Numbers Do Not Match', spot:'hz664a'},
+     {label:'Not Buried Here', spot:'hz664b'},
+     {label:'The Black Pearl Responds', spot:'hz664c'},
+     {label:'Different Times Mixed Together', spot:'hz664d'}]}, rw:{xp:1607500, gold:365600, rep:2633},
+   subj:'No One Buried Them Here', body:'The story is not finished. — Jade'},
+  {id:'m_s665', needCh:665, title:'The First Corpse Walks', obj:{type:'steps', steps:[
+     {label:'Something Moves Beneath the Water', spot:'hz665a'},
+     {label:'Then Another', spot:'hz665b'},
+     {label:'Not Ordinary Undead', spot:'hz665c'},
+     {label:'Upstream', spot:'hz665d'}]}, rw:{xp:1610000, gold:366200, rep:2636},
+   subj:'The First Corpse Walks', body:'The story is not finished. — Jade'},
+  {id:'m_s666', needCh:666, title:'Following the Dead', obj:{type:'steps', steps:[
+     {label:'Do Not Attack Yet', spot:'hz666a'},
+     {label:'Not Necromancy', spot:'hz666b'},
+     {label:'An Incomplete Process', spot:'hz666c'},
+     {label:'Something Waits Ahead', spot:'hz666d'}]}, rw:{xp:1612500, gold:366800, rep:2639},
+   subj:'Following the Dead', body:'The story is not finished. — Jade'}
+);
+LORE.push(
+  {ch:661, n:'The Road to the Changed River', t:'After the wedding the party resumed travelling. Jade had reports that a river had changed course through an old settlement and that it was not a natural shift; Devon wondered whether it was linked to the same network, and Sky noted that a changed river can expose what was meant to stay hidden. Jenika\'s message said Dragonvale was stable for now.'},
+  {ch:662, n:'The River That Moved', t:'A river that had followed the same channel for generations abruptly shifted, cutting straight through an old settlement, burial grounds, abandoned villages and forgotten ruins. The damage was not natural: the water had carved a new path. Bones had begun appearing downstream.'},
+  {ch:663, n:'What the Water Carries', t:'The remains on the banks were not only human: ordinary people, animals and ancient creatures, some far older than the surrounding settlements and too close to the surface, among them a bone from a creature that should not be there. The river had not simply changed course: something beneath the earth had opened.'},
+  {ch:664, n:'No One Buried Them Here', t:'The local burial records did not match the number of remains: far more had appeared than they accounted for, from different periods and some predating the region, human, animal and creatures unknown to the current settlements. The river was exposing something older than the present civilization. Devon felt the Black Pearl respond faintly, as if something beneath the earth had been disturbed.'},
+  {ch:665, n:'The First Corpse Walks', t:'As the party examined the riverbed, a skeleton rose from the water, then another and another. They did not behave like ordinary undead: they did not attack the party but repeatedly tried to return upstream.'},
+  {ch:666, n:'Following the Dead', t:'The party did not destroy the walking dead but followed them, since they were all moving toward the same place. Sky found it was not necromancy: the energy animating them resembled restorative, life-mending energy used the wrong way, as if someone or something were trying to restore them and the process were incomplete. They followed the dead upstream, and something waited ahead.'}
+);
