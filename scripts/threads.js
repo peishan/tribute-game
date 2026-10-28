@@ -42,7 +42,7 @@ const THREADS = [
   {id:'count', icon:'🔢', q:'How many of the Fifteen have been resolved?', cat:'The Fifteen', opens:() => !!G.flags.fifteen_named,
    part:[['@evil1','At least one of the Fifteen is resolved.']], done:['@evil15','All fifteen are resolved.'], live:() => evilsResolved()+' / 15'},
   {id:'network', icon:'🔮', q:'When will the restoration network be needed again?', cat:'The pearl', opens:() => !!G.flags.pearl_authority_restored,
-   part:[['pearl_purpose','The Black Dragon Pearl is a restoration anchor.'],['sunken_kingdom_remembered','The Sunken Kingdom is restored to the records.']], done:null},
+   part:[['pearl_purpose','The Black Dragon Pearl is a restoration anchor.'],['sunken_kingdom_remembered','The Sunken Kingdom is restored to the records.'],['network_awakens_unprompted','The network has begun waking without anyone commanding it: the Pearl is a receiver, not a trigger.'],['custodians_door_opens','A sealed chamber at the Bone River confirms Devon is the Pearl\'s custodian, not its final owner: "The bearer carries the Pearl until the network calls it home."'],['restoration_network_waking','The restoration network is waking across distant regions.']], done:null},
   {id:'sky', icon:'💙', q:'What is Sky, Bearer of the Returning Light, meant to carry forward?', cat:'The pearl', opens:() => !!G.flags.returning_light,
    part:[['sky_inheritance','Sky shares some of the Valor sensitivity through his mother\'s line.']], done:null},
 ];
