@@ -13,6 +13,7 @@ Built from the uploaded pages. Chapter 700 was not sent: it is the only gap and 
 The Sky Eater is registered (active from 692, intel from 692a, 693c, 694c). It is **not resolved**: the count stays 10 / 15.
 
 ## Notes for the author
+- Sera's parents (ch688): they stepped away from ruling and court matters years ago, not after ch401. The ch237 letter is not contradicted, since a letter can be written from anywhere.
 - 698 and 699 were uploaded in swapped order; their title cards were used as the order.
 - Rheon's hair appears in three looks: dark brown earlier, golden at rest, silver-white in battle.
 - In 695 the scouting lines sit on a black-haired man drawn like Devon, but are Levi's lines; they are built as Levi's.
