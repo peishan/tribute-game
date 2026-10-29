@@ -35,11 +35,12 @@ const ARCS = [
   {n:24, title:'The Lives We Choose', img:'assets/arcs/arc24.webp', after:610},   // ch611-635: the Pavilion, Elise's departure, the secret wedding and the hundred days
   {n:25, title:'The Flame Without a Voice', img:'assets/arcs/arc25.webp', after:635},   // ch636-660: the Silent Flame, the Old Beacon Road and Levi and Sally's wedding
   {n:26, title:'Where the Dead River Runs', img:'assets/arcs/arc26.webp', after:660},   // ch661-685: the Bone River and the first sign of the waking restoration network
+  {n:27, title:'The Hunger Above', img:'assets/arcs/arc27.webp', after:685},   // ch686-710: the Sky Eater at the capital of Altan
 ];
 /* End-of-arc splash (author): after ch436 the Levi and Sally relationship route starts and Sally rejoins for good. The caption is drawn over the art. */
 const ARC_END_SPLASH = [ {key:'17end', after:436, img:'assets/arcs/arc17_end.webp', title:'Levi and Sally: a relationship route has begun', text:'Levi and Sally: a relationship route has begun.', sub:'Their story now moves between the two of them. Welcome Sally back as a permanent member of the party.'},
   {key:'25end', after:660, img:'assets/arcs/arc25_end.webp', title:'Levi and Sally are married', text:'Levi and Sally are married.', sub:'A small wedding between roads, and no quieter for it. They stay in the party, husband and wife.'} ];
-const ARC_ROMAN = ['','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX','XXI','XXII','XXIII','XXIV','XXV','XXVI'];
+const ARC_ROMAN = ['','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX','XXI','XXII','XXIII','XXIV','XXV','XXVI','XXVII'];
 
 // Arc IX, "The Forgotten Alliance" (the author's canon title): begins with ch211 and ends with ch235 (the royal wedding is ch234); add {n:9, title:'The Forgotten Alliance', img:'assets/arcs/arc9.webp', after:210} once the splash art exists.
 function arcFor(afterCh){ return ARCS.find(a => a.after === afterCh); }
