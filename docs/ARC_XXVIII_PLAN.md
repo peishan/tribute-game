@@ -33,7 +33,14 @@ The bearded Altan figure of ch263 is **the royal uncle: Rheon's and Sera's fathe
 **Aaliyah Altan is Sera's cousin and the daughter of the royal uncle and the maternal aunt** (so Rheon's cousin too). She is not in the built chapters or scripts: she is new, unnamed on any page so far, and first appears in the plan at the Altan court. Notes: ch237's letter mentions Sera's "little cousins" (plural, "as lively as ever"), so Aaliyah can be one of them or older than them; her age and role (heir to a household, a minister, a candidate for something in the Altan reform) are not set. Nothing about her is built.
 
 ### Built in Arc XXVII (chapters 686-706)
-- **The parents (ch688):** the page says the King and Queen "stepped away many years ago" and withdrew gradually once Rheon's succession was secured and Sera was politically married, ending in a wandering life in disguise. This is built as drawn. It does not match the earlier option of "retired after ch401", and the ch237 letter signed "Mother" is untouched: **flagged, not resolved.**
+- **The parents (ch688), SETTLED by the author:** the King and Queen stepped away from ruling and court matters many years ago (withdrawing gradually once Rheon's succession was secured and Sera was politically married), and live a disguised wandering life. This **supersedes** the earlier "retired after ch401" decision above. There is no conflict with the ch237 "Mother" letter: a letter can be written from anywhere, so they did not need to be ruling to write it.
 - **Royal uncle and aunt (ch689):** introduced as drawn (two brothers married two sisters; they helped raise Rheon and Sera). The aunt is now an active figure (ch698-705); the uncle only watches in ch695.
 - **Aaliyah (ch690-691, 698-705):** introduced, red-haired, spoiled and clever. Her dislike of Mirelle is built as unconvinced, not hostile.
 - **Rheon & Mirelle:** the aunt's questioning, the court tests and the card games are tracked on the pair's route (flags aunt_asks_mirelle_intentions, aunt_weighs_mirelles_qualifications, aunt_accepts_mirelle). No engagement is shown.
+
+### Built so far in Arc XXVIII (chapters 711-717; the arc's title and cover have not been sent)
+- 711-712: Mirelle's pregnancy is real and kept private for now. Rheon and Mirelle will not falsify dates; the uncle and aunt are warm about it; the problem is plain (Rheon not yet ascended, Mirelle not yet a recognised royal wife, conceived before marriage).
+- 713: the ministers ask, Rheon chooses the crown. His parents are alive, well and away from court by choice.
+- 714-715: the court questions Mirelle (widow, Veyne standing, her heir); Aaliyah turns the ministers' logic back on them and becomes an "inconvenient ally".
+- 716-717: ash and a serpent mark beneath the coronation road; Sky says the Ashen Serpent may have been dormant beneath Altan for centuries; Rheon lets the coronation schedule wait. The Ashen Serpent is registered as an active Evil (from 716, intel in 716b, 717a, 717c, unresolved: 11 / 15).
+- Still open: the coronation, the wedding, the marriage reform, and the Ashen Serpent itself.

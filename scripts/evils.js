@@ -40,7 +40,7 @@ const EVILS = [
      {label:'The turn', value:'In wartime rulers forced it to take voices, then whole communities, and it learned to take rather than receive', spot:'hz645c'},
      {label:'The cost', value:'Even its original function needs living offerings: there is no harmless state to restore it to', spot:'hz650d'}]},   // the fight is at ch653 and ch654 (The First Sound) resolves it: 9 / 15
   {id:'weeping_stone', n:'The Weeping Stone', intel:[]},
-  {id:'sky_eater', n:'The Sky Eater', epithet:'The Hunger Above', loc:'altan_high_roads', activeCh:692, home:'The upper skies', original:'A vast serpentine entity that hunts in the upper skies and feeds on vital energy',   // arrives at Altan's capital at ch706; not yet resolved
+  {id:'sky_eater', n:'The Sky Eater', epithet:'The Hunger Above', loc:'altan_high_roads', activeCh:692, resolveCh:708, how:'destroyed', home:'The upper skies', original:'A vast serpentine entity that hunts in the upper skies and feeds on vital energy',   // arrives at the capital at ch706, fought at ch707 and falls at ch708: 11 / 15
    intel:[
      {label:'Signs', value:'Livestock gone without a drop of blood, granaries opened from within, people weakened and children fallen ill for no reason', spot:'hz692a'},
      {label:'Nature', value:'Feeds on life force, spiritual energy, memory, strength and vitality rather than flesh alone', spot:'hz693c'},
@@ -57,7 +57,11 @@ const EVILS = [
      {label:'Behaviour', value:'Warns intruders away', spot:'crown_warnings'},
      {label:'Guardians', value:'Spectral royal guard', spot:'approach_palace'},
      {label:'Origin', value:'A collective construct of the royal council', spot:'crown_origin'},
-     {label:'Purpose', value:'To keep the deepest chamber from those who do not understand', spot:'council_command'}]}, {id:'ashen_serpent', n:'The Ashen Serpent', intel:[]}, {id:'mirror_queen', n:'The Mirror Queen', intel:[]},
+     {label:'Purpose', value:'To keep the deepest chamber from those who do not understand', spot:'council_command'}]}, {id:'ashen_serpent', n:'The Ashen Serpent', epithet:'The Serpent in the Ashes', loc:'altan_capital', activeCh:716, home:'Beneath Altan', original:'A serpentine mark burned into the old coronation road',
+   intel:[
+     {label:'Signs', value:'Warm ash that shifts against the wind, and a serpentine mark burned into the underside of stones unmoved for generations', spot:'hz716b'},
+     {label:'Signature', value:'The same corruption as at the other Fifteen-Evil sites', spot:'hz717c'},
+     {label:'Age', value:'The buried layer is older than the present kingdom: it may have lain dormant beneath Altan for centuries', spot:'hz717a'}]}, {id:'mirror_queen', n:'The Mirror Queen', intel:[]},
   {id:'endless_winter', n:'The Endless Winter', epithet:'The Winter That Would Not End', loc:'frostveil_village', activeCh:582, resolveCh:608, how:'restored', home:'The Frostveil Range',   // Arc XXIII (design): restored to its place in the seasonal cycle at ch608; chapters not built yet
    original:'Unseasonal snow near the Frostveil Range', revised:{spot:'hz601a', t:'A part of the natural seasonal cycle that lost its way: not a monster, but a body unable to release what it absorbed'}, intel:[
      {label:'Signs', value:'Fires that give no heat; snow falling indoors; metal that freezes at a touch', spot:'hz588a'},
@@ -88,6 +92,7 @@ const EVIL_CLASSES = {
   construct:{icon:'🔷', n:'Preservation Construct', d:'An ancient magical system mistaken for an Evil.'},
 };
 const EVIL_CLS_RULES = {
+  ashen_serpent:[['hz716c','hostile']],
   sky_eater:[['hz692a','hostile'],['hz693c','corrupted']],
   thorned_widow:[['witness_accounts','hostile'],['forest_spirit','corrupted']],
   mourning_hart:[['hart_protective','corrupted'],['hart_motive','restorable']],
