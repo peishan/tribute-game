@@ -31,3 +31,9 @@ The bearded Altan figure of ch263 is **the royal uncle: Rheon's and Sera's fathe
 
 ### Aaliyah Altan (the author's answer)
 **Aaliyah Altan is Sera's cousin and the daughter of the royal uncle and the maternal aunt** (so Rheon's cousin too). She is not in the built chapters or scripts: she is new, unnamed on any page so far, and first appears in the plan at the Altan court. Notes: ch237's letter mentions Sera's "little cousins" (plural, "as lively as ever"), so Aaliyah can be one of them or older than them; her age and role (heir to a household, a minister, a candidate for something in the Altan reform) are not set. Nothing about her is built.
+
+### Built in Arc XXVII (chapters 686-706)
+- **The parents (ch688):** the page says the King and Queen "stepped away many years ago" and withdrew gradually once Rheon's succession was secured and Sera was politically married, ending in a wandering life in disguise. This is built as drawn. It does not match the earlier option of "retired after ch401", and the ch237 letter signed "Mother" is untouched: **flagged, not resolved.**
+- **Royal uncle and aunt (ch689):** introduced as drawn (two brothers married two sisters; they helped raise Rheon and Sera). The aunt is now an active figure (ch698-705); the uncle only watches in ch695.
+- **Aaliyah (ch690-691, 698-705):** introduced, red-haired, spoiled and clever. Her dislike of Mirelle is built as unconvinced, not hostile.
+- **Rheon & Mirelle:** the aunt's questioning, the court tests and the card games are tracked on the pair's route (flags aunt_asks_mirelle_intentions, aunt_weighs_mirelles_qualifications, aunt_accepts_mirelle). No engagement is shown.
