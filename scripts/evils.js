@@ -39,7 +39,7 @@ const EVILS = [
      {label:'Origin', value:'An old beacon that carried warnings far and wide on voices given willingly', spot:'hz644b'},
      {label:'The turn', value:'In wartime rulers forced it to take voices, then whole communities, and it learned to take rather than receive', spot:'hz645c'},
      {label:'The cost', value:'Even its original function needs living offerings: there is no harmless state to restore it to', spot:'hz650d'}]},   // the fight is at ch653 and ch654 (The First Sound) resolves it: 9 / 15
-  {id:'weeping_stone', n:'The Weeping Stone', epithet:'The Evil of Borrowed Memory', loc:'weeping_roots', activeCh:741, home:'Lingering Vale', original:'An ancient formation that began to weep water like tears',   // woken at ch748 (the thirteenth Evil); not yet resolved: 12 / 15
+  {id:'weeping_stone', n:'The Weeping Stone', epithet:'The Evil of Borrowed Memory', loc:'weeping_roots', activeCh:741, resolveCh:760, how:'resolved', home:'Lingering Vale', original:'An ancient formation that began to weep water like tears',   // woken at ch748 (the thirteenth Evil); ch760 says it is gone and the Thirteenth Evil resolved (ch756-759 not yet sent): 13 / 15
    intel:[
      {label:'Signs', value:'Clear water drips from the stone without end; people nearby suffer headaches, dreams that are not theirs and spiritual exhaustion', spot:'hz741a'},
      {label:'Nature', value:'Its spiritual signature is unstable and fractured, with foreign influence mixed into the vale\'s healing currents', spot:'hz741c'},

@@ -118,7 +118,14 @@ function tarinPanel(){
   if(!tarinOpen()) return '';
   return `<h4>${portraitChip('assets/party/tarin.webp','Tarin Ash')} Tarin Ash: Border Contact</h4><div class="sm">Elise's childhood companion, found alive and living as Ash. He does not fight.</div><div class="sm"><b>Border Trail:</b> in the frontier, ambushes are rarer (22% instead of 40%) and minor encounters can be bypassed.</div>`;
 }
-(function(){ const _rc = rCase; rCase = function(){ return _rc() + mirellePanel() + elisePanel() + tarinPanel(); }; })();
+const yaleOpen = () => !!(G && G.flags && G.flags.sky_reunites_with_yale);
+function yalePanel(){
+  if(!yaleOpen()) return '';
+  const f = G.flags, son = !!f.blood_ritual_reveals_father_and_son, done = !!f.weeping_stone_resolved_thirteen_of_fifteen;
+  const lead = son ? 'Sky\'s master, and his father: the Weeping Stone said so, and neither has stopped calling the other what they always did. "You have always been my son, in every way that truly matters."' : 'The healer who raised Sky and trained him as his disciple. Strict, exact, and fonder than he admits.';
+  return `<h4>${portraitChip('assets/party/yale.webp','Master Yale')} Master Yale: Healer of Lingering Vale</h4><div class="sm">${lead} He stays in the Vale: an independent ally, not one of the travelling party.</div><div class="sm"><b>Specialty:</b> medicine, spiritual diagnosis, curse treatment, rare herbs, difficult cases. ${done ? 'The Stone is gone; more of his services are to come.' : 'More of his services open once the Weeping Stone is resolved.'}</div>`;
+}
+(function(){ const _rc = rCase; rCase = function(){ return _rc() + mirellePanel() + elisePanel() + tarinPanel() + yalePanel(); }; })();
 
 // from the coronation (ch576) Aster is King of Dragonvale: his title changes wherever the game shows it live (the chapter texts keep the title of their day)
 const asterKing = () => !!(G && G.flags && G.flags.aster_crowned_king);

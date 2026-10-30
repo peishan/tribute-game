@@ -9635,18 +9635,18 @@ LOCATIONS.southwest_road.spots.push(
   {id:'hz737d', kind:'investigate', n:'We\'re With You', icon:'🤝', ch:737, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
    desc:'The others.',
    clues:['Devon: "You\'re handling it well." Levi: "Knowing the way is different from facing what\'s waiting." Sally: "Take it at your own pace. We\'re with you."', 'The road to Lingering Vale is no longer a blank space on the map. It is a road to a place Sky remembers.'], rw:{xp:904400, gold:183180}, needFlag:'inv_hz737c', lockMsg:'🔒 Finish the previous clue first'},
-  {id:'hz738a', kind:'investigate', n:'The One Who Raised Me', icon:'🧓', ch:738, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
-   desc:'Not just a master.',
-   clues:['As they continue southwest, Sky speaks openly about the man who raised him. Sky: "He wasn\'t just my master. He was the one who raised me."', 'Levi: "He\'s the reason you\'re you, then." Sally: "That explains a lot."'], rw:{xp:904700, gold:183240}},
-  {id:'hz738b', kind:'investigate', n:'Again', icon:'🌿', ch:738, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
-   desc:'His strictness.',
-   clues:['Sky: "He was strict. Very strict. If I prepared herbs carelessly, he\'d make me redo it — sometimes ten times."', 'He taught me that careless preparation could harm people. Yale: "Again. Measure properly. Focus." He made me repeat foundational techniques until I could do them without thinking.'], rw:{xp:905000, gold:183300}, needFlag:'inv_hz738a', lockMsg:'🔒 Finish the previous clue first'},
-  {id:'hz738c', kind:'investigate', n:'Diagnose Before Treating', icon:'🩺', ch:738, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
-   desc:'His teaching.',
-   clues:['He always said: diagnose before treating. Yale: "What do you see? Look at their pulse, their complexion, their breath. Don\'t just treat the symptom."', 'When I got it wrong, he\'d be so exasperated... but he never stopped teaching me. Yale: "Again. Your mind is faster than your hands. Slow down. Feel it."'], rw:{xp:905300, gold:183360}, needFlag:'inv_hz738b', lockMsg:'🔒 Finish the previous clue first'},
-  {id:'hz738d', kind:'investigate', n:'His Strength, His Kindness', icon:'💙', ch:738, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
-   desc:'What Sky inherited.',
-   clues:['He acted like he didn\'t care about sentimentality... but he cared more than he admitted. Sky: "Looking back, so much of my personality came from him. My patience, my stubbornness... and apparently my habit of overthinking everything."', 'Jade: "It makes sense now. You have his strength... and his kindness." Levi: "...and his stubbornness." Sally: "And his terrible lecturing habit? You\'ve got that too."'], rw:{xp:905600, gold:183420}, needFlag:'inv_hz738c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz738a', kind:'investigate', n:'Strict, Demanding', icon:'🧓', ch:738, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'The man who raised him.',
+   clues:['As the party journeys towards Lingering Vale, Sky speaks more openly about the man he still calls "Master Yale." Jade: "You\'ve mentioned Master Yale several times. What was he like?" Sky: "Strict. Demanding. Impossible to please, sometimes." Levi: "That sounds familiar."', 'Sky: "He was also the man who raised me."'], rw:{xp:904700, gold:183240}},
+  {id:'hz738b', kind:'investigate', n:'Precision and the Root', icon:'🌿', ch:738, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Measure, diagnose, again.',
+   clues:['The careless apprentice. Yale: "Stronger is not always better. Prepare it again." Master Yale demanded precision because a healer\'s mistakes could harm the people who trusted him.', 'Diagnose before treating. Yale: "You have identified a symptom. Not the illness. Understand what is wrong before deciding how to heal it." Again. Yale: "Then the eleventh should be better." He never allowed me to substitute talent for discipline.'], rw:{xp:905000, gold:183300}, needFlag:'inv_hz738a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz738c', kind:'investigate', n:'The Care He Never Admitted', icon:'💙', ch:738, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Like a son.',
+   clues:['Yale: "Stubborn child." He rarely spoke about affection. He expressed it through everything he did.', 'He taught me medicine, yes. But he also taught me how to live. He treated me like a son, even though neither of us knew about the blood truth then.'], rw:{xp:905300, gold:183360}, needFlag:'inv_hz738b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz738d', kind:'investigate', n:'An Uncomfortable Resemblance', icon:'😌', ch:738, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'His habits.',
+   clues:['Jade: "You used to worry too much and refuse to rest, you said?" Sky: "Yes." Devon: "You still do." Levi: "And you tell us to rest while ignoring your own advice." Sally: "So that\'s where you learned it!"', 'Sky: "Unfortunately, I may have inherited more of his habits than I realized." Jade: "It sounds as though he taught you much more than medicine." Sky: "He did. He taught me how to heal people. And he taught me how to keep going." Neither of them knew that their bond held another truth. Sky: "I never needed to wonder who raised me."'], rw:{xp:905600, gold:183420}, needFlag:'inv_hz738c', lockMsg:'🔒 Finish the previous clue first'},
 );
 MISSIONS.push(
   {id:'m_s718', needCh:718, title:'Sera\'s Marriage', obj:{type:'steps', steps:[
@@ -9759,10 +9759,10 @@ MISSIONS.push(
      {label:'We\'re With You', spot:'hz737d'}]}, rw:{xp:1790000, gold:409400, rep:2852},
    subj:'The Road Southwest', body:'The story is not finished. — Jade'},
   {id:'m_s738', needCh:738, title:'Master Yale', obj:{type:'steps', steps:[
-     {label:'The One Who Raised Me', spot:'hz738a'},
-     {label:'Again', spot:'hz738b'},
-     {label:'Diagnose Before Treating', spot:'hz738c'},
-     {label:'His Strength, His Kindness', spot:'hz738d'}]}, rw:{xp:1792500, gold:410000, rep:2855},
+     {label:'Strict, Demanding', spot:'hz738a'},
+     {label:'Precision and the Root', spot:'hz738b'},
+     {label:'The Care He Never Admitted', spot:'hz738c'},
+     {label:'An Uncomfortable Resemblance', spot:'hz738d'}]}, rw:{xp:1792500, gold:410000, rep:2855},
    subj:'Master Yale', body:'The story is not finished. — Jade'}
 );
 LORE.push(
@@ -9784,7 +9784,7 @@ LORE.push(
   {ch:735, n:'The Heir of a Different Altan', t:'The pregnancy was announced and the unborn child formally recognised as a future Altan heir. For Mirelle, who long believed her body could no longer bear a child, it was the quiet climax. Sera saw that Altan no longer quite looked like the kingdom she left. Then a report came: a strange disturbance in Lingering Vale, Master Yale\'s home, a road Sky had spent years avoiding.'},
   {ch:736, n:'What Sky Remembers', t:'Sky\'s memories had recovered gradually: growing up in Lingering Vale, Master Yale raising and training him, his healer education, Yvette in his later childhood, leaving the Vale. He learned later that Yvette had brought him as an infant. Some things he forgot, and some he never knew, and that is different. With trouble in the Vale, he said he feared not that he would not recognise home, but that he would.'},
   {ch:737, n:'The Road Southwest', t:'The party left Altan for Lingering Vale and Sky corrected the old maps: the winter landslide closed one pass years ago, so they should take the longer, safer route. Roadside herbs, streams, a resting shrine and shortcuts Yale taught him came back to him. He grew quieter the closer they got, and the others told him to take it at his own pace. The road was no longer a blank space on the map.'},
-  {ch:738, n:'Master Yale', t:'Riding southwest, Sky spoke openly about Master Yale, who did not just train him but raised him: strict, making him redo careless work, drilling the basics until they were second nature, insisting on diagnosis before treatment, exasperated when he erred and never ceasing to teach. Sky saw his own patience, stubbornness and habit of overthinking as Yale\'s. He also taught him to look at the whole picture and to care about the people behind each case.'}
+  {ch:738, n:'Master Yale', t:'Riding toward Lingering Vale, Sky spoke openly about Master Yale: strict, demanding, the man who raised him. Yale insisted on precision because a healer\'s mistakes harm those who trust them, taught him to diagnose the root and not the symptom, and never let talent stand in for discipline. His affection went unspoken and showed in everything he did. Sky had inherited more of his habits than he realised. To Sky, Yale had always been teacher, guardian and family.'}
 );
 LOCATIONS.altan_buried_chamber.spots.push({id:'ash_fight_728', kind:'boss', n:'The Ashen Serpent', icon:'🐍', desc:'The Serpent as it truly is, in the buried chamber. It can be faced again here.', boss:'boss_ashen_serpent', add:[], lo:100, ch:728, needFlag:'inv_hz728d', lockMsg:'🔒 Learn the three phases first'});
 
@@ -10207,4 +10207,31 @@ LORE.push(
   {ch:753, n:'Blood Before the Stone', t:'Sky and Yale each gave blood to the ritual basin, because the deeper chamber needed compatible bloodline resonance. The Weeping Stone answered clearly: father and son. Yale said it aloud: Sky is my son.'},
   {ch:754, n:'Master', t:'After the Stone\'s answer, Sky and Yale were left with a word that already held everything: Master, meaning discipline, protection, childhood, home and love. Yale mourned that Yvette had known and left him anyway. Sky asked whether anything would change between them. Yale said no: Sky had always been his son in every way that truly matters.'},
   {ch:755, n:'Why Didn\'t She Tell You?', t:'With the truth known, Sky asked the question he had held for years: why Yvette hid the pregnancy, let Yale believe another man was involved, returned only when she was dying, and entrusted her son to his own father without ever telling either of them. Yale had no answer. He could learn her reasons only from her, someday, and said he would find her.'}
+);
+
+/* ---- Arc XXIX, chapter 760: the farewell at Lingering Vale ---- */
+LOCATIONS.lingering_vale.spots.push(
+  {id:'hz760a', kind:'investigate', n:'The Stone Is Gone', icon:'🏞️', ch:760, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Leaving the Vale.',
+   clues:['The party prepares to leave Lingering Vale. The Weeping Stone is gone, but its absence leaves behind new questions.', 'Sky and Yale have a quiet final scene before they leave.'], rw:{xp:1063100, gold:214920}},
+  {id:'hz760b', kind:'investigate', n:'Anything Different', icon:'🙇', ch:760, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'The name.',
+   clues:['Sky: "Master..." Yale: "You do not have to call me anything different." Sky: "Good. I\'ve spent too many years getting \'Master\' right. But I know what it means now."', 'Yale: "You have always understood more than you realized."'], rw:{xp:1063400, gold:214980}, needFlag:'inv_hz760a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz760c', kind:'investigate', n:'It Adds to It', icon:'💙', ch:760, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Disciple and son.',
+   clues:['Yale: "I raised you as my disciple. And in truth... I also raised you as my son, though neither of us knew it then." Sky: "The truth changes the history, Master. But it does not replace what we already had."', 'Yale: "No. It adds to it." Sky: "And I am grateful for all of it. — Master."'], rw:{xp:1063700, gold:215040}, needFlag:'inv_hz760b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz760d', kind:'investigate', n:'Something Swallowing Light', icon:'🌑', ch:760, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Thirteen of fifteen.',
+   clues:['With the Thirteenth Evil resolved, the party prepares to leave Lingering Vale and continue their journey. Before they leave, Sky receives another sign from the wider Fifteen-Evil network.', 'Sky: "The patterns are changing." Something has begun swallowing light. A new darkness stirs, and the next Evil awaits. Thirteen of Fifteen Evils resolved. Two remain.'], rw:{xp:1064000, gold:215100}, needFlag:'inv_hz760c', lockMsg:'🔒 Finish the previous clue first'},
+);
+MISSIONS.push(
+  {id:'m_s760', needCh:760, title:'The Man Who Was Already His Father', obj:{type:'steps', steps:[
+     {label:'The Stone Is Gone', spot:'hz760a'},
+     {label:'Anything Different', spot:'hz760b'},
+     {label:'It Adds to It', spot:'hz760c'},
+     {label:'Something Swallowing Light', spot:'hz760d'}]}, rw:{xp:1847500, gold:423200, rep:2921},
+   subj:'The Man Who Was Already His Father', body:'The story is not finished. — Jade'}
+);
+LORE.push(
+  {ch:760, n:'The Man Who Was Already His Father', t:'With the Weeping Stone gone and the thirteenth Evil resolved, Sky and Yale had a last quiet talk: Yale had raised Sky as his disciple and in truth as his son, and the truth changed the history without replacing it. Sky was grateful for all of it. Before the party left, Sky sensed a new sign in the Fifteen-Evil network: something swallowing light. Thirteen of fifteen are resolved and two remain.'}
 );
