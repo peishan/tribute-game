@@ -57,11 +57,12 @@ const EVILS = [
      {label:'Behaviour', value:'Warns intruders away', spot:'crown_warnings'},
      {label:'Guardians', value:'Spectral royal guard', spot:'approach_palace'},
      {label:'Origin', value:'A collective construct of the royal council', spot:'crown_origin'},
-     {label:'Purpose', value:'To keep the deepest chamber from those who do not understand', spot:'council_command'}]}, {id:'ashen_serpent', n:'The Ashen Serpent', epithet:'The Serpent in the Ashes', loc:'altan_capital', activeCh:716, home:'Beneath Altan', original:'A serpentine mark burned into the old coronation road',
+     {label:'Purpose', value:'To keep the deepest chamber from those who do not understand', spot:'council_command'}]}, {id:'ashen_serpent', n:'The Ashen Serpent', epithet:'The Serpent in the Ashes', loc:'altan_buried_chamber', activeCh:716, resolveCh:728, how:'destroyed', home:'Beneath Altan', original:'A serpentine mark burned into the old coronation road',   // fought and destroyed at ch728: 12 / 15
    intel:[
      {label:'Signs', value:'Warm ash that shifts against the wind, and a serpentine mark burned into the underside of stones unmoved for generations', spot:'hz716b'},
      {label:'Signature', value:'The same corruption as at the other Fifteen-Evil sites', spot:'hz717c'},
-     {label:'Age', value:'The buried layer is older than the present kingdom: it may have lain dormant beneath Altan for centuries', spot:'hz717a'}]}, {id:'mirror_queen', n:'The Mirror Queen', intel:[]},
+     {label:'Route', value:'It moved through old drainage, service and ritual tunnels in a ring beneath the central district', spot:'hz723b'},
+     {label:'Nature', value:'Not just a beast: a structure and a prison, broken and remade many times, held by something greater than itself', spot:'hz727c'}]}, {id:'mirror_queen', n:'The Mirror Queen', intel:[]},
   {id:'endless_winter', n:'The Endless Winter', epithet:'The Winter That Would Not End', loc:'frostveil_village', activeCh:582, resolveCh:608, how:'restored', home:'The Frostveil Range',   // Arc XXIII (design): restored to its place in the seasonal cycle at ch608; chapters not built yet
    original:'Unseasonal snow near the Frostveil Range', revised:{spot:'hz601a', t:'A part of the natural seasonal cycle that lost its way: not a monster, but a body unable to release what it absorbed'}, intel:[
      {label:'Signs', value:'Fires that give no heat; snow falling indoors; metal that freezes at a touch', spot:'hz588a'},
@@ -92,7 +93,7 @@ const EVIL_CLASSES = {
   construct:{icon:'🔷', n:'Preservation Construct', d:'An ancient magical system mistaken for an Evil.'},
 };
 const EVIL_CLS_RULES = {
-  ashen_serpent:[['hz716c','hostile']],
+  ashen_serpent:[['hz716c','hostile'],['hz719b','corrupted'],['hz727c','construct']],
   sky_eater:[['hz692a','hostile'],['hz693c','corrupted']],
   thorned_widow:[['witness_accounts','hostile'],['forest_spirit','corrupted']],
   mourning_hart:[['hart_protective','corrupted'],['hart_motive','restorable']],
