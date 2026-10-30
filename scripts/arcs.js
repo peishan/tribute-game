@@ -36,6 +36,7 @@ const ARCS = [
   {n:25, title:'The Flame Without a Voice', img:'assets/arcs/arc25.webp', after:635},   // ch636-660: the Silent Flame, the Old Beacon Road and Levi and Sally's wedding
   {n:26, title:'Where the Dead River Runs', img:'assets/arcs/arc26.webp', after:660},   // ch661-685: the Bone River and the first sign of the waking restoration network
   {n:27, title:'The Hunger Above', img:'assets/arcs/arc27.webp', after:685},   // ch686-710: the Sky Eater at the capital of Altan
+  {n:28, title:'The Ashen Serpent', img:'assets/arcs/arc28.webp', after:710},   // ch711-735: the coronation, the Ashen Serpent beneath Altan, and Rheon and Mirelle's wedding
   {n:29, title:'Weeping Stone', img:'assets/arcs/arc29.webp', after:735},   // ch736 on: Lingering Vale and the Weeping Stone (Arc XXVIII has no cover yet)
 ];
 /* End-of-arc splash (author): after ch436 the Levi and Sally relationship route starts and Sally rejoins for good. The caption is drawn over the art. */

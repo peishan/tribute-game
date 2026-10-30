@@ -50,7 +50,7 @@ Object.assign(USE, {
 const WEDDING_DROPS = [['firecracker',34],['party_popper',28],['red_packet',20],['double_happiness_sweets',12],['door_gift',6]];
 const ROC_WEDDING_DAYS = 3;   // Roc and Delilah are not royals like Adrian and Evelyne: a shorter, smaller celebration (author, ch463)
 const rocWeddingActive = () => !!G && !!G.flags && !!G.flags.roc_delilah_wed && G.rocWeddingDay !== undefined && G.day - G.rocWeddingDay <= ROC_WEDDING_DAYS;
-function weddingThemeActive(){ return (!!G && !!G.flags && !!G.flags.evelyne_wed && G.weddingDay !== undefined && G.day - G.weddingDay <= WEDDING_THEME_DAYS) || rocWeddingActive(); }
+function weddingThemeActive(){ return altanWeddingActive() || (!!G && !!G.flags && !!G.flags.evelyne_wed && G.weddingDay !== undefined && G.day - G.weddingDay <= WEDDING_THEME_DAYS) || rocWeddingActive(); }
 /* called when chapter 463 completes: starts the three-day celebration and shows the splash */
 function rocWeddingStart(){
   if(!G || G.rocWeddingDay !== undefined) return;
@@ -59,6 +59,7 @@ function rocWeddingStart(){
 }
 function showRocWedding(){ const el = $('arcpop'); if(!el) return; el.innerHTML = `<div class="arcbox"><img src="assets/events/roc_wedding.webp" alt="The wedding of Roc and Delilah"><div class="sm" style="text-align:center;margin:6px 0">🧧 The wedding of Roc and Delilah: three days of lanterns, firecrackers, red packets and door gifts.</div><button class="pri" onclick="closeArc()">Continue</button></div>`; el.classList.add('on'); }
 function weddingSync(){
+  if(typeof altanWeddingSync==='function') altanWeddingSync();
   if(G && G.ch >= 211 && !(G.arcSeen && G.arcSeen[9]) && typeof showArc==='function') setTimeout(() => showArc(9), 500);   // the Arc IX cover, also for saves already past ch210
   if(G && G.flags && G.flags.arc9_complete && !G.arc9Logged){ G.arc9Logged = true; chronicle('Arc IX ends: Adrian and Evelyne are married, Tribute and Dragonvale begin restoring cooperation, and the alliance reaches further than anyone knew.', '🏯'); save(); }
   if(G && G.flags && G.flags.adrian_evelyne_engaged && !G.engagedLogged){ G.engagedLogged = true; chronicle('Adrian Gold and Princess Evelyne became engaged. The king gave his blessing soon after.', '💍'); toast('💍 Adrian and Evelyne are engaged.'); save(); }
@@ -232,3 +233,24 @@ function rAdrian(){
    <div class="row" style="flex-wrap:wrap;margin:6px 0"><button ${ready?'':'disabled'} onclick="act(adrianResearch,'doc')">Research an ancient document</button><button ${ready?'':'disabled'} onclick="act(adrianResearch,'gap')">Identify an inconsistency</button></div>`;
 }
 deed('adr_six', 'world', 'The scholar at work', '📜', 'Adrian catalogued six documents and inconsistencies.', () => (G.adrRes && G.adrRes.n >= 6));
+
+/* =====================================================================
+   THE WEDDING OF KING RHEON AND QUEEN MIRELLE (Arc XXVIII, ch733): the same kind of kingdom-wide celebration as Adrian and Evelyne's, 14 in-game days of firecrackers, party poppers,
+   red packets and door gifts, with its banner and a "View the wedding" button. The picture is also the end-of-arc splash (arcs.js), so no second popup opens when it starts.
+   ===================================================================== */
+const altanWeddingActive = () => !!G && !!G.flags && !!G.flags.rheon_and_mirelle_wed && G.altanWeddingDay !== undefined && G.day - G.altanWeddingDay <= WEDDING_THEME_DAYS;
+function altanWeddingSync(){
+  if(!G || !G.flags || !G.flags.rheon_and_mirelle_wed || G.altanWeddingDay !== undefined) return;
+  G.altanWeddingDay = G.day; chronicle('The wedding of King Rheon and Queen Mirelle of Altan. The kingdom keeps the celebration for two weeks.', '🧧'); toast('🧧 The wedding of Rheon and Mirelle: Altan celebrates for 14 days of firecrackers, party poppers and red packets.'); save();
+}
+function showAltanWedding(){ const el = $('arcpop'); if(!el) return; el.innerHTML = `<div class="arcbox"><img src="assets/events/altan_wedding.webp" alt="The wedding of King Rheon and Queen Mirelle of Altan"><div class="sm" style="text-align:center;margin:6px 0">🧧 The wedding of Rheon and Mirelle: 14 days of lanterns, firecrackers, red packets and door gifts.</div><button class="pri" onclick="closeArc()">Continue</button></div>`; el.classList.add('on'); }
+(function(){
+  const _wb = weddingBanner;
+  weddingBanner = function(){
+    if(!altanWeddingActive()) return _wb();
+    const royalLater = G.weddingDay !== undefined && G.day - G.weddingDay <= WEDDING_THEME_DAYS && G.weddingDay > G.altanWeddingDay;
+    if(royalLater) return _wb();
+    const left = Math.max(0, WEDDING_THEME_DAYS - (G.day - G.altanWeddingDay));
+    return `<div class="panel" style="border-color:#c0392b"><b>🧧 The Wedding of King Rheon and Queen Mirelle</b><div class="sm">Altan celebrates: ${left} day${left===1?'':'s'} left. Enemies drop firecrackers, party poppers, red packets and wedding door gifts.</div><button onclick="showAltanWedding()">View the wedding</button></div>`;
+  };
+})();
