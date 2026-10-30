@@ -9787,3 +9787,51 @@ LORE.push(
   {ch:738, n:'Master Yale', t:'Riding southwest, Sky spoke openly about Master Yale, who did not just train him but raised him: strict, making him redo careless work, drilling the basics until they were second nature, insisting on diagnosis before treatment, exasperated when he erred and never ceasing to teach. Sky saw his own patience, stubbornness and habit of overthinking as Yale\'s. He also taught him to look at the whole picture and to care about the people behind each case.'}
 );
 LOCATIONS.altan_buried_chamber.spots.push({id:'ash_fight_728', kind:'boss', n:'The Ashen Serpent', icon:'🐍', desc:'The Serpent as it truly is, in the buried chamber. It can be faced again here.', boss:'boss_ashen_serpent', add:[], lo:100, ch:728, needFlag:'inv_hz728d', lockMsg:'🔒 Learn the three phases first'});
+
+/* ---- Arc XXVII, chapters 724 and 726: beneath the First Throne, the king before the crown ---- */
+LOCATIONS.altan_buried_chamber.spots.push(
+  {id:'hz724a', kind:'investigate', n:'Beneath the First Throne', icon:'🏛️', ch:724, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Where the routes meet.',
+   clues:['The routes converge beneath an older royal foundation. They find a vast chamber hidden under the current palace, older than the present kingdom.', 'The Serpent once occupied part of an ancient containment system.'], rw:{xp:943100, gold:190920}},
+  {id:'hz724b', kind:'investigate', n:'Prison, Guard or Part of the System', icon:'🐍', ch:724, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Rheon\'s question.',
+   clues:['Rheon: "Was it originally imprisoned here? Guarding something? Or incorporated into the system?" Mirelle: "The structure suggests purpose. This was not a simple lair."', 'Levi: "The corrosion patterns match the Serpent\'s current movements. The channels were altered over time."'], rw:{xp:943400, gold:190980}, needFlag:'inv_hz724a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz724c', kind:'investigate', n:'Repurposed Seals', icon:'🔬', ch:724, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Centuries of corruption.',
+   clues:['The Serpent\'s presence left marks throughout the system. Sky: "Parts of the seals have been repurposed. The original intent is difficult to read now."', 'Centuries of corruption transformed its role.'], rw:{xp:943700, gold:191040}, needFlag:'inv_hz724b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz724d', kind:'investigate', n:'A Prison That Looks Like a Key', icon:'🗝️', ch:724, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'The uncle\'s question.',
+   clues:['Uncle: "If it was a prison, why does it also look like a key? And if it was a key, what was it meant to open?" The system predates the current kingdom. It was built by an earlier dynasty, with knowledge that has been lost.', 'Sally: "Maybe it was never meant to be an enemy at first." Rheon: "There is a larger pattern." But the Serpent is still moving, and its purpose is not yet fully revealed.'], rw:{xp:944000, gold:191100}, needFlag:'inv_hz724c', lockMsg:'🔒 Finish the previous clue first'},
+);
+LOCATIONS.altan_capital.spots.push(
+  {id:'hz726a', kind:'investigate', n:'Before the Coronation', icon:'🔥', ch:726, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'The Serpent attacks.',
+   clues:['The Serpent attacks before Rheon\'s coronation can occur. Rheon takes command of Altan\'s defenses without hesitation.', 'Rheon: "Archers to the left! Hold the walls!" "Shield formation! Do not break!"'], rw:{xp:944300, gold:191160}},
+  {id:'hz726b', kind:'investigate', n:'Nobody Needs To', icon:'🛡️', ch:726, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Nobody has crowned him.',
+   clues:['Nobody has crowned him yet. Nobody needs to. Rheon: "We defend Altan! Stand with me!"', 'Soldiers follow him because he has already become their leader. Soldiers: "For Altan!" "For Rheon!"'], rw:{xp:944600, gold:191220}, needFlag:'inv_hz726a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz726c', kind:'investigate', n:'The Court Understands', icon:'🪭', ch:726, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Mirelle watches.',
+   clues:['Mirelle watches the court finally understand what the crisis had already shown.', 'The coronation is not what makes Rheon ready. It merely recognizes what has already happened.'], rw:{xp:944900, gold:191280}, needFlag:'inv_hz726b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz726d', kind:'investigate', n:'A King Is Not a Ceremony', icon:'👑', ch:726, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'The battle continues.',
+   clues:['In the face of the Serpent, Rheon did not wait for a crown. The battle for Altan continues.', 'A king is not defined by a ceremony. He is defined by the people who follow him, and the choices he makes when it matters most.'], rw:{xp:945200, gold:191340}, needFlag:'inv_hz726c', lockMsg:'🔒 Finish the previous clue first'},
+);
+MISSIONS.push(
+  {id:'m_s724', needCh:724, title:'Beneath the First Throne', obj:{type:'steps', steps:[
+     {label:'Beneath the First Throne', spot:'hz724a'},
+     {label:'Prison, Guard or Part of the System', spot:'hz724b'},
+     {label:'Repurposed Seals', spot:'hz724c'},
+     {label:'A Prison That Looks Like a Key', spot:'hz724d'}]}, rw:{xp:1757500, gold:401600, rep:2813},
+   subj:'Beneath the First Throne', body:'The story is not finished. — Jade'},
+  {id:'m_s726', needCh:726, title:'The King Before the Crown', obj:{type:'steps', steps:[
+     {label:'Before the Coronation', spot:'hz726a'},
+     {label:'Nobody Needs To', spot:'hz726b'},
+     {label:'The Court Understands', spot:'hz726c'},
+     {label:'A King Is Not a Ceremony', spot:'hz726d'}]}, rw:{xp:1762500, gold:402800, rep:2819},
+   subj:'The King Before the Crown', body:'The story is not finished. — Jade'}
+);
+LORE.push(
+  {ch:724, n:'Beneath the First Throne', t:'The routes of the ash converged on a vast chamber beneath the palace, older than the kingdom: part of an ancient containment system built by an earlier dynasty, its knowledge lost. The Serpent\'s role had been changed by centuries of corruption, and the system looked as much like a key as a prison. Rheon read it as another clue that the Fifteen are not random monsters but part of a larger pattern.'},
+  {ch:726, n:'The King Before the Crown', t:'When the Serpent attacked before the coronation, Rheon took command of Altan\'s defences without waiting for a crown: archers to the left, hold the walls, shield formation. The soldiers followed him because he had already become their leader. The coronation would only recognise what had already happened: a king is defined by the people who follow him and by the choices he makes when it matters most.'}
+);
