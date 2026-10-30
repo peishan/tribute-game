@@ -9835,3 +9835,30 @@ LORE.push(
   {ch:724, n:'Beneath the First Throne', t:'The routes of the ash converged on a vast chamber beneath the palace, older than the kingdom: part of an ancient containment system built by an earlier dynasty, its knowledge lost. The Serpent\'s role had been changed by centuries of corruption, and the system looked as much like a key as a prison. Rheon read it as another clue that the Fifteen are not random monsters but part of a larger pattern.'},
   {ch:726, n:'The King Before the Crown', t:'When the Serpent attacked before the coronation, Rheon took command of Altan\'s defences without waiting for a crown: archers to the left, hold the walls, shield formation. The soldiers followed him because he had already become their leader. The coronation would only recognise what had already happened: a king is defined by the people who follow him and by the choices he makes when it matters most.'}
 );
+
+/* ---- Arc XXVII, chapters 724 and 726: beneath the First Throne, the king before the crown ---- */
+LOCATIONS.altan_capital.spots.push(
+  {id:'hz700a', kind:'investigate', n:'Perhaps Consider Me', icon:'🌹', ch:700, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Aaliyah makes things worse.',
+   clues:['Aaliyah decides to make things worse.', 'Aaliyah: "If the concern is suitability, perhaps Your Highness should consider me instead."'], rw:{xp:973100, gold:196920}},
+  {id:'hz700b', kind:'investigate', n:'...What?', icon:'😳', ch:700, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Rheon\'s answer.',
+   clues:['Rheon: "...What?"', 'Rheon stares at her. Sera stares at her. The aunt stares at her. Mirelle is amused.'], rw:{xp:973400, gold:196980}, needFlag:'inv_hz700a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz700c', kind:'investigate', n:'Practically Siblings', icon:'🍵', ch:700, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Not the point.',
+   clues:['Rheon: "Aaliyah, we are practically siblings." Aaliyah: "That was not the point."', 'Sera: "What exactly was the point?"'], rw:{xp:973700, gold:197040}, needFlag:'inv_hz700b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz700d', kind:'investigate', n:'Nobody Knows', icon:'🤷', ch:700, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'The aunt too.',
+   clues:['Aunt: "I would also like to know."', 'Nobody knows what the point was.'], rw:{xp:974000, gold:197100}, needFlag:'inv_hz700c', lockMsg:'🔒 Finish the previous clue first'},
+);
+MISSIONS.push(
+  {id:'m_s700', needCh:700, title:'Aaliyah Interferes', obj:{type:'steps', steps:[
+     {label:'Perhaps Consider Me', spot:'hz700a'},
+     {label:'...What?', spot:'hz700b'},
+     {label:'Practically Siblings', spot:'hz700c'},
+     {label:'Nobody Knows', spot:'hz700d'}]}, rw:{xp:1697500, gold:387200, rep:2741},
+   subj:'Aaliyah Interferes', body:'The story is not finished. — Jade'}
+);
+LORE.push(
+  {ch:700, n:'Aaliyah Interferes', t:'At tea, with the question of Mirelle\'s suitability still hanging, Aaliyah suggested that Rheon might consider her instead. Rheon pointed out that they were practically siblings; she said that was not the point. Sera and the aunt both asked what the point was. Nobody knew.'}
+);
