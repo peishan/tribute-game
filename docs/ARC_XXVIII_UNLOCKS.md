@@ -1,0 +1,8 @@
+# Arc XXVII and XXVIII gameplay unlocks (built)
+From the author's list. All numbers and wording are first-pass. Code: `scripts/altancourt.js`.
+
+- **Altan Royal Court hub** (Altan Capital, from the coronation, ch730): "The Royal Court" spot. Audiences (once a day each) with the senior minister, the Royal Uncle, the Royal Aunt, Aaliyah, King Rheon and Sera; lines change with the story; each raises **court standing** (Newcomer to Confidant of the throne) and gives a little XP.
+- **Sky Eater hunts** (from ch708): "The Sky Above" hunt spot in the Altan high roads, the Altan pass, the Frostveil peaks, the mountain crossing and the Northern Frontier. Enemies: Drained Hawk, Skyfed Wisp, Hollow Raptor. Drops: Sky-Eater Scale, Skyfed Ash.
+- **Rheon, Silver Crown** (from ch708, in a fight he is not already in): any ally may call him as a temporary ally for three of his own turns (+30% ATK, MAG, DEF), once per battle and once per two in-game days; he is never saved with battle damage. Resting hair golden, battle hair silver-white (no separate portrait asset yet).
+- **Mirelle, Court Games** (Mirelle's Salon, from the wedding, ch733): eight cases in four kinds (cards, negotiation, bluffing, dispute resolution), one a day, each led by a party member (likelier with them present) or played straightforwardly. Four wins set `court_games_skilled`, which the later Altan reform quests can build on (the weaver's widow and the cross-rank union are already framed as first tests of the new law).
+- **Aaliyah Altan**: a recurring Altan questgiver (three errands). Relationship status: **deliberately single** (`aaliyah_single`). Nothing is reserved in play; **reserve a future partner only when a suitable unattached character appears.**
