@@ -18,8 +18,11 @@ Medicinal plants; diseased spiritual creatures; patients ordinary healers cannot
 - special diagnosis quests;
 - Lingering Vale remedies unavailable elsewhere.
 
-## After the father reveal
-Yale does not stop being Sky's master and become "Dad NPC": their old relationship stays intact and some quests change subtly. (Canon so far: Yale is Sky's teacher and biological father and **does not know** Sky is his son; nothing about this has been shown on a page yet, so nothing is built.)
+## The father reveal is now canon (ch753)
+The Blood Kinship Recognition at the Weeping Stone shows **Yale is Sky's father** (father and son, not ambiguous). Sky took Yale's surname by the tradition of disciples, which gave nothing away (ch747). Yvette Sue Valen never told Yale, and why is unanswered (ch755): Yale says he will find her someday. They keep "Master" and "son" together: "you have always been my son in every way that truly matters" (ch754).
+
+## After the father reveal (design note)
+Yale does not stop being Sky's master and become "Dad NPC": their old relationship stays intact and some quests change subtly. (Yale now knows (ch753).)
 
 ## Where he sits among healers
 - **Jenika:** the Pavilion's medical authority in Dragonvale.
@@ -27,4 +30,4 @@ Yale does not stop being Sky's master and become "Dad NPC": their old relationsh
 - **Sky:** the travelling field healer who learned from Yale and has developed beyond him.
 
 ## Built so far
-Nothing of the hub. Ch736-738 show Sky's memories of him (strict, "again", diagnose before treating, cares more than he admits) and the road to the Vale. The Vale, the Clinic and the quests wait for the pages.
+Lingering Vale is a place (ch739), Yale appears in ch740-755 as drawn. The hub services (Clinic, quests) are still not built: the Weeping Stone is unresolved, and more services are meant to open after it is.
