@@ -9,6 +9,14 @@
                         burns it. Sky's READ THE CORE shows the next surge; Jade's BREAK THE CORE (the corruption has gone too far to contain it) ends it, three tries at half strength for anyone else.
    Rheon (and Sera when she is in the party) joins the descent even if not one of the five. Companions and auto-battle use these actions themselves.
    ===================================================================== */
+// Release vs Destroy returns: the dead the ash kept standing in the old chambers are REMAINS too, so they can be stabilised and released (restoration materials, sometimes lore) or simply destroyed
+Object.assign(ENEMIES, {
+  ash_remnant:{n:'Ash Remnant',icon:'🪦',area:'dragon',hp:118,atk:20,mag:0,def:9,spd:10,xp:54,gold:24,traits:['corrupt','remains'],
+    moves:[{n:'Smothering Grasp',pow:1.1},{n:'Ember Collapse',pow:1.3}],drops:[{id:'skyfed_ash',chance:.1},{id:'spirit_thread',chance:.12}],desc:'One of the dead the ash kept standing: a restoration that never finished, still walking the old tunnels.'},
+});
+LOOT.ash_remnant = {guaranteed:[],rolls:[{id:'spirit_thread',chance:.12}]};
+if(LOCATIONS.altan_buried_chamber){ const h = LOCATIONS.altan_buried_chamber.spots.find(x => x.id==='ash_chambers_hunt'); if(h && !h.pool.includes('ash_remnant')) h.pool.push('ash_remnant','ash_remnant'); }
+if(typeof REMAINS!=='undefined' && !REMAINS.includes('ash_remnant')) REMAINS.push('ash_remnant');
 const ASH_KEY = 'boss_ashen_serpent';
 Object.assign(ENEMIES, {
   boss_ashen_serpent:{n:'The Ashen Serpent',icon:'🐍',area:'dragon',boss:true,hp:11600,atk:57,mag:59,def:34,spd:20,xp:4200,gold:3000,traits:['magic','corrupt'],
