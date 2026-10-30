@@ -9,3 +9,6 @@ Chapters 736-738 are built so far: Sky's memories have recovered (gradually, not
 ## Built
 - Places: **The Road Southwest to Lingering Vale** (from Altan Capital, four days). Lingering Vale itself is not yet a place.
 - The cover is in (tagline: "Some sorrows do not fade. They flow through stone."). It shows the five and an older bearded man with a grey topknot beside Sky, whom I have not named.
+
+## Master Yale
+Locked as a stationary allied quest giver and specialist healer at Lingering Vale, with a Clinic: see `docs/MASTER_YALE_PLAN.md`. Provisional until the chapters are drawn.
