@@ -39,7 +39,12 @@ const EVILS = [
      {label:'Origin', value:'An old beacon that carried warnings far and wide on voices given willingly', spot:'hz644b'},
      {label:'The turn', value:'In wartime rulers forced it to take voices, then whole communities, and it learned to take rather than receive', spot:'hz645c'},
      {label:'The cost', value:'Even its original function needs living offerings: there is no harmless state to restore it to', spot:'hz650d'}]},   // the fight is at ch653 and ch654 (The First Sound) resolves it: 9 / 15
-  {id:'weeping_stone', n:'The Weeping Stone', intel:[]},
+  {id:'weeping_stone', n:'The Weeping Stone', epithet:'The Evil of Borrowed Memory', loc:'weeping_roots', activeCh:741, home:'Lingering Vale', original:'An ancient formation that began to weep water like tears',   // woken at ch748 (the thirteenth Evil); not yet resolved: 12 / 15
+   intel:[
+     {label:'Signs', value:'Clear water drips from the stone without end; people nearby suffer headaches, dreams that are not theirs and spiritual exhaustion', spot:'hz741a'},
+     {label:'Nature', value:'Its spiritual signature is unstable and fractured, with foreign influence mixed into the vale\'s healing currents', spot:'hz741c'},
+     {label:'History', value:'It has reacted before: an old outbreak resembling a diseased or cursed treant, when the vale\'s great tree wept without end', spot:'hz744a'},
+     {label:'Roots', value:'A network of roots woven into ancient stonework beneath the whole region, converging on a structure older than the Vale', spot:'hz748c'}]},
   {id:'sky_eater', n:'The Sky Eater', epithet:'The Hunger Above', loc:'altan_high_roads', activeCh:692, resolveCh:708, how:'destroyed', home:'The upper skies', original:'A vast serpentine entity that hunts in the upper skies and feeds on vital energy',   // arrives at the capital at ch706, fought at ch707 and falls at ch708: 11 / 15
    intel:[
      {label:'Signs', value:'Livestock gone without a drop of blood, granaries opened from within, people weakened and children fallen ill for no reason', spot:'hz692a'},
@@ -94,6 +99,7 @@ const EVIL_CLASSES = {
   construct:{icon:'🔷', n:'Preservation Construct', d:'An ancient magical system mistaken for an Evil.'},
 };
 const EVIL_CLS_RULES = {
+  weeping_stone:[['hz741a','hostile'],['hz741c','corrupted'],['hz748c','construct']],
   ashen_serpent:[['hz716c','hostile'],['hz719b','corrupted'],['hz727c','construct']],
   sky_eater:[['hz692a','hostile'],['hz693c','corrupted']],
   thorned_widow:[['witness_accounts','hostile'],['forest_spirit','corrupted']],

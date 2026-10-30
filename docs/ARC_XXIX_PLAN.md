@@ -12,3 +12,13 @@ Chapters 736-738 are built so far: Sky's memories have recovered (gradually, not
 
 ## Master Yale
 Locked as a stationary allied quest giver and specialist healer at Lingering Vale, with a Clinic: see `docs/MASTER_YALE_PLAN.md`. Provisional until the chapters are drawn.
+
+## Built: chapters 739-755 (cover by the author, 'Weeping Stone')
+- 739-740: arrival at Lingering Vale (a settled vale, not a lost land; Elder Hua), the reunion with Master Yale.
+- 741-744: the Weeping Stone weeps; people suffer headaches, borrowed dreams and exhaustion; Sky leads the investigation; Yale joins (they look alike when focused); the records show an old outbreak like a diseased or cursed treant, and Yale will not answer.
+- 745-747: Yale's account of Yvette Sue Valen (his junior sister; he believed she took another man; she returned ill with a child and never named the father); Sky took Yale's surname by the disciples' custom.
+- 748-750: the roots beneath the Vale, the **thirteenth Evil beginning to wake**; the Stone reaches for Sky (bloodline and healing resonance, not the Gold Child, not the Black Pearl) and also reacts to Yale; their resonances match.
+- 751-755: the Blood Kinship Recognition is found; the ritual is postponed, then performed: **father and son**. "Master" and "son". Sky asks why Yvette never told him; Yale will find her someday.
+- **The Weeping Stone is registered** (active from 741, intel 741a, 741c, 744a, 748c). Unresolved, so the count stays 12 / 15.
+- Places: Lingering Vale (hub) and Beneath the Vale: the Roots of the Weeping Stone.
+- **Notes for the author:** (1) ch745 was sent twice with the same content and different panel layouts; the second is built. (2) 736 and 737 were re-sent; their images are replaced, the text is unchanged. (3) 742: the page puts "extra hands" on the fur-clad man (Devon), "deliberate?" on the archer (Levi) and "reacting to something?" on Sally; built that way. (4) Page 744 says Sky "recognizes details he has heard about his mother": built as drawn, not expanded. (5) 755 has Yale say he will "find her someday": Yvette's fate (alive or not) is left open here; earlier docs treat her as missing, not dead. (6) "Twenty-five years": taken as Sky's age; not otherwise used. (7) 753 says the ritual "opens the deeper chamber": the chamber is not drawn yet.
