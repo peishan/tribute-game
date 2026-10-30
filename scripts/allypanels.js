@@ -22,6 +22,9 @@ Object.assign(REL_ROUTES, {
       {n:'With child', flag:'mirelle_is_with_child'},
       {n:'A secret for now', flag:'pregnancy_kept_private_for_now'},
       {n:'The court asks about her', flag:'court_questions_mirelle'},
+      {n:'Refuses to be the exception', flag:'mirelle_refuses_exception'},
+      {n:'Asked to marry him', flag:'rheon_asks_mirelle_to_marry'},
+      {n:'King and Queen of Altan', flag:'rheon_and_mirelle_wed'},
     ] },
   aster_fen:{ label:'Aster & Fen', icon:'📜', members:['aster','fen'], story:true,
     open:() => !!G.flags.arc15_complete, begun:'',
@@ -138,3 +141,4 @@ const asterKing = () => !!(G && G.flags && G.flags.aster_crowned_king);
 
 // Object.assign copies a getter's value, so the Elise and Tarin note is made live here
 Object.defineProperty(REL_ROUTES.elise_tarin, 'note', {get(){ return G && G.flags && G.flags.elise_lives_elsewhere ? 'She has left the palace with him and is officially dead; the rest belongs to the chapters ahead.' : 'Nothing is decided: how this ends belongs to later chapters.'; }, configurable:true, enumerable:true});
+Object.defineProperty(REL_ROUTES.rheon_mirelle, 'label', {get:() => (G && G.flags && G.flags.rheon_and_mirelle_wed) ? 'King Rheon & Queen Mirelle' : 'Rheon & Mirelle', configurable:true, enumerable:true});
