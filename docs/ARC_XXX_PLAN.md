@@ -29,3 +29,6 @@
 - 771's last panel has a garbled caption (an inscription line) built as the visible text.
 - The Sunless Child is shown manifesting with pale long hair and a black face and glowing eyes, no child-like form; built as drawn.
 - Places added: the First Sunless Village, the Sunless Archive, the Sunless Zone (named for what the pages show).
+
+## Ch785 (the arc's last chapter) and the missing 782-784
+Ch785 closes Arc XXX with the teaser for the Mirror Queen and says fourteen Evils had fallen. The Sunless Child is therefore marked resolved at 784; chapters 782-784 (its fight and the choice) were not sent, so nothing of them is built. See ARC_XXXI_PLAN.md.
