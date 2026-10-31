@@ -39,12 +39,14 @@ const EVILS = [
      {label:'Origin', value:'An old beacon that carried warnings far and wide on voices given willingly', spot:'hz644b'},
      {label:'The turn', value:'In wartime rulers forced it to take voices, then whole communities, and it learned to take rather than receive', spot:'hz645c'},
      {label:'The cost', value:'Even its original function needs living offerings: there is no harmless state to restore it to', spot:'hz650d'}]},   // the fight is at ch653 and ch654 (The First Sound) resolves it: 9 / 15
-  {id:'weeping_stone', n:'The Weeping Stone', epithet:'The Evil of Borrowed Memory', loc:'weeping_roots', activeCh:741, resolveCh:760, how:'resolved', home:'Lingering Vale', original:'An ancient formation that began to weep water like tears',   // woken at ch748 (the thirteenth Evil); ch760 says it is gone and the Thirteenth Evil resolved (ch756-759 not yet sent): 13 / 15
+  {id:'weeping_stone', n:'The Weeping Stone', epithet:'The Evil of Borrowed Memory', loc:'weeping_roots', activeCh:741, resolveCh:759, how:'purified', home:'Lingering Vale', original:'An ancient formation that began to weep water like tears',   // woken at ch748 (the thirteenth Evil); fought at ch758 and purified at ch759: 13 / 15
    intel:[
      {label:'Signs', value:'Clear water drips from the stone without end; people nearby suffer headaches, dreams that are not theirs and spiritual exhaustion', spot:'hz741a'},
      {label:'Nature', value:'Its spiritual signature is unstable and fractured, with foreign influence mixed into the vale\'s healing currents', spot:'hz741c'},
      {label:'History', value:'It has reacted before: an old outbreak resembling a diseased or cursed treant, when the vale\'s great tree wept without end', spot:'hz744a'},
-     {label:'Roots', value:'A network of roots woven into ancient stonework beneath the whole region, converging on a structure older than the Vale', spot:'hz748c'}]},
+     {label:'Roots', value:'A network of roots woven into ancient stonework beneath the whole region, converging on a structure older than the Vale', spot:'hz748c'},
+     {label:'Source', value:'Beneath the Stone, a restoration and healing node corrupted so that it forces the living to relive old wounds and feeds on unresolved pain', spot:'hz756b'},
+     {label:'Purpose', value:'The node was built for restoration, never to cause pain: the Evil twisted its purpose', spot:'hz759b'}]},
   {id:'sky_eater', n:'The Sky Eater', epithet:'The Hunger Above', loc:'altan_high_roads', activeCh:692, resolveCh:708, how:'destroyed', home:'The upper skies', original:'A vast serpentine entity that hunts in the upper skies and feeds on vital energy',   // arrives at the capital at ch706, fought at ch707 and falls at ch708: 11 / 15
    intel:[
      {label:'Signs', value:'Livestock gone without a drop of blood, granaries opened from within, people weakened and children fallen ill for no reason', spot:'hz692a'},
@@ -55,7 +57,11 @@ const EVILS = [
      {label:'The remains', value:'Human, animal and ancient creatures, far more than any record accounts for, from different periods mixed together', spot:'hz664b'},
      {label:'The dead', value:'They rise and keep trying to go upstream, animated by restorative energy used the wrong way: preservation, not resurrection', spot:'hz668d'},
      {label:'Origin', value:'A neutral conduit of the restoration network, a vein carrying restorative energy between distant sites', spot:'hz672c'},
-     {label:'The cause', value:'Centuries of death, sealed energy, corrupted flow and failed reconstruction: it keeps trying to restore what cannot be restored', spot:'hz677d'}]}, {id:'sunless_child', n:'The Sunless Child', intel:[]},
+     {label:'The cause', value:'Centuries of death, sealed energy, corrupted flow and failed reconstruction: it keeps trying to restore what cannot be restored', spot:'hz677d'}]}, {id:'sunless_child', n:'The Sunless Child', activeCh:761, home:'Unknown', original:'Places where the sun is visible but its light does not arrive',   // the next Evil reveals itself at ch761; no place or nature is shown yet, so none is guessed: not yet resolved, 13 / 15
+   intel:[
+     {label:'Signs', value:'In the northern marches, the eastern coast and the central cities: the sun is visible but its light does not arrive; shadows misbehave and lamps will not burn', spot:'hz761c'},
+     {label:'Nature', value:'Not an eclipse and not natural: something is devouring the light', spot:'hz761d'},
+     {label:'Record', value:'An old Gold family record: the child of Gold who walks beneath a sun that cannot reach her', spot:'hz762b'}]},
   {id:'drowned_crown', n:'The Drowned Crown', loc:'sunken_kingdom', activeCh:177, resolveCh:182, how:'reclassified', home:'The Sunken Kingdom',
    original:'Cursed monarch and destroyer (Dragonvale\'s histories)', revised:{spot:'crown_recognition', t:'An ancient royal preservation construct: the council\'s final command, not an Evil'}, intel:[
      {label:'Sentience', value:'Many voices layered through time', spot:'drowned_crown_meet'},
@@ -99,7 +105,8 @@ const EVIL_CLASSES = {
   construct:{icon:'🔷', n:'Preservation Construct', d:'An ancient magical system mistaken for an Evil.'},
 };
 const EVIL_CLS_RULES = {
-  weeping_stone:[['hz741a','hostile'],['hz741c','corrupted'],['hz748c','construct']],
+  sunless_child:[['hz761b','hostile']],
+  weeping_stone:[['hz741a','hostile'],['hz741c','corrupted'],['hz748c','construct'],['hz756b','corrupted'],['hz759b','restorable']],
   ashen_serpent:[['hz716c','hostile'],['hz719b','corrupted'],['hz727c','construct']],
   sky_eater:[['hz692a','hostile'],['hz693c','corrupted']],
   thorned_widow:[['witness_accounts','hostile'],['forest_spirit','corrupted']],
