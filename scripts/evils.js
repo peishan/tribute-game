@@ -57,11 +57,13 @@ const EVILS = [
      {label:'The remains', value:'Human, animal and ancient creatures, far more than any record accounts for, from different periods mixed together', spot:'hz664b'},
      {label:'The dead', value:'They rise and keep trying to go upstream, animated by restorative energy used the wrong way: preservation, not resurrection', spot:'hz668d'},
      {label:'Origin', value:'A neutral conduit of the restoration network, a vein carrying restorative energy between distant sites', spot:'hz672c'},
-     {label:'The cause', value:'Centuries of death, sealed energy, corrupted flow and failed reconstruction: it keeps trying to restore what cannot be restored', spot:'hz677d'}]}, {id:'sunless_child', n:'The Sunless Child', activeCh:761, home:'Unknown', original:'Places where the sun is visible but its light does not arrive',   // the next Evil reveals itself at ch761; no place or nature is shown yet, so none is guessed: not yet resolved, 13 / 15
+     {label:'The cause', value:'Centuries of death, sealed energy, corrupted flow and failed reconstruction: it keeps trying to restore what cannot be restored', spot:'hz677d'}]}, {id:'sunless_child', n:'The Sunless Child', epithet:'Born Beneath a Dead Sun', loc:'sunless_dark_zone', activeCh:761, home:'The Sunless Zone', original:'Places where the sun is visible but its light does not arrive',   // identified at ch775 as the Fourteenth Evil: an ancient entity, never a human child; manifests at ch780; not yet resolved: 13 / 15
    intel:[
-     {label:'Signs', value:'In the northern marches, the eastern coast and the central cities: the sun is visible but its light does not arrive; shadows misbehave and lamps will not burn', spot:'hz761c'},
-     {label:'Nature', value:'Not an eclipse and not natural: something is devouring the light', spot:'hz761d'},
-     {label:'Record', value:'An old Gold family record: the child of Gold who walks beneath a sun that cannot reach her', spot:'hz762b'}]},
+     {label:'Signs', value:'The sun is visible but its light does not arrive: lamps will not burn, plants no longer turn to the sun, shadows disappear', spot:'hz766b'},
+     {label:'Route', value:'The affected areas lie along ancient routes connected to the old seals and energy channels: it uses the existing system', spot:'hz769c'},
+     {label:'Identity', value:'Not a human child but an ancient entity born beneath a dead sun: the name survived while the meaning was lost', spot:'hz775a'},
+     {label:'Method', value:'It feeds through the ancient network and is amplified by the dormant structures it wakes; fused with a solar restoration conduit it turns it into a draining system', spot:'hz780c'},
+     {label:'Tactic', value:'It shows Jade possible futures to make her fear choosing wrong', spot:'hz781c'}]},
   {id:'drowned_crown', n:'The Drowned Crown', loc:'sunken_kingdom', activeCh:177, resolveCh:182, how:'reclassified', home:'The Sunken Kingdom',
    original:'Cursed monarch and destroyer (Dragonvale\'s histories)', revised:{spot:'crown_recognition', t:'An ancient royal preservation construct: the council\'s final command, not an Evil'}, intel:[
      {label:'Sentience', value:'Many voices layered through time', spot:'drowned_crown_meet'},
@@ -105,7 +107,7 @@ const EVIL_CLASSES = {
   construct:{icon:'🔷', n:'Preservation Construct', d:'An ancient magical system mistaken for an Evil.'},
 };
 const EVIL_CLS_RULES = {
-  sunless_child:[['hz761b','hostile']],
+  sunless_child:[['hz761b','hostile'],['hz775a','corrupted'],['hz780c','construct']],
   weeping_stone:[['hz741a','hostile'],['hz741c','corrupted'],['hz748c','construct'],['hz756b','corrupted'],['hz759b','restorable']],
   ashen_serpent:[['hz716c','hostile'],['hz719b','corrupted'],['hz727c','construct']],
   sky_eater:[['hz692a','hostile'],['hz693c','corrupted']],
