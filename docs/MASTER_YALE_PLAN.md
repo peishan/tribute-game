@@ -30,4 +30,4 @@ Yale does not stop being Sky's master and become "Dad NPC": their old relationsh
 - **Sky:** the travelling field healer who learned from Yale and has developed beyond him.
 
 ## Built so far
-Lingering Vale is a place (ch739), Yale appears in ch740-755 as drawn. The hub services (Clinic, quests) are still not built: the Weeping Stone is unresolved, and more services are meant to open after it is.
+Lingering Vale is a place (ch739), Yale appears in ch740-755 as drawn. The hub services (Clinic, quests) are still not built: the Weeping Stone is now resolved (ch759), so the Clinic and quests can be built when you want them.
