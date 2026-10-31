@@ -57,7 +57,7 @@ const EVILS = [
      {label:'The remains', value:'Human, animal and ancient creatures, far more than any record accounts for, from different periods mixed together', spot:'hz664b'},
      {label:'The dead', value:'They rise and keep trying to go upstream, animated by restorative energy used the wrong way: preservation, not resurrection', spot:'hz668d'},
      {label:'Origin', value:'A neutral conduit of the restoration network, a vein carrying restorative energy between distant sites', spot:'hz672c'},
-     {label:'The cause', value:'Centuries of death, sealed energy, corrupted flow and failed reconstruction: it keeps trying to restore what cannot be restored', spot:'hz677d'}]}, {id:'sunless_child', n:'The Sunless Child', epithet:'Born Beneath a Dead Sun', loc:'sunless_dark_zone', activeCh:761, home:'The Sunless Zone', original:'Places where the sun is visible but its light does not arrive',   // identified at ch775 as the Fourteenth Evil: an ancient entity, never a human child; manifests at ch780; not yet resolved: 13 / 15
+     {label:'The cause', value:'Centuries of death, sealed energy, corrupted flow and failed reconstruction: it keeps trying to restore what cannot be restored', spot:'hz677d'}]}, {id:'sunless_child', n:'The Sunless Child', epithet:'Born Beneath a Dead Sun', loc:'sunless_dark_zone', activeCh:761, resolveCh:784, how:'destroyed', home:'The Sunless Zone', original:'Places where the sun is visible but its light does not arrive',   // identified at ch775 as the Fourteenth Evil: an ancient entity, never a human child; manifests at ch780; ch785 says fourteen had fallen, so it is resolved by ch784 (782-784 not yet sent): 14 / 15
    intel:[
      {label:'Signs', value:'The sun is visible but its light does not arrive: lamps will not burn, plants no longer turn to the sun, shadows disappear', spot:'hz766b'},
      {label:'Route', value:'The affected areas lie along ancient routes connected to the old seals and energy channels: it uses the existing system', spot:'hz769c'},
@@ -76,7 +76,14 @@ const EVILS = [
      {label:'Signature', value:'The same corruption as at the other Fifteen-Evil sites', spot:'hz717c'},
      {label:'Origin', value:'Part of an ancient containment system beneath the First Throne, built by an earlier dynasty, its role changed by centuries of corruption', spot:'hz724b'},
      {label:'Route', value:'It moved through old drainage, service and ritual tunnels in a ring beneath the central district', spot:'hz723b'},
-     {label:'Nature', value:'Not just a beast: a structure and a prison, broken and remade many times, held by something greater than itself', spot:'hz727c'}]}, {id:'mirror_queen', n:'The Mirror Queen', intel:[]},
+     {label:'Nature', value:'Not just a beast: a structure and a prison, broken and remade many times, held by something greater than itself', spot:'hz727c'}]}, {id:'mirror_queen', n:'The Mirror Queen', epithet:'The Queen Behind the Glass', loc:'mirror_chamber', activeCh:785, home:'The Mirror Roads', original:'Reflections that behave on their own',   // the fifteenth Evil, revealed at ch785; speaks at ch797; no fight yet: 14 / 15 while she lives
+   intel:[
+     {label:'Signs', value:'Reflections move before their owners, show younger and older selves and rooms that do not exist; people disappear while their reflection remains', spot:'hz786d'},
+     {label:'Method', value:'It compares you against other possible versions of yourself and builds replacements from what the Mirror remembers: close, but not the same', spot:'hz790d'},
+     {label:'Network', value:'The mirrors lie along the old Mirror Roads of the era of the Fifteen; fourteen nodes are quiet and the fifteenth is feeding on the network', spot:'hz793d'},
+     {label:'Origin', value:'The Queen Behind the Glass: a title from before the current dynasties, possibly the origin of the network', spot:'hz794d'},
+     {label:'Limit', value:'The system can restore damaged life but cannot restore someone truly dead: past that limit she made copies', spot:'hz796a'},
+     {label:'Creed', value:'If a perfect pattern exists, loss can be corrected: she confuses continuity with perfection', spot:'hz797b'}]},
   {id:'endless_winter', n:'The Endless Winter', epithet:'The Winter That Would Not End', loc:'frostveil_village', activeCh:582, resolveCh:608, how:'restored', home:'The Frostveil Range',   // Arc XXIII (design): restored to its place in the seasonal cycle at ch608; chapters not built yet
    original:'Unseasonal snow near the Frostveil Range', revised:{spot:'hz601a', t:'A part of the natural seasonal cycle that lost its way: not a monster, but a body unable to release what it absorbed'}, intel:[
      {label:'Signs', value:'Fires that give no heat; snow falling indoors; metal that freezes at a touch', spot:'hz588a'},
@@ -107,6 +114,7 @@ const EVIL_CLASSES = {
   construct:{icon:'🔷', n:'Preservation Construct', d:'An ancient magical system mistaken for an Evil.'},
 };
 const EVIL_CLS_RULES = {
+  mirror_queen:[['hz786d','hostile'],['hz790d','corrupted'],['hz796d','construct']],
   sunless_child:[['hz761b','hostile'],['hz775a','corrupted'],['hz780c','construct']],
   weeping_stone:[['hz741a','hostile'],['hz741c','corrupted'],['hz748c','construct'],['hz756b','corrupted'],['hz759b','restorable']],
   ashen_serpent:[['hz716c','hostile'],['hz719b','corrupted'],['hz727c','construct']],
