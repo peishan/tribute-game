@@ -56,3 +56,6 @@ Levi and Sally in red wedding robes under a double-happiness window, `assets/arc
 | Silent Flame encounter | Built: a standing boss entry at the Silent Furnace, replayable after 654. |
 | Arc outcome | Silent Flame destroyed (650); Levi and Sally married (659); Sky and Jenika together, Sky unaware (660); Aster and Fen stable (636, 631-635); Evils 9 / 15 (654). A new Questions row asks what Jenika needs to tell Sky. |
 | Elise and Tarin as covert and frontier quest-givers | **Not built.** The Hidden Frontier Network, disguise missions, the Arc XXIV suspicion meter, the hidden-identity flag, Pavilion support access and the reform prelude (docs/ARC_XXIV_PLAN.md) are still design only; Elise and Tarin only have their earlier Border Ally and Border Trail panels, updated to say they are away and officially dead. |
+
+## Built later: pursuit quests (scripts/pursuits.js)
+The Pursuit Board (Tribute, Dragonvale and Altan from ch647): four pursuits of three stages (read the trail, read the indicators, make the catch). Levi in the active party gives 85% odds, the quarry revealed and the first blow; without him 45% and no reveal. First-pass numbers.
