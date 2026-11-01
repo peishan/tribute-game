@@ -76,14 +76,15 @@ const EVILS = [
      {label:'Signature', value:'The same corruption as at the other Fifteen-Evil sites', spot:'hz717c'},
      {label:'Origin', value:'Part of an ancient containment system beneath the First Throne, built by an earlier dynasty, its role changed by centuries of corruption', spot:'hz724b'},
      {label:'Route', value:'It moved through old drainage, service and ritual tunnels in a ring beneath the central district', spot:'hz723b'},
-     {label:'Nature', value:'Not just a beast: a structure and a prison, broken and remade many times, held by something greater than itself', spot:'hz727c'}]}, {id:'mirror_queen', n:'The Mirror Queen', epithet:'The Queen Behind the Glass', loc:'mirror_chamber', activeCh:785, home:'The Mirror Roads', original:'Reflections that behave on their own',   // the fifteenth Evil, revealed at ch785; speaks at ch797; no fight yet: 14 / 15 while she lives
+     {label:'Nature', value:'Not just a beast: a structure and a prison, broken and remade many times, held by something greater than itself', spot:'hz727c'}]}, {id:'mirror_queen', n:'The Mirror Queen', epithet:'The Queen Behind the Glass', loc:'mirror_chamber', activeCh:785, resolveCh:807, how:'destroyed', home:'The Mirror Roads', original:'Reflections that behave on their own',   // the fifteenth Evil, revealed at ch785; speaks at ch797; fought and destroyed at ch807: 15 / 15
    intel:[
      {label:'Signs', value:'Reflections move before their owners, show younger and older selves and rooms that do not exist; people disappear while their reflection remains', spot:'hz786d'},
      {label:'Method', value:'It compares you against other possible versions of yourself and builds replacements from what the Mirror remembers: close, but not the same', spot:'hz790d'},
      {label:'Network', value:'The mirrors lie along the old Mirror Roads of the era of the Fifteen; fourteen nodes are quiet and the fifteenth is feeding on the network', spot:'hz793d'},
      {label:'Origin', value:'The Queen Behind the Glass: a title from before the current dynasties, possibly the origin of the network', spot:'hz794d'},
      {label:'Limit', value:'The system can restore damaged life but cannot restore someone truly dead: past that limit she made copies', spot:'hz796a'},
-     {label:'Creed', value:'If a perfect pattern exists, loss can be corrected: she confuses continuity with perfection', spot:'hz797b'}]},
+     {label:'Creed', value:'If a perfect pattern exists, loss can be corrected: she confuses continuity with perfection', spot:'hz797b'},
+     {label:'Nature', value:'Not one body but a system, an ancient mirror-array that has been collecting patterns and trying to become a person', spot:'hz806c'}]},
   {id:'endless_winter', n:'The Endless Winter', epithet:'The Winter That Would Not End', loc:'frostveil_village', activeCh:582, resolveCh:608, how:'restored', home:'The Frostveil Range',   // Arc XXIII (design): restored to its place in the seasonal cycle at ch608; chapters not built yet
    original:'Unseasonal snow near the Frostveil Range', revised:{spot:'hz601a', t:'A part of the natural seasonal cycle that lost its way: not a monster, but a body unable to release what it absorbed'}, intel:[
      {label:'Signs', value:'Fires that give no heat; snow falling indoors; metal that freezes at a touch', spot:'hz588a'},

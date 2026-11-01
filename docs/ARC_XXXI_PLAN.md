@@ -1,4 +1,4 @@
-# ARC XXXI: THE MIRROR QUEEN (chapters 786-800 built; the cover has not been sent)
+# ARC XXXI: THE MIRROR QUEEN (chapters 785-810 built; cover in; only ch783 is missing)
 Ch785 ends Arc XXX with the teaser card **"15th Evil: Mirror Queen. Next: Arc XXXI, The Mirror Queen."** It states that **fourteen had fallen and one remained**, so the Sunless Child is marked resolved by ch784. **Chapters 782-784 have not been sent** (they must show its fall): its fight, the choice at the passage structure and its aftermath are not built.
 
 ## What the pages show
@@ -21,3 +21,16 @@ Ch785 ends Arc XXX with the teaser card **"15th Evil: Mirror Queen. Next: Arc XX
 - 794: Mirelle is shown at the Tribute library (she was kept in Altan in 787); the story text does not explain the travel.
 - Arc XXXI has no cover yet; chapter labels read "cover to come".
 - New place: **The Mirror Chamber** (from 797).
+
+## Chapters 782, 784 and 801-810 (sent later)
+- **782 Jade Refuses the Answer:** the Sunless Child offers certainty ("one path, one answer"); Jade refuses: "That is not a choice. That is control." Her refusal breaks its psychological hold. **784 Fourteen of Fifteen:** light returns, the rescued child's shadow comes back, the Fifteen form a nearly complete pattern. **Chapter 783 (the Sunless Child's fall) is the only chapter still missing**; the Sunless Child stays resolved at 784 and 783 is assumed to be the fight.
+- **801-806:** the true Mirror chamber beneath an ancient restoration complex matches fragments from the Bone River, Silent Flame, Weeping Stone and Sunless Child sites: the Fifteen were integrated into a larger structure. Records untouched by time show **Xima deliberately altered the system** ("she didn't just use it, she rewrote it"; fifteen was intentional: a completed cycle). Fifteen seats, fourteen dark; the Queen holds the last; nobody knows what wakes when she falls. The Queen makes copies of the party from patterns collected from everyone who ever entered her system; **Jade's copy** believes it is the rightful Jade Gold: Jade defeats it not by saying "you are fake" but "you are not me anymore". The copies resist and the Queen is shown to be an ancient mirror-array trying to become a person.
+- **807 Boss Battle: The Mirror Queen (scripts/mirrorqueen.js):** four phases as labelled: **Reflected Party** (five reflections soak blows; Face Your Reflection), **Restoration Loop** (7% heal a round until Sky identifies the core), **Perfect Reflection** (an ally is lured each round and loses a turn by choosing their real life; the Queen takes 30% while anyone is lured) and **Break the Pattern** (Jade severs the stored identities, Devon stabilises the structure, Sky prevents the collapse; others help at half strength). Replay at the Mirror Chamber. She is destroyed: **15 / 15 Evils resolved** (the deed "Fifteen names, fifteen answers" unlocks). First-pass numbers.
+- **808 Fifteen:** every Fifteen-Evil site reacts together (seals extinguish, routes light, buried structures begin communicating); the Fifteen were occupying the old system and their removal wakes something underneath. **809 The Pearl Answers:** the Black Pearl resonates with the network ("The bearer carries the Pearl until the network calls it home"). **810 Returning Pearl:** "Fifteen was never the ending. It was the lock." Ends with a "Next: Arc XXXII, Returning Pearl" card.
+- **Cover:** the Arc XXXI cover is in; the five, Mirelle (reading) and the Queen's face behind. Chapter labels no longer say "cover to come".
+
+## Notes for the author
+- 801's art shows eight figures (including a silver-haired one); only the party is named in the text.
+- 807's Phase III shows idealised embraces (Jade with a child, Devon with a child, Sky with a white-haired figure, Levi with a laughing boy): built as "idealised lives", with no one named.
+- The Sky/Levi/Sally temptations were shown in 807 rather than as separate chapters.
+- 784's text names Adrian; 783 would sit between the 782 refusal and the light returning.
