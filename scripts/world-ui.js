@@ -179,6 +179,7 @@ function rSpot(L, sp){
     case 'frontlegacy': body = typeof rFrontLegacy==='function' ? rFrontLegacy() : ''; break;
     case 'frontchoice': body = typeof rFrontChoice==='function' ? rFrontChoice() : ''; break;
     case 'frontcache': body = typeof rFrontCache==='function' ? rFrontCache() : ''; break;
+    case 'clinic': body = typeof rClinic==='function' ? rClinic() : ''; break;
     case 'court': body = typeof rCourt==='function' ? rCourt() : ''; break;
     case 'salon': body = typeof rSalon==='function' ? rSalon() : ''; break;
     case 'current': body = typeof rCurrent==='function' ? rCurrent() : ''; break;

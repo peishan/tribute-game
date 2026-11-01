@@ -31,3 +31,6 @@ Yale does not stop being Sky's master and become "Dad NPC": their old relationsh
 
 ## Built so far
 Lingering Vale is a place (ch739), Yale appears in ch740-755 as drawn. The hub services (Clinic, quests) are still not built: the Weeping Stone is now resolved (ch759), so the Clinic and quests can be built when you want them.
+
+## Built (scripts/yaleclinic.js)
+**Master Yale's Clinic** at Lingering Vale from ch740: Treatment (full HP/MP once a day), Vale remedies (Vale Tonic, Clear-Mind Tea), medicines to prepare (Vale Panacea, Master's Draught), Sky's training (Healer's Insight, three permanent ranks; rank 3 after ch759) and five diagnosis cases that need Sky. After the father reveal (ch753) his lines change subtly: still master first. First-pass numbers. Not built: condition removal beyond the party's HP/MP and cleanse items (battle conditions do not persist), a Yale-led quest chain for lost healer texts and restoration anomalies, and apprentices as recurring NPCs.
