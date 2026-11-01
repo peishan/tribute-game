@@ -34,3 +34,5 @@ Ch785 ends Arc XXX with the teaser card **"15th Evil: Mirror Queen. Next: Arc XX
 - 807's Phase III shows idealised embraces (Jade with a child, Devon with a child, Sky with a white-haired figure, Levi with a laughing boy): built as "idealised lives", with no one named.
 - The Sky/Levi/Sally temptations were shown in 807 rather than as separate chapters.
 - 784's text names Adrian; 783 would sit between the 782 refusal and the light returning.
+
+The author's own brief for this arc is saved in `docs/ARC_XXXI_BRIEF.md`.
