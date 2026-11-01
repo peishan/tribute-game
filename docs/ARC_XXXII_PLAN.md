@@ -10,3 +10,5 @@ Opens right after 15 / 15. Per ENDGAME_PLAN this arc is the Pearl Chamber rebuil
 ## Notes
 - The Pearl Chamber at Dragonvale is not yet a place of its own: chapters 813-814 are located at Dragonvale. A later chapter will need the rebuild mechanic and Dragon Manifestation (see ENDGAME_PLAN D-list).
 - No Arc XXXII cover or title card has been sent beyond the "Next: Arc XXXII, Returning Pearl" card on 810.
+
+The author's brief for chapters 811-830 is saved in `docs/ARC_XXXII_BRIEF.md`; 815-830 are not built yet.
