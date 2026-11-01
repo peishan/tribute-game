@@ -18,3 +18,5 @@ The author's brief for chapters 811-830 is saved in `docs/ARC_XXXII_BRIEF.md`; 8
 Pages 827 and 826 were uploaded in swapped order; they are built by their title cards.
 **Built game content:** the **Pearl Chamber** is now a place at Dragonvale (it replaces the old sealed ch999 placeholder boss spot, which is removed), and from ch825 *The Central Interface* shows the network's fifteen former sites healing slowly; from ch827 Devon can **Attune** once a day (scripts/custodian.js). **Not built:** a Pearl-in-interface minigame; Dragon Manifestation.
 **Still to come:** 830 The Door Beneath the Network (not sent) and the Arc XXXII cover.
+
+The next arc's brief is saved in `docs/ARC_XXXIII_BRIEF.md` (Arc XXXIII, Sisters Rise, chapters 831-850; pages not yet sent).
