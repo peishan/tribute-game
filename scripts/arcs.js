@@ -70,8 +70,15 @@ function arcAfterChapter(n){
   if(e && !(G.arcSeen && G.arcSeen[e.key])){ if(cover) ARC_QUEUE = a.n; setTimeout(() => showArcEnd(e.key), 400); }   // the end of an arc first, then the next arc's cover
   else if(cover) setTimeout(() => showArc(a.n), 400);
 }
-function arcOnNewGame(){ setTimeout(() => showArc(1), 300); }
+/* The World of Lunareth page (author's third option): shown once on a new journey, right after the landing splash and before the Prologue's arc cover; viewable again from the Cast tab. */
+function showWorldIntro(manual){
+  const el = $('arcpop'); if(!el) return;
+  if(!manual){ if(G){ G.worldSeen = true; save(); } ARC_QUEUE = 1; }
+  el.innerHTML = `<div class="arcbox"><img src="assets/events/lunareth.webp" alt="The World of Lunareth: the story of Tribute unfolds in Lunareth"><button class="pri" onclick="closeArc()">${manual?'Close':'Begin the Prologue'}</button></div>`;
+  el.classList.add('on');
+}
+function arcOnNewGame(){ setTimeout(() => showWorldIntro(false), 300); }
 function rArcGallery(){
   const seen = G.arcSeen || {};
-  return `<h4>Arc covers</h4><div class="row" style="flex-wrap:wrap">${ARCS.map(a => seen[a.n] ? `<button onclick="showArc(${a.n},true)">Arc ${ARC_ROMAN[a.n]} · ${a.title}</button>` : `<button disabled>Arc ${ARC_ROMAN[a.n]} · ???</button>`).join('')}${ARC_END_SPLASH.map(a => seen[a.key] ? `<button onclick="showArcEnd('${a.key}',true)">${a.text}</button>` : '').join('')}${ARCS.filter(a => a.cast).map(a => seen[a.n] && G.ch >= a.castCh ? `<button onclick="showArc(${a.n},true,true)">Arc ${ARC_ROMAN[a.n]} cast</button>` : `<button disabled>Arc ${ARC_ROMAN[a.n]} cast · ???</button>`).join('')}</div>${typeof G!=='undefined' && G.weddingDay!==undefined ? `<div class="row" style="margin-top:6px"><button onclick="showWedding()">🧧 The Royal Wedding</button></div>` : ''}`;
+  return `<h4>Arc covers</h4><div class="row" style="flex-wrap:wrap"><button onclick="showWorldIntro(true)">The World of Lunareth</button>${ARCS.map(a => seen[a.n] ? `<button onclick="showArc(${a.n},true)">Arc ${ARC_ROMAN[a.n]} · ${a.title}</button>` : `<button disabled>Arc ${ARC_ROMAN[a.n]} · ???</button>`).join('')}${ARC_END_SPLASH.map(a => seen[a.key] ? `<button onclick="showArcEnd('${a.key}',true)">${a.text}</button>` : '').join('')}${ARCS.filter(a => a.cast).map(a => seen[a.n] && G.ch >= a.castCh ? `<button onclick="showArc(${a.n},true,true)">Arc ${ARC_ROMAN[a.n]} cast</button>` : `<button disabled>Arc ${ARC_ROMAN[a.n]} cast · ???</button>`).join('')}</div>${typeof G!=='undefined' && G.weddingDay!==undefined ? `<div class="row" style="margin-top:6px"><button onclick="showWedding()">🧧 The Royal Wedding</button></div>` : ''}`;
 }
