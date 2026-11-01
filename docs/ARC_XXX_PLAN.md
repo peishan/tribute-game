@@ -30,5 +30,8 @@
 - The Sunless Child is shown manifesting with pale long hair and a black face and glowing eyes, no child-like form; built as drawn.
 - Places added: the First Sunless Village, the Sunless Archive, the Sunless Zone (named for what the pages show).
 
+## Ch783 (sent later): the Sunless Child fight
+Scripts/sunlesschild.js: three phases as labelled: **Lightless Field** (blows can be lost in the dark; Kindle a Light steadies aim), **False Futures** (an ally is trapped each round; Jade finds the contradiction) and **Eclipsed Core** (it regenerates and takes 30% until Sky identifies the corrupted restoration loop, Devon stabilises the structure and Jade severs the link). The Evil is destroyed at **783** (14/15). Replay at the Sunless Zone. First-pass numbers. **No chapter is missing now from 287 to 814.**
+
 ## Ch785 (the arc's last chapter) and the missing 782-784
 Ch785 closes Arc XXX with the teaser for the Mirror Queen and says fourteen Evils had fallen. The Sunless Child is therefore marked resolved at 784; chapters 782-784 (its fight and the choice) were not sent, so nothing of them is built. See ARC_XXXI_PLAN.md.

@@ -11400,3 +11400,32 @@ LORE.push(
   {ch:814, n:'Bearer', t:'An inscription in the Pearl Chamber named Devon neither owner, king, master nor chosen one, but Bearer, and then Custodian. Jade marked the wording. He had carried the Pearl for years, and the system had apparently always expected someone to carry it.'}
 );
 LOCATIONS.mirror_chamber.spots.push({id:'mirror_fight_807', kind:'boss', n:'The Mirror Queen', icon:'🪞', desc:'The final confrontation, as it was. It can be faced again here.', boss:'boss_mirror_queen', add:[], lo:116, ch:807, needFlag:'inv_hz807d', lockMsg:'🔒 Learn the four phases first'});
+
+/* ---- Arc XXXI end and Arc XXXII: chapters 782, 784 and 801-814 ---- */
+LOCATIONS.sunless_dark_zone.spots.push(
+  {id:'hz783a', kind:'investigate', n:'Lightless Field', icon:'🌑', ch:783, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'The first phase.',
+   clues:['Fourteenth Evil. The Fourteenth Evil, known as the Sunless Child, manifests fully. Its body is partly physical and partly an absence where light should be. It feeds through the ancient network, draining light from a much larger region.', 'Phase I, Lightless Field: Visibility reduced. Party accuracy and targeting affected. Light-based abilities behave unpredictably. The battlefield itself rejects light.'], rw:{xp:1333100, gold:268920}},
+  {id:'hz783b', kind:'investigate', n:'False Futures', icon:'🔮', ch:783, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'The second phase.',
+   clues:['Phase II, False Futures: Party members are trapped in possible-outcome illusions. Jade must identify contradictions.', 'Jade: "Altan burning... Is this real? Or a possible future?" Devon: "Separated from me...?" Sky: "Dragonvale cut away..." Levi: "Dima restored..." Sally: "The worlds opened too widely... Strangers crossing into places they should never reach..."'], rw:{xp:1333400, gold:268980}, needFlag:'inv_hz783a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz783c', kind:'investigate', n:'Eclipsed Core', icon:'🕳️', ch:783, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'The third phase.',
+   clues:['Phase III, Eclipsed Core: The Evil connects directly to the ancient conduit. Damage alone causes it to regenerate from stolen energy.', 'Sky: "The restoration loop is corrupted. It\'s pulling energy from connected regions instead of restoring them."'], rw:{xp:1333700, gold:269040}, needFlag:'inv_hz783b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz783d', kind:'investigate', n:'Its Power Ends Here', icon:'✂️', ch:783, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Sever the conduit.',
+   clues:['Devon: "I\'ll stabilize the ancient structure. Keep it steady while you sever its link." Jade: "I will cut it off. Its power ends here."', 'Sky identifies the corrupted restoration loop. Devon stabilizes the ancient structure. Jade severs the Evil from the conduit. The Sunless Child is defeated. 14 / 15 Evils resolved.'], rw:{xp:1334000, gold:269100}, needFlag:'inv_hz783c', lockMsg:'🔒 Finish the previous clue first'},
+);
+MISSIONS.push(
+  {id:'m_s783', needCh:783, title:'Boss Battle: The Sunless Child', obj:{type:'steps', steps:[
+     {label:'Lightless Field', spot:'hz783a'},
+     {label:'False Futures', spot:'hz783b'},
+     {label:'Eclipsed Core', spot:'hz783c'},
+     {label:'Its Power Ends Here', spot:'hz783d'},
+     {label:'Defeat the Sunless Child in the dark zone', boss:'boss_sunless_child'}]}, rw:{xp:1905000, gold:437000, rep:2990},
+   subj:'Boss Battle: The Sunless Child', body:'The story is not finished. — Jade'}
+);
+LORE.push(
+  {ch:783, n:'Boss Battle: The Sunless Child', t:'The Sunless Child, the fourteenth Evil, fought in three phases: Lightless Field (light itself rejected, accuracy and targeting thrown), False Futures (the party trapped in possible-outcome illusions, with Jade finding the contradictions) and Eclipsed Core (the Evil joined to the ancient conduit and regenerating from stolen energy until Sky found the corrupted restoration loop, Devon steadied the structure and Jade severed the link). The Sunless Child was defeated: fourteen of fifteen.'}
+);
+LOCATIONS.sunless_dark_zone.spots.push({id:'sunless_fight_783', kind:'boss', n:'The Sunless Child', icon:'🌑', desc:'The Fourteenth Evil at the conduit, as it was. It can be faced again here.', boss:'boss_sunless_child', add:[], lo:112, ch:783, needFlag:'inv_hz783d', lockMsg:'🔒 Learn the three phases first'});
