@@ -40,12 +40,13 @@ const ARCS = [
   {n:29, title:'Weeping Stone', img:'assets/arcs/arc29.webp', after:735},   // ch736 on: Lingering Vale and the Weeping Stone (Arc XXVIII has no cover yet)
   {n:30, title:'The Sunless Child', img:'assets/arcs/arc30.webp', after:760},   // ch761-: the Sunless Child, the Fourteenth Evil
   {n:31, title:'The Mirror Queen', img:'assets/arcs/arc31.webp', after:784},   // ch785-810: the Mirror Queen, the fifteenth Evil
+  {n:32, title:'Returning Pearl', img:'assets/arcs/arc32.webp', after:810},   // ch811-830: the Pearl, the restoration network and the Bearer
 ];
 /* End-of-arc splash (author): after ch436 the Levi and Sally relationship route starts and Sally rejoins for good. The caption is drawn over the art. */
 const ARC_END_SPLASH = [ {key:'17end', after:436, img:'assets/arcs/arc17_end.webp', title:'Levi and Sally: a relationship route has begun', text:'Levi and Sally: a relationship route has begun.', sub:'Their story now moves between the two of them. Welcome Sally back as a permanent member of the party.'},
   {key:'25end', after:660, img:'assets/arcs/arc25_end.webp', title:'Levi and Sally are married', text:'Levi and Sally are married.', sub:'A small wedding between roads, and no quieter for it. They stay in the party, husband and wife.'},
   {key:'28end', after:733, img:'assets/arcs/arc28_end.webp', title:'Rheon and Mirelle are married', text:'Rheon and Mirelle are married.', sub:'King and Queen of Altan, by choice, with all of their history.'} ];
-const ARC_ROMAN = ['','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX','XXI','XXII','XXIII','XXIV','XXV','XXVI','XXVII','XXVIII','XXIX','XXX','XXXI','XXXII'];
+const ARC_ROMAN = ['','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX','XXI','XXII','XXIII','XXIV','XXV','XXVI','XXVII','XXVIII','XXIX','XXX','XXXI','XXXII','XXXIII'];
 
 // Arc IX, "The Forgotten Alliance" (the author's canon title): begins with ch211 and ends with ch235 (the royal wedding is ch234); add {n:9, title:'The Forgotten Alliance', img:'assets/arcs/arc9.webp', after:210} once the splash art exists.
 function arcFor(afterCh){ return ARCS.find(a => a.after === afterCh); }

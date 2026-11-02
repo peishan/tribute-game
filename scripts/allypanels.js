@@ -125,7 +125,11 @@ function yalePanel(){
   const lead = son ? 'Sky\'s master, and his father: the Weeping Stone said so, and neither has stopped calling the other what they always did. "You have always been my son, in every way that truly matters."' : 'The healer who raised Sky and trained him as his disciple. Strict, exact, and fonder than he admits.';
   return `<h4>${portraitChip('assets/party/yale.webp','Master Yale')} Master Yale: Healer of Lingering Vale</h4><div class="sm">${lead} He stays in the Vale: an independent ally, not one of the travelling party.</div><div class="sm"><b>Specialty:</b> medicine, spiritual diagnosis, curse treatment, rare herbs, difficult cases. ${done ? 'The Stone is gone; more of his services are to come.' : 'More of his services open once the Weeping Stone is resolved.'}</div>`;
 }
-(function(){ const _rc = rCase; rCase = function(){ return _rc() + mirellePanel() + elisePanel() + tarinPanel() + yalePanel(); }; })();
+function correctedRecords(){
+  if(!(G && G.ch >= 839)) return '';
+  return `<h4>🏛️ Imperial Guard archive: corrected records</h4><div class="ev"><div><b>The False Ancestor</b><div class="sm">Previously recorded as another name for Xima. <i>"Identity previously assumed. Evidence now contradicts it."</i> The False Ancestor was an ancient constructed or altered being of the old conflict, not one of the Fifteen, not Xima and not Dima. Jade's note: record what the evidence shows, and leave room for what is still unknown.</div></div></div>`;
+}
+(function(){ const _rc = rCase; rCase = function(){ return _rc() + mirellePanel() + elisePanel() + tarinPanel() + yalePanel() + correctedRecords(); }; })();
 
 // from the coronation (ch576) Aster is King of Dragonvale: his title changes wherever the game shows it live (the chapter texts keep the title of their day)
 const asterKing = () => !!(G && G.flags && G.flags.aster_crowned_king);
