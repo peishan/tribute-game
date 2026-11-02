@@ -80,6 +80,7 @@ Object.assign(REL_ROUTES, {
       {n:'Wife, not a princess'},
       {n:'Married', flag:'roc_delilah_wed'},
       {n:'Expecting twins', flag:'delilah_twins_confirmed'},
+      {n:'The twins are born', flag:'roc_delilah_twins_born'},
       {n:'Roc admits what love is not', flag:'roc_admits_love_is_not_enough'},
       {n:'Seen for who stayed', flag:'roc_sees_delilah'},
       {n:'It took you long enough', flag:'delilah_it_took_you_long_enough'},
