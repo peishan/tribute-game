@@ -23,3 +23,8 @@ Evil count 15/15. Focus: Jade, Adrian; secondary Devon, Sky, Dima, Xima. Theme: 
 - **Two versions of 842** were sent with the same text and different panel art; the second (with "Over centuries, the Fifteen evolved differently:" and varied creature panels) is built.
 - **Brief vs pages:** the pages follow the brief closely. In 845 the speakers of "control over life" and "ideals over survival" are assigned as in the brief (Dima accuses Xima of choosing control; Xima accuses Dima of choosing ideals). The pages give Adrian the lines on the False Ancestor's origin (837); in 836 the dates remark is Adrian's and the "not another name for Xima" line Jade's.
 - **Game:** a new place, *The Sealed Records beneath the Network* (from 830); the Imperial Guard archive shows a "corrected record" for the False Ancestor from 839 (Case tab). The Arc XXXII cover is registered. Not built: the Keeper records as a mechanic, the history-reconstruction as a mini-game.
+
+## Update: 832, 849, 850 sent; Arc XXXIII is fully built (830-850), chapter 833 re-sent
+- **832 Two Sisters, 849 The Beneficiary and 850 Sisters Rise** are built. 850 ends with the sisters turning to the same unseen presence and "NEXT: ARC XXXIV, PURIFICATION". In 850 Jade asks the first half of the final question and **Adrian** answers "Who needed them to believe the other one would?" (the brief gave both to Jade): built as drawn.
+- **833 was re-sent** with the same text and different art (Xima in purple instead of black and red); the image is replaced. 832 and 833 show Xima in purple, while 834 on show her black and red: both are built as drawn.
+- **Arc XXXIII cover:** not sent yet.
