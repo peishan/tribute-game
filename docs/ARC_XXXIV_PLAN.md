@@ -1,4 +1,4 @@
-# ARC XXXIV: PURIFICATION (chapters 851-854 built from pages; no brief or cover yet)
+# ARC XXXIV: PURIFICATION (chapters 851-870 and 872-875 built from pages; 871 not yet sent; no brief or cover yet)
 Opens right after Sisters Rise (850). The Arc XXXIV brief has not been sent; this records what the pages show, and the drawn pages win over any later brief draft.
 
 - **851 What Comes After Truth:** knowing Dima and Xima were manipulated fixes nothing; the restoration network is awake but unstable (some regions recovering, others flooded with restorative energy, old barriers weakening faster than surrounding lands can bear). "We stop asking who broke it and start asking how to repair it."
@@ -12,3 +12,14 @@ Chapters 851-854; the Roc & Delilah route gains "The twins are born" (flag roc_d
 ## Notes
 - The twins' names are not given on the page; none are invented. Fen's and Jenika's due dates are not given.
 - Chapters 851-854 read "cover to come" until the Arc XXXIV cover arrives.
+
+## Chapters 855-875 (built from pages, one batch)
+- **855-857:** Fen works through her pregnancy (Aster has not succeeded in cutting her workload); the party notices Jenika looks healthier (Sky does not understand why); Jenika, about six months pregnant, kept it from Sky while he travelled. "Everyone knows except Sky" is the running joke.
+- **858-861:** the Dragonvale node: Devon as living custodian (bloodline vs the Pearl, kept distinct), contaminated restorative water beneath the palace (cleanse the source, do not destroy it), the Dragon Sanctuary / Pearl Chamber revisited (Dragonvale was a restoration junction), and the first purified node ("Repair looks different from conquest").
+- **862-870 and 866-867 (uploaded out of order, built by title):** Jade's role changes from the sword to judgment; the third influence (the compass-star force, an ancient guidance intelligence) controlled direction, communication and records; division was its tool; it could not rule directly; it is not a sixteenth Evil; partial truths; the Gold Child role is administrative (authority over what happens to the passages after purification); "worlds united or destroyed" means the consequences of reconnecting unstable systems.
+- **872-875:** Fen reads the Gold Child role as governance; the children of Dragonvale (Aster: no old rivalry between wives, consorts and maternal factions; Jenika carries another child, Sky unaware); the route southeast opens and the manipulator is "no longer hidden"; 875 closes the arc: "What remains is to act." NEXT: ARC XXXV, What Comes After.
+
+## Notes
+- **Chapter 871 was not in the batch**; the journal shows it as a gap until it is sent.
+- The twins' names, Fen's and Jenika's due dates are still not given. "Sky's personal crisis will have to wait" (875) points at a Sky storyline the pages have not shown; none is invented.
+- Page text only: no purification mechanic was built, because the pages show it as story. The five-node order is still recorded from 852.
