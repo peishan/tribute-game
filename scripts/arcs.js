@@ -53,7 +53,6 @@ const ARC_END_SPLASH = [ {key:'17end', after:436, img:'assets/arcs/arc17_end.web
 const ARC_ROMAN = ['','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX','XXI','XXII','XXIII','XXIV','XXV','XXVI','XXVII','XXVIII','XXIX','XXX','XXXI','XXXII','XXXIII','XXXIV','XXXV','XXXVI'];
 
 // Arc IX, "The Forgotten Alliance" (the author's canon title): begins with ch211 and ends with ch235 (the royal wedding is ch234); add {n:9, title:'The Forgotten Alliance', img:'assets/arcs/arc9.webp', after:210} once the splash art exists.
-  {n:10, title:'Return to Altan', img:'assets/arcs/arc10.webp', after:235},   // ch236-262: Sera's letter from home, the missing Crown Prince (Arc X)
 function arcFor(afterCh){ return ARCS.find(a => a.after === afterCh); }
 function showArc(n, manual, cast){
   const a = ARCS.find(x => x.n===n), el = $('arcpop'); if(!a || !el) return;
