@@ -13027,18 +13027,6 @@ LOCATIONS.dragon_vale.spots.push(
   {id:'hz925d', kind:'investigate', n:'In Very Good Hands', icon:'🌅', ch:925, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
    desc:'Their grandparents.',
    clues:['"Two granddaughters to spoil, what a blessing." Adrian: "Our daughters are our greatest reason to keep going." Eve: "With them, I feel our family, our lineage, and our future are in very good hands."'], rw:{xp:1786700, gold:317750}, needFlag:'inv_hz925c', lockMsg:'🔒 Finish the previous clue first'},
-  {id:'hz926a', kind:'investigate', n:'Two Daughters', icon:'👭', ch:926, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
-   desc:'The same page.',
-   clues:['Adrian and Eve have two daughters. Adrian: "Two daughters... I\'m still in awe." Eve: "I always imagined a noisy, lively household... and you gave me even more happiness than I ever expected."'], rw:{xp:1789100, gold:317640}},
-  {id:'hz926b', kind:'investigate', n:'A Scholar and Councillor', icon:'📜', ch:926, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
-   desc:'Adrian.',
-   clues:['As a scholar, Adrian continues his research, expanding Tribute\'s knowledge in history, culture and diplomacy. As a councillor, he advises on state matters, builds alliances and helps shape policies that secure Tribute\'s future. Though his days are often full, he has found a balance that brings purpose, peace and joy.'], rw:{xp:1789400, gold:317700}, needFlag:'inv_hz926a', lockMsg:'🔒 Finish the previous clue first'},
-  {id:'hz926c', kind:'investigate', n:'A Real Break', icon:'🧸', ch:926, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
-   desc:'The girls.',
-   clues:['Adrian: "But no matter how busy I\'m... my most important role is still being your father." The girls: "And you have to take a break with us today! Yes! A real break!"'], rw:{xp:1789700, gold:317760}, needFlag:'inv_hz926b', lockMsg:'🔒 Finish the previous clue first'},
-  {id:'hz926d', kind:'investigate', n:'Worthwhile', icon:'💜', ch:926, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
-   desc:'Adrian and Eve.',
-   clues:['Adrian: "It\'s in moments like this that I\'m reminded... that all the titles, all the work, are worthwhile because I have you both." Eve: "You\'ve built a life that embraces every part of you." Adrian: "Only because I\'m doing it with you... our two wonderful daughters."'], rw:{xp:1790000, gold:317820}, needFlag:'inv_hz926c', lockMsg:'🔒 Finish the previous clue first'},
   {id:'hz927a', kind:'investigate', n:'More Than a Prince Consort', icon:'📜', ch:927, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
    desc:'Adrian.',
    clues:['Adrian is more than a prince consort: he is a scholar, a father and a councillor to Tribute. Though his days are often full, he has found a balance that brings purpose, peace and joy.'], rw:{xp:1792400, gold:317710}},
@@ -13122,7 +13110,43 @@ LOCATIONS.dragon_vale.spots.push(
    clues:['"We come in peace. Please forgive our sudden arrival." A traveller in a yellow scarf and goggles translates: "She says they are travellers from another world. They didn\'t intend to cause alarm. According to the one who speaks for them, they were following a strange current, and it brought them here." Jade: "Another world...?"'], rw:{xp:1809500, gold:318180}, needFlag:'inv_hz932b', lockMsg:'🔒 Finish the previous clue first'},
   {id:'hz932d', kind:'investigate', n:'Sanggui', icon:'🗺️', ch:932, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
    desc:'Not a route we know.',
-   clues:['Devon: "This is not a route we know." Levi: "Then where is their destination?" The traveller: "They say... Sanggui." Jade: "Then let\'s bring them in. We\'ll hear the full story first." Jade had expected a routine investigation. Instead, Lunareth had received some very unexpected guests.'], rw:{xp:1809800, gold:318240}, needFlag:'inv_hz932c', lockMsg:'🔒 Finish the previous clue first'}
+   clues:['Devon: "This is not a route we know." Levi: "Then where is their destination?" The traveller: "They say... Sanggui." Jade: "Then let\'s bring them in. We\'ll hear the full story first." Jade had expected a routine investigation. Instead, Lunareth had received some very unexpected guests.'], rw:{xp:1809800, gold:318240}, needFlag:'inv_hz932c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz926a', kind:'investigate', n:'Not About Sons Alone', icon:'🏯', ch:926, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Their family.',
+   clues:['Their family reinforces that Tribute succession is based on suitability rather than male inheritance. "Some may ask if your family will try for a son to secure your line... but in Tribute, succession has never been about sons alone."'], rw:{xp:1789100, gold:317640}},
+  {id:'hz926b', kind:'investigate', n:'The Most Suited', icon:'⚖️', ch:926, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Adrian and Eve.',
+   clues:['Adrian: "That has always been our belief. The next leader should be the one most suited to serve Tribute, regardless of gender." Eve: "Our daughters will be given the same education, training, and opportunities as any heir."'], rw:{xp:1789400, gold:317700}, needFlag:'inv_hz926a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz926c', kind:'investigate', n:'Son or Daughter', icon:'🌸', ch:926, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'The girls.',
+   clues:['"We want to learn, travel, and be useful, just like Papa and Mama! It doesn\'t matter whether we are a son or a daughter, right?" Adrian: "Exactly. What matters is your character, knowledge, and how you use your abilities to help Tribute." Eve: "So grow in your own strengths. The future is not limited by whether you are a boy or a girl."'], rw:{xp:1789700, gold:317760}, needFlag:'inv_hz926b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz926d', kind:'investigate', n:'Equal Heirs', icon:'👑', ch:926, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Recognised.',
+   clues:['With the family\'s full support, both daughters are recognised as equal heirs of Tribute. In Tribute, the legacy endures not through gender, but through those who are ready to lead, protect and build a better future.'], rw:{xp:1790000, gold:317820}, needFlag:'inv_hz926c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz933a', kind:'investigate', n:'A Language Gap', icon:'🗣️', ch:933, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Mostly Chinese.',
+   clues:['The unexpected visitors spoke primarily Chinese, leaving the first exchange uncertain. Jade: "Let\'s keep this calm. We need to understand who they are." Fortunately, someone knew enough to interpret: "I can interpret. Let me speak with them."'], rw:{xp:1812200, gold:318130}},
+  {id:'hz933b', kind:'investigate', n:'Not by Choice', icon:'🌀', ch:933, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Travellers.',
+   clues:['"They say they are travellers. They did not come here by choice. Their route changed suddenly and carried them somewhere they never intended to go." Jade: "Then this was not your design."'], rw:{xp:1812500, gold:318190}, needFlag:'inv_hz933a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz933c', kind:'investigate', n:'The Same Mistake', icon:'🤝', ch:933, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Both sides.',
+   clues:['The interpreter: "Jade says she does not believe your group caused this deliberately." The visitor: "Nor did we summon your world. We were caught in the same mistake." Jade: "Then we share the same conclusion. Neither side chose this crossing."'], rw:{xp:1812800, gold:318250}, needFlag:'inv_hz933b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz933d', kind:'investigate', n:'Cautious Cooperation', icon:'⚖️', ch:933, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Suspicion eased.',
+   clues:['With the interpreter translating, the distance between the two groups quickly narrowed. What had carried them across worlds was real, but it had not been deliberate. For Jade, that was enough to turn suspicion into cautious cooperation.'], rw:{xp:1813100, gold:318310}, needFlag:'inv_hz933c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz934a', kind:'investigate', n:'To the Sage', icon:'🧙', ch:934, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Someone who may know.',
+   clues:['Jade brought the visitors to the Sage, the one person in Lunareth most likely to understand why they arrived.'], rw:{xp:1815500, gold:318200}},
+  {id:'hz934b', kind:'investigate', n:'Not Where They Meant to Be', icon:'🗺️', ch:934, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Interpreting.',
+   clues:['Jade: "Please tell them again: we are in Lunareth. This is not the place they intended to reach." The interpreter: "Jade says this is Lunareth, not the destination you intended." The visitor: "They understand. Their route was not deliberate, and they are trying to learn what happened."'], rw:{xp:1815800, gold:318260}, needFlag:'inv_hz934a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz934c', kind:'investigate', n:'The Route Activates', icon:'🌐', ch:934, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Over the harbour.',
+   clues:['Jade to the Sage: "We\'ve brought travellers from beyond. We believe you can help us understand their arrival." Then: "Look, over the harbour! That light... the ship\'s route is activating again!"'], rw:{xp:1816100, gold:318320}, needFlag:'inv_hz934b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz934d', kind:'investigate', n:'Gone', icon:'🚢', ch:934, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Proof.',
+   clues:['The ship and travellers vanished through the reactivated route, leaving Lunareth with proof that people can arrive from entirely different worlds.'], rw:{xp:1816400, gold:318380}, needFlag:'inv_hz934c', lockMsg:'🔒 Finish the previous clue first'}
 );
 MISSIONS.push(
   {id:'m_s832', needCh:832, title:'Two Sisters', obj:{type:'steps', steps:[
@@ -13588,12 +13612,6 @@ MISSIONS.push(
      {label:'Their Natures', spot:'hz925c'},
      {label:'In Very Good Hands', spot:'hz925d'}]}, rw:{xp:2296000, gold:522300, rep:3417},
    subj:'Two Daughters', body:'The story is not finished. — Jade'},
-  {id:'m_s926', needCh:926, title:'Two Daughters, Again', obj:{type:'steps', steps:[
-     {label:'Two Daughters', spot:'hz926a'},
-     {label:'A Scholar and Councillor', spot:'hz926b'},
-     {label:'A Real Break', spot:'hz926c'},
-     {label:'Worthwhile', spot:'hz926d'}]}, rw:{xp:2299000, gold:522900, rep:3420},
-   subj:'Two Daughters, Again', body:'The story is not finished. — Jade'},
   {id:'m_s927', needCh:927, title:'Scholar, Father, Councillor', obj:{type:'steps', steps:[
      {label:'More Than a Prince Consort', spot:'hz927a'},
      {label:'A Scholar', spot:'hz927b'},
@@ -13635,7 +13653,25 @@ MISSIONS.push(
      {label:'Called to Investigate', spot:'hz932b'},
      {label:'Another World', spot:'hz932c'},
      {label:'Sanggui', spot:'hz932d'}]}, rw:{xp:2317000, gold:526500, rep:3438},
-   subj:'Oops', body:'The story is not finished. — Jade'}
+   subj:'Oops', body:'The story is not finished. — Jade'},
+  {id:'m_s926', needCh:926, title:'No Son Required', obj:{type:'steps', steps:[
+     {label:'Not About Sons Alone', spot:'hz926a'},
+     {label:'The Most Suited', spot:'hz926b'},
+     {label:'Son or Daughter', spot:'hz926c'},
+     {label:'Equal Heirs', spot:'hz926d'}]}, rw:{xp:2299000, gold:522900, rep:3420},
+   subj:'No Son Required', body:'The story is not finished. — Jade'},
+  {id:'m_s933', needCh:933, title:'Wrong World', obj:{type:'steps', steps:[
+     {label:'A Language Gap', spot:'hz933a'},
+     {label:'Not by Choice', spot:'hz933b'},
+     {label:'The Same Mistake', spot:'hz933c'},
+     {label:'Cautious Cooperation', spot:'hz933d'}]}, rw:{xp:2320000, gold:527100, rep:3441},
+   subj:'Wrong World', body:'The story is not finished. — Jade'},
+  {id:'m_s934', needCh:934, title:'Wrong Destination', obj:{type:'steps', steps:[
+     {label:'To the Sage', spot:'hz934a'},
+     {label:'Not Where They Meant to Be', spot:'hz934b'},
+     {label:'The Route Activates', spot:'hz934c'},
+     {label:'Gone', spot:'hz934d'}]}, rw:{xp:2323000, gold:527700, rep:3444},
+   subj:'Wrong Destination', body:'The story is not finished. — Jade'}
 );
 LORE.push(
   {ch:832, n:'Two Sisters', t:'The earliest surviving records showed Dima and Xima together: not enemies, not goddess and demon, but sisters working on the same ancient restoration system. Dima was associated with healing, preservation and stabilisation, Xima with containment, boundaries and controlled separation. Neither role was inherently evil: the system originally needed both.'},
@@ -13715,14 +13751,16 @@ LORE.push(
   {ch:923, n:'Lenny', t:'Not long after Sally and Levi returned to active service, Lenny officially became godfather to their children. For Lenny and his wife childlessness had long been a quiet sorrow, and Sally and Levi\'s children quickly became the cherished light in their home. The children spent as much time at Lenny\'s residence as at their own, and what began as a godfather\'s role became a bond that turned two families into one large and unshakable circle.'},
   {ch:924, n:'The Stanson Children', t:'Sally and Levi\'s two children, a daughter and a son, carried the Stanson line together with Sally\'s lost royal heritage. The girl had Sally\'s keen insight and warmth, the boy Levi\'s focus and resilience. Their training was never about titles or duty alone but about choice, so that one day they could decide how to use their heritage and talents. Whenever their parents travelled for Guard work they stayed with family, and Lenny\'s son, a few years older, treated them like true siblings.'},
   {ch:925, n:'Two Daughters', t:'Adrian and Eve had two daughters. The elder was spirited and curious, always eager to learn, and the younger gentle and observant with a calm, thoughtful nature. Eve had always imagined a noisy, lively household and had been given even more happiness than she expected. Their daughters were their greatest reason to keep going, and with them their family, lineage and future were in very good hands.'},
-  {ch:926, n:'Two Daughters, Again', t:'A second page, also titled "Two Daughters", carries the content of the previous chapter together with the next one (Scholar, Father, Councillor) on one page: Adrian and Eve\'s two daughters, Adrian\'s research and his work as a councillor, and the break he takes with them because his most important role is still being their father.'},
   {ch:927, n:'Scholar, Father, Councillor', t:'Adrian was more than a prince consort: he was a scholar, a father and a councillor to Tribute. He continued his research in history, culture and diplomacy, advised on state matters, built alliances and helped shape policies that secured Tribute\'s future. Though his days were often full he had found a balance that brought purpose, peace and joy. His many roles were not in competition but in harmony, shaping a legacy he hoped his daughters would one day be proud to continue.'},
   {ch:928, n:'The Invitation', t:'The group received an invitation from Damien and the Tribal Girl: a wedding invitation. He had actually succeeded in courting her, and it felt like just yesterday they were helping him find her. It was more than a wedding, a celebration of a new life he had built with their help along the way, and they would all go and prepare a proper gift.'},
   {ch:929, n:'Damien\'s Wedding', t:'Damien married the Tribal Girl in a short, warm interlude that brought together people from different regions of Lunareth: simple, heartfelt and full of warmth, a celebration of their union and of the bonds their journey had forged. By the traditions of both their peoples, and with witnesses from across Lunareth, they were joined. As the celebrations carried on into the evening they were no longer two travellers on separate paths but partners, a marriage born from understanding, mutual respect and a journey that had finally led them home.'},
   {ch:930, n:'Still Not Saying It', t:'The Fifteen Evils were gone and peace had returned, and yet some matters remained remarkably unresolved: among them the quiet question everyone around them could see except, apparently, Hugh and Sera. Princess Sera returned to Tribute, and the two were warm, formal and old friends. Neither had promised marriage, neither had demanded an answer, and neither had closed the door. Some stories were not unfinished because love was absent, but because the people involved were still finding their own way toward it.'},
   {ch:931, n:'Years Later', t:'Years had passed since the Fifteen Evils were defeated: the kingdoms were stable, trade flourished and life had found a new rhythm. Jade and Devon remained active on the frontlines, Sally and Levi led investigations across the realms, Adrian bridged royal policy with practical innovation and Fen researched ancient relics and the new phenomena beginning to stir again in the world. It felt like the future they had fought for. Then, one night, a rift tore across the sky, and with it a presence, a ship and people from another world had arrived.'},
   {ch:917, n:'One Is Enough', t:'As their son slept peacefully Aster and Fen found a quiet moment to talk about what came next: family, duty and the future. The question of another child came up naturally, and their answer was reassuringly the same: one son, well loved and well raised, and a life they could both still give their all to. A single child was not a lack. It was enough.'},
-  {ch:932, n:'Oops', t:'The disturbance appeared without warning at Lunareth\'s harbour: an unfamiliar vessel. Jade\'s group was called to investigate. The strangers came in peace and asked forgiveness for their sudden arrival; a traveller translated that they were from another world and had been following a strange current that brought them here. Devon said it was not a route they knew, and when Levi asked their destination the answer was Sanggui. Jade had expected a routine investigation; instead Lunareth had received some very unexpected guests, and she would hear the full story first.'}
+  {ch:932, n:'Oops', t:'The disturbance appeared without warning at Lunareth\'s harbour: an unfamiliar vessel. Jade\'s group was called to investigate. The strangers came in peace and asked forgiveness for their sudden arrival; a traveller translated that they were from another world and had been following a strange current that brought them here. Devon said it was not a route they knew, and when Levi asked their destination the answer was Sanggui. Jade had expected a routine investigation; instead Lunareth had received some very unexpected guests, and she would hear the full story first.'},
+  {ch:926, n:'No Son Required', t:'Adrian and Eve\'s family reinforced that Tribute succession was based on suitability rather than male inheritance. Some asked whether they would try for a son to secure their line, but in Tribute succession had never been about sons alone: the next leader should be the one most suited to serve Tribute, regardless of gender. Their daughters were given the same education, training and opportunities as any heir, and with the family\'s full support both were recognised as equal heirs of Tribute.'},
+  {ch:933, n:'Wrong World', t:'The unexpected visitors spoke primarily Chinese, leaving the first exchange uncertain, until someone knew enough to interpret. They were travellers who had not come by choice: their route changed suddenly and carried them somewhere they never intended to go. Jade did not believe they had caused it deliberately, and they had not summoned her world: both sides had been caught in the same mistake. What had carried them across worlds was real but not deliberate, and for Jade that was enough to turn suspicion into cautious cooperation.'},
+  {ch:934, n:'Wrong Destination', t:'Jade brought the visitors to the Sage, the one person in Lunareth most likely to understand why they arrived, and made sure they knew this was Lunareth and not the place they had intended to reach. They understood that their route had not been deliberate and wanted to learn what happened. Then the ship\'s route began activating again over the harbour, and the ship and its travellers vanished through it, leaving Lunareth with proof that people can arrive from entirely different worlds.'}
 );
 
 LOCATIONS.sealed_records.spots.push({id:'last_spasm_898', kind:'boss', n:'The Old System\'s Last Spasm', icon:'🌅', desc:'The last trial, as it was. It can be faced again here.', boss:'boss_last_spasm', add:[], lo:118, ch:898, needFlag:'inv_hz898d', lockMsg:'🔒 Learn what it is made of first'});
