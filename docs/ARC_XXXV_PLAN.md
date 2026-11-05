@@ -32,3 +32,6 @@ Chapter 876 onward carry the "Arc XXXV: What Comes After" banner. Pages only; no
 
 ## Campaign end and the Crossover
 The author's direction: the main campaign ends with the rift chapter (931), and **from the rift chapter onwards the Crossover unlocks, which ends the main campaign.** The Crossover itself has not been specified or built; 931 is the last chapter. Frontier Elise and Frontier Tarin portraits (see docs/PORTRAIT_PROMPTS.md) show from chapter 918.
+
+## Frontier Work (from chapter 918)
+Per the author: the Frontier Elise and Tarin versions unlock the frontier quests and bounties: tasks to settle quarrels and to kill beasts and monsters that disrupt the peace of frontier residents. Built as `scripts/frontierwork.js`: a Frontier Work Board at the Northern Frontier (both frontier places), four quarrels (settled by hearing both out, going by the law or letting the elders decide; Jade in the active party helps) and five beast/monster bounties (real fights). Everything is repeatable and reposts after 5 days; first-pass numbers. Elise and Tarin do not appear as board characters yet.

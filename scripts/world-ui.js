@@ -181,6 +181,7 @@ function rSpot(L, sp){
     case 'frontcache': body = typeof rFrontCache==='function' ? rFrontCache() : ''; break;
     case 'pearlnet': body = typeof rNet==='function' ? rNet() : ''; break;
     case 'pursuit': body = typeof rPursuits==='function' ? rPursuits() : ''; break;
+    case 'fwork': body = typeof rFrontierWork==='function' ? rFrontierWork() : ''; break;
     case 'clinic': body = typeof rClinic==='function' ? rClinic() : ''; break;
     case 'court': body = typeof rCourt==='function' ? rCourt() : ''; break;
     case 'salon': body = typeof rSalon==='function' ? rSalon() : ''; break;
