@@ -13119,10 +13119,10 @@ LOCATIONS.dragon_vale.spots.push(
    clues:['Jade\'s group was called to investigate the unexpected arrival. A crowd of strangers stood on the quay: travellers in unfamiliar clothes.'], rw:{xp:1809200, gold:318120}, needFlag:'inv_hz932a', lockMsg:'🔒 Finish the previous clue first'},
   {id:'hz932c', kind:'investigate', n:'Another World', icon:'🌀', ch:932, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
    desc:'A strange current.',
-   clues:['"We come in peace. Please forgive our sudden arrival." A traveller in a yellow scarf and goggles translates: "She says they are travellers from another world. They didn\'t intend to cause alarm. According to Qiumin, they were following a strange current, and it brought them here." Jade: "Another world...?"'], rw:{xp:1809500, gold:318180}, needFlag:'inv_hz932b', lockMsg:'🔒 Finish the previous clue first'},
+   clues:['"We come in peace. Please forgive our sudden arrival." A traveller in a yellow scarf and goggles translates: "She says they are travellers from another world. They didn\'t intend to cause alarm. According to the one who speaks for them, they were following a strange current, and it brought them here." Jade: "Another world...?"'], rw:{xp:1809500, gold:318180}, needFlag:'inv_hz932b', lockMsg:'🔒 Finish the previous clue first'},
   {id:'hz932d', kind:'investigate', n:'Sanggui', icon:'🗺️', ch:932, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
    desc:'Not a route we know.',
-   clues:['Devon: "This is not a route we know." Levi: "Then where is their destination?" The traveller: "Qiumin says... Sanggui." Jade: "Then let\'s bring them in. We\'ll hear the full story first." Jade had expected a routine investigation. Instead, Lunareth had received some very unexpected guests.'], rw:{xp:1809800, gold:318240}, needFlag:'inv_hz932c', lockMsg:'🔒 Finish the previous clue first'}
+   clues:['Devon: "This is not a route we know." Levi: "Then where is their destination?" The traveller: "They say... Sanggui." Jade: "Then let\'s bring them in. We\'ll hear the full story first." Jade had expected a routine investigation. Instead, Lunareth had received some very unexpected guests.'], rw:{xp:1809800, gold:318240}, needFlag:'inv_hz932c', lockMsg:'🔒 Finish the previous clue first'}
 );
 MISSIONS.push(
   {id:'m_s832', needCh:832, title:'Two Sisters', obj:{type:'steps', steps:[
