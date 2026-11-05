@@ -36,7 +36,7 @@ function load(){
   try{
     const d = JSON.parse(localStorage.getItem(CFG.SAVE_KEY));
     if(!d) return false;
-    G = Object.assign(newState(), d); G.guests = G.guests || {}; G.gear = G.gear || {}; G.disabled = G.disabled || {}; G.left = G.left || {}; G.active = (G.active||['jade']).filter(id=>G.party.includes(id));
+    G = Object.assign(newState(), d); G.guests = G.guests || {}; G.gear = G.gear || {}; G.disabled = G.disabled || {}; G.left = G.left || {}; G.active = (G.active||['jade']).filter(id=>G.party.includes(id)); try{ syncAway(); }catch(e){}
     ROSTER.forEach(id => { G.units[id] = G.units[id] || { lv:1, xp:0, bp:0, evo:[] }; G.units[id].nodes = G.units[id].nodes || []; });
     return true;
   }catch(e){ return false; }
@@ -57,7 +57,13 @@ const CH_LEAVE = { 50:['levi'], 73:['chad'], 87:['ripley'] };   // ch87: Levi is
 // Sally (after the return to Tribute, CH_STAY) can only be partied while the party is in Dragonvale.
 const isAway = id => (id==='sally' && !!G.flags.sally_stays && G.loc!=='dragon_vale' && G.ch < 436) || (id==='seraphina' && !!G.guests.seraphina && LOCATIONS[G.loc].region!=='dragon') || (id==='seraphina' && G.ch>=262 && !G.flags.sera_rejoined && LOCATIONS[G.loc].region!=='altan') || (id==='rin' && typeof rinAway==='function' && rinAway());   // Seraphina is a guest only inside Dragonvale until ch87
 const isDisabled = id => !!(G.disabled && G.disabled[id]) || isAway(id);
-function syncAway(){ G.active = G.active.filter(id => !isAway(id)); }   // call whenever the location changes
+function syncAway(){
+  G.active = G.active.filter(id => !isAway(id));
+  if(!fixedParty()) return;
+  const want = canonFive().filter(id => G.party.includes(id) && !(G.left && G.left[id]) && !isDisabled(id));
+  want.forEach(id => { if(!G.active.includes(id)) G.active.push(id); });
+  while(G.active.filter(id => !isCompanion(id)).length > slotCap()){ const x = G.active.slice().reverse().find(id => !want.includes(id) && !isCompanion(id)); if(!x) break; G.active.splice(G.active.indexOf(x), 1); }
+}   // call whenever the location changes
 function applyStoryStates(n){
   (CH_DISABLE[n]||[]).forEach(id => { if(G.party.includes(id)) G.disabled[id] = true; });
   (CH_ENABLE[n]||[]).forEach(id => { delete G.disabled[id]; });
@@ -227,7 +233,8 @@ function evolve(id, eid){
 /* ---------- recruiting / story ---------- */
 const ACTIVE_SLOTS = 4;
 const slotCap = () => fixedParty() ? 5 : ACTIVE_SLOTS;   // the travelling party has five seats; Jade and Devon are the unbenchable pair, the other three may be benched
-const unbenchable = id => id==='jade' || (fixedParty() && id==='devon');
+const canonFive = () => ['jade','devon','sky','levi'].concat(G && G.ch>=436 ? ['sally'] : []);   // the canon party (author): once the party is fixed none of them can be removed, and Sally cannot be removed once she has returned (ch436); Jade never can
+const unbenchable = id => id==='jade' || (fixedParty() && canonFive().includes(id));
 const activeCount = () => G.active.filter(id => !isDisabled(id)).length;   // a disabled hero does not take a fighting slot
 /* Temporary members ("visiting guests"): fight beside the party (controllable, extra to the five) while a rule holds.
    Add a row here when a journey introduces someone: { id, flag (story flag that makes them available), regions (where they travel with you) }.
