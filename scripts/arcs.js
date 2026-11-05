@@ -19,6 +19,7 @@ const ARCS = [
   {n:7, title:'The Sunken Crown', img:'assets/arcs/arc7.webp', after:166, cast:'assets/arcs/arc7_cast.webp', castCh:185},   // begins with ch167 (The Message from Dragonvale)   // begins with ch147; the tagline on the cover: "A name is not the same as the truth"
   {n:8, title:'The Impossible Entry', img:'assets/arcs/arc8.webp', after:185},   // begins with ch186
   {n:9, title:'The Forgotten Alliance', img:'assets/arcs/arc9.webp', after:210},   // ch211-235
+  {n:10, title:'Return to Altan', img:'assets/arcs/arc10.webp', after:235},   // ch236-262: Sera's letter from home, the missing Crown Prince (Arc X)
   {n:11, title:'The Vanishing of Lady Veyne', img:'assets/arcs/arc11.webp', after:262},
   {n:12, title:'New Horizons', img:'assets/arcs/arc12.webp', after:286},   // ch287-311
   {n:13, title:'Blood of the Western Stars', img:'assets/arcs/arc13.webp', after:311},   // ch312-336 (the regenerated cover carries this title)   // ch263-286 (no Arc X cover yet; the Arc XI cover reads "Arc X" in its subtitle: a generation slip)
@@ -52,6 +53,7 @@ const ARC_END_SPLASH = [ {key:'17end', after:436, img:'assets/arcs/arc17_end.web
 const ARC_ROMAN = ['','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX','XXI','XXII','XXIII','XXIV','XXV','XXVI','XXVII','XXVIII','XXIX','XXX','XXXI','XXXII','XXXIII','XXXIV','XXXV','XXXVI'];
 
 // Arc IX, "The Forgotten Alliance" (the author's canon title): begins with ch211 and ends with ch235 (the royal wedding is ch234); add {n:9, title:'The Forgotten Alliance', img:'assets/arcs/arc9.webp', after:210} once the splash art exists.
+  {n:10, title:'Return to Altan', img:'assets/arcs/arc10.webp', after:235},   // ch236-262: Sera's letter from home, the missing Crown Prince (Arc X)
 function arcFor(afterCh){ return ARCS.find(a => a.after === afterCh); }
 function showArc(n, manual, cast){
   const a = ARCS.find(x => x.n===n), el = $('arcpop'); if(!a || !el) return;
