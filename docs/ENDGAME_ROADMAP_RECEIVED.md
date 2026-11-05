@@ -21,3 +21,7 @@ The author notes some roadmap numbers overlap because Tarin and Elise's chapter 
 
 ## After the crossover: the sequel, "Crimson Horizon" (author, clarified)
 After the crossover chapters (to 990) comes the sequel, **Crimson Horizon**: Jade and San combine forces. "True crossover" does not mean the two games share code or saves: **each world builds its own equivalent in its own game** (Tribute's version here, Crimson Tide's version in the Crimson Tide repo), and the two **share chapters (the same pages) to save resources**. So for Tribute: build the crossover and Crimson Horizon from the shared pages, told from the Tribute side (Jade, Devon, Sky, Levi, Sally; Jade and Devon central; San's inner feelings stay on the Crimson Tide side). Nothing is specified or built yet. Carry-overs from the crossover ending: Crimson Tide joins Tribute's Ally Network, Jade reaches Veyren only through Crimson Tide's routes, and Lunareth is an Inter-World Location on the Crimson Tide side.
+
+## Built from the crossover so far
+- **931 Years Later:** the regenerated page replaces the earlier square one.
+- **932 Oops** (the first crossover chapter, "Interlude: Oops, Wrong Destination?"): an unfamiliar vessel appears at Lunareth's harbour; its travellers say they were following a strange current; their destination was "Sanggui"; Jade has them brought in. The page names only Qiumin and Sanggui (the roadmap's Xiyu and Hoko are not named on it); the translator is left unnamed. Next: 933 Wrong World, 934 Wrong Destination?

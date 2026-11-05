@@ -13110,7 +13110,19 @@ LOCATIONS.dragon_vale.spots.push(
    clues:['Fen: "I agree. I have research to finish, ongoing projects, and a kingdom to help run." Aster: "Then it\'s decided. One son, well loved, well raised..." Fen: "...and a life we can both still give our all to."'], rw:{xp:1760000, gold:317130}, needFlag:'inv_hz917b', lockMsg:'🔒 Finish the previous clue first'},
   {id:'hz917d', kind:'investigate', n:'Not a Lack', icon:'🌅', ch:917, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
    desc:'Enough.',
-   clues:['Fen: "A single child is not a lack... It is enough. For our family, for our work, and for the life we\'ve built." One child, a shared purpose and a future that still felt full: for Aster and Fen, that was more than enough.'], rw:{xp:1760300, gold:317190}, needFlag:'inv_hz917c', lockMsg:'🔒 Finish the previous clue first'}
+   clues:['Fen: "A single child is not a lack... It is enough. For our family, for our work, and for the life we\'ve built." One child, a shared purpose and a future that still felt full: for Aster and Fen, that was more than enough.'], rw:{xp:1760300, gold:317190}, needFlag:'inv_hz917c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz932a', kind:'investigate', n:'Without Warning', icon:'🚢', ch:932, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'The harbour.',
+   clues:['The disturbance appeared without warning at Lunareth\'s harbour: an unfamiliar vessel, wreathed in light. "Jade Gold! An unfamiliar vessel has appeared at the harbour." Jade: "Appeared?"'], rw:{xp:1808900, gold:318060}},
+  {id:'hz932b', kind:'investigate', n:'Called to Investigate', icon:'📜', ch:932, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Jade\'s group.',
+   clues:['Jade\'s group was called to investigate the unexpected arrival. A crowd of strangers stood on the quay: travellers in unfamiliar clothes.'], rw:{xp:1809200, gold:318120}, needFlag:'inv_hz932a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz932c', kind:'investigate', n:'Another World', icon:'🌀', ch:932, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'A strange current.',
+   clues:['"We come in peace. Please forgive our sudden arrival." A traveller in a yellow scarf and goggles translates: "She says they are travellers from another world. They didn\'t intend to cause alarm. According to Qiumin, they were following a strange current, and it brought them here." Jade: "Another world...?"'], rw:{xp:1809500, gold:318180}, needFlag:'inv_hz932b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz932d', kind:'investigate', n:'Sanggui', icon:'🗺️', ch:932, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Not a route we know.',
+   clues:['Devon: "This is not a route we know." Levi: "Then where is their destination?" The traveller: "Qiumin says... Sanggui." Jade: "Then let\'s bring them in. We\'ll hear the full story first." Jade had expected a routine investigation. Instead, Lunareth had received some very unexpected guests.'], rw:{xp:1809800, gold:318240}, needFlag:'inv_hz932c', lockMsg:'🔒 Finish the previous clue first'}
 );
 MISSIONS.push(
   {id:'m_s832', needCh:832, title:'Two Sisters', obj:{type:'steps', steps:[
@@ -13617,7 +13629,13 @@ MISSIONS.push(
      {label:'I Think One Is Enough', spot:'hz917b'},
      {label:'Research and a Kingdom', spot:'hz917c'},
      {label:'Not a Lack', spot:'hz917d'}]}, rw:{xp:2272000, gold:517500, rep:3393},
-   subj:'One Is Enough', body:'The story is not finished. — Jade'}
+   subj:'One Is Enough', body:'The story is not finished. — Jade'},
+  {id:'m_s932', needCh:932, title:'Oops', obj:{type:'steps', steps:[
+     {label:'Without Warning', spot:'hz932a'},
+     {label:'Called to Investigate', spot:'hz932b'},
+     {label:'Another World', spot:'hz932c'},
+     {label:'Sanggui', spot:'hz932d'}]}, rw:{xp:2317000, gold:526500, rep:3438},
+   subj:'Oops', body:'The story is not finished. — Jade'}
 );
 LORE.push(
   {ch:832, n:'Two Sisters', t:'The earliest surviving records showed Dima and Xima together: not enemies, not goddess and demon, but sisters working on the same ancient restoration system. Dima was associated with healing, preservation and stabilisation, Xima with containment, boundaries and controlled separation. Neither role was inherently evil: the system originally needed both.'},
@@ -13703,7 +13721,8 @@ LORE.push(
   {ch:929, n:'Damien\'s Wedding', t:'Damien married the Tribal Girl in a short, warm interlude that brought together people from different regions of Lunareth: simple, heartfelt and full of warmth, a celebration of their union and of the bonds their journey had forged. By the traditions of both their peoples, and with witnesses from across Lunareth, they were joined. As the celebrations carried on into the evening they were no longer two travellers on separate paths but partners, a marriage born from understanding, mutual respect and a journey that had finally led them home.'},
   {ch:930, n:'Still Not Saying It', t:'The Fifteen Evils were gone and peace had returned, and yet some matters remained remarkably unresolved: among them the quiet question everyone around them could see except, apparently, Hugh and Sera. Princess Sera returned to Tribute, and the two were warm, formal and old friends. Neither had promised marriage, neither had demanded an answer, and neither had closed the door. Some stories were not unfinished because love was absent, but because the people involved were still finding their own way toward it.'},
   {ch:931, n:'Years Later', t:'Years had passed since the Fifteen Evils were defeated: the kingdoms were stable, trade flourished and life had found a new rhythm. Jade and Devon remained active on the frontlines, Sally and Levi led investigations across the realms, Adrian bridged royal policy with practical innovation and Fen researched ancient relics and the new phenomena beginning to stir again in the world. It felt like the future they had fought for. Then, one night, a rift tore across the sky, and with it a presence, a ship and people from another world had arrived.'},
-  {ch:917, n:'One Is Enough', t:'As their son slept peacefully Aster and Fen found a quiet moment to talk about what came next: family, duty and the future. The question of another child came up naturally, and their answer was reassuringly the same: one son, well loved and well raised, and a life they could both still give their all to. A single child was not a lack. It was enough.'}
+  {ch:917, n:'One Is Enough', t:'As their son slept peacefully Aster and Fen found a quiet moment to talk about what came next: family, duty and the future. The question of another child came up naturally, and their answer was reassuringly the same: one son, well loved and well raised, and a life they could both still give their all to. A single child was not a lack. It was enough.'},
+  {ch:932, n:'Oops', t:'The disturbance appeared without warning at Lunareth\'s harbour: an unfamiliar vessel. Jade\'s group was called to investigate. The strangers came in peace and asked forgiveness for their sudden arrival; a traveller translated that they were from another world and had been following a strange current that brought them here. Devon said it was not a route they knew, and when Levi asked their destination the answer was Sanggui. Jade had expected a routine investigation; instead Lunareth had received some very unexpected guests, and she would hear the full story first.'}
 );
 
 LOCATIONS.sealed_records.spots.push({id:'last_spasm_898', kind:'boss', n:'The Old System\'s Last Spasm', icon:'🌅', desc:'The last trial, as it was. It can be faced again here.', boss:'boss_last_spasm', add:[], lo:118, ch:898, needFlag:'inv_hz898d', lockMsg:'🔒 Learn what it is made of first'});
