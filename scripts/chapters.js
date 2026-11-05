@@ -9317,6 +9317,16 @@ const CHAPTER_DESIGN = {
   purpose:['Look to the sky'],
   unlocks:['Years later'],
   reward:'Something impossible happened'},
+ 917:{ title:'One Is Enough', type:'Epilogue — Lives After the Fifteen', loc:'🐉 Dragonvale: the library',
+  chars:['aster', 'fen'], charsNote:'Aster and Fen',
+  introduced:[],
+  sum:'As their son slept peacefully, Aster and Fen found a quiet moment to talk about what came next: family, duty and the future. The question of having another child came up naturally, but their answer was reassuringly the same. Aster: "As much as I love our son... I think one is enough. I already have more paperwork than I want to see for a lifetime." Fen: "I agree. I have research to finish, ongoing projects, and a kingdom to help run." Aster: "Then it\'s decided. One son, well loved, well raised..." Fen: "...and a life we can both still give our all to." Fen: "A single child is not a lack... It is enough. For our family, for our work, and for the life we\'ve built." One child, a shared purpose and a future that still felt full: for Aster and Fen, that was more than enough.',
+  art:'One page, "Chapter 917 — One Is Enough" (Arc XXXIV banner). The readable text is built: As their son slept peacefully, Aster and Fen found a quiet moment to talk about what came next: family, duty and the future. The question of having another child came up naturally, but their answer was reassuringly the same. Aster: "As much as I love our son... I think one is enough. I already have more paperwork than I want to see for a lifetime." Fen: "I agree. I have research to finish, ongoing projects, and a kingdom to help run." Aster: "Then it\'s decided. One son, well loved, well raised..." Fen: "...and a life we can both still give our all to." Fen: "A single child is not a lack... It is enough. For our family, for our work, and for the life we\'ve built." One child, a shared purpose and a future that still felt full: for Aster and Fen, that was more than enough.',
+  quote:'"A single child is not a lack. It is enough."',
+  events:['As their son slept peacefully, Aster and Fen found a quiet moment to talk about what came next: family, duty and the future. The question of having another child came up naturally, but their answer was reassuringly the same.', 'Aster: "As much as I love our son... I think one is enough. I already have more paperwork than I want to see for a lifetime."', 'Fen: "I agree. I have research to finish, ongoing projects, and a kingdom to help run." Aster: "Then it\'s decided. One son, well loved, well raised..." Fen: "...and a life we can both still give our all to."', 'Fen: "A single child is not a lack... It is enough. For our family, for our work, and for the life we\'ve built." One child, a shared purpose and a future that still felt full: for Aster and Fen, that was more than enough.'],
+  purpose:['Spend a quiet evening with them'],
+  unlocks:['One is enough'],
+  reward:'More than enough'},
 };
 // Chapter titles read from the title cards of the comic pages (the comic is canon). 0-3 titles also come from CHAPTER_DESIGN.
 const COMIC_TITLES = { 4:'A Secret Mission', 5:'Unanswered Ties', 6:'Moonlit Confessions', 7:'Restless Desire', 8:'Unwanted Truths', 9:'Whispers and Jealousy', 10:'The Prophecy',

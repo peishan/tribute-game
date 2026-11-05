@@ -9,3 +9,7 @@ Prompt: "Anime bust portrait of Sally, a poised young noblewoman in deep purple 
 ## assets/party/levi_reborn.webp — Levi, reborn (shown from chapter 76, provisional)
 No comic reference yet. Keep his recognisable face and scar, but not the same man: older and quieter, hair loose or cut differently, darker colour palette with a pale accent (moonlight silver or ash white), eyes steadier and colder, a worn cloak instead of his old gear.
 Prompt: "Anime bust portrait of Levi, a scarred archer who has returned from the brink of death: sharp calm eyes, hair longer and slightly ash-streaked, dark cloak with a thin silver clasp, quiet intensity, dark neutral background, moonlit silver rim light, 512x512."
+
+## Frontier Elise and Frontier Tarin (shown from chapter 918)
+`assets/party/elise_frontier.webp` and `assets/party/tarin_frontier.webp` (supplied art, 512x512) replace the court-era portraits from chapter 918 (Elise & Tarin) on, everywhere the game asks for `portrait('elise')` / `portrait('tarin')`.
+**Retired and listed as missing:** `assets/party/elise.webp` and `assets/party/tarin.webp` are no longer shown after chapter 918 (the files stay on disk). If an earlier-era portrait is ever needed again, these two are the ones to regenerate or restore.

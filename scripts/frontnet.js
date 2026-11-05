@@ -135,7 +135,7 @@ const HFN_REFORMS = [
 function rFrontDesk(){
   hfnSusp(); hfnSyncFlags();
   const h = hfn(), s = h.susp, dor = hfnDormant();
-  const portraits = ['assets/party/elise.webp','assets/party/tarin.webp'].map(p => `<img src="${p}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;vertical-align:middle;border:2px solid var(--gold)">`).join(' ');
+  const portraits = [portrait('elise'),portrait('tarin')].map(p => `<img src="${p}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;vertical-align:middle;border:2px solid var(--gold)">`).join(' ');
   let out = `<div class="panel"><b>${portraits} The Hidden Frontier Network</b><div class="sm">Elise and Tarin, outside every official structure. ${h.done} job${h.done===1?'':'s'} done. <b>Court suspicion:</b> ${suspTierName(s)} (${s}/100) ${'▮'.repeat(Math.round(s/10))}${'▯'.repeat(10-Math.round(s/10))}. ${G.flags.elise_secret_exposed ? '<b>Some of the court wonder about the dead queen</b> (jobs pay 20% less).' : 'The secret of the dead queen is kept.'}</div>${dor ? `<div class="sm">🤫 The network is quiet for ${dor} more day${dor>1?'s':''}.</div>` : ''}</div>`;
   if(hfnPending){
     const p = hfnPending, J = HFN_JOBS[p.id], k = p.sets[p.picks.length];

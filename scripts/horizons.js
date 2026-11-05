@@ -13098,7 +13098,19 @@ LOCATIONS.dragon_vale.spots.push(
    clues:['Whenever their paths crossed again it was as if no time had passed at all: the same banter, the same trust and a bond stronger than ever. It felt, at last, like the kind of future they had fought for: a world where everyone could live, grow and choose their own happiness.'], rw:{xp:1806200, gold:318110}, needFlag:'inv_hz931b', lockMsg:'🔒 Finish the previous clue first'},
   {id:'hz931d', kind:'investigate', n:'Something Impossible', icon:'🌌', ch:931, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
    desc:'One night.',
-   clues:['Then, one night, when everything seemed at peace... something impossible happened. A rift tore across the sky, and with it a presence, a ship and people from another world had arrived.'], rw:{xp:1806500, gold:318170}, needFlag:'inv_hz931c', lockMsg:'🔒 Finish the previous clue first'}
+   clues:['Then, one night, when everything seemed at peace... something impossible happened. A rift tore across the sky, and with it a presence, a ship and people from another world had arrived.'], rw:{xp:1806500, gold:318170}, needFlag:'inv_hz931c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz917a', kind:'investigate', n:'A Quiet Moment', icon:'🌙', ch:917, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Their son sleeps.',
+   clues:['As their son slept peacefully, Aster and Fen found a quiet moment to talk about what came next: family, duty and the future. The question of having another child came up naturally, but their answer was reassuringly the same.'], rw:{xp:1759400, gold:317010}},
+  {id:'hz917b', kind:'investigate', n:'I Think One Is Enough', icon:'📚', ch:917, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Aster.',
+   clues:['Aster: "As much as I love our son... I think one is enough. I already have more paperwork than I want to see for a lifetime."'], rw:{xp:1759700, gold:317070}, needFlag:'inv_hz917a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz917c', kind:'investigate', n:'Research and a Kingdom', icon:'🔬', ch:917, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Fen.',
+   clues:['Fen: "I agree. I have research to finish, ongoing projects, and a kingdom to help run." Aster: "Then it\'s decided. One son, well loved, well raised..." Fen: "...and a life we can both still give our all to."'], rw:{xp:1760000, gold:317130}, needFlag:'inv_hz917b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz917d', kind:'investigate', n:'Not a Lack', icon:'🌅', ch:917, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Enough.',
+   clues:['Fen: "A single child is not a lack... It is enough. For our family, for our work, and for the life we\'ve built." One child, a shared purpose and a future that still felt full: for Aster and Fen, that was more than enough.'], rw:{xp:1760300, gold:317190}, needFlag:'inv_hz917c', lockMsg:'🔒 Finish the previous clue first'}
 );
 MISSIONS.push(
   {id:'m_s832', needCh:832, title:'Two Sisters', obj:{type:'steps', steps:[
@@ -13599,7 +13611,13 @@ MISSIONS.push(
      {label:'Each in Their Way', spot:'hz931b'},
      {label:'As If No Time Had Passed', spot:'hz931c'},
      {label:'Something Impossible', spot:'hz931d'}]}, rw:{xp:2314000, gold:525900, rep:3435},
-   subj:'Years Later', body:'The story is not finished. — Jade'}
+   subj:'Years Later', body:'The story is not finished. — Jade'},
+  {id:'m_s917', needCh:917, title:'One Is Enough', obj:{type:'steps', steps:[
+     {label:'A Quiet Moment', spot:'hz917a'},
+     {label:'I Think One Is Enough', spot:'hz917b'},
+     {label:'Research and a Kingdom', spot:'hz917c'},
+     {label:'Not a Lack', spot:'hz917d'}]}, rw:{xp:2272000, gold:517500, rep:3393},
+   subj:'One Is Enough', body:'The story is not finished. — Jade'}
 );
 LORE.push(
   {ch:832, n:'Two Sisters', t:'The earliest surviving records showed Dima and Xima together: not enemies, not goddess and demon, but sisters working on the same ancient restoration system. Dima was associated with healing, preservation and stabilisation, Xima with containment, boundaries and controlled separation. Neither role was inherently evil: the system originally needed both.'},
@@ -13684,7 +13702,8 @@ LORE.push(
   {ch:928, n:'The Invitation', t:'The group received an invitation from Damien and the Tribal Girl: a wedding invitation. He had actually succeeded in courting her, and it felt like just yesterday they were helping him find her. It was more than a wedding, a celebration of a new life he had built with their help along the way, and they would all go and prepare a proper gift.'},
   {ch:929, n:'Damien\'s Wedding', t:'Damien married the Tribal Girl in a short, warm interlude that brought together people from different regions of Lunareth: simple, heartfelt and full of warmth, a celebration of their union and of the bonds their journey had forged. By the traditions of both their peoples, and with witnesses from across Lunareth, they were joined. As the celebrations carried on into the evening they were no longer two travellers on separate paths but partners, a marriage born from understanding, mutual respect and a journey that had finally led them home.'},
   {ch:930, n:'Still Not Saying It', t:'The Fifteen Evils were gone and peace had returned, and yet some matters remained remarkably unresolved: among them the quiet question everyone around them could see except, apparently, Hugh and Sera. Princess Sera returned to Tribute, and the two were warm, formal and old friends. Neither had promised marriage, neither had demanded an answer, and neither had closed the door. Some stories were not unfinished because love was absent, but because the people involved were still finding their own way toward it.'},
-  {ch:931, n:'Years Later', t:'Years had passed since the Fifteen Evils were defeated: the kingdoms were stable, trade flourished and life had found a new rhythm. Jade and Devon remained active on the frontlines, Sally and Levi led investigations across the realms, Adrian bridged royal policy with practical innovation and Fen researched ancient relics and the new phenomena beginning to stir again in the world. It felt like the future they had fought for. Then, one night, a rift tore across the sky, and with it a presence, a ship and people from another world had arrived.'}
+  {ch:931, n:'Years Later', t:'Years had passed since the Fifteen Evils were defeated: the kingdoms were stable, trade flourished and life had found a new rhythm. Jade and Devon remained active on the frontlines, Sally and Levi led investigations across the realms, Adrian bridged royal policy with practical innovation and Fen researched ancient relics and the new phenomena beginning to stir again in the world. It felt like the future they had fought for. Then, one night, a rift tore across the sky, and with it a presence, a ship and people from another world had arrived.'},
+  {ch:917, n:'One Is Enough', t:'As their son slept peacefully Aster and Fen found a quiet moment to talk about what came next: family, duty and the future. The question of another child came up naturally, and their answer was reassuringly the same: one son, well loved and well raised, and a life they could both still give their all to. A single child was not a lack. It was enough.'}
 );
 
 LOCATIONS.sealed_records.spots.push({id:'last_spasm_898', kind:'boss', n:'The Old System\'s Last Spasm', icon:'🌅', desc:'The last trial, as it was. It can be faced again here.', boss:'boss_last_spasm', add:[], lo:118, ch:898, needFlag:'inv_hz898d', lockMsg:'🔒 Learn what it is made of first'});
