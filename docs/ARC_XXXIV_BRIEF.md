@@ -1,0 +1,10 @@
+# ARC XXXIV — PURIFICATION (brief, received after the arc was built from its pages)
+Chapters 851-875. Evil count 15/15. Focus Jade and Devon; secondary Sky, Jenika, Adrian, Fen, Aster, Roc, Delilah. Theme: knowing the truth is not the same as repairing the damage. Arc question: how do you heal a world that survived by being broken apart? (Full text as supplied by the author; summarised here.)
+
+Parts: I The World After Fifteen (851-857); II Purifying Dragonvale (858-862); III The One Who Benefited (863-868); IV The Gold Child's Function (869-875). Arc results: Dragonvale's node stabilised and the Dragon Sanctuary / Pearl Chamber pays off; Roc and Delilah's twins born; Aster and Fen's heir on the way (born before the campaign ends); Jenika about six months pregnant and Sky the only one who does not know; purification becomes active gameplay; the manipulator is not a Sixteenth Evil; Jade is the chooser, with six passage categories; the route to Dima and Xima opens.
+
+## Checked against what was built from the pages
+- All of 851-875 match the brief beat for beat. The brief's order of nodes in 852 (Dragonvale, Tribute, Altan-linked routes, older seal regions, southeast) differs from the **drawn page** (Dragonvale, Tribute, older seal regions, Altan-linked routes, Dima/Xima); the page wins and is built.
+- 871 (The Categories), originally missing, is built from its page.
+- "Purification becomes active gameplay": built as the **Purification Map** panel in the Restoration Network (five nodes, statuses following the chapters: Dragonvale purified at 861; Tribute, the older seal regions and the Altan-linked routes respond by 875; the southeast route is open and stable at 875). Dragonvale's Pearl Chamber (860-861) and the water beneath the palace (859) are the arc's quest spots. No further node-by-node quests were specified.
+- Not specified and not built: a per-node purification quest chain for Tribute, the older seal regions and the Altan-linked routes (the pages show them responding by 875).
