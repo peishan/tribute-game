@@ -18,3 +18,6 @@ Crimson Tide joins Tribute's existing Ally Network (949); the canon five stay Tr
 
 ## Numbering
 The author notes some roadmap numbers overlap because Tarin and Elise's chapter (918) was added. The game follows the numbers on the drawn pages (876-931 as built); where the roadmap and a page disagree (898/899, 926) the page wins until the author says otherwise.
+
+## After the crossover: the sequel, "Crimson Horizon" (author)
+After the crossover chapters (to 990) comes the sequel, **Crimson Horizon**: Jade and San combine forces. It is a true crossover for both games and both repos (Tribute and Crimson Tide), not an expansion of one of them. Nothing is specified or built yet. Notes for when it is: the crossover (932-990) deliberately closes neither series; Crimson Tide joins Tribute's Ally Network; Jade reaches Veyren only through Crimson Tide's routes; Lunareth is an Inter-World Location on the Crimson Tide side. Anything shared would have to be agreed between the two repos (the Crimson Tide repo is not part of this session).
