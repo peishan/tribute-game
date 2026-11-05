@@ -35,3 +35,6 @@ The author's direction: the main campaign ends with the rift chapter (931), and 
 
 ## Frontier Work (from chapter 918)
 Per the author: the Frontier Elise and Tarin versions unlock the frontier quests and bounties: tasks to settle quarrels and to kill beasts and monsters that disrupt the peace of frontier residents. Built as `scripts/frontierwork.js`: a Frontier Work Board at the Northern Frontier (both frontier places), four quarrels (settled by hearing both out, going by the law or letting the elders decide; Jade in the active party helps) and five beast/monster bounties (real fights). Everything is repeatable and reposts after 5 days; first-pass numbers. Elise and Tarin do not appear as board characters yet.
+
+## Party lock (author)
+Jade and the canon five can never be removed from the active party: Jade always; Devon, Sky and Levi once the party is fixed (from ch102); Sally too once she has returned (ch436 on). The game re-adds any of them who are missing (on load, chapter change and location change) and drops other heroes if the five seats overflow. Implemented in `core.js` (`canonFive`, `unbenchable`, `syncAway`).
