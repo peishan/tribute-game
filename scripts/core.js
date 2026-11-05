@@ -59,7 +59,7 @@ const isAway = id => (id==='sally' && !!G.flags.sally_stays && G.loc!=='dragon_v
 const isDisabled = id => !!(G.disabled && G.disabled[id]) || isAway(id);
 function syncAway(){
   G.active = G.active.filter(id => !isAway(id));
-  if(!fixedParty()) return;
+  G.active = G.active.filter(id => !guestOnly(id));
   const want = canonFive().filter(id => G.party.includes(id) && !(G.left && G.left[id]) && !isDisabled(id));
   want.forEach(id => { if(!G.active.includes(id)) G.active.push(id); });
   while(G.active.filter(id => !isCompanion(id)).length > slotCap()){ const x = G.active.slice().reverse().find(id => !want.includes(id) && !isCompanion(id)); if(!x) break; G.active.splice(G.active.indexOf(x), 1); }
@@ -233,8 +233,11 @@ function evolve(id, eid){
 /* ---------- recruiting / story ---------- */
 const ACTIVE_SLOTS = 4;
 const slotCap = () => fixedParty() ? 5 : ACTIVE_SLOTS;   // the travelling party has five seats; Jade and Devon are the unbenchable pair, the other three may be benched
-const canonFive = () => ['jade','devon','sky','levi'].concat(G && G.ch>=436 ? ['sally'] : []);   // the canon party (author): once the party is fixed none of them can be removed, and Sally cannot be removed once she has returned (ch436); Jade never can
-const unbenchable = id => id==='jade' || (fixedParty() && canonFive().includes(id));
+// The canon party (author), locked in for good once each has joined or rejoined: Jade always; Devon after the wedding (ch57); Sky after his recovery (ch61); Levi after his return (ch87); Sally at the chapter where she rejoins (ch436).
+// Seraphina is a guest from the chapter where she rejoins (ch312): she fights beside the party but never takes a seat.
+const canonFive = () => !G ? ['jade'] : ['jade'].concat(G.ch>=57 ? ['devon'] : [], G.ch>=61 ? ['sky'] : [], G.ch>=87 ? ['levi'] : [], G.ch>=436 ? ['sally'] : []);
+const guestOnly = id => id==='seraphina' && !!G && G.ch>=312 && !!G.flags.sera_rejoined;
+const unbenchable = id => canonFive().includes(id);
 const activeCount = () => G.active.filter(id => !isDisabled(id)).length;   // a disabled hero does not take a fighting slot
 /* Temporary members ("visiting guests"): fight beside the party (controllable, extra to the five) while a rule holds.
    Add a row here when a journey introduces someone: { id, flag (story flag that makes them available), regions (where they travel with you) }.
@@ -242,6 +245,7 @@ const activeCount = () => G.active.filter(id => !isDisabled(id)).length;   // a 
 const AREA_BROKEN_SEALS = ['forgotten_battlefield','forgotten_sanctuary','celestial_ruins','land_beyond_seal'];
 const AREA_NORTH = ['northern_frontier','black_forest','forest_of_thorns','mourning_valley','crownless_marches'];
 const GUEST_RULES = {
+  seraphina:{flag:'sera_rejoined', fromCh:312, note:'Seraphina rejoins at chapter 312 as a guest: she fights beside the party but never takes one of its seats.'},
   chad:{fromCh:170, when:() => LOCATIONS[G.loc].region==='dragon' || ['black_tide_waters','sunken_kingdom'].includes(G.loc), note:'Roc Chadstone, Maritime Envoy of Dragonvale, fights beside the party on Dragonvale ground and at sea. He is an ally, not a member: he never takes a place in the party.'},
   // Area guests: fight beside the party (passive companions) only while the party is inside their area (locs), from chapter fromCh. Leave the area and they leave.
   cael:{fromCh:123, locs:AREA_BROKEN_SEALS, note:'Cael Ardyn, the last Seal Keeper, stays in the Broken Seals area to keep the peace, and fights beside the party while it is there.'},
@@ -266,5 +270,5 @@ const presentGuests = () => { const l = presentGuestsRules(); storyAlongIds().fo
 const isGuestNow = id => presentGuests().includes(id);
 const isCompanion = id => !!(CHARACTERS[id] && CHARACTERS[id].companion) || (!!G && ((id==='rin' && G.ch < RIN_JOIN_CH) || (id==='eira' && G.ch < EIRA_JOIN_CH)));   // companions travel and fight with the party without using one of the active slots
 function recruit(id){ if(G.left && G.left[id]) return false; if(!G.party.includes(id)){ G.party.push(id); if(!isCompanion(id) && activeCount()<slotCap()) G.active.push(id); return true; } return false; }
-function toggleActive(id){ if(unbenchable(id) || isCompanion(id) || (isAway(id) && !G.active.includes(id))) return; const i=G.active.indexOf(id); if(i>=0) G.active.splice(i,1); else if(activeCount()<slotCap()) G.active.push(id); save(); }
+function toggleActive(id){ if(unbenchable(id) || guestOnly(id) || isCompanion(id) || (isAway(id) && !G.active.includes(id))) return; const i=G.active.indexOf(id); if(i>=0) G.active.splice(i,1); else if(activeCount()<slotCap()) G.active.push(id); save(); }
 function recruitsAtChapter(ch){ return Object.keys(JOIN_CH).filter(id => JOIN_CH[id] === ch); }
