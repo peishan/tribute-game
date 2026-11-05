@@ -32,3 +32,8 @@ After the crossover chapters (to 990) comes the sequel, **Crimson Horizon**: Jad
 - **Arc cover** "Special Interlude: Oops, Wrong Destination?" registered as `assets/arcs/arc36.webp` (Arc 36, chapters 932 on).
 - **934 Wrong Destination** is still the earlier page: it starts with Jade bringing the visitors to the Sage, which 933 now covers, so it needs regenerating to follow 933 (the route reactivating and the ship vanishing).
 - **926 No Son Required** was sent in a square format; the author will regenerate it. The built text stays.
+
+## 934 regenerated, 926 replaced
+- **934 Wrong Destination** rebuilt from the regenerated page (six spots): the visitors, after speaking privately with the Sage, prepare to resume the voyage to Sanggui; Hoko and Xiyu say goodbye to Jade; the current changes (not an ordinary sea current) and the ship vanishes beyond the horizon toward another world; Jade wonders how many other worlds are out there. "To be continued: Chapter 935."
+- **926 No Son Required**: the regenerated (non-square) page replaces the square one.
+- The interlude (932-934) is complete. Next: **935**, the roadmap's "The Ship From Another World" (Crimson Tide arrives one week later).

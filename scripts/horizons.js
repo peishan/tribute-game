@@ -13111,18 +13111,6 @@ LOCATIONS.dragon_vale.spots.push(
   {id:'hz926d', kind:'investigate', n:'Equal Heirs', icon:'👑', ch:926, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
    desc:'Recognised.',
    clues:['With the family\'s full support, both daughters are recognised as equal heirs of Tribute. In Tribute, the legacy endures not through gender, but through those who are ready to lead, protect and build a better future.'], rw:{xp:1790000, gold:317820}, needFlag:'inv_hz926c', lockMsg:'🔒 Finish the previous clue first'},
-  {id:'hz934a', kind:'investigate', n:'To the Sage', icon:'🧙', ch:934, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
-   desc:'Someone who may know.',
-   clues:['Jade brought the visitors to the Sage, the one person in Lunareth most likely to understand why they arrived.'], rw:{xp:1815500, gold:318200}},
-  {id:'hz934b', kind:'investigate', n:'Not Where They Meant to Be', icon:'🗺️', ch:934, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
-   desc:'Interpreting.',
-   clues:['Jade: "Please tell them again: we are in Lunareth. This is not the place they intended to reach." The interpreter: "Jade says this is Lunareth, not the destination you intended." The visitor: "They understand. Their route was not deliberate, and they are trying to learn what happened."'], rw:{xp:1815800, gold:318260}, needFlag:'inv_hz934a', lockMsg:'🔒 Finish the previous clue first'},
-  {id:'hz934c', kind:'investigate', n:'The Route Activates', icon:'🌐', ch:934, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
-   desc:'Over the harbour.',
-   clues:['Jade to the Sage: "We\'ve brought travellers from beyond. We believe you can help us understand their arrival." Then: "Look, over the harbour! That light... the ship\'s route is activating again!"'], rw:{xp:1816100, gold:318320}, needFlag:'inv_hz934b', lockMsg:'🔒 Finish the previous clue first'},
-  {id:'hz934d', kind:'investigate', n:'Gone', icon:'🚢', ch:934, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
-   desc:'Proof.',
-   clues:['The ship and travellers vanished through the reactivated route, leaving Lunareth with proof that people can arrive from entirely different worlds.'], rw:{xp:1816400, gold:318380}, needFlag:'inv_hz934c', lockMsg:'🔒 Finish the previous clue first'},
   {id:'hz932a', kind:'investigate', n:'A Disturbance at the Harbour', icon:'🚢', ch:932, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
    desc:'The imperial court.',
    clues:['A disturbance at Dragonvale Harbour drew the attention of the imperial court in Lunareth. A guard: "Princess Jade, forgive the urgency: a foreign vessel has just arrived at the harbour. Its people and customs are unknown." Jade: "A foreign vessel? I\'ll go at once."'], rw:{xp:1808900, gold:318060}},
@@ -13146,7 +13134,25 @@ LOCATIONS.dragon_vale.spots.push(
    clues:['Jade: "Then where have we arrived?" The Sage: "Lunareth. But I suspect the distance between your home and ours cannot be measured by ordinary means." Jade: "A boundary between kingdoms?" "No, Princess. Between worlds." Devon: "Then their homeland truly lies beyond Lunareth?" "Beyond the world you know." For the first time Jade understood that the visitors had not merely come from an undiscovered country.'], rw:{xp:1812800, gold:318250}, needFlag:'inv_hz933b', lockMsg:'🔒 Finish the previous clue first'},
   {id:'hz933d', kind:'investigate', n:'A Larger World', icon:'💫', ch:933, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
    desc:'The accident.',
-   clues:['The Sage: "There are matters concerning your return that I should discuss with you privately." Jade: "Of course. You\'re welcome." Whatever passed between the Sage and the travellers afterward remained their private affair. Jade: "Another world... I never imagined we\'d hear something like that." "We\'ve spent years discovering what lies hidden within Lunareth. Perhaps there is far more beyond it." "Then our world is larger than we ever knew." The travellers had arrived by accident: whether they could return was now a question for the Sage, and the beginning of a possibility Lunareth had never considered.'], rw:{xp:1813100, gold:318310}, needFlag:'inv_hz933c', lockMsg:'🔒 Finish the previous clue first'}
+   clues:['The Sage: "There are matters concerning your return that I should discuss with you privately." Jade: "Of course. You\'re welcome." Whatever passed between the Sage and the travellers afterward remained their private affair. Jade: "Another world... I never imagined we\'d hear something like that." "We\'ve spent years discovering what lies hidden within Lunareth. Perhaps there is far more beyond it." "Then our world is larger than we ever knew." The travellers had arrived by accident: whether they could return was now a question for the Sage, and the beginning of a possibility Lunareth had never considered.'], rw:{xp:1813100, gold:318310}, needFlag:'inv_hz933c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz934a', kind:'investigate', n:'Resuming the Journey', icon:'🚢', ch:934, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'After the Sage.',
+   clues:['The visitors had arrived in Lunareth by accident. Now, after speaking privately with the Sage, they were preparing to resume their journey. "The Sage believes we can find our way back." "Then we should make preparations before the sea changes its mind." "I\'ve checked everything twice. This time, I hope our instruments agree with the ocean."'], rw:{xp:1815500, gold:318200}},
+  {id:'hz934b', kind:'investigate', n:'A Little Less Surprising', icon:'😄', ch:934, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Hoko and Jade.',
+   clues:['Hoko: "We\'re leaving today. Hopefully, we\'ll reach Sanggui this time!" Jade: "I hope your journey is considerably less surprising than your arrival." Hoko: "A little less surprising would be wonderful!"'], rw:{xp:1815800, gold:318260}, needFlag:'inv_hz934a', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz934c', kind:'investigate', n:'Perhaps the World Is Larger', icon:'🌍', ch:934, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Xiyu and Jade.',
+   clues:['Xiyu: "Princess Jade, I wanted to thank you personally before we departed." Jade: "You needn\'t thank me. You arrived somewhere unfamiliar, and we were able to help." Xiyu: "Even so, you welcomed us when you had every reason to be cautious." Jade: "Until yesterday, I wouldn\'t have believed people could simply sail here from another world." Xiyu: "Perhaps the world is larger than either of us imagined." Jade: "Neither would I. And yet here we are."'], rw:{xp:1816100, gold:318320}, needFlag:'inv_hz934b', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz934d', kind:'investigate', n:'Goodbye', icon:'👋', ch:934, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Safe travels.',
+   clues:['Xiyu: "If our paths ever cross again, I hope it will be under calmer circumstances." Jade: "I\'d like that. Then perhaps, one day, we\'ll meet again. Safe travels, Xiyu." "Goodbye! And thank you for everything!" "May you find the home you\'re looking for!" Neither group knew whether they would ever meet again, but the encounter had already changed what they believed possible.'], rw:{xp:1816400, gold:318380}, needFlag:'inv_hz934c', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz934e', kind:'investigate', n:'The Current Changes', icon:'🌀', ch:934, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'Beyond the horizon.',
+   clues:['On the ship: "The current is changing! Keep our heading steady! Everyone, hold your positions!" Levi: "That doesn\'t look like an ordinary sea current." Devon: "No. It certainly doesn\'t." Jade: "So this is how they arrived..." And just as unexpectedly as they had arrived, the travellers vanished beyond Lunareth\'s horizon: not into another kingdom, not into an undiscovered continent, but toward another world.'], rw:{xp:1816700, gold:318440}, needFlag:'inv_hz934d', lockMsg:'🔒 Finish the previous clue first'},
+  {id:'hz934f', kind:'investigate', n:'How Many Other Worlds', icon:'🌌', ch:934, need:2, ambush:[], lo:96, roles:['jade', 'devon', 'sky', 'levi', 'sally', 'rheon'],
+   desc:'The beginning.',
+   clues:['"Do you think they made it home?" "I hope so." Jade: "Until now, we thought Lunareth was the world we had to protect. And now? Now I wonder how many other worlds are out there." The Fifteen Evils were gone and Lunareth had entered an age of peace, yet beyond its familiar horizons possibilities remained that even its greatest scholars had never imagined. And that was only the beginning.'], rw:{xp:1817000, gold:318500}, needFlag:'inv_hz934e', lockMsg:'🔒 Finish the previous clue first'}
 );
 MISSIONS.push(
   {id:'m_s832', needCh:832, title:'Two Sisters', obj:{type:'steps', steps:[
@@ -13654,12 +13660,6 @@ MISSIONS.push(
      {label:'Son or Daughter', spot:'hz926c'},
      {label:'Equal Heirs', spot:'hz926d'}]}, rw:{xp:2299000, gold:522900, rep:3420},
    subj:'No Son Required', body:'The story is not finished. — Jade'},
-  {id:'m_s934', needCh:934, title:'Wrong Destination', obj:{type:'steps', steps:[
-     {label:'To the Sage', spot:'hz934a'},
-     {label:'Not Where They Meant to Be', spot:'hz934b'},
-     {label:'The Route Activates', spot:'hz934c'},
-     {label:'Gone', spot:'hz934d'}]}, rw:{xp:2323000, gold:527700, rep:3444},
-   subj:'Wrong Destination', body:'The story is not finished. — Jade'},
   {id:'m_s932', needCh:932, title:'Oops', obj:{type:'steps', steps:[
      {label:'A Disturbance at the Harbour', spot:'hz932a'},
      {label:'Two Travellers', spot:'hz932b'},
@@ -13671,7 +13671,15 @@ MISSIONS.push(
      {label:'Lost at Sea', spot:'hz933b'},
      {label:'Between Worlds', spot:'hz933c'},
      {label:'A Larger World', spot:'hz933d'}]}, rw:{xp:2320000, gold:527100, rep:3441},
-   subj:'Wrong World', body:'The story is not finished. — Jade'}
+   subj:'Wrong World', body:'The story is not finished. — Jade'},
+  {id:'m_s934', needCh:934, title:'Wrong Destination', obj:{type:'steps', steps:[
+     {label:'Resuming the Journey', spot:'hz934a'},
+     {label:'A Little Less Surprising', spot:'hz934b'},
+     {label:'Perhaps the World Is Larger', spot:'hz934c'},
+     {label:'Goodbye', spot:'hz934d'},
+     {label:'The Current Changes', spot:'hz934e'},
+     {label:'How Many Other Worlds', spot:'hz934f'}]}, rw:{xp:2323000, gold:527700, rep:3444},
+   subj:'Wrong Destination', body:'The story is not finished. — Jade'}
 );
 LORE.push(
   {ch:832, n:'Two Sisters', t:'The earliest surviving records showed Dima and Xima together: not enemies, not goddess and demon, but sisters working on the same ancient restoration system. Dima was associated with healing, preservation and stabilisation, Xima with containment, boundaries and controlled separation. Neither role was inherently evil: the system originally needed both.'},
@@ -13758,9 +13766,9 @@ LORE.push(
   {ch:931, n:'Years Later', t:'Years had passed since the Fifteen Evils were defeated: the kingdoms were stable, trade flourished and life had found a new rhythm. Jade and Devon remained active on the frontlines, Sally and Levi led investigations across the realms, Adrian bridged royal policy with practical innovation and Fen researched ancient relics and the new phenomena beginning to stir again in the world. It felt like the future they had fought for. Then, one night, a rift tore across the sky, and with it a presence, a ship and people from another world had arrived.'},
   {ch:917, n:'One Is Enough', t:'As their son slept peacefully Aster and Fen found a quiet moment to talk about what came next: family, duty and the future. The question of another child came up naturally, and their answer was reassuringly the same: one son, well loved and well raised, and a life they could both still give their all to. A single child was not a lack. It was enough.'},
   {ch:926, n:'No Son Required', t:'Adrian and Eve\'s family reinforced that Tribute succession was based on suitability rather than male inheritance. Some asked whether they would try for a son to secure their line, but in Tribute succession had never been about sons alone: the next leader should be the one most suited to serve Tribute, regardless of gender. Their daughters were given the same education, training and opportunities as any heir, and with the family\'s full support both were recognised as equal heirs of Tribute.'},
-  {ch:934, n:'Wrong Destination', t:'Jade brought the visitors to the Sage, the one person in Lunareth most likely to understand why they arrived, and made sure they knew this was Lunareth and not the place they had intended to reach. They understood that their route had not been deliberate and wanted to learn what happened. Then the ship\'s route began activating again over the harbour, and the ship and its travellers vanished through it, leaving Lunareth with proof that people can arrive from entirely different worlds.'},
   {ch:932, n:'Oops', t:'A disturbance at Dragonvale Harbour drew the attention of the imperial court: a foreign vessel had arrived, its people and customs unknown. Princess Jade went at once and was approached by two of the visitors, Zhan Qiumin and Hoko, who interpreted: they were travellers who had set sail for Sanggui, but an unexpected current had brought them there instead. They introduced their leader, Muxue Xiyu. Jade had never heard of Sanggui, and saw that this was beyond an ordinary navigation error: she asked them to come with her to a Sage in Lunareth who was well versed in extraordinary phenomena.'},
-  {ch:933, n:'Wrong World', t:'Jade brought the visitors to the Sage, who was amazed by travellers from a land the maps did not recognise. They had not simply lost their way: the Sage suspected the distance between their home and Lunareth could not be measured by ordinary means, and said it was a boundary not between kingdoms but between worlds. For the first time Jade understood that the visitors had not merely come from an undiscovered country. The Sage asked to speak with them privately about their return, and Jade and her friends were left to reflect that their world was larger than they had ever known.'}
+  {ch:933, n:'Wrong World', t:'Jade brought the visitors to the Sage, who was amazed by travellers from a land the maps did not recognise. They had not simply lost their way: the Sage suspected the distance between their home and Lunareth could not be measured by ordinary means, and said it was a boundary not between kingdoms but between worlds. For the first time Jade understood that the visitors had not merely come from an undiscovered country. The Sage asked to speak with them privately about their return, and Jade and her friends were left to reflect that their world was larger than they had ever known.'},
+  {ch:934, n:'Wrong Destination', t:'The visitors, who had arrived in Lunareth by accident, prepared to resume their journey after speaking privately with the Sage, who believed they could find their way back. Hoko hoped the voyage to Sanggui would be less surprising than their arrival, and Xiyu thanked Jade for welcoming them when she had every reason to be cautious. Neither group knew whether they would meet again, but the encounter had changed what they believed possible. Then the current changed, not like an ordinary sea current, and the ship vanished beyond Lunareth\'s horizon toward another world. Jade wondered how many other worlds were out there, and that was only the beginning.'}
 );
 
 LOCATIONS.sealed_records.spots.push({id:'last_spasm_898', kind:'boss', n:'The Old System\'s Last Spasm', icon:'🌅', desc:'The last trial, as it was. It can be faced again here.', boss:'boss_last_spasm', add:[], lo:118, ch:898, needFlag:'inv_hz898d', lockMsg:'🔒 Learn what it is made of first'});
