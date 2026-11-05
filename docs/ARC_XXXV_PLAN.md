@@ -1,4 +1,4 @@
-# ARC XXXV: WHAT COMES AFTER (chapters 876-931 built (917 not yet sent) from pages; cover arc35.webp registered; no brief)
+# ARC XXXV: WHAT COMES AFTER (chapters 876-931 built  from pages; cover arc35.webp registered; no brief)
 Chapter 876 onward carry the "Arc XXXV: What Comes After" banner. Pages only; none of the final choice mechanics are built (docs/ENDGAME_PLAN.md still holds the plan for 893-900 and `main_quest_complete`).
 
 - **876 The Road Beyond Purification:** the purified routes link as one network; the southeastern route is a direct connection to Dima and Xima.
@@ -26,6 +26,9 @@ Chapter 876 onward carry the "Arc XXXV: What Comes After" banner. Pages only; no
 
 ## Chapters 915-931 (epilogue pages)
 - **915-916** Fen and Aster's son is born and acknowledged heir; Fen as queen, scholar and mother. **918** Elise and Tarin's frontier life with their daughter Seren. **919-921** (Rheon & Mirelle) the Altan heir is born, the marriage/inheritance reforms take effect, the Mirror restoration gave Mirelle motherhood. **922-924** (Sally & Levi) back to the Guard, Lenny as godfather, the Stanson children. **925-927** Adrian and Eve's two daughters; Adrian as scholar, father and councillor. **928-929** Damien's wedding invitation and wedding. **930** Hugh and Sera, still not saying it. **931** "Years Later": the party each in their way, then a rift tears across the sky and a ship and people from another world arrive. **No more is shown; nothing past the hook was invented.**
-- **Chapter 917 was not in the batch.** 913 arrived twice (identical); only one is built.
+- **917 One Is Enough** (Aster and Fen decide one son is enough) arrived later and is built. 913 arrived twice (identical); only one is built.
 - **926** is a second "Two Daughters" page that combines 925 and 927 on one page; it is built as its own chapter.
 - Elise's daughter is named Seren on the page (903 said only "Elise has a son on the frontier": the page now shows a daughter; both are kept as drawn and flagged here). 903 also said Aster and Fen had a son, which 915 now shows being born.
+
+## Campaign end and the Crossover
+The author's direction: the main campaign ends with the rift chapter (931), and **from the rift chapter onwards the Crossover unlocks, which ends the main campaign.** The Crossover itself has not been specified or built; 931 is the last chapter. Frontier Elise and Frontier Tarin portraits (see docs/PORTRAIT_PROMPTS.md) show from chapter 918.
