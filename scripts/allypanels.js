@@ -100,8 +100,8 @@ Object.assign(REL_ROUTES, {
 })();
 
 const mirelleOpen = () => !!(G && G.flags && G.flags.veyne_network_unlocked);
-const eliseOpen = () => !!(G && G.flags && G.flags.elise_valen_rejoins);
-const tarinOpen = () => !!(G && G.flags && G.flags.tarin_ash_found);
+const eliseOpen = () => !!(G && G.flags && G.flags.elise_valen_rejoins) && !(typeof eliseRetired==='function' && eliseRetired());
+const tarinOpen = () => !!(G && G.flags && G.flags.tarin_ash_found) && !(typeof tarinRetired==='function' && tarinRetired());
 const portraitChip = (src, alt) => `<img src="${src}" alt="${alt}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;vertical-align:middle;border:2px solid var(--gold)">`;
 function mirellePanel(){
   if(!mirelleOpen()) return '';
@@ -109,6 +109,7 @@ function mirellePanel(){
 }
 function elisePanel(){
   if(!eliseOpen()) return '';
+  if(G.ch >= 918) return `<h4>${portraitChip(portrait('elise'),'Frontier Elise')} Frontier Elise: Quest Giver and Ally</h4><div class="sm">Living a quiet life on the frontier with Tarin and their daughter, Seren. She stays there and cannot be partied. She posts the quarrels on the Frontier Work Board, and her old help still holds.</div><div class="sm"><b>Border Accord</b> (+15% gold at the frontier), <b>Frontier Network</b> (one extra clue a day), <b>Logistics Command</b> (fares 15% lower).</div>`;
   const on = !!G.flags.border_rebuilding_begins;
   const queen = !!G.flags.aster_crowned_king, gone = !!G.flags.elise_leaves_dragonvale, dead = !!G.flags.elise_valen_dies;   // Arc XXIV: she leaves with Tarin (621); the kingdom is told she has died (628)
   const title = dead ? 'Elise: Alive, and Officially Dead' : gone ? 'Elise: Away from the Palace' : queen ? 'Queen Elise of Dragonvale (for now)' : 'Lady Elise Valen: Border Ally';
@@ -117,6 +118,7 @@ function elisePanel(){
 }
 function tarinPanel(){
   if(!tarinOpen()) return '';
+  if(G.ch >= 918) return `<h4>${portraitChip(portrait('tarin'),'Frontier Tarin')} Frontier Tarin: Quest Giver and Ally</h4><div class="sm">Repairing, building and providing on the frontier. He stays there and cannot be partied. He posts the beast and monster bounties on the Frontier Work Board.</div><div class="sm"><b>Border Trail:</b> in the frontier, ambushes are rarer (22% instead of 40%) and minor encounters can be bypassed.</div>`;
   return `<h4>${portraitChip(portrait('tarin'),'Tarin Ash')} Tarin Ash: Border Contact</h4><div class="sm">Elise's childhood companion, found alive and living as Ash. He does not fight.</div><div class="sm"><b>Border Trail:</b> in the frontier, ambushes are rarer (22% instead of 40%) and minor encounters can be bypassed.</div>`;
 }
 const yaleOpen = () => !!(G && G.flags && G.flags.sky_reunites_with_yale);

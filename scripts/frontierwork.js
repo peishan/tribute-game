@@ -53,7 +53,7 @@ function fwHunt(id){
 }
 function rFrontierWork(){
   if(!fwOpen()) return '<div class="sm">The board is empty. Elise and Tarin are not on the frontier yet.</div>';
-  let h = `<div class="panel"><b>📌 The Frontier Work Board</b><div class="sm">Quarrels to settle and beasts and monsters to drive off, so people here can live in peace. A finished task is posted again after 5 days. Goodwill earned: ${fwGood()}. ${fwJade() ? 'Jade is in the active party: quarrels settle more easily.' : 'Jade is not in the active party: quarrels are harder to settle.'}</div></div>`;
+  let h = `<div class="panel">${portraitChip(portrait('elise'),'Frontier Elise')} ${portraitChip(portrait('tarin'),'Frontier Tarin')} <b>📌 The Frontier Work Board</b><div class="sm">Posted by Elise (quarrels) and Tarin (bounties). Quarrels to settle and beasts and monsters to drive off, so people here can live in peace. A finished task is posted again after 5 days. Goodwill earned: ${fwGood()}. ${fwJade() ? 'Jade is in the active party: quarrels settle more easily.' : 'Jade is not in the active party: quarrels are harder to settle.'}</div></div>`;
   return h + FW_TASKS.map(t => {
     const s = fwData()[t.id], wait = s ? 5-(G.day-s.day) : 0, tag = s ? ` <span class="sm">· done ${s.n}×</span>` : '';
     if(!fwReady(t.id)) return `<div class="ev locked"><div><b>${t.icon} ${t.n}</b>${tag}<div class="sm">Settled for now. Posted again in ${wait} day(s).</div></div><button disabled>Done</button></div>`;

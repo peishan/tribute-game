@@ -3,9 +3,13 @@
    Logistics Command (travel fares -15%). Fen (from ch498): Research Lead (one extra clue a day) and Cross-Reference (a second finished investigation in a day pays a small XP bonus).
    Tarin (from ch508, Border Trail): safer routes and fewer ambushes in the frontier; see tarinEdge / tarinSkips in arc20guests.js.
    Legal Precedent: Fen halves what Aster's Royal Authority costs in Local Trust. */
-const eliseAlly = () => !!(G.flags && G.flags.border_rebuilding_begins);
+// Author: once Elise fakes her death (ch628) the old Elise ally is deactivated; once she and Tarin have run away (ch621) Tarin is too. After the epilogue chapter that shows their fate (918) both return as
+// frontier quest givers and allies: they stay on the frontier and can never be partied (they never fight).
+const eliseRetired = () => !!(G.flags && G.flags.elise_valen_dies) && G.ch < 918;
+const tarinRetired = () => !!(G.flags && G.flags.elise_leaves_dragonvale) && G.ch < 918;
+const eliseAlly = () => !!(G.flags && G.flags.border_rebuilding_begins) && !eliseRetired();
 const fenAlly = () => !!(G.flags && G.flags.fen_finds_altered_records);
-const tarinContact = () => !!(G.flags && G.flags.tarin_ash_found);
+const tarinContact = () => !!(G.flags && G.flags.tarin_ash_found) && !tarinRetired();
 const inFrontier = () => { const l = LOCATIONS[G.loc]; return G.loc === 'border_frontier' || !!(l && l.region === 'tribute' && typeof outdoorHere === 'function' && outdoorHere()); };
 
 // Daily extra clue (Elise's Frontier Network, then Fen's Research Lead): returns log lines, or null.

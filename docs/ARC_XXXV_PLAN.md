@@ -38,3 +38,8 @@ Per the author: the Frontier Elise and Tarin versions unlock the frontier quests
 
 ## Party lock (author)
 Jade and the canon five can never be removed from the active party: Jade always; Devon, Sky and Levi once the party is fixed (from ch102); Sally too once she has returned (ch436 on). The game re-adds any of them who are missing (on load, chapter change and location change) and drops other heroes if the five seats overflow. Implemented in `core.js` (`canonFive`, `unbenchable`, `syncAway`).
+
+## Elise and Tarin: deactivated, then frontier quest givers (author)
+- **Tarin** is deactivated once they have run away together (ch621, flag `elise_leaves_dragonvale`); **Elise** once she fakes her death (ch628, flag `elise_valen_dies`). Their ally panels and perks (Border Accord, Frontier Network, Logistics Command, Border Trail) switch off. (Elise stays in her "away" panel for 621-627.)
+- From the epilogue chapter that shows their fate (**918**) they return as **frontier quest givers and allies**: Elise posts the quarrels and Tarin the bounties on the Frontier Work Board, their old perks come back, and they **stay on the frontier and can never be partied** (they never fight). Portraits: the Frontier versions.
+- Also fixed: 75 chapter banners had a garbled "Arc for(let i=18;i<=610;i++)IV" type string; now "Arc XXIV".
