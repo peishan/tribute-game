@@ -42,6 +42,7 @@ const ARCS = [
   {n:31, title:'The Mirror Queen', img:'assets/arcs/arc31.webp', after:784},   // ch785-810: the Mirror Queen, the fifteenth Evil
   {n:32, title:'Returning Pearl', img:'assets/arcs/arc32.webp', after:810},   // ch811-830: the Pearl, the restoration network and the Bearer
   {n:34, title:'Purification', img:'assets/arcs/arc34.webp', after:850},   // ch851-875: purifying the network (Arc XXXIII has no cover yet)
+  {n:35, title:'What Comes After', img:'assets/arcs/arc35.webp', after:875},   // ch876-914: the Guidance Intelligence, the last trial and the epilogue
 ];
 /* End-of-arc splash (author): after ch436 the Levi and Sally relationship route starts and Sally rejoins for good. The caption is drawn over the art. */
 const ARC_END_SPLASH = [ {key:'17end', after:436, img:'assets/arcs/arc17_end.webp', title:'Levi and Sally: a relationship route has begun', text:'Levi and Sally: a relationship route has begun.', sub:'Their story now moves between the two of them. Welcome Sally back as a permanent member of the party.'},
