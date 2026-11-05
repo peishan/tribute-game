@@ -191,7 +191,7 @@ function trackState(k){ if(!G.tracks) G.tracks = {}; if(!G.tracks[k]) G.tracks[k
 function trackTier(k){ const p = trackState(k).pts; let t = 0; TRACK_AT.forEach((need,i) => { if(p >= need) t = i; }); return t; }
 const trackOpen = k => BOND_TRACKS[k].open();
 function trackSynergy(k){   // are the bonded members fielded right now?
-  const T = BOND_TRACKS[k], act = id => G.active.includes(id) && !isDisabled(id);
+  const T = BOND_TRACKS[k], act = id => (G.active.includes(id) || (typeof guestOnly==='function' && guestOnly(id) && presentGuests().includes(id))) && !isDisabled(id);   // a guest (Sera from ch312) fights beside the party and counts as fielded
   if(T.headcount) return fixedFive().filter(act).length >= T.headcount;
   if(T.bonus===null) return false;
   if(k==='levi_rin') return act('levi') && (isGuestNow('rin') || act('rin'));
