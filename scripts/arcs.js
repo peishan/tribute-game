@@ -42,6 +42,7 @@ const ARCS = [
   {n:30, title:'The Sunless Child', img:'assets/arcs/arc30.webp', after:760},   // ch761-: the Sunless Child, the Fourteenth Evil
   {n:31, title:'The Mirror Queen', img:'assets/arcs/arc31.webp', after:784},   // ch785-810: the Mirror Queen, the fifteenth Evil
   {n:32, title:'Returning Pearl', img:'assets/arcs/arc32.webp', after:810},   // ch811-830: the Pearl, the restoration network and the Bearer
+  {n:33, title:'Sisters Rise', img:'assets/arcs/arc33.webp', after:830},   // ch831-850: the records, the sisters and the third influence
   {n:34, title:'Purification', img:'assets/arcs/arc34.webp', after:850},   // ch851-875: purifying the network (Arc XXXIII has no cover yet)
   {n:35, title:'What Comes After', img:'assets/arcs/arc35.webp', after:875},   // ch876-914: the Guidance Intelligence, the last trial and the epilogue
   {n:36, title:'Oops, Wrong Destination?', img:'assets/arcs/arc36.webp', after:931},   // ch932-934: the special interlude before Crimson Tide arrives
