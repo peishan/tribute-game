@@ -50,3 +50,8 @@ Dima and Xima have no fixed appearance: as goddesses they take random forms acro
 
 ## Dev option: chapters to PDF (author)
 Dev tab, behind a password (same idea as the Crimson Moon option): pick arcs, optionally include the comic pages, and the browser's print dialog saves a PDF so the images can be deleted from the phone. The password starts unset; set it with `python3 tools/set_dev_password.py "password"` and push (only the SHA-256 hash is stored; it is a convenience lock, not security). Chapters 935+ are grouped as "Crimson Tide Crossover".
+
+## Plan from here (author)
+1. **Finish the crossover** in Tribute (chapters 943-990 per the roadmap; Part I continues at 943).
+2. **Mark the chapters end**: the end of the Tribute campaign (main_quest_complete is already set at 900; the end marking for the whole run, after the crossover, is still to be defined).
+3. **Move into the sequel: "Crimson Horizon: The Adventures of San and Jade."** Inter-world exploration, no Fifteen Evils counter; Dima and Xima's story is over. Shared chapters between the two worlds' repos.
