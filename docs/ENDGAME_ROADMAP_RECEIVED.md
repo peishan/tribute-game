@@ -44,3 +44,6 @@ After the crossover chapters (to 990) comes the sequel, **Crimson Horizon**: Jad
 - **Page titles that were garbled:** 940's banner reads "The Ones of Stayed"; the previous page's "to be continued" names it **A Shared Purpose**, which is the title used. Other garbled words (author: "reserve the garbled text for editing later") were built as their sensible reading; the pages keep the garbling until regenerated.
 - Pages place the party at Dragonvale Harbour and call Jade "Princess Jade"; speakers in a few panels are unlabelled (the built text attributes them only where the page makes it clear).
 - Roadmap check: 934-936 roadmap "The Ship From Another World" is split over 935-937 on the pages; 937-939 Guardians over 938-939; 940-942 Canon Five matches. Page numbers win. The numbers are now one ahead of the roadmap (the 918 insert).
+
+## Dima and Xima: appearance (author)
+Dima and Xima have no fixed appearance: as goddesses they take random forms across the series. The only consistent rule is colour: **one is golden/yellow (Dima) and the other dark (Xima)**. The Arc XXXIII cover (`arc33.webp`) was regenerated with the corrected figures.
