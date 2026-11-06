@@ -47,3 +47,6 @@ After the crossover chapters (to 990) comes the sequel, **Crimson Horizon**: Jad
 
 ## Dima and Xima: appearance (author)
 Dima and Xima have no fixed appearance: as goddesses they take random forms across the series. The only consistent rule is colour: **one is golden/yellow (Dima) and the other dark (Xima)**. The Arc XXXIII cover (`arc33.webp`) was regenerated with the corrected figures.
+
+## Dev option: chapters to PDF (author)
+Dev tab, behind a password (same idea as the Crimson Moon option): pick arcs, optionally include the comic pages, and the browser's print dialog saves a PDF so the images can be deleted from the phone. The password starts unset; set it with `python3 tools/set_dev_password.py "password"` and push (only the SHA-256 hash is stored; it is a convenience lock, not security). Chapters 935+ are grouped as "Crimson Tide Crossover".

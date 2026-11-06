@@ -256,6 +256,7 @@ function rDev(){
    <button onclick="G.flags.bracelet=!G.flags.bracelet;save();render()">Toggle bracelet (${G.flags.bracelet?'on':'off'})</button>
    <button onclick="advanceDay(1);save();render()">+1 day</button><select id="devloc">${LOC_ORDER.filter(locOpen).map(k=>`<option value="${k}" ${k===G.loc?'selected':''}>${LOCATIONS[k].n}</option>`).join('')}</select><button onclick="G.loc=$('devloc').value;syncAway();save();render()">Warp</button>
    <button onclick="ROSTER.filter(i=>!CHARACTERS[i].guestOnly).forEach(i=>recruit(i));save();render()">Recruit everyone</button></div></div>
+   ${typeof devExportPanel==='function'?devExportPanel():''}
    <div class="panel"><button onclick="if(confirm('Erase save?')){localStorage.removeItem(CFG.SAVE_KEY);location.reload()}">Erase save</button></div>`;
 }
 
