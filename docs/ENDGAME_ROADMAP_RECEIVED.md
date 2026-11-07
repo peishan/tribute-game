@@ -55,3 +55,12 @@ Dev tab, behind a password (same idea as the Crimson Moon option): pick arcs, op
 1. **Finish the crossover** in Tribute (chapters 943-990 per the roadmap; Part I continues at 943).
 2. **Mark the chapters end**: the end of the Tribute campaign (main_quest_complete is already set at 900; the end marking for the whole run, after the crossover, is still to be defined).
 3. **Move into the sequel: "Crimson Horizon: The Adventures of San and Jade."** Inter-world exploration, no Fifteen Evils counter; Dima and Xima's story is over. Shared chapters between the two worlds' repos.
+
+## Crossover Part I finished except 946-948, and Part II begun (943-956)
+- **943 Researchers of Two Worlds, 944 Shared Archives, 945 Patterns Across Worlds** (Adrian, Fen with Renn, Erynn and Mimi: five patterns, the cycle of advancement, instability, loss and renewal; next page named "The Next Cycle" = 946), **949 An Ally, Not a Kingdom** (the working alliance, five terms, Crimson Tide added to Tribute's existing Ally Network), **950 The Open Invitation** (come aboard whenever; citizens of Lunareth first; "Mez" named).
+- **946-948 are missing** (author is regenerating them: the Black Pearl research pages per the roadmap). 945 ends "To be continued: 946, The Next Cycle"; 949 follows 948.
+- **Part I cover** ("Crossover Part I: Allies Across Worlds") registered as arc 37 (`arc37.webp`, ch935-950).
+- **951-953 Guests of Fair Tide (I), (II), Shared Work, New Paths; 954-956 New Circles (I-III)** (Part II). The page banners read "Crossover Part II: Allies Across Worlds" (the roadmap calls Part II "Fair Tide"; the game labels them "Part II: Fair Tide"). 952 was sent twice; the labelled version (names on each speaker) is built, the unlabelled one is a duplicate. 953's closing "to be continued" says 953 (a typo for 954).
+- 955 shows the medical circle (Sky, Jenika, Maera, Eliz, Dr AA, Sister Wren, Senedra, Jovie); 956 the information circle (Levi/Iris/KW Liang, Sally/Sairen, Mirelle) and the leaders (Jade Guardian, San Captain, Joy Warden, Devon Strategist, Joel First Mate).
+- The Ally Network panel the pages show (Dragonvale, Fair Tide, Lunareth, Crimson Tide) does not exist as a screen in the game yet; only the story text is built.
+- The pages speak of "Ate Joy" in banners; the game text says Joy.
