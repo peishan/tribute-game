@@ -40,3 +40,7 @@ Jade will not be the only one pregnant: **San's joke (the Fountain / Cold Spring
 - **Jade's pregnancy: no restrictions at all until the month she goes into labour.** It lasts about **3 years**, so for nearly all of the sequel she fights normally. The labour month is the only gap (the game already has a "disabled" state for a story absence: she stays in the party but cannot fight for that month, then returns). Same rule as San in DCT, who was pregnant for years (arc 22 up to arc 35).
 - **Friends who are pregnant are mostly not partiable** (they stay as non-party allies and story characters), **except Sally**, whose pregnancy runs about **2.5 years** and who stays in the party (she is part of the locked canon five). Which friends are pregnant is not yet named; none is assumed.
 - Open still: how many fight at once (both parties or one team of five) and Soel's stats (none needed).
+
+## Jade's pregnancy and abilities (author)
+- **Jade's pregnancy might give her new abilities.** Nothing is built or assumed: wait for the comic chapters, the author decides when they are drawn.
+- **Style difference to keep in mind:** San is a mage who does not use physical force in her fights; Jade fights physically (she jumps and leaps for her **Lunar Lash**). So Jade fighting with no restrictions through the pregnancy is a deliberate contrast with San's casting-only style, and the pages (not the game) decide how that reads.
