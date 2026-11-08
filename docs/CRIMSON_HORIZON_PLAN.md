@@ -44,3 +44,6 @@ Jade will not be the only one pregnant: **San's joke (the Fountain / Cold Spring
 ## Jade's pregnancy and abilities (author)
 - **Jade's pregnancy might give her new abilities.** Nothing is built or assumed: wait for the comic chapters, the author decides when they are drawn.
 - **Style difference to keep in mind:** San is a mage who does not use physical force in her fights; Jade fights physically (she jumps and leaps for her **Lunar Lash**). So Jade fighting with no restrictions through the pregnancy is a deliberate contrast with San's casting-only style, and the pages (not the game) decide how that reads.
+
+## Jade in the sequel: equipment and skills during the pregnancy (author, undecided)
+Possible directions the author floated (not decided; wait for the comic chapters): **special equipment**, and/or **certain abilities reduced or not used as the pregnancy becomes more apparent**. Jade already has a ranged option in Tribute: **Levi's crossbow (chapter 30, "Crossbow Shot", a free ranged attack, flag `crossbow`)**, so a ranged style for her does not conflict with Levi's role as the archer. Nothing is built.
