@@ -30,3 +30,7 @@ Author's direction: after the crossover (Tribute ends at the crossover's chapter
 2. **How many can fight at once?** Both parties together (up to 10 + guests), or one active party of five drawn from the two rosters?
 3. **The twins' age** in the sequel (children, or grown?), which decides whether they fight at all.
 4. **Soel** also appears in the Crimson Tide repo as a familiar: confirm he never needs stats in Tribute.
+
+## Pregnancies are a running joke (author)
+Jade will not be the only one pregnant: **San's joke (the Fountain / Cold Spring recommendation) "gets too far" and Jade's friends end up pregnant as well.** It is comic relief. Already on the pages: Jade (979) and Sally (983 per the roadmap); who else is not specified, and none is assumed.
+**Proposal:** treat pregnancy as a story and comedy state only, with **no combat penalty**, so the locked canon party (Sally included) and Jade stay fieldable. Open question 1 above (Jade's pregnancy in battle) then covers everyone: if the author wants any battle effect, it applies to all of them the same way.
