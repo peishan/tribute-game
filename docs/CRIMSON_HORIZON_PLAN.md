@@ -14,3 +14,19 @@ Author's direction: after the crossover (Tribute ends at the crossover's chapter
 - The sequel's first chapter pages and any brief (arc structure, cover).
 - Whether the Tribute canon five stay Jade, Devon, Sky, Levi and Sally in the sequel, and who joins San's side.
 - What marks the end of the Tribute chapters (the "chapters end" marker before the sequel).
+
+## Sequel roster (author): a dual party
+**Tribute side, the Canon Five:** Jade, Devon, Sky, Levi, Sally (the existing party lock still applies: they cannot be removed). **Jade is pregnant** with an "insanely long" pregnancy: Dragonvale pregnancies take 12 months at most, but she conceived after the Veyren Fountain restoration, so the Veyren and Dragonvale timelines stack ("to be fair": super long).
+**Crimson Tide side:** San and Joel; Joy; Aisyah and Mezstorm; **Sairen (story-required)**; **the twins, Vaeren and Joelle (story-required)**; **Soel the familiar: unfieldable and unkillable.**
+**Enemies:** the bosses and monsters are expected to be super high level.
+
+### How this maps onto what Tribute already has (proposal, nothing built)
+- **Dual party:** two rosters in one party screen, the Canon Five and the Crimson Tide group, each with its own lock list. "Story-required" characters (Sairen, the twins) use the same lock as the canon party: always in their party, cannot be benched.
+- **Soel:** a passive companion that is never a fighter and cannot be hurt (like the Ghost Healer, a hidden passive companion): shown, can act in scenes, takes no seat and takes no damage.
+- **Levels:** guests and the second party take the host party's level at join (see the level discussion); enemy levels scale from the fielded party average plus a sequel offset, so "crazy high level" bosses stay a fair fight for an aggressive player.
+
+### Open questions
+1. **Jade's pregnancy in play:** she can never be removed from the party. Does she still fight at full strength while pregnant (a status/flavour only), or does the pregnancy change what she can do in battle (a cap, fewer skills, protected position)? Nothing is assumed.
+2. **How many can fight at once?** Both parties together (up to 10 + guests), or one active party of five drawn from the two rosters?
+3. **The twins' age** in the sequel (children, or grown?), which decides whether they fight at all.
+4. **Soel** also appears in the Crimson Tide repo as a familiar: confirm he never needs stats in Tribute.
