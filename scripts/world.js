@@ -3356,7 +3356,7 @@ function doInvestigate(spotId){
 function doBoss(spotId){
   const sp = spotById(spotId), lv = lvFor(sp);
   const foes = [{key:sp.boss, lv}].concat((sp.add||[]).map(k => ({key:k, lv:Math.max(1,lv-1)})));
-  startBattle({foes, rewards:true, seal:!!sp.seal, firstClear:!G.flags['boss_'+sp.boss], onWin:()=>{ G.flags['boss_'+sp.boss] = true; return checkSteps(); }});
+  startBattle({foes, allies:sp.canonOnly ? canonFive().filter(id => G.party.includes(id) && !isDisabled(id)) : undefined, rewards:true, seal:!!sp.seal, firstClear:!G.flags['boss_'+sp.boss], onWin:()=>{ G.flags['boss_'+sp.boss] = true; return checkSteps(); }});
 }
 function doPractice(){
   const lv = avgPartyLv(); if(lv > 15) return ['The grounds have little left to teach at your level.'];

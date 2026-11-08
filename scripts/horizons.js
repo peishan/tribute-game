@@ -14422,7 +14422,8 @@ MISSIONS.push(
      {label:'The First Joint Mission', spot:'hz966a'},
      {label:'Hold the Line', spot:'hz966b'},
      {label:'The Black Market Group', spot:'hz966c'},
-     {label:'A Clean Resolution', spot:'hz966d'}]}, rw:{xp:2419000, gold:546900, rep:3540},
+     {label:'A Clean Resolution', spot:'hz966d'},
+     {label:'Break the black market group', boss:'boss_black_market_ringleader'}]}, rw:{xp:2419000, gold:546900, rep:3540},
    subj:'Direct Approach', body:'The story is not finished. — Jade'},
   {id:'m_s967', needCh:967, title:'Rapid Response', obj:{type:'steps', steps:[
      {label:'A Different Specialty', spot:'hz967a'},
@@ -14470,7 +14471,8 @@ MISSIONS.push(
      {label:'A New Lead', spot:'hz974a'},
      {label:'The Connected Plan', spot:'hz974b'},
      {label:'Confirmation, Synchronisation, Interception', spot:'hz974c'},
-     {label:'One Connected System', spot:'hz974d'}]}, rw:{xp:2443000, gold:551700, rep:3564},
+     {label:'One Connected System', spot:'hz974d'},
+     {label:'Intercept the covert shipment', boss:'boss_shipment_key_figure'}]}, rw:{xp:2443000, gold:551700, rep:3564},
    subj:'The Message Before the Fight', body:'The story is not finished. — Jade'},
   {id:'m_s961', needCh:961, title:'The Aftereffects (I)', obj:{type:'steps', steps:[
      {label:'The Day After', spot:'hz961a'},
@@ -14665,3 +14667,15 @@ LORE.push(
 );
 
 LOCATIONS.sealed_records.spots.push({id:'last_spasm_898', kind:'boss', n:'The Old System\'s Last Spasm', icon:'🌅', desc:'The last trial, as it was. It can be faced again here.', boss:'boss_last_spasm', add:[], lo:118, ch:898, needFlag:'inv_hz898d', lockMsg:'🔒 Learn what it is made of first'});
+
+/* ---- Crossover fights (author): two battles in the crossover, fought by the Canon Five alone; San and Joel stand as allies and do not fight ---- */
+Object.assign(ENEMIES, {
+  boss_black_market_ringleader:{n:'The Black Market Ringleader',icon:'🗡️',area:'road',boss:true,hp:520,atk:19,mag:0,def:12,spd:11,xp:210,gold:150,traits:[],
+    moves:[{n:'Cutting Supply',pow:1.2},{n:'Hired Blades',pow:1.5},{n:'Dirty Trick',pow:1.0,fx:[{k:'slow',d:1}]}],drops:[{id:'coin_pouch',chance:.6}],desc:'Runs the group harassing traders and villagers along a key route.'},
+  boss_shipment_key_figure:{n:'The Shipment\'s Key Figure',icon:'🎭',area:'road',boss:true,hp:640,atk:22,mag:6,def:13,spd:14,xp:260,gold:190,traits:[],
+    moves:[{n:'Cover Fire',pow:1.3},{n:'Sudden Reversal',pow:1.6},{n:'Smoke and Knife',pow:1.1,fx:[{k:'slow',d:1}]}],drops:[{id:'seal_dust',chance:.5}],desc:'The one who will be present in person at the meeting before the attack.'},
+});
+LOCATIONS.dragon_vale.spots.push(
+  {id:'cross_fight_966', kind:'boss', n:'The Black Market Group', icon:'🗡️', ch:966, desc:'Jade and Devon\'s direct approach: hold the line on the key route. The Canon Five fight; San and Joel stand by as allies.', boss:'boss_black_market_ringleader', add:['road_bandit','road_bandit','bandit_archer'], lo:100, canonOnly:true, needFlag:'inv_hz966d', lockMsg:'🔒 Finish the investigation first'},
+  {id:'cross_fight_974', kind:'boss', n:'The Covert Shipment', icon:'🎭', ch:974, desc:'Scouting, information and combat as one: intercept the shipment and take the key figure. The Canon Five fight; San, Joel and the crew back them as allies.', boss:'boss_shipment_key_figure', add:['masked_assassin','road_bandit'], lo:100, canonOnly:true, needFlag:'inv_hz974d', lockMsg:'🔒 Finish the plan first'},
+);
