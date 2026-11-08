@@ -64,3 +64,8 @@ Dev tab, behind a password (same idea as the Crimson Moon option): pick arcs, op
 - 955 shows the medical circle (Sky, Jenika, Maera, Eliz, Dr AA, Sister Wren, Senedra, Jovie); 956 the information circle (Levi/Iris/KW Liang, Sally/Sairen, Mirelle) and the leaders (Jade Guardian, San Captain, Joy Warden, Devon Strategist, Joel First Mate).
 - The Ally Network panel the pages show (Dragonvale, Fair Tide, Lunareth, Crimson Tide) does not exist as a screen in the game yet; only the story text is built.
 - The pages speak of "Ate Joy" in banners; the game text says Joy.
+
+## 946 and 948 built, 956 regenerated (947 still missing)
+- **946 The Black Pearl** and **948 The Black Pearl (III): Conclusions and Next Steps** (the Crossover Research Team): the Pearl is ancient (predating Lunareth and the current eras of Lunareth and Dragonvale), restorative and preserving, able to interact with systems beyond Lunareth; Devon's dragon abilities are hereditary from his bloodline, not from the Pearl; its true original owner is unknown; key questions ahead (original owner, more Pearls, other worlds, risks of fuller activation, expanding its functions); the team widens the search (Tribute's archives, Dragonvale's sealed records). 948 names Adrian "Prince-Consort of Tribute, Royal Scholar" and Fen "Queen of Dragonvale, Royal Scholar". Banner: "Crossover Research Arc".
+- **947 (The Black Pearl II) is still missing**; the roadmap's 946-948 research pages were sent as 946 and 948 with 947 to come.
+- **956 New Circles (III)** rebuilt from the regenerated page (the earlier version's text is replaced).
