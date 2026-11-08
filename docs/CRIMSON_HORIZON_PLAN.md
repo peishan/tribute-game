@@ -34,3 +34,9 @@ Author's direction: after the crossover (Tribute ends at the crossover's chapter
 ## Pregnancies are a running joke (author)
 Jade will not be the only one pregnant: **San's joke (the Fountain / Cold Spring recommendation) "gets too far" and Jade's friends end up pregnant as well.** It is comic relief. Already on the pages: Jade (979) and Sally (983 per the roadmap); who else is not specified, and none is assumed.
 **Proposal:** treat pregnancy as a story and comedy state only, with **no combat penalty**, so the locked canon party (Sally included) and Jade stay fieldable. Open question 1 above (Jade's pregnancy in battle) then covers everyone: if the author wants any battle effect, it applies to all of them the same way.
+
+## Decisions (author): the twins and the pregnancies (answers open questions 1 and 3)
+- **The twins (Vaeren and Joelle)** are **toddlers at the start of DCT arc 42 / the crossover**, but **already magic practitioners** and bigger than their real age. They are story-required fighters (casters); how a toddler's role reads on the page is a writing choice for the shared chapters.
+- **Jade's pregnancy: no restrictions at all until the month she goes into labour.** It lasts about **3 years**, so for nearly all of the sequel she fights normally. The labour month is the only gap (the game already has a "disabled" state for a story absence: she stays in the party but cannot fight for that month, then returns). Same rule as San in DCT, who was pregnant for years (arc 22 up to arc 35).
+- **Friends who are pregnant are mostly not partiable** (they stay as non-party allies and story characters), **except Sally**, whose pregnancy runs about **2.5 years** and who stays in the party (she is part of the locked canon five). Which friends are pregnant is not yet named; none is assumed.
+- Open still: how many fight at once (both parties or one team of five) and Soel's stats (none needed).
