@@ -47,3 +47,6 @@ Jade will not be the only one pregnant: **San's joke (the Fountain / Cold Spring
 
 ## Jade in the sequel: equipment and skills during the pregnancy (author, undecided)
 Possible directions the author floated (not decided; wait for the comic chapters): **special equipment**, and/or **certain abilities reduced or not used as the pregnancy becomes more apparent**. Jade already has a ranged option in Tribute: **Levi's crossbow (chapter 30, "Crossbow Shot", a free ranged attack, flag `crossbow`)**, so a ranged style for her does not conflict with Levi's role as the archer. Nothing is built.
+
+## The end of Tribute (author): built
+After chapter 990 completes, a **"Tribute complete"** end-of-run splash plays (using the Crimson Horizon cover art, `assets/horizon/arc01.webp`): "Tribute: Curse of the Hidden Isle is complete. The story continues in Crimson Horizon: The Adventures of San and Jade." It sets the flag `tribute_complete` (listed with the story flags). `main_quest_complete` (ch900) stays as the main-campaign marker; the splash can be reopened like the other end-of-arc splashes. The sequel itself is not built.
