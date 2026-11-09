@@ -1,5 +1,5 @@
 /* =====================================================================
-   DEVELOPER OPTION: chapters as PDF (Dev tab, behind a password). Same idea as the Crimson Moon option.
+   CHAPTERS AS PDF (Save tab, behind a password). Same idea as the Crimson Moon option.
    Builds a print-ready document of the chapter text (title, place, summary, events, who is on the page) for the chosen arcs, optionally with the comic pages, and opens
    the browser's print dialog: choose "Save as PDF". Nothing is uploaded. Keep the PDF and the phone's image storage can be cleared.
    PASSWORD: only a SHA-256 hash is stored (DEV_PW_HASH). It starts unset: set it with   python3 tools/set_dev_password.py "your password"   and push.
@@ -65,3 +65,4 @@ async function devExportPdf(){
   const go = () => setTimeout(() => { try{ w.focus(); w.print(); }catch(e){} }, 600);
   if(img){ const t = setInterval(() => { const im = Array.from(w.document.images); if(im.every(i => i.complete)){ clearInterval(t); go(); } }, 500); } else go();
 }
+

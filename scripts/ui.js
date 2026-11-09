@@ -2,7 +2,7 @@
    TRIBUTE — UI (tabs, party sheets, journal, training, battle, stubs)
    ===================================================================== */
 const TABS = [['journal','📖 Journal'],['missions','✉️ Missions'],['travel','🛞 Travel'],['here','🧭 Here'],['party','👥 Party'],['cast','🎴 Cast'],['bonds','💞 Bonds'],['training','🎯 Training'],['skirmish','🎲 Skirmish'],
-              ['rewards','🎁 Rewards'],['network','🏛️ Network'],['inventory','🎒 Items'],['bestiary','📕 Bestiary'],['equipment','🛡️ Gear'],['save','💾 Save'],['dev','🛠️ Dev']];
+              ['rewards','🎁 Rewards'],['network','🏛️ Network'],['inventory','🎒 Items'],['bestiary','📕 Bestiary'],['equipment','🛡️ Gear'],['save','💾 Save']];
 let tab = 'journal', sel = 'jade', openCh = null, chMsgs = [], origin = 'journal', trSel = 0, trLv = 5;
 const STAT_SCALE = {hp:420,mp:200,atk:130,mag:130,def:100,spd:90};
 const STAT_NAME = {hp:'HP',mp:'MP',atk:'ATK',mag:'MAG',def:'DEF',spd:'SPD'};
@@ -20,8 +20,7 @@ function render(){
      TABS.filter(([k]) => (k!=='network' || (typeof netOpen==='function' && netOpen())) && (k!=='skirmish' || G.ch>=12)).map(([k,l]) => `<button class="${tab===k?'on':''}" onclick="showTab('${k}')">${l}${k==='missions'&&unreadCount()?' <b style="color:var(--r)">●</b>':''}${k==='rewards'&&rewardsReady()?' <b style="color:var(--r)">●</b>':''}</button>`).join('');
   const R = { journal:rJournal, party:rParty, training:rTraining, battle:rBattle, inventory:rInventory, bestiary:rBestiary,
               equipment:rGear,
-              missions:rMissions, rewards:rRewards, skirmish:rSkirmish, network:rNetwork, bonds:rBonds, cast:rCast, travel:rTravel, here:rHere, save:rSave,
-              dev:rDev }[tab] || rJournal;
+              missions:rMissions, rewards:rRewards, skirmish:rSkirmish, network:rNetwork, bonds:rBonds, cast:rCast, travel:rTravel, here:rHere, save:() => rSave() + (typeof devExportPanel==='function' ? devExportPanel() : '') }[tab] || rJournal;
   if(typeof relCatchUp==='function') relCatchUp();
   if(typeof standCatchUp==='function') standCatchUp();
   if(typeof checkDeeds==='function') checkDeeds();   // before drawing, so the Deeds screen is never one render behind
@@ -245,21 +244,6 @@ function rBestiary(){
 }
 
 /* ---------------- DEV ---------------- */
-function rDev(){
-  return `<h2>Dev tools</h2><div class="panel"><div class="sm">Jump the save to a story point (recruits, flags, levels):</div>
-   <input id="devch" type="number" min="0" max="31" value="${Math.max(0,G.ch)}"><button onclick="devSetChapter(+$('devch').value);toast('Story set');render()">Set chapter</button></div>
-   <div class="panel"><div class="row">
-   <button onclick="gainXp(500);save();render()">+500 XP (all)</button><button onclick="gainXp(5000);save();render()">+5000 XP</button>
-   <button onclick="G.party.forEach(i=>addBond(i,60));save();render()">+60 bond (all)</button><button onclick="G.gold+=500;save();render()">+500 gold</button>
-   <button onclick="G.flags.crossbow=!G.flags.crossbow;save();render()">Toggle crossbow flag (${G.flags.crossbow?'on':'off'})</button>
-   <button onclick="restoreParty();save();render()">Restore party HP/MP</button><button onclick="G.disabled={};save();render()">Clear disabled</button><button onclick="G.flags.greyson_arms=!G.flags.greyson_arms;save();render()">Unseal Greyson's dagger+flail (${G.flags.greyson_arms?'on':'off'})</button>
-   <button onclick="G.flags.bracelet=!G.flags.bracelet;save();render()">Toggle bracelet (${G.flags.bracelet?'on':'off'})</button>
-   <button onclick="advanceDay(1);save();render()">+1 day</button><select id="devloc">${LOC_ORDER.filter(locOpen).map(k=>`<option value="${k}" ${k===G.loc?'selected':''}>${LOCATIONS[k].n}</option>`).join('')}</select><button onclick="G.loc=$('devloc').value;syncAway();save();render()">Warp</button>
-   <button onclick="ROSTER.filter(i=>!CHARACTERS[i].guestOnly).forEach(i=>recruit(i));save();render()">Recruit everyone</button></div></div>
-   ${typeof devExportPanel==='function'?devExportPanel():''}
-   <div class="panel"><button onclick="if(confirm('Erase save?')){localStorage.removeItem(CFG.SAVE_KEY);location.reload()}">Erase save</button></div>`;
-}
-
 /* ---------------- BOOT ---------------- */
 function enter(newGame){
   if(newGame && localStorage.getItem(CFG.SAVE_KEY) && !confirm('Start a new journey? Your saved journey will be overwritten.')) return;

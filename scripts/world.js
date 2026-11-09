@@ -3137,11 +3137,14 @@ function onArrive(loc){
 
 /* ---------------- TRAVEL ---------------- */
 let PEND = null;   // travel in progress while its encounter battle is running
+/* The road home is closed (author): once the party has reached Dragonvale for the first time they cannot go back to Tribute's places until the story brings them home (ch89, "Return to Tribute"). */
+const TRIBUTE_HOME_CH = 89;
+const tributeBarred = to => !!(G && G.visited && G.visited.dragon_vale && G.ch < TRIBUTE_HOME_CH && LOCATIONS[to] && LOCATIONS[to].region==='tribute' && (!LOCATIONS[to].unlock || (LOCATIONS[to].unlock.ch!==undefined && LOCATIONS[to].unlock.ch < TRIBUTE_HOME_CH)) && LOCATIONS[G.loc] && LOCATIONS[G.loc].region!=='tribute');
 function travelOptions(){
-  return routesFrom(G.loc).map(({r,to}) => ({r, to, open: locOpen(to), modeOk: modeOpen(r.mode), cost: fareOf(r), can: locOpen(to) && modeOpen(r.mode) && G.gold >= fareOf(r)}));
+  return routesFrom(G.loc).map(({r,to}) => { const barred = tributeBarred(to); return {r, to, barred, open: locOpen(to), modeOk: modeOpen(r.mode), cost: fareOf(r), can: !barred && locOpen(to) && modeOpen(r.mode) && G.gold >= fareOf(r)}; });
 }
 function startTravel(r, to){
-  if(!locOpen(to) || !modeOpen(r.mode) || G.gold < fareOf(r)) return;
+  if(tributeBarred(to) || !locOpen(to) || !modeOpen(r.mode) || G.gold < fareOf(r)) return;
   G.gold -= fareOf(r);
   if(voyageRoute(r)) return startVoyage(ROUTES.indexOf(r), to);
   const ev = Math.random() < (r.mode==='ship' ? .5 : .35) ? AR(EVENTS[r.mode]) : null;
