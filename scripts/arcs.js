@@ -48,12 +48,13 @@ const ARCS = [
   {n:36, title:'Oops, Wrong Destination?', img:'assets/arcs/arc36.webp', after:931},   // ch932-934: the special interlude before Crimson Tide arrives
   {n:37, title:'Crossover Part I: Allies Across Worlds', img:'assets/arcs/arc37.webp', after:934},   // ch935-950: Crimson Tide arrives, the researchers, the alliance
   {n:38, title:'Crossover Part II: Fair Tide', img:'assets/arcs/arc38.webp', after:950},   // ch951-965: Fair Tide, residency, the Fountain
+  {n:39, title:'Crossover Part III: Worlds in Motion', img:'assets/arcs/arc39.webp', after:965},   // ch966-990: new quest teams, medicine between worlds, the Pearl handoff
 ];
 /* End-of-arc splash (author): after ch436 the Levi and Sally relationship route starts and Sally rejoins for good. The caption is drawn over the art. */
 const ARC_END_SPLASH = [ {key:'17end', after:436, img:'assets/arcs/arc17_end.webp', title:'Levi and Sally: a relationship route has begun', text:'Levi and Sally: a relationship route has begun.', sub:'Their story now moves between the two of them. Welcome Sally back as a permanent member of the party.'},
   {key:'25end', after:660, img:'assets/arcs/arc25_end.webp', title:'Levi and Sally are married', text:'Levi and Sally are married.', sub:'A small wedding between roads, and no quieter for it. They stay in the party, husband and wife.'},
   {key:'28end', after:733, img:'assets/arcs/arc28_end.webp', title:'Rheon and Mirelle are married', text:'Rheon and Mirelle are married.', sub:'King and Queen of Altan, by choice, with all of their history.'} ];
-const ARC_ROMAN = ['','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX','XXI','XXII','XXIII','XXIV','XXV','XXVI','XXVII','XXVIII','XXIX','XXX','XXXI','XXXII','XXXIII','XXXIV','XXXV','XXXVI','XXXVII','XXXVIII'];
+const ARC_ROMAN = ['','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX','XXI','XXII','XXIII','XXIV','XXV','XXVI','XXVII','XXVIII','XXIX','XXX','XXXI','XXXII','XXXIII','XXXIV','XXXV','XXXVI','XXXVII','XXXVIII','XXXIX'];
 
 // Arc IX, "The Forgotten Alliance" (the author's canon title): begins with ch211 and ends with ch235 (the royal wedding is ch234); add {n:9, title:'The Forgotten Alliance', img:'assets/arcs/arc9.webp', after:210} once the splash art exists.
 function arcFor(afterCh){ return ARCS.find(a => a.after === afterCh); }
