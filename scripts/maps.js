@@ -88,7 +88,7 @@ function rMaps(){
     const lines = bad || m.schem ? `<svg class="mlines" viewBox="0 0 100 100" preserveAspectRatio="none">${ROUTES.map(r => { const a = m.nodes.find(n => n.loc===r.a), b = m.nodes.find(n => n.loc===r.b); return a&&b ? `<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}"/>` : ''; }).join('')}</svg>` : '';
     body = `<div class="mapbox ${bad||m.schem?'schem':''}">${bad||m.schem?'':picture}${lines}${dots}</div>${bad ? '<div class="sm">The picture for this map is not available yet: showing a schematic of the places and roads.</div>' : m.schem ? '<div class="sm">A schematic of the places you can visit. The map picture (Image view) also shows places the story has not reached.</div>' : ''}`;
   } else {
-    body = `<div class="maplist">${ents.map(e => { const i = mapEntryInfo(e);
+    body = `<div class="maplist">${ents.filter(e => !neverWritten(LOCATIONS[e.loc])).map(e => { const i = mapEntryInfo(e);
       return `<div class="card ${i.lock?'lock':''} ${e.key===mapSel?'cur':''}" onclick="mapSel='${e.key}';render()"><span class="big">${i.open?i.icon:'🔒'}</span><div class="fl"><b>${e.label}</b><div class="sm">${e.spot?i.L.n+' · ':''}${i.here?'📍 You are here':i.visited?'Visited':i.open?'Reachable':'Locked'}</div></div></div>`; }).join('')}</div>`;
   }
   return `<h4>World maps</h4><div class="row" style="margin:4px 0">${tabs}</div><div class="row" style="margin:4px 0">${toggle}</div>${body}${mapPanel(sel)}`;
