@@ -73,12 +73,12 @@ function rBountyList(){
 /* ---------------- TRAVEL TAB ---------------- */
 function rTravel(){
   if(G.voyage) return rVoyage();
-  const L = LOCATIONS[G.loc], opts = travelOptions();
+  const L = LOCATIONS[G.loc], opts = travelOptions().filter(o => !neverWritten(LOCATIONS[o.to]));
   const riskText = r => r<.3?'low':r<.5?'medium':'high';
   const rows = opts.map(o=>{ const to = LOCATIONS[o.to], r = o.r;
     return `<div class="card ${o.open&&o.modeOk?'':'lock'}"><span class="big">${MODES[r.mode].icon}</span><div class="fl"><b>${o.open?to.icon+' '+to.n:'❔ ???'}</b><div class="sm">${MODES[r.mode].n} · ${r.n} · ${voyageRoute(r)?VOYAGE_DAYS+' days (first crossing: a long voyage)':r.days+' day'+(r.days>1?'s':'')} · risk ${riskText(r.risk)}</div>${o.barred?`<div class="sm">🔒 The road home is closed until the Dragonvale court arc ends.</div>`:''}${o.open?(o.modeOk?'':`<div class="sm">🔒 Boat travel unlocks at chapter ${SHIP_CH}</div>`):`<div class="sm">🔒 ${unlockText(to.unlock)}</div>`}</div><button class="pri" ${o.can?'':'disabled'} onclick="doTravelUi(${ROUTES.indexOf(r)},'${o.to}')">${o.cost}g</button></div>`; }).join('');
   const regions = Object.keys(REGIONS).map(rk=>{
-    const locs = LOC_ORDER.filter(k=>LOCATIONS[k].region===rk);
+    const locs = LOC_ORDER.filter(k=>LOCATIONS[k].region===rk && !neverWritten(LOCATIONS[k]));
     return `<h4>${REGIONS[rk].icon} ${REGIONS[rk].n}</h4>`+locs.map(k=>{ const l=LOCATIONS[k], open=locOpen(k);
       return `<div class="sm" style="padding:2px 0;${open?'':'opacity:.5'}">${k===G.loc?'📍 ':''}${open?l.icon+' '+l.n+(G.visited[k]?'':' (new)'):'❔ ??? — '+unlockText(l.unlock)}</div>`; }).join(''); }).join('');
   return `<h2>Travel</h2><div class="sm">You are at <b>${L.icon} ${L.n}</b> · Day ${G.day} · 💰 ${G.gold}</div>${flashHtml()}
@@ -96,7 +96,7 @@ function doTravelUi(i, to){
 function rHere(){
   const L = LOCATIONS[G.loc];
   if(spotOpen){ const sp = L.spots.find(s=>s.id===spotOpen); if(sp) return rSpot(L, sp); spotOpen = null; }
-  const cards = L.spots.map(sp=>{ const lock = spotLock(sp);
+  const cards = L.spots.filter(sp => !neverWritten(sp)).map(sp=>{ const lock = spotLock(sp);
     return `<div class="card ${lock?'lock':''}" onclick="${lock?'':`spotOpen='${sp.id}';render()`}"><span class="big">${sp.icon}</span><div class="fl"><b>${sp.n}</b><div class="sm">${lock||sp.desc}</div></div></div>`; }).join('');
   return `${bandImg(L.img)}<h2>${L.icon} ${L.n}</h2>${typeof corrMeter==='function'?corrMeter(G.loc):''}<div class="sm">${REGIONS[L.region].icon} ${REGIONS[L.region].n} · Day ${G.day}</div>${typeof regardLine==='function' && isSettlement(G.loc) ? regardLine(G.loc) : ''}<div class="sm" style="margin:4px 0">${L.desc}</div>${flashHtml()}${cards||'<div class="panel sm">Nothing to do here yet.</div>'}`;
 }
