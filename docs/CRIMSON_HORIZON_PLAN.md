@@ -85,3 +85,15 @@ Soel is a **blessing cat**: he gives **HP and MP recovery**, and in the sequel h
 - **The twins (Vaeren and Joelle) start at level 1 and are unkillable and untargetable until they reach full strength**, then the protection lifts automatically. Crimson Tide already codes this (protected while below full power; they seed at 0 XP and grow by being fielded). Tribute needs: a protection flag that removes them from enemy target pools, XP gain from being fielded, and a "full strength" threshold the author sets.
 - **Soel** is unchanged (support-only blessing cat, unkillable).
 **Open (needs the author):** (1) the Crimson Tide side's starting levels in Tribute's numbers (San, Joel, Aisyah, Mezstorm, Sairen: each on its own level, but what number?); (2) the level at which the twins count as "full strength".
+
+## Shared chapters copied from the Crimson Tide repo (author's question: copy, or upload by hand?)
+**Copied, no manual upload needed.** From `daybreak-crimson-tide/assets/comics/sequel/` (already WebP, same shared numbering) into `assets/horizon/`: **c000** (Prologue) and **c001-c041** (chapters 1-41), and the four arc covers as **arc01-arc04** ("A New Voyage", "Storm Shelf", "Beneath the Storm Shelf", "The Mist Straits"). The Crimson Horizon series cover moved to `assets/horizon/series_cover.webp` (the "Tribute complete" splash points at it). The earlier c001-c004 (my uploads) were replaced by the Crimson Tide repo's versions as the canonical shared pages. For future chapters I can copy them the same way whenever they appear in that repo (tell me the range), or you can drop PNGs into `assets/horizon/` and the upload bot converts them.
+Portraits in that repo are PNG; Tribute already has its own 512x512 WebP copies (`assets/horizon/portraits/`).
+
+## Gameplay mapping (author's note, "how the shared chapters play")
+Both games use the **same Crimson Horizon chapter numbers, comic panels and story outcomes**; each plays them its own way. **Tribute: party quests and regional exploration** (open a quest, travel to a location, investigate or fight, then advance the quest and journal; the Ally Network gives the Tribute party access to the shared quests). **Crimson Tide: voyages, ship operations and expeditions.** Each game handles its own unlock condition, playable objective and reward (Tribute: party XP or regional access; Crimson Tide: crew XP, renown, supplies or a newly charted route). The proposed Tribute objectives:
+- **008 Hold the Passage:** coordinate the rescue from the reef and get a towline to the stranded boats.
+- **026 The Channel That Takes It:** compare Renn's transmitted readings with Devon's chart to identify the threatened gate.
+- **039 Low Water:** scout the exposed shoal with Levi and Sairen and inspect the missing lantern.
+- **042 Through the White Water:** read the route signals and warn the convoy's lead ship before it turns.
+Quiet chapters (e.g. **037 A Place at the Table**) are read as story chapters in both games. Proposed, not built. Note: the comics are uploaded to 041 only; 042 is not in the repo yet.
