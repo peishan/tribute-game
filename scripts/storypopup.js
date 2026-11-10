@@ -33,8 +33,8 @@ function drawStory(){
     <div class="story-top-r">${S.mode==='read'?`<span class="story-count">${Math.min(S.i+1,total)} / ${total}</span>`:''}<button class="story-x" onclick="closeStory()" aria-label="Close">✕</button></div></div>`;
   let body = '', bar = '';
   if(S.mode==='read' && S.i < total){
-    body = `<div class="story-page"><img src="assets/comics/${c.art[S.i]}.webp" alt="${c.title}, page ${S.i+1}"></div>`;
-    bar = `<button ${S.i?'':'disabled'} onclick="storyGo(-1)">◀ Back</button><button class="pri" onclick="storyGo(1)">${S.i===total-1?'Finish':'Next ▶'}</button>`;
+    body = `<div class="story-page"><img src="assets/comics/${c.art[S.i]}.webp" alt="${c.title}, page ${S.i+1}" onclick="zoomOpen(this.src)" style="cursor:zoom-in"></div><div class="sm" style="text-align:center;opacity:.7;margin-top:6px">Tap the page to zoom</div>`;
+    bar = `<button ${S.i?'':'disabled'} onclick="storyGo(-1)">◀ Back</button><button onclick="zoomOpen('assets/comics/${c.art[S.i]}.webp')" style="min-width:0">🔍 Zoom</button><button class="pri" onclick="storyGo(1)">${S.i===total-1?'Finish':'Next ▶'}</button>`;
     const pre = new Image(); if(c.art[S.i+1]) pre.src = 'assets/comics/'+c.art[S.i+1]+'.webp';
   } else if(S.mode==='read'){
     const done = chapterDone(S.n);
@@ -56,6 +56,7 @@ function drawStory(){
 
 /* keyboard + swipe */
 document.addEventListener('keydown', ev => {
+  if(ZV){ if(ev.key==='Escape') zoomClose(); return; }
   if(!S) return;
   if(ev.key==='Escape') closeStory();
   else if(ev.key==='ArrowRight' || ev.key===' ') { ev.preventDefault(); storyGo(1); }
@@ -64,7 +65,33 @@ document.addEventListener('keydown', ev => {
 let _tx = null, _ty = null;
 document.addEventListener('touchstart', ev => { if(S && S.mode==='read'){ _tx = ev.touches[0].clientX; _ty = ev.touches[0].clientY; } }, {passive:true});
 document.addEventListener('touchend', ev => {
-  if(!S || _tx===null) return;
+  if(!S || _tx===null || ZV) return;
   const dx = ev.changedTouches[0].clientX - _tx, dy = ev.changedTouches[0].clientY - _ty; _tx = _ty = null;
   if(Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy)*1.6) storyGo(dx < 0 ? 1 : -1);
 }, {passive:true});
+
+/* ---------- ZOOM VIEWER: any comic page, full screen, scroll in both directions; − / + change the size (kept between pages) ---------- */
+let ZV = null, ZV_Z = 2;
+const ZV_STEPS = [1, 1.5, 2, 2.5, 3, 4];
+try{ const z = +localStorage.getItem('tribute_zoom'); if(ZV_STEPS.includes(z)) ZV_Z = z; }catch(e){}
+function zoomOpen(src){
+  ZV = src;
+  let el = document.getElementById('zoomv');
+  if(!el){ el = document.createElement('div'); el.id = 'zoomv'; document.body.appendChild(el); }
+  zoomDraw(); el.scrollTop = 0; el.scrollLeft = 0;
+}
+function zoomDraw(){
+  const el = document.getElementById('zoomv'); if(!el || !ZV) return;
+  el.className = 'on';
+  el.innerHTML = `<div class="zoombar"><button onclick="zoomStep(-1)" ${ZV_Z<=ZV_STEPS[0]?'disabled':''}>−</button><span>${Math.round(ZV_Z*100)}%</span><button onclick="zoomStep(1)" ${ZV_Z>=ZV_STEPS[ZV_STEPS.length-1]?'disabled':''}>+</button><button class="pri" onclick="zoomClose()">✕ Close</button></div><img src="${ZV}" alt="Comic page, zoomed" style="width:${ZV_Z*100}%">`;
+}
+function zoomStep(d){
+  const el = document.getElementById('zoomv'), i = clamp(ZV_STEPS.indexOf(ZV_Z) + d, 0, ZV_STEPS.length-1), old = ZV_Z;
+  const fx = el.scrollWidth ? (el.scrollLeft + el.clientWidth/2) / el.scrollWidth : .5, fy = el.scrollHeight ? (el.scrollTop + el.clientHeight/2) / el.scrollHeight : 0;
+  ZV_Z = ZV_STEPS[i]; try{ localStorage.setItem('tribute_zoom', ZV_Z); }catch(e){}
+  if(ZV_Z === old) return;
+  zoomDraw();
+  const im = el.querySelector('img'), fix = () => { el.scrollLeft = fx*el.scrollWidth - el.clientWidth/2; el.scrollTop = fy*el.scrollHeight - el.clientHeight/2; };
+  if(im.complete) fix(); else im.onload = fix;
+}
+function zoomClose(){ ZV = null; const el = document.getElementById('zoomv'); if(el){ el.className = ''; el.innerHTML = ''; } }
