@@ -1909,6 +1909,7 @@ const modeOpen = m => m!=='ship' || G.ch >= SHIP_CH;
 const MODES = { carriage:{n:'Horse Carriage', icon:'🐎'}, ship:{n:'Ship', icon:'⛵'} };
 const LAND_POOL = ['road_bandit','bandit_archer','forest_wolf'], SEA_POOL = ['sea_raider','storm_wisp'];
 const ROUTES = [
+  {a:'capital', b:'gold_residence', mode:'carriage', n:'Gold Family Road', days:0, fare:0, risk:0, pool:[]},   // home is inside the capital: free, no travel day (this route was missing, which blocked chapter 90)
   {a:'capital', b:'dark_inn', mode:'carriage', n:'Faepool Road', days:2, fare:14, risk:.4, pool:['road_bandit','bandit_archer','forest_wolf']},
   {a:'capital', b:'tribute_wilderness', mode:'carriage', n:'Imperial Road', days:1, fare:6, risk:.3, pool:['road_bandit','bandit_archer','forest_wolf']},
   {a:'tribute_wilderness', b:'faepool_harbour', mode:'carriage', n:'Border Road', days:1, fare:8, risk:.35, pool:['road_bandit','bandit_archer','dock_pickpocket']},
