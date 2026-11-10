@@ -77,7 +77,7 @@ function hzGrantXp(amount, ids){
   if(canon.length) gainXp(amount, canon).forEach(m => msgs.push(m));
   ids.filter(i => !HZ_CANON.includes(i) && i!=='soel').forEach(id => {
     const twin = HZ_TWINS.includes(id), before = hzLevel(id);
-    h.xp[id] = (h.xp[id]||0) + (twin ? HZ_TWIN_XP : amount);
+    h.xp[id] = (h.xp[id]||0) + (twin ? Math.round(HZ_TWIN_XP * 1.25) : amount)   /* Guardian's Bond: +25% for the twins */;
     while(h.xp[id] >= xpToNext(h.lv[id], id)){ h.xp[id] -= xpToNext(h.lv[id], id); h.lv[id]++; }
     if(h.lv[id] > before) msgs.push(HZ_PEOPLE[id].n+' reached Lv'+h.lv[id]+(twin && before < HZ_FULL && h.lv[id] >= HZ_FULL ? ': full strength! The protection lifts.' : '!'));
   });
@@ -104,9 +104,11 @@ function hzStart(key){
   HB = {key, boss:{n:B.n, icon:B.icon, hp:mhp, mhp, atk:Math.round(avgHp*.28*B.mult), def:avgDef, ph:0, expo:0, charging:false, slow:0, mult:1, moves:B.moves}, crew, round:1, turn:0, log:[], over:null, auto:false, menu:null, lv:A};
   hzLog('⚔️ '+B.n+' rises from the sea. '+B.note);
   hzLog('Soel purrs: the crew is blessed and ready. (The twins are protected and cannot be hit.)');
+  hzLog('💞 Guardian\'s Bond: Soel watches over Vaeren and Joelle (they recover 10% HP and MP every round and learn faster).');
 }
 function hzDealt(u, pow, stat){
   const crit = Math.random() < .1 ? 1.5 : 1, expo = HB.boss.expo > 0 ? 1.3 : 1;
+  if(u.id==='joelle' && HB.reso && pow > 1){ pow *= 1.5; HB.reso = false; }   // Twin Resonance
   const d = Math.max(1, Math.round(hzEff(u, stat) * 0.6 * pow * hzRnd(.9, 1.1) * crit * expo));
   HB.boss.hp = Math.max(0, HB.boss.hp - d);
   return d + (crit > 1 ? ' (critical!)' : '');
@@ -125,6 +127,7 @@ function hzAct(u, act){   // act: null = attack, or a skill object, or 'defend'
   const mag = ['san','mezstorm','joelle'].includes(u.id);
   const alive = hzAlive(), low = alive.slice().sort((a, b) => a.hp/a.mhp - b.hp/b.mhp)[0];
   if(act.kind === 'phys' || act.kind === 'mag') hzLog(act.i+' '+nm+' uses '+act.n+': '+hzDealt(u, act.pow, act.kind==='mag' ? 'mag' : (mag ? 'mag' : 'atk'))+' damage.');
+  else if(act.kind === 'taunt' && hzProtected(u.id)){ if(act.pow) hzLog(act.i+' '+nm+' uses '+act.n+': '+hzDealt(u, act.pow, 'atk')+' damage.'); hzLog('🐈 Soel steps in front of '+nm+': the children do not draw attacks while they are protected.'); }
   else if(act.kind === 'taunt'){ HB.taunt = {id:u.id, d:2}; u.guard = true; if(act.pow) hzLog(act.i+' '+nm+' uses '+act.n+': '+hzDealt(u, act.pow, 'atk')+' damage.'); hzLog(act.i+' '+nm+' draws the leviathan\'s attention (it targets '+nm+' for 2 rounds).'); }
   else if(act.kind === 'exposed'){ if(act.pow) hzLog(act.i+' '+nm+' uses '+act.n+': '+hzDealt(u, act.pow, mag ? 'mag' : 'atk')+' damage.'); B.expo = 3; hzLog(act.i+' '+nm+' uses '+act.n+': the leviathan\'s weak points are exposed (+30% damage for 3 rounds).'); }
   else if(act.kind === 'interrupt'){
@@ -136,7 +139,7 @@ function hzAct(u, act){   // act: null = attack, or a skill object, or 'defend'
   else if(act.kind === 'party'){ alive.forEach(t => hzHeal(t, t.mhp * act.pow)); hzLog(act.i+' '+nm+': '+(u.id==='soel' ? 'a warm light washes over the crew (HP restored).' : 'the whole crew recovers.')); }
   else if(act.kind === 'mp' || act.kind === 'mpall'){ alive.forEach(t => { t.mp = Math.min(t.mmp, t.mp + Math.round(t.mmp * (act.kind==='mp' ? .12 : .25))); }); hzLog(act.i+' '+nm+': the crew\'s energy is restored.'); }
   else if(act.kind === 'buff'){ alive.forEach(t => { t.bf[act.stat] = {m:act.m, d:act.d}; }); hzLog(act.i+' '+nm+' uses '+act.n+': the crew\'s '+(act.stat==='def'?'defence':'power')+' rises for '+act.d+' rounds.'); }
-  else if(act.kind === 'guard'){ u.guard = true; HB.shield = u.id; hzLog(act.i+' '+nm+' uses '+act.n+': the next hit on the crew is softened.'); }
+  else if(act.kind === 'guard'){ u.guard = true; HB.shield = u.id; if(u.id==='vaeren' && HB.crew.some(t => t.id==='joelle' && !t.dead)){ HB.reso = true; hzLog('💞 Twin Resonance: Vaeren shields his sister, and Joelle\'s next spell is stronger.'); } hzLog(act.i+' '+nm+' uses '+act.n+': the next hit on the crew is softened.'); }
   else if(act.kind === 'revive'){ const f = HB.crew.find(t => t.dead); if(!f){ u.mp += act.mp; return false; } f.dead = false; f.hp = Math.round(f.mhp*.3); hzLog(act.i+' '+nm+' uses '+act.n+': '+f.name+' rises again.'); }
   return true;
 }
@@ -169,6 +172,7 @@ function hzEndRound(){
   const B = HB.boss;
   HB.crew.forEach(u => { u.acted = false; u.guard = false; Object.keys(u.bf).forEach(k => { if(u.bf[k].d > 0) u.bf[k].d--; }); });
   HB.shield = null; if(B.expo > 0) B.expo--; if(HB.taunt){ HB.taunt.d--; }
+  HB.crew.filter(t => HZ_TWINS.includes(t.id) && !t.dead).forEach(t => { t.hp = Math.min(t.mhp, t.hp + Math.round(t.mhp*.1)); t.mp = Math.min(t.mmp, t.mp + Math.round(t.mmp*.1)); });   // Guardian's Bond: Soel tends the children every round
   const pct = B.hp / B.mhp;
   if(B.ph === 0 && pct <= .66){ B.ph = 1; B.mult = 1.1; hzLog('⚡ Phase two: the leviathan thrashes. Violet surges will build every third round.'); }
   else if(B.ph === 1 && pct <= .33){ B.ph = 2; B.mult = 1.25; hzLog('🌑 Phase three: the leviathan is wounded and furious.'); }
@@ -293,8 +297,9 @@ function hzRead(n){
 function hzReadDone(n){ hz().read[n] = true; const el = $('arcpop'); if(el){ el.classList.remove('on'); el.innerHTML = ''; } save(); render(); }
 function hzCrewCard(id){
   const lv = hzLevel(id), s = hzStats(id), p = hzProtected(id);
-  const note = id==='soel' ? 'Blessing cat: heals, restores MP and blesses the crew. Does not fight. Cannot be killed.' : HZ_TWINS.includes(id) ? (p ? '🔒 Protected: cannot be hit until Lv '+HZ_FULL+'. Power '+Math.round(Math.max(.25, Math.min(1, lv/HZ_FULL))*100)+'%.' : '✅ Full strength.') : (id==='jade'||id==='sally') ? 'Fights from range. Pregnancy places no restriction.' : '';
-  return `<div class="card" style="align-items:flex-start">${hzPic(id, 52)}<div class="fl"><b>${HZ_PEOPLE[id].n}</b> <span class="sm">${id==='soel' ? '' : 'Lv '+lv.toLocaleString()}</span><div class="sm">${HZ_PEOPLE[id].role}</div><div class="sm">HP ${s.hp.toLocaleString()} · ${id==='soel' ? 'MP '+s.mp.toLocaleString() : 'ATK '+s.atk.toLocaleString()+' · MAG '+s.mag.toLocaleString()+' · DEF '+s.def.toLocaleString()}</div>${note ? `<div class="sm">${note}</div>` : ''}</div></div>`;
+  const note = id==='soel' ? 'Blessing cat: heals, restores MP and blesses the crew. Does not fight. Cannot be killed. 💞 Guardian\'s Bond with Vaeren and Joelle.' : HZ_TWINS.includes(id) ? (p ? '🔒 Protected: cannot be hit until Lv '+HZ_FULL+'. Power '+Math.round(Math.max(.25, Math.min(1, lv/HZ_FULL))*100)+'%.' : '✅ Full strength.') : (id==='jade'||id==='sally') ? 'Fights from range. Pregnancy places no restriction.' : '';
+  const bond = HZ_TWINS.includes(id) ? '<div class="sm">💞 Guardian\'s Bond (Soel): +10% HP and MP each round, +25% XP. 💞 Twin Resonance: when Vaeren shields, Joelle\'s next spell is 50% stronger.</div>' : '';
+  return `<div class="card" style="align-items:flex-start">${hzPic(id, 52)}<div class="fl"><b>${HZ_PEOPLE[id].n}</b> <span class="sm">${id==='soel' ? '' : 'Lv '+lv.toLocaleString()}</span><div class="sm">${HZ_PEOPLE[id].role}</div><div class="sm">HP ${s.hp.toLocaleString()} · ${id==='soel' ? 'MP '+s.mp.toLocaleString() : 'ATK '+s.atk.toLocaleString()+' · MAG '+s.mag.toLocaleString()+' · DEF '+s.def.toLocaleString()}</div>${note ? `<div class="sm">${note}</div>` : ''}${bond}</div></div>`;
 }
 function rBattleHz(){
   const B = HB.boss, cur = hzCur(), pct = Math.max(0, B.hp / B.mhp * 100);
