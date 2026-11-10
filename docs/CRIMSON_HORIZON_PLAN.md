@@ -73,3 +73,7 @@ Sequel monsters and bosses are **much harder** and are meant to **call on all 13
 - **Levels:** one captain level (`level()`), with characters' levels derived from it (`characterLevel`, `levelStatMult`), which fits the "both parties on exact power levels" idea.
 - **Difference from Tribute:** Tribute's battle has several enemies, a 5-seat party, per-character levels and role-specific boss modules. Matching the sequel screen means a grid of up to 13 cards, one boss-sized enemy at a time, and the DCT rules above (Soel unkillable and fielded; the twins untargetable).
 **Resolves the count:** the "13 active members" are 10 adults + Vaeren and Joelle (fielded, protected from hits) + Soel (fielded, unkillable). So all 13 take part in battle.
+
+## Soel in the sequel (author)
+Soel is a **blessing cat**: he gives **HP and MP recovery**, and in the sequel he can also give **party blessings and boosts**. **He does not do direct combat** (unlike the early Crimson Tide chapters), so he never attacks or takes a damage-dealing turn; he supports only. Still unkillable. This replaces my earlier note that he is "a fielded support with attack": he is a **support-only party card**.
+**Proposal (not built):** one blessing action per round, chosen from a small kit: a party heal/MP-restore pulse, and timed party boosts (ATK/DEF/SPD/crit/resist). Strength scales with the crew's level so it stays useful against the much harder sequel bosses. The kit's exact boosts and numbers are for the author to decide.
