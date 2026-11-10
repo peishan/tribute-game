@@ -118,7 +118,7 @@ const LOCATIONS = {
       {id:'yvette_records', kind:'investigate', n:'Healer Registry: Yvette Sue Valen', icon:'📜', ch:98, need:3, ambush:[], lo:1, needFlag:'inv_missing_files', lockMsg:'🔒 Search the missing shelves first',
        desc:'The healer registry and Yvette\'s travel permit.',
        clues:['Healer Registry: Yvette Sue Valen, Healer, Imperial Service from Year 812.','Year 814: departure to the West Border. The Year 815 line is missing.','Travel Permit: purpose medical service, destination the Western Regions, no companions, approved by the Imperial Court. The next entry is missing.'], rw:{xp:1800, gold:500}},
-      {id:'sky_files', kind:'investigate', n:'The Files Tied to Sky\'s Past', icon:'🧩', ch:999, need:3, ambush:[], lo:1, needFlag:'inv_yvette_records', lockMsg:'🔒 The trail goes west: sealed until the story reaches it', desc:'The missing files that tie Sky\'s past to Yvette Sue.', clues:['...','...','...'], rw:{xp:3000, gold:1000}},
+      {id:'sky_files', kind:'investigate', n:'The Files Tied to Sky\'s Past', icon:'🧩', ch:907, need:3, ambush:[], lo:1, needFlag:'inv_yvette_records', lockMsg:'🔒 The trail goes west: sealed until the story reaches it', desc:'The missing files that tie Sky\'s past to Yvette Sue.', clues:['The files name a woman known for years only as Su Yan, a junior sister under the same master as Yale. She was born Yvette Sue Valen, and hid the name to protect those around her.', 'She left young Sky with Yale because he needed a safe home, and Yale was the only person she trusted with him. The path she had to walk was too dangerous.', 'The last page is in Yale\'s hand. His western name is Shane Yale (杨生安, Yang Sheng\'an). He is Sky\'s father.'], rw:{xp:3000, gold:1000}},
       {id:'garden', kind:'garden', n:'Imperial Garden', icon:'🌸', img:'assets/areas/imperial_garden.webp', desc:'Quiet meditation, bond scenes and character events.'},
       {id:'hall', kind:'board', n:'Notice Board', icon:'📜', ch:3, desc:'Contracts and bounties for the party.'},
       {id:'gift_stall', kind:'gift', n:'Moon-Blossom Tea Stall', icon:'🍵', ch:88, desc:'A tea and herb stall that sells a gift set for a healer who asks for nothing.'},
@@ -465,7 +465,7 @@ const LOCATIONS = {
       {id:'gold_albums', kind:'investigate', n:'Family Albums and Portraits', icon:'🖼️', ch:92, need:3, ambush:[], lo:1,
        desc:'Old portraits and letters about Elara\'s sister, Yvette Sue Valen.',
        clues:['A framed portrait: Elara and her half-sister Yvette Sue Valen, a healer. They shared a mother but not a gift.','Elara\'s visions could not find Yvette: no trace, as if she vanished from this world.','Sky\'s healing is like Yvette\'s technique, and his face and manner remind the family of her.'], rw:{xp:1200, gold:300}},
-      {id:'yvette_trace', kind:'investigate', n:'Yvette\'s Trail', icon:'🧭', ch:999, need:3, ambush:[], lo:1, desc:'What happened to Yvette Sue Valen, and where Sky\'s pendant went. Sealed until the story reaches it.', clues:['...','...','...'], rw:{xp:2500, gold:800}}]},
+      {id:'yvette_trace', kind:'investigate', n:'Yvette\'s Trail', icon:'🧭', ch:907, need:3, ambush:[], lo:1, desc:'What happened to Yvette Sue Valen.', clues:['Her health deteriorated rapidly, and the healers of Lingering Vale could only slow it, not cure it.', 'She left to seek treatment elsewhere: for years, and then decades, a long and uncertain process.', 'She only returned when she was finally well enough: not to reclaim the past, but because she could at last stand before them both again. The trail ends at Lingering Vale.'], rw:{xp:2500, gold:800}}]},
   tribute_wilderness:{ n:'Tribute Wilderness', region:'tribute', kind:'field', icon:'🌲', unlock:{ch:3},
     desc:'Roads outside the capital, forest paths and travel camps. First field exploration.',
     spots:[
@@ -1134,7 +1134,7 @@ const LOCATIONS = {
       {id:'night_board', kind:'board', n:'Masked Contracts', icon:'🎭', ch:73, desc:'Quiet requests from ordinary people the court ignores. Jade and Devon answer them in disguise, as the Crimson Phoenix and the Silent Dragon.'},
       {id:'palace_life', kind:'family', n:'Life in the Palace', icon:'🏡', ch:83, desc:'Train the guards, visit villages, study the magical archives, and spend an evening with Liora. Once a day each.'},
       {id:'pavilion', kind:'pavilion', n:'Royal Healing Pavilion', icon:'🌙', ch:46, img:'assets/areas/jenika.webp', desc:'Jenika Moon, the royal healer: full recovery, tonics and rare remedies. Sky recovers here.'},
-      {id:'vale', kind:'hunt', n:'The Vale', icon:'🦎', ch:999, desc:'Drakes and old guardians (closed while Jade is confined to the palace).', pool:['vale_drake','stone_sentinel','relic_spirit'], lo:14},
+      {id:'vale', kind:'hunt', n:'The Vale', icon:'🦎', ch:86, desc:'Drakes and old guardians, open to hunt once the Dragonvale court arc has ended.', pool:['vale_drake','stone_sentinel','relic_spirit'], lo:14},
       {id:'sanctuary', kind:'investigate', n:'Dragon Sanctuary', icon:'⛩️', need:3, ambush:['stone_sentinel','relic_spirit'], lo:15, party:'devon', ch:999,
        desc:'Ancient trials and the Black Pearl storyline. Sealed.',
        clues:['A sealed inscription describes the first Pearl bearer.','The wards answer to a royal dragon bloodline.','A trial chamber opens beneath the altar.'], rw:{xp:420, gold:150}}]},
@@ -1150,8 +1150,8 @@ const LOCATIONS = {
       {id:'border_ruins', kind:'investigate', n:'Ancient Border Ruins', icon:'🏛️', need:3, ambush:['shade_beast','stone_sentinel'], lo:18, needFlag:'inv_border_villages', lockMsg:'🔒 Investigate the missing villages first',
        desc:'Reactivated ruins once part of Dragonvale. Something is waking beneath them.',
        clues:['The seals on the ruins are weakening.','Strange lights rise from the ruins at night and spirit beasts walk out of them.','The dark spiritual energy comes from deeper beneath Dragonvale: someone is trying to break what was once sealed here.'], rw:{xp:1100, gold:380}},
-      {id:'ruins_depths', kind:'investigate', n:'Beneath the Ruins', icon:'🕳️', need:3, ambush:['shade_beast','relic_spirit'], lo:19, ch:999, needFlag:'inv_border_ruins', lockMsg:'🔒 The way beneath is sealed until the story reaches it',
-       desc:'The source of the spirit disturbance. Sealed until the story reaches it.', clues:['...','...','...'], rw:{xp:1500, gold:500}},
+      {id:'ruins_depths', kind:'investigate', n:'Beneath the Ruins', icon:'🕳️', need:3, ambush:['shade_beast','relic_spirit'], lo:19, ch:861, needFlag:'inv_border_ruins', lockMsg:'🔒 The way beneath is sealed until the story reaches it',
+       desc:'The source of the spirit disturbance, open now that the network is understood.', clues:['Beneath the ruins runs an old channel of the restoration network. The network is awake but unstable: old barriers are weakening faster than the surrounding lands can bear.', 'What flows here is not evil. It has circulated through damaged channels for centuries: the spirits were disturbed by leaking restorative energy.', 'The source must be cleansed, not destroyed. Repair looks different from conquest.'], rw:{xp:1500, gold:500}},
       {id:'eastern_village', kind:'investigate', n:'Eastern Border Village', icon:'🏘️', ch:85, need:3, ambush:['shade_beast','imp'], lo:21,
        desc:'A remote village plagued by corrupted spirits and restless creatures. The disturbances have grown more frequent near the eastern border.',
        clues:['The village has been living in fear: the barrier near the mountain shrine has weakened.','Reports from the eastern border: the disturbances are more frequent each week.','Greyson: the border disturbances, the awakened creatures and the weakened barriers are connected.'], rw:{xp:1500, gold:500}},
@@ -1172,7 +1172,7 @@ const LOCATIONS = {
       {id:'spirit_chamber', kind:'hunt', n:'Corrupted Spirit Chamber (Floor 2)', icon:'☠️', desc:'Stronger corrupted spirits. Jade weakens them; Devon\'s purification finishes them.', pool:['shade_beast','relic_spirit','shade_wraith'], lo:18},
       {id:'guardian', kind:'boss', n:'Ancient Guardian Spirit', icon:'🗿', desc:'Not evil: it tests the one who comes. Jade breaks its core, Devon purifies.', boss:'boss_guardian_spirit', add:['relic_spirit'], lo:19, needFlag:'inv_forgotten_hall', lockMsg:'🔒 Investigate the Forgotten Hall first'},
       {id:'central_chamber', kind:'boss', n:'Central Chamber: the Seal Core', icon:'🐉', ch:77, desc:'The ancient seal core of Dragonvale, corrupted by whoever forced it to respond.', boss:'boss_spirit_core', seal:true, add:['shade_beast','shade_beast'], lo:20, needFlag:'boss_boss_guardian_spirit', lockMsg:'🔒 The way is sealed until the Guardian is answered'},
-      {id:'seal_study', kind:'investigate', n:'Who Stirred the Seals', icon:'📜', ch:999, need:3, ambush:['shade_beast'], lo:20, desc:'Evidence of the hidden hand. Sealed until the story reaches it.', clues:['...','...','...'], rw:{xp:2000, gold:600}}]},
+      {id:'seal_study', kind:'investigate', n:'Who Stirred the Seals', icon:'📜', ch:864, need:3, ambush:['shade_beast'], lo:20, desc:'Evidence of the hidden hand, read again now that the party knows what to look for.', clues:['The marks on the seal core were not left by a body. The third influence left no physical body inside the system: it worked through direction, communication, records, Keeper interpretation and route access.', 'It was an ancient guidance intelligence tied to the passage systems. It learned that controlling where people go and what reaches them is almost as powerful as controlling the people. It did not need a throne. It needed control over direction.', 'It could redirect, obscure and filter, but it could not command the network outright. It required living people to make the consequential decisions: so someone else was always made to stir the seals.'], rw:{xp:2000, gold:600}}]},
   moonveil_temple:{ n:'Moonveil Temple', region:'dragon', kind:'story', icon:'🌙', unlock:{ch:78},
     desc:'A hidden mountain sanctuary in eastern Dragonvale, untouched by time. Crests of the old royal line, a stone tablet, and a sealed Pearl Chamber.',
     spots:[
@@ -1890,6 +1890,7 @@ const LOC_ORDER = Object.keys(LOCATIONS);
 const isSettlement = id => ['hub','town','harbour'].includes(LOCATIONS[id].kind);
 const unlockMet = u => !u || ((u.ch===undefined || G.ch >= u.ch) && (!u.flag || G.flags[u.flag]));
 const locOpen = id => unlockMet(LOCATIONS[id].unlock);
+const neverWritten = x => !!x && (x.ch>=999 || (x.unlock && x.unlock.ch>=999));   // draft spots and places with no story: hidden from the player
 const unlockText = u => !u ? '' : (u.ch>=999 ? 'Unknown — story not yet written' : (u.ch!==undefined ? 'Reach chapter '+u.ch : '')+(u.flag?' · '+u.flag:''));
 function spotLock(sp){
   if(sp.ch!==undefined && G.ch < sp.ch) return '🔒 Reach chapter '+sp.ch;
