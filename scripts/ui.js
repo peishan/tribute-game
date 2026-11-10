@@ -83,6 +83,7 @@ function doEvolve(id,eid){ if(evolve(id,eid)){ toast(CHARACTERS[id].n+' evolved!
 /* ---------------- JOURNAL ---------------- */
 let jView = 'chapters';
 const JVIEWS = () => [['chapters','📖 Chapters'],['chronicle','📜 Chronicle'],['deeds','🏆 Deeds']].concat(G.ch>=29 ? [['whispers','👂 Whispers'],['overheard','💬 Overheard']] : [], [['regard','🏮 Regard']]);
+const jOpenArc = {};   // which completed arcs are unfolded in the journal
 function rJournal(){
   if(openCh!==null) return rChapter(openCh);
   const jtabs = `<div class="row" style="margin:4px 0 8px">${JVIEWS().map(([k,l]) => `<button class="${jView===k?'pri':''}" onclick="jView='${k}';render()">${l}</button>`).join('')}</div>`;
@@ -91,11 +92,19 @@ function rJournal(){
   if(jView==='overheard') return jtabs+rOverheard();
   if(jView==='whispers') return jtabs+'<h2>Whispers</h2>'+rWhispers();
   if(jView==='regard') return jtabs+'<h2>Local Regard</h2>'+rRegard();
-  const rows = CHAPTERS.map(c => {
+  const row = c => {
     const done=chapterDone(c.n), avail=chapterAvailable(c.n);
     const joins = recruitsAtChapter(c.n).map(id=>CHARACTERS[id].n.split(' ')[0]);
-    return `<div class="card ${avail?'':'lock'} ${c.n===G.ch+1?'cur':''}" onclick="${avail?`openChapter(${c.n})`:''}"><div class="fl"><b>${c.n===0?'':c.n+'. '}${avail||(c.n===G.ch+1&&chapterLevelLock(c.n))?c.title:'???'}</b><div class="sm">${done?'✔ Complete':avail?'Available':(c.n<=G.ch+1&&chapterLevelLock(c.n)?chapterLevelLock(c.n):c.n<=G.ch+1&&CH_LOC[c.n]?'📍 Travel to '+LOCATIONS[CH_LOC[c.n]].n:'Locked')}${!done&&chapterGate(c.n)&&c.n>G.ch?' · ⚖️ level gate '+chapterGate(c.n).lv:''}${CH_LOC[c.n]&&avail&&!done?' · 📍 '+LOCATIONS[CH_LOC[c.n]].n:''}${c.battle?' · ⚔️ battle':''}${joins.length?' · ★ '+joins.join(', ')+' joins':''}${c.art.length?'':' · art pending'}</div></div><span class="sm">XP ${c.sxp}</span></div>`; }).join('');
-  return `${jtabs}<h2>Chapter Journal</h2><div class="sm">Chapters unlock in order. Each gives story XP; battle chapters also roll loot.</div>${rows}`;
+    return `<div class="card ${avail?'':'lock'} ${c.n===G.ch+1?'cur':''}" onclick="${avail?`openChapter(${c.n})`:''}"><div class="fl"><b>${c.n===0?'':c.n+'. '}${avail||(c.n===G.ch+1&&chapterLevelLock(c.n))?c.title:'???'}</b><div class="sm">${done?'✔ Complete':avail?'Available':(c.n<=G.ch+1&&chapterLevelLock(c.n)?chapterLevelLock(c.n):c.n<=G.ch+1&&CH_LOC[c.n]?'📍 Travel to '+LOCATIONS[CH_LOC[c.n]].n:'Locked')}${!done&&chapterGate(c.n)&&c.n>G.ch?' · ⚖️ level gate '+chapterGate(c.n).lv:''}${CH_LOC[c.n]&&avail&&!done?' · 📍 '+LOCATIONS[CH_LOC[c.n]].n:''}${c.battle?' · ⚔️ battle':''}${joins.length?' · ★ '+joins.join(', ')+' joins':''}${c.art.length?'':' · art pending'}</div></div><span class="sm">XP ${c.sxp}</span></div>`; };
+  // grouped by arc: an arc whose chapters are all complete folds into one line (tap to open); the arc in progress stays open
+  const arcs = (typeof ARCS!=='undefined' ? ARCS.slice().sort((a, b) => a.after - b.after) : []), groups = [];
+  CHAPTERS.forEach(c => { let a = null; arcs.forEach(x => { if(x.after < c.n) a = x; }); const k = a ? a.n : 0; let g = groups[groups.length-1]; if(!g || g.k !== k){ g = {k, a, list:[]}; groups.push(g); } g.list.push(c); });
+  const rows = groups.map(g => {
+    const allDone = g.list.every(c => chapterDone(c.n)), ahead = !allDone && g.list[0].n > G.ch+1, open = (!allDone && !ahead) || !!jOpenArc[g.k];   // arcs not reached yet fold away too
+    const name = g.a ? 'Arc '+(ARC_ROMAN[g.a.n]||g.a.n)+' · '+g.a.title : 'Prologue', span = g.list[0].n+(g.list.length>1 ? '–'+g.list[g.list.length-1].n : '');
+    const head = `<div class="card jarc" onclick="jOpenArc[${g.k}]=!jOpenArc[${g.k}];render()"><div class="fl"><b>${allDone || ahead ? (open?'▾':'▸') : '📖'} ${ahead ? '🔒 ' : ''}${name}</b><div class="sm">Chapters ${span} · ${allDone ? '✔ all '+g.list.length+' complete'+(open?' · tap to fold':' · tap to open') : ahead ? 'not reached yet'+(open?' · tap to fold':' · tap to open') : g.list.filter(c => chapterDone(c.n)).length+' / '+g.list.length+' complete'}</div></div></div>`;
+    return head + (open ? g.list.map(row).join('') : ''); }).join('');
+  return `${jtabs}<h2>Chapter Journal</h2><div class="sm">Chapters unlock in order. Each gives story XP; battle chapters also roll loot. Finished arcs fold away: tap one to open it.</div>${rows}`;
 }
 function openChapter(n){ openCh=n; chMsgs=[]; render(); if(CHAPTERS[n].art.length && !G.read[n] && !chapterDone(n)) openStory(n); }
 function closeChapter(){ openCh=null; render(); }

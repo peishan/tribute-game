@@ -290,7 +290,7 @@ function hzRead(n){
   const c = hzChapter(n); if(!c) return;
   const a = HZ_ARCS.find(x => x.from === n);
   const el = $('arcpop'); if(!el) return;
-  const page = `<img src="assets/horizon/c${String(n).padStart(3,'0')}.webp" alt="Chapter ${n}: ${c.t}">`;
+  const src = `assets/horizon/c${String(n).padStart(3,'0')}.webp`, page = `<img src="${src}" alt="Chapter ${n}: ${c.t}" onclick="zoomOpen(this.src)" style="cursor:zoom-in"><button onclick="zoomOpen('${src}')">🔍 Zoom the page</button>`;
   el.innerHTML = `<div class="arcbox">${a ? `<img src="assets/horizon/arc0${a.n}.webp" alt="${a.t}" style="max-height:calc(50vh - 40px)"><div class="sm" style="color:var(--gold-light)">Crimson Horizon · Arc ${a.n}: ${a.t}</div>` : ''}${page}<button class="pri" onclick="hzReadDone(${n})">Continue</button></div>`;
   el.classList.add('on'); el.scrollTop = 0;
 }
