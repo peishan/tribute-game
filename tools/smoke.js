@@ -36,6 +36,11 @@ fs.readdirSync('scripts').filter(f => f.endsWith('.js')).forEach(f => { try{ new
     G = newState(); for(const k in G.units) G.units[k].lv = 1500; G.ch = 990; o.hzOpen = hzOpen(); o.hzCh = HZ_CHAPTERS.length;
     hzBattle('leviathan'); o.crew = HB.crew.length; let twin = false; n = 0; while(HB && !HB.over && n < 1500){ hzAutoStep(); n++; if(HB.crew.some(u => HZ_TWINS.includes(u.id) && u.dead)) twin = true; }
     o.hz = HB.over; o.twinDown = twin; o.soel = HB.crew.find(u => u.id === 'soel').dead; HB = null;
+    // every place a chapter starts at can be reached by road or sea from the capital
+    const adj = {}; ROUTES.forEach(r => { (adj[r.a] = adj[r.a] || []).push(r.b); (adj[r.b] = adj[r.b] || []).push(r.a); });
+    const seen = new Set(['capital']), q = ['capital']; while(q.length){ const x = q.pop(); (adj[x] || []).forEach(y => { if(!seen.has(y)){ seen.add(y); q.push(y); } }); }
+    o.unreach = [...new Set(Object.keys(CH_LOC).filter(n => !seen.has(CH_LOC[n])).map(n => CH_LOC[n]))];
+    o.noLoc = [...new Set(Object.values(CH_LOC).filter(l => !LOCATIONS[l]))];
     o.neverShown = Object.values(LOCATIONS).flatMap(l => l.spots).filter(s => s.clues && s.clues.includes('...') && !(s.ch >= 999)).map(s => s.id);
     return o;
   });
@@ -55,6 +60,7 @@ fs.readdirSync('scripts').filter(f => f.endsWith('.js')).forEach(f => { try{ new
   ok('crossover fight is canon-five only and winnable', r.canon === 'devon,jade,levi,sally,sky' && r.boss === 'win', r.canon+' '+r.boss);
   ok('Horizon opens with 42 chapters', r.hzOpen && r.hzCh === 42);
   ok('sequel fight: 13 crew, won, twins and Soel never fall', r.crew === 13 && r.hz === 'win' && !r.twinDown && !r.soel, JSON.stringify([r.crew, r.hz, r.twinDown, r.soel]));
+  ok('every chapter location is reachable from the capital', !r.unreach.length && !r.noLoc.length, r.unreach.concat(r.noLoc).join());
   ok('no open spot with placeholder clues', !r.neverShown.length, r.neverShown.join());
   await b.close();
   if(fails.length){ console.log('SMOKE FAILED ('+fails.length+'):\n - '+fails.join('\n - ')); process.exit(1); }
