@@ -7,7 +7,7 @@
    and he cannot be killed. Jade and Sally fight from range (the Crimson Repeater and the Veilstring Bow); pregnancy places no restriction on them.
    BATTLE (same structure as the Crimson Tide battle screen): ONE enemy, the whole crew as a grid of cards, turn order through the crew, one action per turn (Attack, Skill, Defend), Auto toggle.
    Enemies scale from the crew itself and are meant to be much harder than Tribute's. All numbers are first-pass defaults.
-   State: G.hz = {read:{n:true}, lv:{id:level}, xp:{id:xp}, won:{key:true}}. The battle (HB) is not saved.
+   State: G.horizon = {read:{n:true}, lv:{id:level}, xp:{id:xp}, won:{key:true}}. The battle (HB) is not saved.
    ===================================================================== */
 const HZ_FULL = 100;        // the twins count as full strength at this level (a default: tune it)
 const HZ_TWIN_XP = 40000;   // XP each twin earns per won fight (a default: about 13 fights to full strength)
@@ -53,7 +53,7 @@ const HZ_BOSSES = {
 
 /* ---------- state and levels ---------- */
 const hzOpen = () => !!(G && G.ch >= 990);
-const hz = () => { if(!G.hz) G.hz = {read:{}, lv:{}, xp:{}, won:{}, obj:{}}; if(!G.hz.obj) G.hz.obj = {}; return G.hz; };
+const hz = () => { if(!G.horizon) G.horizon = {read:{}, lv:{}, xp:{}, won:{}, obj:{}}; ['read','lv','xp','won','obj'].forEach(k => { if(!G.horizon[k]) G.horizon[k] = {}; }); return G.horizon; };   // G.hz belongs to an older system (horizons.js)
 const hzAvgCanon = () => Math.max(1, Math.round(HZ_CANON.reduce((a, id) => a + (G.units[id] ? G.units[id].lv : 1), 0) / HZ_CANON.length));
 function hzLevel(id){
   if(id==='soel') return 0;

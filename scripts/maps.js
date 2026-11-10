@@ -23,7 +23,7 @@ const WORLD_MAPS = [
   {id:'dragonvale', n:'Dragonvale', img:'assets/maps/dragonvale.webp', open:() => locOpen('dragon_vale'),
    locs:['dragon_vale','cavern_fireflies','dragon_border','dragon_ruins','moonveil_temple','abyssal_frontier'],
    nodes:[{k:'Dragonvale Capital',x:52.6,y:26,loc:'dragon_vale'},{k:'Throne Hall (Life in the Palace)',x:50.5,y:36.7,loc:'dragon_vale',spot:'palace_life'},{k:'Prince Devon\'s Palace',x:41,y:54.6,loc:'dragon_vale',spot:'devon_palace'},
-          {k:'Guest Quarters',x:67,y:46,loc:'dragon_vale',spot:'guest_wing'},{k:'Royal Healing Pavilion',x:73.5,y:35.5,loc:'dragon_vale',spot:'pavilion'},{k:'Dragon Pearl Sanctuary',x:67,y:12.5,loc:'dragon_vale',spot:'sanctuary'},
+          {k:'Guest Quarters',x:67,y:46,loc:'dragon_vale',spot:'guest_wing'},{k:'Royal Healing Pavilion',x:73.5,y:35.5,loc:'dragon_vale',spot:'pavilion'},{k:'Dragon Pearl Sanctuary',x:67,y:12.5,loc:'pearl_chamber'},
           {k:'Lingering Vale',x:34,y:78,loc:'dragon_vale',spot:'vale'},{k:'Cave of Fireflies',x:80.5,y:22.5,loc:'cavern_fireflies'},{k:'Border Watch Fort',x:87,y:60.6,loc:'dragon_border'}]},
   {id:'valen', n:'Valen Borderlands', img:'assets/maps/valen.webp', open:() => locOpen('valen_borderlands'),   // shows Dragonvale places: unlocks with Dragonvale
    locs:['valen_borderlands'],
