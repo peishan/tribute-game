@@ -2,7 +2,11 @@
 Author's direction: after the crossover (Tribute ends at the crossover's chapter 990) comes the sequel, **Crimson Horizon: The Adventures of San and Jade**: Jade and San combine forces. Inter-world exploration; **no Fifteen Evils counter** (Dima and Xima's story is over). A true crossover for both worlds: **each world builds its own equivalent in its own game, from shared chapters (the same pages) to save resources.** The sequel's chapter numbers **restart at 1**. Dima and Xima keep no fixed look (one golden/yellow, one dark).
 
 ## Built so far (infrastructure only)
-- **Upload bot** (`.github/workflows/pages.yml`, same approach as Crimson Moon): drop PNG/JPG pages into `assets/horizon/` named `c001.png` (chapter 1), `c001_2.png` (its second page), `arc01.png` (a sequel arc cover); the next push to main converts them to WebP (quality 82), removes the PNG, commits the result and deploys. Tall images over WebP's 16,383 px limit are sliced into pages. Files that do not match those names (including everything in Tribute's `assets/comics/`) are never touched. Tested here with sample files; it has not yet run in GitHub Actions.
+- **Upload bot** (`.github/workflows/pages.yml`, same approach as Crimson Moon): drop PNG/JPG files into the right folder and the next push to main converts each to WebP (quality 82), deletes the original, commits the result and deploys. Any file name works (the name is kept, only the extension changes):
+  - `assets/comics/` Tribute pages (`ch991.png`, `ch991b.png`); `assets/arcs/` Tribute covers (`arc40.png`)
+  - `assets/horizon/` the sequel's pages and covers (`c005.png`, `c005_2.png`, `arc02.png`); `assets/horizon/portraits/` sequel portraits
+  - `assets/party/` and `assets/npc/` character portraits. Portrait folders shrink anything larger than 512x512.
+  Tall images over WebP's 16,383 px limit are sliced into `name.webp`, `name_2.webp`... Icons and every other folder are never touched. Tested locally with sample files; not yet run in GitHub Actions (first real upload will show).
 - Nothing else: no sequel chapter list, journal or screens exist yet.
 
 ## Assumptions (change any of these)

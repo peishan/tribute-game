@@ -17,13 +17,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      # CRIMSON HORIZON (the sequel) uploads: drop PNG/JPG pages into assets/horizon/ and this step turns them into the WebP the game loads
-      # (same approach as Crimson Moon and Crimson Tide). The sequel's chapter numbers restart at 1, so its files live in their own folder
-      # and never touch Tribute's assets/comics/:
-      #   c001.png    -> c001.webp     (sequel chapter 1, page 1)
-      #   c001_2.png  -> c001_2.webp   (sequel chapter 1, page 2)
-      #   arc01.png   -> arc01.webp    (sequel arc cover)
-      # A vertical-scroll image taller than WebP's 16383px limit is sliced into pages c001.webp, c001_2.webp, ...
+      # UPLOAD BOT: drop PNG/JPG files into one of these folders and the next push to main converts each to WebP (quality 82), deletes the original and commits the result:
+      #   assets/comics/    Tribute pages        ch991.png, ch991b.png            -> ch991.webp, ch991b.webp
+      #   assets/arcs/      Tribute arc covers   arc40.png, arc40_end.png         -> arc40.webp, arc40_end.webp
+      #   assets/horizon/   Crimson Horizon      c005.png, c005_2.png, arc02.png  -> c005.webp, c005_2.webp, arc02.webp
+      #   assets/horizon/portraits/  sequel portraits (shrunk to 512x512 if larger)  aisyah.png -> aisyah.webp
+      #   assets/party/, assets/npc/  character portraits (shrunk to 512x512 if larger)
+      # Any file name works (the name is kept, only the extension changes). A vertical image taller than WebP's 16383px limit is sliced into name.webp, name_2.webp, ...
+      # Icons (assets/icons) and everything else are never touched.
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -32,32 +33,35 @@ jobs:
       - name: Install Pillow
         run: pip install --quiet Pillow
 
-      - name: Convert new Crimson Horizon art to WebP
+      - name: Convert uploaded PNG/JPG art to WebP
         run: |
           python3 - <<'PY'
-          import os, re, glob
+          import os, glob
           from PIL import Image
           Image.MAX_IMAGE_PIXELS = None
           MAXH = 15000
-          pat = re.compile(r'^(c\d{3}|arc\d{2})(?:_(\d+))?\.(png|jpe?g)$', re.IGNORECASE)
-          for f in sorted(glob.glob('assets/horizon/*')):
-              m = pat.match(os.path.basename(f))
-              if not m:
+          PORTRAIT_DIRS = ('assets/horizon/portraits/', 'assets/party/', 'assets/npc/')
+          files = []
+          for d in ('assets/comics', 'assets/arcs', 'assets/horizon', 'assets/party', 'assets/npc'):
+              for root, _, names in os.walk(d):
+                  files += [os.path.join(root, n).replace(os.sep, '/') for n in names]
+          for f in sorted(files):
+              base, ext = os.path.splitext(f)
+              if ext.lower() not in ('.png', '.jpg', '.jpeg'):
                   continue
-              base, page = m.group(1).lower(), int(m.group(2) or 1)
               try:
                   im = Image.open(f).convert('RGB')
+                  if f.startswith(PORTRAIT_DIRS) and (im.width > 512 or im.height > 512):
+                      im.thumbnail((512, 512))
                   if im.height <= MAXH:
-                      out = 'assets/horizon/' + base + (f'_{page}' if page > 1 else '') + '.webp'
-                      im.save(out, 'WEBP', quality=82, method=5)
-                      print('Converted', f, '->', out)
+                      im.save(base + '.webp', 'WEBP', quality=82, method=5)
+                      print('Converted', f, '->', base + '.webp')
                   else:
                       parts = -(-im.height // MAXH)
                       step = -(-im.height // parts)
                       for i in range(parts):
                           piece = im.crop((0, i*step, im.width, min(im.height, (i+1)*step)))
-                          n = page + i
-                          out = 'assets/horizon/' + base + (f'_{n}' if n > 1 else '') + '.webp'
+                          out = base + ('' if i == 0 else f'_{i+1}') + '.webp'
                           piece.save(out, 'WEBP', quality=82, method=5)
                           print('Sliced', f, '->', out)
                   os.remove(f)
@@ -69,11 +73,11 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/horizon/
+          git add -A assets/comics assets/arcs assets/horizon assets/party assets/npc
           if git diff --cached --quiet; then
             echo "Nothing to commit."
           else
-            git commit -m "Auto-convert new Crimson Horizon art to WebP"
+            git commit -m "Auto-convert uploaded art to WebP"
             pushed=false
             for attempt in 1 2 3 4 5; do
               if git push origin HEAD:${{ github.ref_name }}; then pushed=true; break; fi
