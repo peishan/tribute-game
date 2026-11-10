@@ -2,7 +2,7 @@
    TRIBUTE — FRONTIER WORK (from chapter 918, once Elise and Tarin live on the frontier; the author's note)
    The frontier versions of Elise and Tarin (chapter 918 on) open the Frontier Work Board at the Northern Frontier: small quarrels to settle and beasts and monsters to drive off, so the
    people there can live in peace. Everything is repeatable: a finished task is posted again after 5 days.
-     QUARRELS  settled by one of three approaches (hear them out 70% / go by the law 55%, pays more / let the elders decide 85%, pays less). Jade in the active party adds 10%.
+     QUARRELS  settled by one of three approaches (hear them out 70% / go by the law 55%, pays more / let the elders decide 85%, pays less). Jade always leads the party, so every approach gets her +10%.
                A failed attempt costs a day and nothing else. A settled quarrel pays XP, gold and goodwill (Frontier Goodwill, counted, shown on the board).
      BOUNTIES  a real fight against the beasts or monsters bothering the residents. Pays XP, gold and a material.
    First-pass numbers and wording. State: G.fwork = {taskId:{day, n}}, G.fwGood.
@@ -53,7 +53,7 @@ function fwHunt(id){
 }
 function rFrontierWork(){
   if(!fwOpen()) return '<div class="sm">The board is empty. Elise and Tarin are not on the frontier yet.</div>';
-  let h = `<div class="panel">${portraitChip(portrait('elise'),'Frontier Elise')} ${portraitChip(portrait('tarin'),'Frontier Tarin')} <b>📌 The Frontier Work Board</b><div class="sm">Posted by Elise (quarrels) and Tarin (bounties). Quarrels to settle and beasts and monsters to drive off, so people here can live in peace. A finished task is posted again after 5 days. Goodwill earned: ${fwGood()}. ${fwJade() ? 'Jade is in the active party: quarrels settle more easily.' : 'Jade is not in the active party: quarrels are harder to settle.'}</div></div>`;
+  let h = `<div class="panel">${portraitChip(portrait('elise'),'Frontier Elise')} ${portraitChip(portrait('tarin'),'Frontier Tarin')} <b>📌 The Frontier Work Board</b><div class="sm">Posted by Elise (quarrels) and Tarin (bounties). Quarrels to settle and beasts and monsters to drive off, so people here can live in peace. A finished task is posted again after 5 days. Goodwill earned: ${fwGood()}. Jade leads the hearings, so quarrels settle a little more easily.</div></div>`;
   return h + FW_TASKS.map(t => {
     const s = fwData()[t.id], wait = s ? 5-(G.day-s.day) : 0, tag = s ? ` <span class="sm">· done ${s.n}×</span>` : '';
     if(!fwReady(t.id)) return `<div class="ev locked"><div><b>${t.icon} ${t.n}</b>${tag}<div class="sm">Settled for now. Posted again in ${wait} day(s).</div></div><button disabled>Done</button></div>`;

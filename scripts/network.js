@@ -197,11 +197,12 @@ function contacts(){
 let netTab = 'reports';
 function rNetwork(){
   if(adrianAway() && (netTab==='requests' || netTab==='status' || netTab==='routes')) netTab = 'reports';
-  const tabs = [['reports','Reports'],['requests','Requests'],['intel','Intelligence'],['letters','Letters'],['status','Kingdom Status']].concat(typeof evilsOpen==='function' && evilsOpen() ? [['register','Fifteen Evils']] : [], typeof archiveTabs==='function' ? archiveTabs() : []);
+  const tabs = [['reports','Reports'],['requests','Requests'],['intel','Intelligence'],['letters','Letters'],['status','Kingdom Status']].concat(G.ch>=949 ? [['allies','Ally Network']] : [], typeof evilsOpen==='function' && evilsOpen() ? [['register','Fifteen Evils']] : [], typeof archiveTabs==='function' ? archiveTabs() : []);
   const unread = net().letters.filter(l => !l.read).length;
   const tree = contacts().map(c => `<span class="sm" style="${c.locked?'opacity:.5':''}">${c.n}${c.locked?'':' · '+c.role}</span>`).join(' ↓ ');
   let body = '';
   if(netTab==='register') body = rRegister();
+  if(netTab==='allies') body = rAllyNetwork();
   if(typeof rArchiveTab==='function' && rArchiveTab(netTab)) body = rArchiveTab(netTab);
   if(netTab==='reports') body = REPORTS.filter(r => G.ch>=r.ch).map(r => `<div class="ev"><div><b>Imperial Report</b><div class="sm">📍 ${r.loc}</div><div class="sm">Threat: ${r.threat}</div><div class="sm">Status: ${r.status}</div></div></div>`).join('') || '<div class="sm">No reports.</div>';
   if(netTab==='requests'){ const rs = refreshRequests();
@@ -220,3 +221,16 @@ function rNetwork(){
     <div class="row" style="margin:6px 0;flex-wrap:wrap">${tabs.map(([k,l]) => { const off = adrianAway() && (k==='requests' || k==='status' || k==='routes'); return `<button class="${netTab===k?'pri':''}" ${off?'disabled title="Adrian is away"':''} onclick="netTab='${k}';netOpenLetter=null;render()">${l}${k==='letters'&&unread?' ●':''}</button>`; }).join('')}</div>${flashHtml()}${body}`;
 }
 let netOpenLetter = null;
+
+/* ---- The Ally Network (chapter 949, "An Ally, Not a Kingdom"): the Crimson Tide joins Tribute's existing network as an ally. No new travel system: Veyren is reached only through the Crimson Tide's routes. ---- */
+function rAllyNetwork(){
+  const rows = [
+    ['🏯','Tribute','Home. The Imperial Capital and the Guard.',true],
+    ['🐉','Dragonvale','Ally by marriage and treaty. Aster and Fen rule.',true],
+    ['👑','Altan','Ally. Rheon and Mirelle rule.',G.ch>=262],
+    ['⚓','Fair Tide','A settlement beyond the familiar seas, reached through the Crimson Tide.'+(G.ch>=957?' The Canon Five hold permanent residency (their Lunareth citizenship is unchanged).':''),G.ch>=950],
+    ['🐉','The Crimson Tide','NEW: an ally, not a kingdom. Captain San and First Mate Joel.'+(G.ch>=988?' Custodians and safekeepers of the Black Pearl (not its owners).':''),true],
+  ].filter(r => r[3]).map(r => `<div class="ev"><div><b>${r[0]} ${r[1]}</b><div class="sm">${r[2]}</div></div></div>`).join('');
+  const terms = ['Knowledge and research exchange','Mutual support (personnel, supplies, expertise)','Crisis assistance (by request)','Cultural and trade cooperation','Respect for sovereignty and autonomy'];
+  return `<div class="panel"><b>🤝 The Ally Network</b><div class="sm">Lunareth and the Crimson Tide: a working alliance. Not a union of kingdoms, but a partnership of purpose. No new travel system is needed: the existing network handles coordination, exchange and support.${G.ch>=990?' Jade can reach Veyren only through the Crimson Tide and its routes.':''}</div></div>${rows}<h4>The Alliance Agreement</h4>${terms.map(t => `<div class="li">✅ ${t}</div>`).join('')}`;
+}
