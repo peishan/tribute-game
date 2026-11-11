@@ -2028,9 +2028,11 @@ const MISSIONS = [
    subj:'Go deeper', body:'The ruins are awake, and what you have sealed is only the surface. Go deeper, and keep the villagers safe while you do. — Greyson'},
   {id:'m_heart', needCh:77, title:'The Heart of the Ruins', obj:{type:'steps', steps:[
      {label:'Calm the awakened ruins', boss:'boss_spirit_core'},
-     {label:'Protect the border settlements', kill:'shade_beast', need:8},
-     {label:'Investigate who stirred Dragonvale\'s ancient seals', spot:'seal_study'}]}, rw:{xp:5000, gold:1800, rep:50},
-   subj:'The seal core', body:'Someone has forced Dragonvale\'s oldest ward to respond. Stabilise what you can, protect the settlements, and find the hand behind it. — Greyson'},
+     {label:'Protect the border settlements', kill:'shade_beast', need:8}]}, rw:{xp:5000, gold:1800, rep:50},
+   subj:'The seal core', body:'Someone has forced Dragonvale\'s oldest ward to respond. Stabilise what you can and protect the settlements. Whose hand is behind it will take longer to learn. — Greyson'},
+  {id:'m_seal_hand', needCh:864, title:'Who Stirred the Seals', obj:{type:'steps', steps:[
+     {label:'Return to the seal core and read the evidence again', spot:'seal_study'}]}, rw:{xp:900000, gold:200000, rep:300},
+   subj:'The hand behind the seals', body:'We know now what to look for. Go back to the seal core in the Dragonvale ruins and read what was left there. — Jade'},
   {id:'m_moonveil', needCh:78, title:'Moonveil Temple', obj:{type:'steps', steps:[
      {label:'Investigate the hidden sanctuary of the Moonveil Temple', spot:'moonveil_sanctuary'},
      {label:'Uncover the meaning of the ancient symbol', spot:'moonveil_symbol'},
@@ -2072,9 +2074,12 @@ const MISSIONS = [
    subj:'A place to stand', body:'Your father has been an advisor longer than you have been alive, and your mother sees farther than I do. Listen to them. Then decide what you want to be here. — Greyson'},
   {id:'m_missing_docs', needCh:98, title:'The Missing Documents', obj:{type:'steps', steps:[
      {label:'Search the royal archives for missing files', spot:'missing_files'},
-     {label:'Find the records on Yvette Sue Valen', spot:'yvette_records'},
-     {label:'Trace the missing files tied to Sky\'s past', spot:'sky_files'}]}, rw:{xp:5000, gold:1500, rep:40},
+     {label:'Find the records on Yvette Sue Valen', spot:'yvette_records'}]}, rw:{xp:5000, gold:1500, rep:40},
    subj:'Missing files', body:'Several old files have vanished from the royal archives. The names inside them may matter more than we realised. Look, quietly. — Greyson'},
+  {id:'m_sky_files', needCh:907, title:'The Files Tied to Sky\'s Past', obj:{type:'steps', steps:[
+     {label:'Follow Yvette\'s trail', spot:'yvette_trace'},
+     {label:'Read the files tied to Sky\'s past', spot:'sky_files'}]}, rw:{xp:1000000, gold:220000, rep:320},
+   subj:'The last of the missing files', body:'The files that vanished years ago can be read now, with the people in them home at last. — Sky'},
   {id:'m_king_sister', needCh:99, title:'The King and His Sister', obj:{type:'steps', steps:[
      {label:'Attend Greyson\'s court', visit:'capital'},
      {label:'Receive Jade\'s formal acknowledgment', chapter:99},
