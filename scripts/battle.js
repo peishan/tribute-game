@@ -58,6 +58,7 @@ function startBattle(spec){
   const allyIds = (spec.allies || G.active.concat(G.party.filter(isCompanion), presentGuests().filter(id => !G.active.includes(id)))).filter(id => !isDisabled(id));
   B = { allies:allyIds.map(id => mkAlly(id, !!spec.rewards)), foes:spec.foes.map((f,i)=>mkFoeUnit(f.key,f.lv,i)), queue:[], cur:null, log:[], over:null,
         round:0, ui:{mode:'menu'}, spec, rewards:null };
+  B.bossKnown = B.foes.filter(f => f.boss).every(f => !!G.flags['boss_'+f.key]);   // every boss here has been beaten before: auto-battle is allowed
   if(spec.rescue){ B.rescue = {rounds:spec.rescue.rounds||6}; }
   scaleForParty();
   if(spec.rewards && typeof corrAt==='function' && corrAt(G.loc) > 0){ B.corr = corrAt(G.loc); const m = corrFoeMult(G.loc); B.foes.forEach(f => { f.hp = f.mhp = Math.round(f.mhp*m); f.atk = Math.round(f.atk*m); f.mag = Math.round(f.mag*m); }); blog('☠️ The air is thick with corruption ('+B.corr+'%): foes are stronger and healing is weaker.','sys'); }

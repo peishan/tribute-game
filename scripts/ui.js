@@ -28,6 +28,7 @@ function render(){
   if(typeof corrSky==='function') corrSky();
   if(typeof renderTracker==='function') renderTracker();
   if(typeof autoTick==='function') autoTick();
+  if(typeof skirmTick==='function') skirmTick();
 }
 function stub(title, sub, items){
   return `<h2>${title}</h2><div class="sm">${sub}</div><div class="panel">${items.map(i=>`<div class="li">• ${i}</div>`).join('')}</div><div class="sm" style="margin-top:8px;opacity:.6">Skeleton placeholder — not built yet.</div>`;
@@ -185,7 +186,7 @@ function rBattle(){
   let act='';
   if(B.over==='win'){
     const r=B.rewards;
-    act = `<div class="panel good"><b>Victory!</b><div>XP +${r.xp} · Gold +${r.gold}${r.real?'':' (sandbox: not awarded)'}</div>${r.drops.length?`<div>Loot: ${r.drops.map(d=>(ITEMS[d.id]?ITEMS[d.id].icon+' '+ITEMS[d.id].n:d.id)+' ×'+d.qty).join(', ')}</div>`:''}${r.msgs.map(m=>`<div class="sm">${m}</div>`).join('')}</div><button class="pri" onclick="battleDone()">Continue</button>`;
+    act = `<div class="panel good"><b>Victory!</b><div>XP +${r.xp} · Gold +${r.gold}${r.real?'':' (sandbox: not awarded)'}</div>${r.drops.length?`<div>Loot: ${r.drops.map(d=>(ITEMS[d.id]?ITEMS[d.id].icon+' '+ITEMS[d.id].n:d.id)+' ×'+d.qty).join(', ')}</div>`:''}${r.msgs.map(m=>`<div class="sm">${m}</div>`).join('')}</div><button class="pri" onclick="battleDone()">Continue</button>${B.spec.skirmish && typeof skirmChain!=='undefined' && skirmChain ? `<div class="row" style="margin-top:6px"><span class="sm">🔁 Next skirmish starting…</span><button onclick="skirmStopChain();render()">⏹ Stop the chain</button></div>` : ''}`;
   } else if(B.over==='fled'){
     act = `<div class="panel"><b>The party slips away.</b><div class="sm">No rewards, no losses.</div></div><button class="pri" onclick="battleDone()">Continue</button>`;
   } else if(B.over==='lose'){
