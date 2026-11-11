@@ -38,6 +38,9 @@ fs.readdirSync('scripts').filter(f => f.endsWith('.js')).forEach(f => { try{ new
     // a Tribute boss fight and the sequel fight, auto-played
     G = newState(); for(const k in G.units) G.units[k].lv = 1500; G.party = ['jade','devon','sky','levi','sally']; G.active = G.party.slice(); G.ch = 975; G.loc = 'dragon_vale'; origin = 'here';
     doBoss('cross_fight_966'); o.canon = B.allies.map(a => a.id).sort().join(); let n = 0; while(B && !B.over && n < 400){ autoStep(); n++; } o.boss = B && B.over;
+    // auto-battle: blocked against a new boss, allowed once it has been beaten; the skirmish chain keeps the first fight manual
+    o.autoNew = (doBoss('cross_fight_974'), autoBlocked()); B = null; G.flags.boss_boss_shipment_key_figure = true; o.autoKnown = (doBoss('cross_fight_974'), autoBlocked()); B = null;
+    skirmChain = true; skirmRun = 0; startSkirmish(); o.chain1 = !!B.auto; B = null; startSkirmish(); o.chain2 = !!B.auto; B = null; skirmChain = false; skirmRun = 0;
     G = newState(); for(const k in G.units) G.units[k].lv = 1500; G.ch = 990; o.hzOpen = hzOpen(); o.hzCh = HZ_CHAPTERS.length;
     hzBattle('leviathan'); o.crew = HB.crew.length; let twin = false; n = 0; while(HB && !HB.over && n < 1500){ hzAutoStep(); n++; if(HB.crew.some(u => HZ_TWINS.includes(u.id) && u.dead)) twin = true; }
     o.hz = HB.over; o.twinDown = twin; o.soel = HB.crew.find(u => u.id === 'soel').dead; HB = null;
@@ -65,6 +68,8 @@ fs.readdirSync('scripts').filter(f => f.endsWith('.js')).forEach(f => { try{ new
   ok('canon five locked in', r.lock === 'devon,jade,levi,sally,sky' && r.lock2 === 5, r.lock+' / '+r.lock2);
   ok('road home closed during arc 2', r.barred.includes('capital') && r.barredAfter === 0, r.barred+' / '+r.barredAfter);
   ok('crossover fight is canon-five only and winnable', r.canon === 'devon,jade,levi,sally,sky' && r.boss === 'win', r.canon+' '+r.boss);
+  ok('auto-battle: new boss blocked, beaten boss allowed', r.autoNew === true && r.autoKnown === false, r.autoNew+' '+r.autoKnown);
+  ok('skirmish chain: first fight manual, next on auto', r.chain1 === false && r.chain2 === true, r.chain1+' '+r.chain2);
   ok('Horizon opens with 42 chapters', r.hzOpen && r.hzCh === 42);
   ok('sequel fight: 13 crew, won, twins and Soel never fall', r.crew === 13 && r.hz === 'win' && !r.twinDown && !r.soel, JSON.stringify([r.crew, r.hz, r.twinDown, r.soel]));
   ok('every chapter location is reachable from the capital', !r.unreach.length && !r.noLoc.length, r.unreach.concat(r.noLoc).join());
