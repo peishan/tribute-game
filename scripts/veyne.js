@@ -674,3 +674,6 @@ WORLD_MAPS.push({id:'dragon_north', n:'Dragonvale North', img:'assets/maps/drago
   locs:['dragon_court','dragon_academy','veyne_estate','northern_road','northwatch_station','northern_valley'],
   nodes:[{k:'Noble Court',x:10,y:43,loc:'dragon_court'},{k:'Academy',x:44,y:45,loc:'dragon_academy'},{k:'Veyne Estate',x:71,y:55,loc:'veyne_estate'},{k:'Northern Road',x:79,y:39,loc:'northern_road'},{k:'Northwatch Station',x:73,y:26,loc:'northwatch_station'},{k:'Crestfall Hold',x:56,y:19,loc:'northern_valley'},
          {k:'Dragonvale Harbour',x:80,y:84,loc:'dragon_harbour',ref:true},{k:'Dragonvale',x:52,y:86,loc:'dragon_vale',ref:true},{k:'Altan Kingdom (road)',x:7,y:66,loc:'altan_capital',ref:true},{k:'Valen Borderlands (road)',x:96,y:29,loc:'valen_borderlands',ref:true}]});
+
+// The champion's final stand (ch282) had a mission step but no fight to win: this is the fight (author's page: the champion makes a final stand and is captured alive).
+LOCATIONS.dragon_court.spots.push({id:'champion_fight_282', kind:'boss', n:'The Champion\'s Final Stand', icon:'⚔️', desc:'The conspirators\' champion makes a final stand. Defeat him and take him alive.', boss:'boss_veyne_champion', add:[], lo:82, ch:282, needFlag:'inv_the_evidence', lockMsg:'🔒 Present the evidence first'});

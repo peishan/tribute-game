@@ -19,6 +19,11 @@ fs.readdirSync('scripts').filter(f => f.endsWith('.js')).forEach(f => { try{ new
     o.flags = Object.keys(CH_FLAGS).length; o.noLabel = Object.keys(CH_FLAGS).filter(n => +n >= 851).flatMap(n => CH_FLAGS[n]).filter(f => !FLAG_LABEL[f]).slice(0, 5);
     o.badSpot = MISSIONS.flatMap(m => (m.obj && m.obj.steps || []).filter(s => s.spot && !spotById(s.spot)).map(s => m.id+':'+s.spot)).slice(0, 5);
     o.badBoss = MISSIONS.flatMap(m => (m.obj && m.obj.steps || []).filter(s => s.boss && !ENEMIES[s.boss]).map(s => m.id+':'+s.boss)).slice(0, 5);
+    const fightable = new Set(Object.values(LOCATIONS).flatMap(l => l.spots).filter(s => s.boss).map(s => s.boss).concat(CHAPTERS.flatMap(c => (c.battle || []).map(f => f.key))));
+    o.noFight = MISSIONS.flatMap(m => (m.obj.steps || [m.obj]).map(s => s.boss || (s.type === 'boss' && s.key)).filter(k => k && !fightable.has(k)).map(k => m.id+':'+k));
+    // no mission step waits on a spot that opens more than 15 chapters after the mission itself
+    const sp = {}; Object.values(LOCATIONS).forEach(l => l.spots.forEach(x => { sp[x.id] = x; }));
+    o.lateStep = MISSIONS.flatMap(m => (m.obj.steps || []).filter(s => s.spot && sp[s.spot] && (sp[s.spot].ch || 0) > (m.needCh || 0) + 15).map(s => m.id+':'+s.spot));
     o.arcs = ARCS.length; o.arcDup = ARCS.map(a => a.n).filter((n, i, l) => l.indexOf(n) !== i);
     // every tab renders at several story points
     o.tabErr = [];
@@ -53,6 +58,8 @@ fs.readdirSync('scripts').filter(f => f.endsWith('.js')).forEach(f => { try{ new
   ok('flags without a label (chapters 851+)', !r.noLabel.length, r.noLabel.join());
   ok('mission steps pointing at missing spots', !r.badSpot.length, r.badSpot.join());
   ok('mission steps pointing at missing bosses', !r.badBoss.length, r.badBoss.join());
+  ok('every boss a mission asks for can be fought', !r.noFight.length, r.noFight.join());
+  ok('no mission step waits on a much later spot', !r.lateStep.length, r.lateStep.join());
   ok('duplicate arcs', !r.arcDup.length, r.arcDup.join());
   ok('tabs render at every story point', !r.tabErr.length, r.tabErr.slice(0, 4).join(' | '));
   ok('canon five locked in', r.lock === 'devon,jade,levi,sally,sky' && r.lock2 === 5, r.lock+' / '+r.lock2);
