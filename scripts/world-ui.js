@@ -4,6 +4,8 @@
    ===================================================================== */
 let mTab = 'letters', openLetter = null, spotOpen = null, gardenSel = 'chad';
 
+// where an unfinished investigation step is done: shown after the step so a quest never leaves you guessing
+function stepWhere(id){ const k = Object.keys(LOCATIONS).find(x => LOCATIONS[x].spots.some(sp => sp.id===id)); return k ? ' 📍 '+LOCATIONS[k].n+(spotById(id) && spotLock(spotById(id)) ? ' 🔒' : '') : ''; }
 function flashHtml(){
   if(!FLASH.length) return '';
   const h = `<div class="panel good">${FLASH.map(m=>`<div>${m}</div>`).join('')}</div>`; FLASH = []; return h;
@@ -49,7 +51,7 @@ function objText(m){
   if(o.type==='kill') return '⚔️ Defeat '+o.need+' '+o.label;
   if(o.type==='boss') return '👑 Defeat '+ENEMIES[o.key].n;
   if(o.type==='investigate') return '🔎 Investigate: '+spotById(o.spot).n;
-  if(o.type==='steps') return o.steps.map(s => (stepDone(m, s)?'☑ ':'☐ ')+s.label+(s.kill&&!stepDone(m,s)?' ('+(G.mprog[m.id+':'+s.kill]||0)+'/'+s.need+')':'')).join(' · ');
+  if(o.type==='steps') return o.steps.map(s => (stepDone(m, s)?'☑ ':'☐ ')+s.label+(s.kill&&!stepDone(m,s)?' ('+(G.mprog[m.id+':'+s.kill]||0)+'/'+s.need+')':'')+(s.spot&&!stepDone(m,s)?stepWhere(s.spot):'')).join(' · ');
   return '✉️ Read the letter';
 }
 function rMissionList(){
