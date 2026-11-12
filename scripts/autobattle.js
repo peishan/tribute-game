@@ -1,14 +1,15 @@
 /* =====================================================================
    TRIBUTE — AUTO BATTLE
    Unlocks once the story reaches AUTO_CH OR the average party level reaches AUTO_LV.
-   Off the first time you fight a boss; allowed against bosses you have already beaten. Toggle in the battle screen; stops when the battle ends or you press Stop.
+   Off the first time you fight a boss until the party's average level reaches 200; always allowed against bosses you have already beaten. Toggle in the battle screen; stops when the battle ends or you press Stop.
    AI: heal/tonic a weak ally -> area skill vs 3+ foes -> strongest affordable skill on the weakest foe -> attack.
    (AUTO_CH / AUTO_LV are PROVISIONAL.)
    ===================================================================== */
 const AUTO_CH = 12, AUTO_LV = 10;
 const autoUnlocked = () => G.ch >= AUTO_CH || avgPartyLv() >= AUTO_LV;
 const autoReason = () => 'Auto-battle unlocks at chapter '+AUTO_CH+' or party level '+AUTO_LV;
-const autoBlocked = () => B && B.foes.some(f => f.boss && !B.bossKnown);   // a boss you have beaten before may be auto-battled; the first fight is always manual (B.bossKnown is set when the battle starts)
+const AUTO_BOSS_LV = 200;   // from this average party level, auto-battle works on every boss, including one never fought before (author)
+const autoBlocked = () => B && B.foes.some(f => f.boss && !B.bossKnown) && avgPartyLv() < AUTO_BOSS_LV;   // below that level: a new boss is fought by hand once, beaten bosses may be auto-battled
 
 function autoStep(){
   if(!B || B.over || !B.cur || !B.cur.ally) return;
@@ -41,12 +42,12 @@ function autoTick(){
 function toggleAuto(){
   if(!B) return;
   if(!autoUnlocked()) return toast(autoReason());
-  if(autoBlocked()) return toast('Beat this boss once by hand first');
+  if(autoBlocked()) return toast('Beat this boss once by hand first, or reach party level '+AUTO_BOSS_LV);
   B.auto = !B.auto; render();
 }
 function autoButton(){
   if(!B || B.over) return '';
   if(!autoUnlocked()) return `<button disabled title="${autoReason()}">🔒 Auto</button>`;
-  if(autoBlocked()) return `<button disabled title="Beat this boss once by hand first">⏸ Auto (new boss)</button>`;
+  if(autoBlocked()) return `<button disabled title="Beat this boss once by hand first, or reach party level ${AUTO_BOSS_LV}">⏸ Auto (new boss: Lv ${AUTO_BOSS_LV})</button>`;
   return `<button class="${B.auto?'pri':''}" onclick="toggleAuto()">${B.auto?'⏹ Stop auto':'▶ Auto'}</button>`;
 }
