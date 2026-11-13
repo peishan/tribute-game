@@ -19,14 +19,14 @@ function unreadCount(){ return G.letters.filter(l=>!l.read).length; }
 function rMissions(){
   const unread = unreadCount();
   const salaryPanel = typeof rSalary==='function' ? rSalary() : '';
-  const subs = [['letters','✉️ Letters'+(unread?' ('+unread+')':'')],['missions','📜 Missions'],['quests','🎯 Quests'],['bounties','💰 Bounties']].concat(typeof rWays==='function' ? [['ways','⚖️ Ways'+(typeof jdPending==='function' && jdPending().length ? ' ('+jdPending().length+')' : '')]] : []);
+  const subs = [['letters','✉️ Letters'+(unread?' ('+unread+')':'')],['missions','📜 Missions'],['quests','🎯 Quests'],['boards','📮 Boards'],['bounties','💰 Bounties']].concat(typeof rWays==='function' ? [['ways','⚖️ Ways'+(typeof jdPending==='function' && jdPending().length ? ' ('+jdPending().length+')' : '')]] : []);
   const comm = hasBracelet()
     ? '<div class="sm">📿 <b>Communication bracelet</b> — King Greyson reaches you instantly, anywhere.</div>'
     : `<div class="sm">🕊️ <b>Pigeon post</b> — letters from King Greyson reach you only in towns, and take about ${Math.max(1,hopsFromCapital(G.loc))} day(s) from here. (Upgrades to a communication bracelet later.)${G.pending.length?` <b>${G.pending.length} in flight.</b>`:''}</div>`;
   const sallyBtn = (G.flags.sally_stays && G.flags.sally_gossip && G.ch < 436) ? `<div class="panel"><b>🌹 Sally (Dragonvale)</b><div class="sm">She stayed behind and keeps her ear to the court. Ask once a day.</div><button onclick="act(courtGossip)">Ask Sally for rumours</button></div>` : '';
   let body = '';
   if(mTab==='letters') body = rLetters(); else if(mTab==='missions') body = rMissionList();
-  else if(mTab==='quests') body = rQuestsActive(); else if(mTab==='ways') body = rWays(); else body = rBountyList();
+  else if(mTab==='quests') body = rQuestsActive(); else if(mTab==='boards') body = rBoardsTab(); else if(mTab==='ways') body = rWays(); else body = rBountyList();
   return `<h2>Missions & Contracts</h2>${typeof weddingBanner==='function' ? weddingBanner() : ''}${comm}${salaryPanel}${sallyBtn}${typeof rJadeDecisions==='function' ? rJadeDecisions() : ''}<div class="row" style="margin:6px 0">${subs.map(([k,l])=>`<button class="${mTab===k?'pri':''}" onclick="mTab='${k}';openLetter=null;render()">${l}</button>`).join('')}</div>${flashHtml()}${body}`;
 }
 function rLetters(){
@@ -67,7 +67,7 @@ function boardTip(){
   [['frontier','Frontier Work Board','📌','the Northern Frontier',() => G.ch >= 918],['pursuit','Pursuit Board','🏹','Tribute, Dragonvale and Altan',() => !!G.flags.levis_trail_followed],['convoy','Lady Delilah\'s Convoy Desk','📦','a border or frontier town',() => typeof convoyOpen==='function' ? convoyOpen() : false]].forEach(x => { if(x[4]()) rows.push({n:x[1], icon:x[2], place:x[3], mask:false, here:false}); });
   if(!rows.length) return '';
   const line = r => `<div class="sm">${r.icon} <b>${r.n}</b>: ${r.place}${r.here ? ' (you are here)' : ''}${r.mask ? ' · the vigilante work: Jade and Devon in disguise' : ''}</div>`;
-  return `<div class="panel"><b>💡 Where to find the boards</b><div class="sm">Travel there, open the Here tab and pick the board from the list.</div>${rows.map(line).join('')}</div>`;
+  return `<div class="panel"><b>💡 Where to find the boards</b><div class="sm">Read them all in the 📮 Boards tab, from anywhere.</div>${rows.map(line).join('')}</div>`;
 }
 function rQuestsActive(){
   const a = G.quests.active.map((q,i)=>{
@@ -75,6 +75,18 @@ function rQuestsActive(){
     return `<div class="ev ready"><div><b>${q.icon} ${q.name}</b><div class="sm">${q.desc}</div><div class="sm">${q.type==='collect'?Math.min(have,q.need)+'/'+q.need+' in pack':q.type==='deliver'?'📮 To '+LOCATIONS[q.to].n:q.c+'/'+q.need} · ${rwText(q.rw)}</div></div>
       <div>${q.type==='collect'?`<button ${have>=q.need?'':'disabled'} onclick="act(turnInQuest,${i})">Turn in</button>`:''}<button onclick="abandonQuest(${i});render()">✕</button></div></div>`; }).join('');
   return `<div class="sm">Active contracts ${G.quests.active.length}/${MAX_QUESTS} · Renown ${G.rep} · Completed ${G.quests.done}. ${rankLine()}. New contracts are taken from a Quest Board in a town.</div>${a||'<div class="panel sm">None. Visit a Quest Board.</div>'}${boardTip()}`;
+}
+// every board the party can reach, read from anywhere: take the contracts here, then do the work where it says
+function rBoardsTab(){
+  const rows = [];
+  Object.keys(LOCATIONS).forEach(k => LOCATIONS[k].spots.forEach(sp => { if(sp.kind==='board' && !neverWritten(sp) && locOpen(k) && !(sp.ch!==undefined && G.ch < sp.ch) && !rows.some(r => r.k===k)) rows.push({k, sp, mask:/Masked/.test(sp.n)}); }));
+  rows.sort((a,b) => b.mask - a.mask);
+  if(!rows.length) return '<div class="sm">No boards yet. Reach a town with a Quest Board.</div>';
+  const full = G.quests.active.length >= MAX_QUESTS;
+  const card = r => { const list = boardFor(r.k);
+    const posted = list.map((q,i) => `<div class="ev"><div><b>${q.icon} ${q.name}</b><div class="sm">${q.desc}</div><div class="sm">${q.type==='kill'?'Defeat '+q.need+' '+ENEMIES[q.key].n:q.type==='collect'?'Bring '+q.need+' '+ITEMS[q.item].n:'Parcel'} · ${rwText(q.rw)}</div></div><button class="pri" ${full?'disabled':''} onclick="acceptQuest('${r.k}',${i});render()">Accept</button></div>`).join('');
+    return `<div class="panel"><b>${r.sp.icon} ${r.sp.n}</b> <span class="sm">· ${LOCATIONS[r.k].n}${G.loc===r.k?' (you are here)':''}</span>${r.mask?'<div class="sm">The vigilante work: Jade and Devon in disguise.</div>':''}${posted||'<div class="sm">Nothing posted today.</div>'}</div>`; };
+  return `<div class="sm">Contracts from every board you have unlocked, readable from anywhere. Taken contracts show under Quests (${G.quests.active.length}/${MAX_QUESTS}); you still do the work in the place named. Boards refresh daily.</div>${rows.map(card).join('')}`;
 }
 function rBountyList(){
   refreshBounties();
