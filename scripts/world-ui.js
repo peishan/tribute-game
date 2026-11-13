@@ -197,6 +197,9 @@ function rSpot(L, sp){
       const n = G.clues[sp.id]||0, done = n>=sp.need;
       const found = sp.clues.slice(0,n).map(c=>`<div class="li">🔎 ${c}</div>`).join('');
       body = `<div class="panel"><div class="sm">Clues ${n}/${sp.need}${done?' — investigation complete':''}</div>${typeof rolesLine==='function'?rolesLine(sp):''}${found}${done?'':`<button class="pri" onclick="origin='here';investUi('${sp.id}')">Search for clues (1 day)</button>`}</div>`; break; }
+    case 'hzboss': {
+      const e = HZ_BOSSES[sp.hzKey], beaten = !!G.flags['hz_won_'+sp.hzKey];
+      body = `<div class="panel"><b>${e.icon} ${e.n}</b> <span class="sm">${beaten?'· defeated (replayable)':''}</span><div class="sm">${e.note}</div><div class="sm">The whole crew fights: 13 on the grid. The twins cannot be hit; Soel blesses.</div><button class="pri" onclick="hzqFightUi('${sp.hzKey}')">Fight</button></div>`; break; }
     case 'boss': {
       const e = ENEMIES[sp.boss], beaten = G.flags['boss_'+sp.boss];
       body = `<div class="panel"><b>${e.icon} ${e.n}</b> <span class="sm">${beaten?'· defeated (replayable)':''}</span><div class="sm">${e.desc}</div><button class="pri" onclick="origin='here';doBoss('${sp.id}');tab='battle';render()">${beaten?'Challenge again':'Challenge'}</button>${echoOk(sp)?`<button onclick="origin='here';doEcho('${sp.id}');tab='battle';render()">🔁 Meet its echo (+${ECHO_LEVELS} levels${echoes()[sp.boss]?', ×'+echoes()[sp.boss]:''})</button>`:''}</div>`; break; }

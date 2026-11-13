@@ -49,7 +49,7 @@ const THREADS = [
 function threadOk(k){ try{ return typeof k==='string' && k.startsWith('@') ? (k==='@103' ? G.ch >= 103 : k==='@evil1' ? evilsResolved() >= 1 : k==='@evil15' ? evilsResolved() >= 15 : false) : !!G.flags[k]; }catch(e){ return false; } }
 function threadState(t){
   const learned = t.part.filter(p => threadOk(p[0])), closed = t.done && threadOk(t.done[0]);
-  return {learned, closed, st: closed ? 2 : learned.length ? 1 : 0};
+  return {learned, closed, st: closed ? 2 : learned.length ? 1 : 0, concl:(t.concl || []).filter(c => threadOk(c[2]))};   // concl: findings marked Confirmed / Theory / Unresolved once their flag is set
 }
 const threadsSeen = () => THREADS.filter(t => { try{ return t.opens(); }catch(e){ return false; } });
 function rThreads(){
@@ -58,7 +58,7 @@ function rThreads(){
   const mark = ['☐','◐','☑'], word = ['Open','Partly answered','Answered'];
   return `<div class="panel"><b>❓ OPEN QUESTIONS</b><div class="sm">What the story has asked so far, and what it has answered. <b>${done}</b> of <b>${seen.length}</b> answered. A question only appears once the story has raised it.</div></div>`
     + (cats.map(c => `<h4>${c}</h4>` + seen.filter(t => t.cat===c).map(t => { const s = threadState(t);
-      return `<div class="li"><b>${mark[s.st]} ${t.icon} ${t.q}</b> <span class="sm">· ${word[s.st]}${t.live ? ' · '+t.live() : ''}</span>${s.learned.map(p => `<div class="sm">• ${p[1]}</div>`).join('')}${s.closed ? `<div class="sm"><b>Answer:</b> ${t.done[1]}</div>` : ''}</div>`; }).join('')).join('') || '<div class="sm">Nothing asked yet.</div>');
+      return `<div class="li"><b>${mark[s.st]} ${t.icon} ${t.q}</b> <span class="sm">· ${word[s.st]}${t.live ? ' · '+t.live() : ''}</span>${s.learned.map(p => `<div class="sm">• ${p[1]}</div>`).join('')}${(s.concl||[]).map(c => `<div class="sm">${({confirmed:'✔ <b>Confirmed:</b>', theory:'🧩 <b>Theory:</b>', unresolved:'❔ <b>Unresolved:</b>'})[c[0]]} ${c[1]}</div>`).join('')}${s.closed ? `<div class="sm"><b>Answer:</b> ${t.done[1]}</div>` : ''}</div>`; }).join('')).join('') || '<div class="sm">Nothing asked yet.</div>');
 }
 (function(){ const _rt = rArchiveTab; rArchiveTab = function(t){ return t==='threads' ? rThreads() : _rt(t); }; })();
 deed('threads1', 'story', 'Questions worth asking', '❓', 'One of the story\'s open questions was answered.', () => threadsSeen().some(t => threadState(t).closed));

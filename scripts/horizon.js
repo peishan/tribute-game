@@ -53,7 +53,7 @@ const HZ_BOSSES = {
 
 /* ---------- state and levels ---------- */
 const hzOpen = () => !!(G && G.ch >= 990);
-const hz = () => { if(!G.horizon) G.horizon = {read:{}, lv:{}, xp:{}, won:{}, obj:{}}; ['read','lv','xp','won','obj'].forEach(k => { if(!G.horizon[k]) G.horizon[k] = {}; }); return G.horizon; };   // G.hz belongs to an older system (horizons.js)
+const hz = () => { if(!G.horizon) G.horizon = {read:{}, lv:{}, xp:{}, won:{}, obj:{}}; ['read','lv','xp','won','obj'].forEach(k => { if(!G.horizon[k]) G.horizon[k] = {}; }); Object.keys(G.horizon.read).forEach(n => { G.flags['hz_read_'+n] = true; }); if(G.horizon.won.leviathan) G.flags.hz_won_leviathan = true; return G.horizon; };   // G.hz belongs to an older system (horizons.js); read chapters open their spots
 const hzAvgCanon = () => Math.max(1, Math.round(HZ_CANON.reduce((a, id) => a + (G.units[id] ? G.units[id].lv : 1), 0) / HZ_CANON.length));
 function hzLevel(id){
   if(id==='soel') return 0;
@@ -244,12 +244,6 @@ function hzSchedule(){ clearTimeout(hzTimer); if(HB && HB.auto && !HB.over && ta
 /* ---------- chapter objectives (Tribute plays the shared chapters as party quests; docs/CRIMSON_HORIZON_PLAN.md) ----------
    Each is a short quest: three decisions, each with one right answer (a wrong one gives a hint and costs nothing). Finishing it pays the crew XP and gold once and unlocks the next chapter. */
 const HZ_OBJ = {
-  8:{t:'Coordinate the rescue at the reef', intro:'The second surge is building and two fishing boats are stranded on the wrong side of the reef. Get them through the passage.',
-    steps:[
-      {q:'The current must be held steady long enough for the boats to cross. Who steadies it?', opts:[['San, with her sorcery','ok','San steadies the current, drawing the surge into a slow, readable pattern.'],['Devon, with a chart','no','A chart cannot hold water still. The current needs magic.'],['Levi, from the rigging','no','He can mark the tide, not hold it.']]},
-      {q:'The crossing needs someone to call the timing between surges. Who coordinates?', opts:[['Sky, from the deck','no','Sky is needed for the injured. The crossing needs a commander.'],['Jade, as Expedition Leader','ok','Jade calls the crossing, boat by boat, in the gaps between surges.'],['Soel, from the bow','no','Soel can bless the crew, not give orders to a fleet.']]},
-      {q:'The stranded boats cannot reach the ship by themselves. Who gets a towline across?', opts:[['Sally, with the Veilstring Bow','ok','Sally lands a line on the first boat from across the water; the first makes it through.'],['Joel, rowing out','no','Joel is needed at the helm for what comes next.'],['Aisyah, from the hold','no','Aisyah has the supplies ready, but the line must fly across the reef.']]}],
-    done:'The first boat makes it through. The second loses steerage as the gate starts to close: Joel will have to bring the ship in.'},
   26:{t:'Find the threatened gate', intro:'The next pulse is on its way. Renn has sent his readings from Fair Tide. Work out where it will land.',
     steps:[
       {q:'Renn\'s transmitted readings give the pulse\'s timing. What do you compare them against?', opts:[['Devon\'s chart of the outer current','ok','The pulse rides the outer current: the chart gives a path to match the timing against.'],['The harbour tide tables','no','Those cover the harbour, not the open sea the pulse travels.'],['Last night\'s weather log','no','Weather does not move a pulse.']]},
@@ -284,7 +278,8 @@ function rObjective(n){
 
 /* ---------- screens ---------- */
 const hzChapter = n => HZ_CHAPTERS.find(c => c.n === n);
-const hzUnlocked = n => n === 0 || (!!hz().read[n-1] && (!HZ_BATTLE_AT[n-1] || !!hz().won[HZ_BATTLE_AT[n-1]]) && (!HZ_OBJ[n-1] || !!(hz().obj[n-1] && hz().obj[n-1].done)));
+// Arc I (0-10) is played on Tribute's investigation framework: the next chapter opens when the previous chapter has been read AND its investigation spot is finished (and the leviathan beaten after chapter 2).
+const hzUnlocked = n => n === 0 || (!!hz().read[n-1] && (n-1 > 10 || !!G.flags['inv_hzq'+(n-1)]) && (!HZ_BATTLE_AT[n-1] || !!hz().won[HZ_BATTLE_AT[n-1]]) && (!HZ_OBJ[n-1] || !!(hz().obj[n-1] && hz().obj[n-1].done)));
 const HZ_BATTLE_AT = {2:'leviathan'};   // the chapter whose objective is a real fight
 function hzRead(n){
   const c = hzChapter(n); if(!c) return;
@@ -294,7 +289,7 @@ function hzRead(n){
   el.innerHTML = `<div class="arcbox">${a ? `<img src="assets/horizon/arc0${a.n}.webp" alt="${a.t}" style="max-height:calc(50vh - 40px)"><div class="sm" style="color:var(--gold-light)">Crimson Horizon · Arc ${a.n}: ${a.t}</div>` : ''}${page}<button class="pri" onclick="hzReadDone(${n})">Continue</button></div>`;
   el.classList.add('on'); el.scrollTop = 0;
 }
-function hzReadDone(n){ hz().read[n] = true; const el = $('arcpop'); if(el){ el.classList.remove('on'); el.innerHTML = ''; } save(); render(); }
+function hzReadDone(n){ hz().read[n] = true; G.flags['hz_read_'+n] = true; const el = $('arcpop'); if(el){ el.classList.remove('on'); el.innerHTML = ''; } save(); render(); }
 function hzCrewCard(id){
   const lv = hzLevel(id), s = hzStats(id), p = hzProtected(id);
   const note = id==='soel' ? 'Blessing cat: heals, restores MP and blesses the crew. Does not fight. Cannot be killed. 💞 Guardian\'s Bond with Vaeren and Joelle.' : HZ_TWINS.includes(id) ? (p ? '🔒 Protected: cannot be hit until Lv '+HZ_FULL+'. Power '+Math.round(Math.max(.25, Math.min(1, lv/HZ_FULL))*100)+'%.' : '✅ Full strength.') : (id==='jade'||id==='sally') ? 'Fights from range. Pregnancy places no restriction.' : '';
@@ -322,6 +317,8 @@ function rHorizon(){
   const next = HZ_CHAPTERS.find(c => !h.read[c.n]);
   const arcs = HZ_ARCS.map(a => `<h4>Arc ${a.n}: ${a.t}</h4>` + HZ_CHAPTERS.filter(c => c.arc === a.n).map(c => {
     const ok = hzUnlocked(c.n), done = !!h.read[c.n], fight = HZ_BATTLE_AT[c.n], needFight = fight && done && !h.won[fight];
-    return `<div class="card ${ok?'':'lock'}"><span class="big">${done?'✅':ok?'📖':'🔒'}</span><div class="fl"><b>${c.n===0?'Prologue':c.n+'.'} ${c.t}</b><div class="sm">${c.s}</div></div>${ok?`<button class="${done?'':'pri'}" onclick="hzRead(${c.n})">${done?'Read again':'Read'}</button>`:''}${fight && done ? `<button class="pri" onclick="hzBattle('${fight}')">${h.won[fight]?'Fight again':'⚔️ Fight'}</button>` : ''}${HZ_OBJ[c.n] && done ? `<button class="pri" onclick="hzObjOpen(${c.n})">${h.obj[c.n]&&h.obj[c.n].done?'🎯 Done':'🎯 Objective'}</button>` : ''}</div>`; }).join('')).join('');
+    return `<div class="card ${ok?'':'lock'}"><span class="big">${done?'✅':ok?'📖':'🔒'}</span><div class="fl"><b>${c.n===0?'Prologue':c.n+'.'} ${c.t}</b><div class="sm">${c.s}</div>${c.n<=10 ? `<div class="sm">${G.flags['inv_hzq'+c.n] ? '✔ investigated' : '🔎 investigate at '+hzqWhere(c.n)}</div>` : ''}</div>${ok?`<button class="${done?'':'pri'}" onclick="hzRead(${c.n})">${done?'Read again':'Read'}</button>`:''}${fight && done ? `<button class="pri" onclick="hzBattle('${fight}')">${h.won[fight]?'Fight again':'⚔️ Fight'}</button>` : ''}${HZ_OBJ[c.n] && done ? `<button class="pri" onclick="hzObjOpen(${c.n})">${h.obj[c.n]&&h.obj[c.n].done?'🎯 Done':'🎯 Objective'}</button>` : ''}</div>`; }).join('')).join('');
   return `<h2>🌅 Crimson Horizon</h2><div class="sm">The Adventures of San and Jade · one crew, two worlds.</div><img src="assets/horizon/roster.webp" alt="The unified crew" style="width:100%;border-radius:10px;margin:8px 0"><div class="panel"><b>The crew (13)</b><div class="sm">All of them fight. Every member has their own level. The twins are protected until Lv ${HZ_FULL}; Soel blesses and cannot be killed.</div></div>${HZ_CREW.map(hzCrewCard).join('')}<h3>Chapters</h3>${next ? `<div class="sm">Next: ${next.n===0?'Prologue':'Chapter '+next.n}</div>` : '<div class="sm">All available chapters read.</div>'}${arcs}`;
 }
+
+function hzqWhere(n){ const k = Object.keys(LOCATIONS).find(x => LOCATIONS[x].spots.some(sp => sp.id === 'hzq'+n)); return k ? LOCATIONS[k].icon+' '+LOCATIONS[k].n : ''; }

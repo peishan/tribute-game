@@ -24,6 +24,7 @@ fs.readdirSync('scripts').filter(f => f.endsWith('.js')).forEach(f => { try{ new
     // no mission step waits on a spot that opens more than 15 chapters after the mission itself
     const sp = {}; Object.values(LOCATIONS).forEach(l => l.spots.forEach(x => { sp[x.id] = x; }));
     o.lateStep = MISSIONS.flatMap(m => (m.obj.steps || []).filter(s => s.spot && sp[s.spot] && (sp[s.spot].ch || 0) > (m.needCh || 0) + 15).map(s => m.id+':'+s.spot));
+    o.hzq = [...Array(11).keys()].filter(n => !spotById('hzq'+n)).concat(spotById('hzq_leviathan') && spotById('bp_records') ? [] : ['boss/pearl']);
     o.arcs = ARCS.length; o.arcDup = ARCS.map(a => a.n).filter((n, i, l) => l.indexOf(n) !== i);
     // every tab renders at several story points
     o.tabErr = [];
@@ -64,6 +65,7 @@ fs.readdirSync('scripts').filter(f => f.endsWith('.js')).forEach(f => { try{ new
   ok('mission steps pointing at missing bosses', !r.badBoss.length, r.badBoss.join());
   ok('every boss a mission asks for can be fought', !r.noFight.length, r.noFight.join());
   ok('no mission step waits on a much later spot', !r.lateStep.length, r.lateStep.join());
+  ok('Horizon Arc I spots, boss spot and Pearl case exist', !r.hzq.length, r.hzq.join());
   ok('duplicate arcs', !r.arcDup.length, r.arcDup.join());
   ok('tabs render at every story point', !r.tabErr.length, r.tabErr.slice(0, 4).join(' | '));
   ok('canon five locked in', r.lock === 'devon,jade,levi,sally,sky' && r.lock2 === 5, r.lock+' / '+r.lock2);
