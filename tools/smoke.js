@@ -48,6 +48,14 @@ fs.readdirSync('scripts').filter(f => f.endsWith('.js')).forEach(f => { try{ new
     G = newState(); for(const k in G.units) G.units[k].lv = 1500; G.ch = 990; o.hzOpen = hzOpen(); o.hzCh = HZ_CHAPTERS.length;
     hzBattle('leviathan'); o.crew = HB.crew.length; let twin = false; n = 0; while(HB && !HB.over && n < 1500){ hzAutoStep(); n++; if(HB.crew.some(u => HZ_TWINS.includes(u.id) && u.dead)) twin = true; }
     o.hz = HB.over; o.twinDown = twin; o.soel = HB.crew.find(u => u.id === 'soel').dead; HB = null;
+    // sequel extras: ambush from a clue spot, items, flee, gear, no endless fights
+    { const x = {}; devSetChapter(990); G.flags.hz_read_4 = true; const rnd = Math.random; Math.random = () => 0; x.r = doInvestigate('hzq4'); Math.random = rnd;
+      x.amb = !!HB && !!HB.after && x.r === 'hz'; G.inv.herbal_tonic = 1; const c = hzCur(); c.hp = 1; hzDo('item', 'herbal_tonic'); x.item = c.hp > 1 && G.inv.herbal_tonic === 0;
+      HB.boss.hp = 1; hzDo('atk'); x.win = HB.over === 'win'; hzLeaveBattle(); x.search = (G.clues.hzq4 || 0) > 0 && !G.flags.hz_won_violet_swarm;
+      hzBattle('leviathan'); hzDo('flee'); x.flee = HB === null;
+      hzBattle('leviathan'); HB.boss.hp = 1; hzDo('atk'); hzLeaveBattle(); x.gear = G.inv.crimson_repeater === 1 && G.inv.veilstring_bow === 1 && !canEquip('jade', 'crimson_repeater') && !!canEquip('sally', 'crimson_repeater') && !canEquip('sally', 'veilstring_bow');
+      hzBattle('leviathan'); HB.crew.forEach(u => { if(u.id !== 'soel' && !hzProtected(u.id)) u.dead = true; }); HB.crew.forEach(u => { u.acted = true; }); hzAdvance(); x.endless = HB.over === 'lose'; HB = null;
+      o.hzx = x; o.hzAmb = Object.values(LOCATIONS).flatMap(l => l.spots).filter(s => s.hzAmbush).length; }
     // every place a chapter starts at can be reached by road or sea from the capital
     const adj = {}; ROUTES.forEach(r => { (adj[r.a] = adj[r.a] || []).push(r.b); (adj[r.b] = adj[r.b] || []).push(r.a); });
     const seen = new Set(['capital']), q = ['capital']; while(q.length){ const x = q.pop(); (adj[x] || []).forEach(y => { if(!seen.has(y)){ seen.add(y); q.push(y); } }); }
@@ -68,6 +76,7 @@ fs.readdirSync('scripts').filter(f => f.endsWith('.js')).forEach(f => { try{ new
   ok('every boss a mission asks for can be fought', !r.noFight.length, r.noFight.join());
   ok('no mission step waits on a much later spot', !r.lateStep.length, r.lateStep.join());
   ok('Horizon chapter spots (0-41), boss spots and Pearl case exist', !r.hzq.length, r.hzq.join());
+  ok('sequel: ambush, items, flee, gear, defeat ends the fight', r.hzx && Object.values(r.hzx).every(v => v === true || v === 'hz') && r.hzAmb >= 15, JSON.stringify(r.hzx)+' '+r.hzAmb);
   ok('Boards tab lists the Masked Contracts', /Masked Contracts/.test(r.boards) && /Accept/.test(r.boards), '')
   ok('board tip lists the boards the party can reach', r.tip === true && r.tipEarly === false, r.tip+' '+r.tipEarly);
   ok('duplicate arcs', !r.arcDup.length, r.arcDup.join());
