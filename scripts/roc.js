@@ -10,10 +10,10 @@
      With five or more true, the optional scene "Things Left Unsaid" opens in Dragonvale: Roc tells Jade he once loved her without asking anything of her, Jade
      says she loved him too, and they leave it there. No romance choice, no jealousy, no points. Afterward: Past Accepted (flag roc_past_accepted), and his letters
      look forward to Delilah, the girls, Jenika and Dragonvale.
-   - LIORA'S MILESTONES: letters after ch170 (she meets her parents, Delilah is expecting a second daughter, her lessons with Papa and Jenika, the baby's birth).
+   - LIORA'S MILESTONES: letters after ch170 (she meets her parents, her lessons with Papa and Jenika; no second daughter: the drawn story gives Roc and Delilah only Liora and the twins).
    State: G.flags.rocduty_*, G.flags.roc_past_accepted, G.roc = {envoy:n}.  First-pass wording and timing: edit freely.
    ===================================================================== */
-const ROC_DUTY = ['faces_past','serves','father','partner','shares','respects','protects'];
+const ROC_DUTY = ['faces_past','serves','father','shares','respects','protects'];
 const rocDutyCount = () => ROC_DUTY.filter(k => G.flags['rocduty_'+k]).length;
 const ROC_SEA_QUESTS = ['q_dockhands','q_smugglers','q_raiders','q_serpent'];
 const rocData = () => { if(!G.roc) G.roc = {envoy:0}; return G.roc; };
@@ -34,15 +34,10 @@ TIMED.push(
  {id:'liora_parents', ch:170, after:'ch170', gap:8, kind:'letter', icon:'💌', from:'Liora', subj:'I met Mama and Papa', flag:'liora_met_parents',
   body:"Dear Mama and Papa (the one in the palace and the one at sea; Jenika says I may call you both that),\n\nI met my other Mama and Papa today. They are back in the palace. Papa is not a prince any more, but he has a chain with a little silver ship on it, and Jenika says that means he is the Envoy. He told me it is a better job than being a prince because you are allowed to be useful.\n\nMama Delilah says I look like him when I frown. I frowned to check.\n\n— Liora",
   log:'Liora met her parents, Roc and Delilah, back in the Dragonvale palace.'},
- {id:'jenika_sister', ch:170, after:'ch170', gap:30, kind:'letter', icon:'💌', from:'Jenika Moon', subj:'Another little one', flag:'rocduty_partner',
-  body:"Jade, Devon,\n\nDelilah is expecting again. The healers say another girl. She is calm about it; Roc is not. He has read three books on the subject and quarrelled with the palace cook about her tea. Delilah says he is a sweet nuisance, and that he has stopped leaving for weeks at a time without telling her. I did not say what I thought about that.\n\nLiora has appointed herself the elder sister already.\n\nJenika",
-  log:'Delilah is expecting a second daughter. Roc is attentive.'},
  {id:'liora_lessons', ch:170, after:'ch170', gap:60, kind:'letter', icon:'💌', from:'Liora', subj:'Two teachers', flag:'rocduty_father',
   body:"Dear Mama and Papa,\n\nI have two teachers now. Jenika teaches me herbs and Papa teaches me sea charts and how to hold a wooden sword. They argued about who decides my day. Jenika said it should be both of them, and Papa laughed and said that was the first sensible thing anyone had said in the palace all week, and now we take turns. Papa gets mornings. Jenika gets the herb garden. I get to choose dinner.\n\nI am getting very good at charts.\n\n— Liora",
   log:'Liora is learning from both Roc and Jenika, who decided her days together.'},
  {id:'liora_shared', ch:170, after:'liora_lessons', gap:1, kind:'notice', icon:'🌿', t:'Jenika and Roc now plan Liora\'s lessons together.', flag:'rocduty_shares', log:'Roc and Jenika share Liora\'s education.'},
- {id:'roc_sister_born', ch:170, after:'jenika_sister', gap:150, kind:'notice', icon:'👶', t:'Word from Dragonvale: Delilah gave birth to a healthy girl. Liora is a big sister.', flag:'liora_sister_born',
-  log:'Delilah and Roc\'s second daughter was born in Dragonvale. Liora is a big sister.'},
  {id:'roc_unsaid', ch:178, after:'liora_lessons', gap:30, kind:'scene', icon:'🌊', window:30, locs:['dragon_vale'], needs:() => rocDutyCount() >= 5 && !G.flags.roc_past_accepted, setFlag:'roc_past_accepted',
   t:'Roc has asked for a quiet word with Jade, on the harbour wall. It is not a request that keeps.',
   scene:[['chad','I have wanted to say this for a long time, and I did not know how to without asking something of you.'],['jade','Then say it. I am not going anywhere.'],['chad','What I felt for you did not vanish when we parted. For years I confused loving you with being owed a place beside you. They are not the same thing. I am sorry it took me this long to learn it.'],['jade','I did love you, Roc. I will not pretend I didn\'t.'],['chad','I know. That is all I wanted to hear, and all I will ask.'],['jade','Then it is said.'],['chad','Delilah is waiting. So is a very loud girl who thinks I am a better swordsman than I am.'],['jade','Go home, Roc.']],
@@ -60,7 +55,7 @@ QUEST_POOL.push(
 /* the family panel (Missions -> Ways) */
 function rRocFamily(){
   if(G.ch < 170) return '';
-  const M = [['liora_met_parents','Liora met her parents, Roc and Delilah'],['rocduty_partner','Delilah is expecting a second daughter'],['rocduty_father','Liora learns from Roc and from Jenika'],['liora_sister_born','Liora is a big sister: Delilah\'s second daughter was born']].filter(m => G.flags[m[0]]);
+  const M = [['liora_met_parents','Liora met her parents, Roc and Delilah'],['rocduty_father','Liora learns from Roc and from Jenika']].filter(m => G.flags[m[0]]);
   return `<div class="panel"><b>🧭 ROC CHADSTONE</b><div class="sm">Prince of Dragonvale by birth · Maritime Envoy of Dragonvale · Ally of Tribute. He fights beside the party on Dragonvale ground and at sea, without taking a place in the party. Envoy contracts completed: ${rocData().envoy}.${G.flags.roc_past_accepted ? ' He has made his peace with the past.' : ''}</div>${M.length ? '<div class="sm" style="margin-top:4px"><b>Liora\'s family</b></div>'+M.map(m => `<div class="sm">👪 ${m[1]}</div>`).join('') : ''}</div>`;
 }
 deed('roc_envoy', 'bonds', 'Allied Envoy', '🧭', 'Roc Chadstone fought beside you as Dragonvale\'s Maritime Envoy.', () => !!G.flags.roc_envoy_met);
