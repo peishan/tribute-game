@@ -60,16 +60,25 @@ function rMissionList(){
   return rows.map(m=>{ const st = mState(m.id);
     return `<div class="ev ${st==='done'?'taken':st==='active'?'ready':'locked'}"><div><b>${m.title}</b><div class="sm">${objText(m)}${missionProgress(m)?' · '+missionProgress(m):''}</div><div class="sm">${rwText(m.rw)}</div></div><span class="sm">${st==='done'?'✔ done':st==='active'?'active':'letter waiting'}</span></div>`; }).join('');
 }
+// where each board is, for the tip shown on the Quests and Bounties screens: only boards the party can already reach are listed
+function boardTip(){
+  const rows = [];
+  Object.keys(LOCATIONS).forEach(k => LOCATIONS[k].spots.forEach(sp => { if(sp.kind==='board' && !neverWritten(sp) && locOpen(k) && !(sp.ch!==undefined && G.ch < sp.ch)) rows.push({n:sp.n, icon:sp.icon, place:LOCATIONS[k].n, mask:/Masked/.test(sp.n), here:G.loc===k}); }));
+  [['frontier','Frontier Work Board','📌','the Northern Frontier',() => G.ch >= 918],['pursuit','Pursuit Board','🏹','Tribute, Dragonvale and Altan',() => !!G.flags.levis_trail_followed],['convoy','Lady Delilah\'s Convoy Desk','📦','a border or frontier town',() => typeof convoyOpen==='function' ? convoyOpen() : false]].forEach(x => { if(x[4]()) rows.push({n:x[1], icon:x[2], place:x[3], mask:false, here:false}); });
+  if(!rows.length) return '';
+  const line = r => `<div class="sm">${r.icon} <b>${r.n}</b>: ${r.place}${r.here ? ' (you are here)' : ''}${r.mask ? ' · the vigilante work: Jade and Devon in disguise' : ''}</div>`;
+  return `<div class="panel"><b>💡 Where to find the boards</b><div class="sm">Travel there, open the Here tab and pick the board from the list.</div>${rows.map(line).join('')}</div>`;
+}
 function rQuestsActive(){
   const a = G.quests.active.map((q,i)=>{
     const have = q.type==='collect' ? (G.inv[q.item]||0) : 0;
     return `<div class="ev ready"><div><b>${q.icon} ${q.name}</b><div class="sm">${q.desc}</div><div class="sm">${q.type==='collect'?Math.min(have,q.need)+'/'+q.need+' in pack':q.type==='deliver'?'📮 To '+LOCATIONS[q.to].n:q.c+'/'+q.need} · ${rwText(q.rw)}</div></div>
       <div>${q.type==='collect'?`<button ${have>=q.need?'':'disabled'} onclick="act(turnInQuest,${i})">Turn in</button>`:''}<button onclick="abandonQuest(${i});render()">✕</button></div></div>`; }).join('');
-  return `<div class="sm">Active contracts ${G.quests.active.length}/${MAX_QUESTS} · Renown ${G.rep} · Completed ${G.quests.done}. ${rankLine()}. New contracts are taken from a Quest Board in a town.</div>${a||'<div class="panel sm">None. Visit a Quest Board.</div>'}`;
+  return `<div class="sm">Active contracts ${G.quests.active.length}/${MAX_QUESTS} · Renown ${G.rep} · Completed ${G.quests.done}. ${rankLine()}. New contracts are taken from a Quest Board in a town.</div>${a||'<div class="panel sm">None. Visit a Quest Board.</div>'}${boardTip()}`;
 }
 function rBountyList(){
   refreshBounties();
-  return `<div class="sm">Auto-tracked: just hunt the targets. Bounties refresh every 2 days (Day ${G.day}), from monsters in places you have unlocked.</div>`+G.bounties.list.map(b=>`<div class="ev ${b.done?'taken':''}"><div><b>${b.icon} ${b.name}</b><div class="sm">${b.done?'COMPLETE ✓':b.c+'/'+b.need} · ${b.rw.xp} XP + ${b.rw.gold}g</div></div></div>`).join('');
+  return `<div class="sm">Auto-tracked: just hunt the targets. Bounties refresh every 2 days (Day ${G.day}), from monsters in places you have unlocked. Boards that post contracts are listed under Quests.</div>`+G.bounties.list.map(b=>`<div class="ev ${b.done?'taken':''}"><div><b>${b.icon} ${b.name}</b><div class="sm">${b.done?'COMPLETE ✓':b.c+'/'+b.need} · ${b.rw.xp} XP + ${b.rw.gold}g</div></div></div>`).join('');
 }
 
 /* ---------------- TRAVEL TAB ---------------- */
