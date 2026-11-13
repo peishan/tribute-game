@@ -98,6 +98,38 @@ THREADS.push({id:'blackpearl', icon:'🔮', q:'Who first held the Black Pearl, a
 /* ---- the boss spot's screen, the win flag and the reading gate ---- */
 (function(){
   const _hw = hzWin;
-  hzWin = function(){ _hw(); if(HB && HB.over === 'win') G.flags['hz_won_'+HB.key] = true; if(typeof checkSteps === 'function') checkSteps(); };
+  hzWin = function(){
+    const was = HB && HB.over, after = HB && HB.after, amb = HB && HB.boss && HB.boss.ambush;
+    _hw();
+    if(HB && HB.over === 'win' && !was){
+      if(!amb) G.flags['hz_won_'+HB.key] = true;
+      if(HB.key === 'leviathan') hzGrantGear();
+      if(after){ const r = _hzInvest(after); if(Array.isArray(r)) flash(r); }   // the search the ambush interrupted now goes ahead
+    }
+    if(typeof checkSteps === 'function') checkSteps();
+  };
 })();
+/* Jade's Crimson Repeater and Sally's Veilstring Bow: given once, after the leviathan (chapter 2) falls; also for saves that won it before the gear existed */
+function hzGrantGear(){
+  if(G.flags.hz_gear_given || !G.flags.hz_won_leviathan) return;
+  G.flags.hz_gear_given = true; G.inv.crimson_repeater = (G.inv.crimson_repeater||0) + 1; G.inv.veilstring_bow = (G.inv.veilstring_bow||0) + 1;
+  if(HB) hzLog('🎁 The Crimson Repeater (Jade) and the Veilstring Bow (Sally) are recovered from the wreckage. Equip them in the Equipment tab.');
+  else toast('🎁 Crimson Repeater and Veilstring Bow added to the pack');
+  save();
+}
+const _hzLB = hzLeaveBattle, _hzFl = hzFlee;
+hzLeaveBattle = function(){ const back = HB && HB.after; _hzLB(); if(back){ tab = 'here'; render(); } };   // an ambush returns to the spot, where the search result is waiting
+hzFlee = function(){ const back = HB && HB.after; _hzFl(); if(back){ tab = 'here'; render(); } };
+const _hzRH = rHorizon;
+rHorizon = function(){ hzGrantGear(); return _hzRH(); };
+/* ambushes: searching some clue spots can start a short crew fight first; winning it lets the search go ahead, fleeing or losing skips it (no day passes) */
+const _hzInvest = doInvestigate;
+doInvestigate = function(id){
+  const sp = spotById(id);
+  if(sp && sp.hzAmbush && !HB && (G.clues[id]||0) < sp.need && Math.random() < .25){
+    origin = 'here'; hzBattle(sp.hzAmbush); HB.after = id; tab = 'horizon'; return 'hz';
+  }
+  return _hzInvest(id);
+};
+[4,6,7,9,13,14,16,19,20,21,25,27,28,29,32,33,35,36,38,39].forEach(n => { const sp = spotById('hzq'+n); if(sp) sp.hzAmbush = n <= 32 ? 'violet_swarm' : 'lantern_raiders'; });
 function hzqFightUi(key){ origin = 'here'; hzBattle(key); tab = 'horizon'; render(); }

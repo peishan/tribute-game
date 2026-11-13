@@ -50,6 +50,9 @@ const HZ_KIT = {
 const HZ_BOSSES = {
   leviathan:{n:'The Stormborn Leviathan', icon:'🐉', mult:1, short:'the leviathan', surge:'a violet surge', moves:[{n:'Tidal Crash',pow:1.5,t:'one'},{n:'Lightning Maw',pow:2,t:'one'},{n:'Violet Pulse',pow:.7,t:'all'}], note:'A colossal sea-born predator, awakened by a power unknown.'},
   storm_fronts:{n:'The Closing Storm Fronts', icon:'🌪️', mult:1.1, short:'the storm', surge:'a gale surge', intro:'closes across the northern passage', moves:[{n:'Gale Slam',pow:1.5,t:'one'},{n:'Lightning Line',pow:1.9,t:'one'},{n:'Whiteout',pow:.7,t:'all'}], note:'Two storm fronts moving against the wind along the same line: the way east is the only way through.'},
+  // ambushes from clue spots: short fights (about a third of a boss), paying a fraction of the boss reward
+  violet_swarm:{n:'The Violet-Touched Swarm', icon:'🦑', mult:.3, rw:.2, ambush:true, short:'the swarm', surge:'a violet burst', intro:'boils up around the ship', moves:[{n:'Barbed Lash',pow:1.4,t:'one'},{n:'Ink Cloud',pow:.7,t:'all'},{n:'Pulse Sting',pow:1.8,t:'one'}], note:'Sea life driven wild by the violet pulses beneath the water.'},
+  lantern_raiders:{n:'The False-Lantern Raiders', icon:'🏴‍☠️', mult:.3, rw:.2, ambush:true, short:'the raiders', surge:'a boarding rush', intro:'slips out of the fog', moves:[{n:'Cutlass Rush',pow:1.4,t:'one'},{n:'Smoke Pot',pow:.7,t:'all'},{n:'Grapple Strike',pow:1.8,t:'one'}], note:'Wreckers who lure ships onto the shoals with false lights.'},
   skiff_crew:{n:'The Skiff Crew', icon:'🛶', mult:1.2, short:'the skiff crew', surge:'a coordinated volley', intro:'turns on the party from the shoal', moves:[{n:'Cutlass Rush',pow:1.5,t:'one'},{n:'Smoke Pot',pow:.7,t:'all'},{n:'Cargo Throw',pow:1.9,t:'one'}], note:'The men who strip grounded ships and sell the cargo, with a false lantern to bring the next one in.'},
 };
 
@@ -103,7 +106,7 @@ function hzStart(key){
   const potential = fighters.reduce((a, u) => a + Math.max(u.atk, u.mag) * 0.6 * 1.5, 0);   // what the crew can do in one round
   const mhp = Math.round(potential * 38 * B.mult);                                             // about 26 rounds of full effort: the sequel's bosses are much harder
   const avgHp = crew.reduce((a, u) => a + u.mhp, 0) / crew.length, avgDef = crew.reduce((a, u) => a + u.def, 0) / crew.length;
-  HB = {key, boss:{n:B.n, icon:B.icon, hp:mhp, mhp, atk:Math.round(avgHp*.28*B.mult), def:avgDef, ph:0, expo:0, charging:false, slow:0, mult:1, moves:B.moves, short:B.short, surge:B.surge}, crew, round:1, turn:0, log:[], over:null, auto:false, menu:null, lv:A};
+  HB = {key, boss:{n:B.n, icon:B.icon, hp:mhp, mhp, atk:Math.round(avgHp*.28*B.mult), def:avgDef, ph:0, expo:0, charging:false, slow:0, mult:1, moves:B.moves, short:B.short, surge:B.surge, rw:B.rw, ambush:B.ambush}, crew, round:1, turn:0, log:[], over:null, auto:false, menu:null, lv:A};
   hzLog('⚔️ '+B.n+' '+(B.intro || 'rises from the sea')+'. '+B.note);
   hzLog('Soel purrs: the crew is blessed and ready. (The twins are protected and cannot be hit.)');
   hzLog('💞 Guardian\'s Bond: Soel watches over Vaeren and Joelle (they recover 10% HP and MP every round and learn faster).');
@@ -185,7 +188,7 @@ function hzAdvance(){   // after a crew member acts: next able member, or the en
   const able = HB.crew.filter(u => !u.dead && !u.acted);
   if(!able.length){
     for(let k = 0; k < 2 + (HB.boss.ph >= 2 ? 1 : 0); k++) hzBossTurn();   // the sequel's bosses act more than once a round
-    if(!hzTargetable().length) return hzLose();   // the twins are protected and Soel cannot fall, so the fight is lost when nobody else is standing
+    if(!HB.crew.some(u => !u.dead && u.id !== 'soel' && !hzProtected(u.id))) return hzLose();   // the twins are protected and Soel cannot fall, so the fight is lost when nobody else is standing
     hzEndRound();
   }
 }
@@ -197,9 +200,23 @@ function hzDo(kind, idx){
   if(kind === 'atk') ok = hzAct(u, null);
   else if(kind === 'def') ok = hzAct(u, 'defend');
   else if(kind === 'sk') ok = hzAct(u, HZ_KIT[u.id].sk[idx]);
+  else if(kind === 'item') ok = hzUseItem(u, idx);
+  else if(kind === 'flee'){ hzFlee(); return; }
   if(!ok){ toast('Cannot do that'); return; }
   u.acted = true; HB.menu = null; hzAdvance(); render();
 }
+/* items in battle: the tonics and potions from the pack (the same ones Tribute uses). In the sequel they heal a share of the target's HP or MP,
+   because the crew's numbers are far larger than the herbs' (70 HP = about 17%, 220 = 55%, capped at 60%; a remedy restores everything). */
+const hzItems = () => Object.keys(USE).filter(k => !USE[k].open && !USE[k].foeFx && (USE[k].hp || USE[k].mp) && (G.inv[k]||0) > 0);
+function hzUseItem(u, k){
+  const e = USE[k]; if(!e || !(G.inv[k] > 0)) return false;
+  const pool = hzAlive();
+  if(e.hp){ const t = pool.slice().sort((a, b) => a.hp/a.mhp - b.hp/b.mhp)[0]; if(!t || t.hp >= t.mhp) { if(!e.mp) return false; }
+    if(t){ const share = e.hp >= 9999 ? 1 : Math.min(.6, e.hp/400), h = Math.min(Math.round(t.mhp*share), t.mhp - t.hp); t.hp += h; hzLog('🎒 '+u.name+' uses '+ITEMS[k].n+' on '+t.name+': +'+h.toLocaleString()+' HP.'); } }
+  if(e.mp){ const t = pool.filter(x => x.mmp > 0).sort((a, b) => a.mp/a.mmp - b.mp/b.mmp)[0]; if(t){ const share = e.mp >= 9999 ? 1 : Math.min(.5, e.mp/200), m = Math.min(Math.round(t.mmp*share), t.mmp - t.mp); t.mp += m; hzLog((e.hp ? '  ' : '🎒 '+u.name+' uses '+ITEMS[k].n+' on ')+t.name+': +'+m.toLocaleString()+' MP.'); } }
+  G.inv[k]--; save(); return true;
+}
+function hzFlee(){ if(!HB || HB.over) return; HB = null; toast('The crew falls back.'); render(); }
 function hzAuto(u){   // the crew's own choices
   const K = HZ_KIT[u.id], sk = K.sk, B = HB.boss, low = hzAlive().slice().sort((a, b) => a.hp/a.mhp - b.hp/b.mhp)[0];
   const can = s => s && u.mp >= s.mp, by = k => sk.find(s => s.kind === k);
@@ -227,9 +244,9 @@ function hzAutoStep(){
 function hzWin(){
   if(HB.over) return; HB.over = 'win';
   const ids = HB.crew.filter(u => !u.dead || true).map(u => u.id).filter(i => i !== 'soel');
-  const xp = Math.round(xpToNext(HB.lv, 'jade') * .6);
-  hz().won[HB.key] = true;
-  const gold = 200000; G.gold += gold;
+  const rwf = HB.boss.rw || 1, xp = Math.round(xpToNext(HB.lv, 'jade') * .6 * rwf);
+  if(!HB.boss.ambush) hz().won[HB.key] = true;
+  const gold = Math.round(200000 * rwf); G.gold += gold;
   hzLog('🏆 The '+HB.boss.n+' falls! +'+xp.toLocaleString()+' XP · +'+gold.toLocaleString()+'g');
   hzGrantXp(xp, ids).forEach(m => hzLog('✦ '+m));
   save();
@@ -295,7 +312,8 @@ function rBattleHz(){
   else if(cur){
     const K = HZ_KIT[cur.id];
     if(HB.menu === 'sk'){ act = `<div class="sm">${cur.name}'s skills (MP ${cur.mp.toLocaleString()}):</div><div class="row">${K.sk.map((s, i) => `<button ${cur.mp<s.mp?'disabled':''} onclick="hzDo('sk',${i})">${s.i} ${s.n}${s.mp?' · '+s.mp:''}</button>`).join('')}</div>`; }
-    else act = `<div class="sm">${cur.name}'s turn</div><div class="row">${K.atk ? `<button class="pri" onclick="hzDo('atk')">⚔️ ${K.atk}</button>` : ''}<button onclick="hzMenu('sk')">${cur.id==='soel'?'🐈 Bless':'✨ Skill'}</button>${cur.id==='soel'?'':`<button onclick="hzDo('def')">🛡️ Defend</button>`}<button onclick="hzToggleAuto()">🤖 Auto: ${HB.auto?'ON':'OFF'}</button></div>`;
+    else if(HB.menu === 'item'){ const its = hzItems(); act = `<div class="sm">Pack items (the most hurt member is healed):</div><div class="row">${its.length ? its.map(k => `<button onclick="hzDo('item','${k}')">${ITEMS[k].icon} ${ITEMS[k].n} ×${G.inv[k]}</button>`).join('') : '<span class="sm">Nothing usable in the pack.</span>'}</div>`; }
+    else act = `<div class="sm">${cur.name}'s turn</div><div class="row">${K.atk ? `<button class="pri" onclick="hzDo('atk')">⚔️ ${K.atk}</button>` : ''}<button onclick="hzMenu('sk')">${cur.id==='soel'?'🐈 Bless':'✨ Skill'}</button>${cur.id==='soel'?'':`<button onclick="hzDo('def')">🛡️ Defend</button>`}<button onclick="hzMenu('item')">🎒 Item</button><button onclick="hzDo('flee')">🏃 Flee</button><button onclick="hzToggleAuto()">🤖 Auto: ${HB.auto?'ON':'OFF'}</button></div>`;
   }
   return `<h2>⚔️ ${B.n}</h2><div class="panel"><div class="sm">${B.icon} Round ${HB.round} · ${B.hp.toLocaleString()} / ${B.mhp.toLocaleString()} HP${B.expo>0?' · 🎯 exposed':''}${B.charging?' · ⚠️ surge building!':''}${B.ph?' · phase '+(B.ph+1):''}</div><div class="hzbar big"><i style="width:${pct}%;background:#c0392b"></i></div></div><div class="hzgrid">${cards}</div><div class="panel">${act}</div><div class="panel hzlog">${HB.log.slice(-14).map(l => `<div class="sm">${l}</div>`).join('')}</div>`;
 }
