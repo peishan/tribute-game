@@ -32,7 +32,7 @@ Edits made by the author after the first brief: 557 now says the region no longe
 **Page notes (kept as drawn; minor typos ignored per the author):**
 - 550: the caption says "the Crimson Tide" (the party is called the Crimson Guard elsewhere). 554: "Dēvon". 556: a garbled top-right caption. 561: stray characters in a bubble. 570: "Lo keep her". 
 - 553: Roc appears alone and adult with a short beard. Elise is drawn with long golden hair and blue eyes throughout this arc (earlier chapters: darker hair).
-- **Delilah is drawn visibly pregnant in 560 and 561** (not in 558). The game's timeline has her twins confirmed at 484-485; the pages do not say whether this is a new pregnancy. Left unsaid in the text.
+- **Delilah is drawn visibly pregnant in 560 and 561** (not in 558). The game's timeline has her twins confirmed at 484-485; it is the same long Dragonvale pregnancy that began at ch268-269 (author), so the text can stay silent.
 - 562 and 565-570 carry captions only (562 has no dialogue).
 - **565-567 reveal that the blurred mercenary of ch531 was Roc.** 565: the Border Market, the last live chicken (Roc's young look, no beard), her mercenary badge. 566: Jade volunteers as bait; Roc sleeps through the briefing; the plan fails, Jade is captured and drugged; Roc knew another remedy existed and did not tell her; he leaves before dawn ("To be continued..."). 567: Jade wakes alone and finds a man's tunic; hears Chad (Roc's alias) skipped the briefing; Roc defeats the criminal in two strikes; her fury; he gives her half the reward. The in-game text is kept discreet; the art shows the intimate moment in soft close-up.
 - 568 is uploaded last but belongs between 567 and 569 (the story order is 567, 568, 569, 570).

@@ -15,7 +15,7 @@ All 25 pages (337-361) and the cover (`assets/arcs/arc14.webp`, shown after ch33
 Places: **The Dee Household** (ch340), **The Western Frontier** (ch342) and **The Contract House** (ch346), listed on the Dragonvale North map (list mode; no markers). One new enemy, Convoy Diverter. `scripts/horizons.js` holds the spots, missions and lore (`hz337a`...). The Case tab shows Delilah at "Reconciliation: Stage II" once she has apologised (ch345).
 
 ## Mismatches and open questions
-1. **ch338:** "Roe" in Delilah's line is Roc (not corrected in the page text; the game text uses Roc). Two panels draw Delilah visibly pregnant; no text says so, so the game does not.
+1. **ch338:** "Roe" in Delilah's line is Roc (not corrected in the page text; the game text uses Roc). Two panels draw Delilah visibly pregnant; no text says so, so the game does not. (Author: this is the twins' long Dragonvale pregnancy, which runs from ch268-269 to the birth.)
 2. **ch340 / ch346:** a few lines are garbled by the art (ch345 "I myactions", ch346 "I nly ont ngherr"); ch344 prints "biaes". Worked from the legible text.
 3. **Damien's title** ("young general") are from the pages; no cast sheet exists.
 4. **ch343:** the "original vs forged" signature belongs to "the general" (unnamed here: Delilah's father?). Left unnamed.
