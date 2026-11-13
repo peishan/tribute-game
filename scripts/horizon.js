@@ -48,12 +48,14 @@ const HZ_KIT = {
   soel:{atk:null,sk:[{n:'Blessing of Renewal',i:'💚',mp:0,kind:'party',pow:.12},{n:'Blessing of Tides',i:'🌊',mp:0,kind:'mpall'},{n:'Guardian Blessing',i:'🛡️',mp:0,kind:'buff',stat:'def',m:1.35,d:3},{n:'Fortune Blessing',i:'🍀',mp:0,kind:'buff',stat:'atk',m:1.3,d:3}]},
 };
 const HZ_BOSSES = {
-  leviathan:{n:'The Stormborn Leviathan', icon:'🐉', mult:1, moves:[{n:'Tidal Crash',pow:1.5,t:'one'},{n:'Lightning Maw',pow:2,t:'one'},{n:'Violet Pulse',pow:.7,t:'all'}], note:'A colossal sea-born predator, awakened by a power unknown.'},
+  leviathan:{n:'The Stormborn Leviathan', icon:'🐉', mult:1, short:'the leviathan', surge:'a violet surge', moves:[{n:'Tidal Crash',pow:1.5,t:'one'},{n:'Lightning Maw',pow:2,t:'one'},{n:'Violet Pulse',pow:.7,t:'all'}], note:'A colossal sea-born predator, awakened by a power unknown.'},
+  storm_fronts:{n:'The Closing Storm Fronts', icon:'🌪️', mult:1.1, short:'the storm', surge:'a gale surge', intro:'closes across the northern passage', moves:[{n:'Gale Slam',pow:1.5,t:'one'},{n:'Lightning Line',pow:1.9,t:'one'},{n:'Whiteout',pow:.7,t:'all'}], note:'Two storm fronts moving against the wind along the same line: the way east is the only way through.'},
+  skiff_crew:{n:'The Skiff Crew', icon:'🛶', mult:1.2, short:'the skiff crew', surge:'a coordinated volley', intro:'turns on the party from the shoal', moves:[{n:'Cutlass Rush',pow:1.5,t:'one'},{n:'Smoke Pot',pow:.7,t:'all'},{n:'Cargo Throw',pow:1.9,t:'one'}], note:'The men who strip grounded ships and sell the cargo, with a false lantern to bring the next one in.'},
 };
 
 /* ---------- state and levels ---------- */
 const hzOpen = () => !!(G && G.ch >= 990);
-const hz = () => { if(!G.horizon) G.horizon = {read:{}, lv:{}, xp:{}, won:{}, obj:{}}; ['read','lv','xp','won','obj'].forEach(k => { if(!G.horizon[k]) G.horizon[k] = {}; }); Object.keys(G.horizon.read).forEach(n => { G.flags['hz_read_'+n] = true; }); if(G.horizon.won.leviathan) G.flags.hz_won_leviathan = true; return G.horizon; };   // G.hz belongs to an older system (horizons.js); read chapters open their spots
+const hz = () => { if(!G.horizon) G.horizon = {read:{}, lv:{}, xp:{}, won:{}, obj:{}}; ['read','lv','xp','won','obj'].forEach(k => { if(!G.horizon[k]) G.horizon[k] = {}; }); Object.keys(G.horizon.read).forEach(n => { G.flags['hz_read_'+n] = true; }); Object.keys(G.horizon.won).forEach(k => { G.flags['hz_won_'+k] = true; }); return G.horizon; };   // G.hz belongs to an older system (horizons.js); read chapters open their spots
 const hzAvgCanon = () => Math.max(1, Math.round(HZ_CANON.reduce((a, id) => a + (G.units[id] ? G.units[id].lv : 1), 0) / HZ_CANON.length));
 function hzLevel(id){
   if(id==='soel') return 0;
@@ -101,8 +103,8 @@ function hzStart(key){
   const potential = fighters.reduce((a, u) => a + Math.max(u.atk, u.mag) * 0.6 * 1.5, 0);   // what the crew can do in one round
   const mhp = Math.round(potential * 38 * B.mult);                                             // about 26 rounds of full effort: the sequel's bosses are much harder
   const avgHp = crew.reduce((a, u) => a + u.mhp, 0) / crew.length, avgDef = crew.reduce((a, u) => a + u.def, 0) / crew.length;
-  HB = {key, boss:{n:B.n, icon:B.icon, hp:mhp, mhp, atk:Math.round(avgHp*.28*B.mult), def:avgDef, ph:0, expo:0, charging:false, slow:0, mult:1, moves:B.moves}, crew, round:1, turn:0, log:[], over:null, auto:false, menu:null, lv:A};
-  hzLog('⚔️ '+B.n+' rises from the sea. '+B.note);
+  HB = {key, boss:{n:B.n, icon:B.icon, hp:mhp, mhp, atk:Math.round(avgHp*.28*B.mult), def:avgDef, ph:0, expo:0, charging:false, slow:0, mult:1, moves:B.moves, short:B.short, surge:B.surge}, crew, round:1, turn:0, log:[], over:null, auto:false, menu:null, lv:A};
+  hzLog('⚔️ '+B.n+' '+(B.intro || 'rises from the sea')+'. '+B.note);
   hzLog('Soel purrs: the crew is blessed and ready. (The twins are protected and cannot be hit.)');
   hzLog('💞 Guardian\'s Bond: Soel watches over Vaeren and Joelle (they recover 10% HP and MP every round and learn faster).');
 }
@@ -129,10 +131,10 @@ function hzAct(u, act){   // act: null = attack, or a skill object, or 'defend'
   if(act.kind === 'phys' || act.kind === 'mag') hzLog(act.i+' '+nm+' uses '+act.n+': '+hzDealt(u, act.pow, act.kind==='mag' ? 'mag' : (mag ? 'mag' : 'atk'))+' damage.');
   else if(act.kind === 'taunt' && hzProtected(u.id)){ if(act.pow) hzLog(act.i+' '+nm+' uses '+act.n+': '+hzDealt(u, act.pow, 'atk')+' damage.'); hzLog('🐈 Soel steps in front of '+nm+': the children do not draw attacks while they are protected.'); }
   else if(act.kind === 'taunt'){ HB.taunt = {id:u.id, d:2}; u.guard = true; if(act.pow) hzLog(act.i+' '+nm+' uses '+act.n+': '+hzDealt(u, act.pow, 'atk')+' damage.'); hzLog(act.i+' '+nm+' draws the leviathan\'s attention (it targets '+nm+' for 2 rounds).'); }
-  else if(act.kind === 'exposed'){ if(act.pow) hzLog(act.i+' '+nm+' uses '+act.n+': '+hzDealt(u, act.pow, mag ? 'mag' : 'atk')+' damage.'); B.expo = 3; hzLog(act.i+' '+nm+' uses '+act.n+': the leviathan\'s weak points are exposed (+30% damage for 3 rounds).'); }
+  else if(act.kind === 'exposed'){ if(act.pow) hzLog(act.i+' '+nm+' uses '+act.n+': '+hzDealt(u, act.pow, mag ? 'mag' : 'atk')+' damage.'); B.expo = 3; hzLog(act.i+' '+nm+' uses '+act.n+': ' + B.short + ' has its weak points exposed (+30% damage for 3 rounds).'); }
   else if(act.kind === 'interrupt'){
     hzLog(act.i+' '+nm+' uses '+act.n+': '+hzDealt(u, act.pow, mag ? 'mag' : 'atk')+' damage.');
-    if(B.charging){ B.charging = false; hzLog('✨ The violet surge is broken before it can build!'); }
+    if(B.charging){ B.charging = false; hzLog('✨ '+B.surge+' is broken before it can build!'); }
     B.slow = 1;
   }
   else if(act.kind === 'heal'){ hzHeal(low, low.mhp * (act.pow + .1)); hzLog(act.i+' '+nm+' uses '+act.n+': '+low.name+' recovers.'); }
@@ -146,7 +148,7 @@ function hzAct(u, act){   // act: null = attack, or a skill object, or 'defend'
 function hzBossTurn(){
   const B = HB.boss, n = hzTargetable();
   if(!n.length) return;
-  if(B.slow > 0){ B.slow--; hzLog('🌀 The leviathan is slowed and loses its footing: it does not attack this round.'); return; }
+  if(B.slow > 0){ B.slow--; hzLog('🌀 '+B.short+' is slowed and loses its footing: it does not attack this round.'); return; }
   const hit = (t, pow) => {
     let d = pow * B.atk * 1.4 * (B.def / (B.def + t.def)) * hzRnd(.9, 1.1) * B.mult;
     if(t.guard) d *= .5;
@@ -159,11 +161,11 @@ function hzBossTurn(){
   };
   if(B.charging){
     B.charging = false;
-    hzLog('🌩️ The violet surge breaks over the ship!');
+    hzLog('🌩️ '+B.surge+' breaks over the ship!');
     n.forEach(t => hit(t, 1.7)); hzLog('  Everyone is struck.');
     return;
   }
-  if(B.ph >= 1 && HB.round % 3 === 0){ B.charging = true; hzLog('⚠️ The leviathan gathers a violet surge: interrupt it (Counter-Tide, Disrupting Shot, Static Binding) or brace!'); return; }
+  if(B.ph >= 1 && HB.round % 3 === 0){ B.charging = true; hzLog('⚠️ '+B.short+' gathers '+B.surge+': interrupt it (Counter-Tide, Disrupting Shot, Static Binding) or brace!'); return; }
   const mv = B.moves[Math.floor(Math.random()*B.moves.length)];
   if(mv.t === 'all'){ n.forEach(t => hit(t, mv.pow)); hzLog('🌊 '+B.n+' uses '+mv.n+' on the whole crew.'); }
   else { const tt = HB.taunt && HB.taunt.d > 0 ? n.find(x => x.id === HB.taunt.id) : null; const t = tt || n[Math.floor(Math.random()*n.length)]; hzLog('💥 '+B.n+' uses '+mv.n+' on '+t.name+': '+hit(t, mv.pow)+' damage.'); }
@@ -174,8 +176,8 @@ function hzEndRound(){
   HB.shield = null; if(B.expo > 0) B.expo--; if(HB.taunt){ HB.taunt.d--; }
   HB.crew.filter(t => HZ_TWINS.includes(t.id) && !t.dead).forEach(t => { t.hp = Math.min(t.mhp, t.hp + Math.round(t.mhp*.1)); t.mp = Math.min(t.mmp, t.mp + Math.round(t.mmp*.1)); });   // Guardian's Bond: Soel tends the children every round
   const pct = B.hp / B.mhp;
-  if(B.ph === 0 && pct <= .66){ B.ph = 1; B.mult = 1.1; hzLog('⚡ Phase two: the leviathan thrashes. Violet surges will build every third round.'); }
-  else if(B.ph === 1 && pct <= .33){ B.ph = 2; B.mult = 1.25; hzLog('🌑 Phase three: the leviathan is wounded and furious.'); }
+  if(B.ph === 0 && pct <= .66){ B.ph = 1; B.mult = 1.1; hzLog('⚡ Phase two: '+B.short+' presses harder. '+B.surge+' will build every third round.'); }
+  else if(B.ph === 1 && pct <= .33){ B.ph = 2; B.mult = 1.25; hzLog('🌑 Phase three: '+B.short+' is wounded and furious.'); }
   HB.round++; HB.turn = 0;
 }
 function hzAdvance(){   // after a crew member acts: next able member, or the enemy
@@ -244,18 +246,6 @@ function hzSchedule(){ clearTimeout(hzTimer); if(HB && HB.auto && !HB.over && ta
 /* ---------- chapter objectives (Tribute plays the shared chapters as party quests; docs/CRIMSON_HORIZON_PLAN.md) ----------
    Each is a short quest: three decisions, each with one right answer (a wrong one gives a hint and costs nothing). Finishing it pays the crew XP and gold once and unlocks the next chapter. */
 const HZ_OBJ = {
-  26:{t:'Find the threatened gate', intro:'The next pulse is on its way. Renn has sent his readings from Fair Tide. Work out where it will land.',
-    steps:[
-      {q:'Renn\'s transmitted readings give the pulse\'s timing. What do you compare them against?', opts:[['Devon\'s chart of the outer current','ok','The pulse rides the outer current: the chart gives a path to match the timing against.'],['The harbour tide tables','no','Those cover the harbour, not the open sea the pulse travels.'],['Last night\'s weather log','no','Weather does not move a pulse.']]},
-      {q:'The readings and the chart line up along one path. Who traces it?', opts:[['Devon and Renn together','ok','Devon and Renn trace the pulse\'s path along the outer current, mile by mile.'],['Levi alone, by eye','no','A path this long cannot be read from the rigging.'],['Mezstorm, with a storm-call','no','He could stir the current, but not read it.']]},
-      {q:'Where does the path end?', opts:[['The East Gate','ok','The pulse will reach the East Gate, where ships are already using the same fallback route the crew took.'],['The West Gate','no','The path bends the other way.'],['Fair Tide harbour','no','It passes the harbour, but does not stop there.']]}],
-    done:'The East Gate is threatened. The crew must clear it before the pulse arrives.'},
-  39:{t:'Scout the exposed shoal', intro:'Low water has exposed a shoal near the grounded ships. Fresh bootprints cross it, and a lantern is missing.',
-    steps:[
-      {q:'Who reads the fresh bootprints across the mud?', opts:[['Levi, the ranger','ok','Levi follows the prints across the shoal: three people, one carrying weight.'],['Joy, from the ship','no','Joy is not out here: use the people who are.'],['Sky, from the shore','no','Sky is tending the grounded crews.']]},
-      {q:'Someone has to check the skiff the prints lead to. Who goes in close, quietly?', opts:[['Sairen, the former Nameless agent','ok','Sairen slips along the shoal to the skiff without a sound.'],['Devon, in full armour','no','Armour on wet mud is not quiet.'],['Aisyah, with the supply cart','no','A cart would be heard across the flats.']]},
-      {q:'What do you inspect on the skiff?', opts:[['The mounted lantern and what is fitted beneath it','ok','The missing lantern is mounted on the skiff, with a West Gate coupling fitted beneath it.'],['The skiff\'s sail','no','The sail is ordinary canvas.'],['The cargo crates','no','Those are for later: the lantern is the lead.']]}],
-    done:'The missing lantern is found: a West Gate coupling is fitted beneath it. Someone is moving the light on purpose.'},
 };
 let HZ_OBJ_OPEN = null, HZ_OBJ_MSG = '';
 function hzObjOpen(n){ HZ_OBJ_OPEN = n; HZ_OBJ_MSG = ''; const h = hz(); if(!h.obj[n]) h.obj[n] = {step:0, done:false}; render(); }
@@ -279,8 +269,8 @@ function rObjective(n){
 /* ---------- screens ---------- */
 const hzChapter = n => HZ_CHAPTERS.find(c => c.n === n);
 // Arc I (0-10) is played on Tribute's investigation framework: the next chapter opens when the previous chapter has been read AND its investigation spot is finished (and the leviathan beaten after chapter 2).
-const hzUnlocked = n => n === 0 || (!!hz().read[n-1] && (n-1 > 10 || !!G.flags['inv_hzq'+(n-1)]) && (!HZ_BATTLE_AT[n-1] || !!hz().won[HZ_BATTLE_AT[n-1]]) && (!HZ_OBJ[n-1] || !!(hz().obj[n-1] && hz().obj[n-1].done)));
-const HZ_BATTLE_AT = {2:'leviathan'};   // the chapter whose objective is a real fight
+const hzUnlocked = n => n === 0 || (!!hz().read[n-1] && (n-1 > 41 || !!G.flags['inv_hzq'+(n-1)]) && (!HZ_BATTLE_AT[n-1] || !!hz().won[HZ_BATTLE_AT[n-1]]) && (!HZ_OBJ[n-1] || !!(hz().obj[n-1] && hz().obj[n-1].done)));
+const HZ_BATTLE_AT = {2:'leviathan', 16:'storm_fronts', 40:'skiff_crew'};   // the chapter whose objective is a real fight
 function hzRead(n){
   const c = hzChapter(n); if(!c) return;
   const a = HZ_ARCS.find(x => x.from === n);
@@ -317,7 +307,7 @@ function rHorizon(){
   const next = HZ_CHAPTERS.find(c => !h.read[c.n]);
   const arcs = HZ_ARCS.map(a => `<h4>Arc ${a.n}: ${a.t}</h4>` + HZ_CHAPTERS.filter(c => c.arc === a.n).map(c => {
     const ok = hzUnlocked(c.n), done = !!h.read[c.n], fight = HZ_BATTLE_AT[c.n], needFight = fight && done && !h.won[fight];
-    return `<div class="card ${ok?'':'lock'}"><span class="big">${done?'✅':ok?'📖':'🔒'}</span><div class="fl"><b>${c.n===0?'Prologue':c.n+'.'} ${c.t}</b><div class="sm">${c.s}</div>${c.n<=10 ? `<div class="sm">${G.flags['inv_hzq'+c.n] ? '✔ investigated' : '🔎 investigate at '+hzqWhere(c.n)}</div>` : ''}</div>${ok?`<button class="${done?'':'pri'}" onclick="hzRead(${c.n})">${done?'Read again':'Read'}</button>`:''}${fight && done ? `<button class="pri" onclick="hzBattle('${fight}')">${h.won[fight]?'Fight again':'⚔️ Fight'}</button>` : ''}${HZ_OBJ[c.n] && done ? `<button class="pri" onclick="hzObjOpen(${c.n})">${h.obj[c.n]&&h.obj[c.n].done?'🎯 Done':'🎯 Objective'}</button>` : ''}</div>`; }).join('')).join('');
+    return `<div class="card ${ok?'':'lock'}"><span class="big">${done?'✅':ok?'📖':'🔒'}</span><div class="fl"><b>${c.n===0?'Prologue':c.n+'.'} ${c.t}</b><div class="sm">${c.s}</div>${c.n<=41 ? `<div class="sm">${G.flags['inv_hzq'+c.n] ? '✔ investigated' : '🔎 investigate at '+hzqWhere(c.n)}</div>` : ''}</div>${ok?`<button class="${done?'':'pri'}" onclick="hzRead(${c.n})">${done?'Read again':'Read'}</button>`:''}${fight && done ? `<button class="pri" onclick="hzBattle('${fight}')">${h.won[fight]?'Fight again':'⚔️ Fight'}</button>` : ''}${HZ_OBJ[c.n] && done ? `<button class="pri" onclick="hzObjOpen(${c.n})">${h.obj[c.n]&&h.obj[c.n].done?'🎯 Done':'🎯 Objective'}</button>` : ''}</div>`; }).join('')).join('');
   return `<h2>🌅 Crimson Horizon</h2><div class="sm">The Adventures of San and Jade · one crew, two worlds.</div><img src="assets/horizon/roster.webp" alt="The unified crew" style="width:100%;border-radius:10px;margin:8px 0"><div class="panel"><b>The crew (13)</b><div class="sm">All of them fight. Every member has their own level. The twins are protected until Lv ${HZ_FULL}; Soel blesses and cannot be killed.</div></div>${HZ_CREW.map(hzCrewCard).join('')}<h3>Chapters</h3>${next ? `<div class="sm">Next: ${next.n===0?'Prologue':'Chapter '+next.n}</div>` : '<div class="sm">All available chapters read.</div>'}${arcs}`;
 }
 

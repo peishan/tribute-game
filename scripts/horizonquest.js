@@ -11,12 +11,31 @@ const HZQ_PLACES = {
   hz_reef:{n:'The Reef Harbour', icon:'🏝️', desc:'A fishing harbour behind a reef, where violet lights pulse under the water before every surge.'},
   fair_tide:{n:'Fair Tide', icon:'🏘️', desc:'The settlement built by people who were once strangers to their own world: the research hall, the harbour and the infirmary.'},
 };
-Object.keys(HZQ_PLACES).forEach(k => { const p = HZQ_PLACES[k]; LOCATIONS[k] = {n:p.n, region:'horizon', kind:'story', icon:p.icon, unlock:{ch:990}, desc:p.desc, spots:[]}; LOC_ORDER.push(k); });
+Object.assign(HZQ_PLACES, {
+  hz_shelf:{n:'The Storm Shelf', icon:'🌊', desc:'Open water north of the reef, where two storm fronts move against the wind along the same line.', from:12},
+  hz_tower:{n:'The Watchtower Below', icon:'🗼', desc:'An abandoned tower on the far side of the shelf, and beneath it an air-filled station behind a door carved with the tower\'s symbol.', from:13},
+  hz_east_gate:{n:'The East Gate', icon:'🚪', desc:'The fallback channel the crew marked on the chart, now used by ordinary ships.', from:16},
+  hz_anchorage:{n:'The Sheltered Anchorage', icon:'⚓', desc:'A quiet anchorage where the crew can lay the record beside the old chart.', from:17},
+  hz_mist:{n:'The Mist Straits', icon:'🌫️', desc:'The edge of the mist. The first route lantern is lit and the second is missing.', from:32},
+  hz_quay:{n:'The Pilot\'s Quay', icon:'🔔', desc:'A sheltered quay where a local pilot rings a bell from shore to guide ships in.', from:34},
+  hz_yard:{n:'The West Gate Yard', icon:'🔧', desc:'The maintenance yard that signs out beacon parts, and the dispatch book that records them.', from:35},
+  hz_shoal:{n:'The Exposed Shoal', icon:'🏖️', desc:'Mud and bootprints at low water, with a skiff and a stolen lantern.', from:39},
+});
+Object.keys(HZQ_PLACES).forEach(k => { const p = HZQ_PLACES[k]; LOCATIONS[k] = {n:p.n, region:'horizon', kind:'story', icon:p.icon, unlock:p.from ? {ch:990, flag:'hz_read_'+p.from} : {ch:990}, desc:p.desc, spots:[]}; LOC_ORDER.push(k); });
 ROUTES.push(
   {a:'dragon_harbour', b:'hz_ship', mode:'carriage', n:'The Crimson Tide\'s Gangway', days:0, fare:0, risk:0, pool:[]},
   {a:'hz_ship', b:'hz_reef', mode:'carriage', n:'Into the Reef Channel', days:1, fare:0, risk:0, pool:[]},
   {a:'hz_ship', b:'fair_tide', mode:'carriage', n:'The Horizon Engine to Fair Tide', days:1, fare:0, risk:0, pool:[]},
-  {a:'hz_reef', b:'fair_tide', mode:'carriage', n:'The Tide Road', days:1, fare:0, risk:0, pool:[]});
+  {a:'hz_reef', b:'fair_tide', mode:'carriage', n:'The Tide Road', days:1, fare:0, risk:0, pool:[]},
+  // the ship takes the crew anywhere it has charted; ashore at the mist is on foot
+  {a:'hz_ship', b:'hz_shelf', mode:'carriage', n:'Across the Storm Shelf', days:1, fare:0, risk:0, pool:[]},
+  {a:'hz_ship', b:'hz_tower', mode:'carriage', n:'To the Watchtower', days:1, fare:0, risk:0, pool:[]},
+  {a:'hz_ship', b:'hz_east_gate', mode:'carriage', n:'East by Lantern', days:1, fare:0, risk:0, pool:[]},
+  {a:'hz_ship', b:'hz_anchorage', mode:'carriage', n:'To the Anchorage', days:1, fare:0, risk:0, pool:[]},
+  {a:'hz_ship', b:'hz_mist', mode:'carriage', n:'Into the Mist Straits', days:1, fare:0, risk:0, pool:[]},
+  {a:'hz_mist', b:'hz_quay', mode:'carriage', n:'Along the Shore', days:0, fare:0, risk:0, pool:[]},
+  {a:'hz_quay', b:'hz_yard', mode:'carriage', n:'To the Maintenance Yard', days:0, fare:0, risk:0, pool:[]},
+  {a:'hz_quay', b:'hz_shoal', mode:'carriage', n:'Out onto the Shoal', days:0, fare:0, risk:0, pool:[]});
 
 /* chapters 0-10: the place, the icon and (for 0-4, written from the drawn pages) the clues. Chapters 5-10 take their clues from the Crimson Tide outline's summaries. */
 const HZQ_ARC1 = {
@@ -26,7 +45,12 @@ const HZQ_ARC1 = {
   3:{at:'hz_ship', icon:'🔦', clues:['Dawn breaks over calm water. The crew replaces damaged rigging and checks the hull after the storm\'s brutal battle.','A violet streak glows just above the waterline, where the leviathan went down. It fades, then lights again. Joel logs the timing: once there are three clear readings it will be sent to Fair Tide.','Sally spots a fishing boat ahead with a torn sail, rowing hard toward the ship.','The fisherman: "That light. We saw it at the harbor mouth. Can you help us get home?"']},
   4:{at:'hz_reef', icon:'🏮', clues:['Jade promises to get the fishers home. The fisherman guides from the bow: keep the lights to port, there is a shelf just under the foam.','The channel lights go dark before every surge: that is how the harbor knows to clear the channel. About a watch has passed between surges so far.','Two boats are still out. Sky tends a fisher whose brother\'s boat is one of them.','Devon works over a chart with the harbor pilot. Jade: "When they come in sight, light that lantern. We\'ll be ready."']},
 };
-const HZQ_AT = {5:'hz_ship', 6:'hz_reef', 7:'fair_tide', 8:'hz_reef', 9:'hz_reef', 10:'hz_reef'}, HZQ_ICON = {5:'🥣', 6:'🌊', 7:'🪟', 8:'🪢', 9:'⚓', 10:'🧭'};
+const HZQ_AT = {5:'hz_ship', 6:'hz_reef', 7:'fair_tide', 8:'hz_reef', 9:'hz_reef', 10:'hz_reef',
+  11:'hz_reef', 12:'hz_shelf', 13:'hz_tower', 14:'fair_tide', 15:'hz_shelf', 16:'hz_east_gate', 17:'hz_anchorage', 18:'hz_shelf',
+  19:'hz_shelf', 20:'hz_ship', 21:'hz_tower', 22:'fair_tide', 23:'fair_tide', 24:'hz_ship', 25:'hz_ship', 26:'hz_ship', 27:'hz_east_gate', 28:'hz_tower', 29:'hz_tower', 30:'hz_ship', 31:'fair_tide', 32:'hz_mist',
+  33:'hz_mist', 34:'hz_quay', 35:'hz_yard', 36:'hz_yard', 37:'hz_ship', 38:'fair_tide', 39:'hz_shoal', 40:'hz_shoal', 41:'hz_mist'};
+const HZQ_ICON = {5:'🥣', 6:'🌊', 7:'🪟', 8:'🪢', 9:'⚓', 10:'🧭', 11:'🌅', 12:'🌪️', 13:'🗼', 14:'📡', 15:'🔔', 16:'🏮', 17:'🗺️', 18:'🪝', 19:'🪨', 20:'🤿', 21:'🚪', 22:'🍵', 23:'📜', 24:'🔔', 25:'📓', 26:'🌀', 27:'🚢', 28:'🔧', 29:'🤫', 30:'🍽️', 31:'🔎', 32:'🌫️',
+  33:'💡', 34:'🔔', 35:'🔧', 36:'📋', 37:'🍲', 38:'🎼', 39:'🏖️', 40:'💰', 41:'🚢'};
 function hzqClues(n){
   if(HZQ_ARC1[n]) return HZQ_ARC1[n].clues;
   const sents = (HZ_CHAPTERS[n].s || '').split(/(?<=[.!?])\s+/).filter(Boolean), out = [];
@@ -34,13 +58,23 @@ function hzqClues(n){
   while(out.length > 4){ const a = out.pop(); out[out.length-1] += ' '+a; }
   return out.length ? out : [HZ_CHAPTERS[n].t];
 }
-for(let n = 0; n <= 10; n++){
+for(let n = 0; n <= 41; n++){
   const cl = hzqClues(n), at = HZQ_ARC1[n] ? HZQ_ARC1[n].at : HZQ_AT[n], ic = HZQ_ARC1[n] ? HZQ_ARC1[n].icon : HZQ_ICON[n];
-  LOCATIONS[at].spots.push({id:'hzq'+n, kind:'investigate', n:(n === 0 ? 'Prologue: ' : n+'. ')+HZ_CHAPTERS[n].t, icon:ic, ch:990, need:cl.length, ambush:[], lo:100, roles:['jade','san'], desc:'Chapter '+(n === 0 ? '0 (the prologue)' : n)+' of Crimson Horizon.',
+  LOCATIONS[at].spots.push({id:'hzq'+n, kind:'investigate', n:(n === 0 ? 'Prologue: ' : n+'. ')+HZ_CHAPTERS[n].t, icon:ic, ch:990, need:cl.length, ambush:[], lo:100, roles:['jade','san'], desc:'Chapter '+(n === 0 ? '0 (the prologue)' : n)+' of Crimson Horizon, Arc '+HZ_CHAPTERS[n].arc+'.',
     clues:cl, rw:{xp:400000+n*30000, gold:90000+n*6000}, needFlag:'hz_read_'+n, lockMsg:'🔒 Read this chapter in the Horizon tab first'});
 }
 // the first fight of the sequel: the leviathan (chapter 2), a boss spot that uses the 13-member crew battle
 LOCATIONS.hz_ship.spots.push({id:'hzq_leviathan', kind:'hzboss', n:'The Stormborn Leviathan', icon:'🐉', ch:990, desc:'The colossal sea-born predator of chapter 2. The whole crew fights.', hzKey:'leviathan', needFlag:'inv_hzq2', lockMsg:'🔒 Finish the chapter 2 investigation first'});
+// more crew fights: the storm fronts (chapter 16) and the skiff crew (chapter 40)
+LOCATIONS.hz_east_gate.spots.push({id:'hzq_storm_fronts', kind:'hzboss', n:'The Closing Storm Fronts', icon:'🌪️', ch:990, desc:'The fronts close across the northern passage: the East Gate is the only way through. The whole crew fights.', hzKey:'storm_fronts', needFlag:'inv_hzq16', lockMsg:'🔒 Finish the chapter 16 investigation first'});
+LOCATIONS.hz_shoal.spots.push({id:'hzq_skiff_crew', kind:'hzboss', n:'The Skiff Crew', icon:'🛶', ch:990, desc:'The crew that strips grounded ships and sells the cargo. The whole crew fights.', hzKey:'skiff_crew', needFlag:'inv_hzq40', lockMsg:'🔒 Finish the chapter 40 investigation first'});
+const HZQ_ARCS = [
+  {id:'m_hz_arc2', after:'m_hz_arc1', title:'Crimson Horizon, Arc II: Storm Shelf', from:11, to:18, fights:{16:['Fight the closing storm fronts','hz_won_storm_fronts']}, rw:{xp:9000000, gold:1800000, rep:4400}, subj:'Storm Shelf', body:'Something beneath the Shelf has been waiting to be found. Take the Crimson Tide north. — Jade'},
+  {id:'m_hz_arc3', after:'m_hz_arc2', title:'Crimson Horizon, Arc III: Beneath the Storm Shelf', from:19, to:32, fights:{}, rw:{xp:14000000, gold:2800000, rep:5600}, subj:'Beneath the Storm Shelf', body:'The signal was never random. Someone kept it active. Follow the line down. — Jade'},
+  {id:'m_hz_arc4', after:'m_hz_arc3', title:'Crimson Horizon, Arc IV: The Mist Straits', from:33, to:41, fights:{40:['Face the skiff crew','hz_won_skiff_crew']}, rw:{xp:12000000, gold:2400000, rep:5000}, subj:'The Mist Straits', body:'A light is moving against the current, and two ships have gone aground. Find who is selling the lights. — Jade'},
+];
+HZQ_ARCS.forEach(a => { const steps = []; for(let n = a.from; n <= a.to; n++){ steps.push({label:HZ_CHAPTERS[n].t, spot:'hzq'+n}); if(a.fights[n]) steps.push({label:a.fights[n][0], flag:a.fights[n][1]}); }
+  MISSIONS.push({id:a.id, needCh:990, after:a.after, title:a.title, obj:{type:'steps', steps}, rw:a.rw, subj:a.subj, body:a.body}); });
 MISSIONS.push({id:'m_hz_arc1', needCh:990, title:'Crimson Horizon, Arc I: A New Voyage', obj:{type:'steps', steps:[
   {label:'Prologue: a new horizon', spot:'hzq0'}, {label:'The first storm', spot:'hzq1'}, {label:'The Storm\'s True Form', spot:'hzq2'}, {label:'Fight the Stormborn Leviathan', flag:'hz_won_leviathan'},
   {label:'What the storm left behind', spot:'hzq3'}, {label:'The channel through the reef', spot:'hzq4'}, {label:'Between watches', spot:'hzq5'}, {label:'Under the channel', spot:'hzq6'},
