@@ -26,6 +26,7 @@ fs.readdirSync('scripts').filter(f => f.endsWith('.js')).forEach(f => { try{ new
     o.lateStep = MISSIONS.flatMap(m => (m.obj.steps || []).filter(s => s.spot && sp[s.spot] && (sp[s.spot].ch || 0) > (m.needCh || 0) + 15).map(s => m.id+':'+s.spot));
     o.hzq = [...Array(42).keys()].filter(n => !spotById('hzq'+n)).concat(['hzq_leviathan','hzq_storm_fronts','hzq_skiff_crew','bp_records'].filter(id => !spotById(id)));
     G = newState(); devSetChapter(500); o.tip = boardTip().includes('Notice Board') && boardTip().includes('Masked Contracts'); G = newState(); devSetChapter(40); o.tipEarly = boardTip().includes('Masked Contracts');
+    G = newState(); devSetChapter(500); o.boards = rBoardsTab(); 
     o.arcs = ARCS.length; o.arcDup = ARCS.map(a => a.n).filter((n, i, l) => l.indexOf(n) !== i);
     // every tab renders at several story points
     o.tabErr = [];
@@ -67,6 +68,7 @@ fs.readdirSync('scripts').filter(f => f.endsWith('.js')).forEach(f => { try{ new
   ok('every boss a mission asks for can be fought', !r.noFight.length, r.noFight.join());
   ok('no mission step waits on a much later spot', !r.lateStep.length, r.lateStep.join());
   ok('Horizon chapter spots (0-41), boss spots and Pearl case exist', !r.hzq.length, r.hzq.join());
+  ok('Boards tab lists the Masked Contracts', /Masked Contracts/.test(r.boards) && /Accept/.test(r.boards), '')
   ok('board tip lists the boards the party can reach', r.tip === true && r.tipEarly === false, r.tip+' '+r.tipEarly);
   ok('duplicate arcs', !r.arcDup.length, r.arcDup.join());
   ok('tabs render at every story point', !r.tabErr.length, r.tabErr.slice(0, 4).join(' | '));
