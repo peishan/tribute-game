@@ -41,11 +41,17 @@ function rParty(){
   const roster = ROSTER.filter(id => !isCompanion(id) && !CHARACTERS[id].guestOnly).map(id => {
     const c=CHARACTERS[id], rec=isRecruited(id), join=JOIN_CH[id];
     return `<div class="rc ${sel===id?'sel':''} ${rec||profileKnown(id)?'':'lock'}" onclick="sel='${id}';render()"><img src="${portrait(id)}"><div><b>${profileKnown(id)||id==='seraphina'?c.n:'???'}</b><div class="sm">${rec?clsOf(id)+' · Lv'+U(id).lv+(G.guests[id]?' · guest':''):(profileKnown(id)?clsOf(id)+' · ':'')+(join!==undefined?'Joins Ch.'+join:'Unrecruited')}</div></div></div>`; }).join('');
-  return `<h2>Party</h2><div class="sm">${fixedParty()?`The travelling party (${activeCount()}/5): the canon party can never be removed once they have joined; the others may be benched.`:`Active (${activeCount()}/${ACTIVE_SLOTS}) — fights use these four`}</div><div class="slots">${slots}</div>${storyAlongNote() ? `<div class="sm" style="margin:4px 0">🧭 ${storyAlongNote()}</div>` : ''}${presentGuests().filter(id => !CHARACTERS[id].guestOnly && !isCompanion(id) && GUEST_RULES[id]).map(id => `<div class="sm" style="margin:4px 0">🤝 Guest: ${GUEST_RULES[id].note}</div>`).join('')}<div class="rcs">${roster}</div>${rSheet(sel)}`;
+  return `<h2>Party</h2><div class="sm">${fixedParty()?`The travelling party (${activeCount()}/5): the canon party can never be removed once they have joined; the others may be benched.`:`Active (${activeCount()}/${ACTIVE_SLOTS}) — fights use these four`}</div><div class="slots">${slots}</div>${storyAlongNote() ? `<div class="sm" style="margin:4px 0">🧭 ${storyAlongNote()}</div>` : ''}${presentGuests().filter(id => !CHARACTERS[id].guestOnly && !isCompanion(id) && GUEST_RULES[id]).map(id => `<div class="sm" style="margin:4px 0">🤝 Guest: ${GUEST_RULES[id].note}</div>`).join('')}${guestStrip()}<div class="rcs">${roster}</div>${rSheet(sel)}`;
+}
+/* guests who travel with the party but have no seat (Adrian, Evelyne, King Greyson, Delilah, Damien, Aster and the arc guests) get a portrait card here, tap to read their profile */
+function guestStrip(){
+  const ids = presentGuests().filter(id => CHARACTERS[id] && (CHARACTERS[id].guestOnly || isCompanion(id)) && !G.active.includes(id));
+  if(!ids.length) return '';
+  return `<h4>🤝 Travelling with the party</h4><div class="rcs">${ids.map(id => `<div class="rc ${sel===id?'sel':''}" onclick="sel='${id}';render()"><img src="${portrait(id)}"><div><b>${CHARACTERS[id].n}</b><div class="sm">${CHARACTERS[id].cls} · guest</div></div></div>`).join('')}</div>`;
 }
 function rSheet(id){
   const c=CHARACTERS[id], rec=isRecruited(id);
-  if(!rec && profileKnown(id)) return `<div class="panel"><div class="sh"><img src="${portrait(id)}"><div><h3>${c.icon} ${c.n}</h3><div>${clsOf(id)}</div><div class="sm">${c.role}</div></div></div><div class="sm" style="margin:6px 0">${c.identity}</div><div class="sm">Not in the party yet${JOIN_CH[id]!==undefined?' — joins at chapter '+JOIN_CH[id]:''}.</div></div>`;
+  if(!rec && (profileKnown(id) || isGuestNow(id))) return `<div class="panel"><div class="sh"><img src="${portrait(id)}"><div><h3>${c.icon} ${c.n}</h3><div>${clsOf(id)}</div><div class="sm">${c.role}</div></div></div><div class="sm" style="margin:6px 0">${c.identity}</div><div class="sm">${isGuestNow(id)?'🤝 Travelling with the party as a guest for now: fights beside you without taking a seat.':'Not in the party yet'+(JOIN_CH[id]!==undefined?' — joins at chapter '+JOIN_CH[id]:'')+'.'}</div></div>`;
   if(!rec) return `<div class="panel"><h3>${id==='seraphina'?c.n:'???'}</h3><div class="sm">${id==='seraphina'?c.identity:(JOIN_CH[id]!==undefined?'Not yet recruited. Joins at chapter '+JOIN_CH[id]+'.':'Not yet recruited. Recruitment chapter still to be decided.')}</div></div>`;
   const u=U(id), st=statsOf(id), bl=bondLevel(id), nextB=BOND_LEVELS[bl+1];
   const stats = STATS.map(s=>`<div class="st"><span>${STAT_NAME[s]}</span>${bar(st[s],STAT_SCALE[s],s)}<b>${st[s]}</b></div>`).join('');
