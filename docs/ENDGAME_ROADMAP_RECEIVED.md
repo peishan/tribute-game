@@ -97,3 +97,8 @@ Two battles added, as final steps of the existing missions: **966 Direct Approac
 - **The Crimson Horizon cover** ("Adventures of San and Jade") was sent and saved as `assets/horizon/arc01.webp` (the sequel's first arc-cover slot); it is not shown in the game yet because no sequel screen exists.
 - The pages show Sally with two older children and a third on the way (983-985) and Devon/Jade as co-leads of the Pearl handoff; the custodian change is built as story text only (no gameplay for the Pearl's location).
 - **Remaining:** the "chapters end" marker before the sequel (author to define) and the sequel itself.
+
+## San and Joel as visitors between the crossover chapters (author's request)
+- **Where they appear in the comics:** the Tribute crossover chapters (935-990) keep San and Joel at Dragonvale Harbour, aboard the Crimson Tide and at Fair Tide. Their visits to Lunareth itself are drawn in the Crimson Tide's own story, **Arc XLII** (ch 16 Sally and Levi, ch 31 Adrian and Eve, ch 38 Dragonvale's court with Roc, Delilah, Aster and Fen, ch 43-44 Jade). None names Gold Manor or the palace.
+- **Built (`scripts/visitors.js`):** from chapter 942 to 989 a random notice (every 6 to 14 days, no fixed order) says San and Joel have been visiting; nine short moments, built only from who they met in Arc XLII. On that day and the next, the place shows a "San and Joel are visiting today" panel in its Here tab (Gold Manor and the Dragonvale palace/archive; the Lunareth ones are notices only). Marked in the panel as between the drawn chapters, not canon plot.
+
