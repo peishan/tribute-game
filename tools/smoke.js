@@ -60,6 +60,9 @@ fs.readdirSync('scripts').filter(f => f.endsWith('.js')).forEach(f => { try{ new
       const seen = new Set(['hz_ship']), q = ['hz_ship']; while(q.length){ const c = q.shift(); ROUTES.forEach(r => { const o = r.a === c ? r.b : r.b === c ? r.a : null; if(o && !seen.has(o) && LOCATIONS[o] && LOCATIONS[o].region === 'horizon' && locOpen(o)){ seen.add(o); q.push(o); } }); }
       x.roads = Object.keys(LOCATIONS).filter(k => LOCATIONS[k].region === 'horizon' && !seen.has(k) && k !== 'fair_tide').length === 0 && seen.has('fair_tide') || [...Object.keys(LOCATIONS)].filter(k => LOCATIONS[k].region === 'horizon' && !seen.has(k)).join();
       x.unlock = hzUnlocked(90) === false && (G.flags.inv_hzq89 = true, hz().read[89] = true, true) && hzUnlocked(90) === true;
+      { G = newState(); devSetChapter(960); timedTick(); let f = 0; for(let i = 0; i < 60; i++){ G.day++; timedTick(); if(G.visits.last && G.visits.last.day === G.day) f++; }
+        const v = VISITS.find(z => z.at === 'gold_residence'); G.visits.last = {id:v.id, day:G.day}; G.loc = 'gold_residence'; tab = 'here'; spotOpen = null; render();
+        x.visits = f >= 3 && /San and Joel are visiting today/.test(document.body.innerText); }
       o.hzx = x; o.hzAmb = Object.values(LOCATIONS).flatMap(l => l.spots).filter(s => s.hzAmbush).length; }
     // every place a chapter starts at can be reached by road or sea from the capital
     const adj = {}; ROUTES.forEach(r => { (adj[r.a] = adj[r.a] || []).push(r.b); (adj[r.b] = adj[r.b] || []).push(r.a); });
