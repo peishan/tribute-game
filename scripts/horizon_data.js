@@ -1,256 +1,95 @@
-/* CRIMSON HORIZON (the sequel): chapter list shared with the Crimson Tide repo (same numbers, same pages in assets/horizon/cNNN.webp). Titles and one-line summaries from that repo's outline. */
-const HZ_ARCS = [{"n": 1, "t": "A New Voyage", "from": 0, "to": 10}, {"n": 2, "t": "Storm Shelf", "from": 11, "to": 18}, {"n": 3, "t": "Beneath the Storm Shelf", "from": 19, "to": 32}, {"n": 4, "t": "The Mist Straits", "from": 33, "to": 41}];
+/* CRIMSON HORIZON (the sequel): chapter list shared with the Crimson Tide repo (same numbers, same pages in assets/horizon/cNNN.webp). Titles and one-line summaries from that repo's outline. Chapters 0-90 (Arcs I-IX). */
+const HZ_ARCS = [{"n":1,"t":"A New Voyage","from":0,"to":10},{"n":2,"t":"Storm Shelf","from":11,"to":18},{"n":3,"t":"Beneath the Storm Shelf","from":19,"to":32},{"n":4,"t":"The Mist Straits","from":33,"to":48},{"n":5,"t":"The Deep Channel","from":49,"to":64},{"n":6,"t":"A Place to Come Home To","from":65,"to":69},{"n":7,"t":"The Outer Island Run","from":70,"to":74},{"n":8,"t":"A Harbor for Everyone","from":75,"to":82},{"n":9,"t":"The Far Side of the Headland","from":83,"to":90}];
 const HZ_CHAPTERS = [
-{
-"n": 0,
-"arc": 1,
-"t": "A New Voyage",
-"s": "San and Jade set sail aboard the Crimson Tide with the unified crew."
-},
-{
-"n": 1,
-"arc": 1,
-"t": "The First Storm",
-"s": "A violent storm tests the newly unified crew. They adapt their battle positions so Jade and Sally can fight from protected range."
-},
-{
-"n": 2,
-"arc": 1,
-"t": "The Storm's True Form",
-"s": "San, Jade, and Sally help defeat the Stormborn Leviathan. After the storm clears, a strange violet residue remains."
-},
-{
-"n": 3,
-"arc": 1,
-"t": "What the Storm Left Behind",
-"s": "During repairs, Jade spots the residue pulsing on the hull. The crew of a damaged fishing boat recognizes the glow from their harbor mouth and asks for help getting home."
-},
-{
-"n": 4,
-"arc": 1,
-"t": "The Harbor Beyond the Charts",
-"s": "The fishers guide the Crimson Tide through the reef just before a surge. The harbor pilot explains that the channel lights go dark before each surge, and two boats are still out."
-},
-{
-"n": 5,
-"arc": 1,
-"t": "Between Watches",
-"s": "While Aisyah rearranges the watches, a crowded breakfast aboard gives Vaeren, Joelle, and Soel a comic moment. The harbor lights go dark a full watch early."
-},
-{
-"n": 6,
-"arc": 1,
-"t": "Under the Channel",
-"s": "Levi scouts the reef at low tide while Jade directs and Sally covers him from a protected position. He finds an old gate jammed halfway open, sending out a surge each time it shifts."
-},
-{
-"n": 7,
-"arc": 1,
-"t": "The Narrow Window",
-"s": "In Fair Tide, Renn, Erynn, and Mimi link the harbor's pulses to the leviathan encounter while Adrian and Fen search for records of the gate. Devon and the harbor pilot work out when the stranded boats can cross."
-},
-{
-"n": 8,
-"arc": 1,
-"t": "Hold the Passage",
-"s": "San steadies the current, Jade coordinates the crossing, and Sally gets a towline to the stranded boats. The first makes it through, but the second loses steerage as the gate starts to close."
-},
-{
-"n": 9,
-"arc": 1,
-"t": "One Crew at the Helm",
-"s": "Joel brings the Crimson Tide into the channel to tow the last boat clear while Sky tends to the rescued fishers. The reef team secures the gate open, stopping the surges."
-},
-{
-"n": 10,
-"arc": 1,
-"t": "The Next Bearing",
-"s": "The harbor pilots share an old chart showing other gates. San and Jade choose which route to follow next, giving the game its next expedition. Ends with the crew choosing the North Gate (direct route toward the leviathan activity), keeping the East Gate as fallback."
-},
-{
-"n": 11,
-"arc": 2,
-"t": "The Favorable Tide",
-"s": "Aisyah finishes loading supplies while Devon marks the East Gate fallback on the chart. The Crimson Tide departs for the North Gate on the promised tide."
-},
-{
-"n": 12,
-"arc": 2,
-"t": "Across the Storm Shelf",
-"s": "Mezstorm spots two storm fronts moving against the wind along the same line. Joel steers through the gap between them, and Levi sights an old tower on the far side."
-},
-{
-"n": 13,
-"arc": 2,
-"t": "The Watchtower Below",
-"s": "Levi and Sairen explore the abandoned tower while Jade directs the survey from the ship. They find a chamber that records sea activity, with a fresh mark matching the pulse from the leviathan encounter."
-},
-{
-"n": 14,
-"arc": 2,
-"t": "The Second Signal",
-"s": "Fair Tide compares the tower record with the harbor readings. Erynn and Mimi identify a second signal that reached the tower before the leviathan surfaced, and Adrian and Fen find a matching offshore site on an old chart."
-},
-{
-"n": 15,
-"arc": 2,
-"t": "The Shelf Wakes",
-"s": "The tower rings as the signal returns. The storm fronts close across the northern passage, and Sally spots an eastern route marker flashing between the waves."
-},
-{
-"n": 16,
-"arc": 2,
-"t": "East by Lantern",
-"s": "Devon plots the fallback while Sally calls out the markers from cover. Joel takes the ship through the East Gate as Mezstorm holds the wind steady long enough for them to clear it."
-},
-{
-"n": 17,
-"arc": 2,
-"t": "What the Tower Heard",
-"s": "At a sheltered anchorage, San and Jade compare the record with the old chart. The tower was tracking a signal from beneath the Storm Shelf, and the latest reading gives them a bearing."
-},
-{
-"n": 18,
-"arc": 2,
-"t": "The Sounding Line",
-"s": "The crew marks a safe approach from the East Gate and prepares to lower a sounding line at the source. The line goes slack far too soon, setting up the game's first descent beneath the shelf."
-},
-{
-"n": 19,
-"arc": 3,
-"t": "Where the Line Went Slack",
-"s": "Joel hauls up the sounding line and finds its weight scraped flat on one side. Levi sends a lantern down and catches a glimpse of a stone ledge beneath the shelf. [BUILT]"
-},
-{
-"n": 20,
-"arc": 3,
-"t": "The Dive Watch",
-"s": "Aisyah sets the watch rotation and Sky readies the infirmary. Levi and Sairen take the first dive while Jade tracks their progress from the ship. [BUILT]"
-},
-{
-"n": 21,
-"arc": 3,
-"t": "The Door Underwater",
-"s": "Levi and Sairen follow the ledge into an air-filled chamber. The tower's symbol is carved over a door, and the floor trembles in time with the signal."
-},
-{
-"n": 22,
-"arc": 3,
-"t": "Tea at Fair Tide",
-"s": "Sera drops in on Fen with tea and finds the research table covered in charts. Fen notices that the mark the crew sent back appears on the old chart at both the Storm Shelf and the West Gate."
-},
-{
-"n": 23,
-"arc": 3,
-"t": "A Warning for Ships",
-"s": "Erynn translates the chamber inscription. The station once warned ships away from dangerous currents, but someone has recently altered it to send a much stronger pulse."
-},
-{
-"n": 24,
-"arc": 3,
-"t": "Three Bells",
-"s": "A pulse rattles the ship, and Vaeren and Joelle join in as Soel wakes the off-watch crew. Joel establishes a three-bell recall so the dive team can hear the warning through the stone."
-},
-{
-"n": 25,
-"arc": 3,
-"t": "The Night Log",
-"s": "Sally compares the tower's timestamps with Joel's battle log. The altered pulse reached the leviathan's waters just before it surfaced, and the station is building toward another transmission."
-},
-{
-"n": 26,
-"arc": 3,
-"t": "The Channel That Takes It",
-"s": "Devon and Renn trace the next pulse's path along the outer current. It will reach the East Gate, where ships are already using the same fallback route the crew took."
-},
-{
-"n": 27,
-"arc": 3,
-"t": "Clear the East Gate",
-"s": "Sally signals passing ships away while Joel holds the Crimson Tide at the mouth of the channel. Below, Levi and Sairen hear the recall bells just as they find the station's service passage."
-},
-{
-"n": 28,
-"arc": 3,
-"t": "The Fresh Cut",
-"s": "Sairen finds a newly fitted coupling that turns the warning signal into a repeating pulse. Jade spots a maintenance bypass on the chamber sketch and guides the divers to it from aboard ship."
-},
-{
-"n": 29,
-"arc": 3,
-"t": "Between Two Pulses",
-"s": "San and Mezstorm steady the water at the dive entrance while Levi and Sairen switch the station to its bypass and remove the coupling. The next warning comes through as a single, quiet bell."
-},
-{
-"n": 30,
-"arc": 3,
-"t": "Back on Deck",
-"s": "Sky checks the divers as the East Gate reopens to traffic. Aisyah finally gets everyone around the same table, and the twins insist Soel deserves a place on the watch roster."
-},
-{
-"n": 31,
-"arc": 3,
-"t": "The Mark Beneath the Salt",
-"s": "Adrian and Fen compare the recovered coupling with the charts. Beneath the salt is a West Gate service mark and a fresh inventory number, giving the crew a way to trace who handled it."
-},
-{
-"n": 32,
-"arc": 3,
-"t": "Into the Mist Straits",
-"s": "San and Jade chart a course for the West Gate to trace the coupling. Ends at the edge of the mist, where the first route lantern is lit and the second is missing."
-},
-{
-"n": 33,
-"arc": 4,
-"t": "The Missing Lantern",
-"s": "Sally spots a light flashing where the second route marker should be. Joel stops the Crimson Tide when Levi sees that the light is moving against the current."
-},
-{
-"n": 34,
-"arc": 4,
-"t": "The Pilot's Bell",
-"s": "A local pilot guides the ship into a sheltered quay by ringing a bell from shore. She tells San that the second lantern vanished three nights ago and two ships have gone aground since."
-},
-{
-"n": 35,
-"arc": 4,
-"t": "The West Gate Yard",
-"s": "Jade and Aisyah visit the maintenance yard to ask about SV-7729. The foreman recognizes it as part of a shipment that was signed out for routine beacon repairs."
-},
-{
-"n": 36,
-"arc": 4,
-"t": "Signed and Transferred",
-"s": "From Fair Tide, Adrian and Fen send a copy of the transfer record. Sally compares it with the yard's dispatch book and finds three more couplings collected under the same work order."
-},
-{
-"n": 37,
-"arc": 4,
-"t": "A Place at the Table",
-"s": "Sky treats a sailor from one of the wrecks over supper aboard the Crimson Tide. When the twins ask how he knew where to sail, he taps out the rhythm of the light he followed."
-},
-{
-"n": 38,
-"arc": 4,
-"t": "The Wrong Rhythm",
-"s": "Renn checks the sailor's account against the old pilot codes from Fair Tide. The moving light copied the official signal closely enough to fool anyone approaching in fog."
-},
-{
-"n": 39,
-"arc": 4,
-"t": "Low Water",
-"s": "Levi and Sairen follow fresh bootprints across a shoal exposed at low tide. They find the missing lantern mounted on a small skiff, with a West Gate coupling fitted beneath it."
-},
-{
-"n": 40,
-"arc": 4,
-"t": "Lights for Sale",
-"s": "Sally watches the skiff's crew sell cargo stripped from the grounded ships. One of them leaves to set the lantern again just as the evening convoy approaches."
-},
-{
-"n": 41,
-"arc": 4,
-"t": "The Evening Convoy",
-"s": "The pilot says the convoy is already beyond sight of shore. San sends Joel and Mezstorm to intercept it while Jade coordinates a shore team to restore the real marker."
-}
+{"n":0,"arc":1,"t":"A New Voyage","s":"San and Jade set sail aboard the Crimson Tide with the unified crew."},
+{"n":1,"arc":1,"t":"The First Storm","s":"A violent storm tests the newly unified crew. They adapt their battle positions so Jade and Sally can fight from protected range."},
+{"n":2,"arc":1,"t":"The Storm's True Form","s":"San, Jade, and Sally help defeat the Stormborn Leviathan. After the storm clears, a strange violet residue remains."},
+{"n":3,"arc":1,"t":"What the Storm Left Behind","s":"During repairs, Jade spots the residue pulsing on the hull. The crew of a damaged fishing boat recognizes the glow from their harbor mouth and asks for help getting home."},
+{"n":4,"arc":1,"t":"The Harbor Beyond the Charts","s":"The fishers guide the Crimson Tide through the reef just before a surge. The harbor pilot explains that the channel lights go dark before each surge, and two boats are still out."},
+{"n":5,"arc":1,"t":"Between Watches","s":"While Aisyah rearranges the watches, a crowded breakfast aboard gives Vaeren, Joelle, and Soel a comic moment. The harbor lights go dark a full watch early."},
+{"n":6,"arc":1,"t":"Under the Channel","s":"Levi scouts the reef at low tide while Jade directs and Sally covers him from a protected position. He finds an old gate jammed halfway open, sending out a surge each time it shifts."},
+{"n":7,"arc":1,"t":"The Narrow Window","s":"In Fair Tide, Renn, Erynn, and Mimi link the harbor's pulses to the leviathan encounter while Adrian and Fen search for records of the gate. Devon and the harbor pilot work out when the stranded boats can cross."},
+{"n":8,"arc":1,"t":"Hold the Passage","s":"San steadies the current, Jade coordinates the crossing, and Sally gets a towline to the stranded boats. The first makes it through, but the second loses steerage as the gate starts to close."},
+{"n":9,"arc":1,"t":"One Crew at the Helm","s":"Joel brings the Crimson Tide into the channel to tow the last boat clear while Sky tends to the rescued fishers. The reef team secures the gate open, stopping the surges."},
+{"n":10,"arc":1,"t":"The Next Bearing","s":"The harbor pilots share an old chart showing other gates. San and Jade choose which route to follow next, giving the game its next expedition. Ends with the crew choosing the North Gate (direct route toward the leviathan activity), keeping the East Gate as fallback."},
+{"n":11,"arc":2,"t":"The Favorable Tide","s":"Aisyah finishes loading supplies while Devon marks the East Gate fallback on the chart. The Crimson Tide departs for the North Gate on the promised tide."},
+{"n":12,"arc":2,"t":"Across the Storm Shelf","s":"Mezstorm spots two storm fronts moving against the wind along the same line. Joel steers through the gap between them, and Levi sights an old tower on the far side."},
+{"n":13,"arc":2,"t":"The Watchtower Below","s":"Levi and Sairen explore the abandoned tower while Jade directs the survey from the ship. They find a chamber that records sea activity, with a fresh mark matching the pulse from the leviathan encounter."},
+{"n":14,"arc":2,"t":"The Second Signal","s":"Fair Tide compares the tower record with the harbor readings. Erynn and Mimi identify a second signal that reached the tower before the leviathan surfaced, and Adrian and Fen find a matching offshore site on an old chart."},
+{"n":15,"arc":2,"t":"The Shelf Wakes","s":"The tower rings as the signal returns. The storm fronts close across the northern passage, and Sally spots an eastern route marker flashing between the waves."},
+{"n":16,"arc":2,"t":"East by Lantern","s":"Devon plots the fallback while Sally calls out the markers from cover. Joel takes the ship through the East Gate as Mezstorm holds the wind steady long enough for them to clear it."},
+{"n":17,"arc":2,"t":"What the Tower Heard","s":"At a sheltered anchorage, San and Jade compare the record with the old chart. The tower was tracking a signal from beneath the Storm Shelf, and the latest reading gives them a bearing."},
+{"n":18,"arc":2,"t":"The Sounding Line","s":"The crew marks a safe approach from the East Gate and prepares to lower a sounding line at the source. The line goes slack far too soon, setting up the game's first descent beneath the shelf."},
+{"n":19,"arc":3,"t":"Where the Line Went Slack","s":"Joel hauls up the sounding line and finds its weight scraped flat on one side. Levi sends a lantern down and catches a glimpse of a stone ledge beneath the shelf. [BUILT]"},
+{"n":20,"arc":3,"t":"The Dive Watch","s":"Aisyah sets the watch rotation and Sky readies the infirmary. Levi and Sairen take the first dive while Jade tracks their progress from the ship. [BUILT]"},
+{"n":21,"arc":3,"t":"The Door Underwater","s":"Levi and Sairen follow the ledge into an air-filled chamber. The tower's symbol is carved over a door, and the floor trembles in time with the signal."},
+{"n":22,"arc":3,"t":"Tea at Fair Tide","s":"Sera drops in on Fen with tea and finds the research table covered in charts. Fen notices that the mark the crew sent back appears on the old chart at both the Storm Shelf and the West Gate."},
+{"n":23,"arc":3,"t":"A Warning for Ships","s":"Erynn translates the chamber inscription. The station once warned ships away from dangerous currents, but someone has recently altered it to send a much stronger pulse."},
+{"n":24,"arc":3,"t":"Three Bells","s":"A pulse rattles the ship, and Vaeren and Joelle join in as Soel wakes the off-watch crew. Joel establishes a three-bell recall so the dive team can hear the warning through the stone."},
+{"n":25,"arc":3,"t":"The Night Log","s":"Sally compares the tower's timestamps with Joel's battle log. The altered pulse reached the leviathan's waters just before it surfaced, and the station is building toward another transmission."},
+{"n":26,"arc":3,"t":"The Channel That Takes It","s":"Devon and Renn trace the next pulse's path along the outer current. It will reach the East Gate, where ships are already using the same fallback route the crew took."},
+{"n":27,"arc":3,"t":"Clear the East Gate","s":"Sally signals passing ships away while Joel holds the Crimson Tide at the mouth of the channel. Below, Levi and Sairen hear the recall bells just as they find the station's service passage."},
+{"n":28,"arc":3,"t":"The Fresh Cut","s":"Sairen finds a newly fitted coupling that turns the warning signal into a repeating pulse. Jade spots a maintenance bypass on the chamber sketch and guides the divers to it from aboard ship."},
+{"n":29,"arc":3,"t":"Between Two Pulses","s":"San and Mezstorm steady the water at the dive entrance while Levi and Sairen switch the station to its bypass and remove the coupling. The next warning comes through as a single, quiet bell."},
+{"n":30,"arc":3,"t":"Back on Deck","s":"Sky checks the divers as the East Gate reopens to traffic. Aisyah finally gets everyone around the same table, and the twins insist Soel deserves a place on the watch roster."},
+{"n":31,"arc":3,"t":"The Mark Beneath the Salt","s":"Adrian and Fen compare the recovered coupling with the charts. Beneath the salt is a West Gate service mark and a fresh inventory number, giving the crew a way to trace who handled it."},
+{"n":32,"arc":3,"t":"Into the Mist Straits","s":"San and Jade chart a course for the West Gate to trace the coupling. Ends at the edge of the mist, where the first route lantern is lit and the second is missing."},
+{"n":33,"arc":4,"t":"The Missing Lantern","s":"Sally spots a light flashing where the second route marker should be. Joel stops the Crimson Tide when Levi sees that the light is moving against the current."},
+{"n":34,"arc":4,"t":"The Pilot's Bell","s":"A local pilot guides the ship into a sheltered quay by ringing a bell from shore. She tells San that the second lantern vanished three nights ago and two ships have gone aground since."},
+{"n":35,"arc":4,"t":"The West Gate Yard","s":"Jade and Aisyah visit the maintenance yard to ask about SV-7729. The foreman recognizes it as part of a shipment that was signed out for routine beacon repairs."},
+{"n":36,"arc":4,"t":"Signed and Transferred","s":"From Fair Tide, Adrian and Fen send a copy of the transfer record. Sally compares it with the yard's dispatch book and finds three more couplings collected under the same work order."},
+{"n":37,"arc":4,"t":"A Place at the Table","s":"Sky treats a sailor from one of the wrecks over supper aboard the Crimson Tide. When the twins ask how he knew where to sail, he taps out the rhythm of the light he followed."},
+{"n":38,"arc":4,"t":"The Wrong Rhythm","s":"Renn checks the sailor's account against the old pilot codes from Fair Tide. The moving light copied the official signal closely enough to fool anyone approaching in fog."},
+{"n":39,"arc":4,"t":"Low Water","s":"Levi and Sairen follow fresh bootprints across a shoal exposed at low tide. They find the missing lantern mounted on a small skiff, with a West Gate coupling fitted beneath it."},
+{"n":40,"arc":4,"t":"Lights for Sale","s":"Sally watches the skiff's crew sell cargo stripped from the grounded ships. One of them leaves to set the lantern again just as the evening convoy approaches."},
+{"n":41,"arc":4,"t":"The Evening Convoy","s":"The pilot says the convoy is already beyond sight of shore. San sends Joel and Mezstorm to intercept it while Jade coordinates a shore team to restore the real marker."},
+{"n":42,"arc":4,"t":"Through the White Water","s":"Joel takes the Crimson Tide into the fog while Mezstorm clears brief gaps in it. They reach the convoy as its lead ship begins turning toward the false light."},
+{"n":43,"arc":4,"t":"The Lantern Skiff","s":"Levi and Sairen cut off the skiff's retreat through the shallows. When its crew tries to throw the lantern overboard, Sally pins the release rope to the gunwale from the Crimson Tide."},
+{"n":44,"arc":4,"t":"Light the Real Channel","s":"Jade gets the yard foreman to bring a spare lantern to the empty post. Once it's lit, Joel leads the convoy through the true channel to the waiting pilot."},
+{"n":45,"arc":4,"t":"The Salvage Ledger","s":"The harbor pilot takes the recovered ledger to the families of the wrecked crews so they can reclaim their cargo. The entries show the salvage crew used several couplings locally and sold one on to the Storm Shelf."},
+{"n":46,"arc":4,"t":"The Last Crate South","s":"Fen traces the final coupling from the shipment to an unopened crate still awaiting pickup. Its delivery instructions name the South Gate · Deep Channel, with a tide and berth but no recipient."},
+{"n":47,"arc":4,"t":"A Light of Their Own","s":"The yard crew restores the permanent marker, and the pilot invites the twins to ring the quay bell for the first ship safely through. San asks her to teach the crew the local signals before they sail."},
+{"n":48,"arc":4,"t":"The Deep Channel","s":"San and Jade take the delivery instructions south to see who comes for the crate. At the rendezvous berth, they find a mooring rope pulled taut into water too deep for any dock."},
+{"n":49,"arc":5,"t":"Berth B-12","s":"Joel holds the Crimson Tide offshore while Levi and Sairen inspect the line from a launch. They find a submerged guide ring and fresh wear on the rope, showing that small boats still use it."},
+{"n":50,"arc":5,"t":"No Name on the Manifest","s":"In Fair Tide, Fen and Adrian verify the contents of SV-7740 and secure the coupling. Renn sends Devon the berth instructions and a copy of the seal, and Sally proposes watching the pickup with a substitute crate."},
+{"n":51,"arc":5,"t":"High Tide, Day Eight","s":"A tender follows the line into B-12. Sally watches from cover as its crew takes the marked crate and signals someone beyond the rocks, and Joel lets the tender get ahead before launching the pursuit."},
+{"n":52,"arc":5,"t":"The Berth Behind the Rock","s":"At high tide, the submerged line leads the tender through a narrow opening in the cliff. The scouts find an old rescue dock, a storage loft, and a haulage lift connecting the dock to an upper passage."},
+{"n":53,"arc":5,"t":"The Pilots Below","s":"Levi and Sairen overhear a captive pilot refusing to take another boat through the passage. A second pilot slips them a message with a tally of the people being held and the location of the bunkroom."},
+{"n":54,"arc":5,"t":"The Channel Keeper","s":"The current Channel Keeper inspects the delivery. The scouts hear him demand the missing coupling so he can operate the public gate and the hidden passage independently, holding pilots to run his private route while regular traffic waits outside."},
+{"n":55,"arc":5,"t":"The Original Passage","s":"Erynn identifies the dock as part of an old rescue route. Renn sends a restoration diagram to Devon aboard the ship, and Jade spots that opening the public gate will flood the lower service stairs."},
+{"n":56,"arc":5,"t":"Before the Water Turns","s":"San assigns the extraction, ship, and gate teams. Aisyah stages supplies for the freed pilots, Sky clears space aboard, and Jade and Sally coordinate from protected positions."},
+{"n":57,"arc":5,"t":"The Bunkroom Key","s":"Levi and Sairen enter through the storage loft and reach the locked bunkroom. One pilot can barely walk, so the team takes the upper passage slowly while Sally keeps watch on the dock."},
+{"n":58,"arc":5,"t":"Hold the Launch","s":"Joel brings the launch alongside the upper landing while the Keeper's tender tries to block it. San and Mezstorm steady the water long enough for the pilots to board."},
+{"n":59,"arc":5,"t":"The Keeper's Last Order","s":"The Keeper retreats to the control room and orders his guards to destroy the records while he tries to flood the stairs. The party has to take the controls before he can cut off access to the gate mechanism."},
+{"n":60,"arc":5,"t":"Open the Public Channel","s":"Jade relays the restoration sequence from the ship. The gate team confirms the lower stairs are empty, shuts the private bypass, and opens the public gate."},
+{"n":61,"arc":5,"t":"First Ship Through","s":"One of the freed pilots volunteers to guide a waiting vessel through the reopened channel. Joel follows at a distance while the shore team watches for any change in the current."},
+{"n":62,"arc":5,"t":"The Dispatch Book","s":"Fen and Adrian match the Keeper's dispatch book to the West Gate records. The same operation bought the Storm Shelf coupling and kept the South Gate order under SV-7740, and a separate entry schedules a service delivery at the Central Gate."},
+{"n":63,"arc":5,"t":"The Pilots Come Home","s":"The freed pilots return ashore. One gives the crew a corrected chart marking the public lane and the rescue berth, and asks that both be shared with other ships."},
+{"n":64,"arc":5,"t":"The Central Bearing","s":"San and Jade agree to investigate the Central Gate after the South Gate is back in local hands. Devon plots the approach from the corrected chart, and a signal from the Central Gate answers before they reach its first marker."},
+{"n":65,"arc":6,"t":"Beyond the Central Gate","s":"Joel takes the Crimson Tide through the Central Gate at first light. Beyond it, small trading boats are already sailing out of a busy island harbor, and a local pilot waves the crew toward the quay."},
+{"n":66,"arc":6,"t":"A Day Ashore","s":"Aisyah heads for the market while Joel takes Vaeren, Joelle and Soel along the waterfront. San and Jade go looking for food and end up sharing a harbor bench, where Jade tells San about the first time she travelled without anyone from the court arranging her day."},
+{"n":67,"arc":6,"t":"The Boat That Couldn't Leave","s":"San and Joel find a local skipper at the quay whose boat was damaged before she could take provisions to an outer island. San offers room aboard the Crimson Tide for her and her cargo, and Joel asks her to show them where she normally lands."},
+{"n":68,"arc":6,"t":"The Story I Left Behind","s":"That evening, San asks Jade to stay on deck after the others go below. She tells her about the manuscript, Imperial Guard Meets Runaway Prince, and admits she recognized Jade and Devon's names the day they met in Lunareth."},
+{"n":69,"arc":6,"t":"Around the Same Time","s":"As the crew prepares to sail, Jade and Sally compare their expected dates. They could still go into labour around the same time, and they agree to tell Devon and Levi after the provisions are unloaded on the outer island."},
+{"n":70,"arc":7,"t":"The Landing at Low Tide","s":"The skipper guides Joel around the outer island's reef, but her usual landing is too shallow for the Crimson Tide. Joel anchors in the lee while San arranges to bring the provisions ashore in the islanders' small boats."},
+{"n":71,"arc":7,"t":"Two Dates on the Calendar","s":"After the cargo is unloaded, Jade tells Devon that she and Sally might go into labour around the same time, and Sally tells Levi separately. Their conversations turn to where they'd each want to be when the time comes, and who they'd want nearby."},
+{"n":72,"arc":7,"t":"The Road Over the Ridge","s":"Aisyah heads inland to see what the island trades, and San and Joel walk with her to the ridge market. From the top they can see boats working a sheltered channel toward the neighbouring islands, and the skipper asks if they'll take her outgoing mail back to the harbor."},
+{"n":73,"arc":7,"t":"How It Began","s":"Back aboard, San tells Jade how the earliest version of Imperial Guard Meets Runaway Prince began. Jade listens until San reaches the first decision she remembers making differently, then tells San what she remembers and why she made that choice."},
+{"n":74,"arc":7,"t":"A Route Worth Keeping","s":"The Crimson Tide returns to the harbor with the mail. Aisyah asks which market days are worth sailing back for, and before they cast off again Joel marks the sheltered channel on their chart and asks San where she wants to go next."},
+{"n":75,"arc":8,"t":"Across the Sheltered Channel","s":"Joel follows the route charted in 074 to the neighbouring island. Its deepwater quay is busy, but the smaller boats are circling offshore, because the public landing lost its gangway in the last heavy swell."},
+{"n":76,"arc":8,"t":"The Price of a Berth","s":"At the market, Aisyah sees a fish seller turn away a customer because her brother's catch is still aboard their boat. San offers to bring the fish ashore in the ship's tender, then asks the harbor pilot what it would take to reopen the public landing."},
+{"n":77,"arc":8,"t":"The Boatbuilder's Yard","s":"The local boatbuilder has a replacement gangway ready, but her yard sits across the bay and her workboat can't carry it in one piece. Joel offers the Crimson Tide's tackle, and the boatbuilder insists on coming along to fit it herself."},
+{"n":78,"arc":8,"t":"A Landing of Their Own","s":"Joel holds the ship steady while the boatbuilder guides the gangway into place and the islanders secure it from shore. The fish seller's brother brings in the first boat, and Aisyah buys provisions from the stalls that can finally restock."},
+{"n":79,"arc":8,"t":"The Cabin Across the Hall","s":"On the way back to Fair Tide, Devon asks Jade where she'd want to stay if her due window does overlap with Sally's. Sally tells Levi she wants a room of her own and Jade close enough to complain through the wall."},
+{"n":80,"arc":8,"t":"A Place at the Table","s":"At Fair Tide, Sera joins Jade and Sally for a meal while the others unload. She says she's grown fond of deciding how to spend a day before anyone else decides for her, and Sally hands her a parcel from the island market."},
+{"n":81,"arc":8,"t":"What Devon Entrusted","s":"At the first Black Pearl briefing, Erynn presents Devon's account and Fen shows which parts she can corroborate in Dragonvale's records. San and Joel agree that the study should begin with observation."},
+{"n":82,"arc":8,"t":"The Next Sailing","s":"San and Joel look over the chart at Fair Tide. They now have three places they can sail back to beyond the Central Gate, and San asks Joel to leave a copy of the route with the harbor office for the next captain."},
+{"n":83,"arc":9,"t":"Before the Tide Turns","s":"Jovie brings the infirmary's supplies to the ship and finds Sairen checking the boarding ramp. She asks when he expects to be back, and he promises to write if the voyage runs long."},
+{"n":84,"arc":9,"t":"Beyond the Headland","s":"At the public landing the crew helped reopen, Aisyah meets a cloth trader bound for a port beyond the headland. She offers to guide them there, and Joel follows her directions to a deepwater harbor beneath terraced gardens."},
+{"n":85,"arc":9,"t":"The Market on the Steps","s":"Aisyah follows the trader up to the market, where sailors buy sailcloth and garden growers trade dried fruit. San sees that the upper market has room for both, while the lower quay is packed with cargo waiting to go uphill."},
+{"n":86,"arc":9,"t":"Room on the Quay","s":"The harbor master asks Joel to move the Crimson Tide to the outer anchorage. When the arriving ship is pushed toward the quay by a hard gust, Joel brings the tender alongside and takes its line in."},
+{"n":87,"arc":9,"t":"A Letter with No Report in It","s":"Once the quay settles, Sairen sits down to write to Jovie. His first attempt reads like a watch report, so he starts again and tells her about the market stairs, the view, and the stall he thinks she'd stop at first."},
+{"n":88,"arc":9,"t":"The Lower Market","s":"The cloth trader asks Aisyah to help her make a case for selling some goods at quay level on busy days. Aisyah puts in a standing order for sailcloth that can be collected there, giving the harbor master a reason to try it."},
+{"n":89,"arc":9,"t":"The First Observations","s":"At Fair Tide, Renn records the conditions around the Black Pearl while Mimi keeps a separate account of her impressions. Adrian has them compare notes only after both have finished."},
+{"n":90,"arc":9,"t":"When You're Back","s":"The crew returns to Fair Tide with sailcloth for the ship and dried fruit for the galley. Jovie tells Sairen she got his letter and asks him to take her to the cliffside market someday."}
 ];
