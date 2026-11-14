@@ -295,7 +295,7 @@ function hzRead(n){
   const a = HZ_ARCS.find(x => x.from === n);
   const el = $('arcpop'); if(!el) return;
   const src = `assets/horizon/c${String(n).padStart(3,'0')}.webp`, page = `<img src="${src}" alt="Chapter ${n}: ${c.t}" onclick="zoomOpen(this.src)" style="cursor:zoom-in"><button onclick="zoomOpen('${src}')">🔍 Zoom the page</button>`;
-  el.innerHTML = `<div class="arcbox">${a ? `${[1,2,3,4,5,6,8,9].includes(a.n) ? `<img src="assets/horizon/arc0${a.n}.webp" alt="${a.t}" style="max-height:calc(50vh - 40px)">` : ''}<div class="sm" style="color:var(--gold-light)">Crimson Horizon · Arc ${a.n}: ${a.t}</div>` : ''}${page}<button class="pri" onclick="hzReadDone(${n})">Continue</button></div>`;
+  el.innerHTML = `<div class="arcbox">${a ? `${[1,2,3,4,5,6,7,8,9].includes(a.n) ? `<img src="assets/horizon/arc0${a.n}.webp" alt="${a.t}" style="max-height:calc(50vh - 40px)">` : ''}<div class="sm" style="color:var(--gold-light)">Crimson Horizon · Arc ${a.n}: ${a.t}</div>` : ''}${page}<button class="pri" onclick="hzReadDone(${n})">Continue</button></div>`;
   el.classList.add('on'); el.scrollTop = 0;
 }
 function hzReadDone(n){ hz().read[n] = true; G.flags['hz_read_'+n] = true; const el = $('arcpop'); if(el){ el.classList.remove('on'); el.innerHTML = ''; } save(); render(); }
