@@ -63,6 +63,9 @@ fs.readdirSync('scripts').filter(f => f.endsWith('.js')).forEach(f => { try{ new
       { G = newState(); devSetChapter(960); timedTick(); let f = 0; for(let i = 0; i < 60; i++){ G.day++; timedTick(); if(G.visits.last && G.visits.last.day === G.day) f++; }
         const v = VISITS.find(z => z.at === 'gold_residence'); G.visits.last = {id:v.id, day:G.day}; G.loc = 'gold_residence'; tab = 'here'; spotOpen = null; render();
         x.visits = f >= 3 && /San and Joel are visiting today/.test(document.body.innerText); }
+      { G = newState(); devSetChapter(300); tab = 'journal'; const c1 = musicContext(); tab = 'here'; G.loc = 'capital'; spotOpen = null; const c2 = musicContext(); hzStart('leviathan'); const c3 = musicContext(); HB = null; hzStart('violet_swarm'); const c4 = musicContext(); HB = null;
+        x.music = c1 === 'calm' && c2 === 'town' && c3 === 'boss' && c4 === 'battle' && Object.values(MUSIC_MAP).flat().every(k => MUSIC_TRACKS[k]); }
+      o.musicSrc = Object.values(MUSIC_TRACKS).map(t => t.src);
       o.hzx = x; o.hzAmb = Object.values(LOCATIONS).flatMap(l => l.spots).filter(s => s.hzAmbush).length; }
     // every place a chapter starts at can be reached by road or sea from the capital
     const adj = {}; ROUTES.forEach(r => { (adj[r.a] = adj[r.a] || []).push(r.b); (adj[r.b] = adj[r.b] || []).push(r.a); });
@@ -85,6 +88,7 @@ fs.readdirSync('scripts').filter(f => f.endsWith('.js')).forEach(f => { try{ new
   ok('no mission step waits on a much later spot', !r.lateStep.length, r.lateStep.join());
   ok('Horizon chapter spots (0-90), boss spots and Pearl case exist', !r.hzq.length, r.hzq.join());
   ok('sequel: ambush, items, flee, gear, defeat ends the fight', r.hzx && Object.values(r.hzx).every(v => v === true || v === 'hz') && r.hzAmb >= 15, JSON.stringify(r.hzx)+' '+r.hzAmb);
+  ok('music tracks exist on disk', (r.musicSrc || []).length === 8 && r.musicSrc.every(f => fs.existsSync(f)), (r.musicSrc||[]).join());
   ok('Boards tab lists the Masked Contracts', /Masked Contracts/.test(r.boards) && /Accept/.test(r.boards), '')
   ok('board tip lists the boards the party can reach', r.tip === true && r.tipEarly === false, r.tip+' '+r.tipEarly);
   ok('duplicate arcs', !r.arcDup.length, r.arcDup.join());
