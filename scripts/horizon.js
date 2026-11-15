@@ -1,6 +1,6 @@
 /* =====================================================================
    TRIBUTE — CRIMSON HORIZON: THE ADVENTURES OF SAN AND JADE (the sequel; docs/CRIMSON_HORIZON_PLAN.md)
-   Opens when Tribute is complete (chapter 990). Shared chapters 0-90 (the same pages as the Crimson Tide repo, assets/horizon/cNNN.webp), read in order; the first real fight is chapter 2.
+   Opens when Tribute is complete (chapter 990). Shared chapters 0-100 (the same pages as the Crimson Tide repo, assets/horizon/cNNN.webp), read in order; the first real fight is chapter 2.
    THE CREW: 13 members, all of whom take part in battle. The Canon Five (Jade, Devon, Sky, Levi, Sally) keep their own Tribute levels and stats. The Crimson Tide side (San, Joel, Aisyah, Mezstorm, Sairen)
    start at levels set from the Canon Five's average (San and Joel level with them; the others a little behind), each with their own level from then on. Vaeren and Joelle start at LEVEL 1 and are
    UNKILLABLE AND UNTARGETABLE until they reach full strength (level HZ_FULL); their power grows with their level. Soel is a blessing cat: he never fights, he heals, restores MP and blesses the crew,
@@ -288,14 +288,14 @@ function rObjective(n){
 /* ---------- screens ---------- */
 const hzChapter = n => HZ_CHAPTERS.find(c => c.n === n);
 // Arc I (0-10) is played on Tribute's investigation framework: the next chapter opens when the previous chapter has been read AND its investigation spot is finished (and the leviathan beaten after chapter 2).
-const hzUnlocked = n => n === 0 || (!!hz().read[n-1] && (n-1 > 90 || !!G.flags['inv_hzq'+(n-1)]) && (!HZ_BATTLE_AT[n-1] || !!hz().won[HZ_BATTLE_AT[n-1]]) && (!HZ_OBJ[n-1] || !!(hz().obj[n-1] && hz().obj[n-1].done)));
+const hzUnlocked = n => n === 0 || (!!hz().read[n-1] && (n-1 > 100 || !!G.flags['inv_hzq'+(n-1)]) && (!HZ_BATTLE_AT[n-1] || !!hz().won[HZ_BATTLE_AT[n-1]]) && (!HZ_OBJ[n-1] || !!(hz().obj[n-1] && hz().obj[n-1].done)));
 const HZ_BATTLE_AT = {2:'leviathan', 16:'storm_fronts', 40:'skiff_crew', 59:'channel_keeper'};   // the chapter whose objective is a real fight
 function hzRead(n){
   const c = hzChapter(n); if(!c) return;
   const a = HZ_ARCS.find(x => x.from === n);
   const el = $('arcpop'); if(!el) return;
   const src = `assets/horizon/c${String(n).padStart(3,'0')}.webp`, page = `<img src="${src}" alt="Chapter ${n}: ${c.t}" onclick="zoomOpen(this.src)" style="cursor:zoom-in"><button onclick="zoomOpen('${src}')">🔍 Zoom the page</button>`;
-  el.innerHTML = `<div class="arcbox">${a ? `${[1,2,3,4,5,6,7,8,9].includes(a.n) ? `<img src="assets/horizon/arc0${a.n}.webp" alt="${a.t}" style="max-height:calc(50vh - 40px)">` : ''}<div class="sm" style="color:var(--gold-light)">Crimson Horizon · Arc ${a.n}: ${a.t}</div>` : ''}${page}<button class="pri" onclick="hzReadDone(${n})">Continue</button></div>`;
+  el.innerHTML = `<div class="arcbox">${a ? `${[1,2,3,4,5,6,7,8,9,10].includes(a.n) ? `<img src="assets/horizon/arc${String(a.n).padStart(2,'0')}.webp" alt="${a.t}" style="max-height:calc(50vh - 40px)">` : ''}<div class="sm" style="color:var(--gold-light)">Crimson Horizon · Arc ${a.n}: ${a.t}</div>` : ''}${page}<button class="pri" onclick="hzReadDone(${n})">Continue</button></div>`;
   el.classList.add('on'); el.scrollTop = 0;
 }
 function hzReadDone(n){ hz().read[n] = true; G.flags['hz_read_'+n] = true; const el = $('arcpop'); if(el){ el.classList.remove('on'); el.innerHTML = ''; } save(); render(); }
@@ -327,7 +327,7 @@ function rHorizon(){
   const next = HZ_CHAPTERS.find(c => !h.read[c.n]);
   const arcs = HZ_ARCS.map(a => `<h4>Arc ${a.n}: ${a.t}</h4>` + HZ_CHAPTERS.filter(c => c.arc === a.n).map(c => {
     const ok = hzUnlocked(c.n), done = !!h.read[c.n], fight = HZ_BATTLE_AT[c.n], needFight = fight && done && !h.won[fight];
-    return `<div class="card ${ok?'':'lock'}"><span class="big">${done?'✅':ok?'📖':'🔒'}</span><div class="fl"><b>${c.n===0?'Prologue':c.n+'.'} ${c.t}</b><div class="sm">${c.s}</div>${c.n<=90 ? `<div class="sm">${G.flags['inv_hzq'+c.n] ? '✔ investigated' : '🔎 investigate at '+hzqWhere(c.n)}</div>` : ''}</div>${ok?`<button class="${done?'':'pri'}" onclick="hzRead(${c.n})">${done?'Read again':'Read'}</button>`:''}${fight && done ? `<button class="pri" onclick="hzBattle('${fight}')">${h.won[fight]?'Fight again':'⚔️ Fight'}</button>` : ''}${HZ_OBJ[c.n] && done ? `<button class="pri" onclick="hzObjOpen(${c.n})">${h.obj[c.n]&&h.obj[c.n].done?'🎯 Done':'🎯 Objective'}</button>` : ''}</div>`; }).join('')).join('');
+    return `<div class="card ${ok?'':'lock'}"><span class="big">${done?'✅':ok?'📖':'🔒'}</span><div class="fl"><b>${c.n===0?'Prologue':c.n+'.'} ${c.t}</b><div class="sm">${c.s}</div>${c.n<=100 ? `<div class="sm">${G.flags['inv_hzq'+c.n] ? '✔ investigated' : '🔎 investigate at '+hzqWhere(c.n)}</div>` : ''}</div>${ok?`<button class="${done?'':'pri'}" onclick="hzRead(${c.n})">${done?'Read again':'Read'}</button>`:''}${fight && done ? `<button class="pri" onclick="hzBattle('${fight}')">${h.won[fight]?'Fight again':'⚔️ Fight'}</button>` : ''}${HZ_OBJ[c.n] && done ? `<button class="pri" onclick="hzObjOpen(${c.n})">${h.obj[c.n]&&h.obj[c.n].done?'🎯 Done':'🎯 Objective'}</button>` : ''}</div>`; }).join('')).join('');
   return `<h2>🌅 Crimson Horizon</h2><div class="sm">The Adventures of San and Jade · one crew, two worlds.</div><img src="assets/horizon/roster.webp" alt="The unified crew" style="width:100%;border-radius:10px;margin:8px 0"><div class="panel"><b>The crew (13)</b><div class="sm">All of them fight. Every member has their own level. The twins are protected until Lv ${HZ_FULL}; Soel blesses and cannot be killed.</div></div>${HZ_CREW.map(hzCrewCard).join('')}<h3>Chapters</h3>${next ? `<div class="sm">Next: ${next.n===0?'Prologue':'Chapter '+next.n}</div>` : '<div class="sm">All available chapters read.</div>'}${arcs}`;
 }
 

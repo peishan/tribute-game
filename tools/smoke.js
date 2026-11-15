@@ -24,7 +24,7 @@ fs.readdirSync('scripts').filter(f => f.endsWith('.js')).forEach(f => { try{ new
     // no mission step waits on a spot that opens more than 15 chapters after the mission itself
     const sp = {}; Object.values(LOCATIONS).forEach(l => l.spots.forEach(x => { sp[x.id] = x; }));
     o.lateStep = MISSIONS.flatMap(m => (m.obj.steps || []).filter(s => s.spot && sp[s.spot] && (sp[s.spot].ch || 0) > (m.needCh || 0) + 15).map(s => m.id+':'+s.spot));
-    o.hzq = [...Array(91).keys()].filter(n => !spotById('hzq'+n)).concat(['hzq_leviathan','hzq_storm_fronts','hzq_skiff_crew','hzq_channel_keeper','bp_records','bp_account','bp_baseline'].filter(id => !spotById(id)));
+    o.hzq = [...Array(101).keys()].filter(n => !spotById('hzq'+n)).concat(['hzq_leviathan','hzq_storm_fronts','hzq_skiff_crew','hzq_channel_keeper','bp_records','bp_account','bp_baseline','bp_annotated'].filter(id => !spotById(id)));
     G = newState(); devSetChapter(500); o.tip = boardTip().includes('Notice Board') && boardTip().includes('Masked Contracts'); G = newState(); devSetChapter(40); o.tipEarly = boardTip().includes('Masked Contracts');
     G = newState(); devSetChapter(500); o.boards = rBoardsTab(); 
     o.arcs = ARCS.length; o.arcDup = ARCS.map(a => a.n).filter((n, i, l) => l.indexOf(n) !== i);
@@ -56,10 +56,10 @@ fs.readdirSync('scripts').filter(f => f.endsWith('.js')).forEach(f => { try{ new
       hzBattle('leviathan'); HB.boss.hp = 1; hzDo('atk'); hzLeaveBattle(); x.gear = G.inv.crimson_repeater === 1 && G.inv.veilstring_bow === 1 && !canEquip('jade', 'crimson_repeater') && !!canEquip('sally', 'crimson_repeater') && !canEquip('sally', 'veilstring_bow');
       hzBattle('leviathan'); HB.crew.forEach(u => { if(u.id !== 'soel' && !hzProtected(u.id)) u.dead = true; }); HB.crew.forEach(u => { u.acted = true; }); hzAdvance(); x.endless = HB.over === 'lose'; HB = null;
       // every Horizon spot's place can be reached from the ship once the chapters are read (no place without a road)
-      Object.keys(HZ_BATTLE_AT).forEach(k => {}); for(let n = 0; n <= 90; n++) G.flags['hz_read_'+n] = true;
+      Object.keys(HZ_BATTLE_AT).forEach(k => {}); for(let n = 0; n <= 100; n++) G.flags['hz_read_'+n] = true;
       const seen = new Set(['hz_ship']), q = ['hz_ship']; while(q.length){ const c = q.shift(); ROUTES.forEach(r => { const o = r.a === c ? r.b : r.b === c ? r.a : null; if(o && !seen.has(o) && LOCATIONS[o] && LOCATIONS[o].region === 'horizon' && locOpen(o)){ seen.add(o); q.push(o); } }); }
       x.roads = Object.keys(LOCATIONS).filter(k => LOCATIONS[k].region === 'horizon' && !seen.has(k) && k !== 'fair_tide').length === 0 && seen.has('fair_tide') || [...Object.keys(LOCATIONS)].filter(k => LOCATIONS[k].region === 'horizon' && !seen.has(k)).join();
-      x.unlock = hzUnlocked(90) === false && (G.flags.inv_hzq89 = true, hz().read[89] = true, true) && hzUnlocked(90) === true;
+      x.unlock = hzUnlocked(100) === false && (G.flags.inv_hzq99 = true, hz().read[99] = true, true) && hzUnlocked(100) === true;
       { G = newState(); devSetChapter(960); timedTick(); let f = 0; for(let i = 0; i < 60; i++){ G.day++; timedTick(); if(G.visits.last && G.visits.last.day === G.day) f++; }
         const v = VISITS.find(z => z.at === 'gold_residence'); G.visits.last = {id:v.id, day:G.day}; G.loc = 'gold_residence'; tab = 'here'; spotOpen = null; render();
         x.visits = f >= 3 && /San and Joel are visiting today/.test(document.body.innerText); }
@@ -77,7 +77,7 @@ fs.readdirSync('scripts').filter(f => f.endsWith('.js')).forEach(f => { try{ new
   });
   // images on disk for every chapter page and arc cover
   const j = fs.readFileSync('scripts/journal.js', 'utf8');
-  for(let n = 0; n <= 90; n++) ok('horizon page '+n, fs.existsSync('assets/horizon/c'+String(n).padStart(3, '0')+'.webp'));
+  for(let n = 0; n <= 100; n++) ok('horizon page '+n, fs.existsSync('assets/horizon/c'+String(n).padStart(3, '0')+'.webp'));
   ok('browser errors', !errs.length, errs.slice(0, 3).join(' | '));
   ok('chapter gaps', !r.gaps.length, r.gaps.join());
   ok('chapters with missing spots or missions (855+)', !r.noSpots.length, r.noSpots.slice(0, 8).join());
@@ -86,7 +86,7 @@ fs.readdirSync('scripts').filter(f => f.endsWith('.js')).forEach(f => { try{ new
   ok('mission steps pointing at missing bosses', !r.badBoss.length, r.badBoss.join());
   ok('every boss a mission asks for can be fought', !r.noFight.length, r.noFight.join());
   ok('no mission step waits on a much later spot', !r.lateStep.length, r.lateStep.join());
-  ok('Horizon chapter spots (0-90), boss spots and Pearl case exist', !r.hzq.length, r.hzq.join());
+  ok('Horizon chapter spots (0-100), boss spots and Pearl case exist', !r.hzq.length, r.hzq.join());
   ok('sequel: ambush, items, flee, gear, defeat ends the fight', r.hzx && Object.values(r.hzx).every(v => v === true || v === 'hz') && r.hzAmb >= 15, JSON.stringify(r.hzx)+' '+r.hzAmb);
   ok('music tracks exist on disk', (r.musicSrc || []).length === 8 && r.musicSrc.every(f => fs.existsSync(f)), (r.musicSrc||[]).join());
   ok('Boards tab lists the Masked Contracts', /Masked Contracts/.test(r.boards) && /Accept/.test(r.boards), '')
@@ -98,7 +98,7 @@ fs.readdirSync('scripts').filter(f => f.endsWith('.js')).forEach(f => { try{ new
   ok('crossover fight is canon-five only and winnable', r.canon === 'devon,jade,levi,sally,sky' && r.boss === 'win', r.canon+' '+r.boss);
   ok('auto-battle: new boss blocked below Lv 200, allowed at Lv 200+ or once beaten', r.autoNew === true && r.autoKnown === false && r.autoHigh === false, r.autoNew+' '+r.autoKnown+' '+r.autoHigh);
   ok('skirmish chain: first fight manual, next on auto', r.chain1 === false && r.chain2 === true, r.chain1+' '+r.chain2);
-  ok('Horizon opens with 91 chapters (0-90)', r.hzOpen && r.hzCh === 91);
+  ok('Horizon opens with 101 chapters (0-100)', r.hzOpen && r.hzCh === 101);
   ok('sequel fight: 13 crew, won, twins and Soel never fall', r.crew === 13 && r.hz === 'win' && !r.twinDown && !r.soel, JSON.stringify([r.crew, r.hz, r.twinDown, r.soel]));
   ok('every chapter location is reachable from the capital', !r.unreach.length && !r.noLoc.length, r.unreach.concat(r.noLoc).join());
   ok('no open spot with placeholder clues', !r.neverShown.length, r.neverShown.join());

@@ -146,3 +146,8 @@ Chapter 42 onward: waiting for the comics.
 - **Test:** `tools/smoke.js` checks every chapter page and spot to 90, the roads to every Horizon place and the unlock chain; a scripted walk through chapters 0-90 finishes all nine arc missions.
 - **Text only so far:** the Crimson Tide repo already has chapter text for Arc X (091-100) but no pages; not built here.
 
+## Built: chapters 91-100 (Arc X, Where the River Meets the Sea)
+- Pages `c091`-`c100` and the Arc X cover `arc10.webp` (the reader's cover file name now pads the arc number). Chapters 0-100 are now playable; the Crimson Tide repo already has text for 101-112 (Arc XI) but no pages, so the build stops at 100.
+- New places: the River Mouth (from 94) and the Ropeworks Town (from 95), with roads from the ship. Chapters 91-100 also use Fair Tide, the Market on the Steps (92) and the Headland Port (93). One spot per chapter and the arc mission m_hz_arc10. No fights: Arc X is a trade run.
+- **Black Pearl case:** "File 6: A Copy for Devon" (chapter 98) is the first entry of the future-custodianship file: Devon annotates the first observation report (memory, what he was told, what he assumed) and San and Joel keep his notes with the study. Files 4 (restoration network) and 5 (lost ownership) still wait for pages. Mimi's circled line is explained in chapter 110 (Arc XI), not yet built.
+
