@@ -9,10 +9,10 @@
      explore  everywhere else (alternates)
    ===================================================================== */
 const MUSIC_TRACKS = {
-  forest:{src:'assets/audio/forest.mp3', n:'Shadow of the Ancient Forest'}, elven:{src:'assets/audio/elven.mp3', n:'Under the Elven Star'},
-  mountain:{src:'assets/audio/mountain.mp3', n:'Along the Mountain Path'}, village:{src:'assets/audio/village.mp3', n:'Raining Village'},
-  cozy:{src:'assets/audio/cozy.mp3', n:'At the Side of a Village'}, tree:{src:'assets/audio/tree.mp3', n:'The Tree of Life'},
-  mithral:{src:'assets/audio/mithral.mp3', n:'Finding Mithral'}, ruby:{src:'assets/audio/ruby.mp3', n:'Fantasy RPG Exploration'},
+  forest:{src:'assets/audio/forest.mp3', n:'Shadow of the Ancient Forest', by:'Kaazoom'}, elven:{src:'assets/audio/elven.mp3', n:'Under the Elven Star', by:'Kaazoom'},
+  mountain:{src:'assets/audio/mountain.mp3', n:'Along the Mountain Path', by:'Kaazoom'}, village:{src:'assets/audio/village.mp3', n:'Raining Village', by:'giri_is'},
+  cozy:{src:'assets/audio/cozy.mp3', n:'At the Side of a Village', by:'katzen_tupas'}, tree:{src:'assets/audio/tree.mp3', n:'The Tree of Life', by:'Geoff Harvey'},
+  mithral:{src:'assets/audio/mithral.mp3', n:'Finding Mithral', by:'Geoff Harvey'}, ruby:{src:'assets/audio/ruby.mp3', n:'Fantasy RPG Exploration', by:'Ruby Zephyr'},
 };
 const MUSIC_MAP = {battle:['forest'], boss:['elven'], dragon:['mountain'], town:['village'], cozy:['cozy'], sea:['mithral'], fae:['elven','tree'], calm:['tree'], explore:['ruby','mithral']};
 const MUSIC_COZY_SPOTS = ['tavern','salon','base','goldhome','family','pavilion','clinic','fireflies'];
@@ -67,7 +67,8 @@ function musicPanel(){
   const t = musicKey && MUSIC_TRACKS[musicKey];
   return `<div class="panel"><h3>🎵 Music</h3><div class="sm">Eight tracks that change with where you are and what you are doing: fights, boss fights, Dragonvale, towns, the sea of Crimson Horizon, and quiet menus.</div>
    <div class="row" style="margin-top:6px;align-items:center;gap:8px"><button onclick="musicToggle()">${musicOn ? '🎵 On' : '🔇 Off'}</button><label class="sm" style="flex:1">Volume <input type="range" min="0" max="100" value="${Math.round(musicVol*100)}" oninput="musicVolume(this.value)" style="width:60%;vertical-align:middle"></label></div>
-   <div class="sm" style="margin-top:4px">${musicOn && t ? 'Now playing: <b>'+t.n+'</b> ('+(musicCtx||'')+')' : musicOn ? 'Starts after your first tap.' : 'Music is off.'}</div></div>`;
+   <div class="sm" style="margin-top:4px">${musicOn && t ? 'Now playing: <b>'+t.n+'</b> by '+t.by+' ('+(musicCtx||'')+')' : musicOn ? 'Starts after your first tap.' : 'Music is off.'}</div>
+   <details style="margin-top:6px"><summary class="sm" style="cursor:pointer">Music credits</summary>${Object.keys(MUSIC_TRACKS).map(k => `<div class="sm">🎶 <b>${MUSIC_TRACKS[k].n}</b> by ${MUSIC_TRACKS[k].by}</div>`).join('')}<div class="sm" style="opacity:.7;margin-top:4px">Free music from Pixabay, used under the Pixabay Content Licence. Thank you to the artists.</div></details></div>`;
 }
 (function(){
   const _r = render; render = function(){ const r = _r.apply(this, arguments); try{ musicSync(); }catch(e){} return r; };
