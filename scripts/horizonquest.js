@@ -33,6 +33,10 @@ Object.assign(HZQ_PLACES, {
   hz_headland_port:{n:'The Headland Port', icon:'⚓', desc:'The port beyond the headland, reached from the public landing the crew helped reopen.', from:84},
   hz_market_steps:{n:'The Market on the Steps', icon:'🪜', desc:'A market built up a flight of steps: sailcloth below, dried fruit and garden produce above.', from:85},
 });
+Object.assign(HZQ_PLACES, {
+  hz_river_mouth:{n:'The River Mouth', icon:'🏞️', desc:'Where a river reaches the sea: an anchorage the Crimson Tide can reach, and a barge that carries sailcloth upriver.', from:94},
+  hz_ropeworks:{n:'The Ropeworks Town', icon:'🧶', desc:'A town built around a long ropewalk, with coils thick enough for the ship\'s moorings.', from:95},
+});
 Object.keys(HZQ_PLACES).forEach(k => { const p = HZQ_PLACES[k]; LOCATIONS[k] = {n:p.n, region:'horizon', kind:'story', icon:p.icon, unlock:p.from ? {ch:990, flag:'hz_read_'+p.from} : {ch:990}, desc:p.desc, spots:[]}; LOC_ORDER.push(k); });
 ROUTES.push(
   {a:'dragon_harbour', b:'hz_ship', mode:'carriage', n:'The Crimson Tide\'s Gangway', days:0, fare:0, risk:0, pool:[]},
@@ -62,6 +66,10 @@ ROUTES.push(
   {a:'hz_ship', b:'hz_headland_port', mode:'carriage', n:'Beyond the Headland', days:1, fare:0, risk:0, pool:[]},
   {a:'hz_headland_port', b:'hz_market_steps', mode:'carriage', n:'Up the Market Steps', days:0, fare:0, risk:0, pool:[]});
 
+ROUTES.push(
+  {a:'hz_ship', b:'hz_river_mouth', mode:'carriage', n:'Up to the River Mouth', days:1, fare:0, risk:0, pool:[]},
+  {a:'hz_river_mouth', b:'hz_ropeworks', mode:'carriage', n:'Upriver by Barge', days:0, fare:0, risk:0, pool:[]});
+
 /* chapters 0-10: the place, the icon and (for 0-4, written from the drawn pages) the clues. Chapters 5-10 take their clues from the Crimson Tide outline's summaries. */
 const HZQ_ARC1 = {
   0:{at:'hz_ship', icon:'🌅', clues:['A new horizon rises for the Crimson Tide. San and Jade stand at the rail at sunset.','"We\'ve closed one chapter... but the world is far from finished with us." "This is not an ending. It\'s a chance to explore what still lies beyond our maps, together."','The Black Pearl remains within their guardianship, its true origins and deeper purpose still a mystery waiting to be unravelled.','"Then let\'s go. A wider world awaits, and this time, we sail it as one."']},
@@ -85,6 +93,8 @@ Object.assign(HZQ_AT, {42:'hz_mist', 43:'hz_shoal', 44:'hz_quay', 45:'hz_quay', 
 Object.assign(HZQ_ICON, {42:'🌫️', 43:'🛶', 44:'🏮', 45:'📒', 46:'📦', 47:'🔔', 48:'🪢', 49:'⚓', 50:'🔖', 51:'🌊', 52:'🪨', 53:'🧑‍✈️', 54:'🗝️', 55:'🗺️', 56:'📋', 57:'🔑', 58:'🚤', 59:'🎛️', 60:'🚪', 61:'🚢', 62:'📕', 63:'🏠', 64:'🧭',
   65:'⛩️', 66:'🪑', 67:'🛟', 68:'📖', 69:'📅', 70:'🏝️', 71:'🗓️', 72:'⛰️', 73:'✍️', 74:'🧭', 75:'🏖️', 76:'🐟', 77:'🪚', 78:'🌉', 79:'🛏️', 80:'🍽️', 81:'🔮', 82:'🗺️',
   83:'🧳', 84:'🧵', 85:'🪜', 86:'💨', 87:'✉️', 88:'🧺', 89:'🔬', 90:'🍇'});
+Object.assign(HZQ_AT, {91:'fair_tide', 92:'hz_market_steps', 93:'hz_headland_port', 94:'hz_river_mouth', 95:'hz_ropeworks', 96:'hz_ropeworks', 97:'hz_river_mouth', 98:'fair_tide', 99:'fair_tide', 100:'fair_tide'});
+Object.assign(HZQ_ICON, {91:'🗓️', 92:'🍵', 93:'⛵', 94:'🛶', 95:'🧶', 96:'🌧️', 97:'📦', 98:'📝', 99:'🥞', 100:'🗺️'});
 function hzqClues(n){
   if(HZQ_ARC1[n]) return HZQ_ARC1[n].clues;
   const sents = (HZ_CHAPTERS[n].s || '').split(/(?<=[.!?])\s+/).filter(Boolean), out = [];
@@ -92,7 +102,7 @@ function hzqClues(n){
   while(out.length > 4){ const a = out.pop(); out[out.length-1] += ' '+a; }
   return out.length ? out : [HZ_CHAPTERS[n].t];
 }
-for(let n = 0; n <= 90; n++){
+for(let n = 0; n <= 100; n++){
   const cl = hzqClues(n), at = HZQ_ARC1[n] ? HZQ_ARC1[n].at : HZQ_AT[n], ic = HZQ_ARC1[n] ? HZQ_ARC1[n].icon : HZQ_ICON[n];
   LOCATIONS[at].spots.push({id:'hzq'+n, kind:'investigate', n:(n === 0 ? 'Prologue: ' : n+'. ')+HZ_CHAPTERS[n].t, icon:ic, ch:990, need:cl.length, ambush:[], lo:100, roles:['jade','san'], desc:'Chapter '+(n === 0 ? '0 (the prologue)' : n)+' of Crimson Horizon, Arc '+HZ_CHAPTERS[n].arc+'.',
     clues:cl, rw:{xp:400000+n*30000, gold:90000+n*6000}, needFlag:'hz_read_'+n, lockMsg:'🔒 Read this chapter in the Horizon tab first'});
@@ -113,6 +123,7 @@ const HZQ_ARCS = [
   {id:'m_hz_arc7', after:'m_hz_arc6', title:'Crimson Horizon, Arc VII: The Outer Island Run', from:70, to:74, fights:{}, rw:{xp:6000000, gold:1200000, rep:3000}, subj:'The Outer Island Run', body:'A skipper needs her cargo landed and the reef is shallow. The Crimson Tide can help. — Jade'},
   {id:'m_hz_arc8', after:'m_hz_arc7', title:'Crimson Horizon, Arc VIII: A Harbor for Everyone', from:75, to:82, fights:{}, rw:{xp:9000000, gold:1800000, rep:4000}, subj:'A Harbor for Everyone', body:'The neighbouring island lost its public landing. We have tackle and a good tide. — Jade'},
   {id:'m_hz_arc9', after:'m_hz_arc8', title:'Crimson Horizon, Arc IX: The Far Side of the Headland', from:83, to:90, fights:{}, rw:{xp:9000000, gold:1800000, rep:4000}, subj:'The Far Side of the Headland', body:'A trader knows a port beyond the headland. Aisyah is already packing. — Jade'},
+  {id:'m_hz_arc10', after:'m_hz_arc9', title:'Crimson Horizon, Arc X: Where the River Meets the Sea', from:91, to:100, fights:{}, rw:{xp:10000000, gold:2000000, rep:4400}, subj:'Where the River Meets the Sea', body:'A barge captain buys our sailcloth and knows a town of ropemakers upriver. Aisyah has already packed. — Jade'},
 ];
 HZQ_ARCS.forEach(a => { const steps = []; for(let n = a.from; n <= a.to; n++){ steps.push({label:HZ_CHAPTERS[n].t, spot:'hzq'+n}); if(a.fights[n]) steps.push({label:a.fights[n][0], flag:a.fights[n][1]}); }
   MISSIONS.push({id:a.id, needCh:990, after:a.after, title:a.title, obj:{type:'steps', steps}, rw:a.rw, subj:a.subj, body:a.body}); });
@@ -132,8 +143,11 @@ LOCATIONS.fair_tide.spots.push({id:'bp_account', kind:'investigate', n:'Black Pe
 LOCATIONS.fair_tide.spots.push({id:'bp_baseline', kind:'investigate', n:'Black Pearl Case, File 3: The First Observations', icon:'🔬', ch:990, need:4, ambush:[], lo:100, roles:['devon','jade'], needFlag:'hz_read_89', lockMsg:'🔒 Read chapter 89 (The First Observations) in the Horizon tab first',
   desc:'Technical observation and divination, kept apart so neither can colour the other. The case stays open.',
   clues:['Renn records the conditions around the Pearl: the time, the tide, the temperature, each instrument and what it reads. When something does not change he writes that down too, because a baseline is mostly things that do not change.','Behind a partition of folded cloth, Mimi keeps a separate account of what she perceives, with how sure she is of each line. Some lines she crosses out; some she underlines. Neither looks at the other\'s page: Adrian made that a rule.','Adrian sets the two accounts side by side. Where they agree it is noted; where they do not, both versions stay on the page. Mimi circles one line twice and does not say why.','Nothing in either account says what the Pearl is, what it will do, or where it will end up. Those questions stay open. Renn copies both accounts for Devon.'], rw:{xp:1500000, gold:320000}});
+LOCATIONS.fair_tide.spots.push({id:'bp_annotated', kind:'investigate', n:'Black Pearl Case, File 6: A Copy for Devon', icon:'📝', ch:990, need:4, ambush:[], lo:100, roles:['devon','jade'], needFlag:'hz_read_98', lockMsg:'🔒 Read chapter 98 (A Copy for Devon) in the Horizon tab first',
+  desc:'Devon reads the first observation report and annotates it for the archive. The first example of how custody works. The case stays open.',
+  clues:['Devon reads Renn and Mimi\'s first observation report twice: quickly the first time, slowly the second, with a finger under the line. "This is careful work. More careful than I expected."','He taps a paragraph. The readings agree with his account, but his account rests on what he was told and what he remembers. Where he said the Pearl has always been quiet at this season, that is a memory, not a record. He wants it marked.','He offers to annotate the report himself for the archive: what he remembers, what he was told, and what he only assumed. If the team has questions later, he will answer them.','San and Joel agree: his notes are kept with the study, filed with the report, and the team can ask him whenever a new question comes up. The Pearl stays in their custody, in its case at Fair Tide.'], rw:{xp:1800000, gold:380000}});
 THREADS.push({id:'blackpearl', icon:'🔮', q:'Who first held the Black Pearl, and what is it for?', cat:'The Black Pearl case', opens:() => !!G.flags.tribute_complete || G.ch >= 946,
-  part:[['inv_bp_records','File 1, Ancient Records: older than Dragonvale\'s dynasty; restoration and preservation; The Core Keeper is missing the piece that would name an owner.'],['inv_bp_account','File 2, Devon\'s Account: a handful of references match the Dragonvale records; where the written record ends there is only Devon\'s memory.'],['inv_bp_baseline','File 3, The First Observations: a baseline from instruments and from divination, kept apart and then compared; one line Mimi circled twice.']], done:null,
+  part:[['inv_bp_records','File 1, Ancient Records: older than Dragonvale\'s dynasty; restoration and preservation; The Core Keeper is missing the piece that would name an owner.'],['inv_bp_account','File 2, Devon\'s Account: a handful of references match the Dragonvale records; where the written record ends there is only Devon\'s memory.'],['inv_bp_baseline','File 3, The First Observations: a baseline from instruments and from divination, kept apart and then compared; one line Mimi circled twice.'],['inv_bp_annotated','File 6 (first entry), A Copy for Devon: Devon marked what he remembers, what he was told and what he only assumed; his notes are filed with the report and the team can ask him new questions.']], done:null,
   concl:[
     ['confirmed','Devon\'s dragon abilities are hereditary, from his bloodline: not from the Pearl.','black_pearl_first_findings_confirmed'],
     ['confirmed','It is ancient, restorative and preserving, and can work with systems beyond Lunareth.','black_pearl_ancient_restorative_and_cross_system'],
@@ -143,6 +157,8 @@ THREADS.push({id:'blackpearl', icon:'🔮', q:'Who first held the Black Pearl, a
     ['unresolved','What happened after the line where the written record ends: only Devon\'s memory, which cannot be checked.','inv_bp_account'],
     ['confirmed','A baseline for the Pearl has been recorded by instrument and by divination, kept apart and compared. Most readings do not change.','inv_bp_baseline'],
     ['unresolved','What Mimi circled twice, and why she did not say.','inv_bp_baseline'],
+    ['confirmed','Devon\'s account is now annotated: what he remembers, what he was told and what he only assumed. His notes are filed with the first report.','inv_bp_annotated'],
+    ['confirmed','Custody in practice: the Pearl stays with San and Joel at Fair Tide, and the team consults Devon as new questions come up.','inv_bp_annotated'],
     ['unresolved','Who was its original owner? No record, mark or signature names them.','black_pearl_research_conclusions_and_next_steps'],
     ['unresolved','Is it one of a kind, or are there other Pearls? What risks does a fuller activation carry? Can its functions be expanded?','black_pearl_research_conclusions_and_next_steps'],
     ['unresolved','Custody: entrusted to San and Joel as custodians, not owners. Its ultimate fate is not decided.','black_pearl_entrusted_to_san_and_joel']]});
