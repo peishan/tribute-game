@@ -116,11 +116,48 @@ function doTravelUi(i, to){
 }
 
 /* ---------------- HERE TAB (current location) ---------------- */
+/* The Here list, grouped by arc when a place has many spots: each arc folds, the current arc starts open, arcs the story has not reached are summarised in one line.
+   (Dragonvale alone has hundreds of clue spots.) Fold state is kept for the session in hereFold. */
+let hereFold = {};
+const spotCard = sp => { const lock = spotLock(sp);
+  return `<div class="card ${lock?'lock':''}" onclick="${lock?'':`spotOpen='${sp.id}';render()`}"><span class="big">${sp.icon}</span><div class="fl"><b>${sp.n}</b><div class="sm">${lock||sp.desc}</div></div></div>`; };
+function spotArc(sp){   // {key, order, label} or null for a spot that belongs to no arc
+  if(sp.ch === undefined) return null;
+  const hzn = /^hzq(\d+)$/.exec(sp.id), hzb = {hzq_leviathan:2, hzq_storm_fronts:16, hzq_skiff_crew:40, hzq_channel_keeper:59};
+  if(typeof HZ_CHAPTERS !== 'undefined' && (hzn || hzb[sp.id] !== undefined)){ const n = hzn ? +hzn[1] : hzb[sp.id], c = HZ_CHAPTERS.find(x => x.n === n), a = c && HZ_ARCS.find(x => x.n === c.arc);
+    if(a) return {key:'H'+a.n, order:1000+a.n, label:'🌅 Crimson Horizon, Arc '+a.n+': '+a.t}; }
+  if(/^bp_/.test(sp.id)) return {key:'Hpearl', order:1100, label:'🔮 The Black Pearl case'};
+  let a = null; ARCS.forEach(x => { if(x.after < sp.ch && (!a || x.after > a.after)) a = x; });
+  return a ? {key:'A'+a.n, order:a.n, label:'Arc '+a.n+': '+a.title} : {key:'A0', order:0, label:'Earlier'};
+}
+function hereToggle(key){ hereFold[G.loc+'|'+key] = !(hereFold[G.loc+'|'+key] !== undefined ? hereFold[G.loc+'|'+key] : hereOpenDefault[key]); render(); }
+function hereAll(open){ Object.keys(hereOpenDefault).forEach(k => { hereFold[G.loc+'|'+k] = open; }); render(); }
+let hereOpenDefault = {};
+function hereCards(L){
+  const spots = L.spots.filter(sp => !neverWritten(sp));
+  if(spots.length <= 14) return spots.map(spotCard).join('');
+  const loose = [], groups = {};
+  spots.forEach(sp => { const a = spotArc(sp); if(!a) return loose.push(sp); (groups[a.key] = groups[a.key] || Object.assign({spots:[]}, a)).spots.push(sp); });
+  const list = Object.keys(groups).map(k => groups[k]).sort((a, b) => a.order - b.order);
+  const reached = list.filter(g => g.spots.some(sp => !(sp.ch !== undefined && G.ch < sp.ch))), future = list.filter(g => !reached.includes(g));
+  const cur = reached.length ? reached[reached.length - 1].key : null;
+  hereOpenDefault = {}; reached.forEach(g => { hereOpenDefault[g.key] = g.key === cur; });
+  const fut = future.reduce((n, g) => n + g.spots.length, 0);
+  const chLocked = sp => sp.ch !== undefined && G.ch < sp.ch, isDone = sp => sp.kind === 'investigate' && !!G.flags['inv_'+sp.id];
+  const head = g => { const open = hereFold[G.loc+'|'+g.key] !== undefined ? hereFold[G.loc+'|'+g.key] : hereOpenDefault[g.key];
+    const vis = g.spots.filter(sp => !chLocked(sp)), later = g.spots.length - vis.length, fin = vis.filter(isDone), pend = vis.filter(sp => !isDone(sp)), clues = vis.filter(sp => sp.kind === 'investigate');
+    const finOpen = !!hereFold[G.loc+'|'+g.key+'|done'];
+    const body = open ? pend.map(spotCard).join('') + (fin.length ? `<div class="sm" style="cursor:pointer;margin:6px 4px" onclick="hereFold['${G.loc}|${g.key}|done']=!hereFold['${G.loc}|${g.key}|done'];render()">${finOpen ? '▼' : '▶'} ✔ ${fin.length} finished clue search${fin.length===1?'':'es'}</div>${finOpen ? fin.map(spotCard).join('') : ''}` : '') + (later ? `<div class="sm" style="opacity:.7;margin:4px">🔒 ${later} more open as the story moves on.</div>` : '') : '';
+    return `<div class="card" style="cursor:pointer;margin-top:8px" onclick="hereToggle('${g.key}')"><span class="big">${open ? '▼' : '▶'}</span><div class="fl"><b>${g.label}</b><div class="sm">${vis.length} here${clues.length ? ' · ✔ '+fin.length+'/'+clues.length+' clue searches finished' : ''}${pend.length ? ' · '+pend.length+' to do' : ''}</div></div></div>${body}`; };
+  return (loose.length ? loose.map(spotCard).join('') : '')
+    + (reached.length > 1 ? `<div class="row" style="margin:6px 0"><button onclick="hereAll(true)">Expand all</button><button onclick="hereAll(false)">Collapse all</button></div>` : '')
+    + reached.map(head).join('')
+    + (fut ? `<div class="sm" style="margin-top:8px;opacity:.7">🔒 ${fut} more spot${fut===1?'':'s'} here open as the story moves on.</div>` : '');
+}
 function rHere(){
   const L = LOCATIONS[G.loc];
   if(spotOpen){ const sp = L.spots.find(s=>s.id===spotOpen); if(sp) return rSpot(L, sp); spotOpen = null; }
-  const cards = L.spots.filter(sp => !neverWritten(sp)).map(sp=>{ const lock = spotLock(sp);
-    return `<div class="card ${lock?'lock':''}" onclick="${lock?'':`spotOpen='${sp.id}';render()`}"><span class="big">${sp.icon}</span><div class="fl"><b>${sp.n}</b><div class="sm">${lock||sp.desc}</div></div></div>`; }).join('');
+  const cards = hereCards(L);
   return `${bandImg(L.img)}<h2>${L.icon} ${L.n}</h2>${typeof corrMeter==='function'?corrMeter(G.loc):''}<div class="sm">${REGIONS[L.region].icon} ${REGIONS[L.region].n} · Day ${G.day}</div>${typeof regardLine==='function' && isSettlement(G.loc) ? regardLine(G.loc) : ''}<div class="sm" style="margin:4px 0">${L.desc}</div>${flashHtml()}${cards||'<div class="panel sm">Nothing to do here yet.</div>'}`;
 }
 function spotBack(){ spotOpen = null; render(); }
