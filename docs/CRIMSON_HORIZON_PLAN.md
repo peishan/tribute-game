@@ -151,3 +151,6 @@ Chapter 42 onward: waiting for the comics.
 - New places: the River Mouth (from 94) and the Ropeworks Town (from 95), with roads from the ship. Chapters 91-100 also use Fair Tide, the Market on the Steps (92) and the Headland Port (93). One spot per chapter and the arc mission m_hz_arc10. No fights: Arc X is a trade run.
 - **Black Pearl case:** "File 6: A Copy for Devon" (chapter 98) is the first entry of the future-custodianship file: Devon annotates the first observation report (memory, what he was told, what he assumed) and San and Joel keep his notes with the study. Files 4 (restoration network) and 5 (lost ownership) still wait for pages. Mimi's circled line is explained in chapter 110 (Arc XI), not yet built.
 
+## Pages extracted: chapters 101-152 and the Arc XI-XIV covers (not built yet)
+Copied from the Crimson Tide repo (`assets/comics/sequel/`): `assets/horizon/c101.webp` to `c152.webp` and `arc11`-`arc14`.webp. The playable build stops at chapter 100 until the author says to proceed. The repo's outline has Arc XI 101-112 (A Place Between Voyages), Arc XII 113-122 (The High-Tide Passage), Arc XIII 123-132 (The Far Shore), Arc XIV 133-144 (The Bell at Dusk) and Arc XV 145-156 (no cover yet; pages exist to 152). Its text runs to 240.
+
